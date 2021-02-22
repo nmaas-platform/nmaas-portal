@@ -1,7 +1,7 @@
 {
-  "name": "nmaas-gui",
-  "version": "1.3.7",
-  "license": "MIT",
+  "name": "nmaas-portal",
+  "version": "1.4.1",
+  "license": "-",
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
