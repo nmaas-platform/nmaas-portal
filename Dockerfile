@@ -21,4 +21,5 @@ COPY docker/nginx.conf /etc/nginx/nginx.conf
 COPY docker/config.template.json ${webdir}/config/config.template.json
 COPY docker/run_portal.sh /scripts/run_portal.sh
 
+RUN chmod +x /scripts/run_portal.sh
 CMD /scripts/run_portal.sh && tail -f /dev/null
