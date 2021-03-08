@@ -48,6 +48,9 @@ export class UsersListComponent extends BaseComponent implements OnInit, OnChang
   public onAddToDomain: EventEmitter<User> = new EventEmitter<User>();
 
   @Output()
+  public onRemoveFromDomain: EventEmitter<User> = new EventEmitter<User>();
+
+  @Output()
   public onModeChange: EventEmitter<number> = new EventEmitter<number>();
 
   public domainCache: CacheService<number, Domain> = new CacheService<number, Domain>();

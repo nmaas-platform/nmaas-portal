@@ -112,9 +112,13 @@
                                    (click)="addToCurrentDomain(user)">{{'USERS.GRANT_USER_ROLE_IN_CURRENT_DOMAIN_BUTTON' | translate}}</a>
                             </li>
 							<li>
-								<a *ngIf="isModeAllowed(ComponentMode.DELETE) && domainId != domainService.getGlobalDomainId() && user.username!==authService.getUsername()"
-                                   (click)="remove(user)">{{ 'USERS.REMOVE_FROM_DOMAIN_BUTTON' | translate }}</a>
+								<a role="button" *ngIf="isModeAllowed(ComponentMode.DELETE) && domainId != domainService.getGlobalDomainId() && user.username!==authService.getUsername()"
+                                   (click)="onRemoveFromDomain.emit(user);$event.stopPropagation()">{{ 'USERS.REMOVE_FROM_DOMAIN_BUTTON' | translate }}</a>
 							</li>
+                            <li>
+                                <a role="button" *ngIf="isModeAllowed(ComponentMode.DELETE) && authService.hasRole('ROLE_SYSTEM_ADMIN') && user.username!==authService.getUsername()"
+                                   (click)="onDelete.emit(user);$event.stopPropagation()">{{ 'USERS.DELETE_BUTTON' | translate }}</a>
+                            </li>
 						</ul>
 					</span>
             </td>

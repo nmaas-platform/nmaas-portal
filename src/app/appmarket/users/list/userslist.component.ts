@@ -101,11 +101,17 @@ export class UsersListComponent implements OnInit {
     this.router.navigate(['/admin/users/view/', $event]);
   }
 
+  public onRemoveRole($event): void {
+    this.userService.removeRole(
+        $event.id, $event.roles.find(value => value.domainId === this.domainId).role, this.domainId).subscribe(
+            () => this.update(this.domainId)
+        )
+  }
+
   public onUserDelete($event): void {
-      this.userService.removeRole(
-          $event.id, $event.roles.find(value => value.domainId === this.domainId).role, this.domainId)
-          .subscribe(() => this.update(this.domainId)
-          )
+    this.userService.deleteOne($event.id).subscribe(
+        () => this.update(this.domainId)
+    )
   }
 
   public onUserAddToDomain($event): void {
