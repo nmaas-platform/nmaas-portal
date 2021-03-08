@@ -91,17 +91,17 @@
 						</a>
 						<ul class="dropdown-menu pull-right-drop">
                             <li>
-                                <a (click)="view(user.id)" *ngIf="isModeAllowed(ComponentMode.VIEW)">
+                                <a (click)="view(user.id);$event.stopPropagation()" *ngIf="isModeAllowed(ComponentMode.VIEW)">
                                     {{ 'USERS.DETAILS_BUTTON' | translate }}
                                 </a>
                             </li>
 							<li>
-								<a (click)="changeUserStatus(user, false)"
+								<a (click)="changeUserStatus(user, false);$event.stopPropagation()"
                                    *ngIf="user.enabled && authService.hasRole('ROLE_SYSTEM_ADMIN') && user.username!==authService.getUsername()"> <!--user should not be able to disable himself -->
 									{{ 'USERS.DISABLE_BUTTON' | translate }}</a>
 							</li>
 							<li>
-								<a (click)="changeUserStatus(user, true)"
+								<a (click)="changeUserStatus(user, true);$event.stopPropagation()"
                                    *ngIf="!user.enabled && authService.hasRole('ROLE_SYSTEM_ADMIN')">
 									{{ 'USERS.ENABLE_BUTTON' | translate }}</a>
 							</li>
@@ -109,14 +109,14 @@
                                 <a *ngIf="isModeAllowed(ComponentMode.EDIT) &&
                                     domainId != domainService.getGlobalDomainId() &&
                                     isGlobalGuestAndHasNoRoleInThisDomain(user)"
-                                   (click)="addToCurrentDomain(user)">{{'USERS.GRANT_USER_ROLE_IN_CURRENT_DOMAIN_BUTTON' | translate}}</a>
+                                   (click)="addToCurrentDomain(user);$event.stopPropagation()">{{'USERS.GRANT_USER_ROLE_IN_CURRENT_DOMAIN_BUTTON' | translate}}</a>
                             </li>
 							<li>
 								<a role="button" *ngIf="isModeAllowed(ComponentMode.DELETE) && domainId != domainService.getGlobalDomainId() && user.username!==authService.getUsername()"
                                    (click)="onRemoveFromDomain.emit(user);$event.stopPropagation()">{{ 'USERS.REMOVE_FROM_DOMAIN_BUTTON' | translate }}</a>
 							</li>
                             <li>
-                                <a role="button" *ngIf="isModeAllowed(ComponentMode.DELETE) && authService.hasRole('ROLE_SYSTEM_ADMIN') && user.username!==authService.getUsername()"
+                                <a role="button" *ngIf="isModeAllowed(ComponentMode.DELETE) && authService.hasRole('ROLE_SYSTEM_ADMIN') && user.username!==authService.getUsername() && canUserBeDeleted(user)"
                                    (click)="onDelete.emit(user);$event.stopPropagation()">{{ 'USERS.DELETE_BUTTON' | translate }}</a>
                             </li>
 						</ul>

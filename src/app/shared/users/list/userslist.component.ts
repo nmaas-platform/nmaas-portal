@@ -1,8 +1,6 @@
 import {Domain} from '../../../model/domain';
 import {User} from '../../../model';
-import {CacheService} from '../../../service';
-import {DomainService} from '../../../service';
-import {UserService} from '../../../service';
+import {CacheService, CustomerSearchCriteria, DomainService, UserService} from '../../../service';
 import {BaseComponent} from '../../common/basecomponent/base.component';
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Observable, of} from 'rxjs';
@@ -11,7 +9,6 @@ import {Role, UserRole} from '../../../model/userrole';
 import {UserDataService} from '../../../service/userdata.service';
 import {AuthService} from '../../../auth/auth.service';
 import {map, shareReplay, take} from 'rxjs/operators';
-import {CustomerSearchCriteria} from '../../../service';
 import {FormControl} from '@angular/forms';
 
 function userMatches(u: User, term: string): boolean {
@@ -231,4 +228,24 @@ export class UsersListComponent extends BaseComponent implements OnInit, OnChang
     this.onModeChange.emit(0);
   }
 
+  public canUserBeDeleted(user: User): boolean {
+    if (user.enabled) {
+      return false;
+    }
+    if (user.ssoUser) {
+      return false;
+    }
+    const result = user.roles.find(
+        role => !(roleConvert(role.role) === Role.ROLE_GUEST && role.domainId === this.domainService.getGlobalDomainId())
+    );
+    return !result;
+  }
+
+}
+
+function roleConvert(role: string | Role ): Role {
+  if (typeof role === 'string') {
+    return Role[role];
+  }
+  return role;
 }
