@@ -227,7 +227,7 @@
     </div>
 
     <!-- App Instance State History table -->
-    <div class="row" *ngIf="this.appInstanceStateHistory">
+    <div class="row" *ngIf="this.showAppInstanceHistory && this.appInstanceStateHistory">
         <h3>{{'APP_INSTANCE.DEPLOYMENT_HISTORY.HEADER' | translate}}</h3>
         <hr>
         <table class="table table-hover table-condensed" aria-describedby="App instance deployment history table">
@@ -263,6 +263,12 @@
                              screenReaderCurrentLabel="{{ 'PAGINATION.SCREEN_READER.CURRENT' | translate }}"></pagination-controls>
     </div>
     <hr>
+    <div class="row">
+        <label>
+            {{ 'APP_INSTANCE.ADDITIONAL_INFO' | translate}}
+            <input type="checkbox" [(ngModel)]="showAppInstanceHistory">
+        </label>
+    </div>
 
     <!-- apply config modal -->
     <nmaas-modal styleModal="info" #applyConfig>

@@ -114,6 +114,8 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     public refreshUpdateForm: EventEmitter<any>;
     public readonly REPLACE_TEXT = '"insert-app-instances-here"';
 
+    public showAppInstanceHistory = false;
+
     public podNames: PodInfo[] = [];
 
     constructor(private appsService: AppsService,
