@@ -1,0 +1,43 @@
+{
+  "label": "Terms acceptance",
+  "hideLabel": true,
+  "tableView": true,
+  "type": "container",
+  "input": true,
+  "tab": 0,
+  "key": "termsAcceptance",
+  "display": "form",
+  "components": [
+    {
+      "label": "Terms",
+      "autoExpand": false,
+      "spellcheck": false,
+      "disabled": true,
+      "tableView": true,
+      "persistent": false,
+      "key": "termsContent",
+      "attributes": {
+        "style": "white-space: pre-wrap;"
+      },
+      "type": "textarea",
+      "inputFormat": "plain",
+      "rows": 5,
+      "input": true,
+      "defaultValue": "@TERMS_CONTENT"
+    },
+    {
+      "label": "Accept Terms",
+      "placeholder": "Yes",
+      "tableView": true,
+      "persistent": false,
+      "validate": {
+        "required": true,
+        "pattern": "(yes)|(YES)|(Yes)",
+        "customMessage": "You must accept application terms - enter \"Yes\" to accept."
+      },
+      "key": "termsAcceptanceStatement",
+      "type": "textfield",
+      "input": true
+    }
+  ]
+}

@@ -31,7 +31,8 @@
  			    		 	'has-success': appName.valid && (appName.dirty || appName.touched)}">
                     <label for="appName" class="control-label">{{'APPS_WIZARD.NAME_LABEL' | translate}} *</label>
                     <br>
-                    <input type="text" id="appName" class="form-control" required [(ngModel)]="applicationDTO.applicationBase.name"
+                    <input type="text" id="appName" class="form-control" required
+                           [(ngModel)]="applicationDTO.applicationBase.name"
                            [maxLength]="30" pattern="^[a-zA-Z0-9- ]+$" name="appName" #appName="ngModel"
                            tooltip="{{'APPS_WIZARD.NAME_TOOLTIP' | translate}}" [display]="true"
                            [options]="defaultTooltipOptions">
@@ -41,7 +42,8 @@
  			    		 	'has-success': version.valid && (version.dirty || version.touched)}">
                     <label for="appVersion" class="control-label">{{'APPS_WIZARD.VERSION_LABEL' | translate}} *</label>
                     <br>
-                    <input type="text" id="appVersion" class="form-control" required [(ngModel)]="applicationDTO.application.version"
+                    <input type="text" id="appVersion" class="form-control" required
+                           [(ngModel)]="applicationDTO.application.version"
                            name="version" #version="ngModel" tooltip="{{'APPS_WIZARD.VERSION_TOOLTIP' | translate}}"
                            [display]="true" [options]="defaultTooltipOptions">
                 </div>
@@ -50,7 +52,8 @@
  			    		 	'has-success': license.valid && (license.dirty || license.touched)}">
                     <label for="appLicense" class="control-label">{{'APPS_WIZARD.LICENSE_LABEL' | translate}}</label>
                     <br>
-                    <input type="text" id="appLicense" class="form-control" [(ngModel)]="applicationDTO.applicationBase.license" name="license"
+                    <input type="text" id="appLicense" class="form-control"
+                           [(ngModel)]="applicationDTO.applicationBase.license" name="license"
                            #license="ngModel" tooltip="{{'APPS_WIZARD.LICENSE_TOOLTIP' | translate}}" [display]="true"
                            [options]="defaultTooltipOptions">
                 </div>
@@ -61,7 +64,8 @@
                            class="control-label">{{'APPS_WIZARD.LICENSE_URL_LABEL' | translate}}</label>
                     <br>
                     <input type="url" id="appLicenseUrl" class="form-control" [pattern]="urlPattern"
-                           [(ngModel)]="applicationDTO.applicationBase.licenseUrl" name="licenseUrl" #licenseUrl="ngModel"
+                           [(ngModel)]="applicationDTO.applicationBase.licenseUrl" name="licenseUrl"
+                           #licenseUrl="ngModel"
                            tooltip="{{'APPS_WIZARD.LICENSE_URL_TOOLTIP' | translate}}" [display]="true"
                            [options]="defaultTooltipOptions" placeholder="e.g. https://opensource.org/licenses/MIT">
                 </div>
@@ -73,7 +77,8 @@
                     <br>
                     <input type="url" id="wwwUrl" class="form-control" [pattern]="urlPattern" name="wwwUrl"
                            #wwwUrl="ngModel" tooltip="{{'APPS_WIZARD.PROJECT_WEBSITE_TOOLTIP' | translate}}"
-                           [display]="true" [options]="defaultTooltipOptions" [(ngModel)]="applicationDTO.applicationBase.wwwUrl">
+                           [display]="true" [options]="defaultTooltipOptions"
+                           [(ngModel)]="applicationDTO.applicationBase.wwwUrl">
                 </div>
                 <div class="form-group form-group-sm"
                      [ngClass]="{'has-error':  sourceUrl.invalid && (sourceUrl.dirty || sourceUrl.touched),
@@ -82,7 +87,8 @@
                     <br>
                     <input type="url" id="sourceUrl" class="form-control" [pattern]="urlPattern" name="sourceUrl"
                            #sourceUrl="ngModel" tooltip="{{'APPS_WIZARD.SOURCE_CODE_TOOLTIP' | translate}}"
-                           [display]="true" [options]="defaultTooltipOptions" [(ngModel)]="applicationDTO.applicationBase.sourceUrl">
+                           [display]="true" [options]="defaultTooltipOptions"
+                           [(ngModel)]="applicationDTO.applicationBase.sourceUrl">
                 </div>
                 <div class="form-group form-group-sm"
                      [ngClass]="{'has-error':  issuesUrl.invalid && (issuesUrl.dirty || issuesUrl.touched),
@@ -92,7 +98,8 @@
                     <br>
                     <input type="url" id="issuesUrl" class="form-control" [pattern]="urlPattern" name="issuesUrl"
                            #issuesUrl="ngModel" tooltip="{{'APPS_WIZARD.PROJECT_ISSUES_TOOLTIP' | translate}}"
-                           [display]="true" [options]="defaultTooltipOptions" [(ngModel)]="applicationDTO.applicationBase.issuesUrl">
+                           [display]="true" [options]="defaultTooltipOptions"
+                           [(ngModel)]="applicationDTO.applicationBase.issuesUrl">
                 </div>
                 <div class="form-group form-group-sm"
                      [ngClass]="{'has-error':  nmaasDocumentationUrl.invalid && (nmaasDocumentationUrl.dirty || nmaasDocumentationUrl.touched),
@@ -103,7 +110,8 @@
                     <input type="url" id="nmaasDocumentationUrl" class="form-control" [pattern]="urlPattern"
                            name="nmaasDocumentationUrl" #nmaasDocumentationUrl="ngModel"
                            tooltip="{{'APPS_WIZARD.PROJECT_NMAAS_DOCUMENTATION_TOOLTIP' | translate}}" [display]="true"
-                           [options]="defaultTooltipOptions" [(ngModel)]="applicationDTO.applicationBase.nmaasDocumentationUrl">
+                           [options]="defaultTooltipOptions"
+                           [(ngModel)]="applicationDTO.applicationBase.nmaasDocumentationUrl">
                 </div>
                 <div class="form-group form-group-sm">
                     <label for="tags" class="control-label">{{'APPS_WIZARD.TAGS_LABEL' | translate}} * </label>
@@ -280,7 +288,8 @@
                     <br>
                     <input type="text" class="form-control" id="kubernetesTemplateChartName"
                            name="kubernetesTemplateChartName" #kubernetesTemplateChartName="ngModel"
-                           [(ngModel)]="applicationDTO.application.appDeploymentSpec.kubernetesTemplate.chart.name" required
+                           [(ngModel)]="applicationDTO.application.appDeploymentSpec.kubernetesTemplate.chart.name"
+                           required
                            tooltip="{{'APPS_WIZARD.CHART_NAME_TOOLTIP' | translate}}" [display]="true"
                            [options]="defaultTooltipOptions">
                 </div>
@@ -290,7 +299,8 @@
                     <br>
                     <input type="text" class="form-control" id="kubernetesTemplateChartVersion"
                            name="kubernetesTemplateChartVersion"
-                           [(ngModel)]="applicationDTO.application.appDeploymentSpec.kubernetesTemplate.chart.version" required
+                           [(ngModel)]="applicationDTO.application.appDeploymentSpec.kubernetesTemplate.chart.version"
+                           required
                            tooltip="{{'APPS_WIZARD.CHART_VERSION_TOOLTIP' | translate}}" [display]="true"
                            [options]="defaultTooltipOptions">
                 </div>
@@ -350,7 +360,8 @@
                 <div class="form-group form-group-sm">
                     <h4>{{'APPS_WIZARD.STORAGE_VOLUMES' | translate}}</h4>
                     <ul *ngIf="applicationDTO.application.appDeploymentSpec.storageVolumes">
-                        <li *ngFor="let s of applicationDTO.application.appDeploymentSpec.storageVolumes; let i=index" class="no-bullet-list">
+                        <li *ngFor="let s of applicationDTO.application.appDeploymentSpec.storageVolumes; let i=index"
+                            class="no-bullet-list">
                             <app-storage-volume-edit [storageVolume]="s" [id]="i"
                                                      [storageVolumeTypes]="storageVolumeTypeOptions()"
                                                      (output)="removeStorageVolume($event)"></app-storage-volume-edit>
@@ -363,7 +374,8 @@
                 <div class="form-group form-group-sm">
                     <h4>{{'APPS_WIZARD.ACCESS_METHODS' | translate}}</h4>
                     <ul *ngIf="applicationDTO.application.appDeploymentSpec.accessMethods">
-                        <li *ngFor="let a of applicationDTO.application.appDeploymentSpec.accessMethods; let i=index" class="no-bullet-list">
+                        <li *ngFor="let a of applicationDTO.application.appDeploymentSpec.accessMethods; let i=index"
+                            class="no-bullet-list">
                             <app-access-method-edit [accessMethod]="a" [id]="i"
                                                     [accessMethodTypes]="accessMethodTypeOptions()"
                                                     (output)="removeAccessMethod($event)"></app-access-method-edit>
@@ -418,6 +430,28 @@
                                    [defaultChecked]="hasAlreadyBasicAuth()" [(ngModel)]="basicAuth"
                                    tooltip="{{'APPS_WIZARD.BASIC_AUTH_TOOLTIP' | translate}}" [display]="true"
                                    [options]="defaultTooltipOptions">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label for="termsAcceptance" style="text-align: left; padding-left: 0;"
+                               class="col-sm-2 control-label">{{'APPS_WIZARD.TERMS_ACCEPTANCE_LABEL' | translate}}</label>
+                        <div class="col-sm-10">
+                            <input type="checkbox" id="termsAcceptance" name="termsAcceptance"
+                                   (change)="changeTermsAcceptanceInForms()"
+                                   [defaultChecked]="hasAlreadyBasicAuth()" [(ngModel)]="termsAcceptance"
+                                   tooltip="{{'APPS_WIZARD.TERMS_ACCEPTANCE_TOOLTIP' | translate}}" [display]="true"
+                                   [options]="defaultTooltipOptions">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm" *ngIf="termsAcceptance">
+                        <label for="termsContent" style="text-align: left; padding-left: 0;"
+                               class="col-sm-2 control-label">{{'APPS_WIZARD.TERMS_CONTENT_LABEL' | translate}}</label>
+                        <div class="col-sm-10">
+                            <textarea id="termsContent" name="termsContent" class="form-control" rows="7"
+                                      [(ngModel)]="termsContent"
+                                      tooltip="{{'APPS_WIZARD.TERMS_CONTENT_TOOLTIP' | translate}}" [display]="true"
+                                      [options]="defaultTooltipOptions"></textarea>
+                            <button role="button" class="btn btn-success" (click)="changeTermsAcceptanceInForms()">Update Terms Content</button>
                         </div>
                     </div>
                     <div *ngIf="applicationDTO.application.appConfigurationSpec.configFileRepositoryRequired">
@@ -490,7 +524,8 @@
                 <div class="panel-heading">{{'APPS_WIZARD.UPDATE_CONFIG_WIZARD_TEMPLATE_LABEL' | translate}}</div>
                 <div class="panel-body">
                     <div class="form-group form-group-sm" style="padding-bottom: 5vh;">
-                        <label for="addConfigUpdate" style="text-align: left; padding-left: 0; font-size: 12px" class="col-sm-2 control-label">
+                        <label for="addConfigUpdate" style="text-align: left; padding-left: 0; font-size: 12px"
+                               class="col-sm-2 control-label">
                             {{'APPS_WIZARD.ADD_CONFIG_UPDATE_TEMPLATE_LABEL' | translate}}
                         </label>
                         <div class="col-sm-10">

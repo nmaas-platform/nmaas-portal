@@ -114,3 +114,7 @@
 .no-bullet-list {
     list-style:none;
 }
+
+.formio-editor-read-only-content {
+    white-space: pre-wrap;
+}

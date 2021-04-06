@@ -5,4 +5,5 @@ export class AppConfigurationSpec {
     public configFileRepositoryRequired = false;
     public configUpdateEnabled = false;
     public templates: ConfigFileTemplate[] = [];
+    public termsAcceptanceRequired = false;
 }
