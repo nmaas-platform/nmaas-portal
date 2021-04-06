@@ -451,7 +451,7 @@
                                       [(ngModel)]="termsContent"
                                       tooltip="{{'APPS_WIZARD.TERMS_CONTENT_TOOLTIP' | translate}}" [display]="true"
                                       [options]="defaultTooltipOptions"></textarea>
-                            <button role="button" class="btn btn-success" (click)="changeTermsAcceptanceInForms()">Update Terms Content</button>
+                            <button role="button" class="btn btn-success" (click)="changeTermsAcceptanceInForms()">{{'APPS_WIZARD.TERMS_CONTENT_BUTTON' | translate}}</button>
                         </div>
                     </div>
                     <div *ngIf="applicationDTO.application.appConfigurationSpec.configFileRepositoryRequired">
