@@ -14,6 +14,8 @@ export class ConfigTemplateService {
 
   public basicAuth: any;
 
+  public termsAcceptance: any;
+
   constructor(public http: HttpClient) { }
 
   public loadConfigTemplate() {
@@ -34,6 +36,9 @@ export class ConfigTemplateService {
 
     this.http.get('/assets/formio/basicAuth.json')
         .subscribe(auth => this.basicAuth = auth);
+
+    this.http.get('/assets/formio/termsAcceptance.json')
+        .subscribe(data => this.termsAcceptance = data);
   }
 
   public getConfigTemplate(): any {
@@ -46,6 +51,13 @@ export class ConfigTemplateService {
 
   public getDefaultElement(): any {
     return this.defaultElement;
+  }
+
+  public getTermsAcceptance(termsContent: string): any {
+    let temp = JSON.stringify(this.termsAcceptance);
+    temp = temp.replace(/"@TERMS_CONTENT"/g, JSON.stringify(termsContent))
+    console.log(JSON.parse(temp))
+    return JSON.parse(temp)
   }
 
   public getBasicAuth(appName: string): any {
