@@ -362,6 +362,12 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         }
     }
 
+    public changeTermsAcceptance(termsAcceptance: any): void {
+        if (termsAcceptance != null) {
+            this.appConfiguration.termsAcceptance = termsAcceptance;
+        }
+    }
+
     public changeConfiguration(configuration: any): void {
         if (configuration != null) {
             this.appConfiguration.jsonInput = configuration;
@@ -376,6 +382,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         this.changeAdditionalParameters(input['additionalParameters']);
         this.changeConfiguration(input['configuration']);
         this.changeAccessCredentials(input['accessCredentials']);
+        this.changeTermsAcceptance(input['termsAcceptance']);
         if (this.appConfiguration.jsonInput == null) {
             this.appConfiguration.jsonInput = {};
         }

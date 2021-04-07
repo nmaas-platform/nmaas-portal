@@ -3,5 +3,6 @@ export class AppConfiguration {
     public additionalParameters: any;
     public mandatoryParameters: any;
     public accessCredentials: any;
+    public termsAcceptance: any;
     public storageSpace: number;
 }
