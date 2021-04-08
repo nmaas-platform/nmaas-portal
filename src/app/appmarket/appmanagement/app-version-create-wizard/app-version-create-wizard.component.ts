@@ -37,8 +37,8 @@ export function noParameterTypeInControlValueValidator(): ValidatorFn {
 
 @Component({
     selector: 'app-appversioncreatewizard',
-    templateUrl: './appversioncreatewizard.component.html',
-    styleUrls: ['./appversioncreatewizard.component.css']
+    templateUrl: './app-version-create-wizard.component.html',
+    styleUrls: ['./app-version-create-wizard.component.css']
 })
 export class AppVersionCreateWizardComponent extends BaseComponent implements OnInit {
 
@@ -59,6 +59,8 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
     public configFileTemplates: ConfigFileTemplate[] = [];
     public addConfigUpdate = false;
     public basicAuth = false;
+    public termsAcceptance = false;
+    public termsContent: string = undefined;
     public formDisplayChange = true;
     public logo: any[] = [];
     public screenshots: any[] = [];
@@ -328,6 +330,63 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
             this.applicationDTO.application.configUpdateWizardTemplate = undefined;
             this.addConfigUpdate = false;
         }
+    }
+
+    public changeTermsAcceptanceInForms() {
+        this.formDisplayChange = false;
+        this.handleTermsAcceptance();
+        setTimeout(() => {
+            this.formDisplayChange = true
+        }, 1);
+    }
+
+    public handleTermsAcceptance(): void {
+        if (!this.applicationDTO.application.appConfigurationSpec.configFileRepositoryRequired
+            && this.applicationDTO.application.configWizardTemplate == null) {
+            this.applicationDTO.application.configWizardTemplate = new ConfigWizardTemplate();
+            this.applicationDTO.application.configWizardTemplate.template = this.configTemplateService.getConfigTemplate();
+        }
+        if (this.termsAcceptance) {
+            if (this.hasAlreadyTermsAcceptance()) {
+                this.removeTermsAcceptance();
+            }
+            this.addTermsAcceptance();
+        } else {
+            this.removeTermsAcceptance();
+        }
+    }
+
+    public addTermsAcceptance(): void {
+        const config = this.getNestedObject(
+            this.applicationDTO.application.configWizardTemplate.template,
+            ['components', 0, 'components', 0, 'components']
+        );
+        if (config != null) {
+            config.unshift(this.configTemplateService.getTermsAcceptance(this.termsContent || 'Terms unavailable'));
+        }
+    }
+
+    public removeTermsAcceptance(): void {
+        const config = this.getNestedObject(
+            this.applicationDTO.application.configWizardTemplate.template,
+            ['components', 0, 'components', 0, 'components']
+        );
+        if (config != null) {
+            const index = config.findIndex(val => val.key === 'termsAcceptance');
+            config.splice(index, 1);
+        }
+        // this.applicationDTO.application.configWizardTemplate.template.components =
+        //     this.applicationDTO.application.configWizardTemplate.template.components.filter(val => val.key !== 'termsAcceptance');
+    }
+
+    public hasAlreadyTermsAcceptance(): boolean {
+        if (this.applicationDTO.application.configWizardTemplate == null) {
+            return false;
+        }
+        const config: string = JSON.stringify(this.applicationDTO.application.configWizardTemplate.template);
+        return config.search(/termsAcceptance/g) !== -1
+            && config.search(/termsContent/g) !== -1
+            && config.search(/termsAcceptanceStatement/g) !== -1;
     }
 
     public handleConfigTemplate(): any {

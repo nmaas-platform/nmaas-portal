@@ -19,7 +19,7 @@ import {parseServiceStorageVolumeType, ServiceStorageVolumeType} from '../../../
 import {AppAccessMethod} from '../../../model/app-access-method';
 import {parseServiceAccessMethodType, ServiceAccessMethodType} from '../../../model/service-access-method';
 import {ValidatorFn} from '@angular/forms';
-import {noParameterTypeInControlValueValidator} from '../app-version-create-wizard/appversioncreatewizard.component';
+import {noParameterTypeInControlValueValidator} from '../app-version-create-wizard/app-version-create-wizard.component';
 import {ApplicationDTO} from '../../../model/application-dto';
 import {ApplicationBase} from '../../../model/application-base';
 
