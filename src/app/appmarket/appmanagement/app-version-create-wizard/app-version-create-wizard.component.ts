@@ -332,6 +332,7 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
         }
     }
 
+    // terms acceptance related methods are not used for now
     public changeTermsAcceptanceInForms() {
         this.formDisplayChange = false;
         this.handleTermsAcceptance();

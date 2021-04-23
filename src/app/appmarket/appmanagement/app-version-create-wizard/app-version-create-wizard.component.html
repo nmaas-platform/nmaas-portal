@@ -174,9 +174,7 @@
                    class="col-sm-2 control-label">{{'APPS_WIZARD.TERMS_ACCEPTANCE_LABEL' | translate}}</label>
             <div class="col-sm-10">
               <input type="checkbox" id="termsAcceptance" name="termsAcceptance"
-                     (change)="changeTermsAcceptanceInForms()"
-                     [defaultChecked]="hasAlreadyTermsAcceptance()"
-                     [(ngModel)]="termsAcceptance"
+                     [(ngModel)]="applicationDTO.application.appConfigurationSpec.termsAcceptanceRequired"
                      tooltip="{{'APPS_WIZARD.TERMS_ACCEPTANCE_TOOLTIP' | translate}}"
                      [display]="true"
                      [options]="defaultTooltipOptions">

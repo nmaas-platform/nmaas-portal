@@ -472,6 +472,7 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
         }, 1);
     }
 
+    // terms acceptance related methods are not used for now
     public changeTermsAcceptanceInForms() {
         this.formDisplayChange = false;
         this.handleTermsAcceptance();
