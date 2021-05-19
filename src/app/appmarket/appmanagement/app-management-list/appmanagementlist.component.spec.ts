@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AppManagementListComponent } from './appmanagementlist.component';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
@@ -16,7 +16,7 @@ describe('AppManagementListComponent', () => {
   let component: AppManagementListComponent;
   let fixture: ComponentFixture<AppManagementListComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
           AppManagementListComponent,

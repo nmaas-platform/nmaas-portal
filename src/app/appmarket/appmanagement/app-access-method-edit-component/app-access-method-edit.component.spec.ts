@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {AppAccessMethodEditComponent} from './app-access-method-edit.component';
 import {FormsModule} from '@angular/forms';
@@ -10,7 +10,7 @@ describe('AppAccessMethodEditComponent', () => {
   let component: AppAccessMethodEditComponent;
   let fixture: ComponentFixture<AppAccessMethodEditComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ AppAccessMethodEditComponent ],
       imports: [

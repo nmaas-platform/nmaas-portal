@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {DomainComponent} from './domain.component';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -13,7 +13,7 @@ describe('DomainComponent', () => {
     let component: DomainComponent;
     let fixture: ComponentFixture<DomainComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         const authServiceSpy = createSpyObj('AuthService', ['hasRole']);
         authServiceSpy.hasRole.and.returnValue(true)
 

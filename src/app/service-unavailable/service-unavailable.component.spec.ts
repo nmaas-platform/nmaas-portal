@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {ServiceUnavailableComponent} from './service-unavailable.component';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -13,7 +13,7 @@ describe('ServiceUnavailableComponent', () => {
     let component: ServiceUnavailableComponent;
     let fixture: ComponentFixture<ServiceUnavailableComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         const internationalizationServiceSpy = createSpyObj('InternationalizationService', ['getEnabledLanguages'])
         internationalizationServiceSpy.getEnabledLanguages.and.returnValue(of(['en', 'pl']))
 

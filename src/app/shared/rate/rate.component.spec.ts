@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {RouterTestingModule} from '@angular/router/testing';
 import {RateComponent} from './rate.component';
@@ -13,7 +13,7 @@ describe('RateComponent', () => {
     let component: RateComponent;
     let fixture: ComponentFixture<RateComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         const appsServiceSpy = createSpyObj('AppsService', ['getAppRateByUrl'])
         appsServiceSpy.getAppRateByUrl.and.returnValue(of(new Rate(4, 4.5, new Map([[5, 1], [4, 1]]))))
 

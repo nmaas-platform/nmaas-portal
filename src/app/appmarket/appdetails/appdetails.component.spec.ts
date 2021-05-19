@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 
-import {TestBed, async, ComponentFixture} from '@angular/core/testing';
+import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
 import {AppDetailsComponent} from './appdetails.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AppConfigService, AppImagesService, AppInstanceService, AppsService, DomainService} from '../../service';
@@ -108,7 +108,7 @@ describe('Component: AppDetails', () => {
         rate: null,
     };
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         const appsServiceSpy = jasmine.createSpyObj('AppsService', ['getApplicationBase']);
         appsServiceSpy.getApplicationBase.and.returnValue(of(application));
         const appSubsServiceSpy = jasmine.createSpyObj('AppSubscriptionService', ['getAllByApplication', 'getSubscription', 'unsubscribe']);

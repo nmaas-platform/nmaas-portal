@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AppStaticGlobalDeployParametersEditComponent } from './app-static-global-deploy-parameters-edit.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -11,7 +11,7 @@ describe('AppStaticGlobalDeployParametersEditComponent', () => {
   let component: AppStaticGlobalDeployParametersEditComponent;
   let fixture: ComponentFixture<AppStaticGlobalDeployParametersEditComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ AppStaticGlobalDeployParametersEditComponent ],
       imports: [

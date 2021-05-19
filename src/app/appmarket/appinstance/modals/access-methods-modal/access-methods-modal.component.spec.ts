@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {AccessMethodsModalComponent} from './access-methods-modal.component';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
@@ -17,7 +17,7 @@ describe('AccessMethodsModalComponent', () => {
     {type: ServiceAccessMethodType.LOCAL, name: 'Local', protocol: 'in-cluster', url: 'http://local-service-name'},
   ];
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ AccessMethodsModalComponent ],
       imports: [

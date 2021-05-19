@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { PrivacyPolicySubpageComponent } from './privacy-policy-subpage.component';
 import {ContentDisplayService} from '../../service/content-display.service';
@@ -11,7 +11,7 @@ describe('PrivacyPolicySubpageComponent', () => {
   let component: PrivacyPolicySubpageComponent;
   let fixture: ComponentFixture<PrivacyPolicySubpageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     const contentDisplayServiceSpy = createSpyObj('ContentDisplayService', ['getContent'])
     contentDisplayServiceSpy.getContent.and.returnValue(of({}))
 

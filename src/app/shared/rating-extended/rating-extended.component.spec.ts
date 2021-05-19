@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {RatingExtendedComponent} from './rating-extended.component';
 import {AppsService} from '../../service';
@@ -22,7 +22,7 @@ describe('RatingExtendedComponent', () => {
     let component: RatingExtendedComponent;
     let fixture: ComponentFixture<RatingExtendedComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [RatingExtendedComponent],
             imports: [

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {LanguageListComponent} from './languagelist.component';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
@@ -13,7 +13,7 @@ describe('LanguagelistComponent', () => {
     let component: LanguageListComponent;
     let fixture: ComponentFixture<LanguageListComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [LanguageListComponent, ModalComponent],
             imports: [

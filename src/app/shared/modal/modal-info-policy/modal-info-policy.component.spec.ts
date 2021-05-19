@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {ModalInfoPolicyComponent} from './modal-info-policy.component';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -12,7 +12,7 @@ describe('ModalInfoPolicyComponent', () => {
     let component: ModalInfoPolicyComponent;
     let fixture: ComponentFixture<ModalInfoPolicyComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         const contentDisplayServiceSpy = createSpyObj('ContentDisplayService', ['getContent'])
         contentDisplayServiceSpy.getContent.and.returnValue(of({}))
 

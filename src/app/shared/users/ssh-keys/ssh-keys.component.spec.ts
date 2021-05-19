@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {SshKeysComponent} from './ssh-keys.component';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -13,7 +13,7 @@ describe('SshKeysComponent', () => {
 
     let sshKeyServiceSpy = undefined
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         sshKeyServiceSpy = createSpyObj('SSHKeyService', ['getAll', 'invalidate'])
         sshKeyServiceSpy.invalidate.and.returnValue(of(true))
         sshKeyServiceSpy.getAll.and.returnValue(of([

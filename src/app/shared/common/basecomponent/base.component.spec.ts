@@ -1,13 +1,13 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BaseComponent } from './base.component';
-import {ComponentMode} from "../componentmode";
+import {ComponentMode} from '../componentmode';
 
 describe('BaseComponent', () => {
   let component: BaseComponent;
   let fixture: ComponentFixture<BaseComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BaseComponent ]
     })
@@ -24,15 +24,15 @@ describe('BaseComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should return that VIEW is allowed', ()=>{
+  it('should return that VIEW is allowed', () => {
     expect(component.isCurrentModeAllowed()).toBe(true);
   });
 
-  it('should return VIEW mode', ()=>{
+  it('should return VIEW mode', () => {
     expect(component.getCurrentMode()).toBe(ComponentMode.VIEW);
   });
 
-  it('should get mode VIEW', ()=>{
+  it('should get mode VIEW', () => {
     expect(component.getMode(undefined)).toBe(ComponentMode.VIEW);
   });
 

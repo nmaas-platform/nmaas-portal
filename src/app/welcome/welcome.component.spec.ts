@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {WelcomeComponent} from './welcome.component';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -16,7 +16,7 @@ describe('WelcomeComponent', () => {
     //     offsetHeight: 10
     // };
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         // const documentSpy = createSpyObj('document', ['getElementById'])
         // documentSpy.getElementById.and.returnValue({
         //     style: {},

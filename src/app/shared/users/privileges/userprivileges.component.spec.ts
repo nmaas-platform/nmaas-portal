@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {UserPrivilegesComponent} from './userprivileges.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -14,7 +14,7 @@ describe('UserPrivilegesComponent', () => {
     let component: UserPrivilegesComponent;
     let fixture: ComponentFixture<UserPrivilegesComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         const authServiceSpy = createSpyObj('AuthService', ['hasRole']);
         authServiceSpy.hasRole.and.returnValue(true)
 

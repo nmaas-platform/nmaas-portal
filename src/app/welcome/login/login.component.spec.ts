@@ -1,4 +1,4 @@
-import {TestBed, async, ComponentFixture} from '@angular/core/testing';
+import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
 import {LoginComponent} from './login.component';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -16,7 +16,7 @@ describe('Component: Login', () => {
     let component: LoginComponent;
     let fixture: ComponentFixture<LoginComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         const configServiceSpy = createSpyObj('ConfigurationService', ['getConfiguration'])
         configServiceSpy.getConfiguration.and.returnValue(of({
             ssoLoginAllowed: false
