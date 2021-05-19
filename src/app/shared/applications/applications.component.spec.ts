@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ApplicationsViewComponent } from './applications.component';
 import {HttpClientModule} from '@angular/common/http';
@@ -29,7 +29,7 @@ describe('ApplicationsComponent', () => {
   let tagService: TagService;
   let instanceService: AppInstanceService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
           AppInstallModalComponent,

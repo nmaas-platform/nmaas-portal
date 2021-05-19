@@ -1,5 +1,5 @@
 import {PasswordResetComponent} from './password-reset.component';
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {UserService} from '../../service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -14,7 +14,7 @@ describe('Password reset component', () => {
     let component: PasswordResetComponent;
     let fixture: ComponentFixture<PasswordResetComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         const userServiceSpy = createSpyObj('UserService', ['validateResetRequest'])
         userServiceSpy.validateResetRequest.and.returnValue(of({}))
 

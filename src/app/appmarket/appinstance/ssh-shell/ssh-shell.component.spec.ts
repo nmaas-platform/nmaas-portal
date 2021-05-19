@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {SshShellComponent} from './ssh-shell.component';
 import {NgTerminalModule} from 'ng-terminal';
@@ -25,7 +25,7 @@ describe('SshShellComponent', () => {
     const shellClientServiceSpy = createSpyObj('ShellClientService',
         ['getServerSentEvent', 'initConnection', 'closeConnection'])
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [
                 SshShellComponent,

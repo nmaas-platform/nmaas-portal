@@ -1,13 +1,13 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {MonitorListComponent} from './monitor-list.component';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from "@ngx-translate/core";
-import {MonitorService} from "../../../../service/monitor.service";
-import {RouterTestingModule} from "@angular/router/testing";
-import {HttpClientModule} from "@angular/common/http";
-import {AppConfigService} from "../../../../service";
-import {Observable, of} from "rxjs";
-import {TimeFormat} from "../../../../model/monitorentry";
+import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {MonitorService} from '../../../../service/monitor.service';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientModule} from '@angular/common/http';
+import {AppConfigService} from '../../../../service';
+import {Observable, of} from 'rxjs';
+import {TimeFormat} from '../../../../model/monitorentry';
 
 describe('MonitorListComponent', () => {
   let component: MonitorListComponent;
@@ -15,7 +15,7 @@ describe('MonitorListComponent', () => {
   let monitorService: MonitorService;
   let appConfigService: AppConfigService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MonitorListComponent ],
       imports: [
@@ -42,27 +42,27 @@ describe('MonitorListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create component', ()=>{
-    let app = fixture.debugElement.componentInstance;
+  it('should create component', () => {
+    const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it('should update list of entries', ()=>{
+  it('should update list of entries', () => {
       component.ngOnInit();
       expect(monitorService.getAllMonitorEntries).toHaveBeenCalledTimes(2);
   });
 
-  it('should execute job', ()=>{
-     spyOn(monitorService,'executeJob').and.returnValue(of("test"));
-     component.executeJob("test");
+  it('should execute job', () => {
+     spyOn(monitorService, 'executeJob').and.returnValue(of('test'));
+     component.executeJob('test');
      expect(monitorService.executeJob).toHaveBeenCalled();
   });
 
-  it('should return 1 hour', ()=>{
+  it('should return 1 hour', () => {
       expect(component.getIntervalCheck(1, TimeFormat.H)).toContain('1 hour');
   });
 
-  it('should return hours', ()=>{
+  it('should return hours', () => {
       expect(component.getIntervalCheck(12, TimeFormat.H)).toContain('hours');
   });
 

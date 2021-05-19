@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {ConfigurationDetailsComponent} from './configurationdetails.component';
 import {FormsModule} from '@angular/forms';
@@ -13,7 +13,7 @@ describe('ConfigurationDetailsComponent', () => {
     let component: ConfigurationDetailsComponent;
     let fixture: ComponentFixture<ConfigurationDetailsComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         const internationalizationSpy = createSpyObj('InternationalizationService', ['getEnabledLanguages', 'getAllSupportedLanguages'])
         internationalizationSpy.getAllSupportedLanguages.and.returnValue(of([]))
         internationalizationSpy.getEnabledLanguages.and.returnValue(of(['en', 'pl']))

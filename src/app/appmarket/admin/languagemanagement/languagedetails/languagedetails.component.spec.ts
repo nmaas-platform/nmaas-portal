@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { LanguageDetailsComponent } from './languagedetails.component';
 import {TranslateModule} from '@ngx-translate/core';
@@ -14,7 +14,7 @@ describe('LanguageDetailsComponent', () => {
   let component: LanguageDetailsComponent;
   let fixture: ComponentFixture<LanguageDetailsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), InputSwitchModule, FormsModule, CommonModule, HttpClientTestingModule, RouterTestingModule],
       declarations: [ LanguageDetailsComponent ],

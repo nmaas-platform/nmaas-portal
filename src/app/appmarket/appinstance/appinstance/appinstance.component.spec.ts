@@ -304,7 +304,7 @@ describe('Component: AppInstance', () => {
         appImageService = fixture.debugElement.injector.get(AppImagesService);
         domainService = fixture.debugElement.injector.get(DomainService);
 
-        spyOn(appsService, 'getApplicationDTO').and.returnValue(of(application));
+        spyOn(appsService, 'getApplicationDTO').and.returnValue(of({application, applicationBase: undefined}));
         spyOn(appsService, 'getAppCommentsByUrl').and.returnValue(of([]));
         spyOn(appInstanceService, 'getAppInstance').and.returnValue(of(appInstance));
         spyOn(appInstanceService, 'getAppInstanceHistory').and.returnValue(of(appInstanceHistory));

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AppAbortModalComponent } from './app-abort-modal.component';
 
@@ -6,7 +6,7 @@ describe('AppAbortModalComponent', () => {
   let component: AppAbortModalComponent;
   let fixture: ComponentFixture<AppAbortModalComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ AppAbortModalComponent ]
     })

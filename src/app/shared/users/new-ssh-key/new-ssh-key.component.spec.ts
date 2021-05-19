@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {NewSshKeyComponent} from './new-ssh-key.component';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -15,7 +15,7 @@ describe('NewSshKeyComponent', () => {
 
     let sshKeyServiceSpy = undefined;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         sshKeyServiceSpy = createSpyObj('SSHKeyService', ['createKey'])
 
         TestBed.configureTestingModule({

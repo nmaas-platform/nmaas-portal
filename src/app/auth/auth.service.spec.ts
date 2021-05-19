@@ -1,10 +1,10 @@
 /* tslint:disable:no-unused-variable */
-import {TestBed, async} from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import {AuthService} from './auth.service';
-import {AppConfigService} from "../service";
-import {JwtHelperService} from "@auth0/angular-jwt";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {Role} from "../model/userrole";
+import {AppConfigService} from '../service';
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {Role} from '../model/userrole';
 
 describe('Service: Auth', () => {
     let authService: AuthService;
@@ -13,19 +13,19 @@ describe('Service: Auth', () => {
 
     let store: any = {};
 
-    beforeEach(async(() => {
-        let appConfigServiceStub: Partial<AppConfigService> = {
+    beforeEach(waitForAsync(() => {
+        const appConfigServiceStub: Partial<AppConfigService> = {
             config: {
                 apiUrl: 'http://api.url',
                 tokenName: 'token',
             }
         };
 
-        let jwtSpy = jasmine.createSpyObj('JwtHelperService', ['decodeToken', 'isTokenExpired']);
+        const jwtSpy = jasmine.createSpyObj('JwtHelperService', ['decodeToken', 'isTokenExpired']);
         jwtSpy.decodeToken.and.returnValue({
             language: 'pl',
             sub: 'test-user',
-            scopes: [{authority: '1:'+Role[Role.ROLE_SYSTEM_ADMIN]}, {authority: '2:'+Role[Role.ROLE_USER]}]
+            scopes: [{authority: '1:' + Role[Role.ROLE_SYSTEM_ADMIN]}, {authority: '2:' + Role[Role.ROLE_USER]}]
         });
         jwtSpy.isTokenExpired.and.callFake((arg: string): boolean => {
             return arg !== 'valid';
@@ -92,9 +92,9 @@ describe('Service: Auth', () => {
     });
 
     it('should return true when role is present in domain and false otherwise', () => {
-        const result = authService.hasDomainRole(2,Role[Role.ROLE_USER]);
+        const result = authService.hasDomainRole(2, Role[Role.ROLE_USER]);
         expect(result).toEqual(true);
-        const result2 = authService.hasDomainRole(2,Role[Role.ROLE_DOMAIN_ADMIN]);
+        const result2 = authService.hasDomainRole(2, Role[Role.ROLE_DOMAIN_ADMIN]);
         expect(result2).toEqual(false);
     });
 

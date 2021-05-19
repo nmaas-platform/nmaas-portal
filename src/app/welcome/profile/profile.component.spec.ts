@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {ProfileComponent} from './profile.component';
 import {Component} from '@angular/core';
@@ -37,7 +37,7 @@ describe('ProfileComponent', () => {
     let component: ProfileComponent;
     let fixture: ComponentFixture<ProfileComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         const authServiceSpy = createSpyObj('AuthService', ['hasRole']);
         authServiceSpy.hasRole.and.returnValue(true)
 

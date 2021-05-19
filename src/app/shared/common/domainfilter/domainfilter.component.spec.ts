@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {DomainFilterComponent} from './domainfilter.component';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -10,6 +10,7 @@ import {UserDataService} from '../../../service/userdata.service';
 import {of} from 'rxjs';
 import {Domain} from '../../../model/domain';
 import {ProfileService} from '../../../service/profile.service';
+import {User} from '../../../model';
 
 describe('DomainFilterComponent', () => {
     let component: DomainFilterComponent;
@@ -45,7 +46,7 @@ describe('DomainFilterComponent', () => {
         applicationStatePerDomain: []
     };
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         const authServiceSpy = createSpyObj('AuthService', ['hasRole']);
         authServiceSpy.hasRole.and.returnValue(true)
 
@@ -54,8 +55,12 @@ describe('DomainFilterComponent', () => {
         domainServiceSpy.getAll.and.returnValue(of([domainG, domain1, domain2]))
         domainServiceSpy.getMyDomains.and.returnValue(of([domain1, domain2]))
 
+        const user = new User();
+        user.id = 1
+        user.defaultDomain = 1
+
         const profileSpy = createSpyObj<ProfileService>(['getOne']);
-        profileSpy.getOne.and.returnValue(of({id: 1, defaultDomain: 1}))
+        profileSpy.getOne.and.returnValue(of(user))
 
         TestBed.configureTestingModule({
             declarations: [DomainFilterComponent],

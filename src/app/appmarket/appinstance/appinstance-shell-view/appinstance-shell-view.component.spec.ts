@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {AppInstanceShellViewComponent} from './appinstance-shell-view.component';
 import {SshShellComponent} from '../ssh-shell/ssh-shell.component';
@@ -20,7 +20,7 @@ describe('AppInstanceShellViewComponent', () => {
     let component: AppInstanceShellViewComponent;
     let fixture: ComponentFixture<AppInstanceShellViewComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [
                 AppInstanceShellViewComponent,

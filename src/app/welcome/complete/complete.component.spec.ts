@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CompleteComponent } from './complete.component';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -16,7 +16,7 @@ describe('CompleteComponent', () => {
     let component: CompleteComponent;
     let fixture: ComponentFixture<CompleteComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         const authServiceSpy = createSpyObj('AuthService', ['hasRole']);
         authServiceSpy.hasRole.and.returnValue(true)
 

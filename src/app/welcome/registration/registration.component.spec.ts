@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {RegistrationComponent} from './registration.component';
 import {ReCaptchaV3Service} from 'ng-recaptcha';
@@ -14,7 +14,7 @@ describe('RegistrationComponent', () => {
     let component: RegistrationComponent;
     let fixture: ComponentFixture<RegistrationComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         const registrationServiceSpy = createSpyObj('RegistrationService', ['getDomains']);
         registrationServiceSpy.getDomains.and.returnValue(of([]));
 

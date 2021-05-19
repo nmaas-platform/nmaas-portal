@@ -1,5 +1,5 @@
 /* tslint:disable:no-unused-variable */
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {Pipe, PipeTransform} from '@angular/core';
 
 import {AppInstanceProgressComponent} from './appinstanceprogress.component';
@@ -27,7 +27,7 @@ describe('AppInstanceProgressComponent', () => {
   let component: AppInstanceProgressComponent;
   let fixture: ComponentFixture<AppInstanceProgressComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ AppInstanceProgressComponent, TranslatePipeMock ],
       providers: [

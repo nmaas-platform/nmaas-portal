@@ -1,18 +1,18 @@
-import {async, ComponentFixture, TestBed} from "@angular/core/testing";
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from "@ngx-translate/core";
-import {ClusterDetailsComponent} from "./clusterdetails.component";
-import {ClusterDetailsComponent as ClusterSharedDetailsComponent} from "../../../../shared/admin/clusters/details/clusterdetails.component";
-import {ClusterService} from "../../../../service/cluster.service";
-import {RouterTestingModule} from "@angular/router/testing";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {AppConfigService} from "../../../../service";
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {ClusterDetailsComponent} from './clusterdetails.component';
+import {ClusterDetailsComponent as ClusterSharedDetailsComponent} from '../../../../shared/admin/clusters/details/clusterdetails.component';
+import {ClusterService} from '../../../../service/cluster.service';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AppConfigService} from '../../../../service';
 
-describe('Cluster details component', () =>{
+describe('Cluster details component', () => {
     let component: ClusterDetailsComponent;
     let fixture: ComponentFixture<ClusterDetailsComponent>;
 
-    beforeEach(async (() =>{
+    beforeEach(waitForAsync (() => {
         TestBed.configureTestingModule({
             declarations: [ClusterDetailsComponent, ClusterSharedDetailsComponent],
             imports: [
@@ -38,7 +38,7 @@ describe('Cluster details component', () =>{
     });
 
     it('should create component', () => {
-        let app = fixture.debugElement.componentInstance;
+        const app = fixture.debugElement.componentInstance;
         expect(app).toBeTruthy();
     });
 });

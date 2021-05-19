@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {AddMembersModalComponent} from './add-members-modal.component';
 import {AppInstanceService, UserService} from '../../../../service';
@@ -54,7 +54,7 @@ describe('AddMembersModalComponent', () => {
         members: []
     };
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
 
         const userServiceSpy = createSpyObj('UserService', ['getAll'])
         userServiceSpy.getAll.and.returnValue(of([]))

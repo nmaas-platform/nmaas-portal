@@ -1,14 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ModalNotificationSendComponent } from './modal-notification-send.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {ModalComponent} from "../modal.component";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ModalComponent} from '../modal.component';
 
 describe('ModalNotificationSendComponent', () => {
   let component: ModalNotificationSendComponent;
   let fixture: ComponentFixture<ModalNotificationSendComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ModalNotificationSendComponent ],
     })

@@ -1,4 +1,4 @@
-import {TestBed, async} from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { AppMarketComponent } from './appmarket.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ServiceUnavailableService} from '../service-unavailable/service-unavailable.service';
@@ -193,7 +193,7 @@ describe('Component: AppMarket', () => {
   let component: AppMarketComponent;
   let fixture: any;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     const authUserSpy = jasmine.createSpyObj('AuthService', ['getDomainRoles', 'hasRole']);
     authUserSpy.getDomainRoles.and.returnValue(new Map<number, DomainRoles>());
     authUserSpy.hasRole.and.returnValue(false);

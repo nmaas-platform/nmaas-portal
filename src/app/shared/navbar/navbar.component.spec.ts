@@ -1,14 +1,14 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {NavbarComponent} from './navbar.component';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from "@ngx-translate/core";
-import {of} from "rxjs";
-import {RouterTestingModule} from "@angular/router/testing";
-import {AuthService} from "../../auth/auth.service";
-import {DomainService} from "../../service";
-import {Component, Directive, Input} from "@angular/core";
-import {InternationalizationService} from "../../service/internationalization.service";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {of} from 'rxjs';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AuthService} from '../../auth/auth.service';
+import {DomainService} from '../../service';
+import {Component, Directive, Input} from '@angular/core';
+import {InternationalizationService} from '../../service/internationalization.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 @Component({
     selector: 'nmaas-domain-filter',
@@ -40,13 +40,13 @@ describe('NavbarComponent_Shared', () => {
     let domainService: DomainService;
     let authService: AuthService;
 
-    beforeEach(async(() => {
-        let mockDomainService = jasmine.createSpyObj(['getGlobalDomainId']);
+    beforeEach(waitForAsync(() => {
+        const mockDomainService = jasmine.createSpyObj(['getGlobalDomainId']);
         mockDomainService.getGlobalDomainId.and.returnValue(1);
-        let mockLanguageService = jasmine.createSpyObj(['getEnabledLanguages', 'shouldUpdate']);
+        const mockLanguageService = jasmine.createSpyObj(['getEnabledLanguages', 'shouldUpdate']);
         mockLanguageService.getEnabledLanguages.and.returnValue(of(['en', 'fr', 'pl']));
         mockLanguageService.shouldUpdate.and.returnValue(false);
-        let mockAuthService = jasmine.createSpyObj(['isLogged', 'hasRole', 'getDomains', 'getRoles']);
+        const mockAuthService = jasmine.createSpyObj(['isLogged', 'hasRole', 'getDomains', 'getRoles']);
         mockAuthService.isLogged.and.returnValue(false);
         mockAuthService.hasRole.and.returnValue(false);
         mockAuthService.getDomains.and.returnValue([]);
@@ -103,7 +103,7 @@ describe('NavbarComponent_Shared', () => {
     });
 
     it('should change language', () => {
-        component.useLanguage("fr");
-        expect(component.getCurrent()).toBe("fr");
+        component.useLanguage('fr');
+        expect(component.getCurrent()).toBe('fr');
     })
 });

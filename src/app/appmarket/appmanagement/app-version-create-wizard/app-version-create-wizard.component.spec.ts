@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {AppVersionCreateWizardComponent} from './app-version-create-wizard.component';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -14,7 +14,7 @@ describe('AppVersionCreateWizardComponent', () => {
     let component: AppVersionCreateWizardComponent;
     let fixture: ComponentFixture<AppVersionCreateWizardComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         const tagServiceSpy = createSpyObj('TagService', ['getTags'])
         tagServiceSpy.getTags.and.returnValue(of([]))
 

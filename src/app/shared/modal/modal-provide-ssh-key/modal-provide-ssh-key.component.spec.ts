@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ModalProvideSshKeyComponent } from './modal-provide-ssh-key.component';
 
@@ -6,7 +6,7 @@ describe('ModalProvideSshKeyComponent', () => {
   let component: ModalProvideSshKeyComponent;
   let fixture: ComponentFixture<ModalProvideSshKeyComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ModalProvideSshKeyComponent ]
     })

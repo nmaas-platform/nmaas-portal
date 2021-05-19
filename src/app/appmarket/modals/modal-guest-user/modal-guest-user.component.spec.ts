@@ -1,13 +1,13 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ModalGuestUserComponent } from './modal-guest-user.component';
-import {Component} from "@angular/core";
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from "@ngx-translate/core";
-import {ModalComponent} from "../../../shared/modal";
+import {Component} from '@angular/core';
+import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {ModalComponent} from '../../../shared/modal';
 
 @Component({
   selector: 'nmaas-modal',
-  template:'<p>Modal Mock</p>'
+  template: '<p>Modal Mock</p>'
 })
 class ModalMock {
   setModalType(arg: string) {
@@ -22,7 +22,7 @@ describe('ModalGuestUserComponent', () => {
   let component: ModalGuestUserComponent;
   let fixture: ComponentFixture<ModalGuestUserComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ModalGuestUserComponent, ModalComponent ],
       imports: [

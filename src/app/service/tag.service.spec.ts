@@ -1,14 +1,14 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject} from '@angular/core/testing';
 import { TagService } from './tag.service';
-import {Observable, of} from "rxjs";
-import {Configuration} from "../model/configuration";
-import {HttpClient, HttpHandler} from "@angular/common/http";
-import {AppConfigService} from "./appconfig.service";
+import {Observable, of} from 'rxjs';
+import {Configuration} from '../model/configuration';
+import {HttpClient, HttpHandler} from '@angular/common/http';
+import {AppConfigService} from './appconfig.service';
 
-class MockConfigurationService{
-    protected uri:string;
+class MockConfigurationService {
+    protected uri: string;
 
     constructor() {
         this.uri = 'http://localhost/api';
@@ -18,11 +18,11 @@ class MockConfigurationService{
         return 'http://localhost/api';
     }
 
-    public getConfiguration():Observable<Configuration>{
+    public getConfiguration(): Observable<Configuration> {
         return of<Configuration>();
     }
 
-    public updateConfiguration(configuration:Configuration):Observable<any>{
+    public updateConfiguration(configuration: Configuration): Observable<any> {
         return of<Configuration>();
     }
 }

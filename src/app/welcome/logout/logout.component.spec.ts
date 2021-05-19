@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {LogoutComponent} from './logout.component';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -12,7 +12,7 @@ describe('LogoutComponent', () => {
     let component: LogoutComponent;
     let fixture: ComponentFixture<LogoutComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         const authServiceSpy = createSpyObj('AuthService', ['logout'])
         const configServiceSpy = createSpyObj('ConfigurationService', ['getConfiguration'])
         configServiceSpy.getConfiguration.and.returnValue(of({

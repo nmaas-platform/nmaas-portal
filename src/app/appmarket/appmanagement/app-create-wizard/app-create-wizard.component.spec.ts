@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {AppCreateWizardComponent} from './app-create-wizard.component';
 import {AppImagesService, AppsService, TagService} from '../../../service';
@@ -18,7 +18,7 @@ describe('AppCreateWizardComponent', () => {
     let appsService: AppsService = undefined;
     let appImagesService = undefined;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         const tagServiceSpy = createSpyObj('TagService', ['getTags'])
         tagServiceSpy.getTags.and.returnValue(of([]))
 
