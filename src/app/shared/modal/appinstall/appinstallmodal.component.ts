@@ -6,6 +6,7 @@ import {AppInstanceService, DomainService} from '../../../service';
 import {UserDataService} from '../../../service/userdata.service';
 import {Domain} from '../../../model/domain';
 import {ApplicationBase} from '../../../model/application-base';
+import {ApplicationState} from '../../../model/application-state';
 
 @Component({
     selector: 'nmaas-modal-app-install',
@@ -13,6 +14,8 @@ import {ApplicationBase} from '../../../model/application-base';
     styleUrls: ['./appinstallmodal.component.css'],
 })
 export class AppInstallModalComponent implements OnInit {
+
+    public ApplicationState = ApplicationState;
 
     @ViewChild(ModalComponent, {static: true})
     public readonly modal: ModalComponent;
@@ -62,6 +65,13 @@ export class AppInstallModalComponent implements OnInit {
 
     public show(): void {
         this.modal.show();
+    }
+
+    public applicationState(state: ApplicationState | string): ApplicationState {
+        if (typeof state === 'string') {
+            return ApplicationState[state];
+        }
+        return state;
     }
 
 }
