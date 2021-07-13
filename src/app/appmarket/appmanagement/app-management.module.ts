@@ -24,6 +24,8 @@ import {AppStaticGlobalDeployParametersEditComponent} from './app-static-global-
 import {MultiSelectModule} from 'primeng/multiselect';
 import {FileUploadModule} from 'primeng/fileupload';
 import {ChipsModule} from 'primeng/chips';
+import { JsonEditComponent } from './json-edit/json-edit.component';
+import {TabViewModule} from 'primeng/tabview';
 
 
 export function getJsonTemplates(config: ConfigTemplateService) {
@@ -47,7 +49,8 @@ export function formioAppConfigFactory(appConfig: AppConfigService) {
         AppVersionCreateWizardComponent,
         AppAccessMethodEditComponent,
         AppStorageVolumeEditComponent,
-        AppStaticGlobalDeployParametersEditComponent
+        AppStaticGlobalDeployParametersEditComponent,
+        JsonEditComponent
     ],
     imports: [
         CommonModule,
@@ -65,7 +68,8 @@ export function formioAppConfigFactory(appConfig: AppConfigService) {
         BrowserAnimationsModule,
         TooltipModule,
         ChipsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        TabViewModule
     ],
     exports: [],
     providers: [

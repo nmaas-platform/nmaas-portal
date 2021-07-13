@@ -1,0 +1,6 @@
+<form [formGroup]="objectForm">
+    <textarea class="form-control" formControlName="content" style="width: 100%" rows="30" id="content"></textarea>
+</form>
+<div *ngIf="content.invalid  && (content.dirty || content.touched)" class="alert alert-danger">
+    Invalid JSON
+</div>
