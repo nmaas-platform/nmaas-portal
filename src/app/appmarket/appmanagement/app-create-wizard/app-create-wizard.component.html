@@ -518,17 +518,17 @@
                 <div class="panel-heading">{{'APPS_WIZARD.CONFIG_WIZARD_TEMPLATE_LABEL' | translate}}</div>
                 <div class="panel-body">
                     <p-tabView>
-                        <p-tabPanel header="Form Builder">
+                        <p-tabPanel header="{{'APPS_WIZARD.FORM_BUILDER' | translate}}">
                             <form-builder *ngIf="formDisplayChange && applicationDTO.application.configWizardTemplate.template"
                                           [form]="applicationDTO.application.configWizardTemplate.template" (change)="setConfigTemplate($event)">
                             </form-builder>
                         </p-tabPanel>
 
-                        <p-tabPanel header="Raw JSON">
-                            <h4>Form definition</h4>
+                        <p-tabPanel header="{{'APPS_WIZARD.RAW_JSON' | translate}}">
+                            <h4>{{'APPS_WIZARD.FORM_DEFINITION' | translate}}</h4>
                             <app-json-edit *ngIf="formDisplayChange && applicationDTO.application.configWizardTemplate?.template"
                                            [(object)]="applicationDTO.application.configWizardTemplate.template"></app-json-edit>
-                            <h4>Form preview</h4>
+                            <h4>{{'APPS_WIZARD.FORM_PREVIEW' | translate}}</h4>
                             <formio *ngIf="formDisplayChange && applicationDTO.application.configWizardTemplate?.template"
                                     [form]="applicationDTO.application.configWizardTemplate.template"
                                     [options]='{"alerts": {"submitMessage": "Configuration applied"}, "errors": {"message": "Invalid configuration"}}'>
@@ -556,17 +556,17 @@
                     </div>
                     <div *ngIf="addConfigUpdate && applicationDTO.application.configUpdateWizardTemplate.template">
                         <p-tabView>
-                        <p-tabPanel header="Form Builder">
+                        <p-tabPanel header="{{'APPS_WIZARD.FORM_BUILDER' | translate}}">
                             <form-builder *ngIf="formDisplayChange"
                                           [form]="applicationDTO.application.configUpdateWizardTemplate.template"
                                           (change)="setUpdateConfigTemplate($event)">
                             </form-builder>
                         </p-tabPanel>
-                        <p-tabPanel header="Raw JSON">
-                            <h4>Form definition</h4>
+                        <p-tabPanel header="{{'APPS_WIZARD.RAW_JSON' | translate}}">
+                            <h4>{{'APPS_WIZARD.FORM_DEFINITION' | translate}}</h4>
                             <app-json-edit *ngIf="formDisplayChange && applicationDTO.application.configUpdateWizardTemplate?.template"
                                            [(object)]="applicationDTO.application.configUpdateWizardTemplate.template"></app-json-edit>
-                            <h4>Form preview</h4>
+                            <h4>{{'APPS_WIZARD.FORM_PREVIEW' | translate}}</h4>
                             <formio *ngIf="formDisplayChange && applicationDTO.application.configUpdateWizardTemplate?.template"
                                     [form]="applicationDTO.application.configUpdateWizardTemplate.template"
                                     [options]='{"alerts": {"submitMessage": "Configuration applied"}, "errors": {"message": "Invalid configuration"}}'>
