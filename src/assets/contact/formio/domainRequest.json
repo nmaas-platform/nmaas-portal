@@ -46,6 +46,142 @@
       "rows": 7
     },
     {
+      "label": "VPN_OPTION",
+      "description": "VPN_OPTION_DESCRIPTION",
+      "tableView": true,
+      "data": {
+        "values": [
+          {
+            "label": "OpenVPN",
+            "value": "OpenVPN"
+          },
+          {
+            "label": "Wireguard",
+            "value": "Wireguard"
+          }
+        ]
+      },
+      "key": "vpnTechnology",
+      "type": "select",
+      "input": true,
+      "defaultValue": "OpenVPN"
+    },
+    {
+      "label": "VPN_USER_IP",
+      "description": "VPN_USER_IP_DESCRIPTION",
+      "hideLabel": true,
+      "tableView": true,
+      "type": "textfield",
+      "input": true,
+      "key": "vpnUserIp",
+      "placeholder": "127.0.0.1",
+      "tab": 0,
+      "defaultValue": "Not provided",
+      "inputFormat": "plain",
+      "row": "0-0"
+    },
+    {
+      "label": "VPN_USER_SUBNETS",
+      "description": "VPN_USER_SUBNETS_DESCRIPTION",
+      "hideLabel": false,
+      "disableAddingRemovingRows": false,
+      "addAnother": "VPN_USER_SUBNETS_ADD",
+      "addAnotherPosition": "bottom",
+      "multiple": true,
+      "tableView": true,
+      "alwaysEnabled": false,
+      "type": "datagrid",
+      "input": true,
+      "key": "userSubnets",
+      "tab": 0,
+      "components": [
+        {
+          "label": "VPN_USER_SUBNETS_SUBNET",
+          "hideLabel": true,
+          "tableView": true,
+          "type": "textfield",
+          "input": true,
+          "key": "ipAddressWithMask",
+          "placeholder": "192.168.1.0/24",
+          "tab": 0,
+          "defaultValue": "Not provided",
+          "inputFormat": "plain",
+          "row": "0-0"
+        }
+      ]
+    },
+    {
+      "label": "ADDITIONAL_VPN_SUBNETS",
+      "description": "ADDITIONAL_VPN_SUBNETS_DESCRIPTION",
+      "hideLabel": false,
+      "disableAddingRemovingRows": false,
+      "addAnother": "VPN_USER_SUBNETS_ADD",
+      "addAnotherPosition": "bottom",
+      "multiple": true,
+      "tableView": true,
+      "alwaysEnabled": false,
+      "type": "datagrid",
+      "input": true,
+      "key": "additionalSubnets",
+      "tab": 0,
+      "components": [
+        {
+          "label": "VPN_USER_SUBNETS_SUBNET",
+          "hideLabel": true,
+          "tableView": true,
+          "type": "textfield",
+          "input": true,
+          "key": "ipAddressWithMask",
+          "placeholder": "192.168.1.0/24",
+          "tab": 0,
+          "defaultValue": "Not provided",
+          "inputFormat": "plain",
+          "row": "0-0"
+        }
+      ]
+    },
+    {
+      "label": "TECH_CONTACT",
+      "description": "TECH_CONTACT_DESCRIPTION",
+      "hideLabel": false,
+      "disableAddingRemovingRows": true,
+      "multiple": false,
+      "tableView": true,
+      "alwaysEnabled": false,
+      "type": "datagrid",
+      "input": true,
+      "key": "techContact",
+      "tab": 0,
+      "defaultValue": [
+        {
+          "name": "Name not provided"
+        },
+        {
+          "email": "E-mail not provided"
+        }
+      ],
+      "components": [
+        {
+          "label": "NAME",
+          "tableView": true,
+          "type": "textfield",
+          "input": true,
+          "key": "name",
+          "inputFormat": "plain",
+          "row": "0-0"
+        },
+        {
+          "label": "EMAIL",
+          "tableView": true,
+          "type": "email",
+          "input": true,
+          "key": "email",
+          "inputFormat": "plain",
+          "row": "0-1"
+        }
+      ]
+    },
+    {
       "label": "NAME",
       "placeholder": "NAME_PLACEHOLDER",
       "tableView": true,
