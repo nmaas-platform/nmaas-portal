@@ -141,11 +141,7 @@
       "label": "TECH_CONTACT",
       "description": "TECH_CONTACT_DESCRIPTION",
       "hideLabel": false,
-      "disableAddingRemovingRows": true,
-      "multiple": false,
-      "tableView": true,
-      "alwaysEnabled": false,
-      "type": "datagrid",
+      "type": "container",
       "input": true,
       "key": "techContact",
       "tab": 0,
@@ -156,8 +152,7 @@
           "type": "textfield",
           "input": true,
           "key": "name",
-          "inputFormat": "plain",
-          "row": "0-0"
+          "inputFormat": "plain"
         },
         {
           "label": "EMAIL",
@@ -165,8 +160,7 @@
           "type": "email",
           "input": true,
           "key": "email",
-          "inputFormat": "plain",
-          "row": "0-1"
+          "inputFormat": "plain"
         }
       ]
     },
