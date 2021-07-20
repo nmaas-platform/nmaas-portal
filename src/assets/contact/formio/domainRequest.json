@@ -140,29 +140,12 @@
     {
       "label": "TECH_CONTACT",
       "description": "TECH_CONTACT_DESCRIPTION",
-      "hideLabel": false,
-      "type": "container",
-      "input": true,
+      "placeholder": "TECH_CONTACT_PLACEHOLDER",
+      "persistent": false,
+      "type": "textfield",
       "key": "techContact",
-      "tab": 0,
-      "components": [
-        {
-          "label": "NAME",
-          "tableView": true,
-          "type": "textfield",
-          "input": true,
-          "key": "name",
-          "inputFormat": "plain"
-        },
-        {
-          "label": "EMAIL",
-          "tableView": true,
-          "type": "email",
-          "input": true,
-          "key": "email",
-          "inputFormat": "plain"
-        }
-      ]
+      "input": true,
+      "inputFormat": "plain"
     },
     {
       "label": "NAME",
