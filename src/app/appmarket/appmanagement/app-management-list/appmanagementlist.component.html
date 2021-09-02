@@ -50,8 +50,10 @@
               <em class="fas fa-cog icon-black icon-bigger"></em>
             </a>
             <ul class="dropdown-menu pull-right-drop">
-              <li>
+              <li *roles="['ROLE_SYSTEM_ADMIN']">
                 <a (click)="showModal($event, app, version)" *ngIf="getStateAsString(version?.state) !== 'DELETED'">{{ 'APPS_MANAGEMENT.CHANGE_STATE_BUTTON' | translate }}</a>
+              </li>
+              <li>
                 <a [routerLink]="['/admin/apps/edit/version', version?.appVersionId]">{{ 'APPS_MANAGEMENT.EDIT_BUTTON' | translate }}</a>
               </li>
             </ul>
