@@ -14,6 +14,5 @@ export class Application {
     public appDeploymentSpec: AppDeploymentSpec = new AppDeploymentSpec();
     public appConfigurationSpec: AppConfigurationSpec = new AppConfigurationSpec();
 
-    public owner: string = undefined;
     public state: ApplicationState = ApplicationState.NEW;
 }

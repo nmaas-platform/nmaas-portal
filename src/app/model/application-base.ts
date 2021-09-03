@@ -19,5 +19,7 @@ export class ApplicationBase {
     public tags: Tag[] = [];
     public versions: ApplicationVersion[] = [];
 
+    public owner: string = undefined;
+
     public rate: Rate = undefined;
 }
