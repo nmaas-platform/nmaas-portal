@@ -1,0 +1,29 @@
+<nmaas-modal>
+    <div class="nmaas-modal-header">{{'APPS_MANAGEMENT.CHANGE_OWNER_BUTTON' | translate}}</div>
+    <div class="nmaas-modal-body">
+        <div class="form-group">
+            <label class="control-label"><strong>{{'APPS_MANAGEMENT.NAME' | translate}}: </strong></label>
+            <p>{{applicationBase?.name}}</p>
+        </div>
+        <div class="form-group">
+            <label for="changeState" class="control-label">
+                {{'APPS_MANAGEMENT.OWNER' | translate}}:
+            </label>
+            <select class="form-control" id="changeState" name="changeState" #selectOwner="ngModel"
+                    [(ngModel)]="selectedUsername" required>
+                <option *ngFor="let user of availableUsers | async" [value]="user.username">
+                    {{user.username}} | {{user.firstname}} {{user.lastname}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="nmaas-modal-footer">
+        <button type="button" class="btn btn-default" (click)="modal.hide()">
+            {{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="submit()" [disabled]="selectOwner.invalid">
+            {{'APPS_MANAGEMENT.CHANGE_OWNER_BUTTON' | translate}}
+        </button>
+    </div>
+</nmaas-modal>
+
