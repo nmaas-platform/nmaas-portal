@@ -19,6 +19,7 @@ describe('AppInstallmodalComponent', () => {
     const appBase: ApplicationBase = {
         id: 1,
         name: 'app',
+        owner: 'admin',
         license: undefined,
         licenseUrl: undefined,
         wwwUrl: undefined,

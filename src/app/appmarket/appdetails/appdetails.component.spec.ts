@@ -93,6 +93,7 @@ describe('Component: AppDetails', () => {
     const application: ApplicationBase = {
         id: 2,
         name: 'Oxidized',
+        owner: '',
         license: null,
         licenseUrl: null,
         wwwUrl: null,

@@ -16,7 +16,7 @@ import {ApplicationBase} from '../../../model/application-base';
 export class AppManagementListComponent implements OnInit {
 
     @ViewChild(AppChangeStateModalComponent, { static: true })
-    public modal: AppChangeStateModalComponent;
+    public appChangeStateModalComponent: AppChangeStateModalComponent;
 
     public selectedAppName = '';
     public selectedVersion: ApplicationVersion = new ApplicationVersion();
@@ -63,7 +63,7 @@ export class AppManagementListComponent implements OnInit {
         event.stopPropagation()
         this.selectedAppName = app.name;
         this.selectedVersion = appVersion;
-        this.modal.show();
+        this.appChangeStateModalComponent.show();
     }
 
     public clickTableRow(i: number) {
