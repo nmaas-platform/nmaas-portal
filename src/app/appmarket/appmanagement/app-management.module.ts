@@ -26,6 +26,7 @@ import {FileUploadModule} from 'primeng/fileupload';
 import {ChipsModule} from 'primeng/chips';
 import { JsonEditComponent } from './json-edit/json-edit.component';
 import {TabViewModule} from 'primeng/tabview';
+import { AppChangeOwnerModalComponent } from './app-change-owner-modal/app-change-owner-modal.component';
 
 
 export function getJsonTemplates(config: ConfigTemplateService) {
@@ -50,7 +51,8 @@ export function formioAppConfigFactory(appConfig: AppConfigService) {
         AppAccessMethodEditComponent,
         AppStorageVolumeEditComponent,
         AppStaticGlobalDeployParametersEditComponent,
-        JsonEditComponent
+        JsonEditComponent,
+        AppChangeOwnerModalComponent
     ],
     imports: [
         CommonModule,
