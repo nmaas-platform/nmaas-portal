@@ -118,6 +118,7 @@ describe('Component: AppInstance', () => {
     const applicationBase: ApplicationBase = {
         id: 2,
         name: 'Oxidized',
+        owner: 'admin',
         license: null,
         licenseUrl: null,
         wwwUrl: null,
@@ -141,7 +142,6 @@ describe('Component: AppInstance', () => {
         id: 1,
         name: 'Oxidized',
         version: '1.0.0',
-        owner: 'admin',
         configWizardTemplate: null,
         configUpdateWizardTemplate: null,
         appDeploymentSpec: new AppDeploymentSpec(),
