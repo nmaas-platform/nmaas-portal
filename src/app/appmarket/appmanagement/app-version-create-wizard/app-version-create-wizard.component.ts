@@ -155,7 +155,9 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
         if (this.applicationDTO.application.appConfigurationSpec.templates.length > 0) {
             this.configFileTemplates = this.applicationDTO.application.appConfigurationSpec.templates;
         } else {
-            this.configFileTemplates.push(new ConfigFileTemplate());
+            const tempConfigFileTemplate = new ConfigFileTemplate()
+            tempConfigFileTemplate.applicationId = this.applicationDTO.application.id;
+            this.configFileTemplates.push(tempConfigFileTemplate);
         }
         this.basicAuth = this.hasAlreadyBasicAuth();
         this.addConfigUpdate = (this.applicationDTO.application.configUpdateWizardTemplate != null);
