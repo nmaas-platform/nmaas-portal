@@ -7,7 +7,7 @@ import {AppImagesService, AppsService} from '../../../service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ConfigTemplateService} from '../../../service/configtemplate.service';
 import {ParameterType} from '../../../model/parametertype';
-import {KubernetesTemplate} from '../../../model/kubernetestemplate';
+import {KubernetesTemplate} from '../../../model/kubernetes-template';
 import {TranslateService} from '@ngx-translate/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ApplicationState} from '../../../model/application-state';

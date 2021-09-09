@@ -1,5 +1,5 @@
 import {AppDeploymentEnv} from './app-deployment-env';
-import {KubernetesTemplate} from './kubernetestemplate';
+import {KubernetesTemplate} from './kubernetes-template';
 import {AppStorageVolume} from './app-storage-volume';
 import {AppAccessMethod} from './app-access-method';
 
