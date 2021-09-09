@@ -7,7 +7,7 @@ import {AppImagesService, AppsService} from '../../../service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ConfigTemplateService} from '../../../service/configtemplate.service';
 import {ParameterType} from '../../../model/parametertype';
-import {KubernetesTemplate} from '../../../model/kubernetestemplate';
+import {KubernetesTemplate} from '../../../model/kubernetes-template';
 import {TranslateService} from '@ngx-translate/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ApplicationState} from '../../../model/application-state';
@@ -518,6 +518,16 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
 
     public removeStorageVolume(event): void {
         this.applicationDTO.application.appDeploymentSpec.storageVolumes.splice(event, 1);
+    }
+
+    public handleHelmChartRepositoryUrlInput(event: string): void {
+        if (event == null || event === '') {
+            this.applicationDTO.application.appDeploymentSpec.kubernetesTemplate.helmChartRepository.name = undefined;
+            this.applicationDTO.application.appDeploymentSpec.kubernetesTemplate.helmChartRepository.url = undefined;
+        } else {
+            this.applicationDTO.application.appDeploymentSpec.kubernetesTemplate.helmChartRepository.name =
+                this.applicationDTO.applicationBase.name.toLowerCase().replace(' ', '-');
+        }
     }
 
 }
