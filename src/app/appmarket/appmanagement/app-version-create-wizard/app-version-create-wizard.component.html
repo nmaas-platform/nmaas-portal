@@ -71,13 +71,16 @@
           <label for="kubernetesTemplateHelmChartRepositoryName" class="control-label">{{'APPS_WIZARD.HELM_CHART_REPOSITORY_NAME_LABEL' | translate}}</label>
           <br>
           <input type="text" class="form-control" id="kubernetesTemplateHelmChartRepositoryName" name="kubernetesTemplateHelmChartRepositoryName" pattern="[A-Za-z-]{1,14}"
-                 [(ngModel)]="applicationDTO.application.appDeploymentSpec.kubernetesTemplate.helmChartRepository.name" tooltip="{{'APPS_WIZARD.HELM_CHART_REPOSITORY_NAME_TOOLTIP' | translate}}" [display]="true" [options]="defaultTooltipOptions">
+                 [disabled]="true" [value]="applicationDTO.application.appDeploymentSpec.kubernetesTemplate.helmChartRepository.name  || ''"
+                 tooltip="{{'APPS_WIZARD.HELM_CHART_REPOSITORY_NAME_TOOLTIP' | translate}}" [display]="true" [options]="defaultTooltipOptions">
         </div>
         <div class="form-group form-group-sm">
           <label for="kubernetesTemplateHelmChartRepositoryUrl" class="control-label">{{'APPS_WIZARD.HELM_CHART_REPOSITORY_URL_LABEL' | translate}}</label>
           <br>
           <input type="url" class="form-control" id="kubernetesTemplateHelmChartRepositoryUrl" name="kubernetesTemplateHelmChartRepositoryUrl"
-                 [(ngModel)]="applicationDTO.application.appDeploymentSpec.kubernetesTemplate.helmChartRepository.url" tooltip="{{'APPS_WIZARD.HELM_CHART_REPOSITORY_URL_TOOLTIP' | translate}}" [display]="true" [options]="defaultTooltipOptions">
+                 [(ngModel)]="applicationDTO.application.appDeploymentSpec.kubernetesTemplate.helmChartRepository.url"
+                 (ngModelChange)="handleHelmChartRepositoryUrlInput($event)"
+                 tooltip="{{'APPS_WIZARD.HELM_CHART_REPOSITORY_URL_TOOLTIP' | translate}}" [display]="true" [options]="defaultTooltipOptions">
         </div>
         <div class="form-group form-group-sm">
           <label for="kubernetesTemplateMainDeploymentName" class="control-label">{{'APPS_WIZARD.MAIN_DEPLOYMENT_NAME_LABEL' | translate}}</label>

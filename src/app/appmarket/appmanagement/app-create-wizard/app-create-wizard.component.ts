@@ -642,4 +642,14 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
         this.applicationDTO.application.appDeploymentSpec.storageVolumes.splice(event, 1);
     }
 
+    public handleHelmChartRepositoryUrlInput(event: string): void {
+        if (event == null || event === '') {
+            this.applicationDTO.application.appDeploymentSpec.kubernetesTemplate.helmChartRepository.name = undefined;
+            this.applicationDTO.application.appDeploymentSpec.kubernetesTemplate.helmChartRepository.url = undefined;
+        } else {
+            this.applicationDTO.application.appDeploymentSpec.kubernetesTemplate.helmChartRepository.name =
+                this.applicationDTO.applicationBase.name.toLowerCase().replace(' ', '-');
+        }
+    }
+
 }
