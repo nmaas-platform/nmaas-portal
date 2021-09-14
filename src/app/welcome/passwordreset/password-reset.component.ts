@@ -53,7 +53,7 @@ export class PasswordResetComponent implements OnInit {
 
     public resetPassword() {
         if (this.form.valid) {
-            this.recaptchaV3Service.execute('password-reset').subscribe((captchaToken) => {
+            this.recaptchaV3Service.execute('password_reset').subscribe((captchaToken) => {
                 this.passwordReset.password = this.form.controls['newPassword'].value;
                 this.passwordReset.token = this.token;
                 this.userService.resetPassword(this.passwordReset, captchaToken).subscribe(
