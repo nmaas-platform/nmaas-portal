@@ -53,7 +53,7 @@ Note: First run requires entering `npm install` command in order to install all 
 ---
 Run `./gradlew run testCoverage` in this directory.
 Results of executed tests are displayed on screen. 
-More information about code quality (including code coverage, test status) are available in *nmaas-portal/coverage/index.html*
+More information about code quality (including code coverage, test status) are available in `nmaas-portal/coverage/index.html`
 
 ### Default settings
 ---
@@ -67,4 +67,4 @@ Admin user:
     
 ### Building and uploading NMaaS Portal Docker image
 ---
-In order to build the NMaaS Portal Docker image first alter the `build_and_publish.sh` script with custom REPOSITORY, PACKAGE and TAG values and execute *build_and_publish.sh* to automatically build and publish `nmaas-portal` image to selected Docker repository.
+In order to build the NMaaS Portal Docker image first alter the `build_and_publish.sh` script with custom REPOSITORY, PACKAGE and TAG values and execute `build_and_publish.sh` to automatically build and publish `nmaas-portal` image to selected Docker repository.
