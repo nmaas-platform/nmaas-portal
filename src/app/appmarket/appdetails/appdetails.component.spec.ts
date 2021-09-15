@@ -3,13 +3,12 @@
 import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
 import {AppDetailsComponent} from './appdetails.component';
 import {RouterTestingModule} from '@angular/router/testing';
-import {AppConfigService, AppImagesService, AppInstanceService, AppsService, DomainService} from '../../service';
+import {AppConfigService, AppImagesService, AppsService, DomainService} from '../../service';
 import {Component, Input, Pipe, PipeTransform} from '@angular/core';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
+import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {AppSubscriptionsService} from '../../service/appsubscriptions.service';
 import {UserDataService} from '../../service/userdata.service';
 import {AuthService} from '../../auth/auth.service';
-import {TooltipModule} from 'ng2-tooltip-directive';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
@@ -134,7 +133,6 @@ describe('Component: AppDetails', () => {
             ],
             imports: [
                 RouterTestingModule,
-                TooltipModule,
                 HttpClientTestingModule,
                 TranslateModule.forRoot({
                     loader: {

@@ -26,12 +26,6 @@ export class AppAccessMethodEditComponent implements OnInit {
   public newKey = '';
   public newValue = '';
 
-  public defaultTooltipOptions = {
-    'placement': 'bottom',
-    'show-delay': '50',
-    'theme': 'dark'
-  };
-
   constructor() { }
 
   ngOnInit() {}

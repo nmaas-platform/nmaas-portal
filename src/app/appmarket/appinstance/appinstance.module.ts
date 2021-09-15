@@ -19,7 +19,6 @@ import {TranslateModule} from '@ngx-translate/core';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {FormioAppConfig, FormioModule} from 'angular-formio';
 import {AppConfig} from '../../../formio-config';
-import {TooltipModule} from 'ng2-tooltip-directive';
 import {AccessMethodsModalComponent} from './modals/access-methods-modal/access-methods-modal.component';
 import { SshShellComponent } from './ssh-shell/ssh-shell.component';
 import {NgTerminalModule} from 'ng-terminal';
@@ -27,6 +26,7 @@ import { AppInstanceShellViewComponent } from './appinstance-shell-view/appinsta
 import { AddMembersModalComponent } from './modals/add-members-modal/add-members-modal.component';
 import {MultiSelectModule} from 'primeng/multiselect';
 import { SelectPodModalComponent } from './modals/select-pod-modal/select-pod-modal.component';
+import {TooltipModule} from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -52,9 +52,9 @@ import { SelectPodModalComponent } from './modals/select-pod-modal/select-pod-mo
         PipesModule,
         NgxPaginationModule,
         TranslateModule.forChild(),
-        TooltipModule,
         NgTerminalModule,
         MultiSelectModule,
+        TooltipModule,
     ],
   exports: [
     AppInstanceComponent,

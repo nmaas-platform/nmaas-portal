@@ -29,18 +29,7 @@ import {ApplicationBase} from '../../model/application-base';
 })
 export class AppDetailsComponent implements OnInit {
 
-    public defaultTooltipOptions = {
-        'display': true,
-        'placement': 'bottom',
-        'show-delay': '50',
-        'theme': 'dark'
-    };
-
-    public linksTooltipOptions = {
-        'placement': 'bottom',
-        'show-delay': '50',
-        'theme': 'dark'
-    };
+    public defaultTooltipDisabled = false;
 
     protected state = 0;
 
@@ -119,7 +108,7 @@ export class AppDetailsComponent implements OnInit {
 
             this.domainService.getOne(this.domainId).subscribe(d => {
                 this.domain = d;
-                this.defaultTooltipOptions.display = !this.isApplicationEnabledInDomain();
+                this.defaultTooltipDisabled = this.isApplicationEnabledInDomain();
             });
         }
     }

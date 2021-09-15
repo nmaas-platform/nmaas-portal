@@ -43,12 +43,6 @@ import {SelectPodModalComponent} from '../modals/select-pod-modal/select-pod-mod
 })
 export class AppInstanceComponent implements OnInit, OnDestroy {
 
-    public defaultTooltipOptions = {
-        'placement': 'bottom',
-        'show-delay': '50',
-        'theme': 'dark'
-    };
-
     public AppInstanceState = AppInstanceState;
 
     @ViewChild(AppInstanceProgressComponent)

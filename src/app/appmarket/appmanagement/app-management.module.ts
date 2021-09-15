@@ -16,7 +16,6 @@ import {FormioAppConfig, FormioModule} from 'angular-formio';
 import {ConfigTemplateService} from '../../service/configtemplate.service';
 import {AppChangeStateModalComponent} from './app-change-state-modal/appchangestatemodal.component';
 import {AppPreviewComponent} from './app-preview/apppreview.component';
-import {TooltipModule} from 'ng2-tooltip-directive';
 import {AppVersionCreateWizardComponent} from './app-version-create-wizard/app-version-create-wizard.component';
 import {AppAccessMethodEditComponent} from './app-access-method-edit-component/app-access-method-edit.component';
 import {AppStorageVolumeEditComponent} from './app-storage-volume-edit-component/app-storage-volume-edit.component';
@@ -27,6 +26,7 @@ import {ChipsModule} from 'primeng/chips';
 import { JsonEditComponent } from './json-edit/json-edit.component';
 import {TabViewModule} from 'primeng/tabview';
 import { AppChangeOwnerModalComponent } from './app-change-owner-modal/app-change-owner-modal.component';
+import {TooltipModule} from 'primeng/tooltip';
 
 
 export function getJsonTemplates(config: ConfigTemplateService) {
@@ -68,10 +68,10 @@ export function formioAppConfigFactory(appConfig: AppConfigService) {
         MultiSelectModule,
         FileUploadModule,
         BrowserAnimationsModule,
-        TooltipModule,
         ChipsModule,
         ReactiveFormsModule,
-        TabViewModule
+        TabViewModule,
+        TooltipModule
     ],
     exports: [],
     providers: [

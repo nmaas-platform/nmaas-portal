@@ -30,8 +30,8 @@ export class JsonEditComponent {
   set object(obj: any) {
     console.log('setting value')
     const contentString = JSON.stringify(obj, null, 2);
-    if (contentString !== this.content.value) {
-      this.content?.setValue(contentString)
+    if (this.content && contentString !== this.content.value) {
+      this.content.setValue(contentString)
     }
   }
 

@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {AppAccessMethodEditComponent} from './app-access-method-edit.component';
 import {FormsModule} from '@angular/forms';
-import {TooltipModule} from 'ng2-tooltip-directive';
 import {ServiceAccessMethodType} from '../../../model/service-access-method';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 
@@ -15,7 +14,6 @@ describe('AppAccessMethodEditComponent', () => {
       declarations: [ AppAccessMethodEditComponent ],
       imports: [
           FormsModule,
-        TooltipModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,

@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {AppStorageVolumeEditComponent} from './app-storage-volume-edit.component';
 import {FormsModule} from '@angular/forms';
-import {TooltipModule} from 'ng2-tooltip-directive';
 import {ServiceStorageVolumeType} from '../../../model/service-storage-volume';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 
@@ -15,7 +14,6 @@ describe('AppStorageVolumeEditComponent', () => {
       declarations: [ AppStorageVolumeEditComponent ],
       imports: [
         FormsModule,
-        TooltipModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,

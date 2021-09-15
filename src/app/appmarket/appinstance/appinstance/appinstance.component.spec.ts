@@ -9,7 +9,6 @@ import {of} from 'rxjs';
 import {FormioModule} from 'angular-formio';
 import {AppInstanceProgressComponent} from '../appinstanceprogress';
 import {PipesModule} from '../../../pipe/pipes.module';
-import {TooltipModule} from 'ng2-tooltip-directive';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {AppRestartModalComponent} from '../modals/apprestart';
 import {AppAbortModalComponent} from '../modals/app-abort-modal';
@@ -260,7 +259,6 @@ describe('Component: AppInstance', () => {
             imports: [
                 FormsModule,
                 HttpClientTestingModule,
-                TooltipModule,
                 NgxPaginationModule,
                 PipesModule,
                 FormioModule,

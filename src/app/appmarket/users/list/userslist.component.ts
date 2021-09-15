@@ -60,7 +60,10 @@ export class UsersListComponent implements OnInit {
     }
     // sort default user list by username
     users = users.pipe(
-        map(userList => userList.sort((a, b) => a.username.localeCompare(b.username)))
+        map(userList => {
+          userList.sort((a, b) => a.username.localeCompare(b.username));
+          return userList;
+        })
     )
 
     users.subscribe((all) => {

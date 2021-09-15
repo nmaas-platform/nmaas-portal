@@ -55,7 +55,7 @@
       </li>
     </ul>
 
-    <div class="col-sm-1 button-container" tooltip="{{'APP_ACCESS_METHOD_EDIT.REMOVE_TOOLTIP' | translate}}" [display]="true" [options]="defaultTooltipOptions">
+    <div class="col-sm-1 button-container" pTooltip="{{'APP_ACCESS_METHOD_EDIT.REMOVE_TOOLTIP' | translate}}" tooltipPosition="bottom" [showDelay]="50">
       <em class="fas fa-remove icon-black icon-bigger" (click)="remove()"></em>
     </div>
 
