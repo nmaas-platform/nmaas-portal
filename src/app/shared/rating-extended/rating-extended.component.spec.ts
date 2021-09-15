@@ -4,7 +4,6 @@ import {RatingExtendedComponent} from './rating-extended.component';
 import {AppsService} from '../../service';
 import {Observable, of} from 'rxjs';
 import {Rate} from '../../model';
-import {TooltipModule} from 'ng2-tooltip-directive';
 import {HttpResponse} from '@angular/common/http';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 
@@ -26,7 +25,6 @@ describe('RatingExtendedComponent', () => {
         TestBed.configureTestingModule({
             declarations: [RatingExtendedComponent],
             imports: [
-                TooltipModule,
                 TranslateModule.forRoot({
                     loader: {
                         provide: TranslateLoader,

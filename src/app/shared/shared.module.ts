@@ -33,7 +33,6 @@ import {SortableColumnComponent} from './sortable-column/sortable-column.compone
 import {SortableTableDirective} from './sortable-column/sortable-table.directive';
 import {AppInstallModalComponent} from './modal/appinstall';
 import {RatingExtendedComponent} from './rating-extended/rating-extended.component';
-import {TooltipModule} from 'ng2-tooltip-directive';
 import {PasswordStrengthMeterModule} from 'angular-password-strength-meter';
 import {AboutComponent} from './about/about.component';
 import {ChangelogComponent} from './changelog/changelog.component';
@@ -67,7 +66,6 @@ import { PreferencesComponent } from './users/preferences/preferences.component'
         RecaptchaV3Module,
         PasswordStrengthMeterModule,
         TranslateModule.forChild(),
-        TooltipModule,
         NgxPaginationModule,
         FormioModule
     ],

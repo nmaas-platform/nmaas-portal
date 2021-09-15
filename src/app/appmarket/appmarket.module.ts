@@ -29,7 +29,6 @@ import {SortService} from '../service/sort.service';
 import {AppManagementModule} from './appmanagement/app-management.module';
 import {SessionService} from '../service/session.service';
 import {LanguageManagementModule} from './admin/languagemanagement/languagemanagement.module';
-import {TooltipModule} from 'ng2-tooltip-directive';
 import { ModalGuestUserComponent } from './modals/modal-guest-user/modal-guest-user.component';
 
 @NgModule({
@@ -57,7 +56,6 @@ import { ModalGuestUserComponent } from './modals/modal-guest-user/modal-guest-u
     ConfigurationModule,
     BrowserModule,
     HttpClientModule,
-    TooltipModule,
     TranslateModule.forChild(),
   ],
   exports: [

@@ -17,7 +17,6 @@ import {TagFilterComponent} from '../common/tagfilter/tagfilter.component';
 import {of} from 'rxjs';
 import {AppInstallModalComponent} from '../modal/appinstall';
 import {ModalComponent} from '../modal';
-import {TooltipModule} from 'ng2-tooltip-directive';
 import {Domain} from '../../model/domain';
 
 describe('ApplicationsComponent', () => {
@@ -52,7 +51,6 @@ describe('ApplicationsComponent', () => {
                   useClass: TranslateFakeLoader
               }
           }),
-          TooltipModule
       ],
       providers: [AppsService, AppSubscriptionsService, UserDataService, AppConfigService, TagService, DomainService, AppInstanceService]
     })
