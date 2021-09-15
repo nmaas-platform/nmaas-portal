@@ -15,8 +15,8 @@
     <input type="checkbox" [checked]="rulesAccepted"
            (click)="changeRulesAcceptedFlag()"> {{'APPS_WIZARD.ACCEPT_RULES_CHECKBOX' | translate}}
     <button type="button" class="btn btn-success pull-right" (click)="nextStep()" [disabled]="!rulesAccepted"
-            [display]="!rulesAccepted" tooltip="{{'APPS_WIZARD.ACCEPT_RULES_TOOLTIP' | translate}}"
-            [options]="defaultTooltipOptions">{{'APPS_WIZARD.NEXT_BUTTON' | translate}}</button>
+            [tooltipDisabled]="rulesAccepted" pTooltip="{{'APPS_WIZARD.ACCEPT_RULES_TOOLTIP' | translate}}"
+            tooltipPosition="bottom" [showDelay]="50">{{'APPS_WIZARD.NEXT_BUTTON' | translate}}</button>
 </div>
 
 <div *ngIf="activeStepIndex === 1">
@@ -34,8 +34,8 @@
                     <input type="text" id="appName" class="form-control" required
                            [(ngModel)]="applicationDTO.applicationBase.name"
                            [maxLength]="30" pattern="^[a-zA-Z0-9- ]+$" name="appName" #appName="ngModel"
-                           tooltip="{{'APPS_WIZARD.NAME_TOOLTIP' | translate}}" [display]="true"
-                           [options]="defaultTooltipOptions">
+                           pTooltip="{{'APPS_WIZARD.NAME_TOOLTIP' | translate}}"
+                           tooltipPosition="bottom" [showDelay]="50">
                 </div>
                 <div class="form-group form-group-sm" *ngIf="isInMode(ComponentMode.CREATE)"
                      [ngClass]="{'has-error':  version.invalid && (version.dirty || version.touched),
@@ -44,8 +44,8 @@
                     <br>
                     <input type="text" id="appVersion" class="form-control" required
                            [(ngModel)]="applicationDTO.application.version"
-                           name="version" #version="ngModel" tooltip="{{'APPS_WIZARD.VERSION_TOOLTIP' | translate}}"
-                           [display]="true" [options]="defaultTooltipOptions">
+                           name="version" #version="ngModel" pTooltip="{{'APPS_WIZARD.VERSION_TOOLTIP' | translate}}"
+                           tooltipPosition="bottom" [showDelay]="50">
                 </div>
                 <div class="form-group form-group-sm"
                      [ngClass]="{'has-error':  license.invalid && (license.dirty || license.touched),
@@ -54,8 +54,8 @@
                     <br>
                     <input type="text" id="appLicense" class="form-control"
                            [(ngModel)]="applicationDTO.applicationBase.license" name="license"
-                           #license="ngModel" tooltip="{{'APPS_WIZARD.LICENSE_TOOLTIP' | translate}}" [display]="true"
-                           [options]="defaultTooltipOptions">
+                           #license="ngModel" pTooltip="{{'APPS_WIZARD.LICENSE_TOOLTIP' | translate}}"
+                           tooltipPosition="bottom" [showDelay]="50">
                 </div>
                 <div class="form-group form-group-sm"
                      [ngClass]="{'has-error':  licenseUrl.invalid && (licenseUrl.dirty || licenseUrl.touched),
@@ -66,8 +66,8 @@
                     <input type="url" id="appLicenseUrl" class="form-control" [pattern]="urlPattern"
                            [(ngModel)]="applicationDTO.applicationBase.licenseUrl" name="licenseUrl"
                            #licenseUrl="ngModel"
-                           tooltip="{{'APPS_WIZARD.LICENSE_URL_TOOLTIP' | translate}}" [display]="true"
-                           [options]="defaultTooltipOptions" placeholder="e.g. https://opensource.org/licenses/MIT">
+                           pTooltip="{{'APPS_WIZARD.LICENSE_URL_TOOLTIP' | translate}}"
+                           tooltipPosition="bottom" [showDelay]="50" placeholder="e.g. https://opensource.org/licenses/MIT">
                 </div>
                 <div class="form-group form-group-sm"
                      [ngClass]="{'has-error':  wwwUrl.invalid && (wwwUrl.dirty || wwwUrl.touched),
@@ -76,8 +76,8 @@
                            class="control-label">{{'APPS_WIZARD.PROJECT_WEBSITE_LABEL' | translate}}</label>
                     <br>
                     <input type="url" id="wwwUrl" class="form-control" [pattern]="urlPattern" name="wwwUrl"
-                           #wwwUrl="ngModel" tooltip="{{'APPS_WIZARD.PROJECT_WEBSITE_TOOLTIP' | translate}}"
-                           [display]="true" [options]="defaultTooltipOptions"
+                           #wwwUrl="ngModel" pTooltip="{{'APPS_WIZARD.PROJECT_WEBSITE_TOOLTIP' | translate}}"
+                           tooltipPosition="bottom" [showDelay]="50"
                            [(ngModel)]="applicationDTO.applicationBase.wwwUrl">
                 </div>
                 <div class="form-group form-group-sm"
@@ -86,8 +86,8 @@
                     <label for="sourceUrl" class="control-label">{{'APPS_WIZARD.SOURCE_CODE_LABEL' | translate}}</label>
                     <br>
                     <input type="url" id="sourceUrl" class="form-control" [pattern]="urlPattern" name="sourceUrl"
-                           #sourceUrl="ngModel" tooltip="{{'APPS_WIZARD.SOURCE_CODE_TOOLTIP' | translate}}"
-                           [display]="true" [options]="defaultTooltipOptions"
+                           #sourceUrl="ngModel" pTooltip="{{'APPS_WIZARD.SOURCE_CODE_TOOLTIP' | translate}}"
+                           tooltipPosition="bottom" [showDelay]="50"
                            [(ngModel)]="applicationDTO.applicationBase.sourceUrl">
                 </div>
                 <div class="form-group form-group-sm"
@@ -97,8 +97,8 @@
                            class="control-label">{{'APPS_WIZARD.PROJECT_ISSUES_LABEL' | translate}}</label>
                     <br>
                     <input type="url" id="issuesUrl" class="form-control" [pattern]="urlPattern" name="issuesUrl"
-                           #issuesUrl="ngModel" tooltip="{{'APPS_WIZARD.PROJECT_ISSUES_TOOLTIP' | translate}}"
-                           [display]="true" [options]="defaultTooltipOptions"
+                           #issuesUrl="ngModel" pTooltip="{{'APPS_WIZARD.PROJECT_ISSUES_TOOLTIP' | translate}}"
+                            tooltipPosition="bottom" [showDelay]="50"
                            [(ngModel)]="applicationDTO.applicationBase.issuesUrl">
                 </div>
                 <div class="form-group form-group-sm"
@@ -109,8 +109,8 @@
                     <br>
                     <input type="url" id="nmaasDocumentationUrl" class="form-control" [pattern]="urlPattern"
                            name="nmaasDocumentationUrl" #nmaasDocumentationUrl="ngModel"
-                           tooltip="{{'APPS_WIZARD.PROJECT_NMAAS_DOCUMENTATION_TOOLTIP' | translate}}" [display]="true"
-                           [options]="defaultTooltipOptions"
+                           pTooltip="{{'APPS_WIZARD.PROJECT_NMAAS_DOCUMENTATION_TOOLTIP' | translate}}" 
+                           tooltipPosition="bottom" [showDelay]="50"
                            [(ngModel)]="applicationDTO.applicationBase.nmaasDocumentationUrl">
                 </div>
                 <div class="form-group form-group-sm">
@@ -118,8 +118,8 @@
                     <br>
                     <p-multiSelect #tagsMultiSelect id="tags" [panelStyle]="{minWidth:'25em'}" [options]="tags"
                                    [(ngModel)]="applicationDTO.applicationBase.tags" name="tags"
-                                   tooltip="{{'APPS_WIZARD.TAGS_TOOLTIP' | translate}}" placement="bottom"
-                                   show-delay="50" theme="dark" [display]="true"
+                                   pTooltip="{{'APPS_WIZARD.TAGS_TOOLTIP' | translate}}" tooltipPosition="bottom"
+                                   [showDelay]="50"
                                    [defaultLabel]="translate.instant('APPS_WIZARD.CHOOSE_LABEL')"></p-multiSelect>
                 </div>
                 <div class="form-group form-group-sm">
@@ -127,14 +127,13 @@
                     <br>
                     <p-chips class="ui-fluid" [(ngModel)]="newTags" [allowDuplicate]="false" (onAdd)="addNewTag($event)"
                              (onRemove)="removeNewTag($event)" name="newTags" id="newTags"
-                             tooltip="{{'APPS_WIZARD.NEW_TAGS_TOOLTIP' | translate}}" placement="left" show-delay="50"
-                             theme="dark" [display]="true"></p-chips>
+                             pTooltip="{{'APPS_WIZARD.NEW_TAGS_TOOLTIP' | translate}}" tooltipPosition="left" [showDelay]="50"></p-chips>
                 </div>
             </form>
         </div>
         <button type="button" class="btn btn-success pull-right" (click)="nextStep()" [disabled]="basicInfoForm.invalid"
-                [display]="basicInfoForm.invalid" tooltip="{{'APPS_WIZARD.DISABLED_NEXT_BUTTON_TOOLTIP' | translate}}"
-                [options]="defaultTooltipOptions">{{'APPS_WIZARD.NEXT_BUTTON' | translate}}</button>
+                [tooltipDisabled]="!basicInfoForm.invalid" pTooltip="{{'APPS_WIZARD.DISABLED_NEXT_BUTTON_TOOLTIP' | translate}}"
+                tooltipPosition="bottom" [showDelay]="50">{{'APPS_WIZARD.NEXT_BUTTON' | translate}}</button>
     </div>
 </div>
 
@@ -201,8 +200,8 @@
                                           name="defaultLangBriefDescription" [maxLength]="200"
                                           #defaultLangBriefDescription="ngModel" required
                                           [(ngModel)]="getDescriptionsInSelectedLanguage('en').briefDescription"
-                                          tooltip="{{'APPS_WIZARD.BRIEF_DESCRIPTION_TOOLTIP' | translate}}"
-                                          [display]="true" [options]="defaultTooltipOptions"></textarea>
+                                          pTooltip="{{'APPS_WIZARD.BRIEF_DESCRIPTION_TOOLTIP' | translate}}"
+                                           tooltipPosition="bottom" [showDelay]="50"></textarea>
                         </div>
                     </div>
                     <div class="form-group form-group-sm" [ngClass]="{'has-error':  defaultLangFullDescription.invalid && (defaultLangFullDescription.dirty || defaultLangFullDescription.touched),
@@ -215,8 +214,8 @@
                                           name="defaultLangFullDescription" rows="10"
                                           #defaultLangFullDescription="ngModel" required
                                           [(ngModel)]="getDescriptionsInSelectedLanguage('en').fullDescription"
-                                          tooltip="{{'APPS_WIZARD.FULL_DESCRIPTION_TOOLTIP' | translate}}"
-                                          [display]="true" [options]="defaultTooltipOptions"></textarea>
+                                          pTooltip="{{'APPS_WIZARD.FULL_DESCRIPTION_TOOLTIP' | translate}}"
+                                           tooltipPosition="bottom" [showDelay]="50"></textarea>
                         </div>
                     </div>
                 </div>
@@ -231,8 +230,8 @@
                         <br>
                         <p-multiSelect [panelStyle]="{minWidth:'15em'}" [options]="languages"
                                        [(ngModel)]="selectedLanguages" id="optionalLangs" name="optionalLangs"
-                                       tooltip="{{'APPS_WIZARD.OPTIONAL_LANGS_TOOLTIP' | translate}}" placement="bottom"
-                                       show-delay="50" theme="dark" [display]="true"></p-multiSelect>
+                                       pTooltip="{{'APPS_WIZARD.OPTIONAL_LANGS_TOOLTIP' | translate}}" tooltipPosition="bottom"
+                                       [showDelay]="50" ></p-multiSelect>
                     </div>
                     <div *ngFor="let lang of selectedLanguages;let i=index">
                         <hr>
@@ -247,8 +246,8 @@
                                 <textarea class="form-control" id="briefDescription-{{i}}" name="briefDescription-{{i}}"
                                           [maxLength]="200"
                                           [(ngModel)]="getDescriptionsInSelectedLanguage(lang).briefDescription"
-                                          tooltip="{{'APPS_WIZARD.BRIEF_DESCRIPTION_TOOLTIP' | translate}}"
-                                          [display]="true" [options]="defaultTooltipOptions"></textarea>
+                                          pTooltip="{{'APPS_WIZARD.BRIEF_DESCRIPTION_TOOLTIP' | translate}}"
+                                           tooltipPosition="bottom" [showDelay]="50"></textarea>
                             </div>
                         </div>
                         <div class="form-group form-group-sm">
@@ -258,8 +257,8 @@
                                 <textarea class="form-control" id="fullDescription-{{i}}" name="fullDescription-{{i}}"
                                           rows="10"
                                           [(ngModel)]="getDescriptionsInSelectedLanguage(lang).fullDescription"
-                                          tooltip="{{'APPS_WIZARD.FULL_DESCRIPTION_TOOLTIP' | translate}}"
-                                          [display]="true" [options]="defaultTooltipOptions"></textarea>
+                                          pTooltip="{{'APPS_WIZARD.FULL_DESCRIPTION_TOOLTIP' | translate}}"
+                                           tooltipPosition="bottom" [showDelay]="50"></textarea>
                             </div>
                         </div>
                     </div>
@@ -267,9 +266,9 @@
             </div>
         </form>
         <button type="button" class="btn btn-success pull-right" (click)="nextStep()"
-                [disabled]="descriptionForm.invalid" [display]="descriptionForm.invalid"
-                tooltip="{{'APPS_WIZARD.DISABLED_NEXT_BUTTON_TOOLTIP' | translate}}"
-                [options]="defaultTooltipOptions">{{'APPS_WIZARD.NEXT_BUTTON' | translate}}</button>
+                [disabled]="descriptionForm.invalid" [tooltipDisabled]="!descriptionForm.invalid"
+                pTooltip="{{'APPS_WIZARD.DISABLED_NEXT_BUTTON_TOOLTIP' | translate}}"
+                tooltipPosition="bottom" [showDelay]="50">{{'APPS_WIZARD.NEXT_BUTTON' | translate}}</button>
     </div>
 </div>
 
@@ -290,8 +289,8 @@
                            name="kubernetesTemplateChartName" #kubernetesTemplateChartName="ngModel"
                            [(ngModel)]="applicationDTO.application.appDeploymentSpec.kubernetesTemplate.chart.name"
                            required
-                           tooltip="{{'APPS_WIZARD.CHART_NAME_TOOLTIP' | translate}}" [display]="true"
-                           [options]="defaultTooltipOptions">
+                           pTooltip="{{'APPS_WIZARD.CHART_NAME_TOOLTIP' | translate}}" 
+                           tooltipPosition="bottom" [showDelay]="50">
                 </div>
                 <div class="form-group form-group-sm">
                     <label for="kubernetesTemplateChartVersion"
@@ -301,15 +300,15 @@
                            name="kubernetesTemplateChartVersion"
                            [(ngModel)]="applicationDTO.application.appDeploymentSpec.kubernetesTemplate.chart.version"
                            required
-                           tooltip="{{'APPS_WIZARD.CHART_VERSION_TOOLTIP' | translate}}" [display]="true"
-                           [options]="defaultTooltipOptions">
+                           pTooltip="{{'APPS_WIZARD.CHART_VERSION_TOOLTIP' | translate}}" 
+                           tooltipPosition="bottom" [showDelay]="50">
                 </div>
                 <div class="form-group form-group-sm">
                     <label for="kubernetesTemplateHelmChartRepositoryName" class="control-label">{{'APPS_WIZARD.HELM_CHART_REPOSITORY_NAME_LABEL' | translate}}</label>
                     <br>
                     <input type="text" class="form-control" id="kubernetesTemplateHelmChartRepositoryName" name="kubernetesTemplateHelmChartRepositoryName" pattern="[A-Za-z-]{1,14}"
                            [disabled]="true" [value]="applicationDTO.application.appDeploymentSpec.kubernetesTemplate.helmChartRepository.name || ''"
-                           tooltip="{{'APPS_WIZARD.HELM_CHART_REPOSITORY_NAME_TOOLTIP' | translate}}" [display]="true" [options]="defaultTooltipOptions">
+                           pTooltip="{{'APPS_WIZARD.HELM_CHART_REPOSITORY_NAME_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50">
                 </div>
                 <div class="form-group form-group-sm">
                     <label for="kubernetesTemplateHelmChartRepositoryUrl" class="control-label">{{'APPS_WIZARD.HELM_CHART_REPOSITORY_URL_LABEL' | translate}}</label>
@@ -317,7 +316,7 @@
                     <input type="url" class="form-control" id="kubernetesTemplateHelmChartRepositoryUrl" name="kubernetesTemplateHelmChartRepositoryUrl"
                            [(ngModel)]="applicationDTO.application.appDeploymentSpec.kubernetesTemplate.helmChartRepository.url"
                            (ngModelChange)="handleHelmChartRepositoryUrlInput($event)"
-                           tooltip="{{'APPS_WIZARD.HELM_CHART_REPOSITORY_URL_TOOLTIP' | translate}}" [display]="true" [options]="defaultTooltipOptions">
+                           pTooltip="{{'APPS_WIZARD.HELM_CHART_REPOSITORY_URL_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50">
                 </div>
                 <div class="form-group form-group-sm">
                     <label for="kubernetesTemplateMainDeploymentName"
@@ -326,8 +325,8 @@
                     <input type="text" class="form-control" id="kubernetesTemplateMainDeploymentName"
                            name="kubernetesTemplateMainDeploymentName"
                            [(ngModel)]="applicationDTO.application.appDeploymentSpec.kubernetesTemplate.mainDeploymentName"
-                           tooltip="{{'APPS_WIZARD.MAIN_DEPLOYMENT_NAME_TOOLTIP' | translate}}" [display]="true"
-                           [options]="defaultTooltipOptions">
+                           pTooltip="{{'APPS_WIZARD.MAIN_DEPLOYMENT_NAME_TOOLTIP' | translate}}" 
+                           tooltipPosition="bottom" [showDelay]="50">
                 </div>
                 <div class="form-group form-group-sm">
                     <label for="exposesWebUI" style="text-align: left; padding-left: 0;"
@@ -335,8 +334,8 @@
                     <div class="col-sm-10">
                         <input type="checkbox" id="exposesWebUI" name="exposesWebUI" [defaultChecked]="false"
                                [(ngModel)]="applicationDTO.application.appDeploymentSpec.exposesWebUI"
-                               tooltip="{{'APPS_WIZARD.EXPOSE_WEB_UI_TOOLTIP' | translate}}" [display]="true"
-                               [options]="defaultTooltipOptions">
+                               pTooltip="{{'APPS_WIZARD.EXPOSE_WEB_UI_TOOLTIP' | translate}}" 
+                               tooltipPosition="bottom" [showDelay]="50">
                     </div>
                 </div>
 
@@ -346,8 +345,8 @@
                     <div class="col-sm-10">
                         <input type="checkbox" id="allowSshAccess" name="allowSshAccess" [defaultChecked]="false"
                                [(ngModel)]="applicationDTO.application.appDeploymentSpec.allowSshAccess"
-                               tooltip="{{'APPS_WIZARD.ALLOW_SSH_ACCESS_TOOLTIP' | translate}}" [display]="true"
-                               [options]="defaultTooltipOptions">
+                               pTooltip="{{'APPS_WIZARD.ALLOW_SSH_ACCESS_TOOLTIP' | translate}}" 
+                               tooltipPosition="bottom" [showDelay]="50">
                     </div>
                 </div>
 
@@ -404,8 +403,8 @@
         </form>
     </div>
     <button type="button" class="btn btn-success pull-right" [disabled]="appDeploymentForm.invalid" (click)="nextStep()"
-            [display]="appDeploymentForm.invalid" tooltip="{{'APPS_WIZARD.DISABLED_NEXT_BUTTON_TOOLTIP' | translate}}"
-            [options]="defaultTooltipOptions">{{'APPS_WIZARD.NEXT_BUTTON' | translate}} </button>
+            [tooltipDisabled]="!appDeploymentForm.invalid" pTooltip="{{'APPS_WIZARD.DISABLED_NEXT_BUTTON_TOOLTIP' | translate}}"
+            tooltipPosition="bottom" [showDelay]="50">{{'APPS_WIZARD.NEXT_BUTTON' | translate}} </button>
 </div>
 
 <div *ngIf="isInMode(ComponentMode.CREATE) && activeStepIndex === 5">
@@ -425,9 +424,9 @@
                                    (change)="changeDefaultElementInForms()"
                                    [defaultChecked]="false"
                                    [(ngModel)]="applicationDTO.application.appConfigurationSpec.configFileRepositoryRequired"
-                                   tooltip="{{'APPS_WIZARD.REPOSITORY_REQUIRED_TOOLTIP' | translate}}"
-                                   [display]="true"
-                                   [options]="defaultTooltipOptions">
+                                   pTooltip="{{'APPS_WIZARD.REPOSITORY_REQUIRED_TOOLTIP' | translate}}"
+                                   
+                                   tooltipPosition="bottom" [showDelay]="50">
                         </div>
                     </div>
                     <div class="form-group form-group-sm">
@@ -445,9 +444,9 @@
                             <input type="checkbox" id="basicAuth" name="basicAuth" (change)="changeBasicAuthInForms()"
                                    [defaultChecked]="hasAlreadyBasicAuth()"
                                    [(ngModel)]="basicAuth"
-                                   tooltip="{{'APPS_WIZARD.BASIC_AUTH_TOOLTIP' | translate}}"
-                                   [display]="true"
-                                   [options]="defaultTooltipOptions">
+                                   pTooltip="{{'APPS_WIZARD.BASIC_AUTH_TOOLTIP' | translate}}"
+                                   
+                                   tooltipPosition="bottom" [showDelay]="50">
                         </div>
                     </div>
                     <div class="form-group form-group-sm">
@@ -456,9 +455,9 @@
                         <div class="col-sm-10">
                             <input type="checkbox" id="termsAcceptance" name="termsAcceptance"
                                    [(ngModel)]="applicationDTO.application.appConfigurationSpec.termsAcceptanceRequired"
-                                   tooltip="{{'APPS_WIZARD.TERMS_ACCEPTANCE_TOOLTIP' | translate}}"
-                                   [display]="true"
-                                   [options]="defaultTooltipOptions">
+                                   pTooltip="{{'APPS_WIZARD.TERMS_ACCEPTANCE_TOOLTIP' | translate}}"
+                                   
+                                   tooltipPosition="bottom" [showDelay]="50">
                         </div>
                     </div>
                     <div class="form-group form-group-sm" *ngIf="termsAcceptance">
@@ -467,8 +466,8 @@
                         <div class="col-sm-10">
                             <textarea id="termsContent" name="termsContent" class="form-control" rows="7"
                                       [(ngModel)]="termsContent"
-                                      tooltip="{{'APPS_WIZARD.TERMS_CONTENT_TOOLTIP' | translate}}" [display]="true"
-                                      [options]="defaultTooltipOptions"></textarea>
+                                      pTooltip="{{'APPS_WIZARD.TERMS_CONTENT_TOOLTIP' | translate}}" 
+                                      tooltipPosition="bottom" [showDelay]="50"></textarea>
                             <button role="button" class="btn btn-success" (click)="changeTermsAcceptanceInForms()">{{'APPS_WIZARD.TERMS_CONTENT_BUTTON' | translate}}</button>
                         </div>
                     </div>
@@ -489,8 +488,8 @@
                                        name="configFileName-{{i}}" #configFileName="ngModel"
                                        [(ngModel)]="configTemplate.configFileName"
                                        [required]="isInMode(ComponentMode.EDIT)"
-                                       tooltip="{{'APPS_WIZARD.CONFIG_FILENAME_TOOLTIP' | translate}}" [display]="true"
-                                       [options]="defaultTooltipOptions">
+                                       pTooltip="{{'APPS_WIZARD.CONFIG_FILENAME_TOOLTIP' | translate}}" 
+                                       tooltipPosition="bottom" [showDelay]="50">
                             </div>
 
                             <div class="form-group form-group-sm" [ngClass]="{'has-error':  configFileDirectory.invalid && (configFileDirectory.dirty || configFileDirectory.touched),
@@ -501,8 +500,8 @@
                                 <input type="text" class="form-control" id="configFileDirectory-{{i}}"
                                        name="configFileDirectory-{{i}}" #configFileDirectory="ngModel"
                                        [(ngModel)]="configTemplate.configFileDirectory"
-                                       tooltip="{{'APPS_WIZARD.CONFIG_FILEDIRECTORY_TOOLTIP' | translate}}"
-                                       [display]="true" [options]="defaultTooltipOptions">
+                                       pTooltip="{{'APPS_WIZARD.CONFIG_FILEDIRECTORY_TOOLTIP' | translate}}"
+                                        tooltipPosition="bottom" [showDelay]="50">
                             </div>
 
                             <div class="form-group form-group-sm" [ngClass]="{'has-error':  configFileTemplateContent.invalid && (configFileTemplateContent.dirty || configFileTemplateContent.touched),
@@ -518,8 +517,8 @@
                                           rows="6"
                                           [(ngModel)]="configTemplate.configFileTemplateContent"
                                           [required]="isInMode(ComponentMode.EDIT)"
-                                          tooltip="{{'APPS_WIZARD.CONFIG_CONTENT_TOOLTIP' | translate}}"
-                                          [display]="true" [options]="defaultTooltipOptions"></textarea>
+                                          pTooltip="{{'APPS_WIZARD.CONFIG_CONTENT_TOOLTIP' | translate}}"
+                                           tooltipPosition="bottom" [showDelay]="50"></textarea>
                             </div>
                         </div>
                         <button type="button" class="btn btn-primary" style="margin-left: -15px;"
@@ -565,8 +564,8 @@
                         <div class="col-sm-10">
                             <input type="checkbox" id="addConfigUpdate" (change)="handleConfigTemplate()"
                                    name="addConfigUpdate" [defaultChecked]="false" [(ngModel)]="addConfigUpdate"
-                                   tooltip="{{'APPS_WIZARD.ADD_CONFIG_UPDATE_TEMPLATE_TOOLTIP' | translate}}"
-                                   [display]="true" [options]="defaultTooltipOptions">
+                                   pTooltip="{{'APPS_WIZARD.ADD_CONFIG_UPDATE_TEMPLATE_TOOLTIP' | translate}}"
+                                    tooltipPosition="bottom" [showDelay]="50">
                         </div>
                     </div>
                     <div *ngIf="addConfigUpdate && applicationDTO.application.configUpdateWizardTemplate.template">
@@ -593,8 +592,8 @@
             </div>
         </div>
         <button type="button" class="btn btn-success pull-right" [disabled]="appConfigForm.invalid" (click)="nextStep()"
-                [display]="appConfigForm.invalid" tooltip="{{'APPS_WIZARD.DISABLED_NEXT_BUTTON_TOOLTIP' | translate}}"
-                [options]="defaultTooltipOptions">{{'APPS_WIZARD.NEXT_BUTTON' | translate}} </button>
+                [tooltipDisabled]="!appConfigForm.invalid" pTooltip="{{'APPS_WIZARD.DISABLED_NEXT_BUTTON_TOOLTIP' | translate}}"
+                tooltipPosition="bottom" [showDelay]="50">{{'APPS_WIZARD.NEXT_BUTTON' | translate}} </button>
     </div>
 </div>
 

@@ -54,6 +54,7 @@ import {ModalProvideSshKeyComponent} from './modal/modal-provide-ssh-key/modal-p
 import { ContactComponent } from './contact/contact.component';
 import {FormioModule} from 'angular-formio';
 import { PreferencesComponent } from './users/preferences/preferences.component';
+import {TooltipModule} from 'primeng/tooltip';
 
 @NgModule({
     imports: [
@@ -67,7 +68,8 @@ import { PreferencesComponent } from './users/preferences/preferences.component'
         PasswordStrengthMeterModule,
         TranslateModule.forChild(),
         NgxPaginationModule,
-        FormioModule
+        FormioModule,
+        TooltipModule
     ],
     declarations: [
         RateComponent,

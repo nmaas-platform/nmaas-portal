@@ -20,28 +20,28 @@
                     <div class="text-muted" style="font-size: small;">
                         {{app?.application.version ? 'v.' + app?.application.version : 'None'}}
                         |
-                        <span tooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
-                              [options]="defaultTooltipOptions" [display]="!app?.applicationBase.licenseUrl">
+                        <span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
+                              tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="!!app?.applicationBase.licenseUrl">
 							<a class="{{app?.applicationBase.licenseUrl ? '' : 'disabled-url'}}"
                                [href]="app?.applicationBase.licenseUrl"
                                target="_blank">{{app?.applicationBase.license || 'License'}}</a>
 						</span>
                         |
-                        <span tooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
-                              [options]="defaultTooltipOptions" [display]="!app?.applicationBase.wwwUrl">
+                        <span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
+                              tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="!!app?.applicationBase.wwwUrl">
 							<a class="{{app?.applicationBase.wwwUrl ? '' : 'disabled-url'}}"
                                [href]="app?.applicationBase.wwwUrl">WWW</a>
 						</span>
                         |
-                        <span tooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
-                              [options]="defaultTooltipOptions" [display]="!app?.applicationBase.sourceUrl">
+                        <span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
+                              tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="!!app?.applicationBase.sourceUrl">
 							<a class="{{app?.applicationBase.sourceUrl ? '' : 'disabled-url'}}"
                                [href]="app?.applicationBase.sourceUrl"
                                target="_blank">{{'APP_INSTANCE.SOURCE' | translate}}</a>
 						</span>
                         |
-                        <span tooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
-                              [options]="defaultTooltipOptions" [display]="!app?.applicationBase.issuesUrl">
+                        <span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
+                              tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="!!app?.applicationBase.issuesUrl">
 							<a class="{{app?.applicationBase.issuesUrl ? '' : 'disabled-url'}}"
                                [href]="app?.applicationBase.issuesUrl"
                                target="_blank">{{'APP_INSTANCE.ISSUES' | translate}}</a>

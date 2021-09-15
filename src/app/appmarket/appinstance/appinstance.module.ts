@@ -26,6 +26,7 @@ import { AppInstanceShellViewComponent } from './appinstance-shell-view/appinsta
 import { AddMembersModalComponent } from './modals/add-members-modal/add-members-modal.component';
 import {MultiSelectModule} from 'primeng/multiselect';
 import { SelectPodModalComponent } from './modals/select-pod-modal/select-pod-modal.component';
+import {TooltipModule} from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { SelectPodModalComponent } from './modals/select-pod-modal/select-pod-mo
         TranslateModule.forChild(),
         NgTerminalModule,
         MultiSelectModule,
+        TooltipModule,
     ],
   exports: [
     AppInstanceComponent,

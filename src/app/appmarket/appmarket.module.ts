@@ -30,6 +30,7 @@ import {AppManagementModule} from './appmanagement/app-management.module';
 import {SessionService} from '../service/session.service';
 import {LanguageManagementModule} from './admin/languagemanagement/languagemanagement.module';
 import { ModalGuestUserComponent } from './modals/modal-guest-user/modal-guest-user.component';
+import {TooltipModule} from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { ModalGuestUserComponent } from './modals/modal-guest-user/modal-guest-u
     BrowserModule,
     HttpClientModule,
     TranslateModule.forChild(),
+    TooltipModule,
   ],
   exports: [
     AppMarketComponent,

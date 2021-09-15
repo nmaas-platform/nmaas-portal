@@ -13,23 +13,23 @@
 					<h2 style="margin-bottom: 4px;">{{app?.name}}</h2>
 					<rate [showVotes]="true" [short]="true" [pathUrl]="getPathUrl(appId)"></rate>
 					<div class="text-muted" style="font-size: small;">
-						<span tooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}" [options]="linksTooltipOptions" [display]="app?.versions.length == 0">
+						<span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="app?.versions.length !== 0">
 							<a class="{{app?.versions.length > 0 ? '' : 'disabled-url'}}" style="cursor: pointer;" (click)="showVersions()">{{'APP_INSTANCE.SHOW_VERSIONS_LABEL' | translate }}</a>
 						</span>
 						|
-						<span tooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}" [options]="linksTooltipOptions" [display]="!app?.licenseUrl">
+						<span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="!!app?.licenseUrl">
 							<a class="{{app?.licenseUrl ? '' : 'disabled-url'}}" [href]="getValidLink(app?.licenseUrl)" target="_blank">{{app?.license || 'License'}}</a>
 						</span>
 						|
-						<span tooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}" [options]="linksTooltipOptions" [display]="!app?.wwwUrl">
+						<span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="!!app?.wwwUrl">
 							<a class="{{app?.wwwUrl ? '' : 'disabled-url'}}" [href]="getValidLink(app?.wwwUrl)">WWW</a>
 						</span>
 						|
-						<span tooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}" [options]="linksTooltipOptions" [display]="!app?.sourceUrl">
+						<span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="!!app?.sourceUrl">
 							<a class="{{app?.sourceUrl ? '' : 'disabled-url'}}" [href]="getValidLink(app?.sourceUrl)" target="_blank">{{'APP_INSTANCE.SOURCE' | translate}}</a>
 						</span>
 						|
-						<span tooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}" [options]="linksTooltipOptions" [display]="!app?.issuesUrl">
+						<span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="!!app?.issuesUrl">
 							<a class="{{app?.issuesUrl ? '' : 'disabled-url'}}" [href]="getValidLink(app?.issuesUrl)" target="_blank">{{'APP_INSTANCE.ISSUES' | translate}}</a>
 						</span>
 					</div>
@@ -58,11 +58,11 @@
 <!--			block the button until app and domain are downloaded to load proper tooltip state-->
 			<div class="row" *ngIf="app && domain">
 				<div *ngIf="!subscribed && isSubscriptionAllowed()" class="btn-group pull-right"
-					 tooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_SUBSCRIBE' | translate}}" [options]="defaultTooltipOptions">
+					 pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_SUBSCRIBE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="defaultTooltipDisabled">
 					<button class="btn btn-primary" [disabled]="!active || !isApplicationEnabledInDomain()" (click)="subscribe()">{{'APPLICATIONS.SUBSCRIBE_BUTTON' | translate}}</button>
 				</div>
 				<div *ngIf="subscribed" class="btn-group pull-right" >
-					<div class="btn no-padding" tooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_DEPLOY' | translate}}" [options]="defaultTooltipOptions">
+					<div class="btn no-padding" pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_DEPLOY' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="defaultTooltipDisabled">
 						<button *ngIf="isDeploymentAllowed()" class="btn btn-primary first-button-substitute" [disabled]="!isApplicationEnabledInDomain()" (click)="appInstallModal.show()">{{'APPLICATIONS.DEPLOY_BUTTON' | translate}}</button>
 					</div>
 					<button *ngIf="isSubscriptionAllowed()" class="btn btn-danger" (click)="unsubscribe()">{{'APPLICATIONS.UNSUBSCRIBE_BUTTON' | translate}}</button>
