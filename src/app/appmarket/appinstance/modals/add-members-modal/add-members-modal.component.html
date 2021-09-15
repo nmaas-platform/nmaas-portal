@@ -8,9 +8,6 @@
             <p-multiSelect [options]="selectItems" [(ngModel)]="members" filterBy="username"
                            [filterPlaceHolder]="'ADD_MEMBERS_MODAL.FILTER_PLACEHOLDER' | translate" [panelStyle]="{minWidth:'25em'}"
                            [overlayVisible]="true">
-<!--                <ng-template let-m pTemplate="item">-->
-<!--                    <span>{{(m.value.firstname != '' && m.value.lastname != '') ? m.value.firstname + ' ' + m.value.lastname : m.value.username}}</span>-->
-<!--                </ng-template>-->
             </p-multiSelect>
         </div>
 
