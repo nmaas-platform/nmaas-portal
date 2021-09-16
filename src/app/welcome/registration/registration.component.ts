@@ -5,14 +5,14 @@ import {AppConfigService} from '../../service/appconfig.service';
 import {PasswordValidator} from '../../shared/common/password/password.component';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {ModalInfoTermsComponent} from '../../shared/modal/modal-info-terms/modal-info-terms.component';
 import {ModalInfoPolicyComponent} from '../../shared/modal/modal-info-policy/modal-info-policy.component';
 import {ModalComponent} from '../../shared/modal';
 
 import {PasswordStrengthMeterComponent} from 'angular-password-strength-meter';
 import {TranslateService} from '@ngx-translate/core';
-import {map} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {ReCaptchaV3Service} from 'ng-recaptcha';
 
 @Component({
@@ -76,7 +76,9 @@ export class RegistrationComponent implements OnInit {
   }
 
   public onSubmit(): void {
-      this.recaptchaV3Service.execute('registration').subscribe((captchaToken) => {
+      this.recaptchaV3Service.execute('registration').pipe(
+          catchError(_ => of('')), // in case of captcha error return empty token
+      ).subscribe((captchaToken) => {
           if (!this.registrationForm.controls['termsOfUseAccepted'].value
               || !this.registrationForm.controls['privacyPolicyAccepted'].value) {
               this.sending = false;
