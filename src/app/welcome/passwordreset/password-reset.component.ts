@@ -7,6 +7,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PasswordValidator} from '../../shared';
 import {PasswordStrengthMeterComponent} from 'angular-password-strength-meter';
 import {ReCaptchaV3Service} from 'ng-recaptcha';
+import {catchError} from 'rxjs/operators';
+import {of} from 'rxjs';
 
 @Component({
     selector: 'app-passwordreset',
@@ -53,7 +55,9 @@ export class PasswordResetComponent implements OnInit {
 
     public resetPassword() {
         if (this.form.valid) {
-            this.recaptchaV3Service.execute('password_reset').subscribe((captchaToken) => {
+            this.recaptchaV3Service.execute('password_reset').pipe(
+                catchError(_ => of('')), // in case of captcha error return empty token
+            ).subscribe((captchaToken) => {
                 this.passwordReset.password = this.form.controls['newPassword'].value;
                 this.passwordReset.token = this.token;
                 this.userService.resetPassword(this.passwordReset, captchaToken).subscribe(
