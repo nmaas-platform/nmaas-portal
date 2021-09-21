@@ -42,7 +42,7 @@
           </span>
         </td>
       </tr>
-      <ng-template ngFor let-version [ngForOf]="app.versions">
+      <ng-template ngFor let-version [ngForOf]="app.versions.sort(appVersionCompare)">
         <tr *ngIf="versionRowVisible[i]" class="table-row" [routerLink]="['/admin/apps/edit/version', version?.appVersionId]">
           <td></td>
           <td></td>

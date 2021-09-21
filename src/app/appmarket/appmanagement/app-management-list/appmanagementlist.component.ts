@@ -7,6 +7,7 @@ import {AppChangeStateModalComponent} from '../app-change-state-modal/appchanges
 import {ApplicationVersion} from '../../../model/application-version';
 import {map} from 'rxjs/operators';
 import {ApplicationBase} from '../../../model/application-base';
+import * as semver from 'semver'
 
 @Component({
     selector: 'nmaas-appmanagementlist',
@@ -75,6 +76,11 @@ export class AppManagementListComponent implements OnInit {
             return false;
         }
         return this.versionRowVisible.reduce((prev: boolean, curr: boolean, i: number, array: boolean[]) => prev && curr);
+    }
+
+    public appVersionCompare(a: ApplicationVersion, b: ApplicationVersion): number {
+        // defaults version that cannot be parsed to `0.0.0`
+        return semver.compare(semver.coerce(a.version) || '0.0.0', semver.coerce(b.version) || '0.0.0')
     }
 
 }
