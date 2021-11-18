@@ -8,10 +8,12 @@ export class AppInstanceRequest {
 
   public applicationId: number = undefined;
   public name: string = undefined;
+  public autoUpgradesEnabled: boolean = false;
 
-  constructor(applicationId?: number, name?: string) {
+  constructor(applicationId?: number, name?: string, autoUpgradesEnabled?: boolean) {
     this.applicationId = applicationId;
     this.name = name;
+    this.autoUpgradesEnabled = autoUpgradesEnabled;
   }
 
 }
@@ -26,6 +28,7 @@ export class AppInstance {
   public name: string = undefined;
   public createdAt: Date = undefined;
   public owner: User = undefined;
+  public autoUpgradesEnabled: boolean = false;
   public configuration: string = undefined;
   public state: AppInstanceState = undefined;
   public userFriendlyState = undefined;
