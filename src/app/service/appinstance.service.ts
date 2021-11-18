@@ -62,8 +62,8 @@ export class AppInstanceService extends GenericDataService {
     return this.get<AppInstanceStateHistory[]>(this.getUrl() + id + '/state/history');
   }
 
-  public createAppInstance(domainId: number, appId: number, name: string): Observable<Id> {
-    return this.post<AppInstanceRequest, Id>(this.getUrl() + 'domain/' + domainId, new AppInstanceRequest(appId, name));
+  public createAppInstance(domainId: number, appId: number, name: string, autoUpgradesEnabled: boolean): Observable<Id> {
+    return this.post<AppInstanceRequest, Id>(this.getUrl() + 'domain/' + domainId, new AppInstanceRequest(appId, name, autoUpgradesEnabled));
   }
 
   public removeAppInstance(appInstanceId: number): Observable<any> {

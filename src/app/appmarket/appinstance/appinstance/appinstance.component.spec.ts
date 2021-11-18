@@ -188,6 +188,7 @@ describe('Component: AppInstance', () => {
         id: 1,
         internalId: 'eccbaf70-7fdd-401a-bb3e-b8659bcfbdff',
         name: 'oxi-virt-1',
+        autoUpgradesEnabled: true,
         owner: {
             id: 1, username: 'admin', enabled: true,
             firstname: null, lastname: null,
@@ -347,6 +348,5 @@ describe('Component: AppInstance', () => {
         expect(component.appInstanceStatus).toBeDefined();
         expect(component.appInstanceStatus.state).toEqual(AppInstanceState.RUNNING);
     });
-
 
 });

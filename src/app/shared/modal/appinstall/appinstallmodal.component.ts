@@ -30,6 +30,7 @@ export class AppInstallModalComponent implements OnInit {
     domainId: number;
     domainName: string;
     selectedAppVersion: number;
+    autoUpgradesEnabled: boolean;
     error: string;
 
     public clicked = false;
@@ -46,12 +47,13 @@ export class AppInstallModalComponent implements OnInit {
         this.selectedAppVersion = this.app.versions[0].appVersionId;
         this.domainId = this.domain.id;
         this.domainName = this.domain.name;
+        this.autoUpgradesEnabled = false;
     }
 
     public create(): void {
         if (this.domainId && this.app && this.app.id && !this.clicked) {
             this.clicked = true // block another method invocation
-            this.appInstanceService.createAppInstance(this.domainId, this.selectedAppVersion, this.name).subscribe(
+            this.appInstanceService.createAppInstance(this.domainId, this.selectedAppVersion, this.name, this.autoUpgradesEnabled).subscribe(
                 instanceId => {
                     this.modal.hide();
                     this.router.navigate(['/instances', instanceId.id]);
