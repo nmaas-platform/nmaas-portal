@@ -438,8 +438,8 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     public enableAutoUpgrades(): void {
         if (this.appInstanceId) {
             this.appInstanceService.updateAutoUpgrades(this.appInstanceId, true).subscribe(() => {
-                console.log('Auto upgrades enabled')                                                           ;
-                this.router.navigate(['/instances/' + this.appInstanceId])
+                console.log('Auto upgrades enabled');
+                this.updateAppInstance();
             });
         }
     }
@@ -448,7 +448,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         if (this.appInstanceId) {
             this.appInstanceService.updateAutoUpgrades(this.appInstanceId, false).subscribe(() => {
                 console.log('Auto upgrades disabled');
-                this.router.navigate(['/instances/' + this.appInstanceId]);
+                this.updateAppInstance();
             });
         }
     }
