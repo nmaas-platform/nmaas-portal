@@ -66,6 +66,12 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     @ViewChild('removeConfirm')
     public removeConfirmModal: ModalComponent;
 
+    @ViewChild('enableAutoUpgradesConfirm')
+    public enableAutoUpgradesModal: ModalComponent;
+
+    @ViewChild('disableAutoUpgradesConfirm')
+    public disableAutoUpgradesModal: ModalComponent;
+
     @ViewChild(AccessMethodsModalComponent)
     public accessMethodsModal: AccessMethodsModalComponent;
 
@@ -426,6 +432,18 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     public undeploy(): void {
         if (this.appInstanceId) {
             this.appInstanceService.removeAppInstance(this.appInstanceId).subscribe(() => this.router.navigate(['/instances']));
+        }
+    }
+
+    public enableAutoUpgrades(): void {
+        if (this.appInstanceId) {
+            this.appInstanceService.updateAutoUpgrades(this.appInstanceId, true).subscribe(() => console.log('Auto upgrades enabled'));                                                                               ;
+        }
+    }
+
+    public disableAutoUpgrades(): void {
+        if (this.appInstanceId) {
+            this.appInstanceService.updateAutoUpgrades(this.appInstanceId, false).subscribe(() => console.log('Auto upgrades disabled'));
         }
     }
 

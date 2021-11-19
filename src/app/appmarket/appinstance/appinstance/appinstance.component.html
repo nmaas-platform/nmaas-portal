@@ -130,6 +130,16 @@
                                     {{'APP_INSTANCE.UNDEPLOY_BUTTON' | translate}}
                                 </a>
                             </li>
+                            <li *ngIf="!appInstance.autoUpgradesEnabled">
+                                <a role="button" (click)="this.enableAutoUpgradesModal.show()">
+                                    {{'APP_INSTANCE.ENABLE_AUTO_UPGRADES_BUTTON' | translate}}
+                                </a>
+                            </li>
+                            <li *ngIf="appInstance.autoUpgradesEnabled">
+                                <a role="button" (click)="this.disableAutoUpgradesModal.show()">
+                                    {{'APP_INSTANCE.DISABLE_AUTO_UPGRADES_BUTTON' | translate}}
+                                </a>
+                            </li>
                         </ul>
                     </div>
 
@@ -330,6 +340,37 @@
         </div>
     </nmaas-modal>
 
+    <!-- Enable automatic upgrades Confirm -->
+    <nmaas-modal styleModal="info" #enableAutoUpgradesConfirm>
+        <div class="nmaas-modal-header">
+            <h4>{{'ENABLE_AUTO_UPGRADES_MODAL.HEADER' | translate}}</h4>
+        </div>
+        <div class="nmaas-modal-body">
+            {{'ENABLE_AUTO_UPGRADES_MODAL.BODY' | translate}}
+        </div>
+        <div class="nmaas-modal-footer">
+            <button type="button" class="btn btn-primary"
+                    (click)="enableAutoUpgrades(); enableAutoUpgradesConfirm.hide()">{{'ENABLE_AUTO_UPGRADES_MODAL.OK_BUTTON' | translate}}</button>
+            <button type="button" class="btn btn-primary"
+                    (click)="enableAutoUpgradesConfirm.hide()">{{'ENABLE_AUTO_UPGRADES_MODAL.CANCEL_BUTTON' | translate}}</button>
+        </div>
+    </nmaas-modal>
+
+    <!-- Disable automatic upgrades Confirm -->
+    <nmaas-modal styleModal="info" #disableAutoUpgradesConfirm>
+        <div class="nmaas-modal-header">
+            <h4>{{'DISABLE_AUTO_UPGRADES_MODAL.HEADER' | translate}}</h4>
+        </div>
+        <div class="nmaas-modal-body">
+            {{'DISABLE_AUTO_UPGRADES_MODAL.BODY' | translate}}
+        </div>
+        <div class="nmaas-modal-footer">
+            <button type="button" class="btn btn-primary"
+                    (click)="disableAutoUpgrades(); disableAutoUpgradesConfirm.hide()">{{'DISABLE_AUTO_UPGRADES_MODAL.OK_BUTTON' | translate}}</button>
+            <button type="button" class="btn btn-primary"
+                    (click)="disableAutoUpgradesConfirm.hide()">{{'DISABLE_AUTO_UPGRADES_MODAL.CANCEL_BUTTON' | translate}}</button>
+        </div>
+    </nmaas-modal>
 
     <!-- App abort modal -->
     <nmaas-modal-app-abort [appInstanceId]="appInstanceId"></nmaas-modal-app-abort>
