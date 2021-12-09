@@ -173,6 +173,7 @@ describe('Component: AppInstance', () => {
     const appInstance: AppInstanceExtended = {
         applicationId: 2,
         applicationName: 'Oxidized',
+        applicationVersion: '1.0.0',
         configWizardTemplate: {
             id: 1,
             template: JSON.parse('{"title": "My Test Form","components": [{"type": "textfield", "input": true, "tableView": true, "inputType": "text", "inputMask": "", "label": "First Name", "key": "firstName", "placeholder": "Enter your first name", "prefix": "", "suffix": "", "multiple": false,"defaultValue": "","protected": false,"unique": false,"persistent": true,"validate": {"required": true,"minLength": 2,"maxLength": 10,"pattern": "","custom": "","customPrivate": false},"conditional": {"show": "","when": null,"eq": ""}},{"type": "textfield","input": true,"tableView": true,"inputType": "text","inputMask": "","label": "Last Name","key": "lastName","placeholder": "Enter your last name","prefix": "","suffix": "","multiple": false,"defaultValue": "","protected": false,"unique": false,"persistent": true,"validate": {"required": true, "minLength": 2, "maxLength": 10, "pattern": "", "custom": "", "customPrivate": false}, "conditional": {"show": "", "when": null, "eq": ""}}, {"input": true, "label": "Submit", "tableView": false, "key": "submit", "size": "md", "leftIcon": "", "rightIcon": "", "block": false, "action": "submit", "disableOnInvalid": true, "theme": "primary", "type": "button"}]}')
