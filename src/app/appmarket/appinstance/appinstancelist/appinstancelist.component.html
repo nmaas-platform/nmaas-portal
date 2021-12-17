@@ -61,6 +61,7 @@
                 sort-direction="asc">{{ 'APP_INSTANCES.DEPLOYED_AT' | translate }}</th>
             <th scope="col" class="col-lg-3 col-md-3 column-sortable"
                 sortable-column="userFriendlyState">{{ 'APP_INSTANCES.STATE' | translate }}</th>
+            <th scope="col" class="col-lg-1 col-md-1"></th>
         </tr>
         </thead>
         <tbody>
@@ -77,6 +78,11 @@
                 <td class="col-lg-1 col-md-1">{{appInstance?.owner?.username}}</td>
                 <td class="col-lg-2 col-md-2">{{appInstance?.createdAt | localDate:'dd-MM-yyyy HH:mm'}}</td>
                 <td class="col-lg-3 col-md-3">{{ translateState(appInstance?.state) }}</td>
+                <td class="col-lg-1 col-md-1">
+                    <div *ngIf="appInstance?.upgradePossible">
+                        <span class="glyphicon glyphicon-circle-arrow-up"></span>
+                    </div>
+                </td>
             </tr>
         </ng-template>
         </tbody>

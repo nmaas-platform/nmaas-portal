@@ -13,8 +13,9 @@ import {AppsService} from '../../service/apps.service';
 import {AppInstanceService} from '../../service/appinstance.service';
 import {TagService} from '../../service/tag.service';
 import {AppInstanceListComponent} from './appinstancelist/appinstancelist.component';
-import {AppRestartModalComponent} from './modals/apprestart';
+import {AppRestartModalComponent} from './modals/app-restart-modal';
 import {AppAbortModalComponent} from './modals/app-abort-modal';
+import {AppUpgradeModalComponent} from './modals/app-upgrade-modal';
 import {TranslateModule} from '@ngx-translate/core';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {FormioAppConfig, FormioModule} from 'angular-formio';
@@ -34,6 +35,7 @@ import {TooltipModule} from 'primeng/tooltip';
       AppInstanceListComponent,
       AppRestartModalComponent,
       AppAbortModalComponent,
+      AppUpgradeModalComponent,
       AccessMethodsModalComponent,
       SshShellComponent,
       AppInstanceShellViewComponent,

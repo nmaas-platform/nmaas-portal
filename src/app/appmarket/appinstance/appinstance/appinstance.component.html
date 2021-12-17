@@ -140,6 +140,11 @@
                                     {{'APP_INSTANCE.DISABLE_AUTO_UPGRADES_BUTTON' | translate}}
                                 </a>
                             </li>
+                            <li *ngIf="appInstance.upgradePossible">
+                                <a role="button" (click)="this.appUpgradeModal.show()">
+                                    {{'APP_INSTANCE.UPGRADE_BUTTON' | translate}}
+                                </a>
+                            </li>
                         </ul>
                     </div>
 
@@ -378,6 +383,11 @@
     <!-- App restart modal -->
     <nmaas-modal-app-restart [appInstanceId]="appInstanceId"
                              [domainId]="appInstance?.domainId"></nmaas-modal-app-restart>
+
+    <!-- App upgrade modal -->
+    <nmaas-modal-app-upgrade [appInstanceId]="appInstanceId"
+                             [currentApplicationVersion]="appInstance?.applicationVersion"
+                             [upgradeInfo]="appInstance?.upgradeInfo"></nmaas-modal-app-upgrade>
 
     <!-- App access methods modal -->
     <app-access-methods-modal *ngIf="appInstance?.serviceAccessMethods"
