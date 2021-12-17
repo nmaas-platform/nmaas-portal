@@ -115,6 +115,10 @@ export class AppInstanceService extends GenericDataService {
     return this.post<number, any>((this.getUrl() +  appInstanceId + '/restart'), appInstanceId);
   }
 
+  public upgradeAppInstance(appInstanceId: number, targetApplicationId: number): Observable<any> {
+    return this.post<number, any>((this.getUrl() +  appInstanceId + '/upgrade/' + targetApplicationId), appInstanceId);
+  }
+
   public updateAutoUpgrades(appInstanceId: number, autoUpgradesEnabled: boolean): Observable<any> {
     if (autoUpgradesEnabled) {
       return this.post<number, any>((this.getUrl() +  appInstanceId + '/enableAutoUpgrades'), appInstanceId);

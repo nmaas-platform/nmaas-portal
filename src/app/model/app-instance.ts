@@ -18,6 +18,12 @@ export class AppInstanceRequest {
 
 }
 
+export class AppInstanceUpgradeInfo {
+  public applicationId: number = undefined;
+  public applicationVersion: String = undefined;
+  public helmChartVersion: String = undefined;
+}
+
 export class AppInstance {
 
   public id: number = undefined;
@@ -30,6 +36,7 @@ export class AppInstance {
   public createdAt: Date = undefined;
   public owner: User = undefined;
   public autoUpgradesEnabled: boolean = false;
+  public upgradePossible: boolean = false;
   public configuration: string = undefined;
   public state: AppInstanceState = undefined;
   public userFriendlyState = undefined;
@@ -39,4 +46,5 @@ export class AppInstance {
   public descriptiveDeploymentId: string = undefined;
   public appConfigRepositoryAccessDetails: AppConfigRepositoryAccessDetails = undefined;
   public members: User[] = []
+  public upgradeInfo: AppInstanceUpgradeInfo = undefined;
 }

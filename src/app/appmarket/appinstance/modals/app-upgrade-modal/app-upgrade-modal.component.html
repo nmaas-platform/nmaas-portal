@@ -1,0 +1,20 @@
+<nmaas-modal>
+    <div class="nmaas-modal-header">{{'UPGRADE_MODAL.HEADER' | translate}}</div>
+    <div class="nmaas-modal-body">
+        <div class="form-group">
+            <div>
+                <p>{{'UPGRADE_MODAL.BODY' | translate}}</p>
+            </div>
+            <div style="padding-top: 15px">
+                <p><strong>{{'UPGRADE_MODAL.CURRENT_VERSION' | translate}}: </strong>{{currentApplicationVersion}}</p>
+            </div>
+            <div style="padding-top: 15px">
+                <p><strong>{{'UPGRADE_MODAL.NEW_VERSION' | translate}}: </strong>{{upgradeInfo.applicationVersion}} ({{'UPGRADE_MODAL.HELM_CHART_VERSION' | translate}}: {{upgradeInfo.helmChartVersion}})</p>
+            </div>
+        </div>
+    </div>
+    <div class="nmaas-modal-footer">
+        <button type="button" class="btn btn-danger" (click)="upgrade()">{{'UPGRADE_MODAL.YES_BUTTON' | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="modal.hide()">{{'UPGRADE_MODAL.CANCEL_BUTTON' | translate}}</button>
+    </div>
+</nmaas-modal>

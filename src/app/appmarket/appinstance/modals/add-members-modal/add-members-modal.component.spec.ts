@@ -36,6 +36,7 @@ describe('AddMembersModalComponent', () => {
         internalId: 'eccbaf70-7fdd-401a-bb3e-b8659bcfbdff',
         name: 'oxi-virt-1',
         autoUpgradesEnabled: true,
+        upgradePossible: false,
         owner: {
             id: 1, username: 'admin', enabled: true,
             firstname: null, lastname: null,
@@ -53,7 +54,8 @@ describe('AddMembersModalComponent', () => {
         appConfigRepositoryAccessDetails: {
             cloneUrl: 'http://clone.me'
         },
-        members: []
+        members: [],
+        upgradeInfo: null
     };
 
     beforeEach(waitForAsync(() => {

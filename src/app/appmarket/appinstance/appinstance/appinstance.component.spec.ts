@@ -10,7 +10,7 @@ import {FormioModule} from 'angular-formio';
 import {AppInstanceProgressComponent} from '../appinstanceprogress';
 import {PipesModule} from '../../../pipe/pipes.module';
 import {NgxPaginationModule} from 'ngx-pagination';
-import {AppRestartModalComponent} from '../modals/apprestart';
+import {AppRestartModalComponent} from '../modals/app-restart-modal';
 import {AppAbortModalComponent} from '../modals/app-abort-modal';
 import {RouterTestingModule} from '@angular/router/testing';
 import {StorageServiceModule} from 'ngx-webstorage-service';
@@ -26,6 +26,7 @@ import {Domain} from '../../../model/domain';
 import {AccessMethodsModalComponent} from '../modals/access-methods-modal/access-methods-modal.component';
 import {ModalComponent} from '../../../shared/modal';
 import {AppInstanceExtended} from '../../../model/app-instance-extended';
+import {AppInstanceUpgradeInfo} from '../../../model/app-instance';
 import {ActivatedRoute} from '@angular/router';
 import {ShellClientService} from '../../../service/shell-client.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
@@ -190,6 +191,7 @@ describe('Component: AppInstance', () => {
         internalId: 'eccbaf70-7fdd-401a-bb3e-b8659bcfbdff',
         name: 'oxi-virt-1',
         autoUpgradesEnabled: true,
+        upgradePossible: true,
         owner: {
             id: 1, username: 'admin', enabled: true,
             firstname: null, lastname: null,
@@ -209,7 +211,12 @@ describe('Component: AppInstance', () => {
         appConfigRepositoryAccessDetails: {
             cloneUrl: 'http://clone.me'
         },
-        members: []
+        members: [],
+        upgradeInfo: {
+            applicationId: 3,
+            applicationVersion: "1.2.0",
+            helmChartVersion: "1.0.1",
+        } as AppInstanceUpgradeInfo
     };
 
     const appInstanceHistory: AppInstanceStateHistory[] = [

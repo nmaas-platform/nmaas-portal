@@ -6,8 +6,9 @@ import {AppInstanceProgressComponent} from '../appinstanceprogress';
 import {AppInstance, AppInstanceProgressStage, AppInstanceState, AppInstanceStatus} from '../../../model';
 import {AppInstanceExtended} from '../../../model/app-instance-extended';
 import {SecurePipe} from '../../../pipe';
-import {AppRestartModalComponent} from '../modals/apprestart';
+import {AppRestartModalComponent} from '../modals/app-restart-modal';
 import {AppAbortModalComponent} from '../modals/app-abort-modal';
+import {AppUpgradeModalComponent} from '../modals/app-upgrade-modal';
 import {AppInstanceStateHistory} from '../../../model/app-instance-state-history';
 import {RateComponent} from '../../../shared/rate';
 import {AppConfiguration} from '../../../model/app-configuration';
@@ -50,6 +51,9 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
 
     @ViewChild(AppRestartModalComponent)
     public appRestartModal: AppRestartModalComponent;
+
+    @ViewChild(AppUpgradeModalComponent)
+    public appUpgradeModal: AppUpgradeModalComponent;
 
     @ViewChild('undeployModal')
     public undeployModal: ModalComponent;
