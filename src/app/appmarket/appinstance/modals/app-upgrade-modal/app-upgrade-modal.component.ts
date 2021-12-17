@@ -18,10 +18,10 @@ export class AppUpgradeModalComponent implements OnInit {
     private appInstanceId: number;
 
     @Input()
-    private currentApplicationVersion: string;
+    public currentApplicationVersion: string;
 
     @Input()
-    private upgradeInfo: AppInstanceUpgradeInfo;
+    public upgradeInfo: AppInstanceUpgradeInfo;
 
     constructor(private appInstanceService: AppInstanceService) {
     }
