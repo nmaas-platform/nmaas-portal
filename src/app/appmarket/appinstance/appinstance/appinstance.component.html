@@ -125,14 +125,14 @@
                                     {{'APP_INSTANCE.RESTART_BUTTON' | translate}}
                                 </a>
                             </li>
-                            <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']">
-                                <a role="button" (click)="this.undeployModal.show()">
-                                    {{'APP_INSTANCE.UNDEPLOY_BUTTON' | translate}}
-                                </a>
-                            </li>
                             <li *ngIf="!appInstance.autoUpgradesEnabled">
                                 <a role="button" (click)="this.enableAutoUpgradesModal.show()">
                                     {{'APP_INSTANCE.ENABLE_AUTO_UPGRADES_BUTTON' | translate}}
+                                </a>
+                            </li>
+                            <li *ngIf="appInstance.upgradePossible">
+                                <a role="button" (click)="this.appUpgradeModal.show()">
+                                    {{'APP_INSTANCE.UPGRADE_BUTTON' | translate}}
                                 </a>
                             </li>
                             <li *ngIf="appInstance.autoUpgradesEnabled">
@@ -140,9 +140,9 @@
                                     {{'APP_INSTANCE.DISABLE_AUTO_UPGRADES_BUTTON' | translate}}
                                 </a>
                             </li>
-                            <li *ngIf="appInstance.upgradePossible">
-                                <a role="button" (click)="this.appUpgradeModal.show()">
-                                    {{'APP_INSTANCE.UPGRADE_BUTTON' | translate}}
+                            <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']" style="color: #ffffff; background-color: #ff0000">
+                                <a role="button" (click)="this.undeployModal.show()">
+                                    {{'APP_INSTANCE.UNDEPLOY_BUTTON' | translate}}
                                 </a>
                             </li>
                         </ul>
@@ -240,6 +240,15 @@
                                        [activeState]="getStateAsEnum(appInstanceStatus?.state)"></nmaas-appinstanceprogress>
         </div>
     </div>
+    <hr>
+
+    <!-- Show additional information checkbox -->
+    <div class="row">
+        <label>
+            {{ 'APP_INSTANCE.ADDITIONAL_INFO' | translate}}
+            <input type="checkbox" [(ngModel)]="showAppInstanceHistory">
+        </label>
+    </div>
 
     <!-- App Instance State History table -->
     <div class="row" *ngIf="this.showAppInstanceHistory && this.appInstanceStateHistory">
@@ -276,13 +285,6 @@
                              screenReaderPaginationLabel="{{ 'PAGINATION.SCREEN_READER.PAGINATION' | translate }}"
                              screenReaderPageLabel="{{ 'PAGINATION.SCREEN_READER.PAGE' | translate }}"
                              screenReaderCurrentLabel="{{ 'PAGINATION.SCREEN_READER.CURRENT' | translate }}"></pagination-controls>
-    </div>
-    <hr>
-    <div class="row">
-        <label>
-            {{ 'APP_INSTANCE.ADDITIONAL_INFO' | translate}}
-            <input type="checkbox" [(ngModel)]="showAppInstanceHistory">
-        </label>
     </div>
 
     <!-- apply config modal -->
