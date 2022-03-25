@@ -16,13 +16,13 @@ export class AppUpgradeModalComponent implements OnInit {
     public readonly modal: ModalComponent;
 
     @Input()
-    private appInstanceId: number;
+    private appInstanceId: number = undefined;
 
     @Input()
-    public currentApplicationVersion: string;
+    public currentApplicationVersion: string = undefined;
 
     @Input()
-    public upgradeInfo: AppInstanceUpgradeInfo;
+    public upgradeInfo: AppInstanceUpgradeInfo = undefined;
 
     constructor(private router: Router,
                 private appInstanceService: AppInstanceService) {
