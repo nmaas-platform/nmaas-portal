@@ -2,19 +2,6 @@
 
 ### Web-based GUI for browsing, subscription and deployment of network management applications offered by the NMaaS system
 
-### Issues
----
-As of Angular 9, there is an issue with ```ivy``` and ```ngcc```, regarding ```angular-formio```, however everything seems to be working fine.  
-See [Github Issue](https://github.com/formio/angular-formio/issues/485)
-
-The application is maintained through quite some period of time, so there are still some legacy and problematic packages (updated: 2021-09-15):
-1. `angular-formio` is basically not maintained, there is a dependency clash (it requires old angular version), it must be usually updated with `--force` flag, however it does not break (yet). In future new versions may emerge since they are present in git repository, however they are not yet deployed to `npm`. New versions will likely require angular v12. Note: `angular-formio` is very much **required**.
-2. `ngx-pagination` can be replaced with `primeng` counterpart,
-3. `ng-recaptcha` can be updated to the newest version with angular update,
-4. `angular-password-strength-meter` (probably not maintained anymore) can be replaced with `primeng` component and removed together with its dependencies (`zxcvbn`, `zxcvbn3`),
-5. `bootstrap` - project uses `bootstrap v3` however updating bootstrap **is not advised**,
-6. There are other packages, that are deprecated, e.g. `codelyzer`. However, they *should* not cause much harm.
-
 ### Technologies
 ---
 
@@ -68,3 +55,16 @@ Admin user:
 ### Building and uploading NMaaS Portal Docker image
 ---
 In order to build the NMaaS Portal Docker image first alter the `build_and_publish.sh` script with custom REPOSITORY, PACKAGE and TAG values and execute `build_and_publish.sh` to automatically build and publish `nmaas-portal` image to selected Docker repository.
+
+### Issues
+---
+As of Angular 9, there is an issue with ```ivy``` and ```ngcc```, regarding ```angular-formio```, however everything seems to be working fine.  
+See [Github Issue](https://github.com/formio/angular-formio/issues/485)
+
+The application is maintained through quite some period of time, so there are still some legacy and problematic packages (updated: 2021-09-15):
+1. `angular-formio` is basically not maintained, there is a dependency clash (it requires old angular version), it must be usually updated with `--force` flag, however it does not break (yet). In future new versions may emerge since they are present in git repository, however they are not yet deployed to `npm`. New versions will likely require angular v12. Note: `angular-formio` is very much **required**.
+2. `ngx-pagination` can be replaced with `primeng` counterpart,
+3. `ng-recaptcha` can be updated to the newest version with angular update,
+4. `angular-password-strength-meter` (probably not maintained anymore) can be replaced with `primeng` component and removed together with its dependencies (`zxcvbn`, `zxcvbn3`),
+5. `bootstrap` - project uses `bootstrap v3` however updating bootstrap **is not advised**,
+6. There are other packages, that are deprecated, e.g. `codelyzer`. However, they *should* not cause much harm.
