@@ -44,6 +44,7 @@ export class AppDetailsComponent implements OnInit {
 
     public appId: number;
     public app: ApplicationBase;
+    public activeVersions: string[] = [];
     public subscribed: boolean;
     public domainId: number;
     public active = false;
@@ -69,6 +70,8 @@ export class AppDetailsComponent implements OnInit {
                 application => {
                     this.app = application;
                     this.active = application.versions.some(version => this.getStateAsString(version.state) === 'ACTIVE');
+                    this.activeVersions = application.versions.filter(version => this.getStateAsString(version.state) === 'ACTIVE').map(version => version.version);
+
                     // required for the tooltip to appear correctly
                     this.userDataService.selectedDomainId.subscribe((domainId) => this.updateDomainSelection(domainId));
                 },

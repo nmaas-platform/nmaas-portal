@@ -1,4 +1,4 @@
-FROM alpine:3.13 as builder
+FROM alpine:3.16 as builder
 
 COPY . /build
 WORKDIR /build
@@ -8,7 +8,7 @@ RUN npm install -g @angular/cli
 RUN npm ci
 RUN ng build --base-href / --deploy-url / --prod
 
-FROM nginx:1.19-alpine
+FROM nginx:1.23-alpine
 MAINTAINER nmaas@lists.geant.org
 
 ARG webdir=/usr/share/nginx/html

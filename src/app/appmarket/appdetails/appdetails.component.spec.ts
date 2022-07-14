@@ -13,6 +13,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
 import {ApplicationBase} from '../../model/application-base';
+import {ApplicationState} from '../../model/application-state';
 
 @Pipe({
     name: 'secure'
@@ -104,7 +105,10 @@ describe('Component: AppDetails', () => {
             {id: null, name: 'tag1'},
             {id: null, name: 'tag2'}
         ],
-        versions: [],
+        versions: [
+            {id: 1, version: "1.0.0",  state: ApplicationState.ACTIVE, appVersionId: 10},
+            {id: 2, version: "1.1.0",  state: ApplicationState.NEW, appVersionId: 11}
+        ],
         rate: null,
     };
 
@@ -147,7 +151,6 @@ describe('Component: AppDetails', () => {
                 {provide: AppsService, useValue: appsServiceSpy},
                 {provide: AppSubscriptionsService, useValue: appSubsServiceSpy},
                 {provide: AppImagesService, useValue: appImagesServiceSpy},
-                // {provide: AppInstanceService, useValue: appInstanceServiceSpy},
                 {provide: AuthService, useValue: authServiceSpy},
                 {provide: DomainService, useValue: domainServiceSpy},
                 {provide: ActivatedRoute, useValue: {params: of({id: 1})}}
@@ -165,6 +168,7 @@ describe('Component: AppDetails', () => {
         expect(component).toBeDefined();
         const app = fixture.debugElement.componentInstance;
         expect(app).toBeTruthy();
+        expect(app.activeVersions.length).toEqual(1);
     })
 
 });
