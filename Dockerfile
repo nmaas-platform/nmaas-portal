@@ -3,7 +3,7 @@ FROM alpine:3.16 as builder
 COPY . /build
 WORKDIR /build
 
-RUN apk add nodejs nodejs-npm
+RUN apk add nodejs npm
 RUN npm install -g @angular/cli
 RUN npm ci
 RUN ng build --base-href / --deploy-url / --prod
