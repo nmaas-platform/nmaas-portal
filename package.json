@@ -1,7 +1,7 @@
 {
   "name": "nmaas-portal",
-  "version": "1.5.1",
-  "license": "-",
+  "version": "1.5.2-SNAPSHOT",
+  "license": "Apache 2.0",
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
