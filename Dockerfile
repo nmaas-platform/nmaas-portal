@@ -5,7 +5,7 @@ WORKDIR /build
 
 RUN apk add nodejs npm
 RUN npm install -g @angular/cli
-RUN npm ci
+RUN npm ci --force
 RUN ng build --base-href / --deploy-url / --prod
 
 FROM nginx:1.23-alpine
