@@ -7,7 +7,7 @@
             <h5>{{'ADD_MEMBERS_MODAL.SELECT_USERS' | translate}}</h5>
             <p-multiSelect [options]="selectItems" [(ngModel)]="members" filterBy="username"
                            [filterPlaceHolder]="'ADD_MEMBERS_MODAL.FILTER_PLACEHOLDER' | translate" [panelStyle]="{minWidth:'25em'}"
-                           [overlayVisible]="true">
+                           [overlayVisible]="true" >
             </p-multiSelect>
         </div>
 
@@ -16,15 +16,11 @@
             <table class="table table-condensed" aria-describedby="Table with potential members">
                 <tr>
                     <th scope="col">{{'ADD_MEMBERS_MODAL.TABLE.USERNAME' | translate}}</th>
-                    <th scope="col">{{'ADD_MEMBERS_MODAL.TABLE.FIRSTNAME' | translate}}</th>
-                    <th scope="col">{{'ADD_MEMBERS_MODAL.TABLE.LASTNAME' | translate}}</th>
-                    <th scope="col">{{'ADD_MEMBERS_MODAL.TABLE.EMAIL' | translate}}</th>
+                    <th scope="col">{{'ADD_MEMBERS_MODAL.TABLE.NAME' | translate}}</th>
                 </tr>
                 <tr *ngFor="let u of members">
                     <td>{{u.username}}</td>
-                    <td>{{u.firstname}}</td>
-                    <td>{{u.lastname}}</td>
-                    <td>{{u.email}}</td>
+                    <td>{{u.firstname}} {{u.lastname}}</td>
                 </tr>
             </table>
         </div>
