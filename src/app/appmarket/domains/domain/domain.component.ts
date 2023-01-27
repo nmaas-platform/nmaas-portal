@@ -45,6 +45,8 @@ export class DomainComponent extends BaseComponent implements OnInit {
     @ViewChild(ModalComponent, { static: true })
     public modal: ModalComponent;
 
+    public displayCustomerNetworksSection = false;
+
     constructor(public domainService: DomainService,
                 protected userService: UserService,
                 private router: Router,
