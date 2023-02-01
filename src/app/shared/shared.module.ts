@@ -2,7 +2,7 @@ import {DefaultLogo} from '../directive/defaultlogo.directive';
 import {RolesDirective} from '../directive/roles.directive';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 
 import {CommentsComponent} from './comments/index';
 import {FooterComponent} from './footer/index';
@@ -119,6 +119,7 @@ import {TooltipModule} from 'primeng/tooltip';
         UserDataService,
         NotificationService,
         AppConfigService,
+        DatePipe,
         {
             provide: RECAPTCHA_V3_SITE_KEY,
             useFactory: function (appConfigService: AppConfigService) {

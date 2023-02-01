@@ -19,6 +19,10 @@
                         [routerLink]="['/instances']">{{ 'NAVBAR.INSTANCES' | translate }}</a></li>
             </ul>
             <ul *ngIf="authService.isLogged()" class="nav navbar-nav navbar-right">
+                <li *ngIf="showClock" class="">
+                    <div class="navbar-logout">{{'NAVBAR.EXPIRED_TIME' | translate}}: {{time}}</div>
+                </li>
+                <li *ngIf="showClock" class="divider-vertical"></li>
                 <li *ngIf="checkUserRole()" class="drop-domain">
                     <nmaas-domain-filter class="drop-domain"></nmaas-domain-filter>
                 </li>

@@ -6,6 +6,7 @@ import {AuthService} from '../../auth/auth.service';
 import {DomainService} from '../../service';
 import {InternationalizationService} from '../../service/internationalization.service';
 import {ModalNotificationSendComponent} from '../modal/modal-notification-send/modal-notification-send.component';
+import {DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-navbar',
@@ -21,9 +22,14 @@ export class NavbarComponent implements OnInit, OnChanges {
     public refresh: Subscription;
     public isServiceAvailable: boolean;
 
+    public time: string;
+    private intervalId: any;
+    public showClock = false;
+
     constructor(public router: Router,
                 public authService: AuthService,
                 private translate: TranslateService,
+                private datePipe: DatePipe,
                 private languageService: InternationalizationService,
                 private domainService: DomainService) {
     }
@@ -52,6 +58,14 @@ export class NavbarComponent implements OnInit, OnChanges {
                 });
             }
         }
+        this.intervalId = setInterval(() => {
+            const expiredTimeText: string = localStorage.getItem('_expiredTime')
+            if (parseInt(expiredTimeText, 10) > Date.now()) {
+                this.time = this.datePipe.transform(new Date(parseInt(expiredTimeText, 10) - Date.now()), 'mm:ss')
+                console.debug('Autologout in', this.time);
+            }
+            this.showClock = parseInt(expiredTimeText, 10) - Date.now() < 180000 && parseInt(expiredTimeText, 10) - Date.now() >= 0;
+        }, 1000);
     }
 
     ngOnChanges(changes: SimpleChanges): void {
