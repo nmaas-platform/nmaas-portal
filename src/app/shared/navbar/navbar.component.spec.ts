@@ -9,6 +9,7 @@ import {DomainService} from '../../service';
 import {Component, Directive, Input} from '@angular/core';
 import {InternationalizationService} from '../../service/internationalization.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {DatePipe} from '@angular/common';
 
 @Component({
     selector: 'nmaas-domain-filter',
@@ -73,7 +74,7 @@ describe('NavbarComponent_Shared', () => {
                 {provide: DomainService, useValue: mockDomainService},
                 {provide: InternationalizationService, useValue: mockLanguageService},
                 {provide: AuthService, useValue: mockAuthService},
-
+                DatePipe
             ]
         }).compileComponents().then((result) => {
           console.log(result);
