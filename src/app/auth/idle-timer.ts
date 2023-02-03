@@ -44,6 +44,7 @@ export class IdleTimer {
     }
 
     private cleanUp() {
+        console.log('cleanup')
         clearInterval(this.interval);
         window.removeEventListener('mousemove', this.eventHandler);
         window.removeEventListener('scroll', this.eventHandler);

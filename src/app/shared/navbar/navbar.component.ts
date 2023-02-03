@@ -66,6 +66,13 @@ export class NavbarComponent implements OnInit, OnChanges {
             }
             this.showClock = parseInt(expiredTimeText, 10) - Date.now() < 180000 && parseInt(expiredTimeText, 10) - Date.now() >= 0;
         }, 1000);
+
+        // this.authService.isLoggedIn$.subscribe( data => {
+        //     if (!data) {
+        //         console.warn("state", data);
+        //       clearInterval(this.intervalId);
+        //     }
+        // })
     }
 
     ngOnChanges(changes: SimpleChanges): void {
