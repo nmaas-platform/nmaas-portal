@@ -5,7 +5,7 @@
             <div class="form-group">
                 <label for="setMaintenance"
                        class="col-sm-2 control-label">{{ 'PORTAL_CONFIGURATION.MAINTENANCE' | translate }}</label>
-                <div class="col-sm-10">
+                <div class="col-sm-10 pd-top-7">
                     <input type="checkbox" id="setMaintenance" name="setMaintenance"
                            [(ngModel)]="this.configuration.maintenance"
                            [checked]="this.configuration.maintenance === true">
@@ -14,7 +14,7 @@
             <div class="form-group">
                 <label for="SSOLoginAllowed"
                        class="col-sm-2 control-label">{{ 'PORTAL_CONFIGURATION.ALLOW_SSO_LOGIN' | translate }}</label>
-                <div class="col-sm-10">
+                <div class="col-sm-10 pd-top-7">
                     <input type="checkbox" id="SSOLoginAllowed" name="SSOLoginAllowed"
                            [(ngModel)]="this.configuration.ssoLoginAllowed"
                            [checked]="this.configuration.ssoLoginAllowed === true">
@@ -34,7 +34,7 @@
             <div class="form-group">
                 <label for="testInstance"
                        class="col-sm-2 control-label">{{ 'PORTAL_CONFIGURATION.TEST_INSTANCE' | translate }}</label>
-                <div class="col-sm-10">
+                <div class="col-sm-10 pd-top-7">
                     <input type="checkbox" id="testInstance" name="testInstance"
                            [(ngModel)]="this.configuration.testInstance"
                            [checked]="this.configuration.testInstance === true">
@@ -43,9 +43,17 @@
             <div class="form-group">
                 <label for="sendAppInstanceFailureEmails"
                        class="col-sm-2 control-label">{{ 'PORTAL_CONFIGURATION.SEND_APP_INSTANCE_FAILURE_EMAILS' | translate }}</label>
-                <div class="col-sm-10">
+                <div class="col-sm-10 pd-top-7">
                     <input type="checkbox" id="sendAppInstanceFailureEmails" name="sendAppInstanceFailureEmails"
                            [(ngModel)]="this.configuration.sendAppInstanceFailureEmails">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="registrationDomainSelectionEnabled"
+                       class="col-sm-2 control-label">{{ 'PORTAL_CONFIGURATION.DOMAIN_SELECTION_ENABLED' | translate }}</label>
+                <div class="col-sm-10 pd-top-7">
+                    <input type="checkbox" id="registrationDomainSelectionEnabled" name="registrationDomainSelectionEnabled"
+                           [(ngModel)]="this.configuration.registrationDomainSelectionEnabled">
                 </div>
             </div>
             <div class="form-group">

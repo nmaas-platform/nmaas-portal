@@ -21,3 +21,7 @@
     flex-direction: row;
     justify-content: space-between;
 }
+
+.pd-top-7 {
+    padding-top: 7px;
+}
