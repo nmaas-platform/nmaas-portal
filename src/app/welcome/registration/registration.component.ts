@@ -14,6 +14,7 @@ import {PasswordStrengthMeterComponent} from 'angular-password-strength-meter';
 import {TranslateService} from '@ngx-translate/core';
 import {catchError, map} from 'rxjs/operators';
 import {ReCaptchaV3Service} from 'ng-recaptcha';
+import {ConfigurationService} from '../../service';
 
 @Component({
   selector: 'nmaas-registration',
@@ -43,6 +44,7 @@ export class RegistrationComponent implements OnInit {
 
   public registrationForm: FormGroup;
   public domains: Observable<Domain[]>;
+  public showDomainsSelector = true;
 
   private readonly language: string = '';
 
@@ -50,7 +52,8 @@ export class RegistrationComponent implements OnInit {
               private registrationService: RegistrationService,
               private appConfig: AppConfigService,
               private translate: TranslateService,
-              private recaptchaV3Service: ReCaptchaV3Service) {
+              private recaptchaV3Service: ReCaptchaV3Service,
+              private configurationService: ConfigurationService) {
     this.registrationForm = fb.group(
       {
         username: ['', [Validators.required, Validators.minLength(3)]],
@@ -73,6 +76,9 @@ export class RegistrationComponent implements OnInit {
     this.modal.setModalType('info');
     this.domains = this.registrationService.getDomains().pipe(
         map((domains) => domains.filter((domain) => domain.id !== this.appConfig.getNmaasGlobalDomainId())));
+    this.configurationService.getConfiguration().subscribe( configuration => {
+        this.showDomainsSelector = configuration.registrationDomainSelectionEnabled;
+    })
   }
 
   public onSubmit(): void {
