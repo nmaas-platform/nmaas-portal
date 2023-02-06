@@ -161,7 +161,7 @@
 			</div>
 		</div>
 
-		<div class="panel panel-default" *ngIf="domain.id !== domainService.getGlobalDomainId()">
+		<div class="panel panel-default" *ngIf="displayCustomerNetworksSection && domain.id !== domainService.getGlobalDomainId()">
 			<div class="panel-heading">{{'DOMAIN_DETAILS.CUSTOMER_NETWORKS' | translate}}</div>
 			<div class="panel-body">
 				<div class="text-center" *ngIf="isInMode(ComponentMode.VIEW) && domain.domainDcnDetails.customerNetworks.length == 0">
