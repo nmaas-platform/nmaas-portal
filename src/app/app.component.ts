@@ -1,5 +1,5 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { AppConfigService, ConfigurationService } from './service';
+import {Component, ViewEncapsulation} from '@angular/core';
+import {AppConfigService, ConfigurationService} from './service';
 import {TranslateService} from '@ngx-translate/core';
 import {AuthService} from './auth/auth.service';
 import {Router} from '@angular/router';
@@ -7,10 +7,10 @@ import {ServiceUnavailableService} from './service-unavailable/service-unavailab
 import {IdleTimer} from './auth/idle-timer';
 
 @Component({
-  selector: 'nmaas-root',
-  templateUrl: './app.component.html',
-  styleUrls: [ './app.component.css' ],
-  encapsulation: ViewEncapsulation.None
+    selector: 'nmaas-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
+    encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
 
@@ -33,8 +33,8 @@ export class AppComponent {
         this.authService.isLoggedIn$.subscribe(
             isLoggedIn => {
                 if (isLoggedIn) {
-                    this.timer = new IdleTimer( {
-                        timeout: 900 , // 15 min
+                    this.timer = new IdleTimer({
+                        timeout: 900, // 15 min
                         onTimeout: () => {
                             this.authService.logout();
                             this.router.navigate(['/welcome'])

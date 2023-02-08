@@ -1,5 +1,5 @@
-import {Component, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {interval, Subscription} from 'rxjs';
 import {AuthService} from '../../auth/auth.service';
@@ -13,9 +13,9 @@ import {DatePipe} from '@angular/common';
     templateUrl: './navbar.component.html',
     styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit, OnChanges {
+export class NavbarComponent implements OnInit {
 
-    @ViewChild(ModalNotificationSendComponent, { static: true })
+    @ViewChild(ModalNotificationSendComponent, {static: true})
     public notificationModal;
 
     public languages: string[];
@@ -59,23 +59,17 @@ export class NavbarComponent implements OnInit, OnChanges {
             }
         }
         this.intervalId = setInterval(() => {
-            const expiredTimeText: string = localStorage.getItem('_expiredTime')
-            if (parseInt(expiredTimeText, 10) > Date.now()) {
-                this.time = this.datePipe.transform(new Date(parseInt(expiredTimeText, 10) - Date.now()), 'mm:ss')
-                console.debug('Autologout in', this.time);
+            if (this.authService.isLogged()) {
+                const expiredTimeText: string = localStorage.getItem('_expiredTime')
+                if (parseInt(expiredTimeText, 10) > Date.now()) {
+                    this.time = this.datePipe.transform(new Date(parseInt(expiredTimeText, 10) - Date.now()), 'mm:ss')
+                    console.debug('Autologout in', this.time);
+                }
+                this.showClock = parseInt(expiredTimeText, 10) - Date.now() < 180000 && parseInt(expiredTimeText, 10) - Date.now() >= 0;
             }
-            this.showClock = parseInt(expiredTimeText, 10) - Date.now() < 180000 && parseInt(expiredTimeText, 10) - Date.now() >= 0;
         }, 1000);
 
-        // this.authService.isLoggedIn$.subscribe( data => {
-        //     if (!data) {
-        //         console.warn("state", data);
-        //       clearInterval(this.intervalId);
-        //     }
-        // })
-    }
 
-    ngOnChanges(changes: SimpleChanges): void {
     }
 
     public getSupportedLanguages() {
@@ -87,9 +81,9 @@ export class NavbarComponent implements OnInit, OnChanges {
 
     public checkUserRole(): boolean {
         return this.authService.getDomains().filter(value => value != this.domainService.getGlobalDomainId()).length > 0
-          || this.authService.getRoles().filter(value => value != 'ROLE_INCOMPLETE')
-            .filter(value => value != 'ROLE_GUEST')
-            .length > 0;
+            || this.authService.getRoles().filter(value => value != 'ROLE_INCOMPLETE')
+                .filter(value => value != 'ROLE_GUEST')
+                .length > 0;
     }
 
     public showNotificationModal(): void {
