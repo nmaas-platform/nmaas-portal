@@ -5,5 +5,6 @@ export class Configuration {
     public defaultLanguage: string;
     public testInstance: boolean;
     public sendAppInstanceFailureEmails: boolean;
+    public registrationDomainSelectionEnabled: boolean;
     public appInstanceFailureEmailList: string[] = [];
 }
