@@ -70,6 +70,7 @@ export class AppChangeStateModalComponent implements OnInit, OnChanges {
       this.app.state = this.stateChange.state;
       this.stateChange.state = undefined;
       this.stateChange.reason = undefined;
+      this.stateChange.shouldSendNotification = undefined;
       this.filterStates();
       this.modal.hide();
     }, error => this.errorMessage = error.message);
