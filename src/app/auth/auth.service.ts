@@ -1,5 +1,5 @@
 
-import {throwError as observableThrowError, Observable} from 'rxjs';
+import {throwError as observableThrowError, Observable, Subject, BehaviorSubject} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {AppConfigService} from '../service/appconfig.service';
@@ -29,9 +29,13 @@ export class DomainRoles {
 export class AuthService {
   public loginUsingSsoService: boolean;
 
+  private readonly isLoggedInSubject: Subject<boolean> = new BehaviorSubject<boolean>(false);
+
+
   constructor(private http: HttpClient,
               private appConfig: AppConfigService,
-              private jwtHelper: JwtHelperService) {}
+              private jwtHelper: JwtHelperService) {
+  }
 
   private storeToken(token: string): void {
     localStorage.setItem(this.appConfig.config.tokenName, token);
@@ -123,7 +127,7 @@ export class AuthService {
       return roles;
     }
 
-    const authorities: Authority[]  = this.jwtHelper.decodeToken(token).scopes;
+    const authorities: Authority[] = this.jwtHelper.decodeToken(token).scopes;
     for (let index = 0; index < authorities.length; index++) {
       if (authorities[index].authority === undefined) {
         continue;
@@ -188,38 +192,40 @@ export class AuthService {
 
     const headers = new HttpHeaders({'Content-Type': 'application/json', 'Accept': 'application/json'});
     return this.http.post(this.appConfig.config.apiUrl + '/auth/basic/login',
-      JSON.stringify({'username': username, 'password': password}), {headers: headers}).pipe(
-      debounceTime(10000),
-      map((response: Response) => {
-        console.debug('Login response: ' + response.statusText);
-        // login successful if there's a jwt token in the response
-        const token = response && response['token'];
-        if (token) {
-          // set token property
-          this.storeToken(token);
+        JSON.stringify({'username': username, 'password': password}), {headers: headers}).pipe(
+        debounceTime(10000),
+        map((response: Response) => {
+          console.debug('Login response: ' + response.statusText);
+          // login successful if there's a jwt token in the response
+          const token = response && response['token'];
+          if (token) {
+            // set token property
+            this.storeToken(token);
 
-          console.debug('AUTH | User: ' + this.getUsername());
-          console.debug('AUTH | Domains: ' + this.getDomains());
-          console.debug('AUTH | Roles: ' + this.getRoles());
-          console.debug('AUTH | DomainRoles: ' + this.getDomainRoles());
-          this.loginUsingSsoService = false;
-          return true;
-        } else {
-          // return false to indicate failed login
-          return false;
-        }
-      }),
-      catchError((error) => {
-        let message: string;
-        if (error.error['message']) {
-          message = error.error['message'];
-        } else {
-          message = 'Server error';
-        }
+            console.debug('AUTH | User: ' + this.getUsername());
+            console.debug('AUTH | Domains: ' + this.getDomains());
+            console.debug('AUTH | Roles: ' + this.getRoles());
+            console.debug('AUTH | DomainRoles: ' + this.getDomainRoles());
+            this.loginUsingSsoService = false;
+            this.isLoggedInSubject.next(true);
+            return true;
+          } else {
+            // return false to indicate failed login
+            this.isLoggedInSubject.next(false);
+            return false;
+          }
+        }),
+        catchError((error) => {
+          let message: string;
+          if (error.error['message']) {
+            message = error.error['message'];
+          } else {
+            message = 'Server error';
+          }
 
-        console.debug(error['status'] + ' - ' + message);
-        return observableThrowError(error);
-      }));
+          console.debug(error['status'] + ' - ' + message);
+          return observableThrowError(error);
+        }));
   }
 
   public propagateSSOLogin(userid: string): Observable<boolean> {
@@ -232,34 +238,38 @@ export class AuthService {
 
     const headers = new HttpHeaders({'Content-Type': 'application/json', 'Accept': 'application/json'});
     return this.http.post(this.appConfig.config.apiUrl + '/auth/sso/login',
-      JSON.stringify({'userid': userid}), {headers: headers}).pipe(
-      debounceTime(10000),
-      map((response: Response) => {
-        console.debug('SSO login response: ' + response);
-        // login successful if there's a jwt token in the response
-        const token = response && response['token'];
+        JSON.stringify({'userid': userid}), {headers: headers}).pipe(
+        debounceTime(10000),
+        map((response: Response) => {
+          console.debug('SSO login response: ' + response);
+          // login successful if there's a jwt token in the response
+          const token = response && response['token'];
 
-        if (token) {
-          this.storeToken(token);
-          console.debug('SSO AUTH | User: ' + this.getUsername());
-          console.debug('SSO AUTH | Domains: ' + this.getDomains());
-          console.debug('SSO AUTH | Roles: ' + this.getRoles());
-          console.debug('SSO AUTH | DomainRoles: ' + this.getDomainRoles());
-          this.loginUsingSsoService = true;
-          return true;
-        } else {
-          // return false to indicate failed login
-          return false;
-        }
-      }),
-      catchError((error) => {
+          if (token) {
+            this.storeToken(token);
+            console.debug('SSO AUTH | User: ' + this.getUsername());
+            console.debug('SSO AUTH | Domains: ' + this.getDomains());
+            console.debug('SSO AUTH | Roles: ' + this.getRoles());
+            console.debug('SSO AUTH | DomainRoles: ' + this.getDomainRoles());
+            this.loginUsingSsoService = true;
+            this.isLoggedInSubject.next(true);
+            return true;
+          } else {
+            // return false to indicate failed login
+            this.isLoggedInSubject.next(false);
+            return false;
+          }
+        }),
+        catchError((error) => {
           console.error('SSO login error: ' + error.error['message']);
           return observableThrowError(error);
-      }));
+        }));
   }
 
   public logout(): void {
     this.removeToken();
+    this.isLoggedInSubject.next(false);
+    localStorage.setItem('_expiredTime', String(0));
   }
 
   public isLogged(): boolean {
@@ -269,4 +279,11 @@ export class AuthService {
     }
     return (token ? !this.jwtHelper.isTokenExpired(token) : false);
   }
+
+  get isLoggedIn$(): Observable<boolean> {
+    return this.isLoggedInSubject.pipe(
+        debounceTime(100), // use debounceTime to aggregate multiple emissions https://rxjs.dev/api/operators/debounceTime
+    );
+  }
+
 }
