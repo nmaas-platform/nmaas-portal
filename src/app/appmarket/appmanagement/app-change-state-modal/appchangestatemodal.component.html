@@ -21,6 +21,10 @@
             <textarea class="form-control" id="reason" name="reason" placeholder="{{'APP_CHANGE_STATE_MODAL.REASON_PLACEHOLDER' | translate}}" [(ngModel)]="stateChange.reason"></textarea>
           </span>
         </div>
+        <div *ngIf="getStateAsString(stateChange?.state) == 'ACTIVE'">
+          <input type="checkbox" id="sendEmail" name="sendEmail" [(ngModel)]="stateChange.shouldSendNotification">
+          <label for="sendEmail">{{ 'APPS_MANAGEMENT.SEND_NOTIFICATION' | translate }}</label><br>
+        </div>
       </div>
       <br *ngIf="errorMessage">
       <div class="alert alert-danger text-left" *ngIf="errorMessage">
