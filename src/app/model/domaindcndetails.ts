@@ -6,5 +6,5 @@ export class DomainDcnDetails {
     public domainCodename: string;
     public dcnConfigured: boolean = false;
     public dcnDeploymentType: string = DcnDeploymentType[DcnDeploymentType.MANUAL];
-    public customerNetworks: CustomerNetwork[] = [new CustomerNetwork()];
+    public customerNetworks: CustomerNetwork[] = [];
 }
