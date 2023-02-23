@@ -17,8 +17,9 @@ describe('UsersListComponent', () => {
         const authServiceSpy = createSpyObj('AuthService', ['hasRole']);
         authServiceSpy.hasRole.and.returnValue(true)
 
-        const userServiceSpy = createSpyObj('UserService', ['getAll'])
+        const userServiceSpy = createSpyObj('UserService', ['getAll', 'getDomainUsersAsAdmin'])
         userServiceSpy.getAll.and.returnValue(of([]))
+        userServiceSpy.getDomainUsersAsAdmin.and.returnValue(of([]))
 
         const domainServiceSpy = createSpyObj('DomainService', ['getGlobalDomainId'])
         domainServiceSpy.getGlobalDomainId.and.returnValue(1)

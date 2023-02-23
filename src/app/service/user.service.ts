@@ -61,7 +61,6 @@ export class UserService extends GenericDataService {
   }
 
   public removeRole(userId: number, role: Role, domainId?: number): Observable<void> {
-    console.warn("url = " + (domainId === undefined ? this.getUsersUrl() : this.getDomainUsersUrl(domainId)) + userId + '/roles/' + role)
     return this.delete<void>((domainId === undefined ? this.getUsersUrl() : this.getDomainUsersUrl(domainId)) + userId + '/roles/' + role);
   }
 
