@@ -68,7 +68,6 @@ export class UsersListComponent implements OnInit {
             })
         )
 
-        console.warn("test in")
         users.subscribe((all) => {
             this.allUsers = all;
             /* parse date strings to date objects */
@@ -122,12 +121,6 @@ export class UsersListComponent implements OnInit {
         } else {
             const foundUser = this.allUsers.find(user => user.id === event.userId);
             this.onRemoveRole({id: event.userId, roles: foundUser.roles})
-            // const role = foundUser.roles.find(roleS => roleS.domainId === event.domainId)
-            // console.warn('found role -', role)
-            // this.userService.removeRole(event.userId, role.role, event.domainId).subscribe(_ => {
-            //     console.warn('test responsne');
-            //     this.update(this.domainId)
-            // })
         }
 
     }

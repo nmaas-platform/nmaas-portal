@@ -149,8 +149,7 @@
             <td *ngIf="domainMode && !isModeAllowed(ComponentMode.EDIT)">
                 <span *ngIf="!checkUserIfIsCurrentUser(user.username)">
                     <a style="display: inline-block" class="" aria-expanded="false"
-                       aria-haspopup="true"
-                       href="#" role="button" (click)="onRemoveFromDomain.emit(user);$event.stopPropagation()">
+                       aria-haspopup="true" role="button" (click)="onRemoveFromDomain.emit(user);$event.stopPropagation()">
 							<em class="fas fa-trash icon-black "></em>
 						</a>
                 </span>
