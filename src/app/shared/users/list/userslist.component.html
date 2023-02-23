@@ -25,7 +25,7 @@
     <div class="form-group row col-sm-4 align-vertically">
         <label for="searchText" class="col-form-label col-sm-3">Search:</label>
         <div class="col-sm-9">
-            <input id="searchText" type="text" [formControl]="searchText" class="form-control">
+            <input id="searchText" type="text" [formControl]="searchText" class="form-control" (keyup)="searchUsers($event.target.value)">
         </div>
     </div>
 
@@ -36,27 +36,28 @@
         <tr>
             <th scope="col" class="column-sortable" sortable-column="username">{{ 'USERS.USER_NAME' | translate }}</th>
             <th scope="col" class="column-sortable" sortable-column="lastname">{{'USERS.NAME' | translate}}</th>
-            <th scope="col" class="column-sortable" sortable-column="email">{{'USERS.EMAIL' | translate}}</th>
+            <th *ngIf="!domainMode" scope="col" class="column-sortable" sortable-column="email">{{'USERS.EMAIL' | translate}}</th>
             <th scope="col" class="column-sortable" sortable-column="domains"
                 *ngIf="domainId === domainService.getGlobalDomainId()">{{ 'USERS.DOMAINS' | translate }}</th>
             <th scope="col" class="column-sortable" sortable-column="globalRole"
                 *ngIf="domainId === domainService.getGlobalDomainId()">{{ 'USERS.GLOBAL_ROLE' | translate }}</th>
             <th scope="col" class="column-sortable" sortable-column="roles"
-                *ngIf="domainId !== domainService.getGlobalDomainId()">{{ 'USERS.ROLES' | translate }}</th>
-            <th scope="col" class="column-sortable" *ngIf="!isModeAllowed(ComponentMode.EDIT)"
+                *ngIf="domainId !== domainService.getGlobalDomainId() && !isModeAllowed(ComponentMode.EDIT)">{{ 'USERS.ROLES' | translate }}</th>
+            <th scope="col" class="column-sortable" *ngIf="!isModeAllowed(ComponentMode.EDIT) && !domainMode"
                 sortable-column="firstLoginDate">{{ 'USERS.FIRST_LOGIN' | translate }}</th>
-            <th scope="col" class="column-sortable" *ngIf="!isModeAllowed(ComponentMode.EDIT)"
+            <th scope="col" class="column-sortable" *ngIf="!isModeAllowed(ComponentMode.EDIT) && !domainMode"
                 sortable-column="lastSuccessfulLoginDate">{{ 'USERS.LAST_SUCCESSFUL_LOGIN' | translate }}</th>
             <th scope="col" class="column-sortable" sortable-column="enabled">{{ 'USERS.ENABLED' | translate }}</th>
-            <th scope="col">&nbsp;</th>
+            <th *ngIf="!isModeAllowed(ComponentMode.EDIT)" scope="col">&nbsp;</th>
+            <th *ngIf="isModeAllowed(ComponentMode.EDIT)" scope="col">&nbsp;</th>
         </tr>
         </thead>
 
         <tbody>
-        <tr *ngFor="let user of displayUsers | paginate: {itemsPerPage: maxItemsOnPage, currentPage: pageNumber, id: paginatorName}" class="clickable" (click)="view(user.id)">
+        <tr *ngFor="let user of displayUsers | paginate: {itemsPerPage: maxItemsOnPage, currentPage: pageNumber, id: paginatorName}" [ngClass]="{'clickable!' : domainMode}" (click)="view(user.id)">
             <td>{{user.username}}</td>
             <td>{{(user.firstname || '') + ' ' + (user.lastname || '')}}</td>
-            <td>{{user.email}}</td>
+            <td *ngIf="!domainMode">{{user.email}}</td>
             <td *ngIf="domainId === domainService.getGlobalDomainId()">
                 <div *ngFor="let role of filterDomainNames(user); last as isLast">
 					<span *ngIf="!isLast" style="float:left;padding-right: 3px">
@@ -71,18 +72,41 @@
             <td *ngIf="domainId === domainService.getGlobalDomainId()">
                 <span>{{"ENUM.USER_ROLES." + getGlobalRole(user).toUpperCase() | translate}}</span>
             </td>
-            <td *ngIf="domainId !== domainService.getGlobalDomainId()">
-				<span *ngFor="let role of getOnlyDomainRoles(user)">
-					{{"ENUM.USER_ROLES." + role.role.toUpperCase() | translate}}
-				</span>
+            <td *ngIf="domainId !== domainService.getGlobalDomainId() && !isModeAllowed(ComponentMode.EDIT)">
+                <div *roles="['ROLE_DOMAIN_ADMIN']">
+                    <div *ngIf="!checkUserIfIsCurrentUser(user.username)">
+                        <p-dropdown [options]="getAllowedRoles()" (onChange)="changeUserRole(user,domainId, $event)">
+                            <ng-template pTemplate="selectedItem">
+                            <span *ngFor="let roles of getOnlyDomainRoles(user)">
+                                {{"ENUM.USER_ROLES." + roles.role.toUpperCase() | translate}}
+                            </span>
+                            </ng-template>
+                            <ng-template let-role pTemplate="item">
+                                {{"ENUM.USER_ROLES." + Role[role].toUpperCase() | translate}}
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div *roles="['ROLE_SYSTEM_ADMIN']">
+                 <span *ngFor="let roles of getOnlyDomainRoles(user)">
+                                {{"ENUM.USER_ROLES." + roles.role.toUpperCase() | translate}}
+                     </span>
+                </div>
+               <div *roles="['ROLE_DOMAIN_ADMIN']">
+                   <div *ngIf="checkUserIfIsCurrentUser(user.username)">
+                     <span *ngFor="let roles of getOnlyDomainRoles(user)">
+                                {{"ENUM.USER_ROLES." + roles.role.toUpperCase() | translate}}
+                     </span>
+                   </div>
+               </div>
             </td>
-            <td *ngIf="!isModeAllowed(ComponentMode.EDIT)">{{user.firstLoginDate | date:'dd-MM-yyyy HH:mm'}}</td>
-            <td *ngIf="!isModeAllowed(ComponentMode.EDIT)">{{user.lastSuccessfulLoginDate | date:'dd-MM-yyyy HH:mm'}}</td>
+            <td *ngIf="!isModeAllowed(ComponentMode.EDIT) && !domainMode">{{user.firstLoginDate | date:'dd-MM-yyyy HH:mm'}}</td>
+            <td *ngIf="!isModeAllowed(ComponentMode.EDIT) && !domainMode">{{user.lastSuccessfulLoginDate | date:'dd-MM-yyyy HH:mm'}}</td>
             <td>
                 <span class="glyphicon glyphicon-ok" *ngIf="user?.enabled"></span>
                 <span class="glyphicon glyphicon-remove" *ngIf="!(user?.enabled)"></span>
             </td>
-            <td>
+            <td *ngIf="!domainMode && !isModeAllowed(ComponentMode.EDIT)">
                 <span class="dropdown">
 						<a style="display: inline-block" class="dropdown-toggle " aria-expanded="false"
                            aria-haspopup="true"
@@ -121,6 +145,18 @@
                             </li>
 						</ul>
 					</span>
+            </td>
+            <td *ngIf="domainMode && !isModeAllowed(ComponentMode.EDIT)">
+                <span *ngIf="!checkUserIfIsCurrentUser(user.username)">
+                    <a style="display: inline-block" class="" aria-expanded="false"
+                       aria-haspopup="true"
+                       href="#" role="button" (click)="onRemoveFromDomain.emit(user);$event.stopPropagation()">
+							<em class="fas fa-trash icon-black "></em>
+						</a>
+                </span>
+            </td>
+            <td *ngIf="isModeAllowed(ComponentMode.EDIT)" style="width: 170px">
+                <button class="btn btn-success" role="button"  (click)="addToCurrentDomain(user)" > {{'USERS.ADD_TO_DOMAIN_BUTTON' | translate}}</button>
             </td>
         </tr>
         </tbody>
