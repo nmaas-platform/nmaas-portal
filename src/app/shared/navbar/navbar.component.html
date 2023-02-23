@@ -52,8 +52,11 @@
                         <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']"><a
                                 [routerLink]="['/admin/domains']">{{ 'NAVBAR.DOMAINS' | translate }}</a>
                         </li>
-                        <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"><a
+                        <li *roles="['ROLE_SYSTEM_ADMIN']"><a
                                 [routerLink]="['/admin/users']">{{ 'NAVBAR.USERS' | translate }}</a>
+                        </li>
+                        <li *roles="['ROLE_DOMAIN_ADMIN']"><a
+                                [routerLink]="['/domain/users']">{{ 'NAVBAR.USERS' | translate }}</a>
                         </li>
                         <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER']"><a
                                 [routerLink]="['/admin/apps']">{{ 'NAVBAR.MARKET' | translate }}</a>
