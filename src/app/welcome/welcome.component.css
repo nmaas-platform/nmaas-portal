@@ -53,3 +53,13 @@ html, body {
 .features-top-padding{
 	padding-top: 15px;
 }
+
+.banner{
+	background-color : #424242;
+	color: #E8E8E8;
+	margin-top: -20px;
+	padding: 12px;
+	justify-self: center;
+	display: grid;
+	width: 100%;
+}
