@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {GenericDataService} from './genericdata.service';
 
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {AppConfigService} from './appconfig.service';
 
 import {Password} from '../model';
@@ -92,11 +92,22 @@ export class UserService extends GenericDataService {
     return this.appConfig.getApiUrl() + '/domains/' + domainId + '/users/';
   }
 
+  public getDomainUsersAsAdmin(domainId: number): Observable<User[]> {
+    return this.get<User[]>(this.appConfig.getApiUrl() + '/domains/' + domainId + '/users/admin');
+  }
+
   protected getUserAcceptanceUrl(): string {
     return this.appConfig.getApiUrl() + '/users/terms/';
   }
 
   protected getEnableOrDisableUsersUrl(userId: number, enabled: boolean): string {
       return this.appConfig.getApiUrl() + '/users/status/' + userId + '?enabled=' + enabled;
+  }
+
+  public getUserBySearch(search: string, domainId: number): Observable<User[]> {
+    let params = new HttpParams();
+    params = params.append('searchPart', search);
+    params = params.append('domainId', domainId.toString())
+    return this.http.get<User[]>(`${this.appConfig.getApiUrl()}/users/search`, {params})
   }
 }

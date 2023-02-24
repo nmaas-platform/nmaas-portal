@@ -55,6 +55,7 @@ import { ContactComponent } from './contact/contact.component';
 import {FormioModule} from 'angular-formio';
 import { PreferencesComponent } from './users/preferences/preferences.component';
 import {TooltipModule} from 'primeng/tooltip';
+import {DropdownModule} from 'primeng/dropdown';
 
 @NgModule({
     imports: [
@@ -69,7 +70,8 @@ import {TooltipModule} from 'primeng/tooltip';
         TranslateModule.forChild(),
         NgxPaginationModule,
         FormioModule,
-        TooltipModule
+        TooltipModule,
+        DropdownModule
     ],
     declarations: [
         RateComponent,

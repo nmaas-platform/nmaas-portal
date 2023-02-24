@@ -22,3 +22,7 @@ tr.clickable {
     flex-direction: row;
     align-items: center;
 }
+
+:host ::ng-deep .p-dropdown {
+    width: 170px;
+}
