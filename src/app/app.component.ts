@@ -37,7 +37,7 @@ export class AppComponent {
                         timeout: 900, // 15 min
                         onTimeout: () => {
                             this.authService.logout();
-                            this.router.navigate(['/welcome'])
+                            this.router.navigate(['/welcome'], {queryParams: {logout: 'TIMEOUT'}});
                         }
                     });
                 }
