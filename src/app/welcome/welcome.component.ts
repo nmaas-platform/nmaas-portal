@@ -31,6 +31,7 @@ export class WelcomeComponent implements OnInit, AfterViewChecked, AfterContentC
             console.log(params)
             if (params.logout !== undefined) {
                 this.autoLogout = true;
+                this.router.navigate([], {queryParams: {logout: null}, queryParamsHandling: 'merge'})
             }
         })
     }
@@ -41,6 +42,11 @@ export class WelcomeComponent implements OnInit, AfterViewChecked, AfterContentC
 
     ngAfterViewChecked() {
         this.onResize();
+    }
+
+    public onCloseBanner() {
+        this.autoLogout = false;
+        this.router.navigate(['welcome/login']);
     }
 
     onResize() {
