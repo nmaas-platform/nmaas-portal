@@ -31,35 +31,49 @@ import {SessionService} from '../service/session.service';
 import {LanguageManagementModule} from './admin/languagemanagement/languagemanagement.module';
 import { ModalGuestUserComponent } from './modals/modal-guest-user/modal-guest-user.component';
 import {TooltipModule} from 'primeng/tooltip';
+import { AppnavigatorComponent } from './appdeployment/appnavigator/appnavigator.component';
+import {AvatarModule} from 'primeng/avatar';
+import {StepsModule} from 'primeng/steps';
+import { AppuploadComponent } from './appdeployment/appupload/appupload.component';
+import {FileUploadModule} from 'primeng/fileupload';
+import { AppsummaryComponent } from './appdeployment/appsummary/appsummary.component';
+import {TableModule} from 'primeng/table';
 
 @NgModule({
   declarations: [
     AppMarketComponent,
     AppDetailsComponent,
     ModalGuestUserComponent,
+    AppnavigatorComponent,
+    AppuploadComponent,
+    AppsummaryComponent,
   ],
-  imports: [
-    FormsModule,
-    StorageServiceModule,
-    CommonModule,
-    RouterModule,
-    SharedModule,
-    AppListModule,
-    AppInstanceModule,
-    AppManagementModule,
-    LanguageManagementModule,
-    DomainsModule,
-    UsersModule,
-    AuthModule,
-    PipesModule,
-    ClustersModule,
-    MonitorModule,
-    ConfigurationModule,
-    BrowserModule,
-    HttpClientModule,
-    TranslateModule.forChild(),
-    TooltipModule,
-  ],
+    imports: [
+        FormsModule,
+        StorageServiceModule,
+        CommonModule,
+        RouterModule,
+        SharedModule,
+        AppListModule,
+        AppInstanceModule,
+        AppManagementModule,
+        LanguageManagementModule,
+        DomainsModule,
+        UsersModule,
+        AuthModule,
+        PipesModule,
+        ClustersModule,
+        MonitorModule,
+        ConfigurationModule,
+        BrowserModule,
+        HttpClientModule,
+        TranslateModule.forChild(),
+        TooltipModule,
+        AvatarModule,
+        StepsModule,
+        FileUploadModule,
+        TableModule,
+    ],
   exports: [
     AppMarketComponent,
   ],
