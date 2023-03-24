@@ -44,3 +44,7 @@
     margin-left: 5px;
     margin-right: 5px;
 }
+
+:host ::ng-deep .p-dropdown {
+    width: 100%;
+}
