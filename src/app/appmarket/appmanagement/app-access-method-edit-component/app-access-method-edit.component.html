@@ -14,11 +14,11 @@
       </div>
       <div class="form-group">
         <label class="control-label" for="{{id}}-name-{{accessMethod.type}}">{{'APP_ACCESS_METHOD_EDIT.NAME' | translate}}: </label>
-        <input class="form-control" type="text" id="{{id}}-name-{{accessMethod.type}}" [(ngModel)]="accessMethod.name">
+        <input class="form-control" type="text" id="{{id}}-name-{{accessMethod.type}}" ngDefaultControl [(ngModel)]="accessMethod.name">
       </div>
       <div class="form-group">
         <label class="control-label" for="{{id}}-tag-{{accessMethod.type}}">{{'APP_ACCESS_METHOD_EDIT.TAG' | translate}}: </label>
-        <input class="form-control" type="text" id="{{id}}-tag-{{accessMethod.type}}" [(ngModel)]="accessMethod.tag">
+        <input class="form-control" type="text" id="{{id}}-tag-{{accessMethod.type}}" ngDefaultControl [(ngModel)]="accessMethod.tag">
       </div>
     </div>
 
@@ -29,10 +29,10 @@
       <li *ngFor="let k of getDeploymentParamsKeys(); let i=index" class="deploy-param-row">
         <div class="form-group col-sm-11">
           <label class="control-label" for="{{id}}-{{i}}-param">{{'APP_ACCESS_METHOD_EDIT.PARAM' | translate}}: {{k}}</label>
-          <input class="form-control" type="text" id="{{id}}-{{i}}-param" [(ngModel)]="keyValue[i].value">
+          <input class="form-control" type="text" id="{{id}}-{{i}}-param" name="keyValue" ngDefaultControl (change)="setKeyValueToDeployParam()" [(ngModel)]="keyValue[i].value">
         </div>
         <div class="col-sm-1">
-          <button class="btn btn-danger" role="button" (click)="removeDeployParam(k)">{{'APP_ACCESS_METHOD_EDIT.REMOVE_PARAM' | translate}}</button>
+          <button class="btn btn-danger" role="button" (click)="removeDeployParam(k,keyValue[i])">{{'APP_ACCESS_METHOD_EDIT.REMOVE_PARAM' | translate}}</button>
         </div>
       </li>
       <li class="deploy-param-row">
@@ -42,7 +42,7 @@
         <div class="form-group col-sm-11">
           <div class="double-form col-sm-6">
             <label class="control-label" for="new-key">{{'APP_ACCESS_METHOD_EDIT.NEW_KEY' | translate}}</label>
-            <p-dropdown [options]="allowedKeys"  id="new-key" class="" [(ngModel)]="newKey">
+            <p-dropdown [options]="allowedKeys"  id="new-key" class="" ngDefaultControl [(ngModel)]="newKey" placeholder="Choose">
             </p-dropdown>
           </div>
           <div class="double-form col-sm-6">

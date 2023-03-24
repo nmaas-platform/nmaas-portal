@@ -72,9 +72,10 @@ export class AppAccessMethodEditComponent implements OnInit {
     }
   }
 
-  public removeDeployParam(key: string): void {
+  public removeDeployParam(key: string, value: any): void {
     if (this.accessMethod.deployParameters.hasOwnProperty(key)) {
-      delete this.accessMethod.deployParameters[key];
+     this.keyValue = this.keyValue.filter(val => (val !== value))
+      this.setKeyValueToDeployParam();
     }
   }
 
