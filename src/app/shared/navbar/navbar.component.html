@@ -33,7 +33,10 @@
                        role="button">{{'NAVBAR.ADVANCED' | translate}}<strong class="caret"></strong></a>
                     <ul class="dropdown-menu">
                         <li *roles="['ROLE_SYSTEM_ADMIN']">
-                            <a [routerLink]="['/deploy']">{{ 'NAVBAR.BULK_DEPLOYMENT' | translate }}</a>
+                            <a [routerLink]="['/instances/deploy']">{{ 'NAVBAR.BULK_DEPLOYMENT' | translate }}</a>
+                        </li>
+                        <li *roles="['ROLE_SYSTEM_ADMIN']">
+                            <a [routerLink]="['/admin/domains/deploy']">{{ 'NAVBAR.BULK_DEPLOYMENT_DOMAIN' | translate }}</a>
                         </li>
                     </ul>
                 </li>
