@@ -33,12 +33,10 @@ export class AppComponent {
         this.authService.isLoggedIn$.subscribe(
             isLoggedIn => {
                 if (isLoggedIn) {
-                    console.log(this.timer);
                     this.timer = new IdleTimer({
                         timeout: 900, // 15 min
                         onTimeout: () => {
                             this.authService.logout();
-                            console.warn("autologout");
                             this.router.navigate(['/welcome'], {queryParams: {logout: 'TIMEOUT'}});
                         }
                     });
