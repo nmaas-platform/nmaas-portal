@@ -27,6 +27,7 @@ import { JsonEditComponent } from './json-edit/json-edit.component';
 import {TabViewModule} from 'primeng/tabview';
 import { AppChangeOwnerModalComponent } from './app-change-owner-modal/app-change-owner-modal.component';
 import {TooltipModule} from 'primeng/tooltip';
+import {DropdownModule} from 'primeng/dropdown';
 
 
 export function getJsonTemplates(config: ConfigTemplateService) {
@@ -71,7 +72,8 @@ export function formioAppConfigFactory(appConfig: AppConfigService) {
         ChipsModule,
         ReactiveFormsModule,
         TabViewModule,
-        TooltipModule
+        TooltipModule,
+        DropdownModule
     ],
     exports: [],
     providers: [
