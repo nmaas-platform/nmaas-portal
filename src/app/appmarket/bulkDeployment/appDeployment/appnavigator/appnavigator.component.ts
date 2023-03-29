@@ -39,13 +39,13 @@ export class AppnavigatorComponent implements OnInit {
   private checkStep() {
     console.warn('route',this.router.url)
     switch (this.router.url) {
-      case '/deploy/select' :
+      case '/instances/deploy/select' :
       this.status = 0;
         break;
-      case '/deploy/upload' :
+      case '/instances/deploy/upload' :
         this.status = 1
         break;
-      case '/deploy/summary' :
+      case '/instances/deploy/summary' :
         this.status = 2
         break;
       default :

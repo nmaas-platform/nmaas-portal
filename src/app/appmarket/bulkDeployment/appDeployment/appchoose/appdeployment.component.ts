@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ApplicationBase} from '../../../model/application-base';
-import {AppsService} from '../../../service';
-import {AppdeploymentService} from '../appdeployment.service';
+import {ApplicationBase} from '../../../../model/application-base';
+import {AppsService} from '../../../../service';
+import {AppdeploymentService} from '../../appdeployment.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -25,6 +25,6 @@ export class AppdeploymentComponent implements OnInit {
 
   selectApp() {
     this.deployService.setSelectedApp(this.selectedApp);
-    this.router.navigate(['deploy/upload'])
+    this.router.navigate(['instances/deploy/upload'])
   }
 }

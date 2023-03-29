@@ -26,13 +26,19 @@ export class AppdeploymentService {
     getSelectedApp() {return this.selectedApp;}
 
     protected getUrl(): string {
-        return this.appConfig.getApiUrl() + '/csv/upload/';
+        return this.appConfig.getApiUrl() + '/bulks/';
     }
 
     public uploadApplicationFile(file: File) {
-        let formParams = new FormData();
+        const formParams = new FormData();
         formParams.append('file', file);
-        return this.http.post(this.getUrl() + 'app', formParams);
+        return this.http.post(this.getUrl() + 'apps', formParams);
+    }
+
+    public uploadUserDomainFile(file: File) {
+        const formParams = new FormData();
+        formParams.append('file', file);
+        return this.http.post(this.getUrl() + 'users', formParams);
     }
 
 }

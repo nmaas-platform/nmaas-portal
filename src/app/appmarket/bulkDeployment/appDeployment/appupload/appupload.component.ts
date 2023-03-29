@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AppdeploymentService} from '../appdeployment.service';
+import {AppdeploymentService} from '../../appdeployment.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -22,8 +22,7 @@ export class AppuploadComponent implements OnInit {
     this.deployService.uploadApplicationFile(event.files[0]).subscribe( val => {
       console.warn("done")
       this.deployService.result = val;
-      this.router.navigate(['deploy/summary'])
-
+      this.router.navigate(['instances/deploy/summary'])
     });
   }
 }

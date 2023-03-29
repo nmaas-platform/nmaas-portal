@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AppdeploymentService} from '../appdeployment.service';
+import {AppdeploymentService} from '../../appdeployment.service';
 
 @Component({
   selector: 'app-appsummary',
