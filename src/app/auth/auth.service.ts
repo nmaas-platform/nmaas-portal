@@ -269,7 +269,7 @@ export class AuthService {
   public logout(): void {
     this.removeToken();
     this.isLoggedInSubject.next(false);
-    localStorage.setItem('_expiredTime', String(0));
+    localStorage.removeItem('_expiredTime');
   }
 
   public isLogged(): boolean {

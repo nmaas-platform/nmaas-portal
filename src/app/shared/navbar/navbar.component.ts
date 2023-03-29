@@ -26,6 +26,9 @@ export class NavbarComponent implements OnInit {
     private intervalId: any;
     public showClock = false;
 
+    public autoLogout = false;
+
+
     constructor(public router: Router,
                 public authService: AuthService,
                 private translate: TranslateService,
@@ -63,7 +66,7 @@ export class NavbarComponent implements OnInit {
                 const expiredTimeText: string = localStorage.getItem('_expiredTime')
                 if (parseInt(expiredTimeText, 10) > Date.now()) {
                     this.time = this.datePipe.transform(new Date(parseInt(expiredTimeText, 10) - Date.now()), 'mm:ss')
-                    console.debug('Autologout in', this.time);
+                    // console.debug('Autologout in', this.time);
                 }
                 this.showClock = parseInt(expiredTimeText, 10) - Date.now() < 180000 && parseInt(expiredTimeText, 10) - Date.now() >= 0;
             }
