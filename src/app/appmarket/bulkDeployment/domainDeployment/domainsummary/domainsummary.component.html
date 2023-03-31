@@ -2,18 +2,17 @@
     <p-table [value]="deploy.result">
         <ng-template pTemplate="header">
             <tr>
-                <th>Domain</th>
-                <th>Admin username</th>
-                <th>Networks</th>
-                <th>Groups</th>
+                <th>Created</th>
+                <th>Info</th>
+                <th>Details</th>
+
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-deploy>
             <tr>
-                <td>{{deploy.domainName}}</td>
-                <td>{{deploy.adminUserName}}</td>
-                <td>{{deploy.networks}}</td>
-                <td>{{deploy.domainGroups}}</td>
+                <td>{{deploy.successful}}</td>
+                <td>{{deploy.createdInfo}}</td>
+                <td>{{getDetails(deploy)}}</td>
             </tr>
         </ng-template>
     </p-table>

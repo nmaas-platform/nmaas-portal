@@ -17,7 +17,7 @@ export class DomainuploadComponent implements OnInit {
 
   myUploader(event: any) {
     console.log(event.files[0])
-    //TODO add some in progress bar when waiting for information
+    // TODO add some in progress bar when waiting for information
     this.deployService.uploadUserDomainFile(event.files[0]).subscribe( val => {
       console.warn("done")
       this.deployService.result = val;

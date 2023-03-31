@@ -3,6 +3,8 @@ import {Application} from '../../model/application';
 import {ApplicationBase} from '../../model/application-base';
 import {HttpClient} from '@angular/common/http';
 import {AppConfigService} from '../../service';
+import {BulkReplay} from '../../model/bulk-replay';
+import {Observable} from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +13,7 @@ export class AppdeploymentService {
 
     private selectedApp: ApplicationBase = undefined;
 
-    public result: any = [];
+    public result: BulkReplay[] = [];
 
 
     constructor(private http: HttpClient,
@@ -29,16 +31,16 @@ export class AppdeploymentService {
         return this.appConfig.getApiUrl() + '/bulks/';
     }
 
-    public uploadApplicationFile(file: File) {
+    public uploadApplicationFile(file: File): Observable<BulkReplay[]> {
         const formParams = new FormData();
         formParams.append('file', file);
-        return this.http.post(this.getUrl() + 'apps', formParams);
+        return this.http.post<BulkReplay[]>(this.getUrl() + 'apps', formParams);
     }
 
-    public uploadUserDomainFile(file: File) {
+    public uploadUserDomainFile(file: File): Observable<BulkReplay[]> {
         const formParams = new FormData();
         formParams.append('file', file);
-        return this.http.post(this.getUrl() + 'users', formParams);
+        return this.http.post<BulkReplay[]>(this.getUrl() + 'users', formParams);
     }
 
 }
