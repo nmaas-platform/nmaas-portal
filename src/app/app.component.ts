@@ -29,10 +29,7 @@ export class AppComponent {
         this.handleDefaultLanguage();
         this.config = this.appConfigService.config;
         console.debug('Configuration: ' + JSON.stringify(this.config));
-
-        this.authService.isLoggedIn$.subscribe(
-            isLoggedIn => {
-                if (isLoggedIn) {
+        if (this.authService.isLogged()) {
                     this.timer = new IdleTimer({
                         timeout: 900, // 15 min
                         onTimeout: () => {
@@ -41,8 +38,6 @@ export class AppComponent {
                         }
                     });
                 }
-            }
-        )
     }
 
     public handleDefaultLanguage(): void {
