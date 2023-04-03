@@ -9,6 +9,7 @@ export class AppDeploymentSpec {
     public kubernetesTemplate: KubernetesTemplate = new KubernetesTemplate();
     public exposesWebUI = true;
     public allowSshAccess = false;
+    public allowLogAccess = false;
     public deployParameters: object = {}; // this should be Map<ParameterType, string> = new Map(); but JS cannot stringify this
     public storageVolumes: AppStorageVolume[] = [];
     public accessMethods: AppAccessMethod[] = [];
