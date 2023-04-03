@@ -34,6 +34,7 @@ describe('AppStaticGlobalDeployParametersEditComponent', () => {
             kubernetesTemplate: undefined,
             exposesWebUI: false,
             allowSshAccess: false,
+            allowLogAccess: false,
             deployParameters: {},
             storageVolumes: [],
             accessMethods: [],
