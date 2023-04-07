@@ -66,9 +66,11 @@ export class NavbarComponent implements OnInit {
                 const expiredTimeText: string = localStorage.getItem('_expiredTime')
                 if (parseInt(expiredTimeText, 10) > Date.now()) {
                     this.time = this.datePipe.transform(new Date(parseInt(expiredTimeText, 10) - Date.now()), 'mm:ss')
-                    // console.debug('Autologout in', this.time);
                 }
                 this.showClock = parseInt(expiredTimeText, 10) - Date.now() < 180000 && parseInt(expiredTimeText, 10) - Date.now() >= 0;
+                if (this.showClock) {
+                    console.log("Autologout in ", this.time);
+                }
             }
         }, 1000);
 
