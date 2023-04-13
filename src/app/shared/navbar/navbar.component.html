@@ -38,6 +38,9 @@
                         <li *roles="['ROLE_SYSTEM_ADMIN']">
                             <a [routerLink]="['/admin/domains/deploy']">{{ 'NAVBAR.BULK_DEPLOYMENT_DOMAIN' | translate }}</a>
                         </li>
+                        <li *roles="['ROLE_SYSTEM_ADMIN']">
+                            <a [routerLink]="['/admin/domains/groups']">{{ 'NAVBAR.DOMAIN_GROUPS' | translate }}</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="divider-vertical"></li>

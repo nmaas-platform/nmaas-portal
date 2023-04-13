@@ -6,6 +6,7 @@ import {ComponentMode} from '../../shared/common/componentmode';
 import {DomainuploadComponent} from '../bulkDeployment/domainDeployment/domainupload/domainupload.component';
 import {DomainsummaryComponent} from '../bulkDeployment/domainDeployment/domainsummary/domainsummary.component';
 import {DomainNavigatorComponent} from '../bulkDeployment/domainDeployment/domainnavigator/domain-navigator.component';
+import {DomainGroupsComponent} from './domain-groups/domain-groups.component';
 
 export const DomainsRoutes: Route[] = [
   {path: 'admin/domains', component: DomainsListComponent, canActivate: [AuthGuard, RoleGuard],
@@ -20,5 +21,6 @@ export const DomainsRoutes: Route[] = [
             {path: '', redirectTo: 'upload', pathMatch: 'full'},
             {path: 'upload', component: DomainuploadComponent},
             {path: 'summary', component: DomainsummaryComponent}
-        ]}
+        ]},
+    {path: 'admin/domains/groups', component: DomainGroupsComponent}
 ];

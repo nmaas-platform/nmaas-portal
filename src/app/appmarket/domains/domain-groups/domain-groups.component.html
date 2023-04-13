@@ -1,0 +1,75 @@
+<div class="col-sm-12 col-sm-offset-1 col-sm 10 col-md-offset-1 col-md-10">
+    <h3>{{'DOMAINS GROUP'}}</h3>
+    <button [routerLink]="['/admin/apps/create']" class="btn btn-primary">{{ 'APPS_MANAGEMENT.ADD_BUTTON' | translate }}</button>
+    <hr>
+    <table class="table table-hover table-condensed" aria-describedby="Apps management table">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">{{'APPS_MANAGEMENT.NAME' | translate}}</th>
+            <th scope="col">{{'APPS_MANAGEMENT.CODENAME' | translate}}</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <ng-template ngFor let-app [ngForOf]="groups" let-i="index">
+            <tr class="table-row" (click)="clickTableRow(i)">
+                <td style="width: 5%" *ngIf="!domainsRowVisible[i]"><span class="glyphicon glyphicon-chevron-right"></span></td>
+                <td style="width: 5%" *ngIf="domainsRowVisible[i]"><span class="glyphicon glyphicon-chevron-down"></span></td>
+                <td style="width: 25%">{{app?.name}}</td>
+                <td style="width: 20%">{{app?.codename}}</td>
+                <td style="width: 15%"></td>
+                <td style="width: 15%"></td>
+                <td style="width: 20%" class="text-right">
+                    <span class="dropdown">
+            <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
+              <em class="fas fa-cog icon-black icon-bigger"></em>
+            </a>
+            <ul class="dropdown-menu pull-right-drop">
+              <li>
+                <a (click)="showModal()">{{ 'ADD DOMAIN' }}</a>
+              </li>
+              <li>
+                <a [routerLink]="['/admin/apps/edit', app?.id]">{{ 'APPS_MANAGEMENT.EDIT_BUTTON' | translate }}</a>
+              </li>
+            </ul>
+          </span>
+                </td>
+            </tr>
+            <ng-template ngFor let-domain [ngForOf]="app.domains">
+                <tr *ngIf="domainsRowVisible[i]" class="table-row">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{domain.name}}</td>
+                    <td>{{domain.codename}}</td>
+                    <td class="text-right">
+                        <span class="dropdown">
+            <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
+              <em class="fas fa-cog icon-black icon-bigger"></em>
+            </a>
+            <ul class="dropdown-menu pull-right-drop">
+              <li>
+                <a>{{ 'APPS_MANAGEMENT.EDIT_BUTTON' | translate }}</a>
+              </li>
+            </ul>
+          </span>
+                    </td>
+                </tr>
+            </ng-template>
+        </ng-template>
+        </tbody>
+    </table>
+</div>
+
+<nmaas-modal>
+    <div class="nmaas-modal-header">{{'APP_CHANGE_STATE_MODAL.HEADER' | translate }}</div>
+    <div class="nmaas-modal-body">
+    </div>
+    <div class="nmaas-modal-footer">
+        <button type="button" class="btn btn-default" (click)="modal.hide()">{{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="modal.hide()" [disabled]="false">{{'APP_CHANGE_STATE_MODAL.CHANGE_STATE_BUTTON' | translate}}</button>
+    </div>
+</nmaas-modal>

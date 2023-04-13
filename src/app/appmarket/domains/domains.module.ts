@@ -13,6 +13,7 @@ import {DomainComponent} from './domain/domain.component';
 
 import {DomainService} from '../../service/domain.service';
 import {TranslateModule} from '@ngx-translate/core';
+import { DomainGroupsComponent } from './domain-groups/domain-groups.component';
 
 
 
@@ -20,6 +21,7 @@ import {TranslateModule} from '@ngx-translate/core';
   declarations: [
     DomainsListComponent,
     DomainComponent,
+    DomainGroupsComponent,
   ],
   imports: [
     CommonModule,
