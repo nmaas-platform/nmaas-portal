@@ -7,6 +7,7 @@ import {DomainuploadComponent} from '../bulkDeployment/domainDeployment/domainup
 import {DomainsummaryComponent} from '../bulkDeployment/domainDeployment/domainsummary/domainsummary.component';
 import {DomainNavigatorComponent} from '../bulkDeployment/domainDeployment/domainnavigator/domain-navigator.component';
 import {DomainGroupsComponent} from './domain-groups/domain-groups.component';
+import {DomainGroupViewComponent} from './domain-group-view/domain-group-view.component';
 
 export const DomainsRoutes: Route[] = [
   {path: 'admin/domains', component: DomainsListComponent, canActivate: [AuthGuard, RoleGuard],
@@ -22,5 +23,7 @@ export const DomainsRoutes: Route[] = [
             {path: 'upload', component: DomainuploadComponent},
             {path: 'summary', component: DomainsummaryComponent}
         ]},
-    {path: 'admin/domains/groups', component: DomainGroupsComponent}
+    {path: 'admin/domains/groups', component: DomainGroupsComponent},
+    {path: 'admin/domains/groups/add', component: DomainGroupViewComponent, data: {mode: ComponentMode.CREATE}},
+    {path: 'admin/domains/groups/:id', component: DomainGroupViewComponent, data: {mode: ComponentMode.VIEW}}
 ];

@@ -10,8 +10,7 @@ import {ModalComponent} from '../../../shared';
 })
 export class DomainGroupsComponent implements OnInit {
 
-  @ViewChild(ModalComponent, { static: true })
-  public readonly modal: ModalComponent;
+
 
   public groups: DomainGroup[] = [];
   public domainsRowVisible: boolean[] = []
@@ -28,8 +27,6 @@ export class DomainGroupsComponent implements OnInit {
     this.domainsRowVisible[i] = !this.domainsRowVisible[i];
   }
 
-  public showModal(): void {
-    this.modal.show();
-  }
+
 
 }

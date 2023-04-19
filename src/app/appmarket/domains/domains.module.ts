@@ -14,6 +14,9 @@ import {DomainComponent} from './domain/domain.component';
 import {DomainService} from '../../service/domain.service';
 import {TranslateModule} from '@ngx-translate/core';
 import { DomainGroupsComponent } from './domain-groups/domain-groups.component';
+import { DomainGroupViewComponent } from './domain-group-view/domain-group-view.component';
+import {DropdownModule} from 'primeng/dropdown';
+import {MultiSelectModule} from 'primeng/multiselect';
 
 
 
@@ -22,16 +25,19 @@ import { DomainGroupsComponent } from './domain-groups/domain-groups.component';
     DomainsListComponent,
     DomainComponent,
     DomainGroupsComponent,
+    DomainGroupViewComponent,
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule,
-    SharedModule,
-    AuthModule,
-    PipesModule,
-    TranslateModule.forChild()
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        RouterModule,
+        SharedModule,
+        AuthModule,
+        PipesModule,
+        TranslateModule.forChild(),
+        DropdownModule,
+        MultiSelectModule
+    ],
   exports: [
     DomainsListComponent
   ],
