@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DomainGroupsComponent } from './domain-groups.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 
 describe('DomainGroupsComponent', () => {
   let component: DomainGroupsComponent;
@@ -8,7 +10,16 @@ describe('DomainGroupsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DomainGroupsComponent ]
+      declarations: [ DomainGroupsComponent ],
+      imports: [
+          HttpClientTestingModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateFakeLoader
+          }
+        }),
+      ]
     })
     .compileComponents();
   });

@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DomainsummaryComponent } from './domainsummary.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('DomainsummaryComponent', () => {
   let component: DomainsummaryComponent;
@@ -8,7 +10,10 @@ describe('DomainsummaryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DomainsummaryComponent ]
+      declarations: [ DomainsummaryComponent ],
+      imports: [
+        HttpClientTestingModule,
+      ]
     })
     .compileComponents();
   });

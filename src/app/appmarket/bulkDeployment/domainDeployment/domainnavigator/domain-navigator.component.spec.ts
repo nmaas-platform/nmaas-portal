@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DomainNavigatorComponent } from './domain-navigator.component';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('DomainnavigatorComponent', () => {
   let component: DomainNavigatorComponent;
@@ -8,7 +9,10 @@ describe('DomainnavigatorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DomainNavigatorComponent ]
+      declarations: [ DomainNavigatorComponent ],
+      imports: [
+          RouterTestingModule,
+      ]
     })
     .compileComponents();
   });
