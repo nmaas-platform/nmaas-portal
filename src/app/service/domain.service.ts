@@ -101,4 +101,13 @@ export class DomainService extends GenericDataService {
   public deleteDomainFromGroup(groupId: number, domainId: number): Observable<DomainGroup> {
     return this.patch(this.url + 'group/' + groupId, domainId);
   }
+
+  public createDomainGroup(domainGroup: DomainGroup): Observable<Id> {
+    return this.post(this.url + 'group', domainGroup);
+  }
+
+  public updateDomainGroup(domainGroup: DomainGroup, id: number): Observable<Id> {
+    return this.put(this.url + 'group/' + id, domainGroup);
+  }
+
 }
