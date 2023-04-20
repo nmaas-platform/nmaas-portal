@@ -18,6 +18,12 @@ export class WelcomeComponent implements OnInit, AfterViewChecked, AfterContentC
                 public router: Router,
                 private serviceHealth: ServiceUnavailableService,
                 private readonly route: ActivatedRoute) {
+        this.route.queryParams.subscribe(params => {
+            console.log(params)
+            if (params.logout !== undefined) {
+                this.autoLogout = true;
+            }
+        })
     }
 
     async ngOnInit() {
@@ -27,12 +33,6 @@ export class WelcomeComponent implements OnInit, AfterViewChecked, AfterContentC
             this.router.navigate(['/service-unavailable']);
         }
         this.onResize();
-        this.route.queryParams.subscribe(params => {
-            console.log(params)
-            if (params.logout !== undefined) {
-                this.autoLogout = true;
-            }
-        })
     }
 
     ngAfterContentChecked() {
@@ -41,6 +41,11 @@ export class WelcomeComponent implements OnInit, AfterViewChecked, AfterContentC
 
     ngAfterViewChecked() {
         this.onResize();
+    }
+
+    public onCloseBanner() {
+        this.autoLogout = false;
+        this.router.navigate(['welcome/login']);
     }
 
     onResize() {

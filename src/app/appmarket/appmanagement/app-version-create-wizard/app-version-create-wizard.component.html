@@ -103,6 +103,13 @@
         </div>
 
         <div class="form-group form-group-sm">
+        <label for="allowLogAccess" style="text-align: left; padding-left: 0;" class="col-sm-2 control-label">{{'APPS_WIZARD.ALLOW_LOG_ACCESS' | translate }}</label>
+        <div class="col-sm-10">
+          <input type="checkbox" id="allowLogAccess" name="allowLogAccess" [defaultChecked]="false" [(ngModel)]="applicationDTO.application.appDeploymentSpec.allowLogAccess" pTooltip="{{'APPS_WIZARD.ALLOW_LOG_ACCESS_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50">
+        </div>
+        </div>
+
+        <div class="form-group form-group-sm">
           <h4>{{'APPS_WIZARD.DEPLOY_PARAMETERS' | translate}}</h4>
           <app-static-global-deploy-parameters-edit
                   [appDeploymentSpec]="applicationDTO.application.appDeploymentSpec"

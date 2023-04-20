@@ -29,10 +29,9 @@ export class AppComponent {
         this.handleDefaultLanguage();
         this.config = this.appConfigService.config;
         console.debug('Configuration: ' + JSON.stringify(this.config));
-
-        this.authService.isLoggedIn$.subscribe(
-            isLoggedIn => {
-                if (isLoggedIn) {
+        await this.delay(2000);
+        console.warn("User logged ? -", this.authService.isLogged())
+        if (this.authService.isLogged()) {
                     this.timer = new IdleTimer({
                         timeout: 900, // 15 min
                         onTimeout: () => {
@@ -41,8 +40,6 @@ export class AppComponent {
                         }
                     });
                 }
-            }
-        )
     }
 
     public handleDefaultLanguage(): void {
@@ -60,5 +57,9 @@ export class AppComponent {
     private setLanguage(lang: string) {
         this.translate.use(lang);
         this.translate.setDefaultLang(lang);
+    }
+
+    private delay(ms: number) {
+        return new Promise( resolve => setTimeout(resolve, ms) );
     }
 }
