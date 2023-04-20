@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DomainsummaryComponent } from './domainsummary.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 
 describe('DomainsummaryComponent', () => {
   let component: DomainsummaryComponent;
@@ -13,6 +14,12 @@ describe('DomainsummaryComponent', () => {
       declarations: [ DomainsummaryComponent ],
       imports: [
         HttpClientTestingModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateFakeLoader
+          }
+        }),
       ]
     })
     .compileComponents();
