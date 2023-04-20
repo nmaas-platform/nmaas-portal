@@ -19,7 +19,7 @@ export class DomainsummaryComponent implements OnInit {
     if (entry.type === 'USER') {
       return `Username: ${entry.details['userName']} email: ${entry.details['email']} userId: ${entry.details['userId']}`
     } else if (entry.type === 'DOMAIN') {
-      return `Domain: ${entry.details['domain']} name: ${entry.details['domainName']}`
+      return `Domain: ${entry.details['domainId']} name: ${entry.details['domainName']}`
     } else {
       return ''
     }
