@@ -39,7 +39,7 @@ export class DomainNavigatorComponent implements OnInit {
       case '/admin/domains/deploy/upload' :
         this.status = 0;
         break;
-      case 'admin/domains/deploy/summary' :
+      case '/admin/domains/deploy/summary' :
         this.status = 1
         break;
       default :

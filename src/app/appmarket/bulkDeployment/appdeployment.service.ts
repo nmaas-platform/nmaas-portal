@@ -40,7 +40,7 @@ export class AppdeploymentService {
     public uploadUserDomainFile(file: File): Observable<BulkReplay[]> {
         const formParams = new FormData();
         formParams.append('file', file);
-        return this.http.post<BulkReplay[]>(this.getUrl() + 'users', formParams);
+        return this.http.post<BulkReplay[]>(this.getUrl() + 'domains', formParams);
     }
 
 }

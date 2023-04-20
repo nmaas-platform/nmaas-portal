@@ -1,17 +1,21 @@
 <div style="margin-top: 5rem">
+    <div style="margin-bottom: 5rem">
+        <h3>{{'NAVBAR.BULK_DEPLOYMENT_DOMAIN' | translate}}</h3>
+        <p>{{'BULK.DOMAIN.SUMMARY' | translate}}</p>
+    </div>
     <p-table [value]="deploy.result">
         <ng-template pTemplate="header">
             <tr>
                 <th>Created</th>
-                <th>Info</th>
+                <th>Successful</th>
                 <th>Details</th>
 
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-deploy>
             <tr>
+                <td>{{deploy.created}}</td>
                 <td>{{deploy.successful}}</td>
-                <td>{{deploy.createdInfo}}</td>
                 <td>{{getDetails(deploy)}}</td>
             </tr>
         </ng-template>
