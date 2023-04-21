@@ -34,7 +34,6 @@ export class DomainNavigatorComponent implements OnInit {
   }
 
   private checkStep() {
-    console.warn('route', this.router.url)
     switch (this.router.url) {
       case '/admin/domains/deploy/upload' :
         this.status = 0;
@@ -45,7 +44,6 @@ export class DomainNavigatorComponent implements OnInit {
       default :
         break;
     }
-    console.warn(this.status);
   }
 
 
