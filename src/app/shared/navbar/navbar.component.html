@@ -41,6 +41,9 @@
                         <li *roles="['ROLE_SYSTEM_ADMIN']">
                             <a [routerLink]="['/admin/domains/groups']">{{ 'NAVBAR.DOMAIN_GROUPS' | translate }}</a>
                         </li>
+                        <li *roles="['ROLE_SYSTEM_ADMIN']">
+                            <a [routerLink]="['/admin/bulks']">{{ 'BULK list' }}</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="divider-vertical"></li>

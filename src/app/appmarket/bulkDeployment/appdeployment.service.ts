@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {AppConfigService} from '../../service';
 import {BulkReplay} from '../../model/bulk-replay';
 import {Observable} from 'rxjs';
+import {BulkDeployment} from '../../model/bulk-deployment';
 
 @Injectable({
     providedIn: 'root'
@@ -41,6 +42,10 @@ export class AppdeploymentService {
         const formParams = new FormData();
         formParams.append('file', file);
         return this.http.post<BulkReplay[]>(this.getUrl() + 'domains', formParams);
+    }
+
+    public getBulksDeployment(): Observable<BulkDeployment[]> {
+        return this.http.get<BulkDeployment[]>(this.getUrl());
     }
 
 }
