@@ -95,7 +95,7 @@ export class ApplicationsViewComponent implements OnInit, OnChanges {
         switch (+this.appView) {
             case AppViewType.APPLICATION:
                 applications = this.appsService.getAllActiveApplicationBase();
-                console.log('get apps update domain')
+                console.log('get apps update for domain ', this.domainId )
                 this.updateSelected();
                 // applications.subscribe((apps) => this.updateSelected(apps));
                 break;
