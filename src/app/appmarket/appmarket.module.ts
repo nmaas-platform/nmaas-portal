@@ -31,35 +31,55 @@ import {SessionService} from '../service/session.service';
 import {LanguageManagementModule} from './admin/languagemanagement/languagemanagement.module';
 import { ModalGuestUserComponent } from './modals/modal-guest-user/modal-guest-user.component';
 import {TooltipModule} from 'primeng/tooltip';
+import { AppnavigatorComponent } from './bulkDeployment/appDeployment/appnavigator/appnavigator.component';
+import {AvatarModule} from 'primeng/avatar';
+import {StepsModule} from 'primeng/steps';
+import { AppuploadComponent } from './bulkDeployment/appDeployment/appupload/appupload.component';
+import {FileUploadModule} from 'primeng/fileupload';
+import { AppsummaryComponent } from './bulkDeployment/appDeployment/appsummary/appsummary.component';
+import {TableModule} from 'primeng/table';
+import { DomainNavigatorComponent } from './bulkDeployment/domainDeployment/domainnavigator/domain-navigator.component';
+import { DomainuploadComponent } from './bulkDeployment/domainDeployment/domainupload/domainupload.component';
+import { DomainsummaryComponent } from './bulkDeployment/domainDeployment/domainsummary/domainsummary.component';
 
 @NgModule({
   declarations: [
     AppMarketComponent,
     AppDetailsComponent,
     ModalGuestUserComponent,
+    AppnavigatorComponent,
+    AppuploadComponent,
+    AppsummaryComponent,
+    DomainNavigatorComponent,
+    DomainuploadComponent,
+    DomainsummaryComponent,
   ],
-  imports: [
-    FormsModule,
-    StorageServiceModule,
-    CommonModule,
-    RouterModule,
-    SharedModule,
-    AppListModule,
-    AppInstanceModule,
-    AppManagementModule,
-    LanguageManagementModule,
-    DomainsModule,
-    UsersModule,
-    AuthModule,
-    PipesModule,
-    ClustersModule,
-    MonitorModule,
-    ConfigurationModule,
-    BrowserModule,
-    HttpClientModule,
-    TranslateModule.forChild(),
-    TooltipModule,
-  ],
+    imports: [
+        FormsModule,
+        StorageServiceModule,
+        CommonModule,
+        RouterModule,
+        SharedModule,
+        AppListModule,
+        AppInstanceModule,
+        AppManagementModule,
+        LanguageManagementModule,
+        DomainsModule,
+        UsersModule,
+        AuthModule,
+        PipesModule,
+        ClustersModule,
+        MonitorModule,
+        ConfigurationModule,
+        BrowserModule,
+        HttpClientModule,
+        TranslateModule.forChild(),
+        TooltipModule,
+        AvatarModule,
+        StepsModule,
+        FileUploadModule,
+        TableModule,
+    ],
   exports: [
     AppMarketComponent,
   ],

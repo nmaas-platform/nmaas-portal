@@ -8,6 +8,7 @@ import {AppConfigService} from './appconfig.service';
 import {Id} from '../model';
 import {Domain} from '../model/domain';
 import {User} from '../model';
+import {DomainGroup} from '../model/domaingroup';
 
 @Injectable({
   providedIn: 'root',
@@ -79,4 +80,34 @@ export class DomainService extends GenericDataService {
   public shouldUpdate(): boolean {
     return this.updateRequiredFlag;
   }
+
+  // GROUPS
+  public getAllDomainGroups(): Observable<DomainGroup[]> {
+    return this.get<DomainGroup[]>(this.url + 'group');
+  }
+
+  public getDomainGroup(domainGroupId: number): Observable<DomainGroup> {
+    return this.get<DomainGroup>(this.url + 'group/' + domainGroupId);
+  }
+
+  public deleteDomainGroup(domainGroupId: number): Observable<void> {
+    return this.delete<void>(this.url + 'group/' + domainGroupId);
+  }
+
+  public addDomainsToGroup(groupCodeName: string, domainIds: number[]): Observable<DomainGroup> {
+    return this.post(this.url + 'group/' + groupCodeName, domainIds);
+  }
+
+  public deleteDomainFromGroup(groupId: number, domainId: number): Observable<DomainGroup> {
+    return this.patch(this.url + 'group/' + groupId, domainId);
+  }
+
+  public createDomainGroup(domainGroup: DomainGroup): Observable<Id> {
+    return this.post(this.url + 'group', domainGroup);
+  }
+
+  public updateDomainGroup(domainGroup: DomainGroup, id: number): Observable<Id> {
+    return this.put(this.url + 'group/' + id, domainGroup);
+  }
+
 }

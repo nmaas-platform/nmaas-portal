@@ -1,0 +1,87 @@
+<div class="col-sm-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10">
+    <h3>{{ 'DOMAINS.LIST.GROUP' | translate }}</h3>
+    <form *ngIf="domainGroup" (submit)="submit()" class="form-horizontal" #domainForm="ngForm">
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.NAME' | translate }}</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control"  id="name" name="name"
+                       [(ngModel)]="domainGroup.name" #name="ngModel" required>
+                <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                     class="alert alert-danger">
+                    <div *ngIf="name.errors.required">{{ 'DOMAIN_DETAILS.NAME_IS_REQUIRED_MESSAGE' | translate }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" *ngIf="!isInMode(ComponentMode.EDIT)">
+            <label for="codename" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.CODE_NAME' | translate }}</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control"  id="codename"
+                       name="codename" pattern="[a-zA-Z0-9-]*"
+                       [(ngModel)]="domainGroup.codename" #codename="ngModel" minlength="2" maxlength="20" required>
+                <div *ngIf="codename.invalid && (codename.dirty || codename.touched)"
+                     class="alert alert-danger">
+
+                    <div *ngIf="codename.errors.required">{{ 'DOMAIN_DETAILS.CODE_NAME_IS_REQUIRED_MESSAGE' | translate }}</div>
+                    <div *ngIf="codename.errors.pattern">{{ 'DOMAIN_DETAILS.CODE_NAME_PATTERN_MESSAGE_1' | translate }}</div>
+                    <div *ngIf="codename.errors.minlength || codename.errors.maxlength">{{ 'DOMAIN_DETAILS.CODE_NAME_PATTERN_MESSAGE_2' | translate }}</div>
+
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="!this.addingMode">
+            <button type="click" class="btn btn-success" (click)="showModal()">{{'DOMAINS.LIST.ADD' | translate}}</button>
+            <table class="table table-hover table-condensed" aria-describedby="Domains in Group table">
+                <thead>
+                <tr>
+                    <th scope="col">{{'DOMAINS.LIST.DOMAIN_NAME' | translate}}</th>
+                    <th scope="col">{{'DOMAINS.LIST.DOMAIN_CODE_NAME' | translate}}</th>
+                    <th scope="col"></th>
+                </tr>
+                <ng-template ngFor let-domain [ngForOf]="domainGroup.domains" let-i="index">
+                    <tr class="table-row">
+                        <td>{{domain.name}}</td>
+                        <td>{{domain.codename}}</td>
+                        <td style="width: 20%">
+                            <button class="btn btn-danger" (click)="deleteDomainFromGroup(domain)">{{'DOMAINS.LIST.DELETE' | translate}}</button>
+                        </td>
+                    </tr>
+                </ng-template>
+                </thead>
+            </table>
+        </div>
+
+        <button  type="submit" class="btn btn-default" [disabled]="!domainForm.form.valid">{{ 'DOMAIN_DETAILS.SUBMIT_BUTTON' | translate }}</button>
+
+    </form>
+</div>
+
+<nmaas-modal>
+    <div class="nmaas-modal-header">{{'DOMAINS.LIST.GROUP' | translate}}</div>
+    <div class="nmaas-modal-body" style="height: 300px">
+        <div style="height: 100px">
+            <p>{{'DOMAINS.LIST.ADD_INFO' | translate}}</p>
+            <p-multiSelect [panelStyle]="{minWidth:'25em'}" [(ngModel)]="domainsToAdd"  [options]="domains" ngDefaultControl name="domains" optionLabel="name"></p-multiSelect>
+        </div>
+        <table class="table table-hover table-condensed" aria-describedby="Domains in Group table">
+            <thead>
+            <tr>
+                <th scope="col">{{'DOMAINS.LIST.DOMAIN_NAME' | translate}}</th>
+                <th scope="col">{{'DOMAINS.LIST.DOMAIN_CODE_NAME' | translate}}</th>
+            </tr>
+            <ng-template ngFor let-domain [ngForOf]="domainsToAdd" let-i="index">
+                <tr class="table-row">
+                    <td>{{domain.name}}</td>
+                    <td>{{domain.codename}}</td>
+                </tr>
+            </ng-template>
+            </thead>
+        </table>
+    </div>
+    <div class="nmaas-modal-footer">
+        <button type="button" class="btn btn-default" (click)="modal.hide()">{{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="closeModal()" [disabled]="false">{{'DOMAINS.LIST.ADD' | translate}}</button>
+    </div>
+</nmaas-modal>
+
