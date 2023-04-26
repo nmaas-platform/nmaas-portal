@@ -25,9 +25,14 @@ export const DomainsRoutes: Route[] = [
             {path: 'upload', component: DomainuploadComponent},
             {path: 'summary', component: DomainsummaryComponent}
         ]},
-    {path: 'admin/domains/groups', component: DomainGroupsComponent},
-    {path: 'admin/domains/groups/add', component: DomainGroupViewComponent, data: {mode: ComponentMode.CREATE}},
-    {path: 'admin/domains/groups/:id', component: DomainGroupViewComponent, data: {mode: ComponentMode.VIEW}},
-    {path: 'admin/domains/bulks', component: BulkDomainListComponent},
-    {path: 'admin/domains/bulks/:id', component: BulkViewComponent}
+    {path: 'admin/domains/groups', component: DomainGroupsComponent, canActivate: [AuthGuard, RoleGuard],
+        data: {roles: ['ROLE_SYSTEM_ADMIN']}},
+    {path: 'admin/domains/groups/add', component: DomainGroupViewComponent, canActivate: [AuthGuard, RoleGuard],
+        data: {mode: ComponentMode.CREATE, roles: ['ROLE_SYSTEM_ADMIN']}},
+    {path: 'admin/domains/groups/:id', component: DomainGroupViewComponent, canActivate: [AuthGuard, RoleGuard],
+        data: {mode: ComponentMode.VIEW, roles: ['ROLE_SYSTEM_ADMIN']}},
+    {path: 'admin/domains/bulks', component: BulkDomainListComponent, canActivate: [AuthGuard, RoleGuard],
+        data: {roles: ['ROLE_SYSTEM_ADMIN']}},
+    {path: 'admin/domains/bulks/:id', component: BulkViewComponent, canActivate: [AuthGuard, RoleGuard],
+        data: {roles: ['ROLE_SYSTEM_ADMIN']}}
 ];
