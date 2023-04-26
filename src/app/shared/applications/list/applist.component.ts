@@ -4,7 +4,7 @@ import {CacheService} from '../../../service';
 import {UserDataService} from '../../../service/userdata.service';
 import {ListType} from '../../common/listtype';
 import {AppViewType} from '../../common/viewtype';
-import {Component, OnInit, Input, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, Input, ViewEncapsulation, OnChanges, SimpleChanges} from '@angular/core';
 import {Observable} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 import {AppDescription} from '../../../model/app-description';
@@ -18,7 +18,7 @@ import {ApplicationBase} from '../../../model/application-base';
   encapsulation: ViewEncapsulation.None,
 })
 
-export class AppListComponent implements OnInit {
+export class AppListComponent implements OnInit, OnChanges {
 
   public ListType = ListType;
   public AppViewType = AppViewType;
@@ -59,6 +59,12 @@ export class AppListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.domain.subscribe(data => {
+      this.domainObject = data;
+    });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
     this.domain.subscribe(data => {
       this.domainObject = data;
     });

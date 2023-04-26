@@ -44,6 +44,8 @@ export class AppElementComponent implements OnInit, OnChanges {
   @ViewChild(AppInstallModalComponent)
   public readonly modal: AppInstallModalComponent;
 
+  public showAppInList = true;
+
   constructor(public appImagesService: AppImagesService,
               public appConfigService: AppConfigService,
               public router: Router,
@@ -55,11 +57,15 @@ export class AppElementComponent implements OnInit, OnChanges {
     if (this.selected === undefined) {
       this.selected = false;
     }
+    if (this.domain) {
+      this.showAppInList = this.isApplicationEnabledInDomain();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.domain) {
       this.defaultTooltipOptions.display = !this.isApplicationEnabledInDomain();
+      this.showAppInList = this.isApplicationEnabledInDomain();
     }
   }
 

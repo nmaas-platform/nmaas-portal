@@ -41,6 +41,10 @@ import {TableModule} from 'primeng/table';
 import { DomainNavigatorComponent } from './bulkDeployment/domainDeployment/domainnavigator/domain-navigator.component';
 import { DomainuploadComponent } from './bulkDeployment/domainDeployment/domainupload/domainupload.component';
 import { DomainsummaryComponent } from './bulkDeployment/domainDeployment/domainsummary/domainsummary.component';
+import { BulkDomainListComponent } from './bulkDeployment/bulk-domain-list/bulk-domain-list.component';
+import { BulkViewComponent } from './bulkDeployment/bulk-view/bulk-view.component';
+import { BulkAppListComponent } from './bulkDeployment/bulk-app-list/bulk-app-list.component';
+import { BulkListComponent } from './bulkDeployment/bulk-list/bulk-list.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +57,10 @@ import { DomainsummaryComponent } from './bulkDeployment/domainDeployment/domain
     DomainNavigatorComponent,
     DomainuploadComponent,
     DomainsummaryComponent,
+    BulkDomainListComponent,
+    BulkViewComponent,
+    BulkAppListComponent,
+    BulkListComponent,
   ],
     imports: [
         FormsModule,
