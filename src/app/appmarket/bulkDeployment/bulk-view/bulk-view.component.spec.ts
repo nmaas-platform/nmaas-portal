@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BulkViewComponent } from './bulk-view.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {RouterModule} from '@angular/router';
 
 describe('BulkViewComponent', () => {
   let component: BulkViewComponent;
@@ -8,7 +10,11 @@ describe('BulkViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BulkViewComponent ]
+      declarations: [ BulkViewComponent ],
+      imports: [
+          HttpClientTestingModule,
+        RouterModule.forRoot([]),
+      ]
     })
     .compileComponents();
   });

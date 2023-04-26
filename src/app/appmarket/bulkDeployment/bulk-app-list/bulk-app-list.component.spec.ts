@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BulkAppListComponent } from './bulk-app-list.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('BulkAppListComponent', () => {
   let component: BulkAppListComponent;
@@ -8,7 +9,10 @@ describe('BulkAppListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BulkAppListComponent ]
+      declarations: [ BulkAppListComponent ],
+      imports: [
+          HttpClientTestingModule
+      ]
     })
     .compileComponents();
   });
