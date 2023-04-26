@@ -42,6 +42,7 @@ export class AppInstallModalComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.app.versions = this.app.versions.filter(version => this.getStateAsString(version.state) === 'ACTIVE');
         this.app.versions.sort((a, b) => a.version.localeCompare(b.version, undefined, {numeric: true}));
         this.app.versions.reverse();
         this.selectedAppVersion = this.app.versions[0].appVersionId;
@@ -74,6 +75,10 @@ export class AppInstallModalComponent implements OnInit {
             return ApplicationState[state];
         }
         return state;
+    }
+
+    public getStateAsString(state: any): string {
+        return typeof state === 'string' && isNaN(Number(state.toString())) ? state : ApplicationState[state];
     }
 
 }
