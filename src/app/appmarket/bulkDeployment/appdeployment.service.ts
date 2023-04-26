@@ -44,8 +44,17 @@ export class AppdeploymentService {
         return this.http.post<BulkReplay[]>(this.getUrl() + 'domains', formParams);
     }
 
-    public getBulksDeployment(): Observable<BulkDeployment[]> {
-        return this.http.get<BulkDeployment[]>(this.getUrl());
+    public getBulksDomainDeployments(): Observable<BulkDeployment[]> {
+        return this.http.get<BulkDeployment[]>(this.getUrl() + 'domains');
     }
+    public getBulksAppDeployments(): Observable<BulkDeployment[]> {
+        return this.http.get<BulkDeployment[]>(this.getUrl() + 'apps');
+    }
+
+    public getBulkDeployment(id: number): Observable<BulkDeployment> {
+        return this.http.get<BulkDeployment>(this.getUrl() + id);
+    }
+
+
 
 }

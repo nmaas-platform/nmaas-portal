@@ -8,7 +8,7 @@ import {DomainsummaryComponent} from '../bulkDeployment/domainDeployment/domains
 import {DomainNavigatorComponent} from '../bulkDeployment/domainDeployment/domainnavigator/domain-navigator.component';
 import {DomainGroupsComponent} from './domain-groups/domain-groups.component';
 import {DomainGroupViewComponent} from './domain-group-view/domain-group-view.component';
-import {BulkListComponent} from '../bulkDeployment/bulk-list/bulk-list.component';
+import {BulkDomainListComponent} from '../bulkDeployment/bulk-domain-list/bulk-domain-list.component';
 import {BulkViewComponent} from '../bulkDeployment/bulk-view/bulk-view.component';
 
 export const DomainsRoutes: Route[] = [
@@ -28,6 +28,6 @@ export const DomainsRoutes: Route[] = [
     {path: 'admin/domains/groups', component: DomainGroupsComponent},
     {path: 'admin/domains/groups/add', component: DomainGroupViewComponent, data: {mode: ComponentMode.CREATE}},
     {path: 'admin/domains/groups/:id', component: DomainGroupViewComponent, data: {mode: ComponentMode.VIEW}},
-    {path: 'admin/bulks', component: BulkListComponent},
-    {path: 'admin/bulks/:id', component: BulkViewComponent}
+    {path: 'admin/domains/bulks', component: BulkDomainListComponent},
+    {path: 'admin/domains/bulks/:id', component: BulkViewComponent}
 ];

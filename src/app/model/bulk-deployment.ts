@@ -1,5 +1,5 @@
 import {User} from './user';
-import {BulkReplay} from './bulk-replay';
+import {BulkReplay, BulkType} from './bulk-replay';
 
 export class BulkDeployment {
     public id: number;
@@ -7,6 +7,7 @@ export class BulkDeployment {
     public creator: User;
     public bulks: BulkReplay[] = [];
     public state: BulkDeploymentState;
+    public type: BulkType;
 }
 
 export enum BulkDeploymentState {

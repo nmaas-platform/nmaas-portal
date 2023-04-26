@@ -42,7 +42,10 @@
                             <a [routerLink]="['/admin/domains/groups']">{{ 'NAVBAR.DOMAIN_GROUPS' | translate }}</a>
                         </li>
                         <li *roles="['ROLE_SYSTEM_ADMIN']">
-                            <a [routerLink]="['/admin/bulks']">{{ 'BULK list' }}</a>
+                            <a [routerLink]="['/admin/domains/bulks']">{{ 'BULK.DOMAIN.HEADER' | translate }}</a>
+                        </li>
+                        <li *roles="['ROLE_SYSTEM_ADMIN']">
+                            <a [routerLink]="['/admin/apps/bulks']">{{ 'BULK.APP.HEADER' | translate }}</a>
                         </li>
                     </ul>
                 </li>

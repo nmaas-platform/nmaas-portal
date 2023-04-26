@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {AppdeploymentService} from '../appdeployment.service';
+import {Component, Input, OnInit} from '@angular/core';
 import {BulkDeployment} from '../../../model/bulk-deployment';
 
 @Component({
@@ -9,12 +8,16 @@ import {BulkDeployment} from '../../../model/bulk-deployment';
 })
 export class BulkListComponent implements OnInit {
 
+  @Input()
   public bulks: BulkDeployment[] = [];
 
-  constructor(private readonly deployService: AppdeploymentService) { }
+  @Input()
+  public header: string;
+
+
+  constructor() { }
 
   ngOnInit(): void {
-    this.deployService.getBulksDeployment().subscribe(data => this.bulks = data);
   }
 
 }

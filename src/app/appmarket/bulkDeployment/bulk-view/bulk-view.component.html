@@ -1,1 +1,59 @@
-<p>bulk-view works!</p>
+<div class="col-sm-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10">
+    <div *ngIf="bulk && bulkType === 'DOMAIN' ">
+        <div class="form-group">
+            <label for="id" class="col-sm-2 control-label">{{ 'BULK.LIST.ID' | translate }}</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control"  id="id" name="id"
+                       [(ngModel)]="bulk.id" #name="ngModel">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="creator" class="col-sm-2 control-label">{{ 'BULK.LIST.CREATOR' | translate }}</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control"  id="creator" name="creator"
+                       [(ngModel)]="bulk.creator.username" #name="ngModel">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="date" class="col-sm-2 control-label">{{ 'BULK.LIST.CREATION_DATE' | translate }}</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control"  id="date" name="date"
+                       [(ngModel)]="bulk.creationDate" #name="ngModel">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="state" class="col-sm-2 control-label">{{ 'BULK.LIST.STATE' | translate }}</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control"  id="state" name="state"
+                       [(ngModel)]="bulk.state" #name="ngModel">
+            </div>
+        </div>
+
+        <table class="table table-hover table-condensed" aria-describedby="Domains in Group table" style="margin-top: 3rem">
+            <thead>
+            <tr>
+                <th scope="col">{{'DOMAINS.LIST.DOMAIN_NAME' | translate}}</th>
+                <th scope="col">{{'DOMAINS.LIST.DOMAIN_CODE_NAME' | translate}}</th>
+                <th scope="col"></th>
+            </tr>
+            <ng-template ngFor let-replay [ngForOf]="bulk.bulks" let-i="index">
+                <tr class="table-row">
+                    <td>{{replay.type}}</td>
+                    <td>{{replay.successful}}</td>
+                    <td>{{replay.createdInfo}}</td>
+                    <td>{{replay.details}}</td>
+                </tr>
+            </ng-template>
+            </thead>
+        </table>
+
+    </div>
+
+    <div *ngIf="bulk && bulkType === 'APPLICATION' ">
+
+    </div>
+
+</div>

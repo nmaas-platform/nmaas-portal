@@ -1,13 +1,12 @@
 <div class="col-sm-12 col-sm-offset-1 col-sm 10 col-md-offset-1 col-md-10">
-    <h3>{{'BULK DEPLOYMENT' | translate}}</h3>
-    <hr>
-    <table class="table table-hover table-condensed" aria-describedby="Bulk deployment table">
+    <h3>{{header | translate}}</h3>
+    <table class="table table-hover table-condensed" style="margin-top: 3rem" aria-describedby="Bulk deployment table">
         <thead>
         <tr>
-            <th scope="col">{{'BULK_ID' | translate}}</th>
-            <th scope="col">{{'BULK_OWNER' | translate}}</th>
-            <th scope="col">{{'BULK_CREATION' | translate}}</th>
-            <th scope="col">{{'BULK_STATE' | translate}}</th>
+            <th scope="col">{{'BULK.LIST.ID' | translate}}</th>
+            <th scope="col">{{'BULK.LIST.CREATOR' | translate}}</th>
+            <th scope="col">{{'BULK.LIST.CREATION_DATE' | translate}}</th>
+            <th scope="col">{{'BULK.LIST.STATE' | translate}}</th>
             <th></th>
         </tr>
         </thead>
@@ -26,7 +25,7 @@
             </a>
             <ul class="dropdown-menu pull-right-drop">
               <li>
-                <a [routerLink]="['/admin/bulks/', bulk?.id]">{{ 'BULK.DETAILS' | translate }}</a>
+                <a [routerLink]="['/admin/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>
               </li>
             </ul>
           </span>
