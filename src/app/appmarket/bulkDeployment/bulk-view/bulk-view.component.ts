@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BulkDeployment} from '../../../model/bulk-deployment';
 import {AppdeploymentService} from '../appdeployment.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {BulkType} from '../../../model/bulk-replay';
+import {BulkReplay, BulkType} from '../../../model/bulk-replay';
 
 @Component({
   selector: 'app-bulk-view',
@@ -41,7 +41,15 @@ export class BulkViewComponent implements OnInit {
     });
   }
 
-
+  public getDetails(entry: BulkReplay) {
+    if (entry.type === 'USER') {
+      return `Username: ${entry.details['userName']} email: ${entry.details['email']} userId: ${entry.details['userId']}`
+    } else if (entry.type === 'DOMAIN') {
+      return `DomainId: ${entry.details['domainId']} name: ${entry.details['domainName']}`
+    } else {
+      return ''
+    }
+  }
 
 
 

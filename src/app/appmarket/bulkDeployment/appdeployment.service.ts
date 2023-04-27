@@ -16,6 +16,8 @@ export class AppdeploymentService {
 
     public result: BulkReplay[] = [];
 
+    public bulk: BulkDeployment;
+
 
     constructor(private http: HttpClient,
                 private appConfig: AppConfigService) {
@@ -38,10 +40,10 @@ export class AppdeploymentService {
         return this.http.post<BulkReplay[]>(this.getUrl() + 'apps', formParams);
     }
 
-    public uploadUserDomainFile(file: File): Observable<BulkReplay[]> {
+    public uploadUserDomainFile(file: File): Observable<BulkDeployment> {
         const formParams = new FormData();
         formParams.append('file', file);
-        return this.http.post<BulkReplay[]>(this.getUrl() + 'domains', formParams);
+        return this.http.post<BulkDeployment>(this.getUrl() + 'domains', formParams);
     }
 
     public getBulksDomainDeployments(): Observable<BulkDeployment[]> {
