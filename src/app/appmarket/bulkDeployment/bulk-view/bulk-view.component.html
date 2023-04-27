@@ -42,7 +42,7 @@
                 <th>{{'BULK.LIST.DETAILS' | translate}}</th>
                 <th style="width: 5%" scope="col"></th>
             </tr>
-            <ng-template ngFor let-replay [ngForOf]="bulk.csvResponses" let-i="index">
+            <ng-template ngFor let-replay [ngForOf]="bulk.entries" let-i="index">
                 <tr class="table-row">
                     <td>{{replay.type}}</td>
                     <td>{{replay.successful}}</td>
