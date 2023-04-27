@@ -37,7 +37,6 @@ export class AppnavigatorComponent implements OnInit {
   }
 
   private checkStep() {
-    console.warn('route',this.router.url)
     switch (this.router.url) {
       case '/instances/deploy/select' :
       this.status = 0;
@@ -51,7 +50,6 @@ export class AppnavigatorComponent implements OnInit {
       default :
         break;
     }
-    console.warn(this.status);
   }
 
 }

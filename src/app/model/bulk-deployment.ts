@@ -5,7 +5,7 @@ export class BulkDeployment {
     public id: number;
     public creationDate: Date;
     public creator: User;
-    public bulks: BulkReplay[] = [];
+    public csvResponses: BulkReplay[] = [];
     public state: BulkDeploymentState;
     public type: BulkType;
 }
