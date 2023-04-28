@@ -12,5 +12,5 @@ export class BulkDeployment {
 
 export enum BulkDeploymentState {
     PROCESSING,
-    FINISHED
+    COMPLETED
 }

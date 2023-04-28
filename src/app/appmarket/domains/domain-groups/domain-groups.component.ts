@@ -18,13 +18,24 @@ export class DomainGroupsComponent implements OnInit {
   constructor(private domainService: DomainService) { }
 
   ngOnInit(): void {
-    this.domainService.getAllDomainGroups().subscribe(data => {
-      this.groups = data;
-    })
+    this.refresh();
   }
 
   public clickTableRow(i: number) {
     this.domainsRowVisible[i] = !this.domainsRowVisible[i];
+  }
+
+  public deleteDomainGroup(id: number) {
+    return this.domainService.deleteDomainGroup(id).subscribe( _ => {
+      console.log(`Group ${id} deleted`);
+      this.refresh();
+    })
+  }
+
+  public refresh() {
+    this.domainService.getAllDomainGroups().subscribe(data => {
+      this.groups = data;
+    })
   }
 
 
