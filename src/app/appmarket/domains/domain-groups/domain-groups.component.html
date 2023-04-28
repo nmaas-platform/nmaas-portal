@@ -34,6 +34,9 @@
               <li>
                 <a [routerLink]="['/admin/domains/groups/', domainGroup?.id]">{{ 'APPS_MANAGEMENT.EDIT_BUTTON' | translate }}</a>
               </li>
+                  <li>
+                <a (click)="deleteDomainGroup(domainGroup?.id)">{{ 'APP_INSTANCE.REMOVE_BUTTON' | translate }}</a>
+              </li>
             </ul>
           </span>
                 </td>
