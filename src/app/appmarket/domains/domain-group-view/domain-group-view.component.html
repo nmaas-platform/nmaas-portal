@@ -1,6 +1,6 @@
 <div class="col-sm-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10">
     <h3>{{ 'DOMAINS.LIST.GROUP' | translate }}</h3>
-    <form *ngIf="domainGroup" (submit)="submit()" class="form-horizontal" #domainForm="ngForm">
+    <form *ngIf="domainGroup" (submit)="submit(false)" class="form-horizontal" #domainForm="ngForm">
         <div class="form-group">
             <label for="name" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.NAME' | translate }}</label>
             <div class="col-sm-10">
@@ -31,7 +31,7 @@
         </div>
 
         <div *ngIf="!this.addingMode" style="margin-top: 3rem">
-            <button type="click" class="btn btn-success" (click)="showModal()">{{'DOMAINS.LIST.ADD' | translate}}</button>
+            <button type="button" class="btn btn-success" (click)="showModal()">{{'DOMAINS.LIST.ADD' | translate}}</button>
             <table class="table table-hover table-condensed" aria-describedby="Domains in Group table" style="margin-top: 3rem">
                 <thead>
                 <tr>
@@ -44,7 +44,7 @@
                         <td>{{domain.name}}</td>
                         <td>{{domain.codename}}</td>
                         <td style="width: 20%">
-                            <button class="btn btn-danger" (click)="deleteDomainFromGroup(domain)">{{'DOMAINS.LIST.DELETE' | translate}}</button>
+                            <button type="button" class="btn btn-danger" (click)="deleteDomainFromGroup(domain)">{{'DOMAINS.LIST.DELETE' | translate}}</button>
                         </td>
                     </tr>
                 </ng-template>
@@ -59,7 +59,7 @@
                     <div>
                         {{ 'DOMAIN_DETAILS.APP_STATUS' | translate }}
                     </div>
-                    <button  class="btn btn-primary" type="button" (click)="toggleAll()">Toggle all</button>
+                    <button  class="btn btn-primary" type="button" (click)="toggleAll()">{{'SHARED.TOGGLE' | translate}}</button>
                 </div>
             </div>
             <div class="panel-body">

@@ -56,7 +56,7 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
     })
   }
 
-  submit() {
+  submit(refresh = true) {
       console.log(this.domainGroup)
     // creation
     if(this.domainGroup.id === undefined || this.domainGroup.id === null) {
@@ -65,7 +65,13 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
         this.router.navigate(['/admin/domains/groups/', data.id]);
       })
     } else {
-      this.domainService.updateDomainGroup(this.domainGroup, this.domainGroupId).subscribe(_ => this.router.navigate(['/admin/domains/groups']));
+      this.domainService.updateDomainGroup(this.domainGroup, this.domainGroupId).subscribe(_ => {
+        if (refresh) {
+          this.refresh();
+        } else {
+          this.router.navigate(['/admin/domains/groups'])
+        }
+      });
     }
   }
 
