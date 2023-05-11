@@ -65,7 +65,7 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
         this.router.navigate(['/admin/domains/groups/', data.id]);
       })
     } else {
-      this.domainService.updateDomainGroup(this.domainGroup, this.domainGroupId).subscribe(_ => this.refresh());
+      this.domainService.updateDomainGroup(this.domainGroup, this.domainGroupId).subscribe(_ => this.router.navigate(['/admin/domains/groups']));
     }
   }
 
