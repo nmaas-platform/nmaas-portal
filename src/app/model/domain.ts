@@ -1,6 +1,7 @@
 import {DomainDcnDetails} from './domaindcndetails';
 import {DomainTechDetails} from './domaintechdetails';
 import {DomainApplicationStatePerDomain} from './domainapplicationstateperdomain';
+import {DomainGroup} from './domaingroup';
 
 export class Domain {
   public id: number = undefined;
@@ -10,4 +11,5 @@ export class Domain {
   public domainDcnDetails: DomainDcnDetails = new DomainDcnDetails();
   public domainTechDetails: DomainTechDetails = new DomainTechDetails();
   public applicationStatePerDomain: DomainApplicationStatePerDomain[] = [];
+  public groups: DomainGroup[] = [];
 }
