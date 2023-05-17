@@ -42,10 +42,10 @@
                             <a [routerLink]="['/admin/domains/groups']">{{ 'NAVBAR.DOMAIN_GROUPS' | translate }}</a>
                         </li>
                         <li *roles="['ROLE_SYSTEM_ADMIN']">
-                            <a [routerLink]="['/admin/domains/bulks']">{{ 'BULK.DOMAIN.HEADER' | translate }}</a>
+                            <a [routerLink]="['/admin/domains/bulks']">{{ 'NAVBAR.PAST_BULK_DOMAIN' | translate }}</a>
                         </li>
                         <li *roles="['ROLE_SYSTEM_ADMIN']">
-                            <a [routerLink]="['/admin/apps/bulks']">{{ 'BULK.APP.HEADER' | translate }}</a>
+                            <a [routerLink]="['/admin/apps/bulks']">{{ 'NAVBAR.PAST_BULK_APP' | translate }}</a>
                         </li>
                     </ul>
                 </li>

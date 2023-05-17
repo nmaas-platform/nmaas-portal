@@ -56,7 +56,7 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
     })
   }
 
-  submit() {
+  submit(refresh = true) {
       console.log(this.domainGroup)
     // creation
     if(this.domainGroup.id === undefined || this.domainGroup.id === null) {
@@ -65,7 +65,13 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
         this.router.navigate(['/admin/domains/groups/', data.id]);
       })
     } else {
-      this.domainService.updateDomainGroup(this.domainGroup, this.domainGroupId).subscribe(_ => this.refresh());
+      this.domainService.updateDomainGroup(this.domainGroup, this.domainGroupId).subscribe(_ => {
+        if (refresh) {
+          this.refresh();
+        } else {
+          this.router.navigate(['/admin/domains/groups'])
+        }
+      });
     }
   }
 
@@ -104,6 +110,30 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
     this.domainService.getAll().subscribe(domains => {
       this.domains = domains.filter(value => value.id !== this.domainService.getGlobalDomainId());
     });
+  }
+
+  public toggleAll(): void {
+    const id0 = `#collapse-${0}`;
+    const el0 = document.querySelector(id0) as HTMLElement;
+    if (el0) {
+      if (el0.classList.contains('show')) {
+        el0.classList.remove('show');
+      } else {
+        el0.classList.add('show');
+      }
+    }
+    for (let j = 1; j < this.domainGroup.applicationStatePerDomain.length; j++) {
+      const id = `#collapse-${j}`;
+      const el = document.querySelector(id) as HTMLElement;
+      if (el) {
+        if (el.classList.contains('show')) {
+          el.classList.remove('show');
+        } else {
+          el.classList.add('show');
+        }
+      }
+    }
+
   }
 
 }
