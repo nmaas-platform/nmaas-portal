@@ -161,6 +161,7 @@ describe('Component: AppInstance', () => {
         active: true,
         domainDcnDetails: null,
         domainTechDetails: null,
+        groups: [],
         applicationStatePerDomain: [
             {
                 applicationBaseId: 2,

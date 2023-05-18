@@ -43,7 +43,8 @@ describe('AppInstallmodalComponent', () => {
         active: true,
         domainDcnDetails: undefined,
         domainTechDetails: undefined,
-        applicationStatePerDomain: []
+        applicationStatePerDomain: [],
+        groups: [],
     }
 
     beforeEach(waitForAsync(() => {
