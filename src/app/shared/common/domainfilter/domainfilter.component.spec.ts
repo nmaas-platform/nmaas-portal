@@ -23,7 +23,8 @@ describe('DomainFilterComponent', () => {
         active: true,
         domainDcnDetails: undefined,
         domainTechDetails: undefined,
-        applicationStatePerDomain: []
+        applicationStatePerDomain: [],
+        groups: [],
     }
 
     const domain1: Domain = {
@@ -33,7 +34,8 @@ describe('DomainFilterComponent', () => {
         active: true,
         domainDcnDetails: undefined,
         domainTechDetails: undefined,
-        applicationStatePerDomain: []
+        applicationStatePerDomain: [],
+        groups: [],
     };
 
     const domain2: Domain = {
@@ -43,7 +45,8 @@ describe('DomainFilterComponent', () => {
         active: true,
         domainDcnDetails: undefined,
         domainTechDetails: undefined,
-        applicationStatePerDomain: []
+        applicationStatePerDomain: [],
+        groups: [],
     };
 
     beforeEach(waitForAsync(() => {
