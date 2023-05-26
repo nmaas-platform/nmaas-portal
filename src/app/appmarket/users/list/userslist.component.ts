@@ -6,7 +6,7 @@ import {UserService} from '../../../service/user.service';
 import {UserDataService} from '../../../service/userdata.service';
 import {Component, OnInit} from '@angular/core';
 import {ComponentMode} from '../../../shared/common/componentmode';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -20,12 +20,14 @@ export class UsersListComponent implements OnInit {
 
     public ComponentMode = ComponentMode;
 
-    private domainId: number;
+    public domainId: number;
 
     public allUsers: User[] = [];
     public usersToAdd: User[] = [];
 
     public isInAddToDomainMode = false;
+
+    public domainMode = false;
 
     constructor(protected authService: AuthService,
                 protected userService: UserService,
@@ -39,6 +41,14 @@ export class UsersListComponent implements OnInit {
 
     ngOnInit() {
         this.userDataService.selectedDomainId.subscribe((domainId) => this.update(domainId));
+        this.router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+                if (event.url.includes('domain')) {
+                    this.domainMode = true;
+                }
+                console.log(this.domainMode)
+            }
+        })
     }
 
     public update(domainId: number): void {
