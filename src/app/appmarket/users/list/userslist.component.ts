@@ -46,7 +46,6 @@ export class UsersListComponent implements OnInit {
                 if (event.url.includes('domain')) {
                     this.domainMode = true;
                 }
-                console.log(this.domainMode)
             }
         })
     }
