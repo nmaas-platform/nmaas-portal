@@ -19,6 +19,7 @@ export class AppManagementListComponent implements OnInit {
     @ViewChild(AppChangeStateModalComponent, { static: true })
     public appChangeStateModalComponent: AppChangeStateModalComponent;
 
+
     public selectedAppName = '';
     public selectedVersion: ApplicationVersion = new ApplicationVersion();
 
@@ -32,28 +33,7 @@ export class AppManagementListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.appsService.getAllApplicationBase().pipe(
-            map(apps => {
-                return apps
-                    .map(app => {
-                        // filter out deleted app versions
-                        app.versions = app.versions.filter(av => parseApplicationState(av.state) !== ApplicationState.DELETED)
-                        return app
-                    })
-                    // filter out apps with no versions
-                    .filter(app => app.versions.length >= 1)
-                    // sort by lowercase name
-                    .sort((a, b) => {
-                        if (a.name.toLowerCase() === b.name.toLowerCase()) {
-                            return 0;
-                        }
-                        return (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : -1;
-                    })
-            })
-        ).subscribe(val => {
-            this.apps = val;
-            this.versionRowVisible = new Array(val.length).fill(false);
-        });
+        this.refresh();
     }
 
     public getStateAsString(state: any): string {
@@ -81,6 +61,31 @@ export class AppManagementListComponent implements OnInit {
     public appVersionCompare(a: ApplicationVersion, b: ApplicationVersion): number {
         // defaults version that cannot be parsed to `0.0.0`
         return semver.compare(semver.coerce(a.version) || '0.0.0', semver.coerce(b.version) || '0.0.0')
+    }
+
+    public refresh() {
+        this.appsService.getAllApplicationBase().pipe(
+            map(apps => {
+                return apps
+                    .map(app => {
+                        // filter out deleted app versions
+                        app.versions = app.versions.filter(av => parseApplicationState(av.state) !== ApplicationState.DELETED)
+                        return app
+                    })
+                    // filter out apps with no versions
+                    .filter(app => app.versions.length >= 1)
+                    // sort by lowercase name
+                    .sort((a, b) => {
+                        if (a.name.toLowerCase() === b.name.toLowerCase()) {
+                            return 0;
+                        }
+                        return (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : -1;
+                    })
+            })
+        ).subscribe(val => {
+            this.apps = val;
+            this.versionRowVisible = new Array(val.length).fill(false);
+        });
     }
 
 }

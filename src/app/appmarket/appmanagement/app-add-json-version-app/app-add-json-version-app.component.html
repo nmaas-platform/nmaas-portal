@@ -1,0 +1,35 @@
+<nmaas-modal style="width: 600px; height: 800px">
+    <div class="nmaas-modal-header">{{ 'APPS_MANAGEMENT.ADD_JSON_version'| translate}}</div>
+    <div class="nmaas-modal-body">
+        <div style="margin-bottom: 10px">
+            {{ 'APPS_MANAGEMENT.ADD_JSON_INFO'| translate}}
+        </div>
+        <div style="margin-bottom: 4rem">
+            <p-fileUpload name="json" (onUpload)="onUpload($event)" customUpload="true" [draggable]="true"
+                          (uploadHandler)="onUpload($event)" [multiple]="false" accept=".json" maxFileSize="1000000">
+
+            </p-fileUpload>
+        </div>
+        <div>
+            <div style="margin-bottom: 10px">
+                {{ 'APPS_MANAGEMENT.ADD_JSON_TEXTAREA'| translate}}
+            </div>
+            <textarea rows="10" cols="100" pInputTextarea [(ngModel)]="jsonText"></textarea>
+        </div>
+        <div class="flex flex-row justify-content-center justify-content-center mt-2">
+            <button *ngIf="jsonText.length >0" pButton class="btn btn-success"
+                    (click)="sendJsonText()"> {{'APPS_MANAGEMENT.SEND_JSON' | translate}}</button>
+        </div>
+
+        <div *ngIf="error.length > 0" style="color: indianred">
+            {{error}}
+        </div>
+
+
+    </div>
+    <div class="nmaas-modal-footer">
+        <button type="button" class="btn btn-default" (click)="modal.hide()">
+            {{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}
+        </button>
+    </div>
+</nmaas-modal>
