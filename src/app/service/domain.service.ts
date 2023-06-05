@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {GenericDataService} from './genericdata.service';
 
-import {HttpClient} from '@angular/common/http'
+import {HttpClient, HttpParams} from '@angular/common/http'
 import {AppConfigService} from './appconfig.service';
 
 import {Id} from '../model';
@@ -61,8 +61,12 @@ export class DomainService extends GenericDataService {
     return this.patch<Domain, Id>(this.url + domain.id + '/state?active=' + !domain.active, null);
   }
 
-  public remove(domainId: number): Observable<any> {
-    return this.delete(this.url + domainId);
+  public remove(domainId: number, softDelete?: boolean): Observable<any> {
+    let params = new HttpParams()
+    if (softDelete !== undefined) {
+      params = params.append("softDelete", softDelete.toString())
+    }
+    return this.http.delete(this.url + domainId, {params})
   }
 
   public getMyDomains(): Observable<Domain[]> {

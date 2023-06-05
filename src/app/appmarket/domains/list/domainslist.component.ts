@@ -59,4 +59,10 @@ export class DomainsListComponent implements OnInit {
         return active ? this.translate.instant('DOMAINS.DISABLE_BUTTON') : this.translate.instant('DOMAINS.ENABLE_BUTTON');
     }
 
+    public softDeleteDomain(id: number): void {
+        this.domainService.remove(id, true).subscribe({
+            next: () => this.update(),
+            error: err => console.error(err)
+        });
+    }
 }

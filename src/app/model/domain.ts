@@ -12,4 +12,5 @@ export class Domain {
   public domainTechDetails: DomainTechDetails = new DomainTechDetails();
   public applicationStatePerDomain: DomainApplicationStatePerDomain[] = [];
   public groups: DomainGroup[] = [];
+  public deleted: boolean;
 }
