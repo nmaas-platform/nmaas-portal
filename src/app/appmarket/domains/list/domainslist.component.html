@@ -14,7 +14,7 @@
 
 		<tbody>
 			<ng-template ngFor let-domain [ngForOf]="domains | async">
-			<tr class="clickable" [routerLink]="['view/', domain.id]">
+			<tr *ngIf="!domain.deleted" [routerLink]="['view', domain.id]">
 				<td>{{domain?.codename}}</td>
 				<td>{{domain?.name}}</td>
 				<td><span class="glyphicon glyphicon-ok" *ngIf="domain?.active"></span><span class="glyphicon glyphicon-remove" *ngIf="!(domain?.active)"></span></td>				
@@ -31,8 +31,11 @@
 							<li><a *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']" [routerLink]="['edit/', domain.id]"
 								   class="">{{ 'DOMAINS.EDIT_BUTTON' | translate }}</a>
 							</li>
-							<li><a *roles="['ROLE_SYSTEM_ADMIN']" (click)="changeState(domain)"
+							<li><a *roles="['ROLE_SYSTEM_ADMIN']" (click)="$event.stopPropagation(); changeState(domain)"
 								   class="">{{ getStateLabel(domain?.active) }}</a>
+							</li>
+							<li><a *roles="['ROLE_SYSTEM_ADMIN']" (click)="$event.stopPropagation(); openRemovalModal(domain)"
+								   class="">{{ 'DOMAINS.DELETE_BUTTON' | translate }}</a>
 							</li>
 						</ul>
 					</span>
@@ -42,3 +45,5 @@
 		</tbody>
 	</table>
 </div>
+
+<app-removal-confirmation-modal [domain]="domainToRemove" (onConfirm)="softRemoveDomain(domainToRemove.id)"></app-removal-confirmation-modal>

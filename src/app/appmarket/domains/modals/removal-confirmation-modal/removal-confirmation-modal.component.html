@@ -1,0 +1,11 @@
+<nmaas-modal styleModal="warning">
+    <div class="nmaas-modal-header">{{ 'DOMAIN_DETAILS.MODAL.HEADER' | translate }}</div>
+    <div class="nmaas-modal-body">
+        <p>{{ 'DOMAIN_DETAILS.MODAL.DESCRIPTION' | translate}}</p>
+    </div>
+    <div class="nmaas-modal-footer">
+        <button role="button" type="button" class="btn btn-success" (click)="removeDomain()">{{ 'DOMAIN_DETAILS.MODAL.BUTTONS.CONFIRM' | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="modal.hide()">{{ 'DOMAIN_DETAILS.MODAL.BUTTONS.CANCEL' | translate}}</button>
+    </div>
+</nmaas-modal>
+
