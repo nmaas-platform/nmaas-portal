@@ -34,7 +34,7 @@
 							<li><a *roles="['ROLE_SYSTEM_ADMIN']" (click)="$event.stopPropagation(); changeState(domain)"
 								   class="">{{ getStateLabel(domain?.active) }}</a>
 							</li>
-							<li><a *roles="['ROLE_SYSTEM_ADMIN']" (click)="$event.stopPropagation(); softDeleteDomain(domain.id)"
+							<li><a *roles="['ROLE_SYSTEM_ADMIN']" (click)="$event.stopPropagation(); openRemovalModal(domain)"
 								   class="">{{ 'DOMAINS.DELETE_BUTTON' | translate }}</a>
 							</li>
 						</ul>
@@ -45,3 +45,5 @@
 		</tbody>
 	</table>
 </div>
+
+<app-removal-confirmation-modal [domain]="domainToRemove" (onConfirm)="update()"></app-removal-confirmation-modal>

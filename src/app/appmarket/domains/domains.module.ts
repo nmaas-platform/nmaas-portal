@@ -17,6 +17,7 @@ import { DomainGroupsComponent } from './domain-groups/domain-groups.component';
 import { DomainGroupViewComponent } from './domain-group-view/domain-group-view.component';
 import {DropdownModule} from 'primeng/dropdown';
 import {MultiSelectModule} from 'primeng/multiselect';
+import { RemovalConfirmationModalComponent } from './modals/removal-confirmation-modal/removal-confirmation-modal.component';
 
 
 
@@ -26,6 +27,7 @@ import {MultiSelectModule} from 'primeng/multiselect';
     DomainComponent,
     DomainGroupsComponent,
     DomainGroupViewComponent,
+    RemovalConfirmationModalComponent,
   ],
     imports: [
         CommonModule,

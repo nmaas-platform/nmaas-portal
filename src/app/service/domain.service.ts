@@ -61,10 +61,10 @@ export class DomainService extends GenericDataService {
     return this.patch<Domain, Id>(this.url + domain.id + '/state?active=' + !domain.active, null);
   }
 
-  public remove(domainId: number, softDelete?: boolean): Observable<any> {
+  public remove(domainId: number, softRemove?: boolean): Observable<any> {
     let params = new HttpParams()
-    if (softDelete !== undefined) {
-      params = params.append("softDelete", softDelete.toString())
+    if (softRemove !== undefined) {
+      params = params.append("softRemove", softRemove.toString())
     }
     return this.http.delete(this.url + domainId, {params})
   }
