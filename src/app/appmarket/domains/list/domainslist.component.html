@@ -46,4 +46,4 @@
 	</table>
 </div>
 
-<app-removal-confirmation-modal [domain]="domainToRemove" (onConfirm)="update()"></app-removal-confirmation-modal>
+<app-removal-confirmation-modal [domain]="domainToRemove" (onConfirm)="softRemoveDomain(domainToRemove.id)"></app-removal-confirmation-modal>

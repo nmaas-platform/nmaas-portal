@@ -19,21 +19,16 @@ export class RemovalConfirmationModalComponent {
   @Output()
   public onConfirm: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor(private readonly domainService: DomainService) { }
-
   public show() {
     this.modal.show();
   }
 
   public hide() {
     this.modal.hide();
-    this.onConfirm.emit()
   }
 
   removeDomain() {
-    this.domainService.remove(this.domain.id, true).subscribe({
-      next: () => this.hide(),
-      error: err => console.error(err)
-    });
+    this.onConfirm.emit()
+    this.hide()
   }
 }
