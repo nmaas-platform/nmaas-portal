@@ -110,7 +110,10 @@ export class DomainsListComponent implements OnInit {
             this.headers.forEach(h => {
                 if (h.sortable === column) header = h;
             })
-            return header.direction;
+            if (header !== undefined) {
+                return header.direction;
+            }
+            return ''
         } else {
             return ''
         }
