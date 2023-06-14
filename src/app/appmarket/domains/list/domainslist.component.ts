@@ -78,11 +78,8 @@ export class DomainsListComponent implements OnInit {
             if (header.sortable !== column) {
                 header.direction = '';
             }
-            console.warn(header)
         });
-        console.log(this.headers)
 
-        console.log(column, direction);
         this.domains = this.domains.pipe(map(value => value.sort((a, b) => {
            if (direction === 'asc') {
                if (a[column] > b[column]) {
