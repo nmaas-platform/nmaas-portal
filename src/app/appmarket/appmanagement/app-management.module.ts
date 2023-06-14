@@ -28,6 +28,9 @@ import {TabViewModule} from 'primeng/tabview';
 import { AppChangeOwnerModalComponent } from './app-change-owner-modal/app-change-owner-modal.component';
 import {TooltipModule} from 'primeng/tooltip';
 import {DropdownModule} from 'primeng/dropdown';
+import { AppAddJsonAppComponent } from './app-add-json-app/app-add-json-app.component';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import { AppAddJsonVersionAppComponent } from './app-add-json-version-app/app-add-json-version-app.component';
 
 
 export function getJsonTemplates(config: ConfigTemplateService) {
@@ -53,7 +56,9 @@ export function formioAppConfigFactory(appConfig: AppConfigService) {
         AppStorageVolumeEditComponent,
         AppStaticGlobalDeployParametersEditComponent,
         JsonEditComponent,
-        AppChangeOwnerModalComponent
+        AppChangeOwnerModalComponent,
+        AppAddJsonAppComponent,
+        AppAddJsonVersionAppComponent
     ],
     imports: [
         CommonModule,
@@ -73,7 +78,8 @@ export function formioAppConfigFactory(appConfig: AppConfigService) {
         ReactiveFormsModule,
         TabViewModule,
         TooltipModule,
-        DropdownModule
+        DropdownModule,
+        InputTextareaModule
     ],
     exports: [],
     providers: [
