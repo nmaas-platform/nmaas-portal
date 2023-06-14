@@ -7,6 +7,8 @@ import createSpyObj = jasmine.createSpyObj;
 import {AuthService} from '../../../auth/auth.service';
 import {DomainService} from '../../../service';
 import {of} from 'rxjs';
+import {SearchDomainPipe} from '../domain-search.pipe';
+import {PaginatePipe, PaginationService} from 'ngx-pagination';
 
 describe('DomainslistComponent', () => {
     let component: DomainsListComponent;
@@ -21,7 +23,7 @@ describe('DomainslistComponent', () => {
         domainServiceSpy.getGlobalDomainId.and.returnValue(1)
 
         TestBed.configureTestingModule({
-            declarations: [DomainsListComponent],
+            declarations: [DomainsListComponent, SearchDomainPipe, PaginatePipe],
             imports: [
                 RouterTestingModule,
                 TranslateModule.forRoot({
@@ -34,6 +36,7 @@ describe('DomainslistComponent', () => {
             providers: [
                 {provide: AuthService, useValue: authServiceSpy},
                 {provide: DomainService, useValue: domainServiceSpy},
+                PaginationService
             ]
         })
             .compileComponents();

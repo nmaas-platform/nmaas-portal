@@ -56,6 +56,7 @@ import {FormioModule} from 'angular-formio';
 import { PreferencesComponent } from './users/preferences/preferences.component';
 import {TooltipModule} from 'primeng/tooltip';
 import {DropdownModule} from 'primeng/dropdown';
+import {SortableHeaderDirective} from '../service/sort-domain.directive';
 
 @NgModule({
     imports: [
@@ -71,7 +72,7 @@ import {DropdownModule} from 'primeng/dropdown';
         NgxPaginationModule,
         FormioModule,
         TooltipModule,
-        DropdownModule
+        DropdownModule,
     ],
     declarations: [
         RateComponent,
@@ -115,6 +116,7 @@ import {DropdownModule} from 'primeng/dropdown';
         ModalProvideSshKeyComponent,
         ContactComponent,
         PreferencesComponent,
+        SortableHeaderDirective
     ],
     providers: [
         PasswordValidator,
@@ -164,6 +166,7 @@ import {DropdownModule} from 'primeng/dropdown';
         SshKeysComponent,
         ModalProvideSshKeyComponent,
         PreferencesComponent,
+        SortableHeaderDirective
     ]
 })
 export class SharedModule {

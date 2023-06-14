@@ -2,10 +2,17 @@ import {AuthService} from '../../../auth/auth.service';
 import {Domain} from '../../../model/domain';
 import {Role} from '../../../model/userrole';
 import {DomainService} from '../../../service/domain.service';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {TranslateService} from '@ngx-translate/core';
+import {SortableHeaderDirective, SortColumn, SortDirection} from '../../../service/sort-domain.directive';
+
+
+export interface SortEvent {
+    column: SortColumn;
+    direction: SortDirection;
+}
 
 @Component({
     selector: 'app-domains-list',
@@ -15,6 +22,12 @@ import {TranslateService} from '@ngx-translate/core';
 export class DomainsListComponent implements OnInit {
 
     public domains: Observable<Domain[]>;
+
+    public searchValue = '';
+    p: number;
+
+    @ViewChildren(SortableHeaderDirective)
+    headers: QueryList<SortableHeaderDirective>;
 
     constructor(protected domainService: DomainService, protected authService: AuthService, public translate: TranslateService) {
     }
@@ -58,5 +71,53 @@ export class DomainsListComponent implements OnInit {
     public getStateLabel(active: boolean): string {
         return active ? this.translate.instant('DOMAINS.DISABLE_BUTTON') : this.translate.instant('DOMAINS.ENABLE_BUTTON');
     }
+
+    onSort({ column, direction }: SortEvent) {
+        // resetting other headers
+        this.headers.forEach((header) => {
+            if (header.sortable !== column) {
+                header.direction = '';
+            }
+        });
+
+        this.domains = this.domains.pipe(map(value => value.sort((a, b) => {
+           if (direction === 'asc') {
+               if (a[column] > b[column]) {
+                   return 1;
+               }
+
+               if (a[column] < b[column]) {
+                   return -1;
+               }
+               return 0;
+           } else {
+               if (a[column] > b[column]) {
+                   return -1;
+               }
+
+               if (a[column] < b[column]) {
+                   return 1;
+               }
+               return 0;
+           }
+        } )))
+        this.domains.subscribe(value => console.warn(value))
+    }
+
+    public getSort(column: string) {
+        let header;
+        if (this.headers !== undefined) {
+            this.headers.forEach(h => {
+                if (h.sortable === column) header = h;
+            })
+            if (header !== undefined) {
+                return header.direction;
+            }
+            return ''
+        } else {
+            return ''
+        }
+    }
+
 
 }
