@@ -13,6 +13,10 @@ import {DomainComponent} from './domain/domain.component';
 
 import {DomainService} from '../../service/domain.service';
 import {TranslateModule} from '@ngx-translate/core';
+import {InputTextModule} from 'primeng/inputtext';
+import {SearchDomainPipe} from './domain-search.pipe';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {TableModule} from 'primeng/table';
 
 
 
@@ -20,18 +24,23 @@ import {TranslateModule} from '@ngx-translate/core';
   declarations: [
     DomainsListComponent,
     DomainComponent,
+      SearchDomainPipe
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule,
-    SharedModule,
-    AuthModule,
-    PipesModule,
-    TranslateModule.forChild()
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        RouterModule,
+        SharedModule,
+        AuthModule,
+        PipesModule,
+        TranslateModule.forChild(),
+        InputTextModule,
+        NgxPaginationModule,
+        TableModule
+    ],
   exports: [
-    DomainsListComponent
+    DomainsListComponent,
+      SearchDomainPipe
   ],
   providers: [
     DomainService,

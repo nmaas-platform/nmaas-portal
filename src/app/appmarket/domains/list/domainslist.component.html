@@ -1,27 +1,47 @@
 <div class="col-sm-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10">
-	<h3>{{ 'DOMAINS.TITLE' | translate }}</h3>
-	<a *roles="['ROLE_SYSTEM_ADMIN']" [routerLink]="['add']" class="btn btn-primary" role="button">{{'DOMAINS.ADD_BUTTON' | translate}}</a>
-	<br>
-	<table class="table table-hover table-condensed" aria-describedby="Domains list">
-		<thead>
-			<tr>
-				<th scope="col">{{ 'DOMAINS.CODE_NAME' | translate }}</th>
-				<th scope="col">{{ 'DOMAINS.NAME' | translate }}</th>
-				<th scope="col">{{ 'DOMAINS.ACTIVATE' | translate }}</th>
-				<th scope="col">&nbsp;</th>
-			</tr>
-		</thead>
+    <h3>{{ 'DOMAINS.TITLE' | translate }}</h3>
+    <div class="flex space-between">
+        <div class="flex">
+            <a *roles="['ROLE_SYSTEM_ADMIN']" [routerLink]="['add']" class="btn btn-primary"
+               role="button">{{'DOMAINS.ADD_BUTTON' | translate}}</a>
+        </div>
+        <div class="flex">
+            <input pInputText name="search" id="search" placeholder="Search" type="text" [(ngModel)]="searchValue">
+        </div>
+    </div>
+    <br>
+    <table #table class="table table-hover table-condensed" aria-describedby="Domains list" sortable-table sort>
+        <thead>
+        <tr>
+            <th scope="col" sortable="codename" (sort)="onSort($event)">{{ 'DOMAINS.CODE_NAME' | translate }}
+                <i *ngIf="getSort('codename') === 'asc'" class="pi pi-arrow-down"></i>
+                <i *ngIf="getSort('codename') === 'desc'" class="pi pi-arrow-up"></i>
+            </th>
+            <th scope="col" sortable="name" (sort)="onSort($event)">{{ 'DOMAINS.NAME' | translate }}
+                <i *ngIf="getSort('name') === 'asc'" class="pi pi-arrow-down"></i>
+                <i *ngIf="getSort('name') === 'desc'" class="pi pi-arrow-up"></i>
+            </th>
+            <th scope="col" sortable="active" (sort)="onSort($event)">{{ 'DOMAINS.ACTIVATE' | translate }}
+                <i *ngIf="getSort('active') === 'asc'" class="pi pi-arrow-down"></i>
+                <i *ngIf="getSort('active') === 'desc'" class="pi pi-arrow-up"></i>
+            </th>
+            <th scope="col">&nbsp;</th>
+        </tr>
+        </thead>
 
-		<tbody>
-			<ng-template ngFor let-domain [ngForOf]="domains | async">
-			<tr class="clickable" [routerLink]="['view/', domain.id]">
-				<td>{{domain?.codename}}</td>
-				<td>{{domain?.name}}</td>
-				<td><span class="glyphicon glyphicon-ok" *ngIf="domain?.active"></span><span class="glyphicon glyphicon-remove" *ngIf="!(domain?.active)"></span></td>				
-				<td>
+        <tbody>
+        <ng-template ngFor let-domain
+                     [ngForOf]="domains | async | searchDomain: searchValue | paginate: {itemsPerPage: 10, currentPage: p}">
+            <tr class="clickable" [routerLink]="['view/', domain.id]">
+                <td>{{domain?.codename}}</td>
+                <td>{{domain?.name}}</td>
+                <td><span class="glyphicon glyphicon-ok" *ngIf="domain?.active"></span><span
+                        class="glyphicon glyphicon-remove" *ngIf="!(domain?.active)"></span></td>
+                <td>
 					<span class="dropdown">
-						<a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
-						   data-toggle="dropdown" href="#" role="button">
+						<a style="display: inline-block" class="dropdown-toggle " aria-expanded="false"
+                           aria-haspopup="true"
+                           data-toggle="dropdown" href="#" role="button">
 							<em class="fas fa-cog icon-black icon-bigger"></em>
 						</a>
 						<ul class="dropdown-menu pull-right-drop">
@@ -29,16 +49,19 @@
 								{{ 'DOMAINS.DETAILS_BUTTON' | translate }}</a>
 							</li>
 							<li><a *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']" [routerLink]="['edit/', domain.id]"
-								   class="">{{ 'DOMAINS.EDIT_BUTTON' | translate }}</a>
+                                   class="">{{ 'DOMAINS.EDIT_BUTTON' | translate }}</a>
 							</li>
 							<li><a *roles="['ROLE_SYSTEM_ADMIN']" (click)="changeState(domain)"
-								   class="">{{ getStateLabel(domain?.active) }}</a>
+                                   class="">{{ getStateLabel(domain?.active) }}</a>
 							</li>
 						</ul>
 					</span>
-				</td>
-			</tr>
-			</ng-template>
-		</tbody>
-	</table>
+                </td>
+            </tr>
+        </ng-template>
+        </tbody>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+    </table>
+
 </div>
