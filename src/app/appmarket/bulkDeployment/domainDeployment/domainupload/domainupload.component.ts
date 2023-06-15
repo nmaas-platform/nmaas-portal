@@ -21,6 +21,7 @@ export class DomainuploadComponent implements OnInit {
   myUploader(event: any) {
     console.log(event.files[0])
     // TODO add some in progress bar when waiting for information
+    this.showProgressBar = true;
     this.deployService.uploadUserDomainFile(event.files[0]).subscribe( val => {
       console.warn("done")
       this.deployService.bulk = val;
@@ -30,7 +31,6 @@ export class DomainuploadComponent implements OnInit {
         this.router.navigate(['admin/domains/deploy/summary'])
       }
     });
-    this.showProgressBar = true;
   }
 
 }
