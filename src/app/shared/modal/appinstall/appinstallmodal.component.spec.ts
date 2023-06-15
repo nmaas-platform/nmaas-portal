@@ -41,9 +41,11 @@ describe('AppInstallmodalComponent', () => {
         name: 'domain one',
         codename: 'dom-1',
         active: true,
+        deleted: false,
         domainDcnDetails: undefined,
         domainTechDetails: undefined,
-        applicationStatePerDomain: []
+        applicationStatePerDomain: [],
+        groups: [],
     }
 
     beforeEach(waitForAsync(() => {

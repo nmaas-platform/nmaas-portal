@@ -1,0 +1,37 @@
+<div class="col-sm-12 col-sm-offset-1 col-sm 10 col-md-offset-1 col-md-10">
+    <h3>{{header | translate}}</h3>
+    <table class="table table-hover table-condensed" style="margin-top: 3rem" aria-describedby="Bulk deployment table">
+        <thead>
+        <tr>
+            <th scope="col">{{'BULK.LIST.ID' | translate}}</th>
+            <th scope="col">{{'BULK.LIST.CREATOR' | translate}}</th>
+            <th scope="col">{{'BULK.LIST.CREATION_DATE' | translate}}</th>
+            <th scope="col">{{'BULK.LIST.STATE' | translate}}</th>
+            <th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <ng-template ngFor let-bulk [ngForOf]="bulks" let-i="index">
+            <tr class="table-row" >
+                <td style="width: 25%">{{bulk?.id}}</td>
+                <td style="width: 20%">{{bulk?.creator.username}}</td>
+                <td style="width: 15%">{{bulk?.creationDate | date: 'dd.MM.yyyy h:mm'}}</td>
+                <td style="width: 15%">{{bulk?.state}}</td>
+                <td style="width: 20%" class="text-right">
+                    <span class="dropdown">
+            <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
+              <em class="fas fa-cog icon-black icon-bigger"></em>
+            </a>
+            <ul class="dropdown-menu pull-right-drop">
+              <li>
+                <a [routerLink]="['/admin/domains/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>
+              </li>
+            </ul>
+          </span>
+                </td>
+            </tr>
+        </ng-template>
+        </tbody>
+    </table>
+</div>
