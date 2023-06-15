@@ -10,6 +10,8 @@ import {BulkType} from '../../../../model/bulk-replay';
 })
 export class DomainuploadComponent implements OnInit {
 
+  public showProgressBar = false;
+
   constructor(private readonly deployService: AppdeploymentService,
               private router: Router) { }
 
@@ -28,6 +30,7 @@ export class DomainuploadComponent implements OnInit {
         this.router.navigate(['admin/domains/deploy/summary'])
       }
     });
+    this.showProgressBar = true;
   }
 
 }
