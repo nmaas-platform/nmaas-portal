@@ -25,10 +25,19 @@ export interface SortEvent {
 })
 export class DomainsListComponent implements OnInit {
 
+    public readonly users_item_number_key = 'NUMBER_OF_DOMAIN_ITEM_KEY';
+
     public domains: Observable<Domain[]>;
 
     public searchValue = '';
     p: number;
+
+    public pageNumber = 1;
+    public paginatorName = 'paginator-identifier';
+    public itemsPerPage: number[] = [15, 20, 25, 30, 50];
+    public maxItemsOnPage = 15;
+
+    public showNotActive = false;
 
     @ViewChildren(SortableHeaderDirective)
     headers: QueryList<SortableHeaderDirective>;
@@ -92,30 +101,33 @@ export class DomainsListComponent implements OnInit {
         this.domainToRemove = domain
         this.modal.show()
     }
-    onSort({ column, direction }: SortEvent) {
+    onSort(event: any) {
+        const  sortColumn = event.sortColumn;
+        const direction = event.sortDirection;
+        console.warn(event)
         // resetting other headers
         this.headers.forEach((header) => {
-            if (header.sortable !== column) {
+            if (header.sortable !== sortColumn) {
                 header.direction = '';
             }
         });
 
         this.domains = this.domains.pipe(map(value => value.sort((a, b) => {
            if (direction === 'asc') {
-               if (a[column] > b[column]) {
+               if (a[sortColumn] > b[sortColumn]) {
                    return 1;
                }
 
-               if (a[column] < b[column]) {
+               if (a[sortColumn] < b[sortColumn]) {
                    return -1;
                }
                return 0;
            } else {
-               if (a[column] > b[column]) {
+               if (a[sortColumn] > b[sortColumn]) {
                    return -1;
                }
 
-               if (a[column] < b[column]) {
+               if (a[sortColumn] < b[sortColumn]) {
                    return 1;
                }
                return 0;
@@ -139,5 +151,14 @@ export class DomainsListComponent implements OnInit {
         }
     }
 
+    public setItems(item) {
+        // store max items per page value in this session
+        sessionStorage.setItem(this.users_item_number_key, item);
+        this.maxItemsOnPage = item;
+    }
 
+
+    onSorted(event: any) {
+        console.warn(event)
+    }
 }

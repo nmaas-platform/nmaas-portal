@@ -23,6 +23,7 @@ import { DomainGroupViewComponent } from './domain-group-view/domain-group-view.
 import {DropdownModule} from 'primeng/dropdown';
 import {MultiSelectModule} from 'primeng/multiselect';
 import { RemovalConfirmationModalComponent } from './modals/removal-confirmation-modal/removal-confirmation-modal.component';
+import {CheckboxModule} from 'primeng/checkbox';
 
 
 
@@ -47,8 +48,9 @@ import { RemovalConfirmationModalComponent } from './modals/removal-confirmation
         InputTextModule,
         NgxPaginationModule,
         TableModule,
-      DropdownModule,
-      MultiSelectModule
+        DropdownModule,
+        MultiSelectModule,
+        CheckboxModule
     ],
   exports: [
     DomainsListComponent,

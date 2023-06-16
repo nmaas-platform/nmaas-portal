@@ -5,25 +5,36 @@
             <a *roles="['ROLE_SYSTEM_ADMIN']" [routerLink]="['add']" class="btn btn-primary"
                role="button">{{'DOMAINS.ADD_BUTTON' | translate}}</a>
         </div>
+        <div class="flex" style="align-content: center; margin-top: 8px;">
+            <span style="align-content: center"> {{'DOMAINS.NOTACTIVE' | translate}}</span>
+            <p-checkbox id="showNotActive" [binary]="true" [(ngModel)]=" showNotActive"></p-checkbox>
+        </div>
         <div class="flex">
+            {{ 'DOMAINS.ITEMS_PER_PAGE' | translate }}:
+            <span id="selectionItems" class="dropdown" style="vertical-align: middle; display: inline-block; margin-right: 1rem;">
+        <button class="dropdown-toggle btn" data-toggle="dropdown" data-close-others="true">
+            {{maxItemsOnPage}}
+        </button>
+        <ul class="dropdown-menu">
+            <li *ngFor="let item of itemsPerPage" [ngClass]="{'active': maxItemsOnPage == item}">
+                <a (click)="setItems(item)">
+                    <span>{{item.toString()}}</span>
+                </a>
+            </li>
+        </ul>
+    </span>
             <input pInputText name="search" id="search" placeholder="Search" type="text" [(ngModel)]="searchValue">
         </div>
     </div>
     <br>
-    <table #table class="table table-hover table-condensed" aria-describedby="Domains list" sortable-table sort>
+    <table #table class="table table-hover table-condensed" aria-describedby="Domains list" sortable-table (sorted)="onSort($event)">
         <thead>
         <tr>
-            <th scope="col" sortable="codename" (sort)="onSort($event)">{{ 'DOMAINS.CODE_NAME' | translate }}
-                <i *ngIf="getSort('codename') === 'asc'" class="pi pi-arrow-down"></i>
-                <i *ngIf="getSort('codename') === 'desc'" class="pi pi-arrow-up"></i>
+            <th scope="col" class="column-sortable" sortable-column="codename">{{ 'DOMAINS.CODE_NAME' | translate }}
             </th>
-            <th scope="col" sortable="name" (sort)="onSort($event)">{{ 'DOMAINS.NAME' | translate }}
-                <i *ngIf="getSort('name') === 'asc'" class="pi pi-arrow-down"></i>
-                <i *ngIf="getSort('name') === 'desc'" class="pi pi-arrow-up"></i>
+            <th scope="col" class="column-sortable" sortable-column="name" >{{ 'DOMAINS.NAME' | translate }}
             </th>
-            <th scope="col" sortable="active" (sort)="onSort($event)">{{ 'DOMAINS.ACTIVATE' | translate }}
-                <i *ngIf="getSort('active') === 'asc'" class="pi pi-arrow-down"></i>
-                <i *ngIf="getSort('active') === 'desc'" class="pi pi-arrow-up"></i>
+            <th scope="col" class="column-sortable" sortable-column="active" >{{ 'DOMAINS.ACTIVATE' | translate }}
             </th>
             <th scope="col">&nbsp;</th>
         </tr>
@@ -31,7 +42,7 @@
 
         <tbody>
         <ng-template ngFor let-domain
-                     [ngForOf]="domains | async | searchDomain: searchValue | paginate: {itemsPerPage: 10, currentPage: p}">
+                     [ngForOf]="domains | async | searchDomain: searchValue: showNotActive | paginate: {itemsPerPage: maxItemsOnPage, currentPage: p}">
             <tr *ngIf="!domain.deleted" class="clickable" [routerLink]="['view/', domain.id]">
                 <td>{{domain?.codename}}</td>
                 <td>{{domain?.name}}</td>
@@ -63,9 +74,13 @@
             </tr>
         </ng-template>
         </tbody>
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
-
     </table>
+    <pagination-controls class="text-right" (pageChange)="p = $event"
+                         previousLabel="{{ 'PAGINATION.PREVIOUS' | translate }}"
+                         nextLabel="{{ 'PAGINATION.NEXT' | translate }}"
+                         screenReaderPaginationLabel="{{ 'PAGINATION.SCREEN_READER.PAGINATION' | translate }}"
+                         screenReaderPageLabel="{{ 'PAGINATION.SCREEN_READER.PAGE' | translate }}"
+                         screenReaderCurrentLabel="{{ 'PAGINATION.SCREEN_READER.CURRENT' | translate }}"></pagination-controls>
 
 </div>
 
