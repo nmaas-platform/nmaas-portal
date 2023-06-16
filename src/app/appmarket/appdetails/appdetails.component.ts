@@ -70,7 +70,10 @@ export class AppDetailsComponent implements OnInit {
                 application => {
                     this.app = application;
                     this.active = application.versions.some(version => this.getStateAsString(version.state) === 'ACTIVE');
-                    this.activeVersions = application.versions.filter(version => this.getStateAsString(version.state) === 'ACTIVE').map(version => version.version);
+                    this.activeVersions = application.versions
+                        .filter(version => this.getStateAsString(version.state) === 'ACTIVE')
+                        .map(version => version.version)
+                        .sort(this.compareVersions)
 
                     // required for the tooltip to appear correctly
                     this.userDataService.selectedDomainId.subscribe((domainId) => this.updateDomainSelection(domainId));
@@ -82,6 +85,12 @@ export class AppDetailsComponent implements OnInit {
                     }
                 });
         });
+    }
+
+    private compareVersions(a: string, b: string): number {
+        const versionA = a.split('.').map(Number);
+        const versionB = b.split('.').map(Number);
+        return versionA < versionB ? 1 : versionA > versionB ? -1 : 0;
     }
 
     public onRateChanged(): void {
