@@ -10,6 +10,8 @@ import {BulkType} from '../../../../model/bulk-replay';
 })
 export class DomainuploadComponent implements OnInit {
 
+  public showProgressBar = false;
+
   constructor(private readonly deployService: AppdeploymentService,
               private router: Router) { }
 
@@ -19,6 +21,7 @@ export class DomainuploadComponent implements OnInit {
   myUploader(event: any) {
     console.log(event.files[0])
     // TODO add some in progress bar when waiting for information
+    this.showProgressBar = true;
     this.deployService.uploadUserDomainFile(event.files[0]).subscribe( val => {
       console.warn("done")
       this.deployService.bulk = val;
