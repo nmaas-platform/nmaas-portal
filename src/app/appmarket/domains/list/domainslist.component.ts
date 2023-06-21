@@ -2,15 +2,13 @@ import {AuthService} from '../../../auth/auth.service';
 import {Domain} from '../../../model/domain';
 import {Role} from '../../../model/userrole';
 import {DomainService} from '../../../service/domain.service';
-import {Component, OnInit, QueryList, ViewChildren, ViewChild} from '@angular/core';
+import {Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {TranslateService} from '@ngx-translate/core';
-import {ModalComponent} from "../../../shared";
+import {ModalComponent} from '../../../shared';
 import {SortableHeaderDirective, SortColumn, SortDirection} from '../../../service/sort-domain.directive';
-import {
-    RemovalConfirmationModalComponent
-} from "../modals/removal-confirmation-modal/removal-confirmation-modal.component";
+import {RemovalConfirmationModalComponent} from '../modals/removal-confirmation-modal/removal-confirmation-modal.component';
 
 
 export interface SortEvent {
@@ -44,6 +42,7 @@ export class DomainsListComponent implements OnInit {
 
     @ViewChild(RemovalConfirmationModalComponent)
     public readonly modal: ModalComponent;
+
 
     public domainToRemove: Domain
 
@@ -136,20 +135,20 @@ export class DomainsListComponent implements OnInit {
         this.domains.subscribe(value => console.warn(value))
     }
 
-    public getSort(column: string) {
-        let header;
-        if (this.headers !== undefined) {
-            this.headers.forEach(h => {
-                if (h.sortable === column) header = h;
-            })
-            if (header !== undefined) {
-                return header.direction;
-            }
-            return ''
-        } else {
-            return ''
-        }
-    }
+    // public getSort(column: string) {
+    //     let header;
+    //     if (this.headers !== undefined) {
+    //         this.headers.forEach(h => {
+    //             if (h.sortable === column) header = h;
+    //         })
+    //         if (header !== undefined) {
+    //             return header.direction;
+    //         }
+    //         return ''
+    //     } else {
+    //         return ''
+    //     }
+    // }
 
     public setItems(item) {
         // store max items per page value in this session

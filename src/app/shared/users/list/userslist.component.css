@@ -26,3 +26,9 @@ tr.clickable {
 :host ::ng-deep .p-dropdown {
     width: 170px;
 }
+
+.space-between {
+    display: flex;
+    justify-content: end;
+}
+

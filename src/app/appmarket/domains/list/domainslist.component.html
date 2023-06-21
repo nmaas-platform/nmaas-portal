@@ -6,7 +6,7 @@
                role="button">{{'DOMAINS.ADD_BUTTON' | translate}}</a>
         </div>
         <div class="flex" style="align-content: center; margin-top: 8px;">
-            <span style="align-content: center"> {{'DOMAINS.NOTACTIVE' | translate}}</span>
+            <span style="align-content: center; margin-right: 5px;"> {{'DOMAINS.NOTACTIVE' | translate}}</span>
             <p-checkbox id="showNotActive" [binary]="true" [(ngModel)]=" showNotActive"></p-checkbox>
         </div>
         <div class="flex">
@@ -30,7 +30,7 @@
     <table #table class="table table-hover table-condensed" aria-describedby="Domains list" sortable-table (sorted)="onSort($event)">
         <thead>
         <tr>
-            <th scope="col" class="column-sortable" sortable-column="codename">{{ 'DOMAINS.CODE_NAME' | translate }}
+            <th scope="col" class="column-sortable" sortable-column="codename" sort-direction="asc">{{ 'DOMAINS.CODE_NAME' | translate }}
             </th>
             <th scope="col" class="column-sortable" sortable-column="name" >{{ 'DOMAINS.NAME' | translate }}
             </th>
