@@ -39,7 +39,7 @@ export class AppAddJsonAppComponent implements OnInit {
         this.appsService.createApplicationDTO(JSON.parse(fileReader.result)).subscribe(result => {
           console.log('uploaded', result);
           this.modal.hide();
-          this.router.navigate(['admin/apps/view/', result.id])
+          this.router.navigate(['apps', result.id])
         },
             error => {
               console.log(error)
@@ -57,7 +57,7 @@ export class AppAddJsonAppComponent implements OnInit {
       this.appsService.createApplicationDTO(JSON.parse(this.jsonText)).subscribe(result => {
         console.log('uploaded', result);
         this.modal.hide();
-        this.router.navigate(['admin/apps/view/', result.id])
+        this.router.navigate(['apps', result.id])
       },
           error => {
         console.log(error)
