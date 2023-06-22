@@ -17,6 +17,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {SearchDomainPipe} from './domain-search.pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {TableModule} from 'primeng/table';
+import {CheckboxModule} from 'primeng/checkbox';
 
 
 
@@ -36,7 +37,8 @@ import {TableModule} from 'primeng/table';
         TranslateModule.forChild(),
         InputTextModule,
         NgxPaginationModule,
-        TableModule
+        TableModule,
+        CheckboxModule
     ],
   exports: [
     DomainsListComponent,

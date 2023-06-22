@@ -5,14 +5,14 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class SearchDomainPipe implements PipeTransform {
 
-    transform(value: any[], searchValue: string): any[] {
+    transform(value: any[], searchValue: string, showNotActive: boolean): any[] {
 
         if (!value || !searchValue) {
+            if (!showNotActive && value) return value.filter(val => val.active !== false)
             return value
         }
-        console.log(searchValue)
 
-        const result = [];
+        let result = [];
         value.forEach( val => {
             if (val.name.toLowerCase().includes(searchValue.toLowerCase())
             ) {
@@ -20,7 +20,10 @@ export class SearchDomainPipe implements PipeTransform {
             }
 
         })
-        console.warn(result)
+
+        if (!showNotActive) {
+            result = result.filter(val => val.active !== false)
+        }
         return result;
     }
 }

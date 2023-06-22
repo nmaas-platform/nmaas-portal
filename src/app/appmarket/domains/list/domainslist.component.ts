@@ -2,10 +2,11 @@ import {AuthService} from '../../../auth/auth.service';
 import {Domain} from '../../../model/domain';
 import {Role} from '../../../model/userrole';
 import {DomainService} from '../../../service/domain.service';
-import {Component, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {TranslateService} from '@ngx-translate/core';
+import {ModalComponent} from '../../../shared';
 import {SortableHeaderDirective, SortColumn, SortDirection} from '../../../service/sort-domain.directive';
 
 
@@ -21,18 +22,33 @@ export interface SortEvent {
 })
 export class DomainsListComponent implements OnInit {
 
+    public readonly users_item_number_key = 'NUMBER_OF_DOMAIN_ITEM_KEY';
+
     public domains: Observable<Domain[]>;
 
     public searchValue = '';
     p: number;
 
+    public pageNumber = 1;
+    public paginatorName = 'paginator-identifier';
+    public itemsPerPage: number[] = [15, 20, 25, 30, 50];
+    public maxItemsOnPage = 15;
+
+    public showNotActive = false;
+
     @ViewChildren(SortableHeaderDirective)
     headers: QueryList<SortableHeaderDirective>;
+
+    public domainToRemove: Domain
 
     constructor(protected domainService: DomainService, protected authService: AuthService, public translate: TranslateService) {
     }
 
     ngOnInit() {
+        const i = sessionStorage.getItem(this.users_item_number_key)
+        if (i) {
+            this.maxItemsOnPage = +i;
+        }
         this.update();
     }
 
@@ -46,18 +62,18 @@ export class DomainsListComponent implements OnInit {
         }
     }
 
-    protected update(): void {
+    public update(): void {
         this.domains = this.getDomainsObservable().pipe(
             map((domains) => [...domains].sort(
-                (a, b) => {
-                    if (a.name.toLowerCase() < b.name.toLowerCase()) {
-                        return -1;
+                    (a, b) => {
+                        if (a.name.toLowerCase() < b.name.toLowerCase()) {
+                            return -1;
+                        }
+                        if (a.name.toLowerCase() > b.name.toLowerCase()) {
+                            return 1;
+                        }
+                        return 0;
                     }
-                    if (a.name.toLowerCase() > b.name.toLowerCase()) {
-                        return 1;
-                    }
-                    return 0;
-                }
                 )
             )
         )
@@ -72,52 +88,50 @@ export class DomainsListComponent implements OnInit {
         return active ? this.translate.instant('DOMAINS.DISABLE_BUTTON') : this.translate.instant('DOMAINS.ENABLE_BUTTON');
     }
 
-    onSort({ column, direction }: SortEvent) {
+    onSort(event: any) {
+        const  sortColumn = event.sortColumn;
+        const direction = event.sortDirection;
+        console.warn(event)
         // resetting other headers
         this.headers.forEach((header) => {
-            if (header.sortable !== column) {
+            if (header.sortable !== sortColumn) {
                 header.direction = '';
             }
         });
 
         this.domains = this.domains.pipe(map(value => value.sort((a, b) => {
-           if (direction === 'asc') {
-               if (a[column] > b[column]) {
-                   return 1;
-               }
+            if (direction === 'asc') {
+                if (a[sortColumn] > b[sortColumn]) {
+                    return 1;
+                }
 
-               if (a[column] < b[column]) {
-                   return -1;
-               }
-               return 0;
-           } else {
-               if (a[column] > b[column]) {
-                   return -1;
-               }
+                if (a[sortColumn] < b[sortColumn]) {
+                    return -1;
+                }
+                return 0;
+            } else {
+                if (a[sortColumn] > b[sortColumn]) {
+                    return -1;
+                }
 
-               if (a[column] < b[column]) {
-                   return 1;
-               }
-               return 0;
-           }
+                if (a[sortColumn] < b[sortColumn]) {
+                    return 1;
+                }
+                return 0;
+            }
         } )))
         this.domains.subscribe(value => console.warn(value))
     }
 
-    public getSort(column: string) {
-        let header;
-        if (this.headers !== undefined) {
-            this.headers.forEach(h => {
-                if (h.sortable === column) header = h;
-            })
-            if (header !== undefined) {
-                return header.direction;
-            }
-            return ''
-        } else {
-            return ''
-        }
+
+    public setItems(item) {
+        // store max items per page value in this session
+        sessionStorage.setItem(this.users_item_number_key, item);
+        this.maxItemsOnPage = item;
     }
 
 
+    onSorted(event: any) {
+        console.warn(event)
+    }
 }
