@@ -25,6 +25,10 @@
             {{error}}
         </div>
 
+        <div *ngIf="JsonError" style="color: indianred">
+            {{'APPS_MANAGEMENT.JSON_ERROR' | translate}}
+        </div>
+
 
     </div>
     <div class="nmaas-modal-footer">
