@@ -56,6 +56,9 @@ export class AppInstanceListComponent implements OnInit {
 
     public domains: Domain[] = [];
 
+    public searchValue = '';
+
+
     constructor(private appInstanceService: AppInstanceService,
                 public domainService: DomainService,
                 private userDataService: UserDataService,

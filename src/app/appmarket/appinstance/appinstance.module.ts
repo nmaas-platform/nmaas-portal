@@ -32,6 +32,8 @@ import { AppdeploymentComponent } from '../bulkDeployment/appDeployment/appchoos
 import {DropdownModule} from 'primeng/dropdown';
 import {TimelineModule} from 'primeng/timeline';
 import {ButtonModule} from 'primeng/button';
+import {InputTextModule} from 'primeng/inputtext';
+import {AppinstanceSearchPipe} from './appinstance-search.pipe';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import {ButtonModule} from 'primeng/button';
       AppInstanceShellViewComponent,
       AddMembersModalComponent,
       SelectPodModalComponent,
-      AppdeploymentComponent
+      AppdeploymentComponent,
+      AppinstanceSearchPipe
   ],
     imports: [
         FormioModule,
@@ -65,10 +68,12 @@ import {ButtonModule} from 'primeng/button';
         DropdownModule,
         TimelineModule,
         ButtonModule,
+        InputTextModule,
     ],
   exports: [
     AppInstanceComponent,
     AppInstanceListComponent,
+      AppinstanceSearchPipe
   ],
   providers: [
     AppsService,

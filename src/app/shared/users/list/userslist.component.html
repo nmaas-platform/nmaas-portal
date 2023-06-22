@@ -1,58 +1,6 @@
-<!--<div style="display: inline;" class="col-xs-12 col-sm-6 col-md-6 col-lg-6 pull-right text-right">-->
-<!--    {{ 'USERS.ITEMS_PER_PAGE' | translate }}:-->
-<!--    <span id="selectionItems" class="dropdown" style="vertical-align: middle; display: inline-block;">-->
-<!--        <button class="dropdown-toggle btn" data-toggle="dropdown" data-close-others="true">-->
-<!--            {{maxItemsOnPage}}-->
-<!--        </button>-->
-<!--        <ul class="dropdown-menu">-->
-<!--            <li *ngFor="let item of itemsPerPage" [ngClass]="{'active': maxItemsOnPage == item}">-->
-<!--                <a (click)="setItems(item)">-->
-<!--                    <span>{{item.toString()}}</span>-->
-<!--                </a>-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--    </span>-->
-<!--</div>-->
-<!--<div class="row">-->
-<!--    <h3>-->
-<!--        {{ 'USERS.TITLE' | translate }}-->
-<!--        <button *ngIf="authService.hasDomainRole(domainId, 'ROLE_DOMAIN_ADMIN')"-->
-<!--                class="btn btn-primary" (click)="changeMode()">-->
-<!--            <span *ngIf="isModeAllowed(ComponentMode.DELETE)">{{'USERS.ADD_TO_DOMAIN_BUTTON' | translate}}</span>-->
-<!--            <span *ngIf="isModeAllowed(ComponentMode.EDIT)">{{'USERS.GO_BACK_BUTTON' | translate}}</span>-->
-<!--        </button>-->
-<!--    </h3>-->
-<!--    <div class="form-group row col-sm-4 align-vertically">-->
-<!--        <label for="searchText" class="col-form-label col-sm-3">Search:</label>-->
-<!--        <div class="col-sm-9">-->
-<!--            <input id="searchText" type="text" [formControl]="searchText" class="form-control" (keyup)="searchUsers($event.target.value)">-->
-<!--        </div>-->
-<!--    </div>-->
-
-
 <div class="col-sm-12 col-sm-10  col-md-12">
     <h3>
         {{ 'USERS.TITLE' | translate }}</h3>
-<!--    <div class="col-sm-3 col-sm-offset-5">-->
-<!--            {{ 'USERS.ITEMS_PER_PAGE' | translate }}:-->
-<!--            <span id="selectionItems" class="dropdown"-->
-<!--                  style="vertical-align: middle; display: inline-block; margin-right: 1rem;">-->
-<!--                <button class="dropdown-toggle btn" data-toggle="dropdown" data-close-others="true">-->
-<!--            {{maxItemsOnPage}}-->
-<!--        </button>-->
-<!--                    <ul class="dropdown-menu">-->
-<!--                        <li *ngFor="let item of itemsPerPage" [ngClass]="{'active': maxItemsOnPage == item}">-->
-<!--                             <a (click)="setItems(item)">-->
-<!--                    <span>{{item.toString()}}</span>-->
-<!--                </a>-->
-<!--            </li>-->
-<!--                </ul>-->
-<!--                </span>-->
-<!--    </div>-->
-<!--    <div class="col-sm-4">-->
-<!--            <input pInputText name="search" id="search" placeholder="Search" type="text" [formControl]="searchText"-->
-<!--                   class="form-control" (keyup)="searchUsers($event.target.value)">-->
-<!--    </div>-->
     <div class="flex space-between">
         <div class="flex">
             {{ 'DOMAINS.ITEMS_PER_PAGE' | translate }}:
