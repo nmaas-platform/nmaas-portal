@@ -16,6 +16,9 @@ export class AppAddJsonVersionAppComponent implements OnInit {
   public jsonText = '';
   public error = '';
 
+  public JsonError = false;
+
+
   @Output()
   public refresh: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -36,15 +39,21 @@ export class AppAddJsonVersionAppComponent implements OnInit {
     fileReader.onload = () => {
       if (typeof fileReader.result === 'string') {
         console.log(JSON.parse(fileReader.result));
-        this.appsService.createApplication(JSON.parse(fileReader.result)).subscribe(result => {
-              console.log('uploaded', result);
-              this.modal.hide();
+        try {
+          JSON.parse(fileReader.result);
+          this.appsService.createApplication(JSON.parse(fileReader.result)).subscribe(result => {
+                console.log('uploaded', result);
+                this.modal.hide();
                 this.refresh.emit(true);
-            },
-            error => {
-              console.log(error)
-              this.error = error.message
-            })
+              },
+              error => {
+                console.log(error)
+                this.error = error.message
+              })
+        } catch (e) {
+          console.warn('invalid json')
+          this.JsonError = true;
+        }
       }
     }
     fileReader.onerror = (error) => {
@@ -54,16 +63,21 @@ export class AppAddJsonVersionAppComponent implements OnInit {
 
   public sendJsonText() {
     if (this.jsonText.length > 0) {
-      this.appsService.createApplication(JSON.parse(this.jsonText)).subscribe(result => {
-            console.log('uploaded', result);
-            this.modal.hide();
-            this.refresh.emit(true);
-          },
-          error => {
-            console.log(error)
-            this.error = error.message
-          })
-
+      try {
+        JSON.parse(this.jsonText);
+        this.appsService.createApplication(JSON.parse(this.jsonText)).subscribe(result => {
+              console.log('uploaded', result);
+              this.modal.hide();
+              this.refresh.emit(true);
+            },
+            error => {
+              console.log(error)
+              this.error = error.message
+            })
+      } catch (e) {
+        console.warn('invalid json')
+        this.JsonError = true;
+      }
     }
   }
 
