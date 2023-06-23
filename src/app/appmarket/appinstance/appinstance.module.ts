@@ -28,6 +28,7 @@ import { AddMembersModalComponent } from './modals/add-members-modal/add-members
 import {MultiSelectModule} from 'primeng/multiselect';
 import { SelectPodModalComponent } from './modals/select-pod-modal/select-pod-modal.component';
 import {TooltipModule} from 'primeng/tooltip';
+import {AppinstanceSearchPipe} from './appinstance-search.pipe';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {TooltipModule} from 'primeng/tooltip';
       SshShellComponent,
       AppInstanceShellViewComponent,
       AddMembersModalComponent,
-      SelectPodModalComponent
+      SelectPodModalComponent,
+      AppinstanceSearchPipe
   ],
     imports: [
         FormioModule,
@@ -61,6 +63,7 @@ import {TooltipModule} from 'primeng/tooltip';
   exports: [
     AppInstanceComponent,
     AppInstanceListComponent,
+      AppinstanceSearchPipe
   ],
   providers: [
     AppsService,

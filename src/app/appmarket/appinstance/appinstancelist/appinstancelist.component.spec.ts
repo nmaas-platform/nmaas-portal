@@ -18,6 +18,7 @@ import {RolesDirective} from '../../../directive/roles.directive';
 import {JwtModule} from '@auth0/angular-jwt';
 import {Pipe, PipeTransform} from '@angular/core';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {AppinstanceSearchPipe} from '../appinstance-search.pipe';
 
 @Pipe({ name: 'keys'})
 class KeysPipe implements PipeTransform {
@@ -58,7 +59,8 @@ describe('AppInstanceListComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 AppInstanceListComponent,
-                KeysPipe
+                KeysPipe,
+                AppinstanceSearchPipe
             ],
             imports: [
                 FormsModule,
