@@ -27,6 +27,8 @@ export class AppManagementListComponent implements OnInit {
 
     public versionRowVisible: boolean[] = []
 
+    public filteredApps: ApplicationBase[] = [];
+
     constructor(public appsService: AppsService,
                 public router: Router,
                 public authService: AuthService) {
@@ -84,8 +86,22 @@ export class AppManagementListComponent implements OnInit {
             })
         ).subscribe(val => {
             this.apps = val;
+            this.filteredApps = val;
             this.versionRowVisible = new Array(val.length).fill(false);
         });
     }
 
+    public searchApp(value: string) {
+        const result = [];
+        if (value !== null && value !== '') {
+            this.apps.forEach(app => {
+                if (app.name.toLowerCase().includes(value.toLowerCase())) {
+                    result.push(app)
+                }
+            })
+            this.apps = result;
+        } else {
+            this.apps = this.filteredApps
+        }
+    }
 }
