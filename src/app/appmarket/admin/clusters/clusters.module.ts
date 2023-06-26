@@ -20,6 +20,9 @@ import {ClusterService} from "../../../service/cluster.service";
         AuthModule,
         PipesModule,
     ],
+    exports: [
+        ClusterDetailsComponent
+    ],
     providers: [
         ClusterService,
     ]

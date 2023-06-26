@@ -24,7 +24,7 @@ export class ClusterDetailsComponent extends BaseComponent implements OnInit {
     ngOnInit() {
         this.clusterService.getCluster().subscribe(cluster => {
             this.cluster = cluster;
-            this.router.navigate(['/admin/clusters/view']);
+            // this.router.navigate(['/admin/clusters/view']);
         }, () => {
             this.cluster = new Cluster();
             this.mode = ComponentMode.CREATE;
