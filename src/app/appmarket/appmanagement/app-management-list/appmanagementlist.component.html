@@ -1,10 +1,18 @@
 <div class="col-sm-12 col-sm-offset-1 col-sm 10 col-md-offset-1 col-md-10">
   <h3>{{'APPS_MANAGEMENT.TITLE'| translate}}</h3>
-  <button [routerLink]="['/admin/apps/create']" class="btn btn-primary">{{ 'APPS_MANAGEMENT.ADD_BUTTON' | translate }}</button>
-  <button (click)="appAddJson.show()" class="btn btn-primary" style="margin-left: 10px">{{ 'APPS_MANAGEMENT.ADD_BUTTON' | translate }} (JSON)</button>
+  <div style="display:flex; justify-content: space-between">
+    <div style="display:flex">
+      <button [routerLink]="['/admin/apps/create']" class="btn btn-primary">{{ 'APPS_MANAGEMENT.ADD_BUTTON' | translate }}</button>
+      <button (click)="appAddJson.show()" class="btn btn-primary" style="margin-left: 10px">{{ 'APPS_MANAGEMENT.ADD_BUTTON' | translate }} (JSON)</button>
+    </div>
+    <div style="display: flex">
+      <input pInputText id="searchText" type="text"  placeholder="Search" (keyup)="searchApp($event.target.value)">
 
-  <hr>
-  <table class="table table-hover table-condensed" aria-describedby="Apps management table">
+    </div>
+  </div>
+
+
+  <table class="table table-hover table-condensed" aria-describedby="Apps management table" style="margin-top:15px">
     <thead>
     <tr>
       <th scope="col"></th>

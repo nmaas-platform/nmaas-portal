@@ -29,6 +29,7 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import { SelectPodModalComponent } from './modals/select-pod-modal/select-pod-modal.component';
 import {TooltipModule} from 'primeng/tooltip';
 import {AppinstanceSearchPipe} from './appinstance-search.pipe';
+import {InputTextModule} from 'primeng/inputtext';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import {AppinstanceSearchPipe} from './appinstance-search.pipe';
         NgTerminalModule,
         MultiSelectModule,
         TooltipModule,
+        InputTextModule,
     ],
   exports: [
     AppInstanceComponent,
