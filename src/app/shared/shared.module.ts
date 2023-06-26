@@ -57,6 +57,7 @@ import { PreferencesComponent } from './users/preferences/preferences.component'
 import {TooltipModule} from 'primeng/tooltip';
 import {DropdownModule} from 'primeng/dropdown';
 import {SortableHeaderDirective} from '../service/sort-domain.directive';
+import {InputTextModule} from 'primeng/inputtext';
 
 @NgModule({
     imports: [
@@ -73,6 +74,7 @@ import {SortableHeaderDirective} from '../service/sort-domain.directive';
         FormioModule,
         TooltipModule,
         DropdownModule,
+        InputTextModule,
     ],
     declarations: [
         RateComponent,
