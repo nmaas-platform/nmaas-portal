@@ -6,7 +6,7 @@
 			[(ngModel)]="value" [ngModelOptions]="{standalone: true}"
 			(ngModelChange)="onChange()">
 			<option [value]="'all'">all</option>
-			<option *ngFor="let tag of tags | async" [value]="tag">{{tag}}</option>
+			<option *ngFor="let tag of tagsValue" [value]="tag">{{tag}}</option>
 		</select>
 	</div>
 </form>
