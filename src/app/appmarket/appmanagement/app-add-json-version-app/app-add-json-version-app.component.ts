@@ -48,7 +48,11 @@ export class AppAddJsonVersionAppComponent implements OnInit {
               },
               error => {
                 console.log(error)
-                this.error = error.error.message
+                if (error.message === null) {
+                  this.JsonError = true;
+                } else {
+                  this.error = error.message
+                }
               })
         } catch (e) {
           console.warn('invalid json')
@@ -72,7 +76,11 @@ export class AppAddJsonVersionAppComponent implements OnInit {
             },
             error => {
               console.log(error)
-              this.error = error.error.message
+              if (error.message === null) {
+                this.JsonError = true;
+              } else {
+                this.error = error.message
+              }
             })
       } catch (e) {
         console.warn('invalid json')
