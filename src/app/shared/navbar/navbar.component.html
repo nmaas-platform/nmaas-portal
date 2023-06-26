@@ -48,7 +48,7 @@
                                 [routerLink]="['/admin/configuration']">{{ 'NAVBAR.SETTINGS' | translate }}</a>
                         </li>
 
-                        <li class="dropdown-divider"></li>
+                        <li *roles="['ROLE_SYSTEM_ADMIN']" class="dropdown-divider"></li>
                         <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER']"><a
                                 [routerLink]="['/admin/apps']">{{ 'NAVBAR.MARKET' | translate }}</a>
                         </li>
@@ -65,7 +65,7 @@
                                 [routerLink]="['/admin/languages']">{{'NAVBAR.LANGUAGES' | translate }}</a>
                         </li>
 
-                        <li class="dropdown-divider"></li>
+                        <li *roles="['ROLE_SYSTEM_ADMIN']" class="dropdown-divider"></li>
 
                         <!--                        <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']"><a [routerLink]="['/admin/clusters']">Kubernetes</a>-->
                         <!--                        </li>-->
