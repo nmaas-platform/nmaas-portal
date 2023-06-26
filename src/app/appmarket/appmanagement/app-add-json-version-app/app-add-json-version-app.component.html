@@ -14,7 +14,7 @@
             <div style="margin-bottom: 10px">
                 {{ 'APPS_MANAGEMENT.ADD_JSON_TEXTAREA'| translate}}
             </div>
-            <textarea rows="10" cols="100" pInputTextarea [(ngModel)]="jsonText" (keyup)="this.JsonError = false"></textarea>
+            <textarea rows="10" cols="100" pInputTextarea [(ngModel)]="jsonText" (keyup)="this.JsonError = false; this.error = ''"></textarea>
         </div>
         <div class="flex flex-row justify-content-center justify-content-center mt-2">
             <button *ngIf="jsonText.length >0" pButton class="btn btn-success"
