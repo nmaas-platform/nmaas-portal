@@ -5,7 +5,7 @@
             <a *roles="['ROLE_SYSTEM_ADMIN']" [routerLink]="['add']" class="btn btn-primary"
                role="button">{{'DOMAINS.ADD_BUTTON' | translate}}</a>
         </div>
-        <div class="flex" style="align-content: center; margin-top: 8px;">
+        <div *roles="['ROLE_SYSTEM_ADMIN']" class="flex" style="align-content: center; margin-top: 8px;">
             <span style="align-content: center; margin-right: 5px;"> {{'DOMAINS.NOTACTIVE' | translate}}</span>
             <p-checkbox id="showNotActive" [binary]="true" [(ngModel)]=" showNotActive"></p-checkbox>
         </div>
