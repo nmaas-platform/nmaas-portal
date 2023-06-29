@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AppAccessMethod} from '../../../model/app-access-method';
+import {AppAccessMethod, ConditionType} from '../../../model/app-access-method';
 import {parseServiceAccessMethodType, ServiceAccessMethodType} from '../../../model/service-access-method';
 import {KeyValue} from '@angular/common';
 
@@ -39,6 +39,8 @@ export class AppAccessMethodEditComponent implements OnInit {
     'INGRESS_TLS_HOSTS',
     'K8S_SERVICE_SUFFIX',
     'K8S_SERVICE_PORT']
+
+  public conditionType = ['NONE', 'DEPLOYMENT_PARAMETER']
 
   constructor() { }
 
@@ -105,6 +107,12 @@ export class AppAccessMethodEditComponent implements OnInit {
         this.accessMethod.deployParameters[val.key] = val.value;
       }
     })
+  }
+
+  public onSelectConditionType(conditionType: any) {
+    if (conditionType.target.value === 'NONE') {
+      this.accessMethod.condition = '';
+    }
   }
 
 }
