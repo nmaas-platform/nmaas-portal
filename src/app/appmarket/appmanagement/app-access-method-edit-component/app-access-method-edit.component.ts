@@ -41,7 +41,6 @@ export class AppAccessMethodEditComponent implements OnInit {
     'K8S_SERVICE_PORT']
 
   public conditionType = ['NONE', 'DEPLOYMENT_PARAMETER']
-  public condition = '';
 
   constructor() { }
 
