@@ -3,8 +3,16 @@
         {{ 'USERS.TITLE' | translate }}</h3>
     <div class="flex space-between">
         <div class="flex">
-            {{ 'USERS.ITEMS_PER_PAGE' | translate }}:
-            <span id="selectionItems" class="dropdown" style="vertical-align: middle; display: inline-block; margin-right: 1rem;">
+            <button *ngIf="authService.hasDomainRole(domainId, 'ROLE_DOMAIN_ADMIN')"
+                    class="btn btn-primary" (click)="changeMode()">
+                <span *ngIf="isModeAllowed(ComponentMode.DELETE)">{{'USERS.ADD_TO_DOMAIN_BUTTON' | translate}}</span>
+                <span *ngIf="isModeAllowed(ComponentMode.EDIT)">{{'USERS.GO_BACK_BUTTON' | translate}}</span>
+            </button>
+        </div>
+        <div class="" style="display: flex">
+            <div *ngIf="isModeAllowed(ComponentMode.DELETE)" class="flex">
+                {{ 'USERS.ITEMS_PER_PAGE' | translate }}:
+                <span id="selectionItems" class="dropdown" style="vertical-align: middle; display: inline-block; margin-right: 1rem;">
         <button class="dropdown-toggle btn" data-toggle="dropdown" data-close-others="true">
             {{maxItemsOnPage}}
         </button>
@@ -16,10 +24,18 @@
             </li>
         </ul>
     </span>
+            </div>
+            <div *ngIf="isModeAllowed(ComponentMode.EDIT)" style="margin-right: 15px; padding-top: 5px;"> {{'USERS.SEARCH' | translate}}</div>
+
+            <div *ngIf="isModeAllowed(ComponentMode.EDIT)" class="flex">
+                <input pInputText name="searchTextDomain" id="searchTextDomain" placeholder="Search" type="text"  (keyup)="searchUsers($event.target.value)">
+            </div>
+            <div *ngIf="isModeAllowed(ComponentMode.DELETE)" class="flex">
+                <input pInputText name="searchText" id="searchText" placeholder="Search" type="text"  class="form-control" (keyup)="onSearch($event.target.value)" >
+            </div>
         </div>
-        <div class="flex">
-            <input pInputText name="searchText" id="searchText" placeholder="Search" type="text"  class="form-control" (keyup)="searchUsers($event.target.value)">
-        </div>
+
+
     </div>
 
     <br>
