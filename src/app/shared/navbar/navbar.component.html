@@ -65,12 +65,15 @@
                     [routerLinkActiveOptions]="{exact:true}"
                     [routerLinkActive]="['active']" class="dropdown">
                     <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown"
-                       role="button">{{ 'NAVBAR.SETTINGS' | translate }}<strong class="caret"></strong></a>
+                       role="button"><i style="font-size: 1.8rem" class="pi pi-cog"></i><strong class=""></strong></a>
                     <ul class="dropdown-menu">
-                        <li *roles="['ROLE_SYSTEM_ADMIN']"><a [routerLink]="['/admin/configuration']">Portal</a>
-                        </li>
                         <li *roles="['ROLE_SYSTEM_ADMIN']"><a
-                                [routerLink]="['/admin/languages']">{{'NAVBAR.LANGUAGES' | translate }}</a>
+                                [routerLink]="['/admin/configuration']">{{ 'NAVBAR.SETTINGS' | translate }}</a>
+                        </li>
+
+                        <li *roles="['ROLE_SYSTEM_ADMIN']" class="dropdown-divider"></li>
+                        <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER']"><a
+                                [routerLink]="['/admin/apps']">{{ 'NAVBAR.MARKET' | translate }}</a>
                         </li>
                         <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']"><a
                                 [routerLink]="['/admin/domains']">{{ 'NAVBAR.DOMAINS' | translate }}</a>
@@ -81,11 +84,14 @@
                         <li *roles="['ROLE_DOMAIN_ADMIN']"><a
                                 [routerLink]="['/domain/users']">{{ 'NAVBAR.DOMAIN_USERS' | translate }}</a>
                         </li>
-                        <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER']"><a
-                                [routerLink]="['/admin/apps']">{{ 'NAVBAR.MARKET' | translate }}</a>
+                        <li *roles="['ROLE_SYSTEM_ADMIN']"><a
+                                [routerLink]="['/admin/languages']">{{'NAVBAR.LANGUAGES' | translate }}</a>
                         </li>
-                        <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']"><a [routerLink]="['/admin/clusters']">Kubernetes</a>
-                        </li>
+
+                        <li *roles="['ROLE_SYSTEM_ADMIN']" class="dropdown-divider"></li>
+
+                        <!--                        <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']"><a [routerLink]="['/admin/clusters']">Kubernetes</a>-->
+                        <!--                        </li>-->
                         <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']" [routerLinkActiveOptions]="{exact:true}"
                             [routerLinkActive]="['active']"><a
                                 [routerLink]="['/admin/monitor']">{{ 'NAVBAR.MONITOR' | translate }}</a>

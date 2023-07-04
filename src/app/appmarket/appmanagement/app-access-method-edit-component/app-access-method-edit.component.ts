@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AppAccessMethod} from '../../../model/app-access-method';
+import {AppAccessMethod, ConditionType} from '../../../model/app-access-method';
 import {parseServiceAccessMethodType, ServiceAccessMethodType} from '../../../model/service-access-method';
 import {KeyValue} from '@angular/common';
 
@@ -40,6 +40,8 @@ export class AppAccessMethodEditComponent implements OnInit {
     'K8S_SERVICE_SUFFIX',
     'K8S_SERVICE_PORT']
 
+  public conditionType = ['NONE', 'DEPLOYMENT_PARAMETER']
+
   constructor() { }
 
   ngOnInit() {
@@ -75,6 +77,7 @@ export class AppAccessMethodEditComponent implements OnInit {
   public removeDeployParam(key: string, value: any): void {
     if (this.accessMethod.deployParameters.hasOwnProperty(key)) {
      this.keyValue = this.keyValue.filter(val => (val !== value))
+      delete this.accessMethod.deployParameters[key];
       this.setKeyValueToDeployParam();
     }
   }
@@ -104,6 +107,12 @@ export class AppAccessMethodEditComponent implements OnInit {
         this.accessMethod.deployParameters[val.key] = val.value;
       }
     })
+  }
+
+  public onSelectConditionType(conditionType: any) {
+    if (conditionType.target.value === 'NONE') {
+      this.accessMethod.condition = '';
+    }
   }
 
 }

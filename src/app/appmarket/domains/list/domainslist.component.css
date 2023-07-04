@@ -16,3 +16,8 @@ tr.clickable {
 .dropdown:hover .dropdown-menu {
     display: block;
 }
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
+}

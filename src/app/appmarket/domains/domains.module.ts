@@ -13,6 +13,11 @@ import {DomainComponent} from './domain/domain.component';
 
 import {DomainService} from '../../service/domain.service';
 import {TranslateModule} from '@ngx-translate/core';
+import {InputTextModule} from 'primeng/inputtext';
+import {SearchDomainPipe} from './domain-search.pipe';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {TableModule} from 'primeng/table';
+import {CheckboxModule} from 'primeng/checkbox';
 import { DomainGroupsComponent } from './domain-groups/domain-groups.component';
 import { DomainGroupViewComponent } from './domain-group-view/domain-group-view.component';
 import {DropdownModule} from 'primeng/dropdown';
@@ -25,6 +30,7 @@ import { RemovalConfirmationModalComponent } from './modals/removal-confirmation
   declarations: [
     DomainsListComponent,
     DomainComponent,
+      SearchDomainPipe,
     DomainGroupsComponent,
     DomainGroupViewComponent,
     RemovalConfirmationModalComponent,
@@ -37,11 +43,16 @@ import { RemovalConfirmationModalComponent } from './modals/removal-confirmation
         AuthModule,
         PipesModule,
         TranslateModule.forChild(),
-        DropdownModule,
-        MultiSelectModule
+        InputTextModule,
+        NgxPaginationModule,
+        TableModule,
+        CheckboxModule,
+      DropdownModule,
+      MultiSelectModule
     ],
   exports: [
-    DomainsListComponent
+    DomainsListComponent,
+      SearchDomainPipe
   ],
   providers: [
     DomainService,

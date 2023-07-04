@@ -101,6 +101,47 @@
 			</div>
 		</div>
 
+		<div class="panel panel-default" *ngIf="isInMode(ComponentMode.VIEW) && !authService.hasRole('ROLE_OPERATOR')">
+			<div class="panel-heading">{{ 'DOMAIN_DETAILS.DOMAIN_USERS' | translate }}</div>
+			<div class="panel-body">
+				<table class="table table-hover table-condensed" aria-describedby="Domains details table">
+					<thead>
+					<tr>
+						<th scope="col" *roles="['ROLE_SYSTEM_ADMIN']">{{ 'DOMAIN_DETAILS.ID' | translate }}</th>
+						<th scope="col">{{ 'DOMAIN_DETAILS.USER_NAME' | translate }}</th>
+						<th scope="col">{{ 'DOMAIN_DETAILS.FIRST_NAME' | translate }}</th>
+						<th scope="col">{{ 'DOMAIN_DETAILS.LAST_NAME' | translate }}</th>
+						<th scope="col">{{ 'DOMAIN_DETAILS.ROLES' | translate }}</th>
+						<th scope="col">&nbsp;</th>
+					</tr>
+					</thead>
+
+					<tbody>
+					<ng-template ngFor let-user [ngForOf]="domainUsers">
+						<tr>
+							<td *ngIf="authService.hasRole('ROLE_SYSTEM_ADMIN')">{{user.id}}</td>
+							<td>{{user.username}}</td>
+							<td> {{user.firstname}}</td>
+							<td> {{user.lastname}}</td>
+							<td *ngIf="domainId == domainService.getGlobalDomainId()">
+								<div *ngFor="let role of filterDomainNames(user); last as isLast">
+									<span *ngIf="!isLast" style="float:left;padding-right: 3px">{{role.role | slice:5}}@{{this.getDomainName(role.domainId)|async}}, </span>
+									<span *ngIf="isLast" style="float:left">{{role.role | slice:5}}@{{this.getDomainName(role.domainId)|async}}</span>
+								</div>
+							</td>
+							<td *ngIf="domainId != domainService.getGlobalDomainId()">
+										<span *ngFor="let role of this.getDomainRoleNames(user.roles)">
+											{{"ENUM.USER_ROLES." + role.role.toUpperCase() | translate}}
+										</span>
+							</td>
+						</tr>
+					</ng-template>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+
 		<div class="panel panel-default">
 			<div class="panel-heading">{{ 'DOMAIN_DETAILS.APP_STATUS' | translate }}</div>
 			<div class="panel-body">
@@ -185,46 +226,7 @@
 
 
 
-		<div class="panel panel-default" *ngIf="isInMode(ComponentMode.VIEW) && !authService.hasRole('ROLE_OPERATOR')">
-			<div class="panel-heading">{{ 'DOMAIN_DETAILS.DOMAIN_USERS' | translate }}</div>
-				<div class="panel-body">
-        			<table class="table table-hover table-condensed" aria-describedby="Domains details table">
-            			<thead>
-            				<tr>
-                				<th scope="col" *roles="['ROLE_SYSTEM_ADMIN']">{{ 'DOMAIN_DETAILS.ID' | translate }}</th>
-                				<th scope="col">{{ 'DOMAIN_DETAILS.USER_NAME' | translate }}</th>
-								<th scope="col">{{ 'DOMAIN_DETAILS.FIRST_NAME' | translate }}</th>
-								<th scope="col">{{ 'DOMAIN_DETAILS.LAST_NAME' | translate }}</th>
-                				<th scope="col">{{ 'DOMAIN_DETAILS.ROLES' | translate }}</th>
-                				<th scope="col">&nbsp;</th>
-            				</tr>
-            			</thead>
 
-						<tbody>
-							<ng-template ngFor let-user [ngForOf]="domainUsers">
-								<tr>
-									<td *ngIf="authService.hasRole('ROLE_SYSTEM_ADMIN')">{{user.id}}</td>
-									<td>{{user.username}}</td>
-									<td> {{user.firstname}}</td>
-									<td> {{user.lastname}}</td>
-									<td *ngIf="domainId == domainService.getGlobalDomainId()">
-										<div *ngFor="let role of filterDomainNames(user); last as isLast">
-											<span *ngIf="!isLast" style="float:left;padding-right: 3px">{{role.role | slice:5}}@{{this.getDomainName(role.domainId)|async}}, </span>
-											<span *ngIf="isLast" style="float:left">{{role.role | slice:5}}@{{this.getDomainName(role.domainId)|async}}</span>
-										</div>
-									</td>
-									<td *ngIf="domainId != domainService.getGlobalDomainId()">
-										<span *ngFor="let role of this.getDomainRoleNames(user.roles)">
-											{{"ENUM.USER_ROLES." + role.role.toUpperCase() | translate}}
-										</span>
-									</td>
-								</tr>
-							</ng-template>
-
-            			</tbody>
-					</table>
-				</div>
-			</div>
 
 		<div class="panel panel-default" *ngIf="isInMode(ComponentMode.VIEW) && !authService.hasRole('ROLE_OPERATOR')">
 			<div class="panel-heading">{{ 'DOMAINS.LIST.GROUP' | translate }}</div>

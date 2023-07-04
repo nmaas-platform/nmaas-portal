@@ -20,6 +20,16 @@
         <label class="control-label" for="{{id}}-tag-{{accessMethod.type}}">{{'APP_ACCESS_METHOD_EDIT.TAG' | translate}}: </label>
         <input class="form-control" type="text" id="{{id}}-tag-{{accessMethod.type}}" ngDefaultControl [(ngModel)]="accessMethod.tag">
       </div>
+      <div class="form-group">
+        <label class="control-label" for="{{id}}-conditionType-{{accessMethod.conditionType}}">{{'APP_ACCESS_METHOD_EDIT.CONDITION_TYPE' | translate}}: </label>
+        <select class="form-control" id="{{id}}-conditionType-{{accessMethod.conditionType}}" [(ngModel)]="accessMethod.conditionType" (change)="onSelectConditionType($event)">
+          <option *ngFor="let s of conditionType; let i=index" value="{{s}}">{{s}}</option>
+        </select>
+      </div>
+      <div *ngIf="accessMethod.conditionType === 'DEPLOYMENT_PARAMETER'" class="form-group">
+        <label class="control-label" for="{{id}}-condition-{{accessMethod.type}}">{{'APP_ACCESS_METHOD_EDIT.CONDITION' | translate}}: </label>
+        <input class="form-control" type="text" id="{{id}}-condition-{{accessMethod.type}}" ngDefaultControl [(ngModel)]="accessMethod.condition">
+      </div>
     </div>
 
     <ul class="col-sm-7">

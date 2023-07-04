@@ -28,6 +28,8 @@ import { AddMembersModalComponent } from './modals/add-members-modal/add-members
 import {MultiSelectModule} from 'primeng/multiselect';
 import { SelectPodModalComponent } from './modals/select-pod-modal/select-pod-modal.component';
 import {TooltipModule} from 'primeng/tooltip';
+import {AppinstanceSearchPipe} from './appinstance-search.pipe';
+import {InputTextModule} from 'primeng/inputtext';
 import { AppdeploymentComponent } from '../bulkDeployment/appDeployment/appchoose/appdeployment.component';
 import {DropdownModule} from 'primeng/dropdown';
 import {TimelineModule} from 'primeng/timeline';
@@ -44,6 +46,8 @@ import {ButtonModule} from 'primeng/button';
       SshShellComponent,
       AppInstanceShellViewComponent,
       AddMembersModalComponent,
+      SelectPodModalComponent,
+      AppinstanceSearchPipe,
       SelectPodModalComponent,
       AppdeploymentComponent
   ],
@@ -65,10 +69,12 @@ import {ButtonModule} from 'primeng/button';
         DropdownModule,
         TimelineModule,
         ButtonModule,
+        InputTextModule,
     ],
   exports: [
     AppInstanceComponent,
     AppInstanceListComponent,
+      AppinstanceSearchPipe
   ],
   providers: [
     AppsService,

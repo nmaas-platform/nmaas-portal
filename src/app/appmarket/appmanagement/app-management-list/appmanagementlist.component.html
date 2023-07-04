@@ -1,8 +1,18 @@
 <div class="col-sm-12 col-sm-offset-1 col-sm 10 col-md-offset-1 col-md-10">
   <h3>{{'APPS_MANAGEMENT.TITLE'| translate}}</h3>
-  <button [routerLink]="['/admin/apps/create']" class="btn btn-primary">{{ 'APPS_MANAGEMENT.ADD_BUTTON' | translate }}</button>
-  <hr>
-  <table class="table table-hover table-condensed" aria-describedby="Apps management table">
+  <div style="display:flex; justify-content: space-between">
+    <div style="display:flex">
+      <button [routerLink]="['/admin/apps/create']" class="btn btn-primary">{{ 'APPS_MANAGEMENT.ADD_BUTTON' | translate }}</button>
+      <button (click)="appAddJson.show()" class="btn btn-primary" style="margin-left: 10px">{{ 'APPS_MANAGEMENT.ADD_BUTTON' | translate }} (JSON)</button>
+    </div>
+    <div style="display: flex">
+      <input pInputText id="searchText" type="text"  placeholder="Search" (keyup)="searchApp($event.target.value)">
+
+    </div>
+  </div>
+
+
+  <table class="table table-hover table-condensed" aria-describedby="Apps management table" style="margin-top:15px">
     <thead>
     <tr>
       <th scope="col"></th>
@@ -34,6 +44,9 @@
               </li>
               <li>
                 <a [routerLink]="['/admin/apps/create/version', app?.name]">{{ 'APPS_MANAGEMENT.ADD_NEW_VERSION_BUTTON' | translate }}</a>
+              </li>
+               <li>
+                <a (click)="appAddJsonVersion.show()" >{{ 'APPS_MANAGEMENT.ADD_NEW_VERSION_BUTTON' | translate }} (JSON)</a>
               </li>
               <li>
                 <a [routerLink]="['/admin/apps/edit', app?.id]">{{ 'APPS_MANAGEMENT.EDIT_BUTTON' | translate }}</a>
@@ -77,3 +90,11 @@
 <app-appchangestatemodal [appName]="selectedAppName" [app]="selectedVersion"></app-appchangestatemodal>
 
 <app-app-change-owner-modal #appChangeOwnerModal></app-app-change-owner-modal>
+
+<app-app-add-json-app #appAddJson></app-app-add-json-app>
+
+<app-app-add-json-version-app #appAddJsonVersion (refresh)="refresh()"></app-app-add-json-version-app>
+
+<app-app-add-json-app #appAddJson></app-app-add-json-app>
+
+<app-app-add-json-version-app #appAddJsonVersion (refresh)="refresh()"></app-app-add-json-version-app>

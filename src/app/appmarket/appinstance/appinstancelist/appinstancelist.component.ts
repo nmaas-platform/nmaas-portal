@@ -56,6 +56,9 @@ export class AppInstanceListComponent implements OnInit {
 
     public domains: Domain[] = [];
 
+    public searchValue = '';
+
+
     constructor(private appInstanceService: AppInstanceService,
                 public domainService: DomainService,
                 private userDataService: UserDataService,
@@ -175,7 +178,7 @@ export class AppInstanceListComponent implements OnInit {
         this.appInstances = this.appInstances
             .pipe(
                 map(app => app.filter(
-                    (appInst) => (this.domainId === this.appConfig.getNmaasGlobalDomainId() || this.domainId === appInst.domainId)
+                        (appInst) => (this.domainId === this.appConfig.getNmaasGlobalDomainId() || this.domainId === appInst.domainId)
                     )
                 )
             );
@@ -183,8 +186,8 @@ export class AppInstanceListComponent implements OnInit {
         this.appDeployedInstances = this.appInstances
             .pipe(
                 map(instances => instances.filter(
-                    app => parseAppInstanceState(app.state) !== AppInstanceState.REMOVED
-                        && parseAppInstanceState(app.state) !== AppInstanceState.DONE
+                        app => parseAppInstanceState(app.state) !== AppInstanceState.REMOVED
+                            && parseAppInstanceState(app.state) !== AppInstanceState.DONE
                     )
                 )
             );
@@ -192,8 +195,8 @@ export class AppInstanceListComponent implements OnInit {
         this.appUndeployedInstances = this.appInstances
             .pipe(
                 map(instances => instances.filter(
-                    app => parseAppInstanceState(app.state) === AppInstanceState.REMOVED
-                        || parseAppInstanceState(app.state) === AppInstanceState.DONE
+                        app => parseAppInstanceState(app.state) === AppInstanceState.REMOVED
+                            || parseAppInstanceState(app.state) === AppInstanceState.DONE
                     )
                 )
             );

@@ -30,6 +30,8 @@ export class PasswordResetComponent implements OnInit {
 
     public errorMessage: string;
 
+    public showLoading = false;
+
     constructor(private fb: FormBuilder,
                 private userService: UserService,
                 private router: Router,
@@ -58,10 +60,14 @@ export class PasswordResetComponent implements OnInit {
             this.recaptchaV3Service.execute('password_reset').pipe(
                 catchError(_ => of('')), // in case of captcha error return empty token
             ).subscribe((captchaToken) => {
+                this.showLoading = true;
                 this.passwordReset.password = this.form.controls['newPassword'].value;
                 this.passwordReset.token = this.token;
                 this.userService.resetPassword(this.passwordReset, captchaToken).subscribe(
-                    () => this.router.navigate(['/']),
+                    () => {
+                        this.showLoading = false;
+                        this.router.navigate(['/'])
+                    },
                     err => this.errorMessage = err.message
                 );
             });

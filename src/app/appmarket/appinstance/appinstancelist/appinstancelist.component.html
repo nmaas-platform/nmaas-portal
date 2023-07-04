@@ -25,7 +25,7 @@
         </div>
         <div style="display: inline;" class="col-xs-12 col-sm-6 col-md-6 col-lg-6 pull-right text-right">
             {{ 'APP_INSTANCES.ITEMS_PER_PAGE' | translate }}:
-            <span id="selectionItems" class="dropdown" style="vertical-align: middle; display: inline-block;">
+            <span id="selectionItems" class="dropdown" style="vertical-align: middle; display: inline-block; margin-right: 10px">
 				<button class="dropdown-toggle btn" data-toggle="dropdown" data-close-others="true">
 					{{maxItemsOnPage}}
 				</button>
@@ -37,6 +37,8 @@
 					</li>
 				</ul>
 			</span>
+            <input pInputText name="search" id="search" placeholder="Search" type="text" [(ngModel)]="searchValue">
+
         </div>
     </div>
 </div>
@@ -66,7 +68,7 @@
         </thead>
         <tbody>
         <ng-template ngFor let-appInstance
-                     [ngForOf]="appDeployedInstances | async | paginate: { itemsPerPage: maxItemsOnPage, currentPage: pageNumber, id: p_first }">
+                     [ngForOf]="appDeployedInstances | async | searchAppInstance: searchValue | paginate: { itemsPerPage: maxItemsOnPage, currentPage: pageNumber, id: p_first }">
             <tr [ngClass]="userHasGuestRoleInCurrentDomain() ? '' : 'clickable'" [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : [appInstance.id]">
                 <td class="col-lg-1 col-md-1">{{appInstance?.name}}</td>
                 <td class="col-lg-2 col-md-2">{{appInstance?.applicationName}}</td>
@@ -138,5 +140,3 @@
                          screenReaderPageLabel="{{ 'PAGINATION.SCREEN_READER.PAGE' | translate }}"
                          screenReaderCurrentLabel="{{ 'PAGINATION.SCREEN_READER.CURRENT' | translate }}"></pagination-controls>
 </div>
-					
-				
