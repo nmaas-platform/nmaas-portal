@@ -6,6 +6,8 @@ import {AppCreateWizardComponent} from './app-create-wizard/app-create-wizard.co
 import {ComponentMode} from '../../shared';
 import {AppPreviewComponent} from './app-preview/apppreview.component';
 import {AppVersionCreateWizardComponent} from './app-version-create-wizard/app-version-create-wizard.component';
+import {BulkAppListComponent} from '../bulkDeployment/bulk-app-list/bulk-app-list.component';
+import {BulkViewComponent} from '../bulkDeployment/bulk-view/bulk-view.component';
 
 export const AppManagementRoutes: Route[] = [
     {
@@ -43,5 +45,17 @@ export const AppManagementRoutes: Route[] = [
         component: AppPreviewComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER']}
+    },
+    {
+        path: 'admin/apps/bulks',
+        component: BulkAppListComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: {roles: ['ROLE_SYSTEM_ADMIN']}
+    },
+    {
+        path: 'admin/apps/bulks/:id',
+        component: BulkViewComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: {roles: ['ROLE_SYSTEM_ADMIN' ]}
     }
 ];

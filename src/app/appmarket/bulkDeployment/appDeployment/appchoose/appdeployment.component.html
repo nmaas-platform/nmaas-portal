@@ -1,0 +1,16 @@
+<div class="col-sm-12 col-sm-12 col-md-12">
+
+    <div class="row" style="margin-top: 5rem;">
+        <h2>{{'BULK.APP.HEADER' | translate}}</h2>
+    </div>
+    <div class="row" style="margin-top: 3rem;">
+        <h4>{{'BULK.APP.INFO' | translate}}</h4>
+    </div>
+    <div style="margin-top: 3rem;">
+        <p-dropdown [options]="apps" optionLabel="name" [(ngModel)]="selectedApp"></p-dropdown>
+    </div>
+    <div class="row .navbar-right" style="margin-top: 3rem; display: flex; justify-content: right">
+        <button pButton class="p-button-success" (click)="selectApp()"> {{'BULK.LIST.CONTINUE' | translate}}</button>
+    </div>
+
+</div>

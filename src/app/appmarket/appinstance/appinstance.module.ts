@@ -30,6 +30,10 @@ import { SelectPodModalComponent } from './modals/select-pod-modal/select-pod-mo
 import {TooltipModule} from 'primeng/tooltip';
 import {AppinstanceSearchPipe} from './appinstance-search.pipe';
 import {InputTextModule} from 'primeng/inputtext';
+import { AppdeploymentComponent } from '../bulkDeployment/appDeployment/appchoose/appdeployment.component';
+import {DropdownModule} from 'primeng/dropdown';
+import {TimelineModule} from 'primeng/timeline';
+import {ButtonModule} from 'primeng/button';
 
 @NgModule({
   declarations: [
@@ -43,7 +47,9 @@ import {InputTextModule} from 'primeng/inputtext';
       AppInstanceShellViewComponent,
       AddMembersModalComponent,
       SelectPodModalComponent,
-      AppinstanceSearchPipe
+      AppinstanceSearchPipe,
+      SelectPodModalComponent,
+      AppdeploymentComponent
   ],
     imports: [
         FormioModule,
@@ -60,6 +66,9 @@ import {InputTextModule} from 'primeng/inputtext';
         NgTerminalModule,
         MultiSelectModule,
         TooltipModule,
+        DropdownModule,
+        TimelineModule,
+        ButtonModule,
         InputTextModule,
     ],
   exports: [

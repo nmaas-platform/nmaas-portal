@@ -228,6 +228,30 @@
 
 
 
+		<div class="panel panel-default" *ngIf="isInMode(ComponentMode.VIEW) && !authService.hasRole('ROLE_OPERATOR')">
+			<div class="panel-heading">{{ 'DOMAINS.LIST.GROUP' | translate }}</div>
+			<div class="panel-body">
+				<table class="table table-hover table-condensed" aria-describedby="Domain group list">
+					<thead>
+					<tr>
+						<th scope="col">{{ 'DOMAINS.LIST.DOMAIN_NAME' | translate }}</th>
+						<th scope="col">{{ 'DOMAINS.LIST.DOMAIN_CODE_NAME' | translate }}</th>
+					</tr>
+					</thead>
+
+					<tbody>
+					<ng-template ngFor let-group [ngForOf]="domain.groups">
+						<tr>
+							<td>{{group.name}}</td>
+							<td>{{group.codename}}</td>
+						</tr>
+					</ng-template>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+
 
 		<button *ngIf="!isInMode(ComponentMode.VIEW)" type="submit" class="btn btn-default" [disabled]="!domainForm.form.valid">{{ 'DOMAIN_DETAILS.SUBMIT_BUTTON' | translate }}</button>
 	</form>

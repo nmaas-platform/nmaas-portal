@@ -21,9 +21,11 @@ describe('DomainFilterComponent', () => {
         name: 'global',
         codename: 'global',
         active: true,
+        deleted: false,
         domainDcnDetails: undefined,
         domainTechDetails: undefined,
-        applicationStatePerDomain: []
+        applicationStatePerDomain: [],
+        groups: [],
     }
 
     const domain1: Domain = {
@@ -31,9 +33,11 @@ describe('DomainFilterComponent', () => {
         name: 'domain one',
         codename: 'dom-1',
         active: true,
+        deleted: false,
         domainDcnDetails: undefined,
         domainTechDetails: undefined,
-        applicationStatePerDomain: []
+        applicationStatePerDomain: [],
+        groups: [],
     };
 
     const domain2: Domain = {
@@ -41,9 +45,11 @@ describe('DomainFilterComponent', () => {
         name: 'domain two',
         codename: 'dom-2',
         active: true,
+        deleted: false,
         domainDcnDetails: undefined,
         domainTechDetails: undefined,
-        applicationStatePerDomain: []
+        applicationStatePerDomain: [],
+        groups: [],
     };
 
     beforeEach(waitForAsync(() => {

@@ -18,6 +18,11 @@ import {SearchDomainPipe} from './domain-search.pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {TableModule} from 'primeng/table';
 import {CheckboxModule} from 'primeng/checkbox';
+import { DomainGroupsComponent } from './domain-groups/domain-groups.component';
+import { DomainGroupViewComponent } from './domain-group-view/domain-group-view.component';
+import {DropdownModule} from 'primeng/dropdown';
+import {MultiSelectModule} from 'primeng/multiselect';
+import { RemovalConfirmationModalComponent } from './modals/removal-confirmation-modal/removal-confirmation-modal.component';
 
 
 
@@ -25,7 +30,10 @@ import {CheckboxModule} from 'primeng/checkbox';
   declarations: [
     DomainsListComponent,
     DomainComponent,
-      SearchDomainPipe
+      SearchDomainPipe,
+    DomainGroupsComponent,
+    DomainGroupViewComponent,
+    RemovalConfirmationModalComponent,
   ],
     imports: [
         CommonModule,
@@ -38,7 +46,9 @@ import {CheckboxModule} from 'primeng/checkbox';
         InputTextModule,
         NgxPaginationModule,
         TableModule,
-        CheckboxModule
+        CheckboxModule,
+      DropdownModule,
+      MultiSelectModule
     ],
   exports: [
     DomainsListComponent,

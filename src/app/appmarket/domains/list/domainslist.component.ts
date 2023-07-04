@@ -6,6 +6,9 @@ import {Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/co
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {TranslateService} from '@ngx-translate/core';
+import {
+    RemovalConfirmationModalComponent
+} from "../modals/removal-confirmation-modal/removal-confirmation-modal.component";
 import {ModalComponent} from '../../../shared';
 import {SortableHeaderDirective, SortColumn, SortDirection} from '../../../service/sort-domain.directive';
 
@@ -26,6 +29,11 @@ export class DomainsListComponent implements OnInit {
 
     public domains: Observable<Domain[]>;
 
+    @ViewChild(RemovalConfirmationModalComponent)
+    public readonly modal: ModalComponent;
+
+    public domainToRemove: Domain
+
     public searchValue = '';
     p: number;
 
@@ -38,8 +46,6 @@ export class DomainsListComponent implements OnInit {
 
     @ViewChildren(SortableHeaderDirective)
     headers: QueryList<SortableHeaderDirective>;
-
-    public domainToRemove: Domain
 
     constructor(protected domainService: DomainService, protected authService: AuthService, public translate: TranslateService) {
     }
@@ -133,5 +139,16 @@ export class DomainsListComponent implements OnInit {
 
     onSorted(event: any) {
         console.warn(event)
+    }
+    public softRemoveDomain(id: number): void {
+        this.domainService.remove(id, true).subscribe({
+            next: () => this.update(),
+            error: err => console.error(err)
+        });
+    }
+
+    openRemovalModal(domain: Domain) {
+        this.domainToRemove = domain
+        this.modal.show()
     }
 }
