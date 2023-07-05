@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, ValidationErrors} from '@angular/forms';
+import {AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors} from '@angular/forms';
 
 export function jsonValidator(control: AbstractControl): ValidationErrors | null {
 
@@ -19,8 +19,8 @@ export function jsonValidator(control: AbstractControl): ValidationErrors | null
 })
 export class JsonEditComponent {
 
-  public objectForm = new FormGroup(
-      {content: new FormControl('', jsonValidator)}
+  public objectForm = new UntypedFormGroup(
+      {content: new UntypedFormControl('', jsonValidator)}
   );
 
   @Output()

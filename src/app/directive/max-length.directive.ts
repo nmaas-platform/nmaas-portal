@@ -1,5 +1,5 @@
 import {Directive, Input} from '@angular/core';
-import {FormControl, NG_VALIDATORS, Validator} from "@angular/forms";
+import {UntypedFormControl, NG_VALIDATORS, Validator} from "@angular/forms";
 
 @Directive({
     selector: '[maxNumLength]',
@@ -10,7 +10,7 @@ export class MaxLengthDirective implements Validator{
     @Input('maxNumLength')
     maxLength: number = 0;
 
-    validate(control: FormControl): {[key: string]: any | null} {
+    validate(control: UntypedFormControl): {[key: string]: any | null} {
         return control.value > this.maxLength ? {error: true} : null;
     }
 

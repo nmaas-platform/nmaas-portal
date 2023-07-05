@@ -6,7 +6,7 @@ import {ConfigurationService, UserService} from '../../service';
 import {Configuration} from '../../model/configuration';
 import {SSOService} from '../../service/sso.service';
 import {SSOConfig} from '../../model/sso';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {ModalComponent} from '../../shared/modal';
 import {TranslateService} from '@ngx-translate/core';
 
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     configuration: Configuration;
     ssoConfig: SSOConfig;
     resetPassword = false;
-    resetPasswordForm: FormGroup;
+    resetPasswordForm: UntypedFormGroup;
 
     @ViewChild(ModalComponent, {static: true})
     public modal: ModalComponent;
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
                 private auth: AuthService,
                 private configService: ConfigurationService,
                 private ssoService: SSOService,
-                private fb: FormBuilder,
+                private fb: UntypedFormBuilder,
                 private userService: UserService,
                 private translate: TranslateService) {
         this.resetPasswordForm = fb.group({

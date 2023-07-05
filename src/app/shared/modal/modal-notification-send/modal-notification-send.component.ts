@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ModalComponent} from "../modal.component";
 import {NotificationService} from "../../../service/notification.service";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-modal-notification-send',
@@ -13,12 +13,12 @@ export class ModalNotificationSendComponent implements OnInit {
   @ViewChild(ModalComponent, { static: true })
   public readonly modal: ModalComponent;
 
-  public f: FormGroup = new FormGroup({
-    'TITLE': new FormControl('', [Validators.required]),
-    'text': new FormControl('', [Validators.required]),
+  public f: UntypedFormGroup = new UntypedFormGroup({
+    'TITLE': new UntypedFormControl('', [Validators.required]),
+    'text': new UntypedFormControl('', [Validators.required]),
   });
 
-  public form: FormGroup = this.f;
+  public form: UntypedFormGroup = this.f;
 
   constructor(private notificationService: NotificationService) { }
 

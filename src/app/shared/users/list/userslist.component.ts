@@ -9,7 +9,7 @@ import {Role, UserRole} from '../../../model/userrole';
 import {UserDataService} from '../../../service/userdata.service';
 import {AuthService} from '../../../auth/auth.service';
 import {map, shareReplay, take} from 'rxjs/operators';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {ComponentMode} from '../../common/componentmode';
 import {Router} from '@angular/router';
 
@@ -69,7 +69,7 @@ export class UsersListComponent extends BaseComponent implements OnInit, OnChang
 
   public filteredUsers: User[] = [];
 
-  public searchText = new FormControl('');
+  public searchText = new UntypedFormControl('');
   public Role = Role;
 
   constructor(private userService: UserService,

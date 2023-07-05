@@ -6,7 +6,7 @@ import {DomainService} from '../../../service/domain.service';
 import {UserService} from '../../../service/user.service';
 import {BaseComponent} from '../../common/basecomponent/base.component';
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {Observable, of} from 'rxjs';
 import {CacheService} from '../../../service/cache.service';
 import {UserDataService} from '../../../service/userdata.service';
@@ -32,9 +32,9 @@ export class UserPrivilegesComponent extends BaseComponent implements OnInit {
 
     public domainCache: CacheService<number, Domain> = new CacheService<number, Domain>();
 
-    public newPrivilegeForm: FormGroup;
+    public newPrivilegeForm: UntypedFormGroup;
 
-    constructor(protected fb: FormBuilder,
+    constructor(protected fb: UntypedFormBuilder,
                 public domainService: DomainService,
                 protected userService: UserService,
                 public authService: AuthService,
