@@ -19,4 +19,8 @@ describe('AppUpgradeModalComponent', () => {
     fixture.detectChanges();
   });
 
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
 });

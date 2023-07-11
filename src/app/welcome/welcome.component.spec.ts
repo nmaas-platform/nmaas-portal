@@ -59,13 +59,13 @@ describe('WelcomeComponent', () => {
 
     // TODO - find a way to mock 'document'
 
-    // it('document should always return dummy element', () => {
-    //     const result = document.getElementById('any')
-    //     expect(result).toBeTruthy()
-    //     expect(result).toEqual(dummyElement)
-    // })
-    //
-    // it('should create', () => {
-    //     expect(component).toBeTruthy();
-    // });
+    xit('document should always return dummy element', () => {
+        const result = document.getElementById('any')
+        expect(result).toBeTruthy()
+        expect(result).toEqual(dummyElement)
+    })
+
+    xit('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

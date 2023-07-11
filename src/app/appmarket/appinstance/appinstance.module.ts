@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -81,7 +81,10 @@ import {ButtonModule} from 'primeng/button';
     AppInstanceService,
     TagService,
     {provide: FormioAppConfig, useValue: AppConfig}
-  ]
-
+  ],
+    schemas: [
+        NO_ERRORS_SCHEMA,
+        CUSTOM_ELEMENTS_SCHEMA
+    ]
 })
 export class AppInstanceModule {}

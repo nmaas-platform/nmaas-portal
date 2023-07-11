@@ -12,7 +12,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "lodash", "formiojs"
+              "lodash", "formiojs", "xterm", "xterm-addon-fir", "semver"
             ],
             "outputPath": "build/app",
             "index": "src/index.html",
@@ -27,6 +27,9 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/bootstrap/dist/css/bootstrap-theme.min.css",
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css",
               "src/styles.css"
             ],
             "scripts": [
@@ -86,10 +89,10 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
             "karmaConfig": "./karma.conf.js",
             "tsConfig": "tsconfig.spec.json",
             "codeCoverage": true,
-            "polyfills": "src/polyfills.ts",
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
@@ -97,6 +100,9 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/bootstrap/dist/css/bootstrap-theme.min.css",
+              "node_modules/primeng/resources/themes/nova/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeflex/primeflex.css",
               "src/styles.css"
             ],
             "assets": [
