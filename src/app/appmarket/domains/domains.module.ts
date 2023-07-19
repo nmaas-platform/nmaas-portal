@@ -23,6 +23,7 @@ import { DomainGroupViewComponent } from './domain-group-view/domain-group-view.
 import {DropdownModule} from 'primeng/dropdown';
 import {MultiSelectModule} from 'primeng/multiselect';
 import { RemovalConfirmationModalComponent } from './modals/removal-confirmation-modal/removal-confirmation-modal.component';
+import {SearchDomainGroupPipe} from './domain-group-search.pipe';
 
 
 
@@ -34,6 +35,7 @@ import { RemovalConfirmationModalComponent } from './modals/removal-confirmation
     DomainGroupsComponent,
     DomainGroupViewComponent,
     RemovalConfirmationModalComponent,
+      SearchDomainGroupPipe
   ],
     imports: [
         CommonModule,
@@ -52,7 +54,8 @@ import { RemovalConfirmationModalComponent } from './modals/removal-confirmation
     ],
   exports: [
     DomainsListComponent,
-      SearchDomainPipe
+      SearchDomainPipe,
+      SearchDomainGroupPipe
   ],
   providers: [
     DomainService,

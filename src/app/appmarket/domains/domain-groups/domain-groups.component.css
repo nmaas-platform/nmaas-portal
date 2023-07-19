@@ -1,2 +1,23 @@
 
 .pointer {cursor: pointer;}
+
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.fa {
+    color: black;
+}
+
+.icon-black {
+    color: black;
+    cursor: pointer;
+}
+
+.icon-bigger{
+    font-size: x-large;
+    margin-left: 5px;
+    margin-right: 5px;
+}
