@@ -87,16 +87,6 @@
             <td *ngIf="domainId !== domainService.getGlobalDomainId() && !isModeAllowed(ComponentMode.EDIT)">
                 <div *roles="['ROLE_DOMAIN_ADMIN']">
                     <div *ngIf="!checkUserIfIsCurrentUser(user.username)">
-<!--                        <p-dropdown [options]="getAllowedRoles()" (onChange)="changeUserRole(user,domainId, $event)" [ngModel]="getOnlyDomainRoles(user)">-->
-<!--                            <ng-template pTemplate="selectedItem">-->
-<!--                            <span >-->
-<!--                                {{"ENUM.USER_ROLES." + getOnlyDomainRoles(user).role | translate}}-->
-<!--                            </span>-->
-<!--                            </ng-template>-->
-<!--                            <ng-template let-role pTemplate="item">-->
-<!--                                {{"ENUM.USER_ROLES." + Role[role].toUpperCase() | translate}}-->
-<!--                            </ng-template>-->
-<!--                        </p-dropdown>-->
                         <li  [routerLinkActiveOptions]="{exact:true}"
                             [routerLinkActive]="['active']" class="dropdown dropdown-domains">
                             <a aria-expanded="false" data-close-others="true"  aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown"
