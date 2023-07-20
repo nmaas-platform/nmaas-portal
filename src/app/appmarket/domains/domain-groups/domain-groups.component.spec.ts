@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DomainGroupsComponent } from './domain-groups.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {SearchDomainGroupPipe} from '../domain-group-search.pipe';
 
 describe('DomainGroupsComponent', () => {
   let component: DomainGroupsComponent;
@@ -10,7 +11,7 @@ describe('DomainGroupsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DomainGroupsComponent ],
+      declarations: [ DomainGroupsComponent, SearchDomainGroupPipe],
       imports: [
           HttpClientTestingModule,
         TranslateModule.forRoot({
