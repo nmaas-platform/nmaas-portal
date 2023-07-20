@@ -57,7 +57,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="divider-vertical"></li>
+                <li *roles="['ROLE_SYSTEM_ADMIN']" class="divider-vertical"></li>
                 <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_DOMAIN_ADMIN', 'ROLE_TOOL_MANAGER']"
                     [routerLinkActiveOptions]="{exact:true}"
                     [routerLinkActive]="['active']" class="dropdown">
