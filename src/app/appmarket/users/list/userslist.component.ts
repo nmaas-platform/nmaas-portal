@@ -74,7 +74,6 @@ export class UsersListComponent implements OnInit {
 
         users.subscribe((all) => {
             this.allUsers = all;
-            console.log(this.allUsers);
             /* parse date strings to date objects */
             for (const u of this.allUsers) {
                 if (u.firstLoginDate) {
@@ -120,7 +119,6 @@ export class UsersListComponent implements OnInit {
     }
 
     public onUserRoleChange(event: any) {
-        console.warn(event)
         if (event.role !== null) {
             this.userService.addRole(event.userId, event.role, event.domainId).subscribe(() => this.update(this.domainId))
         } else {
