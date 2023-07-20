@@ -14,6 +14,7 @@ export class DomainGroupsComponent implements OnInit {
 
   public groups: DomainGroup[] = [];
   public domainsRowVisible: boolean[] = []
+  public searchValue: string;
 
   constructor(private domainService: DomainService) { }
 

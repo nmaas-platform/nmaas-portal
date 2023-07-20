@@ -39,9 +39,6 @@
                             <a [routerLink]="['/admin/domains/deploy']">{{ 'NAVBAR.BULK_DEPLOYMENT_DOMAIN' | translate }}</a>
                         </li>
                         <li *roles="['ROLE_SYSTEM_ADMIN']">
-                            <a [routerLink]="['/admin/domains/groups']">{{ 'NAVBAR.DOMAIN_GROUPS' | translate }}</a>
-                        </li>
-                        <li *roles="['ROLE_SYSTEM_ADMIN']">
                             <a [routerLink]="['/admin/domains/bulks']">{{ 'NAVBAR.PAST_BULK_DOMAIN' | translate }}</a>
                         </li>
                         <li *roles="['ROLE_SYSTEM_ADMIN']">
@@ -77,6 +74,9 @@
                         </li>
                         <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']"><a
                                 [routerLink]="['/admin/domains']">{{ 'NAVBAR.DOMAINS' | translate }}</a>
+                        </li>
+                        <li *roles="['ROLE_SYSTEM_ADMIN']">
+                            <a [routerLink]="['/admin/domains/groups']">{{ 'NAVBAR.DOMAIN_GROUPS' | translate }}</a>
                         </li>
                         <li *roles="['ROLE_SYSTEM_ADMIN']"><a
                                 [routerLink]="['/admin/users']">{{ 'NAVBAR.USERS' | translate }}</a>

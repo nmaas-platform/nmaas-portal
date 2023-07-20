@@ -1,8 +1,19 @@
 <div class="col-sm-12 col-sm-offset-1 col-sm 10 col-md-offset-1 col-md-10">
     <h3>{{'DOMAINS.LIST.GROUPS' | translate}}</h3>
-    <button [routerLink]="['/admin/domains/groups/add']" class="btn btn-primary">{{ 'APPS_MANAGEMENT.ADD_BUTTON' | translate }}</button>
-    <hr>
-    <table class="table table-hover table-condensed" aria-describedby="Apps management table">
+    <div class="flex space-between">
+        <div class="flex">
+            <a *roles="['ROLE_SYSTEM_ADMIN']" [routerLink]="['/admin/domains/groups/add']" class="btn btn-primary"
+               role="button">{{'DOMAINS.ADD_BUTTON' | translate}}</a>
+        </div>
+<!--        <div *roles="['ROLE_SYSTEM_ADMIN']" class="flex" style="align-content: center; margin-top: 8px;">-->
+<!--            <span style="align-content: center; margin-right: 5px;"> {{'DOMAINS.NOTACTIVE' | translate}}</span>-->
+<!--            <p-checkbox id="showNotActive" [binary]="true" [(ngModel)]=" showNotActive"></p-checkbox>-->
+<!--        </div>-->
+        <div class="flex">
+            <input pInputText class="flex" name="search" id="search" placeholder="Search" type="text" style="height: 34px" [(ngModel)]="searchValue">
+        </div>
+    </div>
+    <table class="table table-hover table-condensed" aria-describedby="Apps management table" style="margin-top: 20px;">
         <thead>
         <tr>
             <th scope="col"></th>
@@ -14,14 +25,14 @@
         </thead>
 
         <tbody>
-        <ng-template ngFor let-domainGroup [ngForOf]="groups" let-i="index">
-            <tr class="table-row" (click)="clickTableRow(i)">
-                <td style="width: 5%" *ngIf="!domainsRowVisible[i]"><span class="glyphicon glyphicon-chevron-right"></span></td>
-                <td style="width: 5%" *ngIf="domainsRowVisible[i]"><span class="glyphicon glyphicon-chevron-down"></span></td>
-                <td style="width: 25%">{{domainGroup?.name}}</td>
-                <td style="width: 20%">{{domainGroup?.codename}}</td>
-                <td style="width: 15%"></td>
-                <td style="width: 15%"></td>
+        <ng-template ngFor let-domainGroup [ngForOf]="groups | searchDomainGroup: searchValue" let-i="index">
+            <tr class="table-row" >
+                <td style="width: 5%" (click)="clickTableRow(i)" *ngIf="!domainsRowVisible[i]"><span class="glyphicon glyphicon-chevron-right"></span></td>
+                <td style="width: 5%" (click)="clickTableRow(i)" *ngIf="domainsRowVisible[i]"><span class="glyphicon glyphicon-chevron-down"></span></td>
+                <td style="width: 25%" (click)="clickTableRow(i)">{{domainGroup?.name}}</td>
+                <td style="width: 20%" (click)="clickTableRow(i)">{{domainGroup?.codename}}</td>
+                <td style="width: 15%" (click)="clickTableRow(i)"></td>
+                <td style="width: 15%" (click)="clickTableRow(i)"></td>
                 <td style="width: 20%" class="text-right">
                     <span class="dropdown">
             <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">

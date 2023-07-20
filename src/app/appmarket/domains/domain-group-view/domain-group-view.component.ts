@@ -42,6 +42,7 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
         this.domainService.getDomainGroup(this.domainGroupId).subscribe(
             (domainGroup) => {
               this.domainGroup = domainGroup;
+              this.sortApplication();
             },
             err => {
               console.error(err);
@@ -133,7 +134,12 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
         }
       }
     }
+  }
 
+  public sortApplication(): void {
+    if(this.domainGroup.applicationStatePerDomain !== undefined && this.domainGroup.applicationStatePerDomain !== null) {
+      this.domainGroup.applicationStatePerDomain.sort((a, b) => a.applicationBaseName.localeCompare(b.applicationBaseName))
+    }
   }
 
 }
