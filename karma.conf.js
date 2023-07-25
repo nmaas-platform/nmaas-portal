@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer');
+// const puppeteer = require('puppeteer');
 process.env.CHROME_BIN = puppeteer.executablePath();
 
 module.exports = function (config) {
@@ -44,7 +44,7 @@ module.exports = function (config) {
             colors: true,
             logLevel: config.LOG_WARN,
             autoWatch: false,
-            browsers: ['Chrome', 'ChromeHeadless'],
+            browsers: ['Chrome', 'ChromeHeadless', "Chromium"],
             singleRun: false
         }
     );
