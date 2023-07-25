@@ -7,6 +7,8 @@ plugins {
 
 version = '1.5.3'
 
+chromium = 'export CHROME_BIN="./node_modules/puppeteer/.local-chromium/linux-686378/chrome-linux/chrome"'
+
 task buildGUI(type: Exec) {
 	println 'Building using Angular CLI'
 
@@ -45,6 +47,10 @@ task build(type: Task) {
 
 task testCoverage(type: Exec) {
 	println 'Testing with code coverage analysis'
+
+	OperatingSystem.CHROME_BIN = chromium
+
+	println OperatingSystem.CHROME_BIN
 
 	if ( OperatingSystem.current().isWindows() ) {
 		commandLine 'cmd', '/c', 'ng', 'test', '--browsers', 'Chromium', '--watch=false', '--code-coverage', '--source-map=false'
