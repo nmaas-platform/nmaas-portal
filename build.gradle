@@ -11,9 +11,9 @@ task buildGUI(type: Exec) {
 	println 'Building using Angular CLI'
 
 	if ( OperatingSystem.current().isWindows() ) {
-		commandLine 'cmd', '/c', 'ng', 'build', '--base-href', '/', '--deploy-url', '/'
+		commandLine 'cmd', '/c', 'ng', 'build', '--base-href', '/'
 	} else {
-		commandLine 'ng', 'build', '--base-href', '/', '--deploy-url', '/'
+		commandLine 'ng', 'build', '--base-href', '/'
 	}	
 	dependsOn(npm_install)
 }
@@ -22,9 +22,9 @@ task buildGUIprod(type: Exec) {
 	println 'Building prod platform'
 
 	if ( OperatingSystem.current().isWindows() ) {
-		commandLine 'cmd', '/c', 'ng', 'build', '--base-href', '/', '--deploy-url', '/', '--prod'
+		commandLine 'cmd', '/c', 'ng', 'build', '--base-href', '/', '--prod'
 	} else {
-		commandLine 'ng', 'build', '--base-href', '/', '--deploy-url', '/', '--prod'
+		commandLine 'ng', 'build', '--base-href', '/', '--prod'
 	}
 	dependsOn(npm_install)
 }
