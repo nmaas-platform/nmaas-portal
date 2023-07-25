@@ -46,9 +46,16 @@ task build(type: Task) {
 task testCoverage(type: Exec) {
 	println 'Testing with code coverage analysis'
 
+	println OperatingSystem.CHROME_BIN
+
+    OperatingSystem.CHROME_BIN = puppeteer.CHROME_BIN
+
+    println OperatingSystem.CHROME_BIN
+
 	OperatingSystem.CHROME_BIN = './node_modules/puppeteer/.local-chromium/linux-686378/chrome-linux/chrome'
 
 	println OperatingSystem.CHROME_BIN
+
 
 	if ( OperatingSystem.current().isWindows() ) {
 		commandLine 'cmd', '/c', 'ng', 'test', '--browsers', 'Chromium', '--watch=false', '--code-coverage', '--source-map=false'
