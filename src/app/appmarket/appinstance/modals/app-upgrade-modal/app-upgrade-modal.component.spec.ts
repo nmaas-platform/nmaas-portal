@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AppUpgradeModalComponent } from './app-upgrade-modal.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 
 describe('AppUpgradeModalComponent', () => {
   let component: AppUpgradeModalComponent;
@@ -8,7 +10,16 @@ describe('AppUpgradeModalComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AppUpgradeModalComponent ]
+      declarations: [ AppUpgradeModalComponent ],
+      imports: [
+          HttpClientTestingModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateFakeLoader
+          }
+        }),
+      ]
     })
     .compileComponents();
   }));

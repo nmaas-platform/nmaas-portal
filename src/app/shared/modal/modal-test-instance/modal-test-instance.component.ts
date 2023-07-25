@@ -15,8 +15,10 @@ export class ModalTestInstanceComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.modal.setModalType('info');
-    this.modal.setStatusOfIcons(true);
+    if (this.modal !== undefined) {
+      this.modal.setModalType('info');
+      this.modal.setStatusOfIcons(true);
+    }
   }
 
 }

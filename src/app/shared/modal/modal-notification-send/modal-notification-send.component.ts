@@ -23,8 +23,10 @@ export class ModalNotificationSendComponent implements OnInit {
   constructor(private notificationService: NotificationService) { }
 
   ngOnInit() {
-    this.modal.setModalType('info');
-    this.modal.setStatusOfIcons(true);
+    if (this.modal !== undefined) {
+      this.modal.setModalType('info');
+      this.modal.setStatusOfIcons(true);
+    }
   }
 
   complete(): void {
