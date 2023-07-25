@@ -7,7 +7,7 @@ plugins {
 
 version = '1.5.3'
 
-chromium = 'export CHROME_BIN="./node_modules/puppeteer/.local-chromium/linux-686378/chrome-linux/chrome"'
+chromium = './node_modules/puppeteer/.local-chromium/linux-686378/chrome-linux/chrome'
 
 task buildGUI(type: Exec) {
 	println 'Building using Angular CLI'
