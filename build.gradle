@@ -7,8 +7,6 @@ plugins {
 
 version = '1.5.3'
 
-chromium = ''
-
 task buildGUI(type: Exec) {
 	println 'Building using Angular CLI'
 
