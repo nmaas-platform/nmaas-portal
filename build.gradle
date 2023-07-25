@@ -1,4 +1,4 @@
-import org.gradle.internal.os.OperatingSystem;
+./gradlew buildimport org.gradle.internal.os.OperatingSystem;
 
 plugins {
 	id "com.moowork.node" version "1.3.1"
@@ -22,9 +22,9 @@ task buildGUIprod(type: Exec) {
 	println 'Building prod platform'
 
 	if ( OperatingSystem.current().isWindows() ) {
-		commandLine 'cmd', '/c', 'ng', 'build', '--base-href', '/', '--deploy-url', '/', '--prod'
+		commandLine 'cmd', '/c', 'ng', 'build', '--base-href', '/', '--prod'
 	} else {
-		commandLine 'ng', 'build', '--base-href', '/', '--deploy-url', '/', '--prod'
+		commandLine 'ng', 'build', '--base-href', '/', '--prod'
 	}
 	dependsOn(npm_install)
 }
