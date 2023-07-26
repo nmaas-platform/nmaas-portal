@@ -277,7 +277,6 @@ export class UsersListComponent extends BaseComponent implements OnInit, OnChang
   }
 
   public searchUsers(search: string) {
-    console.log(search)
     if (search === '') {
       this.filteredUsers = [];
     } else {
