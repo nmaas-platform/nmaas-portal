@@ -20,7 +20,7 @@ export class User {
   public firstLoginDate: Date = undefined;
 
   public sshKeys: SSHKeyView[] = [];
-  public haveSshKeys: boolean = undefined;
+  public hasSshKeys: boolean = undefined;
 
   public getDomainIds(): number[] {
     return Array.from(new Set(this.roles.map(ur => ur.domainId)));
