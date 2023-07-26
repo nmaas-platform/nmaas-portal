@@ -38,7 +38,7 @@ export class AddMembersModalComponent implements OnInit {
                     return {
                         value: u,
                         label: (u.firstname !== '' && u.lastname !== '') ? u.firstname + ' ' + u.lastname : u.username,
-                        disabled: u.sshKeys == null || u.sshKeys.length === 0
+                        disabled: u.haveSsh === false
                     }
                 });
             },
