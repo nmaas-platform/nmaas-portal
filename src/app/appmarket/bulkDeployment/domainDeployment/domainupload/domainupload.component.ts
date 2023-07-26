@@ -12,6 +12,10 @@ export class DomainuploadComponent implements OnInit {
 
   public showProgressBar = false;
 
+  public csvText = '';
+
+  public errorMessage = '';
+
   constructor(private readonly deployService: AppdeploymentService,
               private router: Router) { }
 
@@ -31,6 +35,27 @@ export class DomainuploadComponent implements OnInit {
         this.router.navigate(['admin/domains/deploy/summary'])
       }
     });
+  }
+
+  public uploadText() {
+    console.log(this.csvText);
+
+    let file = new File([this.csvText], "Upload.csv", {type: 'text/csv' })
+    console.warn(file);
+
+    this.deployService.uploadUserDomainFile(file).subscribe( val => {
+      console.warn("done")
+      this.deployService.bulk = val;
+      if (val.type === BulkType.DOMAIN) {
+        this.router.navigate(['admin/domains/bulks/', val.id])
+      } else {
+        this.router.navigate(['admin/domains/deploy/summary'])
+      }
+    },
+        error => {
+        console.error(error);
+        this.errorMessage = error.error.message || 'Error with uploading csv file';
+        });
   }
 
 }

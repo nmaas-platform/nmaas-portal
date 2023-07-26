@@ -2,7 +2,7 @@
     <div *ngIf="bulk && bulkType === 'DOMAIN' ">
         <h3>{{'BULK.DOMAIN.HEADER' | translate}}</h3>
         <div class="" style="padding-bottom: 5rem; margin-top: 3rem">
-            <label for="id" class="col-sm-2 control-label">{{ 'BULK.LIST.ID' | translate }}</label>
+            <label for="id" class="col-sm-2 control-label text-right">{{ 'BULK.LIST.ID' | translate }}</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control"  id="id" name="id" [disabled]="true"
                        [(ngModel)]="bulk.id" #name="ngModel">
@@ -10,7 +10,7 @@
         </div>
 
         <div class="" style="padding-bottom: 5rem">
-            <label for="creator" class="col-sm-2 control-label">{{ 'BULK.LIST.CREATOR' | translate }}</label>
+            <label for="creator" class="col-sm-2 control-label text-right">{{ 'BULK.LIST.CREATOR' | translate }}</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control"  id="creator" name="creator" [disabled]="true"
                       placeholder="{{bulk.creator.username}} ({{bulk.creator.firstname}} {{bulk.creator.lastname}})">
@@ -18,7 +18,7 @@
         </div>
 
         <div class="" style="padding-bottom: 5rem">
-            <label for="date" class="col-sm-2 control-label">{{ 'BULK.LIST.CREATION_DATE' | translate }}</label>
+            <label for="date" class="col-sm-2 control-label text-right">{{ 'BULK.LIST.CREATION_DATE' | translate }}</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control"  id="date" name="date" [disabled]="true"
                       placeholder="{{bulk.creationDate | date: 'dd.MM.yyyy h:mm'}}">
@@ -26,29 +26,36 @@
         </div>
 
         <div class="form-group" style="padding-bottom: 5rem">
-            <label for="state" class="col-sm-2 control-label">{{ 'BULK.LIST.STATE' | translate }}</label>
+            <label for="state" class="col-sm-2 control-label text-right">{{ 'BULK.LIST.STATE' | translate }}</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control"  id="state" name="state" [disabled]="true"
                        [(ngModel)]="bulk.state" #name="ngModel">
             </div>
         </div>
+        <div class="panel panel-default" style="margin-top: 3rem">
+            <div class="panel-heading">
 
-        <table class="table table-hover table-condensed" aria-describedby="Domains in Group table" style="margin-top: 3rem">
-            <thead>
-            <tr>
-                <th>{{'BULK.LIST.TYPE' | translate}}</th>
-                <th>{{'BULK.LIST.SUCCESSFUL' | translate}}</th>
-                <th>{{'BULK.LIST.CREATED' | translate}}</th>
-                <th>{{'BULK.LIST.DETAILS' | translate}}</th>
-                <th style="width: 5%" scope="col"></th>
-            </tr>
-            <ng-template ngFor let-replay [ngForOf]="bulk.entries" let-i="index">
-                <tr class="table-row">
-                    <td>{{replay.type}}</td>
-                    <td>{{replay.successful}}</td>
-                    <td>{{replay.created}}</td>
-                    <td>{{getDetails(replay)}}</td>
-                    <td style="width: 5%" class="text-right">
+                <div style="display: flex; justify-content: start; align-items: center">
+                    <div>
+                        {{ 'BULK.DOMAIN.DEPLOYMENTS' | translate }}
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover table-condensed" aria-describedby="Domains in Group table">
+                    <thead>
+                    <tr>
+                        <th>{{'BULK.LIST.SUCCESSFUL' | translate}}</th>
+                        <th>{{'BULK.LIST.CREATED' | translate}}</th>
+                        <th>{{'BULK.LIST.DETAILS' | translate}}</th>
+                        <th style="width: 5%" scope="col"></th>
+                    </tr>
+                    <ng-template ngFor let-replay [ngForOf]="bulk.entries" let-i="index" >
+                        <tr *ngIf="replay.type === 'DOMAIN'" class="table-row">
+                            <td>{{replay.successful}}</td>
+                            <td>{{replay.created}}</td>
+                            <td>{{getDetails(replay)}}</td>
+                            <td style="width: 5%" class="text-right">
                     <span class="dropdown">
             <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
               <em class="fas fa-cog icon-black icon-bigger"></em>
@@ -62,11 +69,61 @@
               </li>
             </ul>
           </span>
-                    </td>
-                </tr>
-            </ng-template>
-            </thead>
-        </table>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    </thead>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="panel panel-default" style="margin-top: 3rem">
+            <div class="panel-heading">
+
+                <div style="display: flex; justify-content: start; align-items: center">
+                    <div>
+                        {{'BULK.USER.DEPLOYMENTS' | translate }}
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover table-condensed" aria-describedby="Domains in Group table">
+                    <thead>
+                    <tr>
+                        <th>{{'BULK.LIST.SUCCESSFUL' | translate}}</th>
+                        <th>{{'BULK.LIST.CREATED' | translate}}</th>
+                        <th>{{'BULK.LIST.DETAILS' | translate}}</th>
+                        <th style="width: 5%" scope="col"></th>
+                    </tr>
+                    <ng-template ngFor let-replay [ngForOf]="bulk.entries" let-i="index" >
+                        <tr *ngIf="replay.type === 'USER'" class="table-row">
+                            <td>{{replay.successful}}</td>
+                            <td>{{replay.created}}</td>
+                            <td>{{getDetails(replay)}}</td>
+                            <td style="width: 5%" class="text-right">
+                    <span class="dropdown">
+            <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
+              <em class="fas fa-cog icon-black icon-bigger"></em>
+            </a>
+            <ul class="dropdown-menu pull-right-drop">
+              <li *ngIf="replay.type === 'DOMAIN'">
+                <a [routerLink]="['/admin/domains/view/', replay?.details['domainId']]">{{ 'BULK.LIST.MOVE_DOMAIN' | translate }}</a>
+              </li>
+                 <li *ngIf="replay.type === 'USER'">
+                <a [routerLink]="['/admin/users/view', replay?.details['userId']]">{{ 'BULK.LIST.MOVE_USER' | translate }}</a>
+              </li>
+            </ul>
+          </span>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    </thead>
+                </table>
+
+            </div>
+        </div>
+
 
     </div>
 

@@ -1,8 +1,11 @@
 <div class="col-sm-12 col-sm-offset-1 col-sm 10 col-md-offset-1 col-md-10">
     <h3>{{header | translate}}</h3>
-    <div class="" style="display: flex; justify-content: space-between">
+    <div class="" style="display: flex; justify-content: space-between; margin-top: 10px;">
         <div *ngIf="mode=== bulkTypeDomain">
-            <button pButton [routerLink]="[]">New deployment</button>
+            <button class="btn btn-primary" [routerLink]="['/admin/domains/deploy']">New deployment</button>
+        </div>
+        <div *ngIf="mode=== bulkTypeApp">
+            <button class="btn btn-primary" [routerLink]="['/admin/domains/deploy']">New deployment</button>
         </div>
     </div>
     <table class="table table-hover table-condensed" style="margin-top: 3rem" aria-describedby="Bulk deployment table">
