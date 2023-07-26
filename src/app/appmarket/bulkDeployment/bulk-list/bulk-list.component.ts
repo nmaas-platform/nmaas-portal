@@ -18,6 +18,10 @@ export class BulkListComponent implements OnInit {
   @Input()
   public mode: BulkType;
 
+  public readonly bulkTypeDomain = BulkType.DOMAIN;
+  public readonly bulkTypeApp = BulkType.APPLICATION;
+
+
 
   constructor() { }
 
