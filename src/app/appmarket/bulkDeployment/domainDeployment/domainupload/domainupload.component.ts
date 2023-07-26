@@ -38,10 +38,8 @@ export class DomainuploadComponent implements OnInit {
   }
 
   public uploadText() {
-    console.log(this.csvText);
 
     let file = new File([this.csvText], "Upload.csv", {type: 'text/csv' })
-    console.warn(file);
 
     this.deployService.uploadUserDomainFile(file).subscribe( val => {
       console.warn("done")
