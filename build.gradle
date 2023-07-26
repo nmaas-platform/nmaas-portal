@@ -46,7 +46,7 @@ task build(type: Task) {
 task testCoverage(type: Exec) {
 	println 'Testing with code coverage analysis'
 
-	println OperatingSystem.CHROME_BIN
+	println OperatingSystem.current().
 
     OperatingSystem.CHROME_BIN = puppeteer.CHROME_BIN
 
