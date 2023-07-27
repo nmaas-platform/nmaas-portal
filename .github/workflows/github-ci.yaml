@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: docker://trion/ng-cli-karma:11.2.14
+      image: docker://trion/ng-cli-karma:11.2.12
 
     steps:
       - name: Checkout code
