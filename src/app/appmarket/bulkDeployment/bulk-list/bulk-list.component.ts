@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {BulkDeployment} from '../../../model/bulk-deployment';
+import {BulkType} from '../../../model/bulk-replay';
 
 @Component({
   selector: 'app-bulk-list',
@@ -13,6 +14,13 @@ export class BulkListComponent implements OnInit {
 
   @Input()
   public header: string;
+
+  @Input()
+  public mode: BulkType;
+
+  public readonly bulkTypeDomain = BulkType.DOMAIN;
+  public readonly bulkTypeApp = BulkType.APPLICATION;
+
 
 
   constructor() { }
