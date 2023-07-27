@@ -6,22 +6,43 @@ on:
       - '*'
 
 
+#jobs:
+#  build-and-test:
+#    name: Build and Test
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#
+#      - name: Set up Node.js
+#        uses: actions/setup-node@v2
+#        with:
+#          node-version: '11.2.x'
+#
+#      - name: Install Angular CLI
+#        run: npm install @angular/cli
+#
+#      - name: Install dependencies
+#        run: npm install
+#
+#      - name: Build the app
+#        run: ng build
+#
+#      - name: Execute tests and code coverage
+#        run: ng test --code-coverage
+
 jobs:
   build-and-test:
     name: Build and Test
     runs-on: ubuntu-latest
 
+    container:
+      image: docker://trion/ng-cli-karma:11.2.14
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '11.2.x'
-
-      - name: Install Angular CLI
-        run: npm install @angular/cli
 
       - name: Install dependencies
         run: npm install
