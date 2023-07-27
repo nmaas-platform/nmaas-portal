@@ -37,7 +37,15 @@ module.exports = function (config) {
                 reporters: [
                     {type: 'html', subdir: '.'},
                     {type: 'lcovonly', subdir: '.', file: 'lcov.info'},
-                ]
+                ],
+                check: {
+                    global: {
+                        statements: 75,
+                        branches: 75,
+                        functions: 75,
+                        lines: 75,
+                    },
+                }
             },
 
             reporters: ['progress'],
