@@ -17,13 +17,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '11.2.14'
+          node-version: '11.2.x'
 
       - name: Install dependencies
         run: npm install
 
       - name: Build the app
-        run: ng build --configuration=production
+        run: ng build
 
       - name: Execute tests with code coverage
         run: ng test --code-coverage
