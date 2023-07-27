@@ -5,6 +5,7 @@ on:
     branches:
       - '*'
 
+
 jobs:
   build-and-test:
     name: Build and Test
@@ -19,11 +20,14 @@ jobs:
         with:
           node-version: '11.2.x'
 
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+
       - name: Install dependencies
         run: npm install
 
       - name: Build the app
         run: ng build
 
-      - name: Execute tests with code coverage
+      - name: Execute tests and code coverage
         run: ng test --code-coverage
