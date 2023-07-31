@@ -40,7 +40,7 @@ describe('PrivacyPolicySubpageComponent', () => {
   });
 
   // TODO mock 'document' object properly
-  // it('should create', () => {
-  //  expect(component).toBeTruthy();
-  // });
+  xit('should create', () => {
+   expect(component).toBeTruthy();
+  });
 });

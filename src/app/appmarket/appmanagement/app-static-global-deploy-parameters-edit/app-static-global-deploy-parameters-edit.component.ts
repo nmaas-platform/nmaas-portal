@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {AppDeploymentSpec} from '../../../model/app-deployment-spec';
-import {FormControl, ValidatorFn} from '@angular/forms';
+import {UntypedFormControl, ValidatorFn} from '@angular/forms';
 
 /**
  * This class is used to manage key value properties of `AppDeploymentSpec` class
@@ -41,8 +41,8 @@ export class AppStaticGlobalDeployParametersEditComponent implements OnInit, Aft
   @Input()
   public valueValidatorMessage: string = undefined;
 
-  public newKeyFormControl: FormControl = undefined;
-  public newValueFormControl: FormControl = undefined;
+  public newKeyFormControl: UntypedFormControl = undefined;
+  public newValueFormControl: UntypedFormControl = undefined;
 
   public newKey = '';
   public newValue = '';
@@ -56,8 +56,8 @@ export class AppStaticGlobalDeployParametersEditComponent implements OnInit, Aft
   constructor() { }
 
   ngOnInit() {
-    this.newKeyFormControl = new FormControl('');
-    this.newValueFormControl = new FormControl('');
+    this.newKeyFormControl = new UntypedFormControl('');
+    this.newValueFormControl = new UntypedFormControl('');
     if (this.keyValidator) {
       this.newKeyFormControl.setValidators(this.keyValidator);
     }
@@ -92,8 +92,8 @@ export class AppStaticGlobalDeployParametersEditComponent implements OnInit, Aft
 
     if (this.isNewDeployParamValid()) {
       this.appDeploymentSpec[this.propertyName][this.newKey] = this.newValue;
-      this.newKeyFormControl = new FormControl('');
-      this.newValueFormControl = new FormControl('');
+      this.newKeyFormControl = new UntypedFormControl('');
+      this.newValueFormControl = new UntypedFormControl('');
       this.newKey = '';
       this.newValue = '';
     }

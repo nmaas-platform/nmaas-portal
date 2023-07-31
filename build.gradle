@@ -11,9 +11,9 @@ task buildGUI(type: Exec) {
 	println 'Building using Angular CLI'
 
 	if ( OperatingSystem.current().isWindows() ) {
-		commandLine 'cmd', '/c', 'ng', 'build', '--base-href', '/', '--deploy-url', '/'
+		commandLine 'cmd', '/c', 'ng', 'build', '--base-href', '/'
 	} else {
-		commandLine 'ng', 'build', '--base-href', '/', '--deploy-url', '/'
+		commandLine 'ng', 'build', '--base-href', '/'
 	}	
 	dependsOn(npm_install)
 }
@@ -22,9 +22,9 @@ task buildGUIprod(type: Exec) {
 	println 'Building prod platform'
 
 	if ( OperatingSystem.current().isWindows() ) {
-		commandLine 'cmd', '/c', 'ng', 'build', '--base-href', '/', '--deploy-url', '/', '--prod'
+		commandLine 'cmd', '/c', 'ng', 'build', '--base-href', '/', '--prod'
 	} else {
-		commandLine 'ng', 'build', '--base-href', '/', '--deploy-url', '/', '--prod'
+		commandLine 'ng', 'build', '--base-href', '/', '--prod'
 	}
 	dependsOn(npm_install)
 }
@@ -46,10 +46,21 @@ task build(type: Task) {
 task testCoverage(type: Exec) {
 	println 'Testing with code coverage analysis'
 
+	println OperatingSystem.current().
+
+    OperatingSystem.CHROME_BIN = puppeteer.CHROME_BIN
+
+    println OperatingSystem.CHROME_BIN
+
+	OperatingSystem.CHROME_BIN = './node_modules/puppeteer/.local-chromium/linux-686378/chrome-linux/chrome'
+
+	println OperatingSystem.CHROME_BIN
+
+
 	if ( OperatingSystem.current().isWindows() ) {
-		commandLine 'cmd', '/c', 'ng', 'test', '--browsers', 'ChromeHeadless', '--watch=false', '--code-coverage', '--source-map=false'
+		commandLine 'cmd', '/c', 'ng', 'test', '--browsers', 'Chromium', '--watch=false', '--code-coverage', '--source-map=false'
 	} else {
-		commandLine 'ng', 'test', '--browsers', 'ChromeHeadless', '--watch=false', '--code-coverage', '--source-map=false'
+		commandLine 'ng', 'test', '--browsers', 'Chromium', '--watch=false', '--code-coverage', '--source-map=false'
 	}
 
 	dependsOn(npm_install)

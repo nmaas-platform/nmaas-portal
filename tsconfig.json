@@ -3,7 +3,6 @@
   "compilerOptions": {
     "declaration": false,
     "downlevelIteration": true,
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "lib": [
       "dom",
@@ -15,10 +14,12 @@
     "moduleResolution": "node",
     "outDir": "./build",
     "sourceMap": true,
-    "target": "es2015",
+    "target": "ES2022",
+    "allowSyntheticDefaultImports": true,
     "typeRoots": [
       "./node_modules/@types"
-    ]
+    ],
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

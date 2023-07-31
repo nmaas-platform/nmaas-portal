@@ -6,7 +6,7 @@ import {NotificationService} from '../../service/notification.service';
 import {ContactFormService} from '../../service/contact-form.service';
 import {AccessModifier, ContactFormType, parseAccessModifier} from '../../model/contact-form-type';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import {forkJoin, Observable, of, zip} from 'rxjs';
 import {AuthService} from '../../auth/auth.service';
 import {InternationalizationService} from '../../service/internationalization.service';
@@ -29,7 +29,7 @@ export class ContactComponent implements OnInit {
     public refreshForm: EventEmitter<any> = new EventEmitter<any>();
     public langChangeEventEmitter: EventEmitter<string> = new EventEmitter<string>()
 
-    public selectForm: FormGroup;
+    public selectForm: UntypedFormGroup;
 
     private readonly DEFAULT_FORM_KEY = 'CONTACT';
     private formTypesMap: Map<string, ContactFormType> = new Map();
@@ -41,7 +41,7 @@ export class ContactComponent implements OnInit {
     constructor(private recaptchaV3Service: ReCaptchaV3Service,
                 private notificationService: NotificationService,
                 private contactFormProvider: ContactFormService,
-                private fb: FormBuilder,
+                private fb: UntypedFormBuilder,
                 private authService: AuthService,
                 private langService: InternationalizationService,
                 private translateService: TranslateService,

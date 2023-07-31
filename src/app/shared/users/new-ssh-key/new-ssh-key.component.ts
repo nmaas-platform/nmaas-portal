@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {SSHKeyService} from '../../../service/sshkey.service';
 import {SSHKeyRequest} from '../../../model/sshkey-request';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {ModalComponent} from '../../modal';
 
 @Component({
@@ -19,9 +19,9 @@ export class NewSshKeyComponent implements OnInit {
 
   public error: string = undefined;
 
-  public requestForm: FormGroup = undefined;
+  public requestForm: UntypedFormGroup = undefined;
 
-  constructor(private keyService: SSHKeyService, private formBuilder: FormBuilder) { }
+  constructor(private keyService: SSHKeyService, private formBuilder: UntypedFormBuilder) { }
 
   ngOnInit() {
     this.modal.setModalType('info');

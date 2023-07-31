@@ -4,7 +4,7 @@ import {Registration} from '../../model/registration';
 import {AppConfigService} from '../../service/appconfig.service';
 import {PasswordValidator} from '../../shared/common/password/password.component';
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {UntypedFormGroup, UntypedFormBuilder, Validators} from '@angular/forms';
 import {Observable, of} from 'rxjs';
 import {ModalInfoTermsComponent} from '../../shared/modal/modal-info-terms/modal-info-terms.component';
 import {ModalInfoPolicyComponent} from '../../shared/modal/modal-info-policy/modal-info-policy.component';
@@ -42,13 +42,13 @@ export class RegistrationComponent implements OnInit {
   @ViewChild(ModalInfoPolicyComponent, { static: true })
   public readonly modalInfoPolicy: ModalInfoPolicyComponent;
 
-  public registrationForm: FormGroup;
+  public registrationForm: UntypedFormGroup;
   public domains: Observable<Domain[]>;
   public showDomainsSelector = true;
 
   private readonly language: string = '';
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
               private registrationService: RegistrationService,
               private appConfig: AppConfigService,
               private translate: TranslateService,

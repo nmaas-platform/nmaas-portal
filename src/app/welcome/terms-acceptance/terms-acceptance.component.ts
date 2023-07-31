@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {User} from '../../model';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import {Domain} from '../../model/domain';
 import {ModalComponent} from '../../shared/modal';
 import {ModalInfoTermsComponent} from '../../shared/modal/modal-info-terms/modal-info-terms.component';
@@ -20,7 +20,7 @@ import {Observable} from 'rxjs/internal/Observable';
 export class TermsAcceptanceComponent extends BaseComponent implements OnInit {
 
     public user: User;
-    public registrationForm: FormGroup;
+    public registrationForm: UntypedFormGroup;
     public domains: Observable<Domain[]>;
     public errorMessage = '';
     public sending = false;
@@ -36,7 +36,7 @@ export class TermsAcceptanceComponent extends BaseComponent implements OnInit {
     @ViewChild(ModalInfoPolicyComponent, { static: true })
     public readonly modalInfoPolicy: ModalInfoPolicyComponent;
 
-    constructor(private fb: FormBuilder,
+    constructor(private fb: UntypedFormBuilder,
                 private userService: UserService,
                 private auth: AuthService,
                 private router: Router,

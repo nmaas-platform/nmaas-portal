@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild, Injectable} from '@angular/core';
-import {AbstractControl, Validator, Validators, FormBuilder, FormGroup} from '@angular/forms';
+import {AbstractControl, Validator, Validators, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import {UserService} from '../../../service';
 import {Password} from '../../../model';
 import {ModalComponent} from '../../modal';
@@ -38,11 +38,11 @@ export class PasswordComponent implements OnInit {
     @ViewChild(PasswordStrengthMeterComponent, {static: true})
     passwordMeter: PasswordStrengthMeterComponent;
 
-    public passwordForm: FormGroup;
+    public passwordForm: UntypedFormGroup;
 
     public errormsg: string;
 
-    constructor(private fb: FormBuilder, private userService: UserService) {
+    constructor(private fb: UntypedFormBuilder, private userService: UserService) {
         this.passwordForm = fb.group(
             {
                 password: ['', Validators.required],

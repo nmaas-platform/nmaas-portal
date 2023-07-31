@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ProfileService} from '../../service/profile.service';
 import {User} from '../../model';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {Domain} from '../../model/domain';
 import {BaseComponent} from '../../shared/common/basecomponent/base.component';
@@ -23,7 +23,7 @@ import {InternationalizationService} from '../../service/internationalization.se
 export class CompleteComponent extends BaseComponent implements OnInit {
 
     public user: User;
-    public registrationForm: FormGroup;
+    public registrationForm: UntypedFormGroup;
     public domains: Observable<Domain[]>;
     public errorMessage = '';
     public sending = false;
@@ -41,7 +41,7 @@ export class CompleteComponent extends BaseComponent implements OnInit {
     @ViewChild(ModalInfoPolicyComponent, {static: true})
     public readonly modalInfoPolicy: ModalInfoPolicyComponent;
 
-    constructor(private fb: FormBuilder,
+    constructor(private fb: UntypedFormBuilder,
                 protected userService: UserService,
                 protected profileService: ProfileService,
                 private authService: AuthService,

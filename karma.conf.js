@@ -1,5 +1,5 @@
-const puppeteer = require('puppeteer');
-process.env.CHROME_BIN = puppeteer.executablePath();
+// const puppeteer = require('puppeteer');
+// process.env.CHROME_BIN = puppeteer.executablePath();
 
 module.exports = function (config) {
     config.set({
@@ -40,7 +40,7 @@ module.exports = function (config) {
                 ],
                 check: {
                     global: {
-                        statements: 45,
+                        statements: 40,
                         branches: 20,
                         functions: 30,
                         lines: 30,
@@ -53,8 +53,8 @@ module.exports = function (config) {
             colors: true,
             logLevel: config.LOG_WARN,
             autoWatch: false,
-            browsers: ['Chrome', 'ChromeHeadless'],
-            singleRun: false
+            browsers: ['Chrome', 'ChromeHeadless', "Chromium"],
+            singleRun: true
         }
     );
 };

@@ -3,7 +3,7 @@ import {UserService} from '../../service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../../model';
 import {PasswordReset} from '../../model/passwordreset';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {PasswordValidator} from '../../shared';
 import {PasswordStrengthMeterComponent} from 'angular-password-strength-meter';
 import {ReCaptchaV3Service} from 'ng-recaptcha';
@@ -26,13 +26,13 @@ export class PasswordResetComponent implements OnInit {
     @ViewChild(PasswordStrengthMeterComponent)
     passwordMeter: PasswordStrengthMeterComponent;
 
-    public form: FormGroup;
+    public form: UntypedFormGroup;
 
     public errorMessage: string;
 
     public showLoading = false;
 
-    constructor(private fb: FormBuilder,
+    constructor(private fb: UntypedFormBuilder,
                 private userService: UserService,
                 private router: Router,
                 private route: ActivatedRoute,

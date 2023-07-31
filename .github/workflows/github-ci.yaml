@@ -11,17 +11,17 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: docker://trion/ng-cli-karma:11.2.12
+      image: docker://trion/ng-cli-karma:14.2.1
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci --force
 
       - name: Build the app
         run: ng build
 
       - name: Execute tests and code coverage
-        run: ng test --code-coverage --watch=false --browsers=ChromeHeadless
+        run: ng test --code-coverage --watch=false --browsers=Chrome
