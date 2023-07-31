@@ -10,3 +10,14 @@
 .form-control::-ms-input-placeholder { /* Microsoft Edge */
     color: #555555;
 }
+
+.icon-black{
+    color: black;
+    cursor: pointer;
+}
+
+.icon-bigger{
+    font-size: x-large;
+    margin-left: 5px;
+    margin-right: 5px;
+}

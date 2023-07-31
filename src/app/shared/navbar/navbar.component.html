@@ -32,17 +32,17 @@
                     <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown"
                        role="button">{{'NAVBAR.ADVANCED' | translate}}<strong class="caret"></strong></a>
                     <ul class="dropdown-menu">
+<!--                        <li *roles="['ROLE_SYSTEM_ADMIN']">-->
+<!--                            <a [routerLink]="['/instances/deploy']">{{ 'NAVBAR.BULK_DEPLOYMENT' | translate }}</a>-->
+<!--                        </li>-->
+<!--                        <li *roles="['ROLE_SYSTEM_ADMIN']">-->
+<!--                            <a [routerLink]="['/admin/domains/deploy']">{{ 'NAVBAR.BULK_DEPLOYMENT_DOMAIN' | translate }}</a>-->
+<!--                        </li>-->
                         <li *roles="['ROLE_SYSTEM_ADMIN']">
-                            <a [routerLink]="['/instances/deploy']">{{ 'NAVBAR.BULK_DEPLOYMENT' | translate }}</a>
+                            <a [routerLink]="['/admin/domains/bulks']">{{ 'BULK.DOMAIN.HEADER' | translate }}</a>
                         </li>
                         <li *roles="['ROLE_SYSTEM_ADMIN']">
-                            <a [routerLink]="['/admin/domains/deploy']">{{ 'NAVBAR.BULK_DEPLOYMENT_DOMAIN' | translate }}</a>
-                        </li>
-                        <li *roles="['ROLE_SYSTEM_ADMIN']">
-                            <a [routerLink]="['/admin/domains/bulks']">{{ 'NAVBAR.PAST_BULK_DOMAIN' | translate }}</a>
-                        </li>
-                        <li *roles="['ROLE_SYSTEM_ADMIN']">
-                            <a [routerLink]="['/admin/apps/bulks']">{{ 'NAVBAR.PAST_BULK_APP' | translate }}</a>
+                            <a [routerLink]="['/admin/apps/bulks']">{{ 'BULK.APP.HEADER' | translate }}</a>
                         </li>
                     </ul>
                 </li>
@@ -57,7 +57,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="divider-vertical"></li>
+                <li *roles="['ROLE_SYSTEM_ADMIN']" class="divider-vertical"></li>
                 <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_DOMAIN_ADMIN', 'ROLE_TOOL_MANAGER']"
                     [routerLinkActiveOptions]="{exact:true}"
                     [routerLinkActive]="['active']" class="dropdown">

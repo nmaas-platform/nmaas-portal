@@ -20,6 +20,7 @@ module.exports = function (config) {
                         '--disable-gpu',
                         // Without a remote debugging port, Google Chrome exits immediately.
                         '--remote-debugging-port=9222',
+                        '--no-sandbox'
                     ],
                 }
             },
@@ -36,7 +37,15 @@ module.exports = function (config) {
                 reporters: [
                     {type: 'html', subdir: '.'},
                     {type: 'lcovonly', subdir: '.', file: 'lcov.info'},
-                ]
+                ],
+                check: {
+                    global: {
+                        statements: 45,
+                        branches: 20,
+                        functions: 30,
+                        lines: 30,
+                    },
+                }
             },
 
             reporters: ['progress'],
