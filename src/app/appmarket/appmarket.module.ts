@@ -45,6 +45,7 @@ import { BulkDomainListComponent } from './bulkDeployment/bulk-domain-list/bulk-
 import { BulkViewComponent } from './bulkDeployment/bulk-view/bulk-view.component';
 import { BulkAppListComponent } from './bulkDeployment/bulk-app-list/bulk-app-list.component';
 import { BulkListComponent } from './bulkDeployment/bulk-list/bulk-list.component';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { BulkListComponent } from './bulkDeployment/bulk-list/bulk-list.componen
         StepsModule,
         FileUploadModule,
         TableModule,
+        InputTextareaModule,
     ],
   exports: [
     AppMarketComponent,

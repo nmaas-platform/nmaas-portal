@@ -117,8 +117,8 @@ export class UsersListComponent extends BaseComponent implements OnInit, OnChang
     return user.roles.filter(role => role.domainId !== this.domainService.getGlobalDomainId());
   }
 
-  public getOnlyDomainRoles(user: User): UserRole[] {
-    return user.roles.filter(role => role.domainId === this.domainId);
+  public getOnlyDomainRoles(user: User): UserRole {
+    return user.roles.find(role => role.domainId === this.domainId);
   }
 
   public getGlobalRole(user: User): string {
@@ -218,8 +218,8 @@ export class UsersListComponent extends BaseComponent implements OnInit, OnChang
           } else if (criteria.sortColumn === 'roles') {
             const ad = this.getOnlyDomainRoles(a);
             const bd = this.getOnlyDomainRoles(b);
-            const ar = ad.length > 0 ? ad[0].role.toString() : '';
-            const br = bd.length > 0 ? bd[0].role.toString() : '';
+            const ar = ad !== undefined ? ad[0].role.toString() : '';
+            const br = bd !== undefined  ? bd[0].role.toString() : '';
             p1 = ar;
             p2 = br;
           } else {
@@ -277,7 +277,6 @@ export class UsersListComponent extends BaseComponent implements OnInit, OnChang
   }
 
   public searchUsers(search: string) {
-    console.log(search)
     if (search === '') {
       this.filteredUsers = [];
     } else {
@@ -302,7 +301,7 @@ export class UsersListComponent extends BaseComponent implements OnInit, OnChang
       // roles = this.filterRoles(roles, this.domainId);
     } else if (this.domainId != null) {
       // default (domain) role set
-      roles = [Role.ROLE_GUEST, Role.ROLE_USER, Role.ROLE_DOMAIN_ADMIN];
+      roles = [Role.ROLE_USER, Role.ROLE_DOMAIN_ADMIN, Role.ROLE_GUEST];
     } else {
       // no roles
       roles = [];

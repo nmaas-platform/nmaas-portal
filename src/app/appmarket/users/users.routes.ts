@@ -1,8 +1,8 @@
-import { Route } from '@angular/router';
-import { UsersListComponent, UserDetailsComponent } from './index';
-import { AuthGuard } from '../../auth/auth.guard';
-import { RoleGuard } from '../../auth/role.guard';
-import { ComponentMode } from '../../shared/common/componentmode';
+import {Route} from '@angular/router';
+import {UserDetailsComponent, UsersListComponent} from './index';
+import {AuthGuard} from '../../auth/auth.guard';
+import {RoleGuard} from '../../auth/role.guard';
+import {ComponentMode} from '../../shared/common/componentmode';
 
 export const UsersRoutes: Route[] = [
     { path: 'admin/users', component: UsersListComponent, canActivate: [AuthGuard, RoleGuard],

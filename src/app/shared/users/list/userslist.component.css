@@ -31,3 +31,8 @@ tr.clickable {
     display: flex;
     justify-content: space-between;
 }
+
+li::marker {
+    content: '';
+    font-size: 0em;
+}

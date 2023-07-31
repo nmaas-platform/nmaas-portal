@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DomainNavigatorComponent } from './domain-navigator.component';
 import {RouterTestingModule} from '@angular/router/testing';
+import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 
 describe('DomainnavigatorComponent', () => {
   let component: DomainNavigatorComponent;
@@ -12,6 +13,12 @@ describe('DomainnavigatorComponent', () => {
       declarations: [ DomainNavigatorComponent ],
       imports: [
           RouterTestingModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateFakeLoader
+          }
+        }),
       ]
     })
     .compileComponents();

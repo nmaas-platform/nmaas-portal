@@ -12,7 +12,8 @@
         <div class="" style="display: flex">
             <div *ngIf="isModeAllowed(ComponentMode.DELETE)" class="flex">
                 {{ 'USERS.ITEMS_PER_PAGE' | translate }}:
-                <span id="selectionItems" class="dropdown" style="vertical-align: middle; display: inline-block; margin-right: 1rem;">
+                <span id="selectionItems" class="dropdown"
+                      style="vertical-align: middle; display: inline-block; margin-right: 1rem;">
         <button class="dropdown-toggle btn" data-toggle="dropdown" data-close-others="true">
             {{maxItemsOnPage}}
         </button>
@@ -25,13 +26,16 @@
         </ul>
     </span>
             </div>
-            <div *ngIf="isModeAllowed(ComponentMode.EDIT)" style="margin-right: 15px; padding-top: 5px;"> {{'USERS.SEARCH' | translate}}</div>
+            <div *ngIf="isModeAllowed(ComponentMode.EDIT)"
+                 style="margin-right: 15px; padding-top: 5px;"> {{'USERS.SEARCH' | translate}}</div>
 
             <div *ngIf="isModeAllowed(ComponentMode.EDIT)" class="flex">
-                <input pInputText name="searchTextDomain" id="searchTextDomain" placeholder="Search" type="text"  (keyup)="searchUsers($event.target.value)">
+                <input pInputText name="searchTextDomain" id="searchTextDomain" placeholder="Search" type="text"
+                       (keyup)="searchUsers($event.target.value)">
             </div>
             <div *ngIf="isModeAllowed(ComponentMode.DELETE)" class="flex">
-                <input pInputText name="searchText" id="searchText" placeholder="Search" type="text"  class="form-control" (keyup)="onSearch($event.target.value)" >
+                <input pInputText name="searchText" id="searchText" placeholder="Search" type="text"
+                       class="form-control" (keyup)="onSearch($event.target.value)">
             </div>
         </div>
 
@@ -87,27 +91,30 @@
             <td *ngIf="domainId !== domainService.getGlobalDomainId() && !isModeAllowed(ComponentMode.EDIT)">
                 <div *roles="['ROLE_DOMAIN_ADMIN']">
                     <div *ngIf="!checkUserIfIsCurrentUser(user.username)">
-                        <p-dropdown [options]="getAllowedRoles()" (onChange)="changeUserRole(user,domainId, $event)">
-                            <ng-template pTemplate="selectedItem">
-                            <span *ngFor="let roles of getOnlyDomainRoles(user)">
-                                {{"ENUM.USER_ROLES." + roles.role.toUpperCase() | translate}}
-                            </span>
-                            </ng-template>
-                            <ng-template let-role pTemplate="item">
-                                {{"ENUM.USER_ROLES." + Role[role].toUpperCase() | translate}}
-                            </ng-template>
-                        </p-dropdown>
+                        <li [routerLinkActiveOptions]="{exact:true}"
+                            [routerLinkActive]="['active']" class="dropdown dropdown-domains">
+                            <a aria-expanded="false" data-close-others="true" aria-haspopup="true"
+                               class="dropdown-toggle" data-toggle="dropdown"
+                               role="button">
+                                <span style="color: black;">{{"ENUM.USER_ROLES." + getOnlyDomainRoles(user)?.role | translate}}
+                                    <strong class="caret"></strong></span></a>
+                            <ul class="dropdown-menu">
+                                <li *ngFor="let role of getAllowedRoles()">
+                                    <a (click)="changeUserRole(user,domainId, {value:role})">{{"ENUM.USER_ROLES." + Role[role].toUpperCase() | translate}}</a>
+                                </li>
+                            </ul>
+                        </li>
                     </div>
                 </div>
                 <div *roles="['ROLE_SYSTEM_ADMIN']">
-                 <span *ngFor="let roles of getOnlyDomainRoles(user)">
-                                {{"ENUM.USER_ROLES." + roles.role.toUpperCase() | translate}}
+                 <span>
+                                {{"ENUM.USER_ROLES." + getOnlyDomainRoles(user)?.role | translate}}
                      </span>
                 </div>
                 <div *roles="['ROLE_DOMAIN_ADMIN']">
                     <div *ngIf="checkUserIfIsCurrentUser(user.username)">
-                     <span *ngFor="let roles of getOnlyDomainRoles(user)">
-                                {{"ENUM.USER_ROLES." + roles.role.toUpperCase() | translate}}
+                     <span>
+                                {{"ENUM.USER_ROLES." + getOnlyDomainRoles(user)?.role | translate}}
                      </span>
                     </div>
                 </div>
@@ -126,36 +133,34 @@
 							<em class="fas fa-cog icon-black icon-bigger"></em>
 						</a>
 						<ul class="dropdown-menu pull-right-drop">
-                            <li>
-                                <a (click)="view(user.id);$event.stopPropagation()"
-                                   *ngIf="isModeAllowed(ComponentMode.VIEW)">
+                            <li *ngIf="isModeAllowed(ComponentMode.VIEW)">
+                                <a (click)="view(user.id);$event.stopPropagation()">
                                     {{ 'USERS.DETAILS_BUTTON' | translate }}
                                 </a>
                             </li>
-							<li>
+							<li *ngIf="user.enabled && authService.hasRole('ROLE_SYSTEM_ADMIN') && user.username!==authService.getUsername()">
 								<a (click)="changeUserStatus(user, false);$event.stopPropagation()"
-                                   *ngIf="user.enabled && authService.hasRole('ROLE_SYSTEM_ADMIN') && user.username!==authService.getUsername()"> <!--user should not be able to disable himself -->
+                                > <!--user should not be able to disable himself -->
                                     {{ 'USERS.DISABLE_BUTTON' | translate }}</a>
 							</li>
-							<li>
+							<li *ngIf="!user.enabled && authService.hasRole('ROLE_SYSTEM_ADMIN')">
 								<a (click)="changeUserStatus(user, true);$event.stopPropagation()"
-                                   *ngIf="!user.enabled && authService.hasRole('ROLE_SYSTEM_ADMIN')">
+                                >
 									{{ 'USERS.ENABLE_BUTTON' | translate }}</a>
 							</li>
-                            <li>
-                                <a *ngIf="isModeAllowed(ComponentMode.EDIT) &&
+                            <li *ngIf="isModeAllowed(ComponentMode.EDIT) &&
                                     domainId != domainService.getGlobalDomainId() &&
-                                    isGlobalGuestAndHasNoRoleInThisDomain(user)"
-                                   (click)="addToCurrentDomain(user);$event.stopPropagation()">{{'USERS.GRANT_USER_ROLE_IN_CURRENT_DOMAIN_BUTTON' | translate}}</a>
+                                    isGlobalGuestAndHasNoRoleInThisDomain(user)">
+                                <a
+                                        (click)="addToCurrentDomain(user);$event.stopPropagation()">{{'USERS.GRANT_USER_ROLE_IN_CURRENT_DOMAIN_BUTTON' | translate}}</a>
                             </li>
-							<li>
+							<li *ngIf="isModeAllowed(ComponentMode.DELETE) && domainId != domainService.getGlobalDomainId() && user.username!==authService.getUsername()">
 								<a role="button"
-                                   *ngIf="isModeAllowed(ComponentMode.DELETE) && domainId != domainService.getGlobalDomainId() && user.username!==authService.getUsername()"
+
                                    (click)="onRemoveFromDomain.emit(user);$event.stopPropagation()">{{ 'USERS.REMOVE_FROM_DOMAIN_BUTTON' | translate }}</a>
 							</li>
-                            <li>
+                            <li *ngIf="isModeAllowed(ComponentMode.DELETE) && authService.hasRole('ROLE_SYSTEM_ADMIN') && user.username!==authService.getUsername() && canUserBeDeleted(user)">
                                 <a role="button"
-                                   *ngIf="isModeAllowed(ComponentMode.DELETE) && authService.hasRole('ROLE_SYSTEM_ADMIN') && user.username!==authService.getUsername() && canUserBeDeleted(user)"
                                    (click)="onDelete.emit(user);$event.stopPropagation()">{{ 'USERS.DELETE_BUTTON' | translate }}</a>
                             </li>
 						</ul>

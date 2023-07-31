@@ -1,0 +1,27 @@
+name: Build and test
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    container:
+      image: docker://trion/ng-cli-karma:11.2.12
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the app
+        run: ng build
+
+      - name: Execute tests and code coverage
+        run: ng test --code-coverage --watch=false --browsers=ChromeHeadless
