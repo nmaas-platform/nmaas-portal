@@ -54,7 +54,7 @@ module.exports = function (config) {
             logLevel: config.LOG_WARN,
             autoWatch: false,
             browsers: ['Chrome', 'ChromeHeadless', "Chromium"],
-            singleRun: false
+            singleRun: true
         }
     );
 };
