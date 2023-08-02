@@ -6,7 +6,7 @@ WORKDIR /build
 RUN apk add --update nodejs npm
 RUN npm install -g @angular/cli
 RUN npm ci --force
-RUN ng build --base-href / --deploy-url / --configuration production
+RUN ng build --base-href / --configuration production
 
 FROM nginx:1.23-alpine
 MAINTAINER nmaas@lists.geant.org
