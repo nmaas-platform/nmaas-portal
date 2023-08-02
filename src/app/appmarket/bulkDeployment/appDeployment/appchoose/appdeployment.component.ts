@@ -25,6 +25,6 @@ export class AppdeploymentComponent implements OnInit {
 
   selectApp() {
     this.deployService.setSelectedApp(this.selectedApp);
-    this.router.navigate(['instances/deploy/upload'])
+    this.router.navigate(['admin/apps/bulks/new/upload'])
   }
 }

@@ -2,10 +2,10 @@
     <h3>{{header | translate}}</h3>
     <div class="" style="display: flex; justify-content: space-between; margin-top: 10px;">
         <div *ngIf="mode=== bulkTypeDomain">
-            <button class="btn btn-primary" [routerLink]="['/admin/domains/deploy']">New deployment</button>
+            <button class="btn btn-primary" [routerLink]="['/admin/domains/bulks/new']">New deployment</button>
         </div>
         <div *ngIf="mode=== bulkTypeApp">
-            <button class="btn btn-primary" [routerLink]="['/admin/domains/deploy']">New deployment</button>
+            <button class="btn btn-primary" [routerLink]="['/admin/apps/bulks/new']">New deployment</button>
         </div>
     </div>
     <table class="table table-hover table-condensed" style="margin-top: 3rem" aria-describedby="Bulk deployment table">
