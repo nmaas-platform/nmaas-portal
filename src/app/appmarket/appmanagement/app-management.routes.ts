@@ -8,6 +8,10 @@ import {AppPreviewComponent} from './app-preview/apppreview.component';
 import {AppVersionCreateWizardComponent} from './app-version-create-wizard/app-version-create-wizard.component';
 import {BulkAppListComponent} from '../bulkDeployment/bulk-app-list/bulk-app-list.component';
 import {BulkViewComponent} from '../bulkDeployment/bulk-view/bulk-view.component';
+import {AppnavigatorComponent} from '../bulkDeployment/appDeployment/appnavigator/appnavigator.component';
+import {AppdeploymentComponent} from '../bulkDeployment/appDeployment/appchoose/appdeployment.component';
+import {AppuploadComponent} from '../bulkDeployment/appDeployment/appupload/appupload.component';
+import {AppsummaryComponent} from '../bulkDeployment/appDeployment/appsummary/appsummary.component';
 
 export const AppManagementRoutes: Route[] = [
     {
@@ -52,10 +56,18 @@ export const AppManagementRoutes: Route[] = [
         canActivate: [AuthGuard, RoleGuard],
         data: {roles: ['ROLE_SYSTEM_ADMIN']}
     },
+    { path: 'admin/apps/bulks/new',
+        component: AppnavigatorComponent,
+        children: [
+            {path: '', redirectTo: 'select', pathMatch: 'full'},
+            {path: 'select', component: AppdeploymentComponent},
+            {path: 'upload', component: AppuploadComponent},
+            {path: 'summary', component: AppsummaryComponent}
+        ]},
     {
         path: 'admin/apps/bulks/:id',
         component: BulkViewComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: {roles: ['ROLE_SYSTEM_ADMIN' ]}
-    }
+    },
 ];

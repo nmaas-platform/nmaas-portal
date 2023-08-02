@@ -29,40 +29,36 @@ import {SortService} from '../service/sort.service';
 import {AppManagementModule} from './appmanagement/app-management.module';
 import {SessionService} from '../service/session.service';
 import {LanguageManagementModule} from './admin/languagemanagement/languagemanagement.module';
-import { ModalGuestUserComponent } from './modals/modal-guest-user/modal-guest-user.component';
+import {ModalGuestUserComponent} from './modals/modal-guest-user/modal-guest-user.component';
 import {TooltipModule} from 'primeng/tooltip';
-import { AppnavigatorComponent } from './bulkDeployment/appDeployment/appnavigator/appnavigator.component';
+import {AppnavigatorComponent} from './bulkDeployment/appDeployment/appnavigator/appnavigator.component';
 import {AvatarModule} from 'primeng/avatar';
 import {StepsModule} from 'primeng/steps';
-import { AppuploadComponent } from './bulkDeployment/appDeployment/appupload/appupload.component';
+import {AppuploadComponent} from './bulkDeployment/appDeployment/appupload/appupload.component';
 import {FileUploadModule} from 'primeng/fileupload';
-import { AppsummaryComponent } from './bulkDeployment/appDeployment/appsummary/appsummary.component';
+import {AppsummaryComponent} from './bulkDeployment/appDeployment/appsummary/appsummary.component';
 import {TableModule} from 'primeng/table';
-import { DomainNavigatorComponent } from './bulkDeployment/domainDeployment/domainnavigator/domain-navigator.component';
-import { DomainuploadComponent } from './bulkDeployment/domainDeployment/domainupload/domainupload.component';
-import { DomainsummaryComponent } from './bulkDeployment/domainDeployment/domainsummary/domainsummary.component';
-import { BulkDomainListComponent } from './bulkDeployment/bulk-domain-list/bulk-domain-list.component';
-import { BulkViewComponent } from './bulkDeployment/bulk-view/bulk-view.component';
-import { BulkAppListComponent } from './bulkDeployment/bulk-app-list/bulk-app-list.component';
-import { BulkListComponent } from './bulkDeployment/bulk-list/bulk-list.component';
+import {DomainuploadComponent} from './bulkDeployment/domainDeployment/domainupload/domainupload.component';
+import {BulkDomainListComponent} from './bulkDeployment/bulk-domain-list/bulk-domain-list.component';
+import {BulkViewComponent} from './bulkDeployment/bulk-view/bulk-view.component';
+import {BulkAppListComponent} from './bulkDeployment/bulk-app-list/bulk-app-list.component';
+import {BulkListComponent} from './bulkDeployment/bulk-list/bulk-list.component';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 
 @NgModule({
-  declarations: [
-    AppMarketComponent,
-    AppDetailsComponent,
-    ModalGuestUserComponent,
-    AppnavigatorComponent,
-    AppuploadComponent,
-    AppsummaryComponent,
-    DomainNavigatorComponent,
-    DomainuploadComponent,
-    DomainsummaryComponent,
-    BulkDomainListComponent,
-    BulkViewComponent,
-    BulkAppListComponent,
-    BulkListComponent,
-  ],
+    declarations: [
+        AppMarketComponent,
+        AppDetailsComponent,
+        ModalGuestUserComponent,
+        AppnavigatorComponent,
+        AppuploadComponent,
+        AppsummaryComponent,
+        DomainuploadComponent,
+        BulkDomainListComponent,
+        BulkViewComponent,
+        BulkAppListComponent,
+        BulkListComponent,
+    ],
     imports: [
         FormsModule,
         StorageServiceModule,
@@ -90,22 +86,23 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
         TableModule,
         InputTextareaModule,
     ],
-  exports: [
-    AppMarketComponent,
-  ],
-  providers: [
-    AppsService,
-    DomainService,
-    UserService,
-    TagService,
-    UserService,
-    ClusterService,
-    SortService,
-    SessionService,
-  ],
+    exports: [
+        AppMarketComponent,
+    ],
+    providers: [
+        AppsService,
+        DomainService,
+        UserService,
+        TagService,
+        UserService,
+        ClusterService,
+        SortService,
+        SessionService,
+    ],
     schemas: [
         NO_ERRORS_SCHEMA,
         CUSTOM_ELEMENTS_SCHEMA
     ]
 })
-export class AppMarketModule {}
+export class AppMarketModule {
+}

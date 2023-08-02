@@ -38,13 +38,13 @@ export class AppnavigatorComponent implements OnInit {
 
   private checkStep() {
     switch (this.router.url) {
-      case '/instances/deploy/select' :
+      case '/admin/apps/bulks/new/select' :
       this.status = 0;
         break;
-      case '/instances/deploy/upload' :
+      case '/admin/apps/bulks/new/upload' :
         this.status = 1
         break;
-      case '/instances/deploy/summary' :
+      case '/admin/apps/bulks/new/summary' :
         this.status = 2
         break;
       default :
