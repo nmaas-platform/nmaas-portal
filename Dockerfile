@@ -3,10 +3,10 @@ FROM alpine:3.16 as builder
 COPY . /build
 WORKDIR /build
 
-RUN apk add --update nodejs npm
+RUN apk add nodejs npm
 RUN npm install -g @angular/cli
-RUN npm ci --force
-RUN ng build --base-href / --deploy-url / --configuration production
+RUN npm i --force --legacy-peer-deps
+RUN ng build --base-href / --configuration production
 
 FROM nginx:1.23-alpine
 MAINTAINER nmaas@lists.geant.org

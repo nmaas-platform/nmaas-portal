@@ -12,7 +12,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "lodash", "formiojs", "xterm", "xterm-addon-fir", "semver"
+              "lodash", "formiojs", "xterm", "xterm-addon-fit", "semver"
             ],
             "outputPath": "build/app",
             "index": "src/index.html",
