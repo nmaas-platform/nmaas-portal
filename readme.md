@@ -5,16 +5,17 @@
 ### Technologies
 ---
 
-* Angular
+* Angular 14
 * Bootstrap 3
-* PrimeNG
+* PrimeNG 14
+* Primeflex
 * Formio
 
 See `package.json` for detailed package list.
 
 ### Prerequisites
 ---
- + Install node and npm
+ + Install node and npm (min version is node v14, but suggested id v16)
  + Install git
  + Clone project and run `npm install` in project *root* directory
  + (running on server) Build project using `ng build` and deploy using http server of your choice
@@ -25,13 +26,13 @@ See `package.json` for detailed package list.
 Go to`nmaas-portal` directory in terminal or command line
 Run command `npm start` or `ng serve`
 After successful compilation go to `http://localhost:4200` in your browser (do not close terminal or command line)
-Note: First run requires entering `npm install` command in order to install all of missing dependencies
+Note: First run requires entering `npm install` command in order to install all of missing dependencies (use `--force` or `--legacy-peer-deps` due to angular-formio)
 
 ### Running NMaaS Portal on dedicated machine
 ---
   In order to run NMaaS Portal on dedicated machine perform the following steps:
   + Build the NMaaS Portal by running `gradlew clean build` in the reactor directory.
-    - In order to build for production environment use additional option `-Pprod`
+    - In order to build for production environment use additional option `--configuration production`
   + The output archive `nmaas-portal-x.x.x.zip` file is created in `nmaas-portal/build/distributions` directory.
   + Run the http server in `nmaas-portal/build/app`
     - `nohup angular-http-server -p 9009 -s --cors > nmaas-portal.log 2> Error.err < /dev/null &`
@@ -58,11 +59,11 @@ In order to build the NMaaS Portal Docker image first alter the `build_and_publi
 
 ### Issues
 ---
-As of Angular 9, there is an issue with ```ivy``` and ```ngcc```, regarding ```angular-formio```, however everything seems to be working fine.  
+As of Angular 14, there is an issue with ```ivy``` and ```ngcc```, regarding ```angular-formio```, however everything seems to be working fine.  
 See [Github Issue](https://github.com/formio/angular-formio/issues/485)
 
-The application is maintained through quite some period of time, so there are still some legacy and problematic packages (updated: 2021-09-15):
-1. `angular-formio` is basically not maintained, there is a dependency clash (it requires old angular version), it must be usually updated with `--force` flag, however it does not break (yet). In future new versions may emerge since they are present in git repository, however they are not yet deployed to `npm`. New versions will likely require angular v12. Note: `angular-formio` is very much **required**.
+The application is maintained through quite some period of time, so there are still some legacy and problematic packages (updated: 2023-08-03:
+1. `angular-formio` is basically not maintained, there is a dependency clash (it requires old angular version), it must be usually updated with `--force` flag during `npm install` or `npm clean install`. In future new versions may emerge since they are present in git repository, however they are not yet deployed for 2 years. Note: `angular-formio` is very much **required**.
 2. `ngx-pagination` can be replaced with `primeng` counterpart,
 3. `ng-recaptcha` can be updated to the newest version with angular update,
 4. `angular-password-strength-meter` (probably not maintained anymore) can be replaced with `primeng` component and removed together with its dependencies (`zxcvbn`, `zxcvbn3`),
