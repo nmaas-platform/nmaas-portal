@@ -23,7 +23,6 @@ export class AppdeploymentService {
 
     constructor(private http: HttpClient,
                 private appConfig: AppConfigService) {
-        console.log(localStorage.getItem(this.DEPLOY_APP_KEY))
         if (localStorage.getItem(this.DEPLOY_APP_KEY)) {
             this.selectedApp = localStorage.getItem(this.DEPLOY_APP_KEY)
         } else {
