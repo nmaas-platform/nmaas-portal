@@ -15,7 +15,7 @@ See `package.json` for detailed package list.
 
 ### Prerequisites
 ---
- + Install node and npm (min version is node v14, but suggested id v16)
+ + Install node and npm (min version is node v14, but suggested is v16)
  + Install git
  + Clone project and run `npm install` in project *root* directory
  + (running on server) Build project using `ng build` and deploy using http server of your choice
