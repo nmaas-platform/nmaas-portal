@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppuploadComponent } from './appupload.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterModule} from '@angular/router';
+import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 
 describe('AppuploadComponent', () => {
   let component: AppuploadComponent;
@@ -14,6 +15,12 @@ describe('AppuploadComponent', () => {
       imports : [
         HttpClientTestingModule,
         RouterModule.forRoot([]),
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateFakeLoader
+          }
+        }),
           ]
     })
     .compileComponents();

@@ -25,16 +25,19 @@
                 <td style="width: 10%">{{bulk?.id}}</td>
                 <td style="width: 25%">{{bulk?.creator.username}}</td>
                 <td style="width: 25%">{{bulk?.creationDate | date: 'dd-MM-yyyy h:mm'}}</td>
-                <td style="width: 15%">{{bulk?.state}}</td>
+                <td style="width: 15%">{{'BULK.STATE.' +bulk?.state | translate}}</td>
                 <td style="width: 20%" class="text-right">
                     <span class="dropdown">
             <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
               <em class="fas fa-cog icon-black icon-bigger"></em>
             </a>
             <ul class="dropdown-menu pull-right-drop">
-              <li>
+              <li *ngIf="mode === bulkTypeDomain">
                 <a [routerLink]="['/admin/domains/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>
               </li>
+                <li *ngIf="mode === bulkTypeApp">
+                    <a [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>
+                </li>
             </ul>
           </span>
                 </td>

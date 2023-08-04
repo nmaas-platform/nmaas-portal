@@ -1,19 +1,23 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {BulkDeployment} from '../../../model/bulk-deployment';
 import {AppdeploymentService} from '../appdeployment.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BulkReplay, BulkType} from '../../../model/bulk-replay';
+import {timer} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-bulk-view',
   templateUrl: './bulk-view.component.html',
   styleUrls: ['./bulk-view.component.css']
 })
-export class BulkViewComponent implements OnInit {
+export class BulkViewComponent implements OnInit, OnDestroy {
 
   public bulk: BulkDeployment;
   public bulkId;
   public bulkType: BulkType = BulkType.DOMAIN;
+
+  public refresh = undefined;
 
   constructor(private readonly deployService: AppdeploymentService,
               private route: ActivatedRoute,
@@ -28,6 +32,9 @@ export class BulkViewComponent implements OnInit {
             (bulk) => {
               this.bulk = bulk;
               this.bulkType = bulk.type;
+              if (this.bulkType === BulkType.APPLICATION) {
+                this.update();
+              }
             },
             err => {
               console.error(err);
@@ -46,11 +53,33 @@ export class BulkViewComponent implements OnInit {
       return `Username: ${entry.details['userName']} email: ${entry.details['email']} userId: ${entry.details['userId']}`
     } else if (entry.type === 'DOMAIN') {
       return `DomainId: ${entry.details['domainId']} name: ${entry.details['domainName']}`
-    } else {
-      return ''
+    } else if (entry.type === 'APPLICATION') {
+      return `AppInstanceId: ${entry.details['appInstanceId']} name: ${entry.details['appInstanceName']} domain: ${entry.details['domainCodename']}`
     }
   }
 
+  public getAppInstanceId(entry: BulkReplay) {
+    return entry?.details['appInstanceId']
+  }
 
+  public getAppInstanceName(entry: BulkReplay) {
+    return entry?.details['appInstanceName']
+  }
+
+  public getDomainCodeName(entry: BulkReplay) {
+    return entry?.details['domainCodename']
+  }
+
+  public update() {
+    this.refresh = timer(0, 20000).pipe(map(() => {
+      this.deployService.getBulkDeployment(this.bulk.id).subscribe( bulk => {
+        this.bulk = bulk;
+      })
+    })).subscribe()
+  }
+
+  public ngOnDestroy() {
+   if (this.refresh !== undefined) { this.refresh.unsubscribe(); }
+  }
 
 }

@@ -1,5 +1,7 @@
+import {BulkDeploymentState} from './bulk-deployment';
+
 export class BulkReplay {
-    public successful: boolean;
+    public state: BulkDeploymentState;
     public created: boolean;
     public details: Map<string, string>;
     public type: BulkType;
@@ -10,3 +12,4 @@ export enum BulkType {
     APPLICATION = 'APPLICATION',
     USER = 'USER',
 }
+
