@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Application} from '../../model/application';
 import {ApplicationBase} from '../../model/application-base';
 import {HttpClient} from '@angular/common/http';
@@ -12,7 +12,9 @@ import {BulkDeployment} from '../../model/bulk-deployment';
 })
 export class AppdeploymentService {
 
-    private selectedApp: ApplicationBase = undefined;
+    private readonly DEPLOY_APP_KEY = 'APP_DEPLOYMENT'
+
+    private selectedApp: string = undefined;
 
     public result: BulkReplay[] = [];
 
@@ -21,23 +23,30 @@ export class AppdeploymentService {
 
     constructor(private http: HttpClient,
                 private appConfig: AppConfigService) {
+        console.log(localStorage.getItem(this.DEPLOY_APP_KEY))
+        if (localStorage.getItem(this.DEPLOY_APP_KEY)) {
+            this.selectedApp = localStorage.getItem(this.DEPLOY_APP_KEY)
+        } else {
+            this.selectedApp = '';
+        }
     }
-
 
     setSelectedApp(app: ApplicationBase) {
-        this.selectedApp = app;
+        this.selectedApp = app.name;
+        localStorage.setItem(this.DEPLOY_APP_KEY, this.selectedApp)
     }
 
-    getSelectedApp() {return this.selectedApp;}
+    getSelectedApp() {return this.selectedApp; }
 
     protected getUrl(): string {
         return this.appConfig.getApiUrl() + '/bulks/';
     }
 
-    public uploadApplicationFile(file: File): Observable<BulkReplay[]> {
+    public uploadApplicationFile(file: File, name: string): Observable<BulkDeployment> {
         const formParams = new FormData();
         formParams.append('file', file);
-        return this.http.post<BulkReplay[]>(this.getUrl() + 'apps', formParams);
+        formParams.append('appName', name)
+        return this.http.post<BulkDeployment>(this.getUrl() + 'apps', formParams);
     }
 
     public uploadUserDomainFile(file: File): Observable<BulkDeployment> {

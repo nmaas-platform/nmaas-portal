@@ -11,6 +11,9 @@ export class BulkDeployment {
 }
 
 export enum BulkDeploymentState {
-    PROCESSING,
-    COMPLETED
+    PENDING= 'PENDING',
+    PROCESSING= 'PROCESSING',
+    COMPLETED= 'COMPLETED',
+    FAILED= 'FAILED',
+    PARTIALLY_FAILED= 'PARTIALLY_FAILED'
 }

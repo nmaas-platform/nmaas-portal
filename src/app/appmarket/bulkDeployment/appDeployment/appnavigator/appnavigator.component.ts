@@ -37,6 +37,7 @@ export class AppnavigatorComponent implements OnInit {
   }
 
   private checkStep() {
+    console.log(this.router.url)
     switch (this.router.url) {
       case '/admin/apps/bulks/new/select' :
       this.status = 0;

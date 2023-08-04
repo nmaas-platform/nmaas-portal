@@ -1,4 +1,30 @@
-<div style="margin-top: 10rem; margin-left: 4rem; margin-right: 4rem;">
+<div style="width: 80%; margin: auto; margin-top: 4rem;">
+    <div style="margin-bottom: 5rem">
+        <h2>{{'BULK.APP.NAVIGATION' | translate}}</h2>
+        <p>{{'BULK.APP.INFO' | translate}}</p>
+    </div>
+
     <p-fileUpload name="file[]" customUpload="true" (uploadHandler)="myUploader($event)" accept=".csv" multiple="false"></p-fileUpload>
+
+    <div style="margin-top: 2rem; display: flex; justify-content: center; flex-direction: column">
+        <div style="margin-top: 2rem; margin-bottom: 1rem">
+            <p>{{'BULK.APP.INFO' | translate}}</p>
+        </div>
+        <textarea pInputTextarea [(ngModel)]="csvText" rows="10" cols="127"></textarea>
+    </div>
+
+    <div *ngIf="errorMessage !== ''" style="margin-top: 1rem; display: flex; justify-content: start; color: indianred">
+        <p>{{errorMessage}}</p>
+    </div>
+
+    <div  style="margin-top: 2rem; display: flex; justify-content: center;" >
+        <button class="btn btn-primary" (click)="uploadText(); this.errorMessage=''" [disabled]="csvText === ''"> {{'BULK.UPLOAD_BUTTON' | translate}}</button>
+    </div>
+
+    <div *ngIf="showProgressBar" style="margin-top: 20px;">
+        <p>{{ 'BULK.APP.DEPLOYMENT_IN_PROGRESS' | translate }}</p>
+        <p-progressBar mode="indeterminate" [style]="{height : '8px'}"></p-progressBar>
+    </div>
+
 </div>
 
