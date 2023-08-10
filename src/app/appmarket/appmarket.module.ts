@@ -44,6 +44,10 @@ import {BulkViewComponent} from './bulkDeployment/bulk-view/bulk-view.component'
 import {BulkAppListComponent} from './bulkDeployment/bulk-app-list/bulk-app-list.component';
 import {BulkListComponent} from './bulkDeployment/bulk-list/bulk-list.component';
 import {InputTextareaModule} from 'primeng/inputtextarea';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {InputTextModule} from 'primeng/inputtext';
+import {BulkSearchPipe} from './bulkDeployment/bulk-list/bulk-search.pipe';
+import {CheckboxModule} from 'primeng/checkbox';
 
 @NgModule({
     declarations: [
@@ -58,6 +62,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
         BulkViewComponent,
         BulkAppListComponent,
         BulkListComponent,
+        BulkSearchPipe
     ],
     imports: [
         FormsModule,
@@ -85,9 +90,14 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
         FileUploadModule,
         TableModule,
         InputTextareaModule,
+        NgxPaginationModule,
+        InputTextModule,
+        TooltipModule,
+        CheckboxModule,
     ],
     exports: [
         AppMarketComponent,
+        BulkSearchPipe
     ],
     providers: [
         AppsService,

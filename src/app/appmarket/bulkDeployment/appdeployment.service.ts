@@ -1,5 +1,4 @@
-import {Injectable, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {Application} from '../../model/application';
+import {Injectable} from '@angular/core';
 import {ApplicationBase} from '../../model/application-base';
 import {HttpClient} from '@angular/common/http';
 import {AppConfigService} from '../../service';
@@ -35,7 +34,9 @@ export class AppdeploymentService {
         localStorage.setItem(this.DEPLOY_APP_KEY, this.selectedApp)
     }
 
-    getSelectedApp() {return this.selectedApp; }
+    public getSelectedApp() {
+        return this.selectedApp;
+    }
 
     protected getUrl(): string {
         return this.appConfig.getApiUrl() + '/bulks/';
@@ -57,6 +58,7 @@ export class AppdeploymentService {
     public getBulksDomainDeployments(): Observable<BulkDeployment[]> {
         return this.http.get<BulkDeployment[]>(this.getUrl() + 'domains');
     }
+
     public getBulksAppDeployments(): Observable<BulkDeployment[]> {
         return this.http.get<BulkDeployment[]>(this.getUrl() + 'apps');
     }
@@ -64,7 +66,6 @@ export class AppdeploymentService {
     public getBulkDeployment(id: number): Observable<BulkDeployment> {
         return this.http.get<BulkDeployment>(this.getUrl() + id);
     }
-
 
 
 }

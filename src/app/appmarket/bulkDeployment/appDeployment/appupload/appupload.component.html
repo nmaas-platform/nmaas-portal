@@ -1,10 +1,11 @@
 <div style="width: 80%; margin: auto; margin-top: 4rem;">
     <div style="margin-bottom: 5rem">
-        <h2>{{'BULK.APP.NAVIGATION' | translate}}</h2>
+        <h2>{{'BULK.APP.UPLOAD' | translate}} {{deployService.getSelectedApp()}}</h2>
         <p>{{'BULK.APP.INFO' | translate}}</p>
     </div>
 
-    <p-fileUpload name="file[]" customUpload="true" (uploadHandler)="myUploader($event)" accept=".csv" multiple="false"></p-fileUpload>
+    <p-fileUpload name="file[]" customUpload="true" (uploadHandler)="myUploader($event)" accept=".csv"
+                  multiple="false"></p-fileUpload>
 
     <div style="margin-top: 2rem; display: flex; justify-content: center; flex-direction: column">
         <div style="margin-top: 2rem; margin-bottom: 1rem">
@@ -17,8 +18,9 @@
         <p>{{errorMessage}}</p>
     </div>
 
-    <div  style="margin-top: 2rem; display: flex; justify-content: center;" >
-        <button class="btn btn-primary" (click)="uploadText(); this.errorMessage=''" [disabled]="csvText === ''"> {{'BULK.UPLOAD_BUTTON' | translate}}</button>
+    <div style="margin-top: 2rem; display: flex; justify-content: center;">
+        <button class="btn btn-primary" (click)="uploadText(); this.errorMessage=''"
+                [disabled]="csvText === ''"> {{'BULK.UPLOAD_BUTTON' | translate}}</button>
     </div>
 
     <div *ngIf="showProgressBar" style="margin-top: 20px;">

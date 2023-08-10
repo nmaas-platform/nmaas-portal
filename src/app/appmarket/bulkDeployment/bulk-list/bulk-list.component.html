@@ -7,8 +7,27 @@
         <div *ngIf="mode=== bulkTypeApp">
             <button class="btn btn-primary" [routerLink]="['/admin/apps/bulks/new']">New deployment</button>
         </div>
+        <div class="flex">
+            <div class="flex align-items-center mr-1">{{ 'BULK.LIST.PER_PAGE' | translate }}:</div>
+            <span id="selectionItems" class="dropdown"
+                  style="vertical-align: middle; display: inline-block; margin-right: 1rem;">
+        <button class="dropdown-toggle btn" data-toggle="dropdown" data-close-others="true">
+            {{maxItemsOnPage}}
+        </button>
+        <ul class="dropdown-menu">
+            <li *ngFor="let item of itemsPerPage" [ngClass]="{'active': maxItemsOnPage == item}">
+                <a (click)="setItems(item)">
+                    <span>{{item.toString()}}</span>
+                </a>
+            </li>
+        </ul>
+    </span>
+            <input pInputText class="flex" name="search" id="search" placeholder="Search" type="text"
+                   style="height: 34px" [(ngModel)]="searchValue">
+        </div>
     </div>
-    <table class="table table-hover table-condensed" style="margin-top: 3rem" aria-describedby="Bulk deployment table">
+    <table *ngIf="mode === 'DOMAIN'" class="table table-hover table-condensed" style="margin-top: 3rem"
+           aria-describedby="Bulk deployment table">
         <thead>
         <tr>
             <th scope="col">{{'BULK.LIST.ID' | translate}}</th>
@@ -21,22 +40,73 @@
 
         <tbody>
         <ng-template ngFor let-bulk [ngForOf]="bulks" let-i="index">
-            <tr class="table-row" >
+            <tr class="table-row">
                 <td style="width: 10%">{{bulk?.id}}</td>
                 <td style="width: 25%">{{bulk?.creator.username}}</td>
                 <td style="width: 25%">{{bulk?.creationDate | date: 'dd-MM-yyyy h:mm'}}</td>
-                <td style="width: 15%">{{'BULK.STATE.' +bulk?.state | translate}}</td>
+                <td style="width: 15%">{{'BULK.STATE.' + bulk?.state | translate}}</td>
                 <td style="width: 20%" class="text-right">
                     <span class="dropdown">
-            <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
+            <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
+               data-toggle="dropdown" href="#" role="button">
               <em class="fas fa-cog icon-black icon-bigger"></em>
             </a>
             <ul class="dropdown-menu pull-right-drop">
               <li *ngIf="mode === bulkTypeDomain">
                 <a [routerLink]="['/admin/domains/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>
               </li>
+                <!--                <li *ngIf="mode === bulkTypeApp">-->
+                <!--                    <a [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>-->
+                <!--                </li>-->
+            </ul>
+          </span>
+                </td>
+            </tr>
+        </ng-template>
+        </tbody>
+    </table>
+    <table *ngIf="mode === 'APPLICATION'" class="table table-hover table-condensed" style="margin-top: 3rem"
+           aria-describedby="Bulk deployment table" sortable-table (sorted)="onSort($event)">
+        <thead>
+        <tr>
+            <th scope="col" class="column-sortable" sortable-column="id">{{'BULK.LIST.ID' | translate}}</th>
+            <th scope="col" class="column-sortable" sortable-column="creator">{{'BULK.LIST.CREATOR' | translate}}</th>
+            <th scope="col" class="column-sortable" sortable-column="app_name">{{'BULK.LIST.APP_NAME' | translate}}</th>
+            <th scope="col" class="column-sortable"
+                sortable-column="instance_no">{{'BULK.LIST.INSTANCE_NO' | translate}}</th>
+            <th scope="col" class="column-sortable" sortable-column="date"
+                sort-direction="desc">{{'BULK.LIST.CREATION_DATE' | translate}}</th>
+            <th scope="col" class="column-sortable" sortable-column="state">{{'BULK.LIST.STATE' | translate}}</th>
+            <th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <ng-template ngFor let-bulk
+                     [ngForOf]="bulks | searchBulk: searchValue: true | paginate: {itemsPerPage: maxItemsOnPage, currentPage: p}"
+                     let-i="index">
+            <tr class="table-row">
+                <td style="width: 5%">{{bulk?.id}}</td>
+                <td style="width: 15%">{{bulk?.creator.username}}</td>
+                <td style="width: 20%">{{getApplicationName(bulk?.details)}}</td>
+                <td style="width: 20%">{{getInstancesNumber(bulk?.details)}}</td>
+                <td style="width: 15%">{{bulk?.creationDate | date: 'dd-MM-yyyy h:mm'}}</td>
+                <td style="width: 20%">{{'BULK.STATE.' + bulk?.state | translate}}</td>
+                <td style="width: 5%" class="text-right">
+                    <span class="dropdown">
+            <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
+               data-toggle="dropdown" href="#" role="button">
+              <em class="fas fa-cog icon-black icon-bigger"></em>
+            </a>
+            <ul class="dropdown-menu pull-right-drop">
+<!--              <li *ngIf="mode === bulkTypeDomain">-->
+                <!--                <a [routerLink]="['/admin/domains/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>-->
+                <!--              </li>-->
                 <li *ngIf="mode === bulkTypeApp">
                     <a [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>
+                </li>
+                <li *ngIf="mode === bulkTypeApp">
+                    <a (click)="modal.show()">{{ 'BULK.LIST.REMOVE' | translate }}</a>
                 </li>
             </ul>
           </span>
@@ -45,4 +115,27 @@
         </ng-template>
         </tbody>
     </table>
+    <pagination-controls class="text-right" (pageChange)="p = $event"
+                         previousLabel="{{ 'PAGINATION.PREVIOUS' | translate }}"
+                         nextLabel="{{ 'PAGINATION.NEXT' | translate }}"
+                         screenReaderPaginationLabel="{{ 'PAGINATION.SCREEN_READER.PAGINATION' | translate }}"
+                         screenReaderPageLabel="{{ 'PAGINATION.SCREEN_READER.PAGE' | translate }}"
+                         screenReaderCurrentLabel="{{ 'PAGINATION.SCREEN_READER.CURRENT' | translate }}"></pagination-controls>
+
 </div>
+
+<nmaas-modal>
+    <div class="nmaas-modal-header">{{'BULK.REMOVE.HEADER' | translate}}</div>
+    <div class="nmaas-modal-body" style="height: 100px">
+        <div class="flex flex-row">
+            {{'BULK.REMOVE.APP' | translate}}
+            <div class="flex ml-4">
+                <p-checkbox [(ngModel)]="removeAll" binary="true"></p-checkbox>
+            </div>
+        </div>
+    </div>
+    <div class="nmaas-modal-footer">
+        <button type="button" class="btn btn-default" (click)="modal.hide()">{{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}</button>
+        <button type="button" class="btn btn-primary"   [disabled]="false">{{'BULK.REMOVE.REMOVE' | translate}}</button>
+    </div>
+</nmaas-modal>

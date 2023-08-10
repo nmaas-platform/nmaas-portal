@@ -8,6 +8,7 @@ export class BulkDeployment {
     public entries: BulkReplay[] = [];
     public state: BulkDeploymentState;
     public type: BulkType;
+    public details: Map<string, string>;
 }
 
 export enum BulkDeploymentState {
