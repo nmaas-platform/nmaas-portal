@@ -20,7 +20,10 @@ export class AppdeploymentComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.appService.getAllActiveApplicationBase().subscribe(data => this.apps = data);
+    this.appService.getAllActiveApplicationBase().subscribe(data => {
+      data.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
+      this.apps = data
+    });
   }
 
   selectApp() {

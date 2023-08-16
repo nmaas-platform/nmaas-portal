@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {BulkDeployment} from '../../../model/bulk-deployment';
 import {AppdeploymentService} from '../appdeployment.service';
 import {BulkType} from '../../../model/bulk-replay';
+import {ModalComponent} from '../../../shared';
 
 @Component({
   selector: 'app-bulk-app-list',
@@ -17,6 +18,9 @@ export class BulkAppListComponent implements OnInit {
   constructor(private readonly deployService: AppdeploymentService) { }
 
   ngOnInit(): void {
-    this.deployService.getBulksAppDeployments().subscribe(data => this.bulks = data);
+    this.deployService.getBulksAppDeployments().subscribe(data => {
+      data = data.sort((a, b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime())
+      this.bulks = data
+    });
   }
 }
