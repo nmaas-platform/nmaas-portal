@@ -4,6 +4,19 @@ import { AppuploadComponent } from './appupload.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterModule} from '@angular/router';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {SecurePipe} from '../../../../pipe';
+import {Pipe, PipeTransform} from '@angular/core';
+
+@Pipe({
+  name: 'secure'
+})
+class SecurePipeMock implements PipeTransform {
+  public name = 'secure';
+
+  public transform(query: string, ...args: any[]): any {
+    return query;
+  }
+}
 
 describe('AppuploadComponent', () => {
   let component: AppuploadComponent;
@@ -11,7 +24,7 @@ describe('AppuploadComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AppuploadComponent ],
+      declarations: [ AppuploadComponent, SecurePipeMock ],
       imports : [
         HttpClientTestingModule,
         RouterModule.forRoot([]),

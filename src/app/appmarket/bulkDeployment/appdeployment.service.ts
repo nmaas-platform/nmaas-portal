@@ -12,8 +12,10 @@ import {BulkDeployment} from '../../model/bulk-deployment';
 export class AppdeploymentService {
 
     private readonly DEPLOY_APP_KEY = 'APP_DEPLOYMENT'
+    private readonly DEPLOY_APP_ID_KEY = 'APP_DEPLOYMENT_ID'
 
     private selectedApp: string = undefined;
+    private selectedAppId: string = undefined;
 
     public result: BulkReplay[] = [];
 
@@ -24,18 +26,26 @@ export class AppdeploymentService {
                 private appConfig: AppConfigService) {
         if (localStorage.getItem(this.DEPLOY_APP_KEY)) {
             this.selectedApp = localStorage.getItem(this.DEPLOY_APP_KEY)
+            this.selectedAppId = localStorage.getItem(this.DEPLOY_APP_ID_KEY)
         } else {
             this.selectedApp = '';
+            this.selectedAppId = '';
         }
     }
 
     setSelectedApp(app: ApplicationBase) {
         this.selectedApp = app.name;
+        this.selectedAppId = `${app.id}`;
         localStorage.setItem(this.DEPLOY_APP_KEY, this.selectedApp)
+        localStorage.setItem(this.DEPLOY_APP_ID_KEY, this.selectedAppId)
     }
 
     public getSelectedApp() {
         return this.selectedApp;
+    }
+
+    public getSelectedAppId() {
+        return Number.parseInt(this.selectedAppId, 10) ;
     }
 
     protected getUrl(): string {
