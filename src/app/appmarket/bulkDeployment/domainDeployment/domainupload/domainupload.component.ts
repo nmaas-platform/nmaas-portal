@@ -34,7 +34,12 @@ export class DomainuploadComponent implements OnInit {
       } else {
         this.router.navigate(['admin/domains/deploy/summary'])
       }
-    });
+    },
+        error => {
+          console.error(error);
+          this.showProgressBar = false;
+          this.errorMessage = error.error.message || 'Error with uploading csv file';
+        });
   }
 
   public uploadText() {
@@ -52,6 +57,7 @@ export class DomainuploadComponent implements OnInit {
     },
         error => {
         console.error(error);
+        this.showProgressBar = false;
         this.errorMessage = error.error.message || 'Error with uploading csv file';
         });
   }
