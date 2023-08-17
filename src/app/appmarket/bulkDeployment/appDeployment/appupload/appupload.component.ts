@@ -32,6 +32,10 @@ export class AppuploadComponent implements OnInit {
         this.deployService.uploadApplicationFile(event.files[0], this.deployService.getSelectedApp()).subscribe(val => {
             console.warn('done')
             this.router.navigate(['admin/apps/bulks/', val.id])
+        }, error => {
+            console.error(error);
+            this.showProgressBar = false;
+            this.errorMessage = error.error.message || 'Error with uploading csv file';
         });
     }
 
@@ -45,6 +49,7 @@ export class AppuploadComponent implements OnInit {
             },
             error => {
                 console.error(error);
+                this.showProgressBar = false;
                 this.errorMessage = error.error.message || 'Error with uploading csv file';
             });
     }
