@@ -31,6 +31,9 @@ export class RolesDirective {
         })
     }
 
+    // Excluded roles have priority than allowed roles
+    // If user have excluded role template would not be shown
+
     @Input() set rolesExcluded(excluded: Array<string>) {
         this._excluded = excluded;
         this.updateState({
