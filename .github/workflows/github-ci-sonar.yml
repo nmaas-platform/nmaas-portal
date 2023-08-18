@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - develop
-  pull_request:
-    branches:
-      - develop
 
 jobs:
   run-sonar:
@@ -34,7 +31,6 @@ jobs:
         run: ./gradlew testCoverage
 
       - name: Run Sonar update
-        if: ${{ github.ref_name == 'develop' }}
         env:
           SONAR_LOGIN_TOKEN: ${{ secrets.SONAR_LOGIN_TOKEN }}
           SONAR_HOST: ${{ vars.SONAR_HOST }}
