@@ -9,7 +9,7 @@ on:
       - develop
 
 jobs:
-  itests-and-sonar:
+  run-sonar:
     runs-on: ubuntu-22.04
 
     container:
