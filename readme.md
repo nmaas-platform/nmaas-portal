@@ -1,6 +1,6 @@
 # NMaaS Portal (GUI)
 
-### Web-based GUI for browsing, subscription and deployment of network management applications offered by the NMaaS system
+### Web-based GUI for browsing, subscription and deployment of applications offered by the NMaaS Platform
 
 ### Technologies
 ---
