@@ -26,7 +26,7 @@ jobs:
         run: ng build
 
       - name: Run Sonar update
-        if: ${{ github.ref_name == 'develop' }}
+#        if: ${{ github.ref_name == 'develop' }}
         env:
           SONAR_LOGIN_TOKEN: ${{ secrets.SONAR_LOGIN_TOKEN }}
           SONAR_HOST: ${{ vars.SONAR_HOST }}
