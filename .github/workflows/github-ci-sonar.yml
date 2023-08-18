@@ -30,14 +30,11 @@ jobs:
       - name: Install dependencies
         run: npm ci --force
 
-#      - name: Install sonar
-#        run: npm install -g sonarqube-scanner
-
       - name: Check test coverage
         run: ./gradlew testCoverage
 
       - name: Run Sonar update
-#        if: ${{ github.ref_name == 'develop' }}
+        if: ${{ github.ref_name == 'develop' }}
         env:
           SONAR_LOGIN_TOKEN: ${{ secrets.SONAR_LOGIN_TOKEN }}
           SONAR_HOST: ${{ vars.SONAR_HOST }}
