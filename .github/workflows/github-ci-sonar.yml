@@ -23,7 +23,7 @@ jobs:
         run: npm ci --force
 
       - name: Install sonar
-        run: npm install sonar-scanner
+        run: npm install sonar-scanner --force
 
       - name: Build the app
         run: ng build
