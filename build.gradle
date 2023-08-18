@@ -52,7 +52,6 @@ task testCoverage(type: Exec) {
 		commandLine 'ng', 'test', '--browsers', 'Chromium', '--watch=false', '--code-coverage', '--source-map=false'
 	}
 
-	dependsOn(npm_install)
 }
 
 sonarqube {
