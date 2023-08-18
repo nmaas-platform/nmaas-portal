@@ -194,7 +194,7 @@
 
                 <table class="table table-hover table-condensed" aria-describedby="Domains in Group table">
                     <thead>
-                    <tr>
+                    <tr #column>
                         <th>{{'BULK.LIST.STATE' | translate}}</th>
                         <th>{{'BULK.APP.INSTANCE_ID' | translate}}</th>
                         <th>{{'BULK.APP.INSTANCE_NAME' | translate}}</th>
@@ -207,7 +207,7 @@
                                                                                  class="pi pi-spin pi-spinner ml-1"
                                                                                  style="font-size: 1.4rem"></i>
                                 <i *ngIf="replay.state == 'FAILED'" class="pi pi-info-circle" style="font-size: 1.4rem"
-                                   pTooltip="{{replay?.details['errorMessage']}}"></i></td>
+                                   pTooltip="{{replay?.details['errorMessage']}}" appendTo="column"></i></td>
                             <td>{{getAppInstanceId(replay)}}</td>
                             <td>{{getAppInstanceName(replay)}}</td>
                             <td>{{getDomainCodeName(replay)}}</td>
