@@ -30,11 +30,11 @@ jobs:
       - name: Install dependencies
         run: npm ci --force
 
-      - name: Install sonar
-        run: npm install -g sonarqube-scanner
+#      - name: Install sonar
+#        run: npm install -g sonarqube-scanner
 
-      - name: Build the app
-        run: ng build
+      - name: Check test coverage
+        run: ./gradlew testCoverage
 
       - name: Run Sonar update
 #        if: ${{ github.ref_name == 'develop' }}
@@ -44,5 +44,4 @@ jobs:
           SONAR_PROJECT_KEY: ${{ vars.SONAR_PROJECT_KEY }}
           SONAR_PROJECT_NAME: ${{ vars.SONAR_PROJECT_NAME }}
           SONAR_BRANCH: ${{ github.ref_name }}
-#        run: npm run sonar -Dsonar.host.url=${SONAR_HOST} -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.projectName=${SONAR_PROJECT_NAME} -Dsonar.branch.name=${SONAR_BRANCH} -Dsonar.login=${SONAR_LOGIN_TOKEN}
         run: ./gradlew -Dsonar.host.url=${SONAR_HOST} -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.projectName=${SONAR_PROJECT_NAME} -Dsonar.branch.name=${SONAR_BRANCH} -Dsonar.login=${SONAR_LOGIN_TOKEN} sonarqube
