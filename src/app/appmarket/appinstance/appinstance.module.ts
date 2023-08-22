@@ -30,7 +30,7 @@ import { SelectPodModalComponent } from './modals/select-pod-modal/select-pod-mo
 import {TooltipModule} from 'primeng/tooltip';
 import {AppinstanceSearchPipe} from './appinstance-search.pipe';
 import {InputTextModule} from 'primeng/inputtext';
-import { AppdeploymentComponent } from '../bulkDeployment/appDeployment/appchoose/appdeployment.component';
+import { AppdeploymentComponent } from '../bulkDeployment/appDeployment/appSelection/appdeployment.component';
 import {DropdownModule} from 'primeng/dropdown';
 import {TimelineModule} from 'primeng/timeline';
 import {ButtonModule} from 'primeng/button';
