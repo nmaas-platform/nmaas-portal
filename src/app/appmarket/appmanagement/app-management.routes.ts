@@ -9,7 +9,7 @@ import {AppVersionCreateWizardComponent} from './app-version-create-wizard/app-v
 import {BulkAppListComponent} from '../bulkDeployment/bulk-app-list/bulk-app-list.component';
 import {BulkViewComponent} from '../bulkDeployment/bulk-view/bulk-view.component';
 import {AppnavigatorComponent} from '../bulkDeployment/appDeployment/appnavigator/appnavigator.component';
-import {AppdeploymentComponent} from '../bulkDeployment/appDeployment/appchoose/appdeployment.component';
+import {AppdeploymentComponent} from '../bulkDeployment/appDeployment/appSelection/appdeployment.component';
 import {AppuploadComponent} from '../bulkDeployment/appDeployment/appupload/appupload.component';
 import {AppsummaryComponent} from '../bulkDeployment/appDeployment/appsummary/appsummary.component';
 

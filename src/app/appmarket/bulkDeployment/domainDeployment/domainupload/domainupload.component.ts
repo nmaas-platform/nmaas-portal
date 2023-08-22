@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AppdeploymentService} from '../../appdeployment.service';
 import {Router} from '@angular/router';
-import {BulkType} from '../../../../model/bulk-replay';
+import {BulkType} from '../../../../model/bulk-response';
+import {DomainService} from '../../../../service';
 
 @Component({
   selector: 'app-domainupload',
@@ -12,12 +13,15 @@ export class DomainuploadComponent implements OnInit {
 
   public showProgressBar = false;
 
-  public csvText = '';
+  public csvText = '"domain","username","networks","domainGroups","email"\n' +
+      '"ExampleDomain","TestUser","","Lab1","email@domain.com"\n' +
+      '"ExampleDomain2","TestUser2","","Lab1","email2@domain.com"\n';
 
   public errorMessage = '';
 
   constructor(private readonly deployService: AppdeploymentService,
-              private router: Router) { }
+              private router: Router,
+              private domainService: DomainService) { }
 
   ngOnInit(): void {
   }
@@ -29,7 +33,8 @@ export class DomainuploadComponent implements OnInit {
     this.deployService.uploadUserDomainFile(event.files[0]).subscribe( val => {
       console.warn("done")
       this.deployService.bulk = val;
-      if (val.type === BulkType.DOMAIN) {
+      this.domainService.setUpdateRequiredFlag(true);
+          if (val.type === BulkType.DOMAIN) {
         this.router.navigate(['admin/domains/bulks/', val.id])
       } else {
         this.router.navigate(['admin/domains/deploy/summary'])
@@ -49,7 +54,8 @@ export class DomainuploadComponent implements OnInit {
     this.deployService.uploadUserDomainFile(file).subscribe( val => {
       console.warn("done")
       this.deployService.bulk = val;
-      if (val.type === BulkType.DOMAIN) {
+      this.domainService.setUpdateRequiredFlag(true);
+          if (val.type === BulkType.DOMAIN) {
         this.router.navigate(['admin/domains/bulks/', val.id])
       } else {
         this.router.navigate(['admin/domains/deploy/summary'])

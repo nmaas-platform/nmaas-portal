@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {BulkDeployment} from '../../../model/bulk-deployment';
 import {AppdeploymentService} from '../appdeployment.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {BulkReplay, BulkType} from '../../../model/bulk-replay';
+import {BulkResponse, BulkType} from '../../../model/bulk-response';
 import {timer} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {AppImagesService} from '../../../service';
@@ -51,7 +51,7 @@ export class BulkViewComponent implements OnInit, OnDestroy {
         });
     }
 
-    public getDetails(entry: BulkReplay) {
+    public getDetails(entry: BulkResponse) {
         if (entry.type === 'USER') {
             return `Username: ${entry.details['userName']} email: ${entry.details['email']} userId: ${entry.details['userId']}`
         } else if (entry.type === 'DOMAIN') {
@@ -61,16 +61,16 @@ export class BulkViewComponent implements OnInit, OnDestroy {
         }
     }
 
-    public getAppInstanceId(entry: BulkReplay) {
+    public getAppInstanceId(entry: BulkResponse) {
         return entry?.details['appInstanceId']
     }
 
-    public getAppInstanceName(entry: BulkReplay) {
+    public getAppInstanceName(entry: BulkResponse) {
         return entry?.details['appInstanceName']
     }
 
-    public getDomainCodeName(entry: BulkReplay) {
-        return entry?.details['domainCodename']
+    public getDomainCodeName(entry: BulkResponse) {
+        return entry?.details['domainCodename'] || entry?.details['domainName']
     }
 
     public update() {

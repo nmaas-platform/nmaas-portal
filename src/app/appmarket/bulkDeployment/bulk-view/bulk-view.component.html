@@ -53,11 +53,11 @@
                         <th>{{'BULK.LIST.DETAILS' | translate}}</th>
                         <th style="width: 5%" scope="col"></th>
                     </tr>
-                    <ng-template ngFor let-replay [ngForOf]="bulk.entries" let-i="index">
-                        <tr *ngIf="replay.type === 'DOMAIN'" class="table-row">
-                            <td>{{'BULK.STATE.' + replay.state | translate}}</td>
-                            <td>{{replay.created}}</td>
-                            <td>{{getDetails(replay)}}</td>
+                    <ng-template ngFor let-response [ngForOf]="bulk.entries" let-i="index">
+                        <tr *ngIf="response.type === 'DOMAIN'" class="table-row">
+                            <td>{{'BULK.STATE.' + response.state | translate}}</td>
+                            <td>{{response.created}}</td>
+                            <td>{{getDetails(response)}}</td>
                             <td style="width: 5%" class="text-right">
                     <span class="dropdown">
             <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
@@ -65,11 +65,11 @@
               <em class="fas fa-cog icon-black icon-bigger"></em>
             </a>
             <ul class="dropdown-menu pull-right-drop">
-              <li *ngIf="replay.type === 'DOMAIN'">
-                <a [routerLink]="['/admin/domains/view/', replay?.details['domainId']]">{{ 'BULK.LIST.MOVE_DOMAIN' | translate }}</a>
+              <li *ngIf="response.type === 'DOMAIN'">
+                <a [routerLink]="['/admin/domains/view/', response?.details['domainId']]">{{ 'BULK.LIST.MOVE_DOMAIN' | translate }}</a>
               </li>
-                 <li *ngIf="replay.type === 'USER'">
-                <a [routerLink]="['/admin/users/view', replay?.details['userId']]">{{ 'BULK.LIST.MOVE_USER' | translate }}</a>
+                 <li *ngIf="response.type === 'USER'">
+                <a [routerLink]="['/admin/users/view', response?.details['userId']]">{{ 'BULK.LIST.MOVE_USER' | translate }}</a>
               </li>
             </ul>
           </span>
@@ -180,9 +180,9 @@
             <div class="panel-body">
 
                 <div class="flex flex-row mb-3">
-                    <div class="flex align-items-center">
-                        {{'BULK.LIST.DEPLOYED' | translate}}:
-                    </div>
+<!--                    <div class="flex align-items-center">-->
+<!--                        {{'BULK.LIST.DEPLOYED' | translate}}:-->
+<!--                    </div>-->
                     <div class="flex ml-2 mr-2">
                         <img alt="App logo" style="width: 50px"
                              [src]="(appImagesService.getAppLogoUrl(bulk.details['appId']) | secure) || 'assets/images/app-logo-example.png'"/>
@@ -201,16 +201,16 @@
                         <th>{{'BULK.APP.DOMAIN' | translate}}</th>
                         <th style="width: 5%" scope="col"></th>
                     </tr>
-                    <ng-template ngFor let-replay [ngForOf]="bulk.entries" let-i="index">
-                        <tr *ngIf="replay.type === 'APPLICATION'" class="table-row">
-                            <td>{{'BULK.STATE.' + replay.state | translate}}  <i *ngIf="replay.state == 'PROCESSING'"
+                    <ng-template ngFor let-response [ngForOf]="bulk.entries" let-i="index">
+                        <tr *ngIf="response.type === 'APPLICATION'" class="table-row">
+                            <td >{{'BULK.STATE.' + response.state | translate}}  <i *ngIf="response.state == 'PROCESSING'"
                                                                                  class="pi pi-spin pi-spinner ml-1"
                                                                                  style="font-size: 1.4rem"></i>
-                                <i *ngIf="replay.state == 'FAILED'" class="pi pi-info-circle" style="font-size: 1.4rem"
-                                   pTooltip="{{replay?.details['errorMessage']}}" appendTo="column"></i></td>
-                            <td>{{getAppInstanceId(replay)}}</td>
-                            <td>{{getAppInstanceName(replay)}}</td>
-                            <td>{{getDomainCodeName(replay)}}</td>
+                                <i *ngIf="response.state == 'FAILED'" class="pi pi-info-circle" style="font-size: 1.4rem"
+                                   pTooltip="{{response?.details['errorMessage']}}" tooltipStyleClass="p-tooltip-width " [fitContent]="false"></i></td>
+                            <td>{{getAppInstanceId(response)}}</td>
+                            <td>{{getAppInstanceName(response)}}</td>
+                            <td>{{getDomainCodeName(response)}}</td>
                             <td style="width: 5%" class="text-right">
                     <span class="dropdown">
             <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
@@ -218,10 +218,10 @@
               <em class="fas fa-cog icon-black icon-bigger"></em>
             </a>
             <ul class="dropdown-menu pull-right-drop">
-                 <li *ngIf="replay.type === 'APPLICATION'">
-                <a [routerLink]="['/instances/', replay?.details['appInstanceId']]">{{ 'BULK.LIST.MOVE_APP' | translate }}</a>
+                 <li *ngIf="response.type === 'APPLICATION' && response?.details['appInstanceId'] !== undefined">
+                <a [routerLink]="['/instances/', response?.details['appInstanceId']]">{{ 'BULK.LIST.MOVE_APP' | translate }}</a>
               </li>
-                  <li *ngIf="replay.type === 'APPLICATION' && replay.state !== 'COMPLETED'">
+                  <li *ngIf="response.type === 'APPLICATION' && response.state !== 'COMPLETED'">
                     <a>{{ 'BULK.APP.CHECK_STATE' | translate }}</a>
                 </li>
             </ul>

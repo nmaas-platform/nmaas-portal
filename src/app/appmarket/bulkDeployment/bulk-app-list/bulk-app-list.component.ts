@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {BulkDeployment} from '../../../model/bulk-deployment';
 import {AppdeploymentService} from '../appdeployment.service';
-import {BulkType} from '../../../model/bulk-replay';
+import {BulkType} from '../../../model/bulk-response';
 import {ModalComponent} from '../../../shared';
 
 @Component({

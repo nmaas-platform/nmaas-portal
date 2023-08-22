@@ -5,7 +5,7 @@ import {AppdeploymentService} from '../../appdeployment.service';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-appchoose',
+  selector: 'app-appselection',
   templateUrl: './appdeployment.component.html',
   styleUrls: ['./appdeployment.component.css']
 })
