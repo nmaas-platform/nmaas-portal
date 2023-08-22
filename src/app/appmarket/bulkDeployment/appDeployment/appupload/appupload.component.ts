@@ -12,7 +12,9 @@ export class AppuploadComponent implements OnInit {
 
     public showProgressBar = false;
 
-    public csvText = '';
+    public csvText = '"domain","instance","version","param.x","param.y"\n' +
+        '"DomainCodeName","InstanceName","4.0.0","Param1","Param2"\n' +
+        '"DomainCodeName2","InstanceName2","4.0.0","Param3","Param4"\n';
 
     public errorMessage = '';
 
