@@ -5,7 +5,7 @@ plugins {
 	id "org.sonarqube" version "3.2.0"
 }
 
-version = '1.5.3'
+version = '1.6.0-SNAPSHOT'
 
 task buildGUI(type: Exec) {
 	println 'Building using Angular CLI'
@@ -52,7 +52,6 @@ task testCoverage(type: Exec) {
 		commandLine 'ng', 'test', '--browsers', 'Chromium', '--watch=false', '--code-coverage', '--source-map=false'
 	}
 
-	dependsOn(npm_install)
 }
 
 sonarqube {
