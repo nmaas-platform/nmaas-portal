@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AppdeploymentService} from '../appdeployment.service';
 import {BulkDeployment} from '../../../model/bulk-deployment';
-import {BulkType} from '../../../model/bulk-replay';
+import {BulkType} from '../../../model/bulk-response';
 
 @Component({
     selector: 'app-bulk-domain-list',

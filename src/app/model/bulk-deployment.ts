@@ -1,11 +1,11 @@
 import {User} from './user';
-import {BulkReplay, BulkType} from './bulk-replay';
+import {BulkResponse, BulkType} from './bulk-response';
 
 export class BulkDeployment {
     public id: number;
     public creationDate: Date;
     public creator: User;
-    public entries: BulkReplay[] = [];
+    public entries: BulkResponse[] = [];
     public state: BulkDeploymentState;
     public type: BulkType;
     public details: Map<string, string>;

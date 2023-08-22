@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {ApplicationBase} from '../../model/application-base';
 import {HttpClient} from '@angular/common/http';
 import {AppConfigService} from '../../service';
-import {BulkReplay} from '../../model/bulk-replay';
+import {BulkResponse} from '../../model/bulk-response';
 import {Observable} from 'rxjs';
 import {BulkDeployment} from '../../model/bulk-deployment';
 
@@ -17,7 +17,7 @@ export class AppdeploymentService {
     private selectedApp: string = undefined;
     private selectedAppId: string = undefined;
 
-    public result: BulkReplay[] = [];
+    public result: BulkResponse[] = [];
 
     public bulk: BulkDeployment;
 
