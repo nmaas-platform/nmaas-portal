@@ -207,7 +207,7 @@
                                                                                  class="pi pi-spin pi-spinner ml-1"
                                                                                  style="font-size: 1.4rem"></i>
                                 <i *ngIf="replay.state == 'FAILED'" class="pi pi-info-circle" style="font-size: 1.4rem"
-                                   pTooltip="{{replay?.details['errorMessage']}}" tooltipStyleClass="p-tooltip-width" [fitContent]="false"></i></td>
+                                   pTooltip="{{replay?.details['errorMessage']}}" tooltipStyleClass="p-tooltip-width " [fitContent]="false"></i></td>
                             <td>{{getAppInstanceId(replay)}}</td>
                             <td>{{getAppInstanceName(replay)}}</td>
                             <td>{{getDomainCodeName(replay)}}</td>
