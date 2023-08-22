@@ -70,7 +70,7 @@ export class BulkViewComponent implements OnInit, OnDestroy {
     }
 
     public getDomainCodeName(entry: BulkReplay) {
-        return entry?.details['domainCodename']
+        return entry?.details['domainCodename'] || entry?.details['domainName']
     }
 
     public update() {

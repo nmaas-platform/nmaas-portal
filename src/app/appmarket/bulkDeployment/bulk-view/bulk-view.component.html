@@ -194,7 +194,7 @@
 
                 <table class="table table-hover table-condensed" aria-describedby="Domains in Group table">
                     <thead>
-                    <tr #column>
+                    <tr>
                         <th>{{'BULK.LIST.STATE' | translate}}</th>
                         <th>{{'BULK.APP.INSTANCE_ID' | translate}}</th>
                         <th>{{'BULK.APP.INSTANCE_NAME' | translate}}</th>
@@ -203,11 +203,11 @@
                     </tr>
                     <ng-template ngFor let-replay [ngForOf]="bulk.entries" let-i="index">
                         <tr *ngIf="replay.type === 'APPLICATION'" class="table-row">
-                            <td>{{'BULK.STATE.' + replay.state | translate}}  <i *ngIf="replay.state == 'PROCESSING'"
+                            <td >{{'BULK.STATE.' + replay.state | translate}}  <i *ngIf="replay.state == 'PROCESSING'"
                                                                                  class="pi pi-spin pi-spinner ml-1"
                                                                                  style="font-size: 1.4rem"></i>
                                 <i *ngIf="replay.state == 'FAILED'" class="pi pi-info-circle" style="font-size: 1.4rem"
-                                   pTooltip="{{replay?.details['errorMessage']}}" appendTo="column"></i></td>
+                                   pTooltip="{{replay?.details['errorMessage']}}" tooltipStyleClass="p-tooltip-width" [fitContent]="false"></i></td>
                             <td>{{getAppInstanceId(replay)}}</td>
                             <td>{{getAppInstanceName(replay)}}</td>
                             <td>{{getDomainCodeName(replay)}}</td>
@@ -218,7 +218,7 @@
               <em class="fas fa-cog icon-black icon-bigger"></em>
             </a>
             <ul class="dropdown-menu pull-right-drop">
-                 <li *ngIf="replay.type === 'APPLICATION'">
+                 <li *ngIf="replay.type === 'APPLICATION' && replay?.details['appInstanceId'] !== undefined">
                 <a [routerLink]="['/instances/', replay?.details['appInstanceId']]">{{ 'BULK.LIST.MOVE_APP' | translate }}</a>
               </li>
                   <li *ngIf="replay.type === 'APPLICATION' && replay.state !== 'COMPLETED'">
