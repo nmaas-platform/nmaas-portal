@@ -13,7 +13,7 @@
             {{ 'DOMAINS.ITEMS_PER_PAGE' | translate }}:
             <span id="selectionItems" class="dropdown" style="vertical-align: middle; display: inline-block; margin-right: 1rem;">
         <button class="dropdown-toggle btn" data-toggle="dropdown" data-close-others="true">
-            {{maxItemsOnPage}}
+            <span class="flex mt-2 mr-1">{{maxItemsOnPage}}</span>
         </button>
         <ul class="dropdown-menu">
             <li *ngFor="let item of itemsPerPage" [ngClass]="{'active': maxItemsOnPage == item}">

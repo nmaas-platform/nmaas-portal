@@ -10,8 +10,8 @@
             </button>
         </div>
         <div class="" style="display: flex">
-            <div *ngIf="isModeAllowed(ComponentMode.DELETE)" class="flex">
-                {{ 'USERS.ITEMS_PER_PAGE' | translate }}:
+            <div *ngIf="isModeAllowed(ComponentMode.DELETE)" class="flex ">
+                <span class="mt-2 pr-1">{{ 'USERS.ITEMS_PER_PAGE' | translate }}:</span>
                 <span id="selectionItems" class="dropdown"
                       style="vertical-align: middle; display: inline-block; margin-right: 1rem;">
         <button class="dropdown-toggle btn" data-toggle="dropdown" data-close-others="true">
