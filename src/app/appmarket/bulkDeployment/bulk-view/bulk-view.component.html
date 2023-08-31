@@ -106,13 +106,13 @@
                         <th>{{'BULK.LIST.EMAIL' | translate}}</th>
                         <th style="width: 5%" scope="col"></th>
                     </tr>
-                    <ng-template ngFor let-replay [ngForOf]="bulk.entries" let-i="index">
-                        <tr *ngIf="replay.type === 'USER'" class="table-row">
-                            <td>{{'BULK.STATE.' + replay.state | translate}}</td>
-                            <td>{{replay.created}}</td>
-                            <td>{{getUserId(replay)}}</td>
-                            <td>{{getUsername(replay)}}</td>
-                            <td>{{getEmail(replay)}}</td>
+                    <ng-template ngFor let-response [ngForOf]="bulk.entries" let-i="index">
+                        <tr *ngIf="response.type === 'USER'" class="table-row">
+                            <td>{{'BULK.STATE.' + response.state | translate}}</td>
+                            <td>{{response.created}}</td>
+                            <td>{{getUserId(response)}}</td>
+                            <td>{{getUsername(response)}}</td>
+                            <td>{{getEmail(response)}}</td>
                             <td style="width: 5%" class="text-right">
                     <span class="dropdown">
             <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
@@ -120,11 +120,11 @@
               <em class="fas fa-cog icon-black icon-bigger"></em>
             </a>
             <ul class="dropdown-menu pull-right-drop">
-                <li *ngIf="replay.type === 'DOMAIN'">
-                <a [routerLink]="['/admin/domains/view/', replay?.details['domainId']]">{{ 'BULK.LIST.MOVE_DOMAIN' | translate }}</a>
+                <li *ngIf="response.type === 'DOMAIN'">
+                <a [routerLink]="['/admin/domains/view/', response?.details['domainId']]">{{ 'BULK.LIST.MOVE_DOMAIN' | translate }}</a>
               </li>
-                 <li *ngIf="replay.type === 'USER'">
-                <a [routerLink]="['/admin/users/view', replay?.details['userId']]">{{ 'BULK.LIST.MOVE_USER' | translate }}</a>
+                 <li *ngIf="response.type === 'USER'">
+                <a [routerLink]="['/admin/users/view', response?.details['userId']]">{{ 'BULK.LIST.MOVE_USER' | translate }}</a>
               </li>
             </ul>
           </span>
