@@ -17,6 +17,7 @@ export class AppuploadComponent implements OnInit {
         '"Domain 2","instance-2","4.0.0","Param3","Param4"\n';
 
     public errorMessage = '';
+    public changeDetector = false;
 
     constructor(public readonly deployService: AppdeploymentService,
                 private router: Router,

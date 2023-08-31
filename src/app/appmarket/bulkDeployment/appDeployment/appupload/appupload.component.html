@@ -1,5 +1,5 @@
 <div style="width: 80%; margin: auto; margin-top: 4rem;">
-    <div style="margin-bottom: 5rem">
+    <div style="margin-bottom: 3rem">
         <div class="flex justify-content-between">
             <h2>{{'BULK.APP.UPLOAD' | translate}} {{deployService.getSelectedApp()}}</h2>
             <div>
@@ -7,17 +7,17 @@
                      [src]="(appImagesService.getAppLogoUrl(deployService.getSelectedAppId()) | secure) || 'assets/images/app-logo-example.png'"/>
             </div>
         </div>
-        <p>{{'BULK.APP.INFO' | translate}}</p>
+        <p>{{'BULK.APP.UPLOAD_INFO' | translate}}</p>
     </div>
 
     <p-fileUpload name="file[]" customUpload="true" (uploadHandler)="myUploader($event)" accept=".csv"
-                  multiple="false"></p-fileUpload>
+                  multiple="false" uploadLabel="{{'BULK.BUTTON' | translate}}"></p-fileUpload>
 
-    <div style="margin-top: 2rem; display: flex; justify-content: center; flex-direction: column">
-        <div style="margin-top: 2rem; margin-bottom: 1rem">
+    <div style="margin-top: 1.5rem; display: flex; justify-content: center; flex-direction: column">
+        <div style="margin-top: 1.5rem; margin-bottom: 1rem">
             <p>{{'BULK.APP.UPLOAD_TEXT' | translate}}</p>
         </div>
-        <textarea pInputTextarea [(ngModel)]="csvText" rows="10" cols="127"></textarea>
+        <textarea pInputTextarea [(ngModel)]="csvText" rows="10" cols="127" (keyup)="changeDetector = true"></textarea>
     </div>
 
     <div *ngIf="errorMessage !== ''" style="margin-top: 1rem; display: flex; justify-content: start; color: indianred">
@@ -26,7 +26,7 @@
 
     <div style="margin-top: 2rem; display: flex; justify-content: center;">
         <button class="btn btn-primary" (click)="uploadText(); this.errorMessage=''"
-                [disabled]="csvText === ''"> {{'BULK.UPLOAD_BUTTON' | translate}}</button>
+                [disabled]="csvText === '' || !changeDetector"> {{'BULK.UPLOAD_BUTTON' | translate}}</button>
     </div>
 
     <div *ngIf="showProgressBar" style="margin-top: 20px;">

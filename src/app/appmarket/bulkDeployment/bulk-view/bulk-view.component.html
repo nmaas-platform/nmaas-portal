@@ -1,6 +1,6 @@
 <div class="col-sm-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10">
     <div *ngIf="bulk && bulkType === 'DOMAIN' ">
-        <h3>{{'BULK.DOMAIN.HEADER' | translate}}</h3>
+        <h3>{{'BULK.DOMAIN.HEADER_VIEW' | translate}}</h3>
         <div class="" style="padding-bottom: 5rem; margin-top: 3rem">
             <label for="id" class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.ID' | translate }}</label>
             <div class="col-sm-10">
@@ -50,14 +50,18 @@
                     <tr>
                         <th>{{'BULK.LIST.STATE' | translate}}</th>
                         <th>{{'BULK.LIST.CREATED' | translate}}</th>
-                        <th>{{'BULK.LIST.DETAILS' | translate}}</th>
+                        <th>{{'BULK.LIST.DOMAIN_ID' | translate}}</th>
+                        <th>{{'BULK.LIST.DOMAIN_NAME' | translate}}</th>
+                        <th>{{'BULK.LIST.DOMAIN_CODENAME' | translate}}</th>
                         <th style="width: 5%" scope="col"></th>
                     </tr>
                     <ng-template ngFor let-response [ngForOf]="bulk.entries" let-i="index">
                         <tr *ngIf="response.type === 'DOMAIN'" class="table-row">
                             <td>{{'BULK.STATE.' + response.state | translate}}</td>
                             <td>{{response.created}}</td>
-                            <td>{{getDetails(response)}}</td>
+                            <td>{{getDomainId(response)}}</td>
+                            <td>{{getDomainName(response)}}</td>
+                            <td>{{getDomainCodeName(response)}}</td>
                             <td style="width: 5%" class="text-right">
                     <span class="dropdown">
             <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
@@ -97,14 +101,18 @@
                     <tr>
                         <th>{{'BULK.LIST.STATE' | translate}}</th>
                         <th>{{'BULK.LIST.CREATED' | translate}}</th>
-                        <th>{{'BULK.LIST.DETAILS' | translate}}</th>
+                        <th>{{'BULK.LIST.USER_ID' | translate}}</th>
+                        <th>{{'BULK.LIST.USER_NAME' | translate}}</th>
+                        <th>{{'BULK.LIST.EMAIL' | translate}}</th>
                         <th style="width: 5%" scope="col"></th>
                     </tr>
                     <ng-template ngFor let-replay [ngForOf]="bulk.entries" let-i="index">
                         <tr *ngIf="replay.type === 'USER'" class="table-row">
                             <td>{{'BULK.STATE.' + replay.state | translate}}</td>
                             <td>{{replay.created}}</td>
-                            <td>{{getDetails(replay)}}</td>
+                            <td>{{getUserId(replay)}}</td>
+                            <td>{{getUsername(replay)}}</td>
+                            <td>{{getEmail(replay)}}</td>
                             <td style="width: 5%" class="text-right">
                     <span class="dropdown">
             <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
