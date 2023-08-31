@@ -18,6 +18,7 @@ export class DomainuploadComponent implements OnInit {
       '"ExampleDomain2","TestUser2","","Lab1","email2@domain.com"\n';
 
   public errorMessage = '';
+  public changeDetector = false;
 
   constructor(private readonly deployService: AppdeploymentService,
               private router: Router,

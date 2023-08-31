@@ -51,16 +51,6 @@ export class BulkViewComponent implements OnInit, OnDestroy {
         });
     }
 
-    public getDetails(entry: BulkResponse) {
-        if (entry.type === 'USER') {
-            return `Username: ${entry.details['userName']} email: ${entry.details['email']} userId: ${entry.details['userId']}`
-        } else if (entry.type === 'DOMAIN') {
-            return `DomainId: ${entry.details['domainId']} name: ${entry.details['domainName']}`
-        } else if (entry.type === 'APPLICATION') {
-            return `AppInstanceId: ${entry.details['appInstanceId']} name: ${entry.details['appInstanceName']} domain: ${entry.details['domainCodename']}`
-        }
-    }
-
     public getAppInstanceId(entry: BulkResponse) {
         return entry?.details['appInstanceId']
     }
@@ -71,6 +61,26 @@ export class BulkViewComponent implements OnInit, OnDestroy {
 
     public getDomainCodeName(entry: BulkResponse) {
         return entry?.details['domainCodename'] || entry?.details['domainName']
+    }
+
+    public getUsername(entry: BulkResponse) {
+        return entry?.details['userName']
+    }
+
+    public getEmail(entry: BulkResponse) {
+        return entry?.details['email']
+    }
+
+    public getUserId(entry: BulkResponse) {
+        return entry?.details['userId']
+    }
+
+    public getDomainId(entry: BulkResponse) {
+        return entry?.details['domainId']
+    }
+
+    public getDomainName(entry: BulkResponse) {
+        return entry?.details['domainName']
     }
 
     public update() {
