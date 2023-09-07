@@ -36,9 +36,7 @@ export class AppAddJsonVersionAppComponent {
                 try {
                     JSON.parse(fileReader.result);
                     this.appsService.createApplication(JSON.parse(fileReader.result)).subscribe(result => {
-                            console.log('uploaded', result);
-                            this.modal.hide();
-                            this.refresh.emit(true);
+                           this.handleUpload(result)
                         },
                         error => {
                             this.handleError(error)
