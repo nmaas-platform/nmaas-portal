@@ -2,11 +2,11 @@
     <p-table [value]="deploy.result">
         <ng-template pTemplate="header">
             <tr>
-                <th>Domain</th>
-                <th>Application Name</th>
-                <th>Application Instance</th>
-                <th>Version</th>
-                <th>Parameters</th>
+                <th id="domain">Domain</th>
+                <th id="applicationName">Application Name</th>
+                <th id="applicationInstance">Application Instance</th>
+                <th id="version">Version</th>
+                <th id="parameters">Parameters</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-deploy>

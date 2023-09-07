@@ -15,7 +15,7 @@ export function jsonValidator(control: AbstractControl): ValidationErrors | null
 @Component({
   selector: 'app-json-edit',
   templateUrl: './json-edit.component.html',
-  styleUrls: ['./json-edit.component.css']
+  styleUrls: []
 })
 export class JsonEditComponent {
 

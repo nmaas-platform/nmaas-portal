@@ -48,11 +48,11 @@
                 <table class="table table-hover table-condensed" aria-describedby="Domains in Group table">
                     <thead>
                     <tr>
-                        <th>{{'BULK.LIST.STATE' | translate}}</th>
-                        <th>{{'BULK.LIST.CREATED' | translate}}</th>
-                        <th>{{'BULK.LIST.DOMAIN_ID' | translate}}</th>
-                        <th>{{'BULK.LIST.DOMAIN_NAME' | translate}}</th>
-                        <th>{{'BULK.LIST.DOMAIN_CODENAME' | translate}}</th>
+                        <th scope="col">{{'BULK.LIST.STATE' | translate}}</th>
+                        <th scope="col">{{'BULK.LIST.CREATED' | translate}}</th>
+                        <th scope="col">{{'BULK.LIST.DOMAIN_ID' | translate}}</th>
+                        <th scope="col">{{'BULK.LIST.DOMAIN_NAME' | translate}}</th>
+                        <th scope="col">{{'BULK.LIST.DOMAIN_CODENAME' | translate}}</th>
                         <th style="width: 5%" scope="col"></th>
                     </tr>
                     <ng-template ngFor let-response [ngForOf]="bulk.entries" let-i="index">
@@ -99,11 +99,11 @@
                 <table class="table table-hover table-condensed" aria-describedby="Domains in Group table">
                     <thead>
                     <tr>
-                        <th>{{'BULK.LIST.STATE' | translate}}</th>
-                        <th>{{'BULK.LIST.CREATED' | translate}}</th>
-                        <th>{{'BULK.LIST.USER_ID' | translate}}</th>
-                        <th>{{'BULK.LIST.USER_NAME' | translate}}</th>
-                        <th>{{'BULK.LIST.EMAIL' | translate}}</th>
+                        <th scope="col">{{'BULK.LIST.STATE' | translate}}</th>
+                        <th scope="col">{{'BULK.LIST.CREATED' | translate}}</th>
+                        <th scope="col">{{'BULK.LIST.USER_ID' | translate}}</th>
+                        <th scope="col">{{'BULK.LIST.USER_NAME' | translate}}</th>
+                        <th scope="col">{{'BULK.LIST.EMAIL' | translate}}</th>
                         <th style="width: 5%" scope="col"></th>
                     </tr>
                     <ng-template ngFor let-response [ngForOf]="bulk.entries" let-i="index">
@@ -188,9 +188,6 @@
             <div class="panel-body">
 
                 <div class="flex flex-row mb-3">
-<!--                    <div class="flex align-items-center">-->
-<!--                        {{'BULK.LIST.DEPLOYED' | translate}}:-->
-<!--                    </div>-->
                     <div class="flex ml-2 mr-2">
                         <img alt="App logo" style="width: 50px"
                              [src]="(appImagesService.getAppLogoUrl(bulk.details['appId']) | secure) || 'assets/images/app-logo-example.png'"/>
@@ -203,19 +200,22 @@
                 <table class="table table-hover table-condensed" aria-describedby="Domains in Group table">
                     <thead>
                     <tr #column>
-                        <th>{{'BULK.LIST.STATE' | translate}}</th>
-                        <th>{{'BULK.APP.INSTANCE_ID' | translate}}</th>
-                        <th>{{'BULK.APP.INSTANCE_NAME' | translate}}</th>
-                        <th>{{'BULK.APP.DOMAIN' | translate}}</th>
+                        <th scope="col">{{'BULK.LIST.STATE' | translate}}</th>
+                        <th scope="col">{{'BULK.APP.INSTANCE_ID' | translate}}</th>
+                        <th scope="col">{{'BULK.APP.INSTANCE_NAME' | translate}}</th>
+                        <th scope="col">{{'BULK.APP.DOMAIN' | translate}}</th>
                         <th style="width: 5%" scope="col"></th>
                     </tr>
                     <ng-template ngFor let-response [ngForOf]="bulk.entries" let-i="index">
                         <tr *ngIf="response.type === 'APPLICATION'" class="table-row">
-                            <td >{{'BULK.STATE.' + response.state | translate}}  <i *ngIf="response.state == 'PROCESSING'"
-                                                                                 class="pi pi-spin pi-spinner ml-1"
-                                                                                 style="font-size: 1.4rem"></i>
-                                <i *ngIf="response.state == 'FAILED'" class="pi pi-info-circle" style="font-size: 1.4rem"
-                                   pTooltip="{{response?.details['errorMessage']}}" tooltipStyleClass="p-tooltip-width " [fitContent]="false"></i></td>
+                            <td>{{'BULK.STATE.' + response.state | translate}}  <em
+                                    *ngIf="response.state == 'PROCESSING'"
+                                    class="pi pi-spin pi-spinner ml-1"
+                                    style="font-size: 1.4rem"></em>
+                                <em *ngIf="response.state == 'FAILED'" class="pi pi-info-circle"
+                                    style="font-size: 1.4rem"
+                                    pTooltip="{{response?.details['errorMessage']}}"
+                                    tooltipStyleClass="p-tooltip-width " [fitContent]="false"></em></td>
                             <td>{{getAppInstanceId(response)}}</td>
                             <td>{{getAppInstanceName(response)}}</td>
                             <td>{{getDomainCodeName(response)}}</td>

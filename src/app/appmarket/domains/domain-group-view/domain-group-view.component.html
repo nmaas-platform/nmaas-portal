@@ -94,10 +94,10 @@
 
                             <div class="col-sm-8" style="display: flex; justify-content: end;">
                                 <div *ngIf="domainGroup.applicationStatePerDomain[i].enabled" class="margin-right" >
-                                    <i class="pi pi-check" style="color: green; font-size: 2rem"></i>
+                                    <em class="pi pi-check" style="color: green; font-size: 2rem"></em>
                                 </div>
                                 <div *ngIf="!domainGroup.applicationStatePerDomain[i].enabled" class="margin-right">
-                                    <i class="pi pi-times" style="color: indianred; font-size: 2rem"></i>
+                                    <em class="pi pi-times" style="color: indianred; font-size: 2rem"></em>
                                 </div>
                                 <button class="btn pull-right custom-collapse" type="button" data-toggle="collapse" [attr.data-target]="'#collapse-'+i" aria-expanded="false"> </button>
                             </div>

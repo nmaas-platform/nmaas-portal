@@ -1,34 +1,29 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {ModalComponent} from '../../../../shared/modal';
+import {Component, Input, ViewChild} from '@angular/core';
+import {ModalComponent} from '../../../../shared';
 import {PodInfo} from '../../../../model/podinfo';
 
 @Component({
-  selector: 'app-select-pod-modal',
-  templateUrl: './select-pod-modal.component.html',
-  styleUrls: ['./select-pod-modal.component.css']
+    selector: 'app-select-pod-modal',
+    templateUrl: './select-pod-modal.component.html',
+    styleUrls: []
 })
-export class SelectPodModalComponent implements OnInit {
+export class SelectPodModalComponent {
 
-  @ViewChild(ModalComponent, {static: true})
-  public readonly modal: ModalComponent;
+    @ViewChild(ModalComponent, {static: true})
+    public readonly modal: ModalComponent;
 
-  @Input()
-  public url = '';
+    @Input()
+    public url = '';
 
-  @Input()
-  public pods: PodInfo[] = []
+    @Input()
+    public pods: PodInfo[] = []
 
-  constructor() { }
+    public show() {
+        this.modal.show();
+    }
 
-  ngOnInit(): void {
-  }
-
-  public show() {
-    this.modal.show();
-  }
-
-  public hide() {
-    this.modal.hide();
-  }
+    public hide() {
+        this.modal.hide();
+    }
 
 }

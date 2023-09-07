@@ -28,7 +28,7 @@ function compareAppsPopularity(a: ApplicationBase, b: ApplicationBase, stats: an
 @Component({
     selector: 'nmaas-applications-view',
     templateUrl: './applications.component.html',
-    styleUrls: ['./applications.component.css']
+    styleUrls: []
 })
 
 export class ApplicationsViewComponent implements OnInit, OnChanges {
@@ -67,7 +67,6 @@ export class ApplicationsViewComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        // this.updateDomain();
         this.instanceService.getStatistics().subscribe(
             data => {
                 console.log('stats', data);
@@ -97,7 +96,6 @@ export class ApplicationsViewComponent implements OnInit, OnChanges {
                 applications = this.appsService.getAllActiveApplicationBase();
                 console.log('get apps update for domain ', this.domainId )
                 this.updateSelected();
-                // applications.subscribe((apps) => this.updateSelected(apps));
                 break;
             case AppViewType.DOMAIN:
                 applications = this.appSubsService.getSubscribedApplications(domainId);
@@ -150,7 +148,6 @@ export class ApplicationsViewComponent implements OnInit, OnChanges {
 
         this.applications = this.applications.pipe(
             map(apps => {
-                    // console.log(apps);
                     let res: ApplicationBase[]
                     if (tag === 'all') { // if all tags than return all
                         res = apps;

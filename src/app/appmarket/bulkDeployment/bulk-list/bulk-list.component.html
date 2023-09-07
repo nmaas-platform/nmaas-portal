@@ -34,7 +34,7 @@
             <th scope="col">{{'BULK.LIST.CREATOR' | translate}}</th>
             <th scope="col">{{'BULK.LIST.CREATION_DATE' | translate}}</th>
             <th scope="col">{{'BULK.LIST.STATE' | translate}}</th>
-            <th></th>
+            <th scope="col"></th>
         </tr>
         </thead>
 
@@ -55,9 +55,6 @@
               <li *ngIf="mode === bulkTypeDomain">
                 <a [routerLink]="['/admin/domains/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>
               </li>
-                <!--                <li *ngIf="mode === bulkTypeApp">-->
-                <!--                    <a [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>-->
-                <!--                </li>-->
             </ul>
           </span>
                 </td>
@@ -99,9 +96,6 @@
               <em class="fas fa-cog icon-black icon-bigger"></em>
             </a>
             <ul class="dropdown-menu pull-right-drop">
-<!--              <li *ngIf="mode === bulkTypeDomain">-->
-                <!--                <a [routerLink]="['/admin/domains/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>-->
-                <!--              </li>-->
                 <li *ngIf="mode === bulkTypeApp">
                     <a [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>
                 </li>

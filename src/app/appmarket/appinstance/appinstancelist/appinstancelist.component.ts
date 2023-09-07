@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 
 import {AppInstance, AppInstanceState, parseAppInstanceState} from '../../../model';
-import {DomainService} from '../../../service';
-import {AppInstanceService, CustomerSearchCriteria} from '../../../service';
+import {AppConfigService, AppInstanceService, CustomerSearchCriteria, DomainService} from '../../../service';
 import {AuthService} from '../../../auth/auth.service';
-import {AppConfigService} from '../../../service';
 import {UserDataService} from '../../../service/userdata.service';
 import {Observable, of} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
@@ -159,7 +157,6 @@ export class AppInstanceListComponent implements OnInit {
     }
 
     getInstances(criteria: CustomerSearchCriteria) {
-        // console.log('Crit: ', criteria);
         this.appInstances = of<AppInstance[]>([]);
         switch (+this.listSelection) {
             case AppInstanceListSelection.ALL:

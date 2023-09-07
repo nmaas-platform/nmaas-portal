@@ -6,7 +6,7 @@ import {ContentDisplayService} from '../../../service/content-display.service';
 @Component({
     selector: 'modal-info-terms',
     templateUrl: './modal-info-terms.component.html',
-    styleUrls: ['./modal-info-terms.component.css'],
+    styleUrls: [],
 })
 export class ModalInfoTermsComponent implements OnInit {
 

@@ -1,16 +1,16 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {ModalComponent} from "../../../../shared/modal";
-import {AppInstanceService} from "../../../../service";
+import {Component, Input, ViewChild} from '@angular/core';
+import {ModalComponent} from '../../../../shared';
+import {AppInstanceService} from '../../../../service';
 
 @Component({
-  selector: 'nmaas-modal-app-abort',
-  templateUrl: './app-abort-modal.component.html',
-  styleUrls: ['./app-abort-modal.component.css'],
-    providers:[ModalComponent]
+    selector: 'nmaas-modal-app-abort',
+    templateUrl: './app-abort-modal.component.html',
+    styleUrls: [],
+    providers: [ModalComponent]
 })
-export class AppAbortModalComponent implements OnInit {
+export class AppAbortModalComponent {
 
-    @ViewChild(ModalComponent, { static: true })
+    @ViewChild(ModalComponent, {static: true})
     public readonly modal: ModalComponent;
 
     @Input()
@@ -19,11 +19,7 @@ export class AppAbortModalComponent implements OnInit {
     @Input()
     private domainId: number;
 
-    constructor(private appInstanceService:AppInstanceService) {
-    }
-
-    ngOnInit() {
-
+    constructor(private appInstanceService: AppInstanceService) {
     }
 
     public show() {

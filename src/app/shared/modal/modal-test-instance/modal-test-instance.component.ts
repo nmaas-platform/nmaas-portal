@@ -4,15 +4,13 @@ import {ModalComponent} from '../modal.component';
 @Component({
   selector: 'modal-test-instance',
   templateUrl: './modal-test-instance.component.html',
-  styleUrls: ['./modal-test-instance.component.css'],
+  styleUrls: [],
   providers: [ModalComponent]
 })
 export class ModalTestInstanceComponent implements OnInit {
 
   @ViewChild(ModalComponent, { static: true })
   public readonly modal: ModalComponent;
-
-  constructor() { }
 
   ngOnInit() {
     if (this.modal !== undefined) {

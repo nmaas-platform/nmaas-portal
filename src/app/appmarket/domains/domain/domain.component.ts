@@ -2,16 +2,14 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Location} from '@angular/common';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Domain} from '../../../model/domain';
-import {DomainService} from '../../../service';
+import {AppsService, CacheService, DomainService, UserService} from '../../../service';
 import {BaseComponent} from '../../../shared/common/basecomponent/base.component';
 import {NG_VALIDATORS, PatternValidator} from '@angular/forms';
 import {User} from '../../../model';
-import {AppsService, UserService} from '../../../service';
 import {Observable, of} from 'rxjs';
 import {UserRole} from '../../../model/userrole';
-import {CacheService} from '../../../service';
 import {AuthService} from '../../../auth/auth.service';
-import {ModalComponent} from '../../../shared/modal';
+import {ModalComponent} from '../../../shared';
 import {map, shareReplay, take} from 'rxjs/operators';
 import {DcnDeploymentType} from '../../../model/dcndeploymenttype';
 import {CustomerNetwork} from '../../../model/customernetwork';
@@ -42,7 +40,7 @@ export class DomainComponent extends BaseComponent implements OnInit {
         return isNaN(Number(type));
     });
 
-    @ViewChild(ModalComponent, { static: true })
+    @ViewChild(ModalComponent, {static: true})
     public modal: ModalComponent;
 
     public displayCustomerNetworksSection = false;

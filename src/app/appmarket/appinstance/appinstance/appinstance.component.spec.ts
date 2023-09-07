@@ -21,7 +21,7 @@ import {AppDeploymentSpec} from '../../../model/app-deployment-spec';
 import {AppConfigurationSpec} from '../../../model/app-configuration-spec';
 import {ApplicationState} from '../../../model/application-state';
 import {AppInstanceStateHistory} from '../../../model/app-instance-state-history';
-import {Component, Directive, Input, OnInit, Pipe, PipeTransform} from '@angular/core';
+import {Component, Directive, Input, Pipe, PipeTransform} from '@angular/core';
 import {Domain} from '../../../model/domain';
 import {AccessMethodsModalComponent} from '../modals/access-methods-modal/access-methods-modal.component';
 import {ModalComponent} from '../../../shared/modal';
@@ -64,7 +64,7 @@ class RateComponentMockComponent {
     selector: 'nmaas-appinstanceprogress',
     template: '<p>App Instance progress Mock</p>'
 })
-class AppInstanceProgressMockComponent implements OnInit {
+class AppInstanceProgressMockComponent {
     @Input()
     stages: any;
     @Input()
@@ -73,9 +73,6 @@ class AppInstanceProgressMockComponent implements OnInit {
     public AppInstanceState: any;
 
     constructor(translate: TranslateService) {
-    }
-
-    public ngOnInit() {
     }
 
     public getTranslateTag(stateProgress): string {
@@ -128,7 +125,7 @@ describe('Component: AppInstance', () => {
         descriptions: [],
         tags: [
             {id: null, name: 'tag1'}, {id: null, name: 'tag2'}
-            ],
+        ],
         versions: [{
             id: null,
             version: '0.12',
@@ -216,8 +213,8 @@ describe('Component: AppInstance', () => {
         members: [],
         upgradeInfo: {
             applicationId: 3,
-            applicationVersion: "1.2.0",
-            helmChartVersion: "1.0.1",
+            applicationVersion: '1.2.0',
+            helmChartVersion: '1.0.1',
         } as AppInstanceUpgradeInfo
     };
 
@@ -286,7 +283,7 @@ describe('Component: AppInstance', () => {
             providers: [
                 {provide: AppConfigService, useValue: mockAppConfigService},
                 {provide: AppsService, useValue: appsServiceStub},
-                { provide: AuthService, useValue: authServiceSpy },
+                {provide: AuthService, useValue: authServiceSpy},
                 {provide: AppInstanceService, useValue: appInstanceServiceStub},
                 {provide: DomainService, useValue: domainServiceStub},
                 {provide: AppImagesService, useValue: appImagesServiceStub},

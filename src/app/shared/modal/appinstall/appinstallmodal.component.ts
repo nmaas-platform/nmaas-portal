@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 
 import {ModalComponent} from '..';
@@ -11,7 +11,7 @@ import {ApplicationState} from '../../../model/application-state';
 @Component({
     selector: 'nmaas-modal-app-install',
     templateUrl: './appinstallmodal.component.html',
-    styleUrls: ['./appinstallmodal.component.css'],
+    styleUrls: [],
 })
 export class AppInstallModalComponent implements OnInit {
 

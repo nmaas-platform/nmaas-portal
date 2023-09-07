@@ -1,11 +1,11 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ServiceAccessMethod, ServiceAccessMethodType} from '../../../../model/service-access-method';
-import {ModalComponent} from '../../../../shared/modal';
+import {ModalComponent} from '../../../../shared';
 
 @Component({
   selector: 'app-access-methods-modal',
   templateUrl: './access-methods-modal.component.html',
-  styleUrls: ['./access-methods-modal.component.css']
+  styleUrls: []
 })
 export class AccessMethodsModalComponent implements OnInit {
 
@@ -18,9 +18,7 @@ export class AccessMethodsModalComponent implements OnInit {
   public externalAccessMethods: ServiceAccessMethod[] = [];
   public internalAccessMethods: ServiceAccessMethod[] = [];
   public publicAccessMethods: ServiceAccessMethod[] = [];
-  public localAccessMethods : ServiceAccessMethod[] = [];
-
-  constructor() { }
+  public localAccessMethods: ServiceAccessMethod[] = [];
 
   ngOnInit() {
     if (this.accessMethods) {

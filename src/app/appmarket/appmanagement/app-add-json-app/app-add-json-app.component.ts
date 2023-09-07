@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {ModalComponent} from '../../../shared';
 import {AppsService} from '../../../service';
 import {Router} from '@angular/router';
@@ -6,9 +6,9 @@ import {Router} from '@angular/router';
 @Component({
     selector: 'app-app-add-json-app',
     templateUrl: './app-add-json-app.component.html',
-    styleUrls: ['./app-add-json-app.component.css']
+    styleUrls: []
 })
-export class AppAddJsonAppComponent implements OnInit {
+export class AppAddJsonAppComponent {
 
     @ViewChild(ModalComponent, {static: true})
     public readonly modal: ModalComponent;
@@ -23,10 +23,6 @@ export class AppAddJsonAppComponent implements OnInit {
                 private readonly router: Router) {
     }
 
-
-    ngOnInit(): void {
-    }
-
     onUpload(event: any) {
         console.log(event);
         const file = event.files[0];
@@ -38,17 +34,10 @@ export class AppAddJsonAppComponent implements OnInit {
                 try {
                     JSON.parse(fileReader.result);
                     this.appsService.createApplicationDTO(JSON.parse(fileReader.result)).subscribe(result => {
-                            console.log('uploaded', result);
-                            this.modal.hide();
-                            this.router.navigate(['apps', result.id])
+                            this.uploadHandler(result)
                         },
                         error => {
-                            console.log(error)
-                            if (error.message === null) {
-                                this.JsonError = true;
-                            } else {
-                                this.error = error.message
-                            }
+                            this.errorHandler(error)
                         })
                 } catch (e) {
                     console.warn('invalid json')
@@ -66,17 +55,10 @@ export class AppAddJsonAppComponent implements OnInit {
             try {
                 JSON.parse(this.jsonText);
                 this.appsService.createApplicationDTO(JSON.parse(this.jsonText)).subscribe(result => {
-                        console.log('uploaded', result);
-                        this.modal.hide();
-                        this.router.navigate(['apps', result.id])
+                        this.uploadHandler(result)
                     },
                     error => {
-                        console.log(error)
-                        if (error.message === null) {
-                            this.JsonError = true;
-                        } else {
-                            this.error = error.message
-                        }
+                        this.errorHandler(error)
                     })
             } catch (e) {
                 console.warn('invalid json')
@@ -87,6 +69,21 @@ export class AppAddJsonAppComponent implements OnInit {
 
     public show() {
         this.modal.show();
+    }
+
+    public uploadHandler(result: any) {
+        console.log('uploaded', result);
+        this.modal.hide();
+        this.router.navigate(['apps', result.id])
+    }
+
+    public errorHandler(error: any) {
+        console.log(error)
+        if (error.message === null) {
+            this.JsonError = true;
+        } else {
+            this.error = error.message
+        }
     }
 
 

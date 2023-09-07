@@ -16,8 +16,6 @@ export class BaseComponent {
   @Input()
   public allowedModes: ComponentMode[] = [ComponentMode.VIEW];
 
-  constructor() {}
-
   public isModeAllowed(mode: ComponentMode): boolean {
     return this.allowedModes.indexOf(mode) >= 0;
   }

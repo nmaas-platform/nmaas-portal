@@ -6,7 +6,7 @@ import {BulkType} from '../../../model/bulk-response';
 @Component({
     selector: 'app-bulk-domain-list',
     templateUrl: './bulk-domain-list.component.html',
-    styleUrls: ['./bulk-domain-list.component.css']
+    styleUrls: []
 })
 export class BulkDomainListComponent implements OnInit {
 

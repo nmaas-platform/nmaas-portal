@@ -51,6 +51,12 @@ export class AppDetailsComponent implements OnInit {
     public versionVisible = false;
     public domain: Domain;
 
+    private static compareVersions(a: string, b: string): number {
+        const versionA = a.split('.').map(Number);
+        const versionB = b.split('.').map(Number);
+        return versionA < versionB ? 1 : versionA > versionB ? -1 : 0;
+    }
+
     constructor(private appsService: AppsService,
                 private appSubsService: AppSubscriptionsService,
                 public appImagesService: AppImagesService,
@@ -73,7 +79,7 @@ export class AppDetailsComponent implements OnInit {
                     this.activeVersions = application.versions
                         .filter(version => this.getStateAsString(version.state) === 'ACTIVE')
                         .map(version => version.version)
-                        .sort(this.compareVersions)
+                        .sort(AppDetailsComponent.compareVersions)
 
                     // required for the tooltip to appear correctly
                     this.userDataService.selectedDomainId.subscribe((domainId) => this.updateDomainSelection(domainId));
@@ -85,12 +91,6 @@ export class AppDetailsComponent implements OnInit {
                     }
                 });
         });
-    }
-
-    private compareVersions(a: string, b: string): number {
-        const versionA = a.split('.').map(Number);
-        const versionB = b.split('.').map(Number);
-        return versionA < versionB ? 1 : versionA > versionB ? -1 : 0;
     }
 
     public onRateChanged(): void {
@@ -140,15 +140,6 @@ export class AppDetailsComponent implements OnInit {
     }
 
     public isSubscriptionAllowed(): boolean {
-        if (this.domainId === undefined || this.domainId === this.appConfig.getNmaasGlobalDomainId()) {
-            return false;
-        }
-
-        return this.authService.hasRole(Role[Role.ROLE_SYSTEM_ADMIN])
-            || this.authService.hasDomainRole(this.domainId, Role[Role.ROLE_DOMAIN_ADMIN]);
-    }
-
-    public isDeploymentAllowed(): boolean {
         if (this.domainId === undefined || this.domainId === this.appConfig.getNmaasGlobalDomainId()) {
             return false;
         }

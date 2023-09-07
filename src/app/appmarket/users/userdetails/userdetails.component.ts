@@ -1,5 +1,5 @@
-import {User} from '../../../model/user';
-import {UserService} from '../../../service/user.service';
+import {User} from '../../../model';
+import {UserService} from '../../../service';
 import {BaseComponent} from '../../../shared/common/basecomponent/base.component';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -9,7 +9,7 @@ import {ComponentMode} from '../../../shared';
 @Component({
     selector: 'app-userdetails',
     templateUrl: './userdetails.component.html',
-    styleUrls: ['./userdetails.component.css']
+    styleUrls: []
 })
 export class UserDetailsComponent extends BaseComponent implements OnInit {
 

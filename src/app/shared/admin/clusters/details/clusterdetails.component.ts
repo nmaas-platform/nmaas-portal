@@ -7,7 +7,7 @@ import {
     NamespaceConfigOption
 } from '../../../../model/cluster';
 import {BaseComponent} from '../../../common/basecomponent/base.component';
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
@@ -15,7 +15,7 @@ import {Router} from '@angular/router';
     templateUrl: './clusterdetails.component.html',
     styleUrls: ['./clusterdetails.component.css']
 })
-export class ClusterDetailsComponent extends BaseComponent implements OnInit {
+export class ClusterDetailsComponent extends BaseComponent {
 
     controllerConfigOption: Map<string, IngressControllerConfigOption> = new Map<string, IngressControllerConfigOption>();
 
@@ -40,10 +40,6 @@ export class ClusterDetailsComponent extends BaseComponent implements OnInit {
     constructor(private router: Router) {
         super();
         this.initializeMaps();
-    }
-
-    ngOnInit() {
-
     }
 
     public submit(): void {

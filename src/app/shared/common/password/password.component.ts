@@ -1,5 +1,5 @@
-import {Component, OnInit, ViewChild, Injectable} from '@angular/core';
-import {AbstractControl, Validator, Validators, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
+import {Component, Injectable, ViewChild} from '@angular/core';
+import {AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validator, Validators} from '@angular/forms';
 import {UserService} from '../../../service';
 import {Password} from '../../../model';
 import {ModalComponent} from '../../modal';
@@ -28,9 +28,9 @@ export class PasswordValidator implements Validator {
 @Component({
     selector: 'nmaas-password',
     templateUrl: './password.component.html',
-    styleUrls: ['./password.component.css'],
+    styleUrls: [],
 })
-export class PasswordComponent implements OnInit {
+export class PasswordComponent {
 
     @ViewChild(ModalComponent, {static: true})
     public readonly modal: ModalComponent;
@@ -53,10 +53,6 @@ export class PasswordComponent implements OnInit {
                 validator: PasswordValidator.match
             }
         )
-    }
-
-    ngOnInit() {
-
     }
 
     public submit(): void {

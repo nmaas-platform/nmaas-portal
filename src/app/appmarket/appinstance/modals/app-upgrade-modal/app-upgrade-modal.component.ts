@@ -1,18 +1,18 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import {ModalComponent} from "../../../../shared/modal";
-import {AppInstanceService} from "../../../../service";
-import {AppInstanceUpgradeInfo} from "../../../../model/app-instance";
+import {ModalComponent} from '../../../../shared';
+import {AppInstanceService} from '../../../../service';
+import {AppInstanceUpgradeInfo} from '../../../../model';
 
 @Component({
-  selector: 'nmaas-modal-app-upgrade',
-  templateUrl: './app-upgrade-modal.component.html',
-  styleUrls: ['./app-upgrade-modal.component.css'],
-    providers:[ModalComponent]
+    selector: 'nmaas-modal-app-upgrade',
+    templateUrl: './app-upgrade-modal.component.html',
+    styleUrls: [],
+    providers: [ModalComponent]
 })
-export class AppUpgradeModalComponent implements OnInit {
+export class AppUpgradeModalComponent {
 
-    @ViewChild(ModalComponent, { static: true })
+    @ViewChild(ModalComponent, {static: true})
     public readonly modal: ModalComponent;
 
     @Input()
@@ -27,8 +27,6 @@ export class AppUpgradeModalComponent implements OnInit {
     constructor(private router: Router,
                 private appInstanceService: AppInstanceService) {
     }
-
-    ngOnInit() { }
 
     public show() {
         this.modal.show();
