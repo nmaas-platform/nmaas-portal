@@ -6,7 +6,7 @@ import {AppImagesService} from '../../../../service';
 @Component({
     selector: 'app-appupload',
     templateUrl: './appupload.component.html',
-    styleUrls: ['./appupload.component.css']
+    styleUrls: []
 })
 export class AppuploadComponent implements OnInit {
 
@@ -32,19 +32,15 @@ export class AppuploadComponent implements OnInit {
     myUploader(event: any) {
         console.log(event.files[0])
         this.showProgressBar = true;
-        this.deployService.uploadApplicationFile(event.files[0], this.deployService.getSelectedApp()).subscribe(val => {
-            console.warn('done')
-            this.router.navigate(['admin/apps/bulks/', val.id])
-        }, error => {
-            console.error(error);
-            this.showProgressBar = false;
-            this.errorMessage = error.error.message || 'Error with uploading csv file';
-        });
+        this.uploader(event.files[0])
     }
 
     public uploadText() {
+        const file = new File([this.csvText], 'Upload.csv', {type: 'text/csv'})
+       this.uploader(file)
+    }
 
-        let file = new File([this.csvText], 'Upload.csv', {type: 'text/csv'})
+    private uploader(file: File) {
         this.showProgressBar = true;
         this.deployService.uploadApplicationFile(file, this.deployService.getSelectedApp()).subscribe(val => {
                 console.warn('done')

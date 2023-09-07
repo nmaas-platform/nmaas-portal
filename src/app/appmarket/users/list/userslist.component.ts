@@ -1,11 +1,10 @@
 import {AuthService} from '../../../auth/auth.service';
-import {User} from '../../../model/user';
+import {User} from '../../../model';
 import {Role} from '../../../model/userrole';
-import {DomainService} from '../../../service/domain.service';
-import {UserService} from '../../../service/user.service';
+import {DomainService, UserService} from '../../../service';
 import {UserDataService} from '../../../service/userdata.service';
 import {Component, OnInit} from '@angular/core';
-import {ComponentMode} from '../../../shared/common/componentmode';
+import {ComponentMode} from '../../../shared';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {Observable, of} from 'rxjs';
@@ -14,7 +13,7 @@ import {map} from 'rxjs/operators';
 @Component({
     selector: 'app-userslist',
     templateUrl: './userslist.component.html',
-    styleUrls: ['./userslist.component.css']
+    styleUrls: []
 })
 export class UsersListComponent implements OnInit {
 

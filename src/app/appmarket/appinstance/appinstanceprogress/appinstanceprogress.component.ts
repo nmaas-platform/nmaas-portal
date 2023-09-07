@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 import {AppInstanceProgressStage, AppInstanceState} from '../../../model';
 import {TranslateService} from '@ngx-translate/core';
@@ -8,12 +8,12 @@ import {TranslateService} from '@ngx-translate/core';
     templateUrl: './appinstanceprogress.component.html',
     styleUrls: ['./appinstanceprogress.component.css']
 })
-export class AppInstanceProgressComponent implements OnInit {
+export class AppInstanceProgressComponent {
 
     public AppInstanceState = AppInstanceState;
 
     @Input()
-    stages: AppInstanceProgressStage[]  = new Array<AppInstanceProgressStage>();
+    stages: AppInstanceProgressStage[] = new Array<AppInstanceProgressStage>();
 
     @Input()
     activeState: AppInstanceState = AppInstanceState.UNKNOWN;
@@ -21,10 +21,7 @@ export class AppInstanceProgressComponent implements OnInit {
     @Input()
     previousState: AppInstanceState = AppInstanceState.UNKNOWN;
 
-    constructor(private translate: TranslateService) { }
-
-    ngOnInit() {
-
+    constructor(private translate: TranslateService) {
     }
 
     getTranslateTag(stateProgress): string {
@@ -51,7 +48,7 @@ export class AppInstanceProgressComponent implements OnInit {
     }
 
     public displayDefaultStyle(stage: AppInstanceProgressStage): boolean {
-        return (stage.activeState > this.previousState && this.previousState !== AppInstanceState.UNKNOWN )
+        return (stage.activeState > this.previousState && this.previousState !== AppInstanceState.UNKNOWN)
             || (stage.activeState > this.activeState && this.activeState !== AppInstanceState.FAILURE)
             || (this.activeState === AppInstanceState.UNKNOWN)
             || (stage.activeState === AppInstanceState.REQUESTED)

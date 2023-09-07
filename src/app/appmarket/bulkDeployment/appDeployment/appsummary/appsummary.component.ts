@@ -1,16 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {AppdeploymentService} from '../../appdeployment.service';
 
 @Component({
-  selector: 'app-appsummary',
-  templateUrl: './appsummary.component.html',
-  styleUrls: ['./appsummary.component.css']
+    selector: 'app-appsummary',
+    templateUrl: './appsummary.component.html',
+    styleUrls: []
 })
-export class AppsummaryComponent implements OnInit {
+export class AppsummaryComponent {
 
-  constructor(public deploy: AppdeploymentService) { }
-
-  ngOnInit(): void {
-  }
+    constructor(public deploy: AppdeploymentService) {
+    }
 
 }

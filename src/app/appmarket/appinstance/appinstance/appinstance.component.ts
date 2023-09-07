@@ -10,10 +10,9 @@ import {AppRestartModalComponent} from '../modals/app-restart-modal';
 import {AppAbortModalComponent} from '../modals/app-abort-modal';
 import {AppUpgradeModalComponent} from '../modals/app-upgrade-modal';
 import {AppInstanceStateHistory} from '../../../model/app-instance-state-history';
-import {RateComponent} from '../../../shared/rate';
+import {ModalComponent, RateComponent} from '../../../shared';
 import {AppConfiguration} from '../../../model/app-configuration';
 import {LOCAL_STORAGE, StorageService} from 'ngx-webstorage-service';
-import {ModalComponent} from '../../../shared/modal';
 import {interval} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 import {SessionService} from '../../../service/session.service';
@@ -179,11 +178,6 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
 
             this.updateAppInstanceState();
             this.intervalCheckerSubscription = interval(5000).subscribe(() => this.updateAppInstanceState());
-
-            // TODO fix after modal init
-            // console.log('Setting undeploy modal params')
-            // this.undeployModal.setModalType('warning');
-            // this.undeployModal.setStatusOfIcons(true);
         });
     }
 
@@ -263,12 +257,10 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
      * @param apps
      */
     private filterRunningApps(apps: AppInstance[]): AppInstance[] {
-        switch (this.appInstance.applicationName) {
-            case 'Grafana':
-                return apps.filter(app => app.applicationName === 'Prometheus');
-            default:
-                return apps;
+        if (this.appInstance.applicationName === 'Grafana') {
+            return apps.filter(app => app.applicationName === 'Prometheus');
         }
+        return apps
     }
 
     private updateAppInstanceState() {
@@ -398,8 +390,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
             },
             (error) => {
                 console.error(error);
-                // TODO submission error message
-                throw new Error('Invalid submission');
+                throw new Error('Invalid submission ' + error.message);
             });
     }
 
@@ -411,8 +402,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
             },
             (error) => {
                 console.error(error);
-                // TODO submission error message
-                throw new Error('Invalid submission');
+                throw new Error('Invalid submission ' + error.message);
             }
         );
     }
@@ -420,14 +410,8 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     public changeConfigUpdate(input: any): void {
         console.log('config update', input)
         if (input != null) {
-            // this.isUpdateFormValid = input['isValid'];
             this.changeConfiguration(input['configuration']);
             this.changeAccessCredentials(input['accessCredentials']);
-
-            // jsonInput should remain null for configuration updates
-            // if (this.appConfiguration.jsonInput == null) {
-            //    this.appConfiguration.jsonInput = {};
-            // }
 
             this.updateConfiguration();
         }

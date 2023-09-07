@@ -1,16 +1,16 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {ModalComponent} from "../../../../shared/modal";
-import {AppInstanceService} from "../../../../service";
+import {Component, Input, ViewChild} from '@angular/core';
+import {ModalComponent} from '../../../../shared/modal';
+import {AppInstanceService} from '../../../../service';
 
 @Component({
-  selector: 'nmaas-modal-app-restart',
-  templateUrl: './app-restart-modal.component.html',
-  styleUrls: ['./app-restart-modal.component.css'],
-    providers:[ModalComponent]
+    selector: 'nmaas-modal-app-restart',
+    templateUrl: './app-restart-modal.component.html',
+    styleUrls: [],
+    providers: [ModalComponent]
 })
-export class AppRestartModalComponent implements OnInit {
+export class AppRestartModalComponent {
 
-    @ViewChild(ModalComponent, { static: true })
+    @ViewChild(ModalComponent, {static: true})
     public readonly modal: ModalComponent;
 
     @Input()
@@ -19,18 +19,14 @@ export class AppRestartModalComponent implements OnInit {
     @Input()
     private domainId: number;
 
-    constructor(private appInstanceService:AppInstanceService) {
+    constructor(private appInstanceService: AppInstanceService) {
     }
 
-    ngOnInit() {
-
-    }
-
-    public show(){
+    public show() {
         this.modal.show();
     }
 
-    public restart(){
-        this.appInstanceService.restartAppInstance(this.appInstanceId).subscribe(() =>this.modal.hide());
+    public restart() {
+        this.appInstanceService.restartAppInstance(this.appInstanceId).subscribe(() => this.modal.hide());
     }
 }

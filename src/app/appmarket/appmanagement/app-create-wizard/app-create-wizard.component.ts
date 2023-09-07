@@ -6,12 +6,11 @@ import {AppDescription} from '../../../model/app-description';
 import {InternationalizationService} from '../../../service/internationalization.service';
 import {ConfigTemplateService} from '../../../service/configtemplate.service';
 import {ParameterType} from '../../../model/parametertype';
-import {ModalComponent} from '../../../shared/modal';
+import {ComponentMode, ModalComponent} from '../../../shared';
 import {BaseComponent} from '../../../shared/common/basecomponent/base.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {DomSanitizer} from '@angular/platform-browser';
-import {ComponentMode} from '../../../shared';
 import {MultiSelect} from 'primeng/multiselect';
 import {ConfigFileTemplate} from '../../../model/configfiletemplate';
 import {AppStorageVolume} from '../../../model/app-storage-volume';
@@ -516,8 +515,6 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
             const index = config.findIndex(val => val.key === 'termsAcceptance');
             config.splice(index, 1);
         }
-        // this.applicationDTO.application.configWizardTemplate.template.components =
-        //     this.applicationDTO.application.configWizardTemplate.template.components.filter(val => val.key !== 'termsAcceptance');
     }
 
     public hasAlreadyTermsAcceptance(): boolean {

@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {BaseComponent} from '../../../shared/common/basecomponent/base.component';
-import {ModalComponent} from '../../../shared/modal';
+import {ModalComponent} from '../../../shared';
 import {ConfigWizardTemplate} from '../../../model';
 import {ConfigFileTemplate} from '../../../model/configfiletemplate';
 import {AppImagesService, AppsService} from '../../../service';
@@ -378,8 +378,6 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
             const index = config.findIndex(val => val.key === 'termsAcceptance');
             config.splice(index, 1);
         }
-        // this.applicationDTO.application.configWizardTemplate.template.components =
-        //     this.applicationDTO.application.configWizardTemplate.template.components.filter(val => val.key !== 'termsAcceptance');
     }
 
     public hasAlreadyTermsAcceptance(): boolean {

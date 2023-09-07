@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {interval, Subscription} from 'rxjs';
 import {AuthService} from '../../auth/auth.service';
@@ -69,13 +69,10 @@ export class NavbarComponent implements OnInit {
                 }
                 this.showClock = parseInt(expiredTimeText, 10) - Date.now() < 180000 && parseInt(expiredTimeText, 10) - Date.now() >= 0;
                 if (this.showClock) {
-                    console.log("Autologout in ", this.time);
+                    console.log('Autologout in ', this.time);
                 }
             }
         }, 1000);
-
-
-
     }
 
     public getSupportedLanguages() {
@@ -86,9 +83,9 @@ export class NavbarComponent implements OnInit {
     }
 
     public checkUserRole(): boolean {
-        return this.authService.getDomains().filter(value => value != this.domainService.getGlobalDomainId()).length > 0
-            || this.authService.getRoles().filter(value => value != 'ROLE_INCOMPLETE')
-                .filter(value => value != 'ROLE_GUEST')
+        return this.authService.getDomains().filter(value => value !== this.domainService.getGlobalDomainId()).length > 0
+            || this.authService.getRoles().filter(value => value !== 'ROLE_INCOMPLETE')
+                .filter(value => value !== 'ROLE_GUEST')
                 .length > 0;
     }
 

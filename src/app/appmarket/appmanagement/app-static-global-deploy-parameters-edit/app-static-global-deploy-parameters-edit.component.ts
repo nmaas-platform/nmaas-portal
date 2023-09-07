@@ -53,8 +53,6 @@ export class AppStaticGlobalDeployParametersEditComponent implements OnInit, Aft
     'theme': 'dark'
   };
 
-  constructor() { }
-
   ngOnInit() {
     this.newKeyFormControl = new UntypedFormControl('');
     this.newValueFormControl = new UntypedFormControl('');

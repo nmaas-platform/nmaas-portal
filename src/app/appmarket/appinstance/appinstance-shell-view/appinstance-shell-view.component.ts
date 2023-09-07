@@ -6,7 +6,7 @@ import {TranslateService} from '@ngx-translate/core';
 @Component({
     selector: 'app-appinstance-shell-view',
     templateUrl: './appinstance-shell-view.component.html',
-    styleUrls: ['./appinstance-shell-view.component.css']
+    styleUrls: []
 })
 export class AppInstanceShellViewComponent implements OnInit {
 
@@ -47,7 +47,11 @@ export class AppInstanceShellViewComponent implements OnInit {
     private notFound(): void {
         const promise = this.router.navigateByUrl('/notfound');
         promise.then(result => {
-            if (result) { console.log('Redirected'); } else { console.log('Failed'); }
+            if (result) {
+                console.log('Redirected');
+            } else {
+                console.log('Failed');
+            }
         })
     }
 

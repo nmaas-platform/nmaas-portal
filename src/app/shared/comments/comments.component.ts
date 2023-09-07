@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
 
-import {AppsService} from '../../service/index';
-import {Comment, Id} from '../../model/index';
+import {AppsService} from '../../service';
+import {Comment, Id} from '../../model';
 import {AuthService} from '../../auth/auth.service';
 import {TranslateService} from '@ngx-translate/core';
 
@@ -42,7 +42,6 @@ export class CommentsComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        // this.refresh();
     }
 
     ngOnInit() {
@@ -119,18 +118,20 @@ export class CommentsComponent implements OnInit, OnChanges {
             this.newComment.comment = text;
             this.newComment.parentId = parentId;
             this.appsService.addAppCommentByUrl(this.pathUrl, this.newComment)
-              .subscribe(id => {
-                  this.newComment = new Comment();
-                  this.commentErrorMsg = undefined;
-                  this.refresh();
-              }, err => this.commentErrorMsg = err.message);
+                .subscribe(id => {
+                    this.newComment = new Comment();
+                    this.commentErrorMsg = undefined;
+                    this.refresh();
+                }, err => this.commentErrorMsg = err.message);
         }
     }
 
     public deleteComment(id: number): void {
         this.appsService.deleteAppCommentByUrl(this.pathUrl, new Id(id)).subscribe(
-                () => { this.refresh() }
-            );
+            () => {
+                this.refresh()
+            }
+        );
     }
 
     OnRemove($event) {

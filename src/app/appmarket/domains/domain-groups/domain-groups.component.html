@@ -5,10 +5,6 @@
             <a *roles="['ROLE_SYSTEM_ADMIN']" [routerLink]="['/admin/domains/groups/add']" class="btn btn-primary"
                role="button">{{'DOMAINS.ADD_BUTTON' | translate}}</a>
         </div>
-<!--        <div *roles="['ROLE_SYSTEM_ADMIN']" class="flex" style="align-content: center; margin-top: 8px;">-->
-<!--            <span style="align-content: center; margin-right: 5px;"> {{'DOMAINS.NOTACTIVE' | translate}}</span>-->
-<!--            <p-checkbox id="showNotActive" [binary]="true" [(ngModel)]=" showNotActive"></p-checkbox>-->
-<!--        </div>-->
         <div class="flex">
             <input pInputText class="flex" name="search" id="search" placeholder="Search" type="text" style="height: 34px" [(ngModel)]="searchValue">
         </div>
@@ -39,9 +35,6 @@
               <em class="fas fa-cog icon-black icon-bigger"></em>
             </a>
             <ul class="dropdown-menu pull-right-drop">
-<!--              <li>-->
-<!--                <a (click)="showModal()">{{ 'ADD DOMAIN' }}</a>-->
-<!--              </li>-->
               <li>
                 <a [routerLink]="['/admin/domains/groups/', domainGroup?.id]">{{ 'APPS_MANAGEMENT.EDIT_BUTTON' | translate }}</a>
               </li>
@@ -60,16 +53,6 @@
                     <td>{{domain.name}}</td>
                     <td>{{domain.codename}}</td>
                     <td class="text-right">
-<!--                        <span class="dropdown">-->
-<!--            <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">-->
-<!--              <em class="fas fa-cog icon-black icon-bigger"></em>-->
-<!--            </a>-->
-<!--            <ul class="dropdown-menu pull-right-drop">-->
-<!--              <li>-->
-<!--                <a>{{ 'APPS_MANAGEMENT.EDIT_BUTTON' | translate }}</a>-->
-<!--              </li>-->
-<!--            </ul>-->
-<!--          </span>-->
                     </td>
                 </tr>
             </ng-template>

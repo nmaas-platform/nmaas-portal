@@ -17,10 +17,9 @@ export class ModalComponent implements OnInit {
     public visibleAnimate = false;
     public isDefault = true;
     public isIconsEnabled = true;
-    constructor() {}
 
     ngOnInit() {
-        switch(this.styleModal){
+        switch (this.styleModal) {
             case 'info':
                 this.isInfo = true;
                 break;
@@ -51,21 +50,21 @@ export class ModalComponent implements OnInit {
         setTimeout(() => this.visible = false, 300);
     }
 
-    public resetModalStyle(): void{
+    public resetModalStyle(): void {
         this.isError = false;
         this.isInfo = false;
         this.isSuccess = false;
         this.isWarning = false;
     }
 
-    public setStatusOfIcons(isIconsEnabled: boolean): void{
+    public setStatusOfIcons(isIconsEnabled: boolean): void {
         this.isIconsEnabled = isIconsEnabled;
     }
 
-    public setModalType(typeOfModal: string): void{
+    public setModalType(typeOfModal: string): void {
         this.resetModalStyle();
         this.isDefault = false;
-        switch(typeOfModal){
+        switch (typeOfModal) {
             case 'info':
                 this.isInfo = true;
                 break;
@@ -82,7 +81,7 @@ export class ModalComponent implements OnInit {
                 this.isDefault = true;
                 break;
             default:
-                console.log("Invalid choice of modal type");
+                console.log('Invalid choice of modal type');
                 break;
         }
     }
