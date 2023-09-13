@@ -26,6 +26,8 @@ import {ApplicationDTO} from '../../../model/application-dto';
 import {AddMembersModalComponent} from '../modals/add-members-modal/add-members-modal.component';
 import {AuthService} from '../../../auth/auth.service';
 import {SelectPodModalComponent} from '../modals/select-pod-modal/select-pod-modal.component';
+import {ApplicationVersion} from '../../../model/application-version';
+import * as semver from 'semver';
 
 @Component({
     selector: 'nmaas-appinstance',
@@ -90,6 +92,9 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     @ViewChild('applyConfig')
     public applyConfig: ModalComponent;
 
+    @ViewChild('manualUpdateModal')
+    public manualUpdateModal: ModalComponent;
+
     app: ApplicationDTO;
 
 
@@ -120,6 +125,9 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     public showAppInstanceHistory = false;
 
     public podNames: PodInfo[] = [];
+
+    public appVersions: ApplicationVersion[] = [];
+    public selectedVersion = '';
 
     constructor(private appsService: AppsService,
                 public appImagesService: AppImagesService,
@@ -574,5 +582,31 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         });
         return outputString;
     }
+
+    public appVersionCompare(a: ApplicationVersion, b: ApplicationVersion): number {
+        // defaults version that cannot be parsed to `0.0.0`
+        return semver.compare(semver.coerce(a.version) || '0.0.0', semver.coerce(b.version) || '0.0.0')
+    }
+
+    public openVersionUpdateModal() {
+        this.appsService.getApplicationVersions(this.appInstance.application.applicationBase.id).subscribe( versions => {
+            this.appVersions = versions;
+            this.appVersions.sort(this.appVersionCompare)
+            const appVer = new ApplicationVersion()
+            appVer.version = this.appInstance.applicationVersion
+            this.appVersions = this.appVersions.filter(val => {
+                return this.appVersionCompare(val, appVer) === 1;
+            })
+        })
+        this.manualUpdateModal.show();
+    }
+
+    public manualUpdateVersion() {
+        this.appInstanceService.manualUpdateVersion(this.appInstanceId, this.selectedVersion).subscribe( next => {
+            console.debug("manualy updated version");
+        })
+        this.manualUpdateModal.hide();
+    }
+
 
 }
