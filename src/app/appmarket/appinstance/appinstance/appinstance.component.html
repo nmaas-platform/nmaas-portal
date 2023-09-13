@@ -162,9 +162,6 @@
                          *ngIf="getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.FAILURE">
                         <button class="btn btn-primary"
                                 *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
-                                (click)="openVersionUpdateModal()">{{'APP_INSTANCE.REDEPLOY_BUTTON' | translate}}</button>
-                        <button class="btn btn-primary"
-                                *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
                                 (click)="redeployConfirm.show()">{{'APP_INSTANCE.REDEPLOY_BUTTON' | translate}}</button>
                         <button class="btn btn-default"
                                 *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
@@ -202,11 +199,11 @@
             <h4 style="text-align: center">{{'APP_INSTANCES.MANUAL_UPDATE.HEADER' | translate}}</h4>
         </div>
         <div class="nmaas-modal-body">
-            <div class="form-group" style="height: 150px">
+            <div class="" style="height: 150px">
                 <p>{{'APP_INSTANCES.MANUAL_UPDATE.BODY' | translate}}</p>
                 <div>
-                    <p-dropdown [options]="appVersions" optionLabel="version" optionValue="version" placeholder="Select version" emptyMessage="No version available"
-                                [disabled]="appVersions.length == 0" [(ngModel)]="selectedVersion"></p-dropdown>
+                    <p-dropdown id="manualUpdate" [options]="appVersions" optionLabel="version" optionValue="version" placeholder="Select version" emptyMessage="No version available"
+                                [disabled]="appVersions.length == 0" [(ngModel)]="selectedVersion" name="manualUpdate" ngDefaultControl></p-dropdown>
                 </div>
             </div>
         </div>
