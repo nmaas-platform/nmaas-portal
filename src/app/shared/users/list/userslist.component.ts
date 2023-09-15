@@ -8,7 +8,7 @@ import {Observable, of} from 'rxjs';
 import {Role, UserRole} from '../../../model/userrole';
 import {UserDataService} from '../../../service/userdata.service';
 import {AuthService} from '../../../auth/auth.service';
-import {map, shareReplay, take} from 'rxjs/operators';
+import {debounceTime, map, shareReplay, take} from 'rxjs/operators';
 import {UntypedFormControl} from '@angular/forms';
 import {ComponentMode} from '../../common/componentmode';
 import {Router} from '@angular/router';
@@ -93,23 +93,28 @@ export class UsersListComponent extends BaseComponent implements OnInit, OnChang
     )
 
     this.userDataService.selectedDomainId.subscribe(domain => this.domainId = domain);
+    this.getAllDomain();
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.displayUsers = this.users;
+    // this.getAllDomain();
+  }
+
+  public getAllDomain() {
+    this.domainService.getAll().subscribe(domains => {
+      domains.forEach(domain => {
+        this.domainCache.setData(domain.id, domain)
+      })
+    })
   }
 
   public getDomainName(domainId: number): Observable<string> {
     if (this.domainCache.hasData(domainId)) {
       return of(this.domainCache.getData(domainId).name);
     } else {
-      return this.domainService.getOne(domainId).pipe(
-          map((domain) => {
-            this.domainCache.setData(domainId, domain);
-            return domain.name
-          }),
-          shareReplay(1),
-          take(1));
+      return new Observable<string>()
     }
   }
 

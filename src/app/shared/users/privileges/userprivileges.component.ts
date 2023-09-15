@@ -10,7 +10,7 @@ import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {Observable, of} from 'rxjs';
 import {CacheService} from '../../../service/cache.service';
 import {UserDataService} from '../../../service/userdata.service';
-import {map, shareReplay, take} from 'rxjs/operators';
+import {debounceTime, map, shareReplay, take} from 'rxjs/operators';
 
 @Component({
     selector: 'nmaas-userprivileges',
@@ -103,6 +103,15 @@ export class UserPrivilegesComponent extends BaseComponent implements OnInit {
                 this.domainService.getOne(domainId).subscribe((domain) => this.domains.push(domain));
             });
         }
+        this.getAllDomain();
+    }
+
+    public getAllDomain() {
+        this.domainService.getAll().subscribe(domains => {
+            domains.forEach(domain => {
+               if (!this.domainCache.hasData(domain.id)) this.domainCache.setData(domain.id, domain)
+            })
+        })
     }
 
     public add(): void {
@@ -124,14 +133,6 @@ export class UserPrivilegesComponent extends BaseComponent implements OnInit {
     public getDomainName(domainId: number): Observable<string> {
         if (this.domainCache.hasData(domainId)) {
             return of(this.domainCache.getData(domainId).name);
-        } else {
-            return this.domainService.getOne(domainId).pipe(
-                map((domain) => {
-                    this.domainCache.setData(domainId, domain);
-                    return domain.name
-                }),
-                shareReplay(1),
-                take(1));
         }
     }
 
