@@ -3,17 +3,17 @@
     <img src="docs/nmaas-logo-blue.png" alt="Logo" width="206" height="48">
   </a>
 
-<h3 align="center">NMaaS Platform</h3>
+  <h3 align="center">NMaaS Platform (Front-end)</h3>
 
-<h4 align="center">Open-source multi-tenant platform for effortless, orchestrated deployment of software tools and applications on top of Kubernetes</h4>
+  <h4 align="center">Open-source multi-tenant platform for effortless, orchestrated deployment of software tools and applications on top of Kubernetes</h4>
 
   <p align="center">
     <br />
     <a href="https://docs.nmaas.eu/">Explore documentation</a>
     ·
-    <a href="https://github.com/nmaas-platform/nmaas-platform/issues">Report Bug</a>
+    <a href="https://github.com/nmaas-platform/nmaas-portal/issues">Report Bug</a>
     ·
-    <a href="https://github.com/nmaas-platform/nmaas-platform/issues">Request Feature</a>
+    <a href="https://github.com/nmaas-platform/nmaas-portal/issues">Request Feature</a>
   </p>
 </div>
 
