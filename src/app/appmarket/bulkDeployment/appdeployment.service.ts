@@ -5,6 +5,7 @@ import {AppConfigService} from '../../service';
 import {BulkResponse} from '../../model/bulk-response';
 import {Observable} from 'rxjs';
 import {BulkDeployment} from '../../model/bulk-deployment';
+import {AppBulkDetails} from '../../model/app-bulk-details';
 
 @Injectable({
     providedIn: 'root'
@@ -75,6 +76,10 @@ export class AppdeploymentService {
 
     public getBulkDeployment(id: number): Observable<BulkDeployment> {
         return this.http.get<BulkDeployment>(this.getUrl() + id);
+    }
+
+    public getAppBulkDetails(id: number): Observable<Blob> {
+        return this.http.get(this.getUrl() + `app/csv/${id}`, { responseType: 'blob'})
     }
 
 
