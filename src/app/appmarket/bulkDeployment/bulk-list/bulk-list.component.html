@@ -100,7 +100,7 @@
                     <a [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>
                 </li>
                 <li *ngIf="mode === bulkTypeApp">
-                    <a (click)="getAppBulkDetails(bulk?.id)"> {{"Download CSV"}}</a>
+                    <a (click)="getAppBulkDetails(bulk?.id)"> {{"BULK.APP.DOWNLOAD_CSV" | translate}}</a>
                 </li>
                 <li *ngIf="mode === bulkTypeApp">
                     <a (click)="modal.show()">{{ 'BULK.LIST.REMOVE' | translate }}</a>
