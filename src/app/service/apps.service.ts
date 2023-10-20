@@ -10,6 +10,7 @@ import {AppStateChange} from '../model/appstatechange';
 import {ApplicationBase} from '../model/application-base';
 import {Application} from '../model/application';
 import {ApplicationDTO} from '../model/application-dto';
+import {ApplicationVersion} from '../model/application-version';
 
 @Injectable({
     providedIn: 'root',
@@ -36,6 +37,12 @@ export class AppsService extends GenericDataService {
 
     public updateApplicationBase(app: ApplicationBase): Observable<any> {
         return this.patch(this.appConfig.getApiUrl() + '/apps/base', app);
+    }
+
+    // application version
+
+    public getApplicationVersions(id: number): Observable<ApplicationVersion[]> {
+        return  this.get<ApplicationVersion[]>(this.appConfig.getApiUrl() + `/apps/versions/${id}`)
     }
 
     // application dto
