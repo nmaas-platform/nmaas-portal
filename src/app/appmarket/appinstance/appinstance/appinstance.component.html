@@ -387,7 +387,7 @@
                              [domainId]="appInstance?.domainId"></nmaas-modal-app-restart>
 
     <!-- App upgrade modal -->
-    <nmaas-modal-app-upgrade [appInstanceId]="appInstanceId"
+    <nmaas-modal-app-upgrade [appInstanceId]="appInstanceId" [currentHelmChartVersion]="appInstance?.application?.application?.appDeploymentSpec?.kubernetesTemplate?.chart?.version"
                              [currentApplicationVersion]="appInstance?.applicationVersion"
                              [upgradeInfo]="appInstance?.upgradeInfo"></nmaas-modal-app-upgrade>
 
