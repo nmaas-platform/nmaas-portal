@@ -151,4 +151,9 @@ export class DomainsListComponent implements OnInit {
         this.domainToRemove = domain
         this.modal.show()
     }
+
+    public changelog() {
+        console.warn(this.p)
+        this.p = 1;
+    }
 }
