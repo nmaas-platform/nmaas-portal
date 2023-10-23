@@ -195,6 +195,9 @@
                     <div class="flex align-items-center">
                         {{bulk.details['appName']}}
                     </div>
+                    <div class="flex justify-content-end">
+                        <button class="btn btn-primary" (click)="getAppBulkDetails(this.bulkId)">{{'BULK.APP.DOWNLOAD_CSV' | translate}}</button>
+                    </div>
                 </div>
 
                 <table class="table table-hover table-condensed" aria-describedby="Domains in Group table">
