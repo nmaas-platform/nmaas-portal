@@ -51,6 +51,9 @@
               <li>
                 <a [routerLink]="['/admin/apps/edit', app?.id]">{{ 'APPS_MANAGEMENT.EDIT_BUTTON' | translate }}</a>
               </li>
+              <li>
+                <a (click)="openRemovalModal(app)"> {{ 'APPS_MANAGEMENT.DELETE_BUTTON' | translate}}</a>
+              </li>
             </ul>
           </span>
         </td>
@@ -98,3 +101,6 @@
 <app-app-add-json-app #appAddJson></app-app-add-json-app>
 
 <app-app-add-json-version-app #appAddJsonVersion (refresh)="refresh()"></app-app-add-json-version-app>
+
+<app-confirm-removal [appBase]="appToRemove" [hasRunningInstances]="hasRunningInstances"
+                     (onConfirm)="removeApp(appToRemove.id)"></app-confirm-removal>

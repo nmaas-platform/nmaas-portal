@@ -31,6 +31,8 @@ import {DropdownModule} from 'primeng/dropdown';
 import { AppAddJsonAppComponent } from './app-add-json-app/app-add-json-app.component';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import { AppAddJsonVersionAppComponent } from './app-add-json-version-app/app-add-json-version-app.component';
+import {AppConfirmRemovalComponent} from './app-confirm-removal/app-confirm-removal.component';
+import {DomainsModule} from '../domains/domains.module';
 
 
 export function getJsonTemplates(config: ConfigTemplateService) {
@@ -58,7 +60,8 @@ export function formioAppConfigFactory(appConfig: AppConfigService) {
         JsonEditComponent,
         AppChangeOwnerModalComponent,
         AppAddJsonAppComponent,
-        AppAddJsonVersionAppComponent
+        AppAddJsonVersionAppComponent,
+        AppConfirmRemovalComponent
     ],
     imports: [
         CommonModule,
@@ -79,7 +82,8 @@ export function formioAppConfigFactory(appConfig: AppConfigService) {
         TabViewModule,
         TooltipModule,
         DropdownModule,
-        InputTextareaModule
+        InputTextareaModule,
+        DomainsModule
     ],
     exports: [],
     providers: [
