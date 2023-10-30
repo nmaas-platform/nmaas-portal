@@ -84,4 +84,6 @@
 
 </div>
 
-<app-removal-confirmation-modal [domain]="domainToRemove" (onConfirm)="softRemoveDomain(domainToRemove.id)"></app-removal-confirmation-modal>
+<app-removal-confirmation-modal [object]="domainToRemove" [disableButton]="false" (onConfirm)="softRemoveDomain(domainToRemove.id)"
+                                [header]="'DOMAIN_DETAILS.MODAL.HEADER'" [description]="'DOMAIN_DETAILS.MODAL.DESCRIPTION'"></app-removal-confirmation-modal>
+

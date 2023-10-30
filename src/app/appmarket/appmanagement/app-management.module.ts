@@ -19,19 +19,20 @@ import {AppPreviewComponent} from './app-preview/apppreview.component';
 import {AppVersionCreateWizardComponent} from './app-version-create-wizard/app-version-create-wizard.component';
 import {AppAccessMethodEditComponent} from './app-access-method-edit-component/app-access-method-edit.component';
 import {AppStorageVolumeEditComponent} from './app-storage-volume-edit-component/app-storage-volume-edit.component';
-import {AppStaticGlobalDeployParametersEditComponent} from './app-static-global-deploy-parameters-edit/app-static-global-deploy-parameters-edit.component';
+import {
+    AppStaticGlobalDeployParametersEditComponent
+} from './app-static-global-deploy-parameters-edit/app-static-global-deploy-parameters-edit.component';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {FileUploadModule} from 'primeng/fileupload';
 import {ChipsModule} from 'primeng/chips';
-import { JsonEditComponent } from './json-edit/json-edit.component';
+import {JsonEditComponent} from './json-edit/json-edit.component';
 import {TabViewModule} from 'primeng/tabview';
-import { AppChangeOwnerModalComponent } from './app-change-owner-modal/app-change-owner-modal.component';
+import {AppChangeOwnerModalComponent} from './app-change-owner-modal/app-change-owner-modal.component';
 import {TooltipModule} from 'primeng/tooltip';
 import {DropdownModule} from 'primeng/dropdown';
-import { AppAddJsonAppComponent } from './app-add-json-app/app-add-json-app.component';
+import {AppAddJsonAppComponent} from './app-add-json-app/app-add-json-app.component';
 import {InputTextareaModule} from 'primeng/inputtextarea';
-import { AppAddJsonVersionAppComponent } from './app-add-json-version-app/app-add-json-version-app.component';
-import {AppConfirmRemovalComponent} from './app-confirm-removal/app-confirm-removal.component';
+import {AppAddJsonVersionAppComponent} from './app-add-json-version-app/app-add-json-version-app.component';
 import {DomainsModule} from '../domains/domains.module';
 
 
@@ -60,8 +61,7 @@ export function formioAppConfigFactory(appConfig: AppConfigService) {
         JsonEditComponent,
         AppChangeOwnerModalComponent,
         AppAddJsonAppComponent,
-        AppAddJsonVersionAppComponent,
-        AppConfirmRemovalComponent
+        AppAddJsonVersionAppComponent
     ],
     imports: [
         CommonModule,

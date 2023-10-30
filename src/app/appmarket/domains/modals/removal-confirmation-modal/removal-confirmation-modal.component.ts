@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {ModalComponent} from '../../../../shared';
-import {Domain} from '../../../../model/domain';
 
 @Component({
     selector: 'app-removal-confirmation-modal',
@@ -13,10 +12,21 @@ export class RemovalConfirmationModalComponent {
     public readonly modal: ModalComponent;
 
     @Input()
-    public domain: Domain;
+    public header: string;
+
+    @Input()
+    public description: string;
+
+    @Input()
+    public disabledButtonWarning: string;
 
     @Output()
     public onConfirm: EventEmitter<void> = new EventEmitter<void>();
+
+    @Input()
+    public object: any;
+    @Input()
+    public disableButton: boolean;
 
     public show() {
         this.modal.show();

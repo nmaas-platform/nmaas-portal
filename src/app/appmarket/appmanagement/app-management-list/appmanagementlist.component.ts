@@ -8,8 +8,8 @@ import {ApplicationVersion} from '../../../model/application-version';
 import {map} from 'rxjs/operators';
 import {ApplicationBase} from '../../../model/application-base';
 import * as semver from 'semver'
-import {AppConfirmRemovalComponent} from '../app-confirm-removal/app-confirm-removal.component';
 import {ModalComponent} from '../../../shared';
+import {RemovalConfirmationModalComponent} from '../../domains/modals/removal-confirmation-modal/removal-confirmation-modal.component';
 
 @Component({
     selector: 'nmaas-appmanagementlist',
@@ -21,7 +21,7 @@ export class AppManagementListComponent implements OnInit {
     @ViewChild(AppChangeStateModalComponent, { static: true })
     public appChangeStateModalComponent: AppChangeStateModalComponent;
 
-    @ViewChild(AppConfirmRemovalComponent)
+    @ViewChild(RemovalConfirmationModalComponent)
     public confirmRemovalModal: ModalComponent;
 
     public selectedAppName = '';
@@ -81,8 +81,6 @@ export class AppManagementListComponent implements OnInit {
                         app.versions = app.versions.filter(av => parseApplicationState(av.state) !== ApplicationState.DELETED)
                         return app
                     })
-                    // filter out apps with no versions
-                    // .filter(app => app.versions.length >= 1)
                     // sort by lowercase name
                     .sort((a, b) => {
                         if (a.name.toLowerCase() === b.name.toLowerCase()) {

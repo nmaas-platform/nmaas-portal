@@ -102,5 +102,8 @@
 
 <app-app-add-json-version-app #appAddJsonVersion (refresh)="refresh()"></app-app-add-json-version-app>
 
-<app-confirm-removal [appBase]="appToRemove" [hasRunningInstances]="hasRunningInstances"
-                     (onConfirm)="removeApp(appToRemove.id)"></app-confirm-removal>
+<app-removal-confirmation-modal [object]="appToRemove" [disableButton]="hasRunningInstances"
+                                (onConfirm)="removeApp(appToRemove.id)" [header]="'APPS_MANAGEMENT.CONFIRM_REMOVAL.HEADER'"
+                                [description]="'APPS_MANAGEMENT.CONFIRM_REMOVAL.DESCRIPTION'"
+                                [disabledButtonWarning]="'APPS_MANAGEMENT.CONFIRM_REMOVAL.DISABLED'"
+></app-removal-confirmation-modal>
