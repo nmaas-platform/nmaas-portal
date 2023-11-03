@@ -18,13 +18,12 @@ import {SearchDomainPipe} from './domain-search.pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {TableModule} from 'primeng/table';
 import {CheckboxModule} from 'primeng/checkbox';
-import { DomainGroupsComponent } from './domain-groups/domain-groups.component';
-import { DomainGroupViewComponent } from './domain-group-view/domain-group-view.component';
+import {DomainGroupsComponent} from './domain-groups/domain-groups.component';
+import {DomainGroupViewComponent} from './domain-group-view/domain-group-view.component';
 import {DropdownModule} from 'primeng/dropdown';
 import {MultiSelectModule} from 'primeng/multiselect';
-import { RemovalConfirmationModalComponent } from './modals/removal-confirmation-modal/removal-confirmation-modal.component';
+import {RemovalConfirmationModalComponent} from './modals/removal-confirmation-modal/removal-confirmation-modal.component';
 import {SearchDomainGroupPipe} from './domain-group-search.pipe';
-
 
 
 @NgModule({
@@ -52,11 +51,12 @@ import {SearchDomainGroupPipe} from './domain-group-search.pipe';
       DropdownModule,
       MultiSelectModule
     ],
-  exports: [
-    DomainsListComponent,
-      SearchDomainPipe,
-      SearchDomainGroupPipe
-  ],
+    exports: [
+        DomainsListComponent,
+        SearchDomainPipe,
+        SearchDomainGroupPipe,
+        RemovalConfirmationModalComponent
+    ],
   providers: [
     DomainService,
   ],

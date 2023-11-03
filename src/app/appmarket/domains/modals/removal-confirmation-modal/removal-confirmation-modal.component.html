@@ -1,11 +1,13 @@
 <nmaas-modal styleModal="warning">
-    <div class="nmaas-modal-header">{{ 'DOMAIN_DETAILS.MODAL.HEADER' | translate }}</div>
+    <div class="nmaas-modal-header">{{ header | translate }}</div>
     <div class="nmaas-modal-body">
-        <p>{{ 'DOMAIN_DETAILS.MODAL.DESCRIPTION' | translate}}</p>
+        <p>{{ description | translate}}</p>
+        <p *ngIf="disableButton" style="color: indianred">
+            {{ disabledButtonWarning | translate}}
+        </p>
     </div>
     <div class="nmaas-modal-footer">
-        <button role="button" type="button" class="btn btn-success" (click)="removeDomain()">{{ 'DOMAIN_DETAILS.MODAL.BUTTONS.CONFIRM' | translate}}</button>
+        <button [disabled]="disableButton" role="button" type="button" class="btn btn-success" (click)="removeDomain()">{{ 'DOMAIN_DETAILS.MODAL.BUTTONS.CONFIRM' | translate}}</button>
         <button type="button" class="btn btn-primary" (click)="modal.hide()">{{ 'DOMAIN_DETAILS.MODAL.BUTTONS.CANCEL' | translate}}</button>
     </div>
 </nmaas-modal>
-

@@ -8,6 +8,8 @@ import {ApplicationVersion} from '../../../model/application-version';
 import {map} from 'rxjs/operators';
 import {ApplicationBase} from '../../../model/application-base';
 import * as semver from 'semver'
+import {ModalComponent} from '../../../shared';
+import {RemovalConfirmationModalComponent} from '../../domains/modals/removal-confirmation-modal/removal-confirmation-modal.component';
 import {ApplicationDTO} from '../../../model/application-dto';
 
 @Component({
@@ -20,6 +22,8 @@ export class AppManagementListComponent implements OnInit {
     @ViewChild(AppChangeStateModalComponent, { static: true })
     public appChangeStateModalComponent: AppChangeStateModalComponent;
 
+    @ViewChild(RemovalConfirmationModalComponent)
+    public confirmRemovalModal: ModalComponent;
 
     public selectedAppName = '';
     public selectedVersion: ApplicationVersion = new ApplicationVersion();
@@ -30,8 +34,9 @@ export class AppManagementListComponent implements OnInit {
 
     public filteredApps: ApplicationBase[] = [];
 
+    public appToRemove: ApplicationBase
+    public hasRunningInstances: boolean;
     public blobUrl;
-
 
     constructor(public appsService: AppsService,
                 public router: Router,
@@ -78,8 +83,6 @@ export class AppManagementListComponent implements OnInit {
                         app.versions = app.versions.filter(av => parseApplicationState(av.state) !== ApplicationState.DELETED)
                         return app
                     })
-                    // filter out apps with no versions
-                    .filter(app => app.versions.length >= 1)
                     // sort by lowercase name
                     .sort((a, b) => {
                         if (a.name.toLowerCase() === b.name.toLowerCase()) {
@@ -108,6 +111,23 @@ export class AppManagementListComponent implements OnInit {
             this.apps = this.filteredApps
         }
     }
+
+    public removeApp(id: number): void {
+        this.appsService.deleteAppBase(id).subscribe({
+            next: () => this.refresh(),
+            error: err => console.error(err)
+        });
+    }
+
+    public openRemovalModal(app: ApplicationBase): void {
+        this.appsService.hasRunningInstances(app.id).subscribe({
+            next: hasRunningInstances => {
+                this.hasRunningInstances = hasRunningInstances;
+                this.appToRemove = app;
+                this.confirmRemovalModal.show();
+            },
+            error: err => console.error(err)
+        })
 
     public getApplicationInfoJSON(id: number) {
         this.appsService.getApplicationDTO(id).subscribe( appDTO => {
