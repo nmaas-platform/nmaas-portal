@@ -128,6 +128,7 @@ export class AppManagementListComponent implements OnInit {
             },
             error: err => console.error(err)
         })
+    }
 
     public getApplicationInfoJSON(id: number) {
         this.appsService.getApplicationDTO(id).subscribe( appDTO => {

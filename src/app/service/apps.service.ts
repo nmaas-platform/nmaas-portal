@@ -1,10 +1,10 @@
-import {throwError as observableThrowError,  Observable } from 'rxjs';
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Observable, throwError as observableThrowError} from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
-import { Id, Rate, Comment, FileInfo } from '../model';
-import { AppConfigService } from './appconfig.service';
-import { GenericDataService } from './genericdata.service';
+import {Comment, FileInfo, Id, Rate} from '../model';
+import {AppConfigService} from './appconfig.service';
+import {GenericDataService} from './genericdata.service';
 import {catchError, debounceTime} from 'rxjs/operators';
 import {AppStateChange} from '../model/appstatechange';
 import {ApplicationBase} from '../model/application-base';
@@ -45,8 +45,8 @@ export class AppsService extends GenericDataService {
 
     public hasRunningInstances(id: number): Observable<boolean> {
         return this.http.get<boolean>(this.appConfig.getApiUrl() + '/apps/instances/running/app/' + id);
+    }
     // application version
-
     public getApplicationVersions(id: number): Observable<ApplicationVersion[]> {
         return  this.get<ApplicationVersion[]>(this.appConfig.getApiUrl() + `/apps/versions/${id}`)
     }
