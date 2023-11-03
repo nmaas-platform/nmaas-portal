@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {ModalComponent} from '../../../../shared';
 
 @Component({
-    selector: 'app-removal-confirmation-modal',
+    selector: 'nmaas-removal-confirmation-modal',
     templateUrl: './removal-confirmation-modal.component.html',
     styleUrls: []
 })
