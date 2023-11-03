@@ -56,12 +56,12 @@
         </td>
       </tr>
       <ng-template ngFor let-version [ngForOf]="app.versions.sort(appVersionCompare)">
-        <tr *ngIf="versionRowVisible[i]" class="table-row" [routerLink]="['/admin/apps/edit/version', version?.appVersionId]">
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>{{version.version}}</td>
-          <td>{{"ENUM.STATE." + getStateAsString(version.state).toUpperCase() | translate }}</td>
+        <tr *ngIf="versionRowVisible[i]" class="table-row" >
+          <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]"></td>
+          <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]"></td>
+          <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]"></td>
+          <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]">{{version.version}}</td>
+          <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]">{{"ENUM.STATE." + getStateAsString(version.state).toUpperCase() | translate }}</td>
           <td class="text-right">
             <a [routerLink]="['/admin/apps/view', version?.appVersionId]">
               <em class="far fa-eye icon-black icon-bigger"></em>
@@ -73,6 +73,9 @@
             <ul class="dropdown-menu pull-right-drop">
               <li *roles="['ROLE_SYSTEM_ADMIN']">
                 <a (click)="showModal($event, app, version)" *ngIf="getStateAsString(version?.state) !== 'DELETED'">{{ 'APPS_MANAGEMENT.CHANGE_STATE_BUTTON' | translate }}</a>
+              </li>
+              <li>
+                <a (click)="getApplicationInfoJSON(version?.appVersionId)">{{'APPS_MANAGEMENT.EXPORT_JSON' | translate}}</a>
               </li>
               <li>
                 <a [routerLink]="['/admin/apps/edit/version', version?.appVersionId]">{{ 'APPS_MANAGEMENT.EDIT_BUTTON' | translate }}</a>
