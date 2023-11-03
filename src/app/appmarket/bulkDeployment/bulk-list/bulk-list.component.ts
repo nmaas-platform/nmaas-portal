@@ -3,6 +3,8 @@ import {BulkDeployment} from '../../../model/bulk-deployment';
 import {BulkType} from '../../../model/bulk-response';
 import {SortableHeaderDirective} from '../../../service/sort-domain.directive';
 import {ModalComponent} from '../../../shared';
+import {AppdeploymentService} from '../appdeployment.service';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
     selector: 'app-bulk-list',
@@ -40,6 +42,10 @@ export class BulkListComponent {
     public searchValue = '';
 
     public removeAll = false;
+
+    constructor(private appDeploy: AppdeploymentService,
+                private sanitizer: DomSanitizer) {
+    }
 
     public getApplicationName(details: Map<string, string>) {
         return details[BulkListComponent.BULK_ENTRY_DETAIL_KEY_APP_INSTANCE_NAME];
@@ -95,5 +101,19 @@ export class BulkListComponent {
                 }
             })
         }
+    }
+
+    public getAppBulkDetails(id: number) {
+        this.appDeploy.getAppBulkDetails(id).subscribe( (data: Blob) => {
+            console.warn(data)
+            const blob = new Blob([data], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `NMaaS-AppBulk-${id}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
     }
 }

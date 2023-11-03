@@ -10,6 +10,7 @@ import {ApplicationBase} from '../../../model/application-base';
 import * as semver from 'semver'
 import {ModalComponent} from '../../../shared';
 import {RemovalConfirmationModalComponent} from '../../domains/modals/removal-confirmation-modal/removal-confirmation-modal.component';
+import {ApplicationDTO} from '../../../model/application-dto';
 
 @Component({
     selector: 'nmaas-appmanagementlist',
@@ -35,6 +36,7 @@ export class AppManagementListComponent implements OnInit {
 
     public appToRemove: ApplicationBase
     public hasRunningInstances: boolean;
+    public blobUrl;
 
     constructor(public appsService: AppsService,
                 public router: Router,
@@ -127,5 +129,57 @@ export class AppManagementListComponent implements OnInit {
             error: err => console.error(err)
         })
 
+    public getApplicationInfoJSON(id: number) {
+        this.appsService.getApplicationDTO(id).subscribe( appDTO => {
+           // const app = appDTO;
+            appDTO = this.deleteIDsFields(appDTO);
+           let blob = new Blob([JSON.stringify(appDTO, null, 4)], {type: 'application/json'})
+            this.blobUrl = window.URL.createObjectURL(blob);
+            let a = document.createElement('a');
+            document.body.appendChild(a);
+            a.setAttribute('style', 'display: none');
+            a.href = this.blobUrl;
+            a.download = `${appDTO.applicationBase.name}-${appDTO.application.version}.json`
+            a.click();
+            window.URL.revokeObjectURL(this.blobUrl);
+            a.remove();
+        })
+    }
+
+    private deleteIDsFields(app: ApplicationDTO) {
+        app.applicationBase.id = null;
+        app.applicationBase.owner = null;
+        app.applicationBase.tags.forEach(tag => {
+            tag.id = null;
+        })
+        app.applicationBase.versions = null;
+        app.application.id = null;
+        if (app.application.configWizardTemplate !== null) {
+            app.application.configWizardTemplate.id = null;
+        }
+        if (app.application.configUpdateWizardTemplate !== null) {
+            app.application.configUpdateWizardTemplate.id = null;
+        }
+        if (app.application.appDeploymentSpec !== null) {
+            app.application.appDeploymentSpec.id = null;
+            if (app.application.appDeploymentSpec.kubernetesTemplate !== null) {
+                app.application.appDeploymentSpec.kubernetesTemplate.id = null;
+                app.application.appDeploymentSpec.kubernetesTemplate.chart.id = null;
+            }
+            app.application.appDeploymentSpec.storageVolumes.forEach(storageVolume => {
+                storageVolume.id = null;
+            })
+            app.application.appDeploymentSpec.accessMethods.forEach(accessMethod => {
+                accessMethod.id = null;
+            })
+        }
+        if (app.application.appConfigurationSpec !== null) {
+            app.application.appConfigurationSpec.id = null;
+            app.application.appConfigurationSpec.templates.forEach(template => {
+                template.id = null;
+                template.applicationId = null;
+            })
+        }
+        return app;
     }
 }

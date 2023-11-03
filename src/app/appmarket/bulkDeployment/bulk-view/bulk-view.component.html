@@ -187,13 +187,17 @@
             </div>
             <div class="panel-body">
 
-                <div class="flex flex-row mb-3">
+                <div class="flex flex-row mb-3 justify-content-between">
                     <div class="flex ml-2 mr-2">
                         <img alt="App logo" style="width: 50px"
                              [src]="(appImagesService.getAppLogoUrl(bulk.details['appId']) | secure) || 'assets/images/app-logo-example.png'"/>
+                        <div class="flex align-items-center ml-2">
+                            {{bulk.details['appName']}}
+                        </div>
                     </div>
-                    <div class="flex align-items-center">
-                        {{bulk.details['appName']}}
+
+                    <div class="flex justify-content-end">
+                        <button class="btn btn-primary" (click)="getAppBulkDetails(this.bulkId)">{{'BULK.APP.DOWNLOAD_CSV' | translate}}</button>
                     </div>
                 </div>
 

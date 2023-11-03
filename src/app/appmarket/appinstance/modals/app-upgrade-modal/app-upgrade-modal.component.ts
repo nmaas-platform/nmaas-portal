@@ -22,6 +22,9 @@ export class AppUpgradeModalComponent {
     public currentApplicationVersion: string = undefined;
 
     @Input()
+    public currentHelmChartVersion: string = undefined;
+
+    @Input()
     public upgradeInfo: AppInstanceUpgradeInfo = undefined;
 
     constructor(private router: Router,

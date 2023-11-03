@@ -143,6 +143,10 @@ export class AppInstanceService extends GenericDataService {
     return this.http.get(this.getUrl() + 'statistics')
   }
 
+  public manualUpdateVersion(appInstanceId: number, version: string): Observable<void> {
+    return this.http.post<void>(this.getUrl() + `${appInstanceId}/version/${version}`, appInstanceId)
+  }
+
 }
 
 export class CustomerSearchCriteria {

@@ -302,6 +302,7 @@ describe('Component: AppInstance', () => {
             TestBed.createComponent(AppInstanceProgressMockComponent).componentInstance as AppInstanceProgressComponent;
         component.undeployModal =
             TestBed.createComponent(MockNmaasModalComponent).componentInstance as ModalComponent;
+        component.manualUpdateModal = TestBed.createComponent(MockNmaasModalComponent).componentInstance as ModalComponent;
 
         appConfigService = fixture.debugElement.injector.get(AppConfigService);
         appsService = fixture.debugElement.injector.get(AppsService);
