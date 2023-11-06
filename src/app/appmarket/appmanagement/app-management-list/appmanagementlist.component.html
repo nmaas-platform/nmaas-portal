@@ -105,8 +105,8 @@
 
 <app-app-add-json-version-app #appAddJsonVersion (refresh)="refresh()"></app-app-add-json-version-app>
 
-<removal-confirmation-modal [object]="appToRemove" [disableButton]="hasRunningInstances"
+<nmaas-removal-confirmation-modal [object]="appToRemove" [disableButton]="hasRunningInstances"
                                 (onConfirm)="removeApp(appToRemove.id)" [header]="'APPS_MANAGEMENT.CONFIRM_REMOVAL.HEADER'"
                                 [description]="'APPS_MANAGEMENT.CONFIRM_REMOVAL.DESCRIPTION'"
                                 [disabledButtonWarning]="'APPS_MANAGEMENT.CONFIRM_REMOVAL.DISABLED'"
-></removal-confirmation-modal>
+></nmaas-removal-confirmation-modal>
