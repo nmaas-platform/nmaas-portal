@@ -6,11 +6,9 @@ import {Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/co
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {TranslateService} from '@ngx-translate/core';
-import {
-    RemovalConfirmationModalComponent
-} from "../modals/removal-confirmation-modal/removal-confirmation-modal.component";
 import {ModalComponent} from '../../../shared';
 import {SortableHeaderDirective, SortColumn, SortDirection} from '../../../service/sort-domain.directive';
+import {RemovalConfirmationModalComponent} from '../modals/removal-confirmation-modal/removal-confirmation-modal.component';
 
 
 export interface SortEvent {
