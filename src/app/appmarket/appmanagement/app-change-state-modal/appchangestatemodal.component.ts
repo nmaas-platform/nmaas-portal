@@ -42,7 +42,7 @@ export class AppChangeStateModalComponent implements OnInit, OnChanges {
   private filterStates(): void {
     switch (this.getStateAsString(this.app.state)) {
       case this.getStateAsString(ApplicationState.NEW):
-        this.stateList = [ApplicationState.ACTIVE, ApplicationState.REJECTED];
+        this.stateList = [ApplicationState.ACTIVE, ApplicationState.REJECTED, ApplicationState.DELETED];
         break;
       case this.getStateAsString(ApplicationState.ACTIVE):
         this.stateList = [ApplicationState.DISABLED, ApplicationState.DELETED];
