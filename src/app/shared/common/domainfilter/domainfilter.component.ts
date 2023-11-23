@@ -3,7 +3,7 @@ import {Domain} from '../../../model/domain';
 import {DomainService} from '../../../service';
 import {UserDataService} from '../../../service/userdata.service';
 import {Component, OnInit} from '@angular/core';
-import {Subscription, Observable, of, interval} from 'rxjs';
+import {BehaviorSubject, interval, Observable, of, Subscription} from 'rxjs';
 
 import {map} from 'rxjs/operators';
 import {ProfileService} from '../../../service/profile.service';
@@ -25,6 +25,12 @@ export class DomainFilterComponent implements OnInit {
     public refresh: Subscription;
 
     public profile: User;
+
+    public searchTerm = '';
+
+    private filteredDomainsSub = new BehaviorSubject<any[]>([]);
+
+    public filteredDomains = this.filteredDomainsSub.asObservable();
 
     constructor(private authService: AuthService,
                 private domainService: DomainService,
@@ -49,11 +55,19 @@ export class DomainFilterComponent implements OnInit {
                 this.domains.subscribe(domain => {
                     this.domainName = domain[0].name;
                     this.userData.selectDomainId(domain[0].id)
+                    this.filteredDomainsSub.next(domain);
                 });
             }
         );
 
         this.userData.selectedDomainId.subscribe(id => this.domainId = id);
+    }
+
+    public updateFilter() {
+        this.domains.subscribe(data => {
+            const filtered = data.filter(obj => obj.name.toLowerCase().includes(this.searchTerm.toLowerCase()));
+            this.filteredDomainsSub.next(filtered);
+        });
     }
 
     public updateDomains(): void {
