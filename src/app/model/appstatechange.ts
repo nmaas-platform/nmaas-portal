@@ -4,4 +4,5 @@ export class AppStateChange{
     public state: ApplicationState;
     public reason: string;
     public shouldSendNotification: boolean;
+    public notificationText: string;
 }
