@@ -590,7 +590,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
 
     public openVersionUpdateModal() {
         this.appsService.getApplicationVersions(this.appInstance.application.applicationBase.id).subscribe( versions => {
-            this.appVersions = versions;
+            this.appVersions = versions.filter(val => val.state === ApplicationState.ACTIVE)
             this.appVersions.sort(this.appVersionCompare)
             // const appVer = new ApplicationVersion()
             // appVer.version = this.appInstance.applicationVersion
