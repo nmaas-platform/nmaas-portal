@@ -1,0 +1,26 @@
+<h2>Application instance logs</h2>
+<div *ngIf="pods">
+    <div *ngIf="!hasMultiplePods">
+        <h3>Logs</h3>
+    </div>
+    <div *ngIf="hasMultiplePods()">
+        <div>
+            <h3>Pod selector</h3>
+            <p-dropdown [options]="podInfos" [(ngModel)]="selectedPodInfo" (onChange)="selectPod($event)"
+                        placeholder="Choose a pod">
+                <ng-template let-option pTemplate="items">
+                    {{ option.displayName }}
+                </ng-template>
+                <ng-template let-selected pTemplate="selectedItem">
+                    {{ selected.displayName }}
+                </ng-template>
+            </p-dropdown>
+            <div *ngIf="selectedPodLogs">
+                <div *ngFor="let line of selectedPodLogs.lines">
+                    <p>{{ line }}</p>
+                </div>
+                <a (click)="getLogs(selectedPodInfo.name, selectedPodLogs.lines)">Download log in a text file</a>
+            </div>
+        </div>
+    </div>
+</div>
