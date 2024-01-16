@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {PodLogs} from '../../../model/pod-logs';
 import {AppLogsService} from '../../../service/app-logs.service';
 import {PodInfo} from '../../../model/podinfo';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-log-access',
@@ -18,26 +19,39 @@ export class AppLogAccessComponent implements OnInit {
 
     public blobUrl;
 
-    constructor(private logService: AppLogsService) {
-    }
+    constructor(private logService: AppLogsService,
+                private route: ActivatedRoute) {}
 
     ngOnInit(): void {
-        this.logService.getPodNames(this.appInstanceId).subscribe(
-            podNames => {
-                this.pods = new Map<PodInfo, PodLogs>();
-                this.podInfos = podNames;
-                podNames.forEach(pod => {
-                    this.logService.getLogsFromPod(this.appInstanceId, pod.name).subscribe(
-                        podLogs => {
-                            this.pods.set(pod, podLogs);
-                        }
-                    )
-                })
-            }
+        this.retrieveLogs();
+    }
+
+    private retrieveLogs(): void {
+        this.route.params.subscribe(params => {
+            this.appInstanceId = params['id'];
+            this.logService.getPodNames(this.appInstanceId).subscribe(
+                podNames => {
+                    this.pods = new Map<PodInfo, PodLogs>();
+                    this.podInfos = podNames;
+                    podNames.forEach(pod => {
+                        this.logService.getLogsFromPod(this.appInstanceId, pod.name).subscribe(
+                            podLogs => {
+                                this.pods.set(pod, podLogs);
+                            }
+                        )
+                    })
+                }
+            )
+        })
+    }
+
+    refreshLogs(pod: PodInfo): void {
+        this.logService.getLogsFromPod(this.appInstanceId, pod.name).subscribe(
+            podLogs => this.selectedPodLogs = podLogs
         )
     }
 
-    getLogs(podName: string, lines: string[]): void {
+    downloadLogs(podName: string, lines: string[]): void {
         const content = lines.join('\n');
         const blob = new Blob([content], {type: 'text/plain'})
         this.blobUrl = window.URL.createObjectURL(blob);
@@ -49,10 +63,6 @@ export class AppLogAccessComponent implements OnInit {
         a.click();
         window.URL.revokeObjectURL(this.blobUrl);
         a.remove();
-    }
-
-    hasMultiplePods(): boolean {
-        return this.pods.size > 1;
     }
 
     selectPod(event: any): void {

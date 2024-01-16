@@ -1,13 +1,11 @@
-<h2>Application instance logs</h2>
 <div *ngIf="pods">
-    <div *ngIf="!hasMultiplePods">
-        <h3>Logs</h3>
-    </div>
-    <div *ngIf="hasMultiplePods()">
+    <h2 class="mb-5">{{ 'APP_INSTANCE.LOG_ACCESS.HEADER' | translate}}</h2>
+    <hr>
+    <div class="grid mt-2 mb-2">
         <div>
-            <h3>Pod selector</h3>
+            <p class="font-bold pl-2">{{ 'APP_INSTANCE.LOG_ACCESS.POD' | translate}}</p>
             <p-dropdown [options]="podInfos" [(ngModel)]="selectedPodInfo" (onChange)="selectPod($event)"
-                        placeholder="Choose a pod">
+                        placeholder="{{ 'APP_INSTANCE.LOG_ACCESS.DROPDOWN_PLACEHOLDER' | translate}}" class="col-2 bottom">
                 <ng-template let-option pTemplate="items">
                     {{ option.displayName }}
                 </ng-template>
@@ -15,12 +13,18 @@
                     {{ selected.displayName }}
                 </ng-template>
             </p-dropdown>
-            <div *ngIf="selectedPodLogs">
-                <div *ngFor="let line of selectedPodLogs.lines">
-                    <p>{{ line }}</p>
-                </div>
-                <a (click)="getLogs(selectedPodInfo.name, selectedPodLogs.lines)">Download log in a text file</a>
-            </div>
         </div>
+        <div class="flex-grow-1"></div>
+        <button type="button" class="btn btn-primary mr-3 align-self-end button-height"
+                (click)="refreshLogs(selectedPodInfo)" [disabled]="!selectedPodInfo">
+            {{ 'APP_INSTANCE.LOG_ACCESS.REFRESH' | translate}}
+        </button>
+        <button type="button" class="btn btn-primary align-self-end button-height"
+                (click)="downloadLogs(selectedPodInfo.name, selectedPodLogs.lines)" [disabled]="!selectedPodInfo">
+            {{ 'APP_INSTANCE.LOG_ACCESS.DOWNLOAD' | translate}}
+        </button>
+    </div>
+    <div *ngIf="selectedPodLogs" class="terminal mt-5">
+        <div *ngFor="let log of selectedPodLogs.lines" class="log">{{ log }}</div>
     </div>
 </div>
