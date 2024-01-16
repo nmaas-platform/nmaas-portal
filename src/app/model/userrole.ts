@@ -6,7 +6,9 @@ export enum Role {
   ROLE_USER,
   ROLE_GUEST,
   ROLE_INCOMPLETE,
-  ROLE_NOT_ACCEPTED
+  ROLE_NOT_ACCEPTED,
+  ROLE_VL_MANAGER,
+  ROLE_VL_DOMAIN
 }
 
 export function RoleAware(constructor: Function) {

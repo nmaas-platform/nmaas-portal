@@ -26,16 +26,16 @@
                 <li *ngIf="checkUserRole()" class="drop-domain">
                     <nmaas-domain-filter class="drop-domain"></nmaas-domain-filter>
                 </li>
-                <li *roles="['ROLE_SYSTEM_ADMIN']" class="divider-vertical"></li>
-                <li *roles="['ROLE_SYSTEM_ADMIN']" [routerLinkActiveOptions]="{exact:true}"
+                <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_VL_MANAGER']" class="divider-vertical"></li>
+                <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_VL_MANAGER']" [routerLinkActiveOptions]="{exact:true}"
                     [routerLinkActive]="['active']" class="dropdown">
                     <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown"
                        role="button">{{'NAVBAR.ADVANCED' | translate}}<strong class="caret"></strong></a>
                     <ul class="dropdown-menu">
-                        <li *roles="['ROLE_SYSTEM_ADMIN']">
+                        <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_VL_MANAGER']">
                             <a [routerLink]="['/admin/domains/bulks']">{{ 'BULK.DOMAIN.HEADER' | translate }}</a>
                         </li>
-                        <li *roles="['ROLE_SYSTEM_ADMIN']">
+                        <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_VL_MANAGER']">
                             <a [routerLink]="['/admin/apps/bulks']">{{ 'BULK.APP.HEADER' | translate }}</a>
                         </li>
                     </ul>
@@ -52,7 +52,7 @@
                     </ul>
                 </li>
                 <li *roles="['ROLE_SYSTEM_ADMIN']" class="divider-vertical"></li>
-                <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_DOMAIN_ADMIN', 'ROLE_TOOL_MANAGER']"
+                <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_DOMAIN_ADMIN', 'ROLE_TOOL_MANAGER', 'ROLE_VL_MANAGER']"
                     [routerLinkActiveOptions]="{exact:true}"
                     [routerLinkActive]="['active']" class="dropdown">
                     <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown"
@@ -66,16 +66,16 @@
                         <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER']"><a
                                 [routerLink]="['/admin/apps']">{{ 'NAVBAR.MARKET' | translate }}</a>
                         </li>
-                        <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']"><a
+                        <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_VL_MANAGER', 'ROLE_VL_DOMAIN']"><a
                                 [routerLink]="['/admin/domains']">{{ 'NAVBAR.DOMAINS' | translate }}</a>
                         </li>
-                        <li *roles="['ROLE_SYSTEM_ADMIN']">
+                        <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_VL_MANAGER']">
                             <a [routerLink]="['/admin/domains/groups']">{{ 'NAVBAR.DOMAIN_GROUPS' | translate }}</a>
                         </li>
                         <li *roles="['ROLE_SYSTEM_ADMIN']"><a
                                 [routerLink]="['/admin/users']">{{ 'NAVBAR.USERS' | translate }}</a>
                         </li>
-                        <li *roles="['ROLE_DOMAIN_ADMIN']"><a
+                        <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_VL_MANAGER', 'ROLE_VL_DOMAIN']"><a
                                 [routerLink]="['/domain/users']">{{ 'NAVBAR.DOMAIN_USERS' | translate }}</a>
                         </li>
                         <li *roles="['ROLE_SYSTEM_ADMIN']"><a

@@ -3,7 +3,7 @@
         {{ 'USERS.TITLE' | translate }}</h3>
     <div class="flex space-between">
         <div class="flex">
-            <button *ngIf="authService.hasDomainRole(domainId, 'ROLE_DOMAIN_ADMIN')"
+            <button *ngIf="authService.hasDomainRole(domainId, 'ROLE_DOMAIN_ADMIN') || authService.hasDomainRole(domainId, 'ROLE_VL_DOMAIN')"
                     class="btn btn-primary" (click)="changeMode()">
                 <span *ngIf="isModeAllowed(ComponentMode.DELETE)">{{'USERS.ADD_TO_DOMAIN_BUTTON' | translate}}</span>
                 <span *ngIf="isModeAllowed(ComponentMode.EDIT)">{{'USERS.GO_BACK_BUTTON' | translate}}</span>

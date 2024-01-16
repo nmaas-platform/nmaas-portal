@@ -1,10 +1,12 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {DomainService} from '../../../service';
+import {DomainService, UserService} from '../../../service';
 import {BaseComponent} from '../../../shared/common/basecomponent/base.component';
 import {ComponentMode, ModalComponent} from '../../../shared';
 import {DomainGroup} from '../../../model/domaingroup';
 import {Domain} from '../../../model/domain';
+import {User} from '../../../model';
+import {AuthService} from '../../../auth/auth.service';
 
 @Component({
     selector: 'app-domain-group-view',
@@ -18,13 +20,20 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
     public addingMode = false;
     public domains: Domain[] = [];
     public domainsToAdd = [];
+    public usersToAdd = [];
+    public usersFound = [];
 
     @ViewChild(ModalComponent, {static: true})
     public readonly modal: ModalComponent;
 
+    @ViewChild('userAccess')
+    public userAccessModal: ModalComponent;
+
     constructor(private router: Router,
                 private route: ActivatedRoute,
                 private domainService: DomainService,
+                private userService: UserService,
+                private authService: AuthService
     ) {
         super();
     }
@@ -137,6 +146,66 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
         if (this.domainGroup.applicationStatePerDomain !== undefined && this.domainGroup.applicationStatePerDomain !== null) {
             this.domainGroup.applicationStatePerDomain.sort((a, b) => a.applicationBaseName.localeCompare(b.applicationBaseName))
         }
+    }
+
+    public showModalUser() {
+        this.userAccessModal.show();
+    }
+
+    public deleteUserAccess(user: User) {
+        this.domainGroup.accessUsers = this.domainGroup.accessUsers.filter(val => val.id !== user.id);
+    }
+
+    /**
+     * Modal Access User functions
+     */
+    public searchUsers(search: string) {
+        console.warn(search)
+        if (search === '') {
+            this.usersFound = [];
+        } else {
+                this.userService.getUserBySearch(search, -1 ).subscribe(data => {
+                    this.usersFound = [];
+                    const ids = this.domainGroup.accessUsers.flatMap(val => val.id);
+                    const idsLocalAdded = this.usersToAdd.flatMap(val => val.id);
+                    console.warn(ids)
+                    data.forEach( user => {
+                        if (!ids.includes(user.id) && !idsLocalAdded.includes(user.id)) {
+                            this.usersFound.push(user);
+                        }
+                    })
+                })
+            }
+    }
+
+    public addUser(user: User) {
+        user.roles = [];
+        user.hasSshKeys = null;
+        this.usersToAdd.push({username: user.username, id: user.id, firstname: user.firstname, lastname: user.lastname});
+        this.usersFound = this.usersFound.filter(val => val.id !== user.id)
+    }
+
+    public saveUsers() {
+        this.domainGroup.accessUsers.push(...this.usersToAdd);
+        this.usersToAdd = [];
+        this.userAccessModal.hide();
+    }
+
+   public removeUserFromSelected(user: User) {
+        this.usersToAdd = this.usersToAdd.filter(val => val.id !== user.id)
+    }
+
+    public closeModalUserAccess() {
+        this.userAccessModal.hide()
+        this.usersToAdd = [];
+        this.usersFound = [];
+    }
+
+    public removeMyAccess() {
+        this.domainGroup.accessUsers = this.domainGroup.accessUsers.filter(user => user.username !== this.authService.getUsername())
+        this.domainService.updateDomainGroup(this.domainGroup, this.domainGroupId).subscribe(_ => {
+            this.router.navigate(['/admin/domains/groups'])
+        })
     }
 
 }

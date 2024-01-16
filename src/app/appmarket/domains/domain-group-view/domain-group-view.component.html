@@ -29,6 +29,43 @@
                 </div>
             </div>
         </div>
+        <div *ngIf="!this.addingMode" class="panel panel-default" style="margin-top: 3rem">
+            <div class="panel-heading">
+
+                <div style="display: flex; justify-content: start; align-items: center">
+                    <div>
+                        {{ 'DOMAINS.GROUP.ACCESS_USER' | translate }}
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div *roles="['ROLE_SYSTEM_ADMIN']" style="display: flex; justify-content: end">
+                    <button  type="button" class="btn btn-success" (click)="showModalUser()">{{'DOMAINS.GROUP.ADD_USERS' | translate}}</button>
+                </div>
+                <div *roles="['ROLE_VL_MANAGER']" style="display: flex; justify-content: end">
+                    <button  type="button" class="btn btn-warning" (click)="removeMyAccess()">{{'DOMAINS.GROUP.DELETE_MYSELF' | translate}}</button>
+                </div>
+                <table class="table table-hover table-condensed" aria-describedby="Domains in Group table" style="margin-top: 2rem">
+                    <thead>
+                    <tr>
+                        <th scope="col">{{'DOMAINS.GROUP.USERNAME' | translate}}</th>
+                        <th scope="col">{{'DOMAINS.GROUP.NAME' | translate}}</th>
+                        <th scope="col"></th>
+                    </tr>
+                    <ng-template ngFor let-user [ngForOf]="domainGroup.accessUsers" let-i="index">
+                        <tr class="table-row">
+                            <td>{{user.username}}</td>
+                            <td>{{user.firstname}} {{user.lastname}}</td>
+                            <td style="width: 20%">
+                                <button *roles="['ROLE_SYSTEM_ADMIN']" type="button" class="btn btn-danger" (click)="deleteUserAccess(user)">{{'DOMAINS.GROUP.DELETE_USER' | translate}}</button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    </thead>
+                </table>
+
+            </div>
+        </div>
 
 
         <div *ngIf="!this.addingMode" class="panel panel-default" style="margin-top: 3rem">
@@ -172,3 +209,50 @@
     </div>
 </nmaas-modal>
 
+<nmaas-modal styleModal="info" #userAccess>
+    <div class="nmaas-modal-header">{{'DOMAINS.GROUP.ACCESS_USER' | translate}}</div>
+    <div class="nmaas-modal-body" style="height: 300px">
+        <div style="height: 100px">
+            <p>{{'DOMAINS.GROUP.ADD_INFO' | translate}}</p>
+            <input pInputText name="searchTexUser" id="searchTextUser" placeholder="Search" type="text" (keyup)="searchUsers($event.target.value)">
+        </div>
+<!--        <h4>{{'DOMAINS.GROUP.FOUND_USERS' | translate}}</h4>-->
+        <table class="table table-hover table-condensed" aria-describedby="Users found by mail">
+            <thead>
+            <tr>
+                <th style="width: 30%" scope="col"></th>
+                <th style="width: 50%" scope="col"></th>
+                <th style="width: 20%" scope="col"></th>
+            </tr>
+            <ng-template ngFor let-user [ngForOf]="usersFound" let-i="index">
+                <tr class="table-row">
+                    <td>{{user.username}}</td>
+                    <td>{{user.firstname}} {{user.lastname}}</td>
+                    <td> <button *roles="['ROLE_SYSTEM_ADMIN']" type="button" class="btn btn-success" (click)="addUser(user)">{{'DOMAINS.GROUP.ADD' | translate}}</button> </td>
+                </tr>
+            </ng-template>
+            </thead>
+        </table>
+        <h4 class="mt-6">{{'DOMAINS.GROUP.SELECTED_USERS' | translate}}</h4>
+        <table class="table table-hover table-condensed" aria-describedby="Users to be added">
+            <thead>
+            <tr>
+                <th style="width: 30%" scope="col"></th>
+                <th style="width: 50%" scope="col"></th>
+                <th style="width: 20%" scope="col"></th>
+            </tr>
+            <ng-template ngFor let-user [ngForOf]="usersToAdd" let-i="index">
+                <tr class="table-row">
+                    <td>{{user.username}}</td>
+                    <td>{{user.firstname}} {{user.lastname}}</td>
+                    <td>  <button *roles="['ROLE_SYSTEM_ADMIN']" type="button" class="btn btn-danger" (click)="removeUserFromSelected(user)">Revoke</button></td>
+                </tr>
+            </ng-template>
+            </thead>
+        </table>
+    </div>
+    <div class="nmaas-modal-footer">
+        <button type="button" class="btn btn-default" (click)="closeModalUserAccess()">{{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="saveUsers()" [disabled]="false">{{'DOMAINS.GROUP.ADD_USERS' | translate}}</button>
+    </div>
+</nmaas-modal>

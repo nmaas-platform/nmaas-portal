@@ -5,7 +5,6 @@ import {AppConfigService} from '../../service';
 import {BulkResponse} from '../../model/bulk-response';
 import {Observable} from 'rxjs';
 import {BulkDeployment} from '../../model/bulk-deployment';
-import {AppBulkDetails} from '../../model/app-bulk-details';
 
 @Injectable({
     providedIn: 'root'
@@ -46,7 +45,7 @@ export class AppdeploymentService {
     }
 
     public getSelectedAppId() {
-        return Number.parseInt(this.selectedAppId, 10) ;
+        return Number.parseInt(this.selectedAppId, 10);
     }
 
     protected getUrl(): string {
@@ -70,8 +69,16 @@ export class AppdeploymentService {
         return this.http.get<BulkDeployment[]>(this.getUrl() + 'domains');
     }
 
+    public getBulksDomainDeploymentsOwner(): Observable<BulkDeployment[]> {
+        return this.http.get<BulkDeployment[]>(this.getUrl() + 'domains/vl');
+    }
+
     public getBulksAppDeployments(): Observable<BulkDeployment[]> {
         return this.http.get<BulkDeployment[]>(this.getUrl() + 'apps');
+    }
+
+    public getBulksAppDeploymentsOwner(): Observable<BulkDeployment[]> {
+        return this.http.get<BulkDeployment[]>(this.getUrl() + 'apps/vl');
     }
 
     public getBulkDeployment(id: number): Observable<BulkDeployment> {
@@ -79,7 +86,7 @@ export class AppdeploymentService {
     }
 
     public getAppBulkDetails(id: number): Observable<Blob> {
-        return this.http.get(this.getUrl() + `app/csv/${id}`, { responseType: 'blob'})
+        return this.http.get(this.getUrl() + `app/csv/${id}`, {responseType: 'blob'})
     }
 
 
