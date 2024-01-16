@@ -1,4 +1,4 @@
-name: Build and test
+name: Run build and test
 
 on:
   push:
@@ -6,21 +6,18 @@ on:
       - '*'
 
 jobs:
-  build-and-test:
-    name: Build and Test
-    runs-on: ubuntu-latest
-
+  run-build-and-test:
+    runs-on: ubuntu-22.04
     container:
       image: docker://trion/ng-cli-karma:14.2.1
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install dependencies
         run: npm ci --force
 
-      - name: Build the app
+      - name: Build
         run: ng build
 
       - name: Execute tests and code coverage
