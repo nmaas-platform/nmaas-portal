@@ -1,0 +1,15 @@
+.terminal {
+    height: 60vh;
+    overflow-y: scroll;
+    padding: 10px;
+    background: black;
+    color: white;
+}
+
+.log {
+    white-space: pre-wrap;
+}
+
+.button-height {
+    height: 70%;
+}
