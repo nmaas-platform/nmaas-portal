@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PodLogs} from '../../../model/pod-logs';
 import {AppLogsService} from '../../../service/app-logs.service';
 import {PodInfo} from '../../../model/podinfo';
@@ -10,9 +10,7 @@ import {ActivatedRoute} from '@angular/router';
     styleUrls: ['./app-log-access.component.css']
 })
 export class AppLogAccessComponent implements OnInit {
-    @Input()
     public appInstanceId: number;
-    public pods: Map<PodInfo, PodLogs>;
     public podInfos: PodInfo[];
     public selectedPodInfo: PodInfo = undefined;
     public selectedPodLogs: PodLogs = undefined;
@@ -23,23 +21,14 @@ export class AppLogAccessComponent implements OnInit {
                 private route: ActivatedRoute) {}
 
     ngOnInit(): void {
-        this.retrieveLogs();
-    }
-
-    private retrieveLogs(): void {
         this.route.params.subscribe(params => {
             this.appInstanceId = params['id'];
             this.logService.getPodNames(this.appInstanceId).subscribe(
-                podNames => {
-                    this.pods = new Map<PodInfo, PodLogs>();
-                    this.podInfos = podNames;
-                    podNames.forEach(pod => {
-                        this.logService.getLogsFromPod(this.appInstanceId, pod.name).subscribe(
-                            podLogs => {
-                                this.pods.set(pod, podLogs);
-                            }
-                        )
-                    })
+                podInfos => {
+                    this.podInfos = podInfos;
+                    this.selectedPodInfo = podInfos[0]
+                    this.logService.getLogsFromPod(this.appInstanceId, this.selectedPodInfo.name)
+                        .subscribe(podLogs => this.selectedPodLogs = podLogs)
                 }
             )
         })
@@ -66,6 +55,9 @@ export class AppLogAccessComponent implements OnInit {
     }
 
     selectPod(event: any): void {
-        this.selectedPodLogs = this.pods.get(event.value);
+        this.selectedPodInfo = event.value
+        this.logService.getLogsFromPod(this.appInstanceId, this.selectedPodInfo.name).subscribe(
+            podLogs => this.selectedPodLogs = podLogs
+        )
     }
 }
