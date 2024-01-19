@@ -149,7 +149,7 @@
                                     {{'APP_INSTANCE.DISABLE_AUTO_UPGRADES_BUTTON' | translate}}
                                 </a>
                             </li>
-                            <li>
+                            <li *ngIf="app.application.appDeploymentSpec.allowLogAccess">
                                 <a role="button" [routerLink]="router.url + '/logs'">
                                     {{'APP_INSTANCE.VIEW_LOGS' | translate}}
                                 </a>
