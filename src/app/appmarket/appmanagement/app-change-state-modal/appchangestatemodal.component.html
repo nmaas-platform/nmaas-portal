@@ -24,6 +24,9 @@
         <div *ngIf="getStateAsString(stateChange?.state) == 'ACTIVE'">
           <input type="checkbox" id="sendEmail" name="sendEmail" [(ngModel)]="stateChange.shouldSendNotification">
           <label for="sendEmail">{{ 'APPS_MANAGEMENT.SEND_NOTIFICATION' | translate }}</label><br>
+          <span class="col-md-12" *ngIf="stateChange.shouldSendNotification">
+          <textarea class="form-control" id="emailContext" name="emailContext" placeholder="{{'APPS_MANAGEMENT.NOTIFICATION_CONTENT' | translate}}" [(ngModel)]="stateChange.notificationText"></textarea>
+          </span>
         </div>
       </div>
       <br *ngIf="errorMessage">
