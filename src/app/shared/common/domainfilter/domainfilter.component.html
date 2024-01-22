@@ -3,7 +3,7 @@
 			<span style="color: gray;">{{ "FILTER.DOMAIN" | translate }}: {{ getCurrent() }}<span class="caret"></span></span>
 		</a>
 		<ul class="dropdown-menu">
-			<input type="text" [(ngModel)]="searchTerm" placeholder="Search by name" (input)="updateFilter()">
+			<input class="search" type="text" [(ngModel)]="searchTerm" placeholder="Search by name" (input)="updateFilter()">
 			<li *ngFor="let domain of filteredDomains | async; let last = isLast" [ngClass]="{'active': getCurrent() == domain?.name}">
 				<a (click)="changeDomain(domain?.id, domain?.name)">
 					<span>{{domain?.name}}</span>
