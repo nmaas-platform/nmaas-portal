@@ -209,7 +209,7 @@
                 <div>
                     <p-dropdown id="manualUpdate" [options]="appVersions" optionLabel="version" optionValue="version"
                                 placeholder="Select version" emptyMessage="No version available"
-                                [disabled]="appVersions.length == 0" [(ngModel)]="selectedVersion" name="manualUpdate"
+                                [disabled]="appVersions.length === 0" [(ngModel)]="selectedVersion" name="manualUpdate"
                                 ngDefaultControl></p-dropdown>
                 </div>
             </div>
