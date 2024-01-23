@@ -21,19 +21,20 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {FormioAppConfig, FormioModule} from 'angular-formio';
 import {AppConfig} from '../../../formio-config';
 import {AccessMethodsModalComponent} from './modals/access-methods-modal/access-methods-modal.component';
-import { SshShellComponent } from './ssh-shell/ssh-shell.component';
+import {SshShellComponent} from './ssh-shell/ssh-shell.component';
 import {NgTerminalModule} from 'ng-terminal';
-import { AppInstanceShellViewComponent } from './appinstance-shell-view/appinstance-shell-view.component';
-import { AddMembersModalComponent } from './modals/add-members-modal/add-members-modal.component';
+import {AppInstanceShellViewComponent} from './appinstance-shell-view/appinstance-shell-view.component';
+import {AddMembersModalComponent} from './modals/add-members-modal/add-members-modal.component';
 import {MultiSelectModule} from 'primeng/multiselect';
-import { SelectPodModalComponent } from './modals/select-pod-modal/select-pod-modal.component';
+import {SelectPodModalComponent} from './modals/select-pod-modal/select-pod-modal.component';
 import {TooltipModule} from 'primeng/tooltip';
 import {AppinstanceSearchPipe} from './appinstance-search.pipe';
 import {InputTextModule} from 'primeng/inputtext';
-import { AppdeploymentComponent } from '../bulkDeployment/appDeployment/appSelection/appdeployment.component';
+import {AppdeploymentComponent} from '../bulkDeployment/appDeployment/appSelection/appdeployment.component';
 import {DropdownModule} from 'primeng/dropdown';
 import {TimelineModule} from 'primeng/timeline';
 import {ButtonModule} from 'primeng/button';
+import {AppLogAccessComponent} from './app-log-access/app-log-access.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {ButtonModule} from 'primeng/button';
       SelectPodModalComponent,
       AppinstanceSearchPipe,
       SelectPodModalComponent,
-      AppdeploymentComponent
+      AppdeploymentComponent,
+      AppLogAccessComponent
   ],
     imports: [
         FormioModule,

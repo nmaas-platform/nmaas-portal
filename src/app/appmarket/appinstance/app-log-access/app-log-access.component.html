@@ -1,0 +1,30 @@
+<div *ngIf="podInfos">
+    <h2 class="mb-5">{{ 'APP_INSTANCE.LOG_ACCESS.HEADER' | translate}}</h2>
+    <hr>
+    <div class="grid mt-2 mb-2">
+        <div>
+            <p class="font-bold pl-2">{{ 'APP_INSTANCE.LOG_ACCESS.POD' | translate}}</p>
+            <p-dropdown [options]="podInfos" [(ngModel)]="selectedPodInfo" (onChange)="selectPod($event)"
+                        placeholder="{{ 'APP_INSTANCE.LOG_ACCESS.DROPDOWN_PLACEHOLDER' | translate}}" class="col-2 bottom">
+                <ng-template let-option pTemplate="items">
+                    {{ option.displayName }}
+                </ng-template>
+                <ng-template let-selected pTemplate="selectedItem">
+                    {{ selected.displayName }}
+                </ng-template>
+            </p-dropdown>
+        </div>
+        <div class="flex-grow-1"></div>
+        <button type="button" class="btn btn-primary mr-3 align-self-end button-height"
+                (click)="refreshLogs(selectedPodInfo)" [disabled]="!selectedPodInfo">
+            {{ 'APP_INSTANCE.LOG_ACCESS.REFRESH' | translate}}
+        </button>
+        <button type="button" class="btn btn-primary align-self-end button-height"
+                (click)="downloadLogs(selectedPodInfo.name, selectedPodLogs.lines)" [disabled]="!selectedPodInfo">
+            {{ 'APP_INSTANCE.LOG_ACCESS.DOWNLOAD' | translate}}
+        </button>
+    </div>
+    <div *ngIf="selectedPodLogs" class="terminal mt-5">
+        <div *ngFor="let log of selectedPodLogs.lines" class="log">{{ log }}</div>
+    </div>
+</div>
