@@ -66,7 +66,7 @@ export class UserPrivilegesComponent extends BaseComponent implements OnInit {
             roles = this.filterRoles(roles, this.newPrivilegeForm.get('domainId').value);
         } else if (this.newPrivilegeForm.get('domainId').value != null) {
             // default (domain) role set
-            roles = [Role.ROLE_GUEST, Role.ROLE_USER, Role.ROLE_DOMAIN_ADMIN, Role.ROLE_VL_DOMAIN];
+            roles = [Role.ROLE_GUEST, Role.ROLE_USER, Role.ROLE_DOMAIN_ADMIN, Role.ROLE_VL_DOMAIN_ADMIN];
             roles = this.filterRoles(roles, this.newPrivilegeForm.get('domainId').value);
         } else {
             // no roles

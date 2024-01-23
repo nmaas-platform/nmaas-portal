@@ -12,7 +12,7 @@ import {BulkViewComponent} from '../bulkDeployment/bulk-view/bulk-view.component
 export const DomainsRoutes: Route[] = [
     {
         path: 'admin/domains', component: DomainsListComponent, canActivate: [AuthGuard, RoleGuard],
-        data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN', 'ROLE_OPERATOR', 'ROLE_VL_DOMAIN']}
+        data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN', 'ROLE_OPERATOR', 'ROLE_VL_DOMAIN_ADMIN']}
     },
     {
         path: 'admin/domains/add', component: DomainComponent, canActivate: [AuthGuard, RoleGuard],
@@ -20,7 +20,7 @@ export const DomainsRoutes: Route[] = [
     },
     {
         path: 'admin/domains/view/:id', component: DomainComponent, canActivate: [AuthGuard, RoleGuard],
-        data: {mode: ComponentMode.VIEW, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN', 'ROLE_OPERATOR', 'ROLE_VL_DOMAIN']}
+        data: {mode: ComponentMode.VIEW, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN', 'ROLE_OPERATOR', 'ROLE_VL_DOMAIN_ADMIN']}
     },
     {
         path: 'admin/domains/edit/:id', component: DomainComponent, canActivate: [AuthGuard, RoleGuard],

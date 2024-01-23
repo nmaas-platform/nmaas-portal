@@ -62,7 +62,7 @@ export class DomainsListComponent implements OnInit {
                 map((domains) => domains.filter((domain) => domain.id !== this.domainService.getGlobalDomainId())));
         } else {
             return this.domainService.getMyDomains().pipe(
-                map((domains) => domains.filter((domain) => this.authService.hasDomainRole(domain.id, Role[Role.ROLE_DOMAIN_ADMIN]) || this.authService.hasDomainRole(domain.id, Role[Role.ROLE_VL_DOMAIN]))));
+                map((domains) => domains.filter((domain) => this.authService.hasDomainRole(domain.id, Role[Role.ROLE_DOMAIN_ADMIN]) || this.authService.hasDomainRole(domain.id, Role[Role.ROLE_VL_DOMAIN_ADMIN]))));
         }
     }
 
