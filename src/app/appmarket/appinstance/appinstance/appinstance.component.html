@@ -80,11 +80,6 @@
                     <button class="btn btn-danger"
                             *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
                             (click)="this.appAbortModal.show()">{{'APP_INSTANCE.ABORT_BUTTON' | translate}}</button>
-                    <button  *roles="['ROLE_SYSTEM_ADMIN' ]">
-                        <a role="button" (click)="this.openVersionUpdateModal()">
-                            {{'APP_INSTANCES.MANUAL_UPDATE.HEADER' | translate}}
-                        </a>
-                    </button>
                 </div>
 
                 <!-- if application is already running -->
