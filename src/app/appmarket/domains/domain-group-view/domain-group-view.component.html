@@ -52,7 +52,7 @@
                         <th scope="col">{{'DOMAINS.GROUP.NAME' | translate}}</th>
                         <th scope="col"></th>
                     </tr>
-                    <ng-template ngFor let-user [ngForOf]="domainGroup.accessUsers" let-i="index">
+                    <ng-template ngFor let-user [ngForOf]="domainGroup.managers" let-i="index">
                         <tr class="table-row">
                             <td>{{user.username}}</td>
                             <td>{{user.firstname}} {{user.lastname}}</td>

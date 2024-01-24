@@ -8,5 +8,5 @@ export class DomainGroup {
     public codename: string = undefined;
     public domains: Domain[] = [];
     public applicationStatePerDomain: DomainApplicationStatePerDomain[] = [];
-    public accessUsers: User[] = [];
+    public managers: User[] = [];
 }

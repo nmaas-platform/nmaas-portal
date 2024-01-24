@@ -153,7 +153,7 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
     }
 
     public deleteUserAccess(user: User) {
-        this.domainGroup.accessUsers = this.domainGroup.accessUsers.filter(val => val.id !== user.id);
+        this.domainGroup.managers = this.domainGroup.managers.filter(val => val.id !== user.id);
     }
 
     /**
@@ -164,9 +164,9 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
         if (search === '') {
             this.usersFound = [];
         } else {
-                this.userService.getUserBySearch(search, -1 ).subscribe(data => {
+                this.userService.getUserBySearchGlobal(search ).subscribe(data => {
                     this.usersFound = [];
-                    const ids = this.domainGroup.accessUsers.flatMap(val => val.id);
+                    const ids = this.domainGroup.managers.flatMap(val => val.id);
                     const idsLocalAdded = this.usersToAdd.flatMap(val => val.id);
                     console.warn(ids)
                     data.forEach( user => {
@@ -186,7 +186,7 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
     }
 
     public saveUsers() {
-        this.domainGroup.accessUsers.push(...this.usersToAdd);
+        this.domainGroup.managers.push(...this.usersToAdd);
         this.usersToAdd = [];
         this.userAccessModal.hide();
     }
@@ -202,7 +202,7 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
     }
 
     public removeMyAccess() {
-        this.domainGroup.accessUsers = this.domainGroup.accessUsers.filter(user => user.username !== this.authService.getUsername())
+        this.domainGroup.managers = this.domainGroup.managers.filter(user => user.username !== this.authService.getUsername())
         this.domainService.updateDomainGroup(this.domainGroup, this.domainGroupId).subscribe(_ => {
             this.router.navigate(['/admin/domains/groups'])
         })
