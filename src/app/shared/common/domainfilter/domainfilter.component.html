@@ -1,13 +1,11 @@
-<span [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" class="dropdown dropdown-domains">
-		<a class="dropdown-toggle" data-close-others="true" data-toggle="dropdown" href="#">
-			<span style="color: gray;">{{ "FILTER.DOMAIN" | translate }}: {{ getCurrent() }}<span class="caret"></span></span>
-		</a>
-		<ul class="dropdown-menu">
-			<input class="search" type="text" [(ngModel)]="searchTerm" placeholder="Search by name" (input)="updateFilter()">
-			<li *ngFor="let domain of filteredDomains | async; let last = isLast" [ngClass]="{'active': getCurrent() == domain?.name}">
-				<a (click)="changeDomain(domain?.id, domain?.name)">
-					<span>{{domain?.name}}</span>
-				</a>
-			</li>
-		</ul>
-</span>
+<div class="mt-3 mr-3">
+    <p-dropdown *ngIf="domains" [options]="domains" [filter]="domains.length > 10" filterBy="name" [placeholder]="getCurrent()"
+                 [style]="{'width': '100% '}" [ngClass]="{'long-list': isItemListLong()}" (onChange)="changeDomain($event)">
+        <ng-template let-selected pTemplate="selectedItem">
+            {{ 'FILTER.DOMAIN' | translate }} : {{ selected.name }}
+        </ng-template>
+        <ng-template let-option pTemplate="option">
+            {{ option.name }}
+        </ng-template>
+    </p-dropdown>
+</div>

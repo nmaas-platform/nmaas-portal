@@ -1,36 +1,11 @@
-@media (max-width: 1199px) {
-        .dropdown-domains{
-                position: relative;
-                display: block;
-                padding: 10px 15px;
-        }
-        .dropdown-menu {
-        position: static !important;
-        float: none !important;
-        width: auto !important;
-        margin-top: 0;
-        background-color: transparent;
-        border: 0;
-        -webkit-box-shadow: none;
-        box-shadow: none;
-         }
-        .search{
-                margin-bottom:10px;
-        }
+:host ::ng-deep .p-dropdown {
+        border: none;
 }
 
-@media (min-width: 1199px) {
-        .dropdown-domains {
-                padding-top: 10px !important;
-                padding-bottom: 10px !important;
-                line-height: 20px !important;
-        }
+:host ::ng-deep .p-dropdown-filter-container {
+        padding: 7px 2px;
+}
 
-        .dropdown-menu {
-                max-height: 500px;
-                overflow-y: auto;
-        }
-        .search{
-                margin:5px 5px 10px 5px;
-        }
+.long-list ::ng-deep .p-dropdown-items-wrapper {
+        min-height: 300px;
 }
