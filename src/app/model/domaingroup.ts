@@ -1,5 +1,6 @@
 import {Domain} from './domain';
 import {DomainApplicationStatePerDomain} from './domainapplicationstateperdomain';
+import {User} from './user';
 
 export class DomainGroup {
     public id: number = undefined;
@@ -7,4 +8,5 @@ export class DomainGroup {
     public codename: string = undefined;
     public domains: Domain[] = [];
     public applicationStatePerDomain: DomainApplicationStatePerDomain[] = [];
+    public managers: User[] = [];
 }

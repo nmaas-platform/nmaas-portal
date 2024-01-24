@@ -324,6 +324,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         console.log('update app instance');
         this.appInstanceService.getAppInstance(this.appInstanceId).subscribe(appInstance => {
             this.appInstance = appInstance;
+            this.app = appInstance.application;
         });
     }
 
@@ -590,20 +591,18 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
 
     public openVersionUpdateModal() {
         this.appsService.getApplicationVersions(this.appInstance.application.applicationBase.id).subscribe( versions => {
-            this.appVersions = versions.filter(val => val.state === ApplicationState.ACTIVE)
+            this.appVersions = versions.filter(val => val.state.toString() === 'ACTIVE' && val.version !== this.appInstance.applicationVersion )
             this.appVersions.sort(this.appVersionCompare)
-            // const appVer = new ApplicationVersion()
-            // appVer.version = this.appInstance.applicationVersion
-            // this.appVersions = this.appVersions.sort(this.appVersionCompare)
         })
         this.manualUpdateModal.show();
     }
 
     public manualUpdateVersion() {
-        this.appInstanceService.manualUpdateVersion(this.appInstanceId, this.selectedVersion).subscribe( next => {
-            console.debug("manualy updated version");
-        })
-        this.manualUpdateModal.hide();
+            this.appInstanceService.manualUpdateVersion(this.appInstanceId, this.selectedVersion).subscribe( next => {
+                this.manualUpdateModal.hide();
+                this.updateAppInstance()
+            })
+
     }
 
 

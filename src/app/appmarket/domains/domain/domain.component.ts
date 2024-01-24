@@ -56,6 +56,7 @@ export class DomainComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log(this.getCurrentMode());
         this.modal.setModalType('warning');
         this.modal.setStatusOfIcons(true);
         this.mode = this.getMode(this.route);
