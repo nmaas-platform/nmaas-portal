@@ -11,7 +11,7 @@
 </div>
 
 <div class="col-sm-12" *ngIf="domainMode">
-	<div *roles="['ROLE_DOMAIN_ADMIN']">
+	<div *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_VL_MANAGER']">
 		<nmaas-userslist *ngIf="!isInAddToDomainMode" [users]="allUsers" [allowedModes]="[ComponentMode.VIEW, ComponentMode.DELETE]" [domainMode]="true" (onUserRoleChange)="onUserRoleChange($event)"
 						 (onView)="onUserView($event)" (onModeChange)="onModeChange($event)" (onDelete)="onUserDelete($event)" (onRemoveFromDomain)="onRemoveRole($event)">
 		</nmaas-userslist>

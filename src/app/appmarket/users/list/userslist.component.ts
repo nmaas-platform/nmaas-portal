@@ -57,7 +57,7 @@ export class UsersListComponent implements OnInit {
             users = this.userService.getDomainUsersAsAdmin(this.domainId);
         } else if (this.authService.hasRole(Role[Role.ROLE_SYSTEM_ADMIN])) {
             users = this.userService.getAll(this.domainId);
-        } else if (this.domainId != null && this.authService.hasDomainRole(this.domainId, Role[Role.ROLE_DOMAIN_ADMIN])) {
+        } else if (this.domainId != null && (this.authService.hasDomainRole(this.domainId, Role[Role.ROLE_DOMAIN_ADMIN]) || this.authService.hasDomainRole(this.domainId, Role[Role.ROLE_VL_DOMAIN_ADMIN]))) {
             this.domainMode = true;
             users = this.userService.getAll(this.domainId);
         } else {

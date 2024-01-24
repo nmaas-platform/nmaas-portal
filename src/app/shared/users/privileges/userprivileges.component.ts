@@ -10,7 +10,6 @@ import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {Observable, of} from 'rxjs';
 import {CacheService} from '../../../service/cache.service';
 import {UserDataService} from '../../../service/userdata.service';
-import {debounceTime, map, shareReplay, take} from 'rxjs/operators';
 
 @Component({
     selector: 'nmaas-userprivileges',
@@ -63,11 +62,11 @@ export class UserPrivilegesComponent extends BaseComponent implements OnInit {
         if (this.authService.hasRole(Role[Role.ROLE_SYSTEM_ADMIN]) &&
             Number(this.newPrivilegeForm.get('domainId').value) === this.domainService.getGlobalDomainId()) {
             // admin (global) role set
-            roles = [Role.ROLE_OPERATOR, Role.ROLE_TOOL_MANAGER, Role.ROLE_SYSTEM_ADMIN];
+            roles = [Role.ROLE_OPERATOR, Role.ROLE_TOOL_MANAGER, Role.ROLE_SYSTEM_ADMIN, Role.ROLE_VL_MANAGER];
             roles = this.filterRoles(roles, this.newPrivilegeForm.get('domainId').value);
         } else if (this.newPrivilegeForm.get('domainId').value != null) {
             // default (domain) role set
-            roles = [Role.ROLE_GUEST, Role.ROLE_USER, Role.ROLE_DOMAIN_ADMIN];
+            roles = [Role.ROLE_GUEST, Role.ROLE_USER, Role.ROLE_DOMAIN_ADMIN, Role.ROLE_VL_DOMAIN_ADMIN];
             roles = this.filterRoles(roles, this.newPrivilegeForm.get('domainId').value);
         } else {
             // no roles
@@ -109,7 +108,9 @@ export class UserPrivilegesComponent extends BaseComponent implements OnInit {
     public getAllDomain() {
         this.domainService.getAll().subscribe(domains => {
             domains.forEach(domain => {
-               if (!this.domainCache.hasData(domain.id)) this.domainCache.setData(domain.id, domain)
+                if (!this.domainCache.hasData(domain.id)) {
+                    this.domainCache.setData(domain.id, domain)
+                }
             })
         })
     }
