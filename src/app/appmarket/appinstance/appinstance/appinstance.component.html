@@ -211,16 +211,19 @@
         <div class="nmaas-modal-body">
             <div class="" style="height: 150px">
                 <p>{{'APP_INSTANCES.MANUAL_UPDATE.BODY' | translate}}</p>
-                <div>
+                <div *ngIf="appVersions.length > 0">
                     <p-dropdown id="manualUpdate" [options]="appVersions" optionLabel="version" optionValue="version"
                                 placeholder="Select version" emptyMessage="No version available"
                                 [disabled]="appVersions.length === 0" [(ngModel)]="selectedVersion" name="manualUpdate"
                                 ngDefaultControl></p-dropdown>
                 </div>
+                <div *ngIf="appVersions.length === 0" class="font-bold">
+                    {{'APP_INSTANCES.MANUAL_UPDATE.EMPTY' | translate}}
+                </div>
             </div>
         </div>
         <div class="nmaas-modal-footer">
-            <button type="button" class="btn btn-primary " [disabled]="appVersions.length == 0"
+            <button type="button" class="btn btn-primary " [disabled]="appVersions.length === 0 || selectedVersion === ''"
                     (click)="this.manualUpdateVersion()">{{'APP_INSTANCES.MANUAL_UPDATE.YES_BUTTON' | translate}}</button>
             <button type="button" class="btn btn-danger"
                     (click)="this.manualUpdateModal.hide()">{{'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
