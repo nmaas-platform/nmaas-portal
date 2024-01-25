@@ -4,7 +4,6 @@ import {DomainService} from '../../../service';
 import {UserDataService} from '../../../service/userdata.service';
 import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject, interval, Observable, of, Subscription} from 'rxjs';
-
 import {map} from 'rxjs/operators';
 import {ProfileService} from '../../../service/profile.service';
 import {User} from '../../../model';
