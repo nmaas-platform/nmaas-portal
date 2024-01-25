@@ -4,11 +4,9 @@ import {DomainService} from '../../../service';
 import {UserDataService} from '../../../service/userdata.service';
 import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject, interval, Observable, of, Subscription} from 'rxjs';
-
 import {map} from 'rxjs/operators';
 import {ProfileService} from '../../../service/profile.service';
 import {User} from '../../../model';
-import {TranslateService} from '@ngx-translate/core';
 
 @Component({
     selector: 'nmaas-domain-filter',
@@ -21,9 +19,7 @@ export class DomainFilterComponent implements OnInit {
 
     public domainName: string;
 
-    public domainsObs: Observable<Domain[]>;
-
-    public domains: Domain[];
+    public domains: Observable<Domain[]>;
 
     public refresh: Subscription;
 
@@ -33,12 +29,12 @@ export class DomainFilterComponent implements OnInit {
 
     private filteredDomainsSub = new BehaviorSubject<any[]>([]);
 
+    public filteredDomains = this.filteredDomainsSub.asObservable();
 
     constructor(private authService: AuthService,
                 private domainService: DomainService,
                 private userData: UserDataService,
-                private profileService: ProfileService,
-                private translateService: TranslateService) {
+                private profileService: ProfileService) {
     }
 
     ngOnInit() {
@@ -55,11 +51,10 @@ export class DomainFilterComponent implements OnInit {
                 this.profile = profile;
 
                 this.updateDomains();
-                this.domainsObs.subscribe(domain => {
+                this.domains.subscribe(domain => {
                     this.domainName = domain[0].name;
                     this.userData.selectDomainId(domain[0].id)
                     this.filteredDomainsSub.next(domain);
-                    this.domains = domain
                 });
             }
         );
@@ -68,7 +63,7 @@ export class DomainFilterComponent implements OnInit {
     }
 
     public updateFilter() {
-        this.domainsObs.subscribe(data => {
+        this.domains.subscribe(data => {
             const filtered = data.filter(obj => obj.name.toLowerCase().includes(this.searchTerm.toLowerCase()));
             this.filteredDomainsSub.next(filtered);
         });
@@ -76,12 +71,12 @@ export class DomainFilterComponent implements OnInit {
 
     public updateDomains(): void {
         if (this.authService.hasRole('ROLE_SYSTEM_ADMIN')) {
-            this.domainsObs = this.domainService.getAll();
+            this.domains = this.domainService.getAll();
         } else {
-            this.domainsObs = this.domainService.getMyDomains();
+            this.domains = this.domainService.getMyDomains();
             const globalDomainId = this.domainService.getGlobalDomainId();
-            if (this.domainsObs === undefined) {
-                this.domainsObs = of([]);
+            if (this.domains === undefined) {
+                this.domains = of([]);
             }
             if (!this.authService.hasDomainRole(globalDomainId, 'ROLE_TOOL_MANAGER')
                 && !this.authService.hasDomainRole(globalDomainId, 'ROLE_OPERATOR')) {
@@ -93,7 +88,7 @@ export class DomainFilterComponent implements OnInit {
     }
 
     private filterOutNotActiveDomains(): void {
-        this.domainsObs = this.domainsObs.pipe(
+        this.domains = this.domains.pipe(
             map(
                 (domains) => domains.filter(domain => domain.active)
             )
@@ -102,7 +97,7 @@ export class DomainFilterComponent implements OnInit {
 
     private filterOutGlobalDomain(): void {
         const globalDomainId = this.domainService.getGlobalDomainId();
-        this.domainsObs = this.domainsObs.pipe(
+        this.domains = this.domains.pipe(
             map(
                 (domains) => domains.filter(domain => domain.id !== globalDomainId)
             )
@@ -111,7 +106,7 @@ export class DomainFilterComponent implements OnInit {
 
     private sortDomains(): void {
         const globalDomainId = this.domainService.getGlobalDomainId();
-        this.domainsObs = this.domainsObs.pipe(
+        this.domains = this.domains.pipe(
             map(
                 domains => {
                     const global = domains.find(domain => domain.id === globalDomainId);
@@ -133,18 +128,14 @@ export class DomainFilterComponent implements OnInit {
         )
     }
 
-    public changeDomain(event: any) {
-        console.log(`domainChange(${event.value.id})`);
-        this.domainId = event.value.id;
-        this.domainName = event.value.name;
-        this.userData.selectDomainId(Number(event.value.id));
+    public changeDomain(domainId: number, domainName: string) {
+        console.log(`domainChange(${domainId})`);
+        this.domainId = domainId;
+        this.domainName = domainName;
+        this.userData.selectDomainId(Number(domainId));
     }
 
     public getCurrent() {
-        return `${this.translateService.instant('FILTER.DOMAIN')} : ${this.domainName}`;
-    }
-
-    isItemListLong() {
-        return this.domains.length > 10;
+        return this.domainName;
     }
 }
