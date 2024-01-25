@@ -154,11 +154,6 @@
                                     {{'APP_INSTANCE.VIEW_LOGS' | translate}}
                                 </a>
                             </li>
-                            <li *ngIf="app.application.appDeploymentSpec.allowLogAccess">
-                                <a role="button" [routerLink]="router.url + '/logs'">
-                                    {{'APP_INSTANCE.VIEW_LOGS' | translate}}
-                                </a>
-                            </li>
                             <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']" style="background-color: #ff0000;">
                                 <a role="button" (click)="this.undeployModal.show()" style="color: #ffffff;">
                                     {{'APP_INSTANCE.UNDEPLOY_BUTTON' | translate}}
