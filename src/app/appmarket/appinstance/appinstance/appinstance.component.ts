@@ -116,6 +116,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     public appConfiguration: AppConfiguration;
 
     public intervalCheckerSubscription;
+    public intervalCheckerSubscriptionHistory;
 
     public wasUpdated = false;
     public refreshForm: EventEmitter<any>;
@@ -270,6 +271,21 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         }
         return apps
     }
+    showHistory() {
+        this.updateAppInstanceHistory()
+        this.intervalCheckerSubscriptionHistory = interval(5000).subscribe(() => {
+           if (this.showAppInstanceHistory) {
+               this.updateAppInstanceHistory()
+           } else {
+               this.intervalCheckerSubscriptionHistory.unsubscribe();
+           }
+        });
+    }
+    private updateAppInstanceHistory() {
+        this.appInstanceService.getAppInstanceHistory(this.appInstanceId).subscribe(history => {
+            this.appInstanceStateHistory = [...history].reverse();
+        });
+    }
 
     private updateAppInstanceState() {
         this.appInstanceService.getAppInstanceState(this.appInstanceId).subscribe(
@@ -315,9 +331,6 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                 }
             }
         );
-        this.appInstanceService.getAppInstanceHistory(this.appInstanceId).subscribe(history => {
-            this.appInstanceStateHistory = [...history].reverse();
-        });
     }
 
     private updateAppInstance() {
