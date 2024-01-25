@@ -26,11 +26,12 @@
                 line-height: 20px !important;
         }
 
-        .dropdown-menu {
-                max-height: 500px;
-                overflow-y: auto;
-        }
         .search{
                 margin:5px 5px 10px 5px;
         }
+}
+
+.long-domain-list {
+        max-height: 450px;
+        overflow-y: auto;
 }

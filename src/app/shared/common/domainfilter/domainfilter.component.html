@@ -2,8 +2,8 @@
 		<a class="dropdown-toggle" data-close-others="true" data-toggle="dropdown" href="#">
 			<span style="color: gray;">{{ "FILTER.DOMAIN" | translate }}: {{ getCurrent() }}<span class="caret"></span></span>
 		</a>
-		<ul class="dropdown-menu">
-			<input class="search" type="text" [(ngModel)]="searchTerm" placeholder="Search by name" (input)="updateFilter()">
+		<ul class="dropdown-menu" [ngClass]="{'long-domain-list': (domains | async)?.length > 16}">
+			<input *ngIf="(domains | async)?.length > 16" class="search" type="text" [(ngModel)]="searchTerm" placeholder="Search by name" (input)="updateFilter()">
 			<li *ngFor="let domain of filteredDomains | async; let last = isLast" [ngClass]="{'active': getCurrent() == domain?.name}">
 				<a (click)="changeDomain(domain?.id, domain?.name)">
 					<span>{{domain?.name}}</span>
