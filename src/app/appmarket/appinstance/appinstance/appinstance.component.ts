@@ -115,8 +115,8 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     public isUpdateFormValid = false;
     public appConfiguration: AppConfiguration;
 
-    public intervalCheckerSubscription;
-    public intervalCheckerSubscriptionHistory;
+    public intervalCheckerState;
+    public intervalCheckerStateHistory;
 
     public wasUpdated = false;
     public refreshForm: EventEmitter<any>;
@@ -186,7 +186,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                 });
 
             this.updateAppInstanceState();
-            this.intervalCheckerSubscription = interval(5000).subscribe(() => this.updateAppInstanceState());
+            this.intervalCheckerState = interval(5000).subscribe(() => this.updateAppInstanceState());
         });
     }
 
@@ -273,11 +273,11 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     }
     showHistory() {
         this.updateAppInstanceHistory()
-        this.intervalCheckerSubscriptionHistory = interval(5000).subscribe(() => {
+        this.intervalCheckerStateHistory = interval(5000).subscribe(() => {
            if (this.showAppInstanceHistory) {
                this.updateAppInstanceHistory()
            } else {
-               this.intervalCheckerSubscriptionHistory.unsubscribe();
+               this.intervalCheckerStateHistory.unsubscribe();
            }
         });
     }
@@ -349,8 +349,8 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if (this.intervalCheckerSubscription) {
-            this.intervalCheckerSubscription.unsubscribe();
+        if (this.intervalCheckerState) {
+            this.intervalCheckerState.unsubscribe();
         }
     }
 
