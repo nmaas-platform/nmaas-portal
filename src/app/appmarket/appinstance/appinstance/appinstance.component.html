@@ -287,7 +287,7 @@
     <div class="row">
         <label>
             {{ 'APP_INSTANCE.ADDITIONAL_INFO' | translate}}
-            <input type="checkbox" [(ngModel)]="showAppInstanceHistory">
+            <input type="checkbox" [(ngModel)]="showAppInstanceHistory" (change)="showHistory()">
         </label>
     </div>
 

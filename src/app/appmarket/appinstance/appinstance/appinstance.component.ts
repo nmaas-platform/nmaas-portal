@@ -115,7 +115,8 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     public isUpdateFormValid = false;
     public appConfiguration: AppConfiguration;
 
-    public intervalCheckerSubscription;
+    public intervalCheckerState;
+    public intervalCheckerStateHistory;
 
     public wasUpdated = false;
     public refreshForm: EventEmitter<any>;
@@ -185,7 +186,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                 });
 
             this.updateAppInstanceState();
-            this.intervalCheckerSubscription = interval(5000).subscribe(() => this.updateAppInstanceState());
+            this.intervalCheckerState = interval(5000).subscribe(() => this.updateAppInstanceState());
         });
     }
 
@@ -270,6 +271,21 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         }
         return apps
     }
+    showHistory() {
+        this.updateAppInstanceHistory()
+        this.intervalCheckerStateHistory = interval(5000).subscribe(() => {
+           if (this.showAppInstanceHistory) {
+               this.updateAppInstanceHistory()
+           } else {
+               this.intervalCheckerStateHistory.unsubscribe();
+           }
+        });
+    }
+    private updateAppInstanceHistory() {
+        this.appInstanceService.getAppInstanceHistory(this.appInstanceId).subscribe(history => {
+            this.appInstanceStateHistory = [...history].reverse();
+        });
+    }
 
     private updateAppInstanceState() {
         this.appInstanceService.getAppInstanceState(this.appInstanceId).subscribe(
@@ -315,9 +331,6 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                 }
             }
         );
-        this.appInstanceService.getAppInstanceHistory(this.appInstanceId).subscribe(history => {
-            this.appInstanceStateHistory = [...history].reverse();
-        });
     }
 
     private updateAppInstance() {
@@ -336,8 +349,8 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if (this.intervalCheckerSubscription) {
-            this.intervalCheckerSubscription.unsubscribe();
+        if (this.intervalCheckerState) {
+            this.intervalCheckerState.unsubscribe();
         }
     }
 
