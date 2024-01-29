@@ -210,13 +210,12 @@
 </nmaas-modal>
 
 <nmaas-modal styleModal="info" #userAccess>
-    <div class="nmaas-modal-header">{{'DOMAINS.GROUP.ACCESS_USER' | translate}}</div>
+    <div class="nmaas-modal-header">{{'DOMAINS.GROUP.ADD_MANAGERS' | translate}}</div>
     <div class="nmaas-modal-body" style="height: 300px">
         <div style="height: 100px">
-            <p>{{'DOMAINS.GROUP.ADD_INFO' | translate}}</p>
-            <input pInputText name="searchTexUser" id="searchTextUser" placeholder="Search" type="text" (keyup)="searchUsers($event.target.value)">
+            <p>{{'DOMAINS.GROUP.ADD_INFO' | translate}} {{domainGroup.name}}</p>
+            <input pInputText name="searchTexUser" id="searchTextUser" placeholder="Search by user email" type="text" (keyup)="searchUsers($event.target.value)">
         </div>
-<!--        <h4>{{'DOMAINS.GROUP.FOUND_USERS' | translate}}</h4>-->
         <table class="table table-hover table-condensed" aria-describedby="Users found by mail">
             <thead>
             <tr>
