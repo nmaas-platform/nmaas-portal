@@ -214,7 +214,7 @@
     <div class="nmaas-modal-body" style="height: 300px">
         <div style="height: 100px">
             <p>{{'DOMAINS.GROUP.ADD_INFO' | translate}} {{domainGroup.name}}</p>
-            <input pInputText name="searchTexUser" id="searchTextUser" placeholder="Search by user email" type="text" (keyup)="searchUsers($event.target.value)">
+            <input pInputText name="searchTexUser" id="searchTextUser" placeholder="{{'USERS.SEARCH' | translate}}" type="text" (keyup)="searchUsers($event.target.value)">
         </div>
         <table class="table table-hover table-condensed" aria-describedby="Users found by mail">
             <thead>
