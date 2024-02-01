@@ -164,7 +164,7 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
         if (search === '') {
             this.usersFound = [];
         } else {
-                this.userService.getUserBySearchGlobal(search ).subscribe(data => {
+                this.userService.getUserBySearchManagers(search ).subscribe(data => {
                     this.usersFound = [];
                     const ids = this.domainGroup.managers.flatMap(val => val.id);
                     const idsLocalAdded = this.usersToAdd.flatMap(val => val.id);

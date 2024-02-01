@@ -115,4 +115,10 @@ export class UserService extends GenericDataService {
         params = params.append('searchPart', search);
         return this.http.get<User[]>(`${this.appConfig.getApiUrl()}/users/search`, {params})
     }
+
+    public getUserBySearchManagers(search: string): Observable<User[]> {
+        let params = new HttpParams();
+        params = params.append('searchPart', search);
+        return this.http.get<User[]>(`${this.appConfig.getApiUrl()}/users/search/managers`, {params})
+    }
 }
