@@ -70,14 +70,14 @@
 
         <div *ngIf="!this.addingMode" class="panel panel-default" style="margin-top: 3rem">
             <div class="panel-heading">
-
-                <div style="display: flex; justify-content: start; align-items: center">
+                <div style="display: flex; justify-content: space-between; align-items: center">
                     <div>
                         {{ 'DOMAINS.LIST.LIST' | translate }}
                     </div>
+                    <button class="btn pull-right toggle-button" data-toggle="collapse" [attr.data-target]="'#domains-list'" type="button" aria-expanded="false"> </button>
                 </div>
             </div>
-            <div class="panel-body">
+            <div class="panel-body collapse" id="domains-list">
                 <div style="display: flex; justify-content: end">
                     <button type="button" class="btn btn-success" (click)="showModal()">{{'DOMAINS.LIST.ADD' | translate}}</button>
                 </div>
@@ -99,7 +99,6 @@
                     </ng-template>
                     </thead>
                 </table>
-
             </div>
         </div>
 
@@ -110,10 +109,14 @@
                     <div>
                         {{ 'DOMAIN_DETAILS.APP_STATUS' | translate }}
                     </div>
-                    <button  class="btn btn-primary" type="button" (click)="toggleAll()">{{'SHARED.TOGGLE' | translate}}</button>
+                    <button class="btn pull-right toggle-button" data-toggle="collapse" [attr.data-target]="'#app-status'" type="button" aria-expanded="false"> </button>
+
                 </div>
             </div>
-            <div class="panel-body">
+            <div class="panel-body collapse" id="app-status" >
+                <div style="display: flex; justify-content: end; margin-bottom: 2rem">
+                    <button  class="btn btn-primary"  type="button" (click)="toggleAll()">{{'SHARED.TOGGLE' | translate}}</button>
+                </div>
                 <table class="table table-hover table-condensed" aria-describedby="Domain details table">
                     <thead>
                     <tr>
