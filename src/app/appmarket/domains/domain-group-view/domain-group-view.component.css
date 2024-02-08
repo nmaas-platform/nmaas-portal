@@ -28,7 +28,24 @@ input.ng-dirty.ng-invalid {
 .row-sub {
     flex-basis: 100%;
 }
-
+.toggle-button[aria-expanded="false"]{
+    background: transparent;
+    line-height: 1;
+    padding: 4px 4px 2px;
+}
+.toggle-button[aria-expanded="false"]:after{
+    font-family: "Glyphicons Halflings", sans-serif;
+    content:"\e114";
+}
+.toggle-button[aria-expanded="true"]{
+    background: transparent;
+    line-height: 1;
+    padding: 4px 4px 2px;
+}
+.toggle-button[aria-expanded="true"]:after{
+    font-family: "Glyphicons Halflings", sans-serif;
+    content:"\e113";
+}
 
 .custom-collapse[aria-expanded="false"] {
     line-height: 1;
