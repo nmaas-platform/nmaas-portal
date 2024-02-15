@@ -12,7 +12,7 @@ import {StepsModule} from 'primeng/steps';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AppCreateWizardComponent} from './app-create-wizard/app-create-wizard.component';
 import {InternationalizationService} from '../../service/internationalization.service';
-import {FormioAppConfig, FormioModule} from 'angular-formio';
+import {FormioAppConfig, FormioModule} from '@formio/angular';
 import {ConfigTemplateService} from '../../service/configtemplate.service';
 import {AppChangeStateModalComponent} from './app-change-state-modal/appchangestatemodal.component';
 import {AppPreviewComponent} from './app-preview/apppreview.component';

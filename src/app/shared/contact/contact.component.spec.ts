@@ -6,7 +6,7 @@ import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-transl
 import {ReCaptchaV3Service} from 'ng-recaptcha';
 import {NotificationService} from '../../service/notification.service';
 import {of, ReplaySubject} from 'rxjs';
-import {FormioModule} from 'angular-formio';
+import {FormioModule} from '@formio/angular';
 import {ContactFormService} from '../../service/contact-form.service';
 import {EventEmitter} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
