@@ -218,7 +218,8 @@
             </div>
         </div>
         <div class="nmaas-modal-footer">
-            <button type="button" class="btn btn-primary " [disabled]="appVersions.length === 0 || selectedVersion === ''"
+            <button type="button" class="btn btn-primary "
+                    [disabled]="appVersions.length === 0 || selectedVersion === ''"
                     (click)="this.manualUpdateVersion()">{{'APP_INSTANCES.MANUAL_UPDATE.YES_BUTTON' | translate}}</button>
             <button type="button" class="btn btn-danger"
                     (click)="this.manualUpdateModal.hide()">{{'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
@@ -434,8 +435,10 @@
                              [upgradeInfo]="appInstance?.upgradeInfo"></nmaas-modal-app-upgrade>
 
     <!-- App access methods modal -->
-    <app-access-methods-modal *ngIf="appInstance?.serviceAccessMethods"
-                              [accessMethods]="appInstance?.serviceAccessMethods"></app-access-methods-modal>
+    <app-access-methods-modal
+            *ngIf="appInstance?.serviceAccessMethods"
+            [accessMethods]="appInstance?.serviceAccessMethods"
+            [deployParameters$]="deployParameters$"></app-access-methods-modal>
 
     <!-- Add members modal -->
     <app-add-members-modal *ngIf="appInstance" [appInstance]="appInstance"></app-add-members-modal>
