@@ -139,6 +139,11 @@
                                     {{'APP_INSTANCE.UPGRADE_BUTTON' | translate}}
                                 </a>
                             </li>
+                            <li >
+                                <a role="button" (click)="openShowConfigModal()">
+                                    {{'APP_INSTANCE.SHOW_CONFIG_BUTTON' | translate}}
+                                </a>
+                            </li>
                             <li *roles="['ROLE_SYSTEM_ADMIN' ]">
                                 <a role="button" (click)="this.openVersionUpdateModal()">
                                     {{'APP_INSTANCES.MANUAL_UPDATE.HEADER' | translate}}
@@ -250,6 +255,33 @@
         <div class="nmaas-modal-footer">
             <button type="button" class="btn btn-primary"
                     (click)="this.closeConfigurationModal()">{{'UPDATE_CONFIG_MODAL.CONFIRM_BUTTON' | translate}}</button>
+        </div>
+    </nmaas-modal>
+
+    <nmaas-modal styleModal="info" #showConfig>
+        <div class="nmaas-modal-header">
+            <h4 style="text-align: center">{{'APP_INSTANCE.CONFIGURATION.HEADER' | translate}}</h4>
+        </div>
+        <div class="nmaas-modal-body">
+            <div class="col-xs-12">
+                <p *ngIf="appInstance !== undefined && configurationTemplate !== undefined && app?.applicationBase.nmaasDocumentationUrl">
+                    {{ 'APP_INSTANCE.CONFIGURATION.DOCUMENTATION_INFO' | translate }}
+                    <a href="{{app.applicationBase.nmaasDocumentationUrl}}"
+                       target="_blank">{{ 'APP_INSTANCE.CONFIGURATION.NMAAS_TOOLS' | translate}}</a>.
+                </p>
+                <hr>
+                <formio *ngIf="appInstance !== undefined && configurationTemplate !== undefined"
+                        [form]="configurationTemplate"
+                        [options]='{"alerts": {"submitMessage": "Configuration applied"}, "errors": {"message": "Invalid configuration"}}'
+                        [refresh]="refreshForm"
+                        (formLoad)="changeForm()"
+                        [readOnly]="true">
+                </formio>
+            </div>
+        </div>
+        <div class="nmaas-modal-footer">
+            <button type="button" class="btn btn-primary"
+                    (click)="this.applyConfig.hide()">{{'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
         </div>
     </nmaas-modal>
 
