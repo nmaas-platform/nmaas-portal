@@ -167,7 +167,8 @@ describe('Component: AppInstance', () => {
                 enabled: true,
                 pvStorageSizeLimit: 20
             }
-        ]
+        ],
+        annotations: []
     };
 
     const appInstance: AppInstanceExtended = {
