@@ -95,6 +95,9 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     @ViewChild('manualUpdateModal')
     public manualUpdateModal: ModalComponent;
 
+    @ViewChild('showConfig')
+    public showConfig: ModalComponent;
+
     app: ApplicationDTO;
 
 
@@ -616,6 +619,14 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                 this.updateAppInstance()
             })
 
+    }
+
+    public openShowConfigModal() {
+        this.showConfig.show()
+    }
+
+    public closeShowConfigModal() {
+        this.showConfig.hide()
     }
 
 
