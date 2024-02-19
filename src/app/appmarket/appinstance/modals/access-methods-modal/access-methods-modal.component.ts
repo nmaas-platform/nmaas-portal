@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ServiceAccessMethod, ServiceAccessMethodType} from '../../../../model/service-access-method';
 import {ModalComponent} from '../../../../shared';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-access-methods-modal',
@@ -19,6 +20,9 @@ export class AccessMethodsModalComponent implements OnInit {
   public internalAccessMethods: ServiceAccessMethod[] = [];
   public publicAccessMethods: ServiceAccessMethod[] = [];
   public localAccessMethods: ServiceAccessMethod[] = [];
+
+  @Input()
+  public deployParameters$: Observable<Map<string, string>>
 
   ngOnInit() {
     if (this.accessMethods) {

@@ -13,7 +13,7 @@ import {AppInstanceStateHistory} from '../../../model/app-instance-state-history
 import {ModalComponent, RateComponent} from '../../../shared';
 import {AppConfiguration} from '../../../model/app-configuration';
 import {LOCAL_STORAGE, StorageService} from 'ngx-webstorage-service';
-import {interval} from 'rxjs';
+import {BehaviorSubject, interval} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 import {SessionService} from '../../../service/session.service';
 import {LocalDatePipe} from '../../../pipe/local-date.pipe';
@@ -130,6 +130,9 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     public appVersions: ApplicationVersion[] = [];
     public selectedVersion = '';
 
+    private deployParametersSubject = new BehaviorSubject<Map<string, string>>(new Map<string, string>());
+    public deployParameters$ = this.deployParametersSubject.asObservable();
+
     constructor(private appsService: AppsService,
                 public appImagesService: AppImagesService,
                 private appInstanceService: AppInstanceService,
@@ -177,6 +180,10 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                         property: 'form',
                         value: this.addValidationToConfigurationTemplateSpecificElement({key: 'storageSpace'}, validation),
                     });
+
+                    this.appInstanceService.getDeploymentParameters(this.appInstanceId).subscribe(
+                        deployParams => this.deployParametersSubject.next(deployParams)
+                    )
                 },
                 err => {
                     console.error(err);
