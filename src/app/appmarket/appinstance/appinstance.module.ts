@@ -18,7 +18,6 @@ import {AppAbortModalComponent} from './modals/app-abort-modal';
 import {AppUpgradeModalComponent} from './modals/app-upgrade-modal';
 import {TranslateModule} from '@ngx-translate/core';
 import {NgxPaginationModule} from 'ngx-pagination';
-import {FormioAppConfig, FormioModule} from 'angular-formio';
 import {AppConfig} from '../../../formio-config';
 import {AccessMethodsModalComponent} from './modals/access-methods-modal/access-methods-modal.component';
 import {SshShellComponent} from './ssh-shell/ssh-shell.component';
@@ -35,6 +34,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import {TimelineModule} from 'primeng/timeline';
 import {ButtonModule} from 'primeng/button';
 import {AppLogAccessComponent} from './app-log-access/app-log-access.component';
+import {FormioAppConfig, FormioModule} from '@formio/angular';
 
 @NgModule({
   declarations: [

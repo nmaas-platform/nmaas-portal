@@ -6,7 +6,7 @@ import {TranslateFakeLoader, TranslateLoader, TranslateModule, TranslateService}
 import {AppConfigService, AppImagesService, AppInstanceService, AppsService, DomainService} from '../../../service';
 import {AuthService} from '../../../auth/auth.service';
 import {of} from 'rxjs';
-import {FormioModule} from 'angular-formio';
+import {FormioModule} from '@formio/angular';
 import {AppInstanceProgressComponent} from '../appinstanceprogress';
 import {PipesModule} from '../../../pipe/pipes.module';
 import {NgxPaginationModule} from 'ngx-pagination';
