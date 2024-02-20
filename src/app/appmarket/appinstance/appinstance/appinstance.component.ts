@@ -135,6 +135,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
 
     private deployParametersSubject = new BehaviorSubject<Map<string, string>>(new Map<string, string>());
     public deployParameters$ = this.deployParametersSubject.asObservable();
+    public submissionData = '';
 
     constructor(private appsService: AppsService,
                 public appImagesService: AppImagesService,
@@ -629,6 +630,15 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     }
 
     public openShowConfigModal() {
+        let string = '{"data": {'
+        this.deployParameters$.subscribe(entry => {
+            entry.forEach( (value, key) => {
+                string += `"${key}": "${value}",`
+            })
+        })
+        string += "} }"
+        console.warn(string)
+        this.submissionData = string;
         this.showConfig.show()
     }
 

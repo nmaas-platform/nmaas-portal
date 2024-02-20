@@ -23,6 +23,8 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
     public usersToAdd = [];
     public usersFound = [];
 
+    public searchUser = '';
+
     @ViewChild(ModalComponent, {static: true})
     public readonly modal: ModalComponent;
 
@@ -179,6 +181,7 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
     }
 
     public addUser(user: User) {
+        this.searchUser = ''
         user.roles = [];
         user.hasSshKeys = null;
         this.usersToAdd.push({username: user.username, id: user.id, firstname: user.firstname, lastname: user.lastname});

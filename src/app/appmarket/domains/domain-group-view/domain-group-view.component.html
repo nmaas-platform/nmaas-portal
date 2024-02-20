@@ -54,10 +54,13 @@
                     </tr>
                     <ng-template ngFor let-user [ngForOf]="domainGroup.managers" let-i="index">
                         <tr class="table-row">
-                            <td>{{user.username}}</td>
-                            <td>{{user.firstname}} {{user.lastname}}</td>
-                            <td style="width: 20%">
-                                <button *roles="['ROLE_SYSTEM_ADMIN']" type="button" class="btn btn-danger" (click)="deleteUserAccess(user)">{{'DOMAINS.GROUP.DELETE_USER' | translate}}</button>
+                            <td style="width: 40%" >{{user.username}}</td>
+                            <td style="width: 40%" >{{user.firstname}} {{user.lastname}}</td>
+                            <td style="" class="flex justify-content-end">
+                                <div class="flex">
+                                    <button *roles="['ROLE_SYSTEM_ADMIN']" type="button" class="btn btn-danger" (click)="deleteUserAccess(user)">{{'DOMAINS.GROUP.DELETE_USER' | translate}}</button>
+                                </div>
+
                             </td>
                         </tr>
                     </ng-template>
@@ -90,9 +93,9 @@
                     </tr>
                     <ng-template ngFor let-domain [ngForOf]="domainGroup.domains" let-i="index">
                         <tr class="table-row">
-                            <td>{{domain.name}}</td>
-                            <td>{{domain.codename}}</td>
-                            <td style="width: 20%">
+                            <td style="width: 40%" >{{domain.name}}</td>
+                            <td style="width: 40%" >{{domain.codename}}</td>
+                            <td class="flex justify-content-end">
                                 <button type="button" class="btn btn-danger" (click)="deleteDomainFromGroup(domain)">{{'DOMAINS.LIST.DELETE' | translate}}</button>
                             </td>
                         </tr>
@@ -217,7 +220,7 @@
     <div class="nmaas-modal-body" style="height: 300px">
         <div style="height: 100px">
             <p>{{'DOMAINS.GROUP.ADD_INFO' | translate}} {{domainGroup.name}}</p>
-            <input pInputText name="searchTexUser" id="searchTextUser" placeholder="{{'USERS.SEARCH' | translate}}" type="text" (keyup)="searchUsers($event.target.value)">
+            <input pInputText name="searchTexUser" id="searchTextUser" placeholder="{{'USERS.SEARCH' | translate}}" style="width: 270px" type="text" [(ngModel)]="searchUser" (keyup)="searchUsers($event.target.value)">
         </div>
         <table class="table table-hover table-condensed" aria-describedby="Users found by mail">
             <thead>

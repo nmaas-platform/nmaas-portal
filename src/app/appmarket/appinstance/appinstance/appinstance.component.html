@@ -260,7 +260,7 @@
 
     <nmaas-modal styleModal="info" #showConfig>
         <div class="nmaas-modal-header">
-            <h4 style="text-align: center">{{'APP_INSTANCE.CONFIGURATION.HEADER' | translate}}</h4>
+            <h4 style="text-align: center">{{'APP_INSTANCE.CONFIGURATION.PREVIEW' | translate}}</h4>
         </div>
         <div class="nmaas-modal-body">
             <div class="col-xs-12">
@@ -275,13 +275,14 @@
                         [options]='{"alerts": {"submitMessage": "Configuration applied"}, "errors": {"message": "Invalid configuration"}}'
                         [refresh]="refreshForm"
                         (formLoad)="changeForm()"
-                        [readOnly]="true">
+                        [readOnly]="true"
+                        [submission]="submissionData">
                 </formio>
             </div>
         </div>
         <div class="nmaas-modal-footer">
             <button type="button" class="btn btn-primary"
-                    (click)="this.applyConfig.hide()">{{'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
+                    (click)="this.applyConfig.hide()">{{'UNDEPLOY_MODAL.CLOSE' | translate}}</button>
         </div>
     </nmaas-modal>
 
