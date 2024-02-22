@@ -13,7 +13,7 @@
                 <tbody>
                 <tr *ngFor="let am of externalAccessMethods">
                     <td><strong>{{am.name}}</strong></td>
-                    <td><a type="button" class="btn btn-success"
+                    <td class="text-right"><a type="button" class="btn btn-primary"
                            href="{{validateURL(am.url)}}">{{'APP_ACCESS_METHODS_MODAL.EXTERNAL_ACCESS' | translate}}</a>
                     </td>
                 </tr>
@@ -32,7 +32,7 @@
                 <tbody>
                 <tr *ngFor="let am of publicAccessMethods">
                     <td><strong>{{am.name}}</strong></td>
-                    <td><a type="button" class="btn btn-success"
+                    <td class="text-right"><a type="button" class="btn btn-primary"
                            href="{{validateURL(am.url)}}">{{'APP_ACCESS_METHODS_MODAL.PUBLIC_ACCESS' | translate}}</a>
                     </td>
                 </tr>
@@ -44,8 +44,8 @@
             <table class="table table-hover table-condensed" aria-describedby="Table with internal access details">
                 <thead>
                 <tr>
-                    <th scope="col">{{'APP_ACCESS_METHODS_MODAL.SERVICE_NAME' | translate}}</th>
-                    <th scope="col">{{'APP_ACCESS_METHODS_MODAL.ACCESS_METHOD' | translate}}</th>
+                    <th scope="col" class="width-half">{{'APP_ACCESS_METHODS_MODAL.SERVICE_NAME' | translate}}</th>
+                    <th scope="col" class="width-half">{{'APP_ACCESS_METHODS_MODAL.ACCESS_METHOD' | translate}}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -63,8 +63,8 @@
             <table class="table table-hover table-condensed" aria-describedby="Table with local access details">
                 <thead>
                 <tr>
-                    <th scope="col">{{'APP_ACCESS_METHODS_MODAL.SERVICE_NAME' | translate}}</th>
-                    <th scope="col">{{'APP_ACCESS_METHODS_MODAL.ACCESS_METHOD' | translate}}</th>
+                    <th scope="col" class="width-half">{{'APP_ACCESS_METHODS_MODAL.SERVICE_NAME' | translate}}</th>
+                    <th scope="col" class="width-half">{{'APP_ACCESS_METHODS_MODAL.ACCESS_METHOD' | translate}}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -83,8 +83,8 @@
             <table class="table table-hover table-condensed" aria-describedby="Table with internal access details">
                 <thead>
                 <tr>
-                    <th scope="col">{{'APP_ACCESS_METHODS_MODAL.DEPLOYMENT_PARAMETERS.KEY' | translate}}</th>
-                    <th scope="col">{{'APP_ACCESS_METHODS_MODAL.DEPLOYMENT_PARAMETERS.VALUE' | translate}}</th>
+                    <th scope="col" class="width-half">{{'APP_ACCESS_METHODS_MODAL.DEPLOYMENT_PARAMETERS.KEY' | translate}}</th>
+                    <th scope="col" class="width-half">{{'APP_ACCESS_METHODS_MODAL.DEPLOYMENT_PARAMETERS.VALUE' | translate}}</th>
                 </tr>
                 </thead>
                 <tbody>
