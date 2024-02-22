@@ -258,7 +258,7 @@
         </div>
     </nmaas-modal>
 
-    <nmaas-modal styleModal="info" #showConfig>
+    <nmaas-modal styleModal="info" #showConfigurationModal>
         <div class="nmaas-modal-header">
             <h4 style="text-align: center">{{'APP_INSTANCE.CONFIGURATION.PREVIEW' | translate}}</h4>
         </div>
@@ -273,10 +273,10 @@
                 <formio *ngIf="appInstance !== undefined && configurationTemplate !== undefined"
                         [form]="configurationTemplate"
                         [options]='{"alerts": {"submitMessage": "Configuration applied"}, "errors": {"message": "Invalid configuration"}}'
-                        [refresh]="refreshForm"
+                        [refresh]="refreshUpdateForm"
                         (formLoad)="changeForm()"
                         [readOnly]="true"
-                        [submission]="submissionData">
+                        [submission]="submission">
                 </formio>
             </div>
         </div>

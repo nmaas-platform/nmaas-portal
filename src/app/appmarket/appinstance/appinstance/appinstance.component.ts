@@ -95,8 +95,8 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     @ViewChild('manualUpdateModal')
     public manualUpdateModal: ModalComponent;
 
-    @ViewChild('showConfig')
-    public showConfig: ModalComponent;
+    @ViewChild('showConfigurationModal')
+    public showConfigurationModal: ModalComponent;
 
     app: ApplicationDTO;
 
@@ -135,7 +135,6 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
 
     private deployParametersSubject = new BehaviorSubject<Map<string, string>>(new Map<string, string>());
     public deployParameters$ = this.deployParametersSubject.asObservable();
-    public submissionData = '';
 
     constructor(private appsService: AppsService,
                 public appImagesService: AppImagesService,
@@ -630,20 +629,23 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     }
 
     public openShowConfigModal() {
-        let string = '{"data": {'
-        this.deployParameters$.subscribe(entry => {
-            entry.forEach( (value, key) => {
-                string += `"${key}": "${value}",`
+        console.warn("Sumbission", this.submission)
+        this.appInstanceService.getConfiguration(this.appInstanceId).subscribe( config => {
+            this.submission['data']['configuration'] = config;
+            this.deployParameters$.subscribe(additionalParams => {
+                this.submission['data']['additionalParameters'] = additionalParams
+                this.refreshUpdateForm.emit({
+                    property: 'submission',
+                    value: this.submission
+                });
+                console.log("updated", this.submission)
             })
         })
-        string += "} }"
-        console.warn(string)
-        this.submissionData = string;
-        this.showConfig.show()
+        this.showConfigurationModal.show()
     }
 
     public closeShowConfigModal() {
-        this.showConfig.hide()
+        this.showConfigurationModal.hide()
     }
 
 
