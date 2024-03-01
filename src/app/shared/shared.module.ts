@@ -58,6 +58,7 @@ import {TooltipModule} from 'primeng/tooltip';
 import {DropdownModule} from 'primeng/dropdown';
 import {SortableHeaderDirective} from '../service/sort-domain.directive';
 import {InputTextModule} from 'primeng/inputtext';
+import { DomainNamespaceAnnotationsComponent } from './domain-namespace-annotations/domain-namespace-annotations.component';
 
 @NgModule({
     imports: [
@@ -119,7 +120,8 @@ import {InputTextModule} from 'primeng/inputtext';
         ModalProvideSshKeyComponent,
         ContactComponent,
         PreferencesComponent,
-        SortableHeaderDirective
+        SortableHeaderDirective,
+        DomainNamespaceAnnotationsComponent
     ],
     providers: [
         PasswordValidator,
@@ -169,7 +171,8 @@ import {InputTextModule} from 'primeng/inputtext';
         SshKeysComponent,
         ModalProvideSshKeyComponent,
         PreferencesComponent,
-        SortableHeaderDirective
+        SortableHeaderDirective,
+        DomainNamespaceAnnotationsComponent
     ]
 })
 export class SharedModule {
