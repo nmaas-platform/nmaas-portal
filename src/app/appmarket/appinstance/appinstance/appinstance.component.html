@@ -139,11 +139,12 @@
                                     {{'APP_INSTANCE.UPGRADE_BUTTON' | translate}}
                                 </a>
                             </li>
-                            <li >
+                            <!-- TODO: Implement ts compiler in next version -->
+                            <!-- <li >
                                 <a role="button" (click)="openShowConfigModal()">
                                     {{'APP_INSTANCE.SHOW_CONFIG_BUTTON' | translate}}
                                 </a>
-                            </li>
+                            </li> -->
                             <li *roles="['ROLE_SYSTEM_ADMIN' ]">
                                 <a role="button" (click)="this.openVersionUpdateModal()">
                                     {{'APP_INSTANCES.MANUAL_UPDATE.HEADER' | translate}}
