@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
 @Component({
   selector: 'app-access-methods-modal',
   templateUrl: './access-methods-modal.component.html',
-  styleUrls: []
+  styleUrls: ['./access-methods-modal.component.css']
 })
 export class AccessMethodsModalComponent implements OnInit {
 

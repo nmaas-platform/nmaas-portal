@@ -84,102 +84,115 @@
 
                 <!-- if application is already running -->
                 <div *ngIf="appInstance" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <div class="btn-group pull-right"
-                         *ngIf="getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.RUNNING">
+                    <div class="btn-group pull-right">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                             {{'APP_INSTANCE.INSTANCE_ACTIONS' | translate}} <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li *ngIf="shouldDisplayButton()">
-                                <a href="{{validateURL(appInstance?.serviceAccessMethods[0].url)}}" role="button">
-                                    {{'APP_INSTANCE.GO_TO_APP_BUTTON' | translate}}
-                                </a>
-                            </li>
-                            <li *ngIf="shouldDisplayModal()">
-                                <a role="button" (click)="this.accessMethodsModal.show()">
-                                    {{'APP_INSTANCE.APP_ACCESS_METHODS' | translate}}
-                                </a>
-                            </li>
-                            <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']">
-                                <a *ngIf="app.application.appConfigurationSpec.configUpdateEnabled"
-                                   (click)="getConfigurationModal()">
-                                    {{'APP_INSTANCE.UPDATE_CONFIG_BUTTON' | translate}}
-                                </a>
-                            </li>
-                            <li *ngIf="app.application.appDeploymentSpec.allowSshAccess && podNames.length == 1">
-                                <!-- if only one pod available, select it by default -->
-                                <a [routerLink]="router.url + '/shell/' + podNames[0].name" role="button">
-                                    {{'APP_INSTANCE.SHELL' | translate}}
-                                </a>
-                            </li>
-                            <li *ngIf="app.application.appDeploymentSpec.allowSshAccess && podNames.length > 1">
-                                <!-- if more pods available, go modal -->
-                                <a role="button" (click)="this.selectPodModal.show()">
-                                    {{'APP_INSTANCE.SHELL' | translate}}
-                                </a>
-                            </li>
-                            <li *ngIf="canDisplayAddMembersModal()">
-                                <a role="button" (click)="this.addMembersModal.show()">
-                                    {{'APP_INSTANCE.ADD_MEMBERS_BUTTON' | translate}}
-                                </a>
-                            </li>
-                            <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']">
-                                <a role="button" style="display: none" (click)="this.appRestartModal.show()" disabled>
-                                    {{'APP_INSTANCE.RESTART_BUTTON' | translate}}
-                                </a>
-                            </li>
-                            <li *ngIf="!appInstance.autoUpgradesEnabled">
-                                <a role="button" (click)="this.enableAutoUpgradesModal.show()">
-                                    {{'APP_INSTANCE.ENABLE_AUTO_UPGRADES_BUTTON' | translate}}
-                                </a>
-                            </li>
-                            <li *ngIf="appInstance.upgradePossible">
-                                <a role="button" (click)="this.appUpgradeModal.show()">
-                                    {{'APP_INSTANCE.UPGRADE_BUTTON' | translate}}
-                                </a>
-                            </li>
-                            <!-- TODO: Implement ts compiler in next version -->
-                            <!-- <li >
-                                <a role="button" (click)="openShowConfigModal()">
-                                    {{'APP_INSTANCE.SHOW_CONFIG_BUTTON' | translate}}
-                                </a>
-                            </li> -->
-                            <li *roles="['ROLE_SYSTEM_ADMIN' ]">
-                                <a role="button" (click)="this.openVersionUpdateModal()">
-                                    {{'APP_INSTANCES.MANUAL_UPDATE.HEADER' | translate}}
-                                </a>
-                            </li>
-                            <li *ngIf="appInstance.autoUpgradesEnabled">
-                                <a role="button" (click)="this.disableAutoUpgradesModal.show()">
-                                    {{'APP_INSTANCE.DISABLE_AUTO_UPGRADES_BUTTON' | translate}}
-                                </a>
-                            </li>
-                            <li *ngIf="app.application.appDeploymentSpec.allowLogAccess">
-                                <a role="button" [routerLink]="router.url + '/logs'">
-                                    {{'APP_INSTANCE.VIEW_LOGS' | translate}}
-                                </a>
-                            </li>
-                            <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']" style="background-color: #ff0000;">
-                                <a role="button" (click)="this.undeployModal.show()" style="color: #ffffff;">
-                                    {{'APP_INSTANCE.UNDEPLOY_BUTTON' | translate}}
-                                </a>
-                            </li>
+                            <ng-container *ngIf="getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.RUNNING">
+                                <li *ngIf="shouldDisplayButton()">
+                                    <a href="{{validateURL(appInstance?.serviceAccessMethods[0].url)}}" role="button">
+                                        {{'APP_INSTANCE.GO_TO_APP_BUTTON' | translate}}
+                                    </a>
+                                </li>
+                                <li *ngIf="shouldDisplayModal()">
+                                    <a role="button" (click)="this.accessMethodsModal.show()">
+                                        {{'APP_INSTANCE.APP_ACCESS_METHODS' | translate}}
+                                    </a>
+                                </li>
+                                <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']">
+                                    <a *ngIf="app.application.appConfigurationSpec.configUpdateEnabled"
+                                       (click)="getConfigurationModal()">
+                                        {{'APP_INSTANCE.UPDATE_CONFIG_BUTTON' | translate}}
+                                    </a>
+                                </li>
+                                <li *ngIf="app.application.appDeploymentSpec.allowSshAccess && podNames.length == 1">
+                                    <!-- if only one pod available, select it by default -->
+                                    <a [routerLink]="router.url + '/shell/' + podNames[0].name" role="button">
+                                        {{'APP_INSTANCE.SHELL' | translate}}
+                                    </a>
+                                </li>
+                                <li *ngIf="app.application.appDeploymentSpec.allowSshAccess && podNames.length > 1">
+                                    <!-- if more pods available, go modal -->
+                                    <a role="button" (click)="this.selectPodModal.show()">
+                                        {{'APP_INSTANCE.SHELL' | translate}}
+                                    </a>
+                                </li>
+                                <li *ngIf="canDisplayAddMembersModal()">
+                                    <a role="button" (click)="this.addMembersModal.show()">
+                                        {{'APP_INSTANCE.ADD_MEMBERS_BUTTON' | translate}}
+                                    </a>
+                                </li>
+                                <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']">
+                                    <a role="button" style="display: none" (click)="this.appRestartModal.show()"
+                                       disabled>
+                                        {{'APP_INSTANCE.RESTART_BUTTON' | translate}}
+                                    </a>
+                                </li>
+                                <li *ngIf="!appInstance.autoUpgradesEnabled">
+                                    <a role="button" (click)="this.enableAutoUpgradesModal.show()">
+                                        {{'APP_INSTANCE.ENABLE_AUTO_UPGRADES_BUTTON' | translate}}
+                                    </a>
+                                </li>
+                                <li *ngIf="appInstance.upgradePossible">
+                                    <a role="button" (click)="this.appUpgradeModal.show()">
+                                        {{'APP_INSTANCE.UPGRADE_BUTTON' | translate}}
+                                    </a>
+                                </li>
+                                <!-- TODO: Implement config reader in next version -->
+                                <!-- <li>
+                                    <a role="button" (click)="openShowConfigModal()">
+                                        {{'APP_INSTANCE.SHOW_CONFIG_BUTTON' | translate}}
+                                    </a>
+                                </li> -->
+                                <li *roles="['ROLE_SYSTEM_ADMIN' ]">
+                                    <a role="button" (click)="this.openVersionUpdateModal()">
+                                        {{'APP_INSTANCES.MANUAL_UPDATE.HEADER' | translate}}
+                                    </a>
+                                </li>
+                                <li *ngIf="appInstance.autoUpgradesEnabled">
+                                    <a role="button" (click)="this.disableAutoUpgradesModal.show()">
+                                        {{'APP_INSTANCE.DISABLE_AUTO_UPGRADES_BUTTON' | translate}}
+                                    </a>
+                                </li>
+                                <li *ngIf="app.application.appDeploymentSpec.allowLogAccess">
+                                    <a role="button" [routerLink]="router.url + '/logs'">
+                                        {{'APP_INSTANCE.VIEW_LOGS' | translate}}
+                                    </a>
+                                </li>
+                                <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
+                                    style="background-color: #ff0000;">
+                                    <a role="button" (click)="this.undeployModal.show()" style="color: #ffffff;">
+                                        {{'APP_INSTANCE.UNDEPLOY_BUTTON' | translate}}
+                                    </a>
+                                </li>
+                            </ng-container>
+                            <ng-container *ngIf="getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.FAILURE">
+                                <li>
+                                    <a role="button"
+                                       *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
+                                       (click)="redeployConfirm.show()">{{'APP_INSTANCE.REDEPLOY_BUTTON' | translate}}</a>
+                                </li>
+                                <li>
+                                    <a role="button"
+                                       *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
+                                       (click)="checkStatus()">{{'APP_INSTANCE.CHECK_STATUS_BUTTON' | translate}}
+                                    </a>
+                                </li>
+                                <li *ngIf="app.application.appDeploymentSpec.allowLogAccess">
+                                    <a role="button" [routerLink]="router.url + '/logs'">
+                                        {{'APP_INSTANCE.VIEW_LOGS' | translate}}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a role="button" style="color: red"
+                                       *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
+                                       (click)="removeConfirm.show()">{{'APP_INSTANCE.REMOVE_BUTTON' | translate}}
+                                    </a>
+                                </li>
+                            </ng-container>
                         </ul>
-                    </div>
-
-                    <!-- if application deployment failed -->
-                    <div class="btn-group pull-right"
-                         *ngIf="getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.FAILURE">
-                        <button class="btn btn-primary"
-                                *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
-                                (click)="redeployConfirm.show()">{{'APP_INSTANCE.REDEPLOY_BUTTON' | translate}}</button>
-                        <button class="btn btn-default"
-                                *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
-                                (click)="checkStatus()">{{'APP_INSTANCE.CHECK_STATUS_BUTTON' | translate}}</button>
-                        <button class="btn btn-primary btn-danger"
-                                *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
-                                (click)="removeConfirm.show()">{{'APP_INSTANCE.REMOVE_BUTTON' | translate}}</button>
                     </div>
                 </div>
             </div>
