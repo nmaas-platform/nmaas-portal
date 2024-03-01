@@ -18,9 +18,9 @@ import {ContentDisplayService} from '../service/content-display.service';
 import {TermsAcceptanceComponent} from './terms-acceptance/terms-acceptance.component';
 import {TranslateModule} from '@ngx-translate/core';
 import {SSOService} from '../service/sso.service';
-import { PasswordResetComponent } from './passwordreset/password-reset.component';
-import { PrivacyPolicySubpageComponent } from './privacy-policy-subpage/privacy-policy-subpage.component';
-import {PasswordStrengthMeterModule} from "angular-password-strength-meter";
+import {PasswordResetComponent} from './passwordreset/password-reset.component';
+import {PasswordStrengthMeterModule} from 'angular-password-strength-meter';
+import {PolicySubpageComponent} from './policy-subpage/policy-subpage.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,7 @@ import {PasswordStrengthMeterModule} from "angular-password-strength-meter";
     CompleteComponent,
     TermsAcceptanceComponent,
     PasswordResetComponent,
-    PrivacyPolicySubpageComponent
+    PolicySubpageComponent
   ],
   imports: [
     FormsModule,

@@ -9,8 +9,8 @@ import {ComponentMode} from '../shared';
 import {CompleteComponent} from './complete/complete.component';
 import {TermsAcceptanceComponent} from './terms-acceptance/terms-acceptance.component';
 import {PasswordResetComponent} from './passwordreset/password-reset.component';
-import {PrivacyPolicySubpageComponent} from './privacy-policy-subpage/privacy-policy-subpage.component';
 import {AboutComponent} from '../shared/about/about.component';
+import {PolicySubpageComponent} from './policy-subpage/policy-subpage.component';
 
 export const WelcomeRoutes: Routes = [
     {
@@ -27,6 +27,7 @@ export const WelcomeRoutes: Routes = [
     { path: 'complete', component: CompleteComponent, canActivate: [AuthGuard] },
     { path: 'terms-acceptance', component: TermsAcceptanceComponent, canActivate: [AuthGuard]},
     { path: 'reset/:token', component: PasswordResetComponent },
-    { path: 'privacy', component: PrivacyPolicySubpageComponent},
+    { path: 'privacy', component: PolicySubpageComponent},
+    { path: 'aup', component: PolicySubpageComponent},
     { path: 'about', component: AboutComponent}
 ];
