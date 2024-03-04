@@ -14,6 +14,8 @@ export class AppLogAccessComponent implements OnInit {
     public podInfos: PodInfo[];
     public selectedPodInfo: PodInfo = undefined;
     public selectedPodLogs: PodLogs = undefined;
+    public containers: string[];
+    public selectedContainer: string = undefined;
 
     public blobUrl;
 
@@ -27,15 +29,17 @@ export class AppLogAccessComponent implements OnInit {
                 podInfos => {
                     this.podInfos = podInfos;
                     this.selectedPodInfo = podInfos[0]
-                    this.logService.getLogsFromPod(this.appInstanceId, this.selectedPodInfo.name)
+                    this.containers = this.selectedPodInfo.containers
+                    this.selectedContainer = this.containers[0]
+                    this.logService.getLogsFromPod(this.appInstanceId, this.selectedPodInfo.name, this.selectedPodInfo.containers[0])
                         .subscribe(podLogs => this.selectedPodLogs = podLogs)
                 }
             )
         })
     }
 
-    refreshLogs(pod: PodInfo): void {
-        this.logService.getLogsFromPod(this.appInstanceId, pod.name).subscribe(
+    refreshLogs(): void {
+        this.logService.getLogsFromPod(this.appInstanceId, this.selectedPodInfo.name, this.selectedContainer).subscribe(
             podLogs => this.selectedPodLogs = podLogs
         )
     }
@@ -56,8 +60,19 @@ export class AppLogAccessComponent implements OnInit {
 
     selectPod(event: any): void {
         this.selectedPodInfo = event.value
-        this.logService.getLogsFromPod(this.appInstanceId, this.selectedPodInfo.name).subscribe(
+        this.selectedContainer = this.selectedPodInfo.containers[0]
+        this.containers = this.selectedPodInfo.containers
+        this.logService.getLogsFromPod(this.appInstanceId, this.selectedPodInfo.name, this.selectedContainer).subscribe(
             podLogs => this.selectedPodLogs = podLogs
+        )
+    }
+
+    selectContainer(event: any): void {
+        this.selectedContainer = event.value;
+        this.logService.getLogsFromPod(this.appInstanceId, this.selectedPodInfo.name, this.selectedContainer).subscribe(
+            podLogs => {
+                this.selectedPodLogs = podLogs
+            }
         )
     }
 }

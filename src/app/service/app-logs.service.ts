@@ -15,8 +15,8 @@ export class AppLogsService extends GenericDataService {
     super(http, appConfig);
   }
 
-  public getLogsFromPod(appInstanceId: number, podName: string): Observable<PodLogs> {
-    return this.http.get<PodLogs>(`${this.getUrl()}/${appInstanceId}/pods/${podName}`)
+  public getLogsFromPod(appInstanceId: number, podName: string, containerName: string): Observable<PodLogs> {
+    return this.http.get<PodLogs>(`${this.getUrl()}/${appInstanceId}/pods/${podName}/container/${containerName}`)
   }
 
   public getPodNames(appInstanceId: number): Observable<PodInfo[]> {
