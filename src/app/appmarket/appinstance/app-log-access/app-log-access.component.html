@@ -14,9 +14,21 @@
                 </ng-template>
             </p-dropdown>
         </div>
+        <div class="ml-5">
+            <p class="font-bold pl-2">{{ 'APP_INSTANCE.LOG_ACCESS.CONTAINER' | translate}}</p>
+            <p-dropdown [options]="containers" (onChange)="selectContainer($event)"
+                        placeholder="{{ 'APP_INSTANCE.LOG_ACCESS.DROPDOWN_PLACEHOLDER' | translate}}" class="col-2 bottom">
+                <ng-template let-option pTemplate="items">
+                    {{ option }}
+                </ng-template>
+                <ng-template let-selected pTemplate="selectedItem">
+                    {{ selected }}
+                </ng-template>
+            </p-dropdown>
+        </div>
         <div class="flex-grow-1"></div>
         <button type="button" class="btn btn-primary mr-3 align-self-end button-height"
-                (click)="refreshLogs(selectedPodInfo)" [disabled]="!selectedPodInfo">
+                (click)="refreshLogs()" [disabled]="!selectedPodInfo">
             {{ 'APP_INSTANCE.LOG_ACCESS.REFRESH' | translate}}
         </button>
         <button type="button" class="btn btn-primary align-self-end button-height"
