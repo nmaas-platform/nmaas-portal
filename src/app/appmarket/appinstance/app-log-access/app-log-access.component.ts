@@ -20,7 +20,8 @@ export class AppLogAccessComponent implements OnInit {
     public blobUrl;
 
     constructor(private logService: AppLogsService,
-                private route: ActivatedRoute) {}
+                private route: ActivatedRoute) {
+    }
 
     ngOnInit(): void {
         this.route.params.subscribe(params => {
@@ -28,11 +29,15 @@ export class AppLogAccessComponent implements OnInit {
             this.logService.getPodNames(this.appInstanceId).subscribe(
                 podInfos => {
                     this.podInfos = podInfos;
-                    this.selectedPodInfo = podInfos[0]
+                    if (podInfos.length > 0) {
+                        this.selectedPodInfo = podInfos[0];
+                    }
                     this.containers = this.selectedPodInfo.containers
-                    this.selectedContainer = this.containers[0]
-                    this.logService.getLogsFromPod(this.appInstanceId, this.selectedPodInfo.name, this.selectedPodInfo.containers[0])
-                        .subscribe(podLogs => this.selectedPodLogs = podLogs)
+                    if (this.containers.length > 0) {
+                        this.selectedContainer = this.containers[0]
+                        this.logService.getLogsFromPod(this.appInstanceId, this.selectedPodInfo.name, this.containers[0])
+                            .subscribe(podLogs => this.selectedPodLogs = podLogs)
+                    }
                 }
             )
         })
