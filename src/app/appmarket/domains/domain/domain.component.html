@@ -142,7 +142,10 @@
 			</div>
 		</div>
 
-		<app-domain-namespace-annotations [annotationRead]="domain.annotations"></app-domain-namespace-annotations>
+
+		<div *ngIf="isInMode(ComponentMode.CREATE)" >
+		<app-domain-namespace-annotations [annotationRead]="annotations" (annotations)="handleAnnotationsChange($event)"></app-domain-namespace-annotations>
+		</div>
 
 		<div class="panel panel-default">
 			<div class="panel-heading">{{ 'DOMAIN_DETAILS.APP_STATUS' | translate }}</div>

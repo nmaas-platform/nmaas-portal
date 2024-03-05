@@ -1,0 +1,9 @@
+<div class="col-sm-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10">
+    <h3> {{'DOMAINS.ANNOTATIONS.HEADER' | translate}}</h3>
+    <p>{{'DOMAINS.ANNOTATIONS.SUBHEADER' | translate}} </p>
+    <div class="flex flex-grow-1 mt-6 col-sm-12" style="width: 100% !important;">
+        <app-domain-namespace-annotations [annotationRead]="annotations" [globalSettings]="true" (annotations)="handleAnnotationsUpdate($event)" 
+        (trigerDelete)="handleDelete($event)" class="flex flex-grow-1"></app-domain-namespace-annotations>
+    </div>
+
+</div>

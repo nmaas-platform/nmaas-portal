@@ -25,7 +25,6 @@ import {ServiceUnavailableModule} from './service-unavailable/service-unavailabl
 import {ServiceUnavailableService} from './service-unavailable/service-unavailable.service';
 import {NgTerminalModule} from 'ng-terminal';
 
-
 export function appConfigFactory(config: AppConfigService) {
     return function create() {
         return config.load();

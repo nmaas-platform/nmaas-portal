@@ -8,6 +8,7 @@ import {DomainGroupsComponent} from './domain-groups/domain-groups.component';
 import {DomainGroupViewComponent} from './domain-group-view/domain-group-view.component';
 import {BulkDomainListComponent} from '../bulkDeployment/bulk-domain-list/bulk-domain-list.component';
 import {BulkViewComponent} from '../bulkDeployment/bulk-view/bulk-view.component';
+import { DomainAnnotationsComponent } from './domain-annotations/domain-annotations.component';
 
 export const DomainsRoutes: Route[] = [
     {
@@ -16,6 +17,10 @@ export const DomainsRoutes: Route[] = [
     },
     {
         path: 'admin/domains/add', component: DomainComponent, canActivate: [AuthGuard, RoleGuard],
+        data: {mode: ComponentMode.CREATE, roles: ['ROLE_SYSTEM_ADMIN']}
+    },
+    {
+        path: 'admin/domains/annotations', component: DomainAnnotationsComponent, canActivate: [AuthGuard, RoleGuard],
         data: {mode: ComponentMode.CREATE, roles: ['ROLE_SYSTEM_ADMIN']}
     },
     {
