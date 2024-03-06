@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {KeyValue} from '../../model/key-value';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AnonymousSubject } from 'rxjs/internal/Subject';
 
 @Component({
@@ -11,7 +11,7 @@ import { AnonymousSubject } from 'rxjs/internal/Subject';
 export class DomainNamespaceAnnotationsComponent implements OnInit {
 
     @Input()
-    public annotationRead: Observable<KeyValue[]>;
+    public annotationRead: Observable<KeyValue[]> = of([]);
 
     @Input()
     public globalSettings: boolean = false;

@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DomainAnnotationsComponent } from './domain-annotations.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 describe('DomainAnnotationsComponent', () => {
   let component: DomainAnnotationsComponent;
@@ -8,7 +10,16 @@ describe('DomainAnnotationsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DomainAnnotationsComponent ]
+      declarations: [ DomainAnnotationsComponent ],
+      imports: [
+        HttpClientTestingModule,
+        TranslateModule.forRoot({
+          loader: {
+              provide: TranslateLoader,
+              useClass: TranslateFakeLoader
+          }
+      }),
+      ]
     })
     .compileComponents();
 
