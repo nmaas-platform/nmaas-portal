@@ -82,6 +82,9 @@ export class DomainComponent extends BaseComponent implements OnInit {
                 this.domain = new Domain();
                 this.domain.active = true;
                this.annotations = this.domainService.getAnnotations();
+               this.annotations.subscribe(data => {
+                this.domain.annotations = data;
+               })
             }
             if (!this.authService.hasRole('ROLE_OPERATOR')) {
                 let users: Observable<User[]>;
