@@ -1,4 +1,4 @@
 :host ::ng-deep .p-multiselect {
-    min-width: 15rem;
-    max-width: 18rem;
+    min-width: 20rem;
+    max-width: 22rem;
 }

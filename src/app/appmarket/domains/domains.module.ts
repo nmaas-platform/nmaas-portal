@@ -24,6 +24,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {RemovalConfirmationModalComponent} from './modals/removal-confirmation-modal/removal-confirmation-modal.component';
 import {SearchDomainGroupPipe} from './domain-group-search.pipe';
+import { DomainAnnotationsComponent } from './domain-annotations/domain-annotations.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {SearchDomainGroupPipe} from './domain-group-search.pipe';
     DomainGroupsComponent,
     DomainGroupViewComponent,
     RemovalConfirmationModalComponent,
-      SearchDomainGroupPipe
+      SearchDomainGroupPipe,
+      DomainAnnotationsComponent
   ],
     imports: [
         CommonModule,

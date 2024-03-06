@@ -1,28 +1,27 @@
-<div class="panel panel-default" >
+<div class="panel panel-default" style="width: 100% !important;" >
     <div class="panel-heading">
         <div style="display: flex; justify-content: start; align-items: center">
             <div>
-                {{"Domain namespace annotations creation"}}
+                {{'DOMAINS.ANNOTATIONS.CREATION' | translate}}
             </div>
         </div>
     </div>
     <div class="panel-body">
         <div  style="display: flex; justify-content: end">
-            <button  type="button" class="btn btn-success" (click)="addAnnotation()">{{"Add annotation"}}</button>
+            <button  type="button" class="btn btn-success" (click)="addAnnotation()">{{'DOMAINS.ANNOTATIONS.ADD'| translate}}</button>
         </div>
         <div class="grid flex flex-grow-1">
             <div class="col-4">
-                {{'KEY'}}
-<!--                <div *ngIf="isKeysUnique === false"><em class="pi pi-exclamation-circle" style="color: red"></em></div>-->
+                {{'DOMAINS.ANNOTATIONS.KEY' | translate}}
             </div>
             <div class="col-6">
-                {{'VALUE'}}
+                {{'DOMAINS.ANNOTATIONS.VALUE' | translate}}
             </div>
         </div>
         <div class="grid flex flex-grow-1 mt-4 mb-2" *ngFor="let kv of keyValue">
             <div class="flex grid flex-grow-1">
                 <div class="col-4">
-                    <input pInputText type="text" (focusout)="emmitValue()" [(ngModel)]="kv.key" class="flex flex-grow-1" style="width: 100%" [ngClass]="{ 'border-red': isKeyNotUnique(kv.key)}">
+                    <input pInputText type="text" [disabled]="getReadOnlyValue(kv.key)"  (focusout)="emmitValue(kv.key)" [(ngModel)]="kv.key" class="flex flex-grow-1" style="width: 100%" [ngClass]="{ 'border-red': isKeyNotUnique(kv.key)}">
                 </div>
                 <div class="col-6">
                     <input pInputText type="text" (focusout)="emmitValue()" [(ngModel)]="kv.value" class="flex flex-grow-1" style="width: 100%">

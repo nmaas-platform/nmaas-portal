@@ -2,10 +2,10 @@
     <div class="nmaas-modal-header">
         {{'ADD_MEMBERS_MODAL.HEADER' | translate}}
     </div>
-    <div class="nmaas-modal-body" style="min-height: 200px; width: 100%">
+    <div class="nmaas-modal-body" style="min-height: 400px; width: 100%">
         <div class="col-sm-4">
             <h5>{{'ADD_MEMBERS_MODAL.SELECT_USERS' | translate}}</h5>
-            <p-multiSelect [options]="selectItems" [(ngModel)]="members" filterBy="username"
+            <p-multiSelect [options]="selectItems" [(ngModel)]="members" filterBy="value" filter="true"
                            [filterPlaceHolder]="'ADD_MEMBERS_MODAL.FILTER_PLACEHOLDER' | translate" [panelStyle]="{minWidth:'25em'}"
                            [overlayVisible]="true" >
             </p-multiSelect>

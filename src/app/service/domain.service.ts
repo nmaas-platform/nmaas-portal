@@ -9,6 +9,7 @@ import {Id} from '../model';
 import {Domain} from '../model/domain';
 import {User} from '../model';
 import {DomainGroup} from '../model/domaingroup';
+import { KeyValue } from '../model/key-value';
 
 @Injectable({
   providedIn: 'root',
@@ -114,4 +115,15 @@ export class DomainService extends GenericDataService {
     return this.put(this.url + 'group/' + id, domainGroup);
   }
 
+  public getAnnotations(): Observable<KeyValue[]> {
+    return this.get<KeyValue[]>(this.url + 'annotations')
+  }
+
+  public addAnnotations(annotations: KeyValue[]): Observable<void> {
+    return this.post(this.url + 'annotations', annotations)
+  }
+
+  public deleteAnnotation(key: string) : Observable<void>{
+    return this.delete(`${this.url}annotations/${key}`,)
+  }
 }

@@ -15,6 +15,7 @@ import {DcnDeploymentType} from '../../../model/dcndeploymenttype';
 import {CustomerNetwork} from '../../../model/customernetwork';
 import {MinLengthDirective} from '../../../directive/min-length.directive';
 import {MaxLengthDirective} from '../../../directive/max-length.directive';
+import { KeyValue } from '../../../model/key-value';
 
 
 @Component({
@@ -45,6 +46,8 @@ export class DomainComponent extends BaseComponent implements OnInit {
 
     public displayCustomerNetworksSection = false;
 
+    public annotations : Observable<KeyValue[]> = of([]);
+
     constructor(public domainService: DomainService,
                 protected userService: UserService,
                 private router: Router,
@@ -60,6 +63,7 @@ export class DomainComponent extends BaseComponent implements OnInit {
         this.modal.setModalType('warning');
         this.modal.setStatusOfIcons(true);
         this.mode = this.getMode(this.route);
+        console.warn("Route:",this.route, this.getMode(this.route))
         this.route.params.subscribe(params => {
             if (params['id'] !== undefined) {
                 this.domainId = +params['id'];
@@ -77,6 +81,10 @@ export class DomainComponent extends BaseComponent implements OnInit {
             } else {
                 this.domain = new Domain();
                 this.domain.active = true;
+               this.annotations = this.domainService.getAnnotations();
+               this.annotations.subscribe(data => {
+                this.domain.annotations = data;
+               })
             }
             if (!this.authService.hasRole('ROLE_OPERATOR')) {
                 let users: Observable<User[]>;
@@ -162,4 +170,11 @@ export class DomainComponent extends BaseComponent implements OnInit {
     public addNetwork() {
         this.domain.domainDcnDetails.customerNetworks.push(new CustomerNetwork());
     }
+
+    public handleAnnotationsChange(event: KeyValue[]){
+        this.domain.annotations = event;
+        console.log("Updated domain annotations", this.domain.annotations)
+
+    }
+
 }
