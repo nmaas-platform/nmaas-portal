@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {PodLogs} from '../../../model/pod-logs';
 import {AppLogsService} from '../../../service/app-logs.service';
 import {PodInfo} from '../../../model/podinfo';
@@ -9,15 +9,20 @@ import {ActivatedRoute} from '@angular/router';
     templateUrl: './app-log-access.component.html',
     styleUrls: ['./app-log-access.component.css']
 })
-export class AppLogAccessComponent implements OnInit {
+export class AppLogAccessComponent implements OnInit, AfterViewChecked {
     public appInstanceId: number;
-    public podInfos: PodInfo[];
+    public podInfos: PodInfo[] = [];
+    public containers: string[] = [];
     public selectedPodInfo: PodInfo = undefined;
     public selectedPodLogs: PodLogs = undefined;
-    public containers: string[];
     public selectedContainer: string = undefined;
+    public isLoading = true;
 
     public blobUrl;
+
+    @ViewChild('terminal', {static: false}) private terminalElement: ElementRef;
+
+    @ViewChild('dropdown', {static: false}) private containerDropdown: ElementRef;
 
     constructor(private logService: AppLogsService,
                 private route: ActivatedRoute) {
@@ -29,24 +34,23 @@ export class AppLogAccessComponent implements OnInit {
             this.logService.getPodNames(this.appInstanceId).subscribe(
                 podInfos => {
                     this.podInfos = podInfos;
-                    if (podInfos.length > 0) {
-                        this.selectedPodInfo = podInfos[0];
+                    if (podInfos.length === 0) {
+                        this.isLoading = false;
+                        return
                     }
-                    this.containers = this.selectedPodInfo.containers
-                    if (this.containers.length > 0) {
+                    this.selectedPodInfo = podInfos[0];
+                    if (this.selectedPodInfo.containers.length > 0) {
+                        this.containers = this.selectedPodInfo.containers
                         this.selectedContainer = this.containers[0]
-                        this.logService.getLogsFromPod(this.appInstanceId, this.selectedPodInfo.name, this.containers[0])
-                            .subscribe(podLogs => this.selectedPodLogs = podLogs)
+                        this.retrieveLogs()
                     }
                 }
             )
         })
     }
 
-    refreshLogs(): void {
-        this.logService.getLogsFromPod(this.appInstanceId, this.selectedPodInfo.name, this.selectedContainer).subscribe(
-            podLogs => this.selectedPodLogs = podLogs
-        )
+    ngAfterViewChecked() {
+        this.scrollToBottom();
     }
 
     downloadLogs(podName: string, lines: string[]): void {
@@ -64,20 +68,32 @@ export class AppLogAccessComponent implements OnInit {
     }
 
     selectPod(event: any): void {
-        this.selectedPodInfo = event.value
-        this.selectedContainer = this.selectedPodInfo.containers[0]
-        this.containers = this.selectedPodInfo.containers
-        this.logService.getLogsFromPod(this.appInstanceId, this.selectedPodInfo.name, this.selectedContainer).subscribe(
-            podLogs => this.selectedPodLogs = podLogs
-        )
+        if (event.value.containers.length > 0) {
+            this.containers = event.value.containers
+            this.selectedContainer = this.containers[0];
+            this.retrieveLogs()
+        } else {
+            this.selectedContainer = null;
+        }
     }
 
-    selectContainer(event: any): void {
-        this.selectedContainer = event.value;
+    selectContainer(): void {
+        this.retrieveLogs()
+    }
+
+    retrieveLogs() {
+        this.isLoading = true
         this.logService.getLogsFromPod(this.appInstanceId, this.selectedPodInfo.name, this.selectedContainer).subscribe(
             podLogs => {
                 this.selectedPodLogs = podLogs
+                this.isLoading = false
             }
         )
+    }
+
+    scrollToBottom(): void {
+        try {
+            this.terminalElement.nativeElement.scrollTop = this.terminalElement.nativeElement.scrollHeight;
+        } catch (_) {}
     }
 }
