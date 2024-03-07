@@ -17,12 +17,11 @@ export class AppLogAccessComponent implements OnInit, AfterViewChecked {
     public selectedPodLogs: PodLogs = undefined;
     public selectedContainer: string = undefined;
     public isLoading = true;
+    private scrolledToBottom = false;
 
     public blobUrl;
 
     @ViewChild('terminal', {static: false}) private terminalElement: ElementRef;
-
-    @ViewChild('dropdown', {static: false}) private containerDropdown: ElementRef;
 
     constructor(private logService: AppLogsService,
                 private route: ActivatedRoute) {
@@ -82,6 +81,7 @@ export class AppLogAccessComponent implements OnInit, AfterViewChecked {
     }
 
     retrieveLogs() {
+        this.scrolledToBottom = false
         this.isLoading = true
         this.logService.getLogsFromPod(this.appInstanceId, this.selectedPodInfo.name, this.selectedContainer).subscribe(
             podLogs => {
@@ -93,7 +93,10 @@ export class AppLogAccessComponent implements OnInit, AfterViewChecked {
 
     scrollToBottom(): void {
         try {
-            this.terminalElement.nativeElement.scrollTop = this.terminalElement.nativeElement.scrollHeight;
+            if (!this.scrolledToBottom) {
+                this.terminalElement.nativeElement.scrollTop = this.terminalElement.nativeElement.scrollHeight;
+                this.scrolledToBottom = true;
+            }
         } catch (_) {}
     }
 }
