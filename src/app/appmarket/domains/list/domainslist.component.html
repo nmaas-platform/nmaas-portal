@@ -1,19 +1,19 @@
 <div class="col-sm-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10">
     <h3>{{ 'DOMAINS.TITLE' | translate }}</h3>
-    <div class="flex space-between align-content-center">
-        <div class="flex">
-            <a *roles="['ROLE_SYSTEM_ADMIN']" [routerLink]="['add']" class="btn btn-primary"
+    <div class="flex space-between align-content-center" style="height: 50px;">
+        <div class="flex" style="height: 45px;">
+            <a *roles="['ROLE_SYSTEM_ADMIN']" [routerLink]="['add']" class="btn btn-primary" style="margin-top: 10px;"
                role="button">{{'DOMAINS.ADD_BUTTON' | translate}}</a>
         </div>
-        <div *roles="['ROLE_SYSTEM_ADMIN']" class="flex" style="align-content: center; margin-top: 8px;">
+        <div *roles="['ROLE_SYSTEM_ADMIN']" class="flex" style="align-content: center; height: 35px; margin-top: 10px;">
             <button class="btn btn-secondary" [routerLink]="['annotations']">{{'DOMAINS.ANNOTATIONS.EDIT' | translate}}</button>
         </div>
-        <div *roles="['ROLE_SYSTEM_ADMIN']" class="flex" style="align-content: center; margin-top: 8px;">
-            <span style="align-content: center; margin-right: 5px;"> {{'DOMAINS.NOTACTIVE' | translate}}</span>
-            <p-checkbox id="showNotActive" [binary]="true" [(ngModel)]=" showNotActive"></p-checkbox>
+        <div *roles="['ROLE_SYSTEM_ADMIN']" class="flex" style="align-content: center; height: 35px;  margin-top: 8px;">
+            <span style="align-content: center; margin-right: 5px; margin-top: 10px;"> {{'DOMAINS.NOTACTIVE' | translate}}</span>
+            <p-checkbox id="showNotActive" [binary]="true" [(ngModel)]=" showNotActive" class="flex align-content-start" style=""></p-checkbox>
         </div>
-        <div class="flex align-content-center">
-            {{ 'DOMAINS.ITEMS_PER_PAGE' | translate }}:
+        <div class="flex align-content-center" style="align-content: center; height: 35px;  margin-top: 8px;">
+            <p class="flex align-content-center" style="margin-top: 10px;">{{ 'DOMAINS.ITEMS_PER_PAGE' | translate }}:</p>
             <span id="selectionItems" class="dropdown flex align-content-center" style="vertical-align: middle; display: inline-block; margin-right: 1rem;">
         <button class="dropdown-toggle btn" data-toggle="dropdown" data-close-others="true">
             <span class="flex mt-2 mr-1">{{maxItemsOnPage}}</span>
