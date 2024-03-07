@@ -83,7 +83,10 @@
                 </div>
 
                 <!-- if application is already running -->
-                <div *ngIf="appInstance" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div *ngIf="appInstance && (
+                     getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.RUNNING ||
+                     getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.FAILURE)"
+                     class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                     <div class="btn-group pull-right">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -198,6 +201,9 @@
             </div>
         </div>
     </div>
+    <a role="button" [routerLink]="router.url + '/logs'">
+        {{'APP_INSTANCE.VIEW_LOGS' | translate}}
+    </a>
 
     <!-- Undeploy modal-->
     <nmaas-modal styleModal="warning" #undeployModal>
