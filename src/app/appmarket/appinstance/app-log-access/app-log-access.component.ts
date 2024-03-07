@@ -92,6 +92,8 @@ export class AppLogAccessComponent implements OnInit, AfterViewChecked {
     }
 
     scrollToBottom(): void {
-        this.terminalElement.nativeElement.scrollTop = this.terminalElement.nativeElement.scrollHeight;
+        try {
+            this.terminalElement.nativeElement.scrollTop = this.terminalElement.nativeElement.scrollHeight;
+        } catch (_) {}
     }
 }
