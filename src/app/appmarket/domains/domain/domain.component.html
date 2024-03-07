@@ -147,7 +147,7 @@
 		<app-domain-namespace-annotations [annotationRead]="annotations" (annotations)="handleAnnotationsChange($event)"></app-domain-namespace-annotations>
 		</div>
 
-		<div class="panel panel-default">
+		<div *ngIf="isInMode(ComponentMode.VIEW)" class="panel panel-default">
 			<div class="panel-heading">{{ 'DOMAIN_DETAILS.APP_STATUS' | translate }}</div>
 			<div class="panel-body">
 				<table class="table table-hover table-condensed" aria-describedby="Domain details table">
