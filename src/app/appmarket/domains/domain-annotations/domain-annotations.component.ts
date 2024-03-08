@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-domain-annotations',
   templateUrl: './domain-annotations.component.html',
-  styleUrls: ['./domain-annotations.component.css']
+  styleUrls: []
 })
 export class DomainAnnotationsComponent implements OnInit {
 

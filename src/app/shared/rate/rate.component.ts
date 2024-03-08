@@ -6,7 +6,7 @@ import {Rate} from '../../model';
 @Component({
     selector: 'rate',
     templateUrl: './rate.component.html',
-    styleUrls: ['./rate.component.css', '../rating-extended/rating-extended.component.css'],
+    styleUrls: ['../rating-extended/rating-extended.component.css'],
     encapsulation: ViewEncapsulation.None,
 })
 export class RateComponent implements OnInit, OnChanges {

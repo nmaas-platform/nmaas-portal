@@ -132,7 +132,6 @@ export class AppManagementListComponent implements OnInit {
 
     public getApplicationInfoJSON(id: number) {
         this.appsService.getApplicationDTO(id).subscribe( appDTO => {
-           // const app = appDTO;
             appDTO = this.deleteIDsFields(appDTO);
            let blob = new Blob([JSON.stringify(appDTO, null, 4)], {type: 'application/json'})
             this.blobUrl = window.URL.createObjectURL(blob);

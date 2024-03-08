@@ -15,7 +15,7 @@ import {UntypedFormControl, ValidatorFn} from '@angular/forms';
   templateUrl: './app-static-global-deploy-parameters-edit.component.html',
   styleUrls: ['./app-static-global-deploy-parameters-edit.component.css']
 })
-export class AppStaticGlobalDeployParametersEditComponent implements OnInit, AfterViewInit {
+export class AppStaticGlobalDeployParametersEditComponent implements OnInit {
 
   @Input()
   public appDeploymentSpec: AppDeploymentSpec = undefined;
@@ -63,8 +63,6 @@ export class AppStaticGlobalDeployParametersEditComponent implements OnInit, Aft
       this.newValueFormControl.setValidators(this.valueValidator);
     }
   }
-
-  ngAfterViewInit(): void {}
 
   public isNewDeployParamValid(): boolean {
     this.newKey = this.newKeyFormControl.value;
