@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {KeyValue} from '../../model/key-value';
 import { Observable, of } from 'rxjs';
-import { AnonymousSubject } from 'rxjs/internal/Subject';
 
 @Component({
     selector: 'app-domain-namespace-annotations',
@@ -20,7 +19,7 @@ export class DomainNamespaceAnnotationsComponent implements OnInit {
     public annotations: EventEmitter<KeyValue[]> = new EventEmitter<KeyValue[]>();
 
     @Output()
-    public trigerDelete: EventEmitter<String> = new EventEmitter<String>();
+    public trigerDelete: EventEmitter<string> = new EventEmitter<string>();
 
     public keyValue: KeyValue[] = []
 
@@ -29,10 +28,7 @@ export class DomainNamespaceAnnotationsComponent implements OnInit {
     public isKeysUnique = true;
     public isKeyValuePresent =true;
 
-    public reaOnlyMap = new Map<String, boolean>();
-
-    constructor() {
-    }
+    public reaOnlyMap = new Map<string, boolean>();
 
     ngOnInit(): void {
         console.warn("annotations", this.annotationRead)

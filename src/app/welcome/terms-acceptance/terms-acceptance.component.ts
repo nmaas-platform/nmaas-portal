@@ -15,7 +15,7 @@ import {Observable} from 'rxjs/internal/Observable';
 @Component({
   selector: 'app-terms-acceptance',
   templateUrl: './terms-acceptance.component.html',
-  styleUrls: ['./terms-acceptance.component.css'],
+  styleUrls: [],
 })
 export class TermsAcceptanceComponent extends BaseComponent implements OnInit {
 

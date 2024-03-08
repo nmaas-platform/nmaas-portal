@@ -42,6 +42,7 @@ export class CommentsComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
+        this.refresh();
     }
 
     ngOnInit() {

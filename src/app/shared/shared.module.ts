@@ -52,7 +52,7 @@ import {SshKeysComponent} from './users/ssh-keys/ssh-keys.component';
 import {NewSshKeyComponent} from './users/new-ssh-key/new-ssh-key.component';
 import {ModalProvideSshKeyComponent} from './modal/modal-provide-ssh-key/modal-provide-ssh-key.component';
 import { ContactComponent } from './contact/contact.component';
-import {FormioAppConfig, FormioModule} from '@formio/angular';
+import {FormioModule} from '@formio/angular';
 import { PreferencesComponent } from './users/preferences/preferences.component';
 import {TooltipModule} from 'primeng/tooltip';
 import {DropdownModule} from 'primeng/dropdown';
