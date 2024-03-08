@@ -62,7 +62,7 @@ export class AppStaticGlobalDeployParametersEditComponent implements OnInit {
     if (this.valueValidator) {
       this.newValueFormControl.setValidators(this.valueValidator);
     }
-  }ra
+  }
 
   public isNewDeployParamValid(): boolean {
     this.newKey = this.newKeyFormControl.value;
