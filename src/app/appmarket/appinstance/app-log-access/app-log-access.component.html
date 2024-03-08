@@ -19,7 +19,7 @@
         </div>
         <div *ngIf="!isLoading" class="ml-5">
             <p class="font-bold pl-2">{{ 'APP_INSTANCE.LOG_ACCESS.CONTAINER' | translate}}</p>
-            <p-dropdown #dropdown [options]="selectedPodInfo.containers" [(ngModel)]="selectedContainer"
+            <p-dropdown [options]="selectedPodInfo.containers" [(ngModel)]="selectedContainer"
                         (onChange)="selectContainer()"
                         placeholder="{{ 'APP_INSTANCE.LOG_ACCESS.DROPDOWN_PLACEHOLDER' | translate}}"
                         class="col-2 bottom">
