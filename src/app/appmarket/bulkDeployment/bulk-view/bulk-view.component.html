@@ -224,7 +224,7 @@
                             <td>{{getAppInstanceName(response)}}</td>
                             <td>{{getDomainCodeName(response)}}</td>
                             <td style="width: 5%" class="text-right">
-                    <span *ngif="response?.details['appInstanceId'] !==null" class="dropdown">
+                    <span *ngif="getAppInstanceId(response) !== undefined && getAppInstanceId(response) !== null" class="dropdown">
             <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
                data-toggle="dropdown" href="#" role="button">
               <em class="fas fa-cog icon-black icon-bigger"></em>
