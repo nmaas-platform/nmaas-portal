@@ -10,6 +10,7 @@ import {Domain} from '../model/domain';
 import {User} from '../model';
 import {DomainGroup} from '../model/domaingroup';
 import { KeyValue } from '../model/key-value';
+import { DomainAnnotation } from '../model/domain-annotation';
 
 @Injectable({
   providedIn: 'root',
@@ -115,15 +116,19 @@ export class DomainService extends GenericDataService {
     return this.put(this.url + 'group/' + id, domainGroup);
   }
 
-  public getAnnotations(): Observable<KeyValue[]> {
-    return this.get<KeyValue[]>(this.url + 'annotations')
+  public getAnnotations(): Observable<DomainAnnotation[]> {
+    return this.get<DomainAnnotation[]>(this.url + 'annotations')
   }
 
-  public addAnnotations(annotations: KeyValue[]): Observable<void> {
-    return this.post(this.url + 'annotations', annotations)
+  public addAnnotations(annotation: KeyValue): Observable<void> {
+    return this.post(this.url + 'annotations', annotation)
   }
 
-  public deleteAnnotation(key: string) : Observable<void>{
-    return this.delete(`${this.url}annotations/${key}`,)
+  public deleteAnnotation(id: number) : Observable<void>{
+    return this.delete(`${this.url}annotations/${id}`)
+  }
+
+  public updateAnnotation(annotation: DomainAnnotation): Observable<void> {
+    return this.put(`${this.url}annotations/${annotation.id}`, annotation)
   }
 }

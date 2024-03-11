@@ -3,6 +3,7 @@ import {DomainTechDetails} from './domaintechdetails';
 import {DomainApplicationStatePerDomain} from './domainapplicationstateperdomain';
 import {DomainGroup} from './domaingroup';
 import {KeyValue} from './key-value';
+import { DomainAnnotation } from './domain-annotation';
 
 export class Domain {
   public id: number = undefined;
@@ -14,5 +15,5 @@ export class Domain {
   public applicationStatePerDomain: DomainApplicationStatePerDomain[] = [];
   public groups: DomainGroup[] = [];
   public deleted: boolean;
-  public annotations: KeyValue[] = [];
+  public annotations: DomainAnnotation[] = [];
 }

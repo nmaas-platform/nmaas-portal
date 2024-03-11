@@ -144,7 +144,7 @@
 
 
 		<div *ngIf="isInMode(ComponentMode.CREATE)" >
-		<app-domain-namespace-annotations [annotationRead]="annotations" (annotations)="handleAnnotationsChange($event)"></app-domain-namespace-annotations>
+		<app-domain-namespace-annotations [annotationRead]="annotations" (annotations)="handleAnnotationsChange($event)" (trigerDelete)="handleAnnotationDelete($event)"></app-domain-namespace-annotations>
 		</div>
 
 		<div *ngIf="isInMode(ComponentMode.VIEW)" class="panel panel-default">
