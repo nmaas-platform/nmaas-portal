@@ -21,18 +21,10 @@ export class DomainAnnotationsComponent implements OnInit {
 
   public handleAnnotationsUpdate(event: any ) {
     console.warn(event)
-    
-    this.domainService.addAnnotations(event).subscribe(_ => {
-      this.annotations = this.domainService.getAnnotations();
-    })
   }
 
   public handleDelete(key: string) {
     console.warn("trigger delete for", key);
-
-    this.domainService.deleteAnnotation(key).subscribe(_ => {
-      this.annotations = this.domainService.getAnnotations();
-    })
   }
 
 }
