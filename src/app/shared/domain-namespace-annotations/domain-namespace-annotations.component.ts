@@ -15,6 +15,9 @@ export class DomainNamespaceAnnotationsComponent implements OnInit {
     @ViewChild(ModalComponent, {static: true})
     public readonly modal: ModalComponent;
 
+    @ViewChild('editModal')
+    public readonly modalEdit: ModalComponent;
+
     @Input()
     public annotationRead: Observable<DomainAnnotation[]> = of([]);
 
@@ -34,9 +37,11 @@ export class DomainNamespaceAnnotationsComponent implements OnInit {
     public isKeysUnique = true;
     public isKeyValuePresent =true;
 
+    public isKeyPatternCorrect = true;
+
     public newAnnotations : DomainAnnotation = new DomainAnnotation();
 
-    public reaOnlyMap = new Map<string, boolean>();
+    public editAnnotation : DomainAnnotation = new DomainAnnotation();
 
     public constructor(private readonly domainService: DomainService) {
 
@@ -46,9 +51,7 @@ export class DomainNamespaceAnnotationsComponent implements OnInit {
         console.warn("annotations", this.annotationRead)
         this.annotationRead.subscribe(annotation =>{
             this.keyValue = annotation;
-            annotation.forEach(ann => {
-                this.reaOnlyMap.set(ann.key,true);
-            })
+            this.checkDuplicate();
         })
     }
 
@@ -59,10 +62,7 @@ export class DomainNamespaceAnnotationsComponent implements OnInit {
         }
 
         if(keyValue !== null) {
-            if(keyValue.key !== "") {
-                this.reaOnlyMap.set(keyValue.key, true);
-            }
-    
+        
             if(this.globalSettings) {
                 this.domainService.updateAnnotation(keyValue).subscribe(_=> {
                     console.warn("Updated annotation", keyValue)
@@ -97,6 +97,9 @@ export class DomainNamespaceAnnotationsComponent implements OnInit {
 
     addAnnotation() {
         this.newAnnotations = new DomainAnnotation();
+        this.newAnnotations.key =''
+        this.newAnnotations.value = ''
+        console.log(this.newAnnotations)
         this.modal.show();
     }
 
@@ -114,14 +117,35 @@ export class DomainNamespaceAnnotationsComponent implements OnInit {
         return this.keySetNotUnique.some(val => val === key)
     }
 
-    public isKeyNotUniqueAdd(key: string) {
-        return this.keyValue.some(val => val.key === key)
+    public isKeyNotUniqueEdit(annotation: DomainAnnotation) {
+        let annotationBefore = this.keyValue.find(val => val.id === annotation.id)
+            if(annotation?.key === annotationBefore?.key) {
+                return this.keyValue.filter(val => val.key === annotation.key).length > 1
+            } else {
+                return this.keyValue.filter(val => val.key === annotation.key).length > 0
+            }
+        
     }
 
-    public getReadOnlyValue(key: string) {
-        if(this.reaOnlyMap.has(key)){
-            return this.reaOnlyMap.get(key);
-        } else return false;
+    public isEditAnnotationCorrect(annotation: DomainAnnotation) {
+        let annotationBefore = this.keyValue.find(val => val.id === annotation.id)
+        if(annotation?.key === annotationBefore?.key && annotation?.value === annotationBefore?.value) {
+            return true;
+        } else {
+            if(annotation?.key === annotationBefore?.key) {
+                return this.keyValue.filter(val => val.key === annotation.key).length > 1
+            } else {
+                return this.keyValue.filter(val => val.key === annotation.key).length > 0
+            }
+        }
+    }
+
+    public isKeyNotUniqueAdd(annotation: DomainAnnotation) {
+        if(annotation.key === '' || annotation.value === '') {
+                return true;
+        } else {
+            return this.keyValue.some(val => val.key === annotation.key)
+        }
     }
 
     public closeModal() {
@@ -144,5 +168,37 @@ export class DomainNamespaceAnnotationsComponent implements OnInit {
         this.annotationRead.subscribe(annotation =>{
             this.keyValue = annotation;
     })
+    }
+
+    public openEditModal(annotation: DomainAnnotation) {
+        this.editAnnotation = Object.assign({}, annotation) ;
+        this.modalEdit.show();
+    }
+
+    public closeModalEdit() {
+        if(this.globalSettings) {
+            this.domainService.updateAnnotation(this.editAnnotation).subscribe( _ =>{
+                this.editAnnotation = new DomainAnnotation();
+                this.annotationRead = this.domainService.getAnnotations();
+                this.triggerRefresh();
+            })
+        }else {
+            this.keyValue = this.keyValue.filter(val => val.id !== this.editAnnotation.id)
+            this.keyValue.push(this.editAnnotation);
+            this.editAnnotation = new DomainAnnotation();
+        }
+        this.emmitValue(null)
+        this.modalEdit.hide();
+    }
+
+    onKeyChange(value: string) {
+        const pattern = /^[A-Za-z0-9_.-]+$/;
+        if (!pattern.test(value)) {
+            // Wartość nie spełnia wzorca, więc możesz podjąć odpowiednią akcję
+            this.isKeyPatternCorrect = false; // Wyzerowanie wartości
+        } else {
+            this.isKeyPatternCorrect = true;
+        }
+        console.log(this.isKeyPatternCorrect)
     }
 }
