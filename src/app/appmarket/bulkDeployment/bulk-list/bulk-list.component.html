@@ -103,7 +103,7 @@
                     <a (click)="getAppBulkDetails(bulk?.id)"> {{"BULK.APP.DOWNLOAD_CSV" | translate}}</a>
                 </li>
                 <li *ngIf="mode === bulkTypeApp">
-                    <a (click)="modal.show()">{{ 'BULK.LIST.REMOVE' | translate }}</a>
+                    <a (click)="modal.show(); setBulkToDelete(bulk)">{{ 'BULK.LIST.REMOVE' | translate }}</a>
                 </li>
             </ul>
           </span>
@@ -130,9 +130,12 @@
                 <p-checkbox [(ngModel)]="removeAll" binary="true"></p-checkbox>
             </div>
         </div>
+        <div *ngIf="errorMessage !== ''" style="margin-top: 2rem; display: flex; justify-content: start; color: indianred">
+            <p>{{ 'BULK.REMOVE.ERROR' | translate}} {{errorMessage}}</p>
+        </div>
     </div>
     <div class="nmaas-modal-footer">
         <button type="button" class="btn btn-default" (click)="modal.hide()">{{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}</button>
-        <button type="button" class="btn btn-primary"   [disabled]="false">{{'BULK.REMOVE.REMOVE' | translate}}</button>
+        <button type="button" class="btn btn-primary"  (click)="removeBulkDeployment()" [disabled]="false">{{'BULK.REMOVE.REMOVE' | translate}}</button>
     </div>
 </nmaas-modal>
