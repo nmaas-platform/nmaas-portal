@@ -16,6 +16,7 @@ import {CustomerNetwork} from '../../../model/customernetwork';
 import {MinLengthDirective} from '../../../directive/min-length.directive';
 import {MaxLengthDirective} from '../../../directive/max-length.directive';
 import { KeyValue } from '../../../model/key-value';
+import { DomainAnnotation } from '../../../model/domain-annotation';
 
 
 @Component({
@@ -46,7 +47,7 @@ export class DomainComponent extends BaseComponent implements OnInit {
 
     public displayCustomerNetworksSection = false;
 
-    public annotations : Observable<KeyValue[]> = of([]);
+    public annotations : Observable<DomainAnnotation[]> = of([]);
 
     constructor(public domainService: DomainService,
                 protected userService: UserService,
@@ -171,10 +172,15 @@ export class DomainComponent extends BaseComponent implements OnInit {
         this.domain.domainDcnDetails.customerNetworks.push(new CustomerNetwork());
     }
 
-    public handleAnnotationsChange(event: KeyValue[]){
+    public handleAnnotationsChange(event: DomainAnnotation[]){
         this.domain.annotations = event;
         console.log("Updated domain annotations", this.domain.annotations)
 
+    }
+
+    public handleAnnotationDelete(event : number) {
+        this.domain.annotations = this.domain.annotations.filter(val => val.id !== event)
+        console.log("Updated domain annotations", this.domain.annotations)
     }
 
 }

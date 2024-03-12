@@ -21,13 +21,13 @@
         <div class="grid flex flex-grow-1 mt-4 mb-2" *ngFor="let kv of keyValue">
             <div class="flex grid flex-grow-1">
                 <div class="col-4">
-                    <input pInputText type="text" [disabled]="getReadOnlyValue(kv.key)"  (focusout)="emmitValue(kv.key)" [(ngModel)]="kv.key" class="flex flex-grow-1" style="width: 100%" [ngClass]="{ 'border-red': isKeyNotUnique(kv.key)}">
+                    <input pInputText type="text"  (focusout)="emmitValue(kv)" [(ngModel)]="kv.key" class="flex flex-grow-1" style="width: 100%" [ngClass]="{ 'border-red': isKeyNotUnique(kv.key)}">
                 </div>
                 <div class="col-6">
-                    <input pInputText type="text" (focusout)="emmitValue()" [(ngModel)]="kv.value" class="flex flex-grow-1" style="width: 100%">
+                    <input pInputText type="text" (focusout)="emmitValue(kv)" [(ngModel)]="kv.value" class="flex flex-grow-1" style="width: 100%">
                 </div>
                 <div class="col-2 flex justify-content-end">
-                    <button type="button" class="btn btn-danger" (click)="deleteAnnotation(kv.key)">Delete</button>
+                    <button type="button" class="btn btn-danger" (click)="deleteAnnotation(kv.id)">Delete</button>
                 </div>
             </div>
         </div>
@@ -37,11 +37,31 @@
 
 
 <nmaas-modal>
-    <div class="nmaas-modal-header">{{'DOMAINS.LIST.GROUP' | translate}}</div>
-    <div class="nmaas-modal-body" style="height: 300px">
+    <div class="nmaas-modal-header">{{'DOMAINS.ANNOTATIONS.ADD' | translate}}</div>
+    <div class="nmaas-modal-body" style="height: 200px">
+   
+        <div class="grid flex flex-grow-1">
+            <div class="col-4">
+                {{'DOMAINS.ANNOTATIONS.KEY' | translate}}
+            </div>
+            <div class="col-6">
+                {{'DOMAINS.ANNOTATIONS.VALUE' | translate}}
+            </div>
+        </div>
+
+            <div class="flex grid flex-grow-1">
+                <div class="col-4">
+                    <input pInputText type="text"  [(ngModel)]="newAnnotations.key" class="flex flex-grow-1" style="width: 100%" [ngClass]="{ 'border-red': isKeyNotUniqueAdd(newAnnotations.key)}">
+                </div>
+                <div class="col-6">
+                    <input pInputText type="text"  [(ngModel)]="newAnnotations.value" class="flex flex-grow-1" style="width: 100%">
+                </div>
+            </div>
+        
 
     </div>
     <div class="nmaas-modal-footer">
-
+        <button type="button" class="btn btn-default" (click)="modal.hide()">{{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="closeModal()" [disabled]="isKeyNotUniqueAdd(newAnnotations.key)">{{'SHARED.ADD' | translate}}</button>
     </div>
 </nmaas-modal>

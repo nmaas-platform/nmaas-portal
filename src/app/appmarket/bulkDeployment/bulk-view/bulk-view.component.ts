@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {BulkDeployment} from '../../../model/bulk-deployment';
+import {BulkDeployment, BulkDeploymentState} from '../../../model/bulk-deployment';
 import {AppdeploymentService} from '../appdeployment.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BulkResponse, BulkType} from '../../../model/bulk-response';
@@ -53,6 +53,10 @@ export class BulkViewComponent implements OnInit, OnDestroy {
 
     public getAppInstanceId(entry: BulkResponse) {
         return entry?.details['appInstanceId']
+    }
+
+    public iSWorkingInstance(entry: BulkResponse) {
+        return entry?.state === BulkDeploymentState.COMPLETED || entry?.state.toString() == 'COMPLETED'
     }
 
     public getAppInstanceName(entry: BulkResponse) {

@@ -1,6 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {KeyValue} from '../../model/key-value';
 import { Observable, of } from 'rxjs';
+import { DomainAnnotation } from '../../model/domain-annotation';
+import { ModalComponent } from '../modal';
+import { DomainService } from '../../service';
 
 @Component({
     selector: 'app-domain-namespace-annotations',
@@ -9,26 +12,35 @@ import { Observable, of } from 'rxjs';
 })
 export class DomainNamespaceAnnotationsComponent implements OnInit {
 
+    @ViewChild(ModalComponent, {static: true})
+    public readonly modal: ModalComponent;
+
     @Input()
-    public annotationRead: Observable<KeyValue[]> = of([]);
+    public annotationRead: Observable<DomainAnnotation[]> = of([]);
 
     @Input()
     public globalSettings: boolean = false;
 
     @Output()
-    public annotations: EventEmitter<KeyValue[]> = new EventEmitter<KeyValue[]>();
+    public annotations: EventEmitter<DomainAnnotation[]> = new EventEmitter<DomainAnnotation[]>();
 
     @Output()
     public trigerDelete: EventEmitter<string> = new EventEmitter<string>();
 
-    public keyValue: KeyValue[] = []
+    public keyValue: DomainAnnotation[] = []
 
     private keySetNotUnique: string[] = [];
 
     public isKeysUnique = true;
     public isKeyValuePresent =true;
 
+    public newAnnotations : DomainAnnotation = new DomainAnnotation();
+
     public reaOnlyMap = new Map<string, boolean>();
+
+    public constructor(private readonly domainService: DomainService) {
+
+    }
 
     ngOnInit(): void {
         console.warn("annotations", this.annotationRead)
@@ -40,14 +52,24 @@ export class DomainNamespaceAnnotationsComponent implements OnInit {
         })
     }
 
-    public emmitValue(key: string = "") {
+    public emmitValue(keyValue: DomainAnnotation) {
         this.checkDuplicate()
         if ( this.isKeysUnique && this.isKeyValuePresent) {
             this.annotations.emit(this.keyValue);
         }
-        if(key !== "") {
-            this.reaOnlyMap.set(key, true);
+
+        if(keyValue !== null) {
+            if(keyValue.key !== "") {
+                this.reaOnlyMap.set(keyValue.key, true);
+            }
+    
+            if(this.globalSettings) {
+                this.domainService.updateAnnotation(keyValue).subscribe(_=> {
+                    console.warn("Updated annotation", keyValue)
+                })
+            }
         }
+       
     }
 
     public checkDuplicate() {
@@ -74,18 +96,26 @@ export class DomainNamespaceAnnotationsComponent implements OnInit {
     }
 
     addAnnotation() {
-        this.keyValue.push(new KeyValue())
+        this.newAnnotations = new DomainAnnotation();
+        this.modal.show();
     }
 
-    deleteAnnotation(key: any) {
-        this.keyValue = this.keyValue.filter(val => val.key !== key)
-        if(this.globalSettings) {
-            this.trigerDelete.emit(key);
+    deleteAnnotation(id: any) {
+        this.keyValue = this.keyValue.filter(val => val.id !== id)
+        this.trigerDelete.emit(id);
+        if(this.globalSettings){
+            this.domainService.deleteAnnotation(id).subscribe(_=>{
+                this.annotationRead = this.domainService.getAnnotations();
+            })
         }
     }
 
    public isKeyNotUnique(key: string) {
         return this.keySetNotUnique.some(val => val === key)
+    }
+
+    public isKeyNotUniqueAdd(key: string) {
+        return this.keyValue.some(val => val.key === key)
     }
 
     public getReadOnlyValue(key: string) {
@@ -94,4 +124,25 @@ export class DomainNamespaceAnnotationsComponent implements OnInit {
         } else return false;
     }
 
+    public closeModal() {
+        if(this.globalSettings) {
+            this.domainService.addAnnotations(this.newAnnotations).subscribe(_ => {
+                console.log("Send request to create new annotations", this.newAnnotations)
+                this.newAnnotations = new DomainAnnotation();
+                this.annotationRead = this.domainService.getAnnotations();
+                this.triggerRefresh();
+            })
+        } else {
+            this.keyValue.push(this.newAnnotations)
+            this.newAnnotations = new DomainAnnotation();
+        }
+        this.emmitValue(null);
+        this.modal.hide();
+    }
+
+    public triggerRefresh() {
+        this.annotationRead.subscribe(annotation =>{
+            this.keyValue = annotation;
+    })
+    }
 }
