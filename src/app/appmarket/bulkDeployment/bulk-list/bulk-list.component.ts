@@ -78,7 +78,29 @@ export class BulkListComponent {
                 this.bulks.sort((a, b) => new Date(a.creationDate).getTime() - new Date(b.creationDate).getTime())
 
             }
-        } else {
+        } else if (sortColumn === "app_name" || sortColumn === 'instance_no') {
+            this.bulks.sort((a, b) => {
+                if (direction === 'asc') {
+                    if (this.getProperty(a, sortColumn) > this.getProperty(b, sortColumn) ) {
+                        return 1;
+                    }
+
+                    if (this.getProperty(a, sortColumn)  < this.getProperty(b, sortColumn)) {
+                        return -1;
+                    }
+                    return 0;
+                } else {
+                    if (this.getProperty(a, sortColumn)  > this.getProperty(b, sortColumn)) {
+                        return -1;
+                    }
+
+                    if (this.getProperty(a, sortColumn)  < this.getProperty(b, sortColumn)) {
+                        return 1;
+                    }
+                    return 0;
+                }
+            })
+        }else  {
             this.bulks.sort((a, b) => {
                 if (direction === 'asc') {
                     if (a[sortColumn] > b[sortColumn]) {
@@ -105,7 +127,6 @@ export class BulkListComponent {
 
     public getAppBulkDetails(id: number) {
         this.appDeploy.getAppBulkDetails(id).subscribe( (data: Blob) => {
-            console.warn(data)
             const blob = new Blob([data], { type: 'text/csv' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -115,5 +136,15 @@ export class BulkListComponent {
             a.click();
             window.URL.revokeObjectURL(url);
         })
+    }
+
+    private getProperty(bulk: BulkDeployment, key : string) {
+        if(key === 'app_name') {
+            return bulk.details['appName']
+
+        } else if(key === "instance_no") {
+            return bulk.details['appInstanceNo']
+        }
+        return null
     }
 }
