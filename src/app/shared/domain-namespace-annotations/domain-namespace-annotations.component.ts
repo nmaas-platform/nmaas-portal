@@ -192,7 +192,7 @@ export class DomainNamespaceAnnotationsComponent implements OnInit {
     }
 
     onKeyChange(value: string) {
-        const pattern = /^[A-Za-z0-9_.-]+$/;
+        const pattern = /^[A-Za-z0-9_.-/]+$/;
         if (!pattern.test(value)) {
             // Wartość nie spełnia wzorca, więc możesz podjąć odpowiednią akcję
             this.isKeyPatternCorrect = false; // Wyzerowanie wartości
