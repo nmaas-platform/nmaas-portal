@@ -1,2 +1,6 @@
-<app-bulk-list [header]="'BULK.APP.HEADER'" [bulks]="bulks" [mode]="mode"></app-bulk-list>
+<app-bulk-list [header]="'BULK.APP.HEADER'"
+               [bulks]="bulks"
+               [mode]="mode"
+               (reloadBulks)="retrieveBulks()"
+></app-bulk-list>
 
