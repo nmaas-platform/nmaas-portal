@@ -27,14 +27,14 @@
         </div>
     </div>
     <table *ngIf="mode === 'DOMAIN'" class="table table-hover table-condensed" style="margin-top: 3rem"
-           aria-describedby="Bulk deployment table">
+           aria-describedby="Bulk deployment table" sortable-table (sorted)="onSort($event)">
         <thead>
         <tr>
-            <th scope="col">{{'BULK.LIST.ID' | translate}}</th>
-            <th scope="col">{{'BULK.LIST.CREATOR' | translate}}</th>
-            <th scope="col">{{'BULK.LIST.CREATION_DATE' | translate}}</th>
-            <th scope="col">{{'BULK.LIST.STATE' | translate}}</th>
-            <th scope="col"></th>
+            <th scope="col" class="column-sortable" sortable-column="id">{{'BULK.LIST.ID' | translate}}</th>
+            <th scope="col" class="column-sortable" sortable-column="creator">{{'BULK.LIST.CREATOR' | translate}}</th>
+            <th scope="col" class="column-sortable" sortable-column="date">{{'BULK.LIST.CREATION_DATE' | translate}}</th>
+            <th scope="col" class="column-sortable" sortable-column="state">{{'BULK.LIST.STATE' | translate}}</th>
+            <th scope="col" ></th>
         </tr>
         </thead>
 
