@@ -40,7 +40,7 @@ export class AppsService extends GenericDataService {
     }
 
     public updateApplicationBaseOwner(app: ApplicationBase): Observable<any> {
-        return this.patch(this.appConfig.getApiUrl() + '/apps/base/owner', app);
+        return this.patch(this.appConfig.getApiUrl() + `/apps/base/${app.id}/owner/${app.owner}`, app);
     }
 
     public deleteAppBase(id: number): Observable<any> {
