@@ -12,7 +12,7 @@ describe('AppChangeOwnerModalComponent', () => {
     let fixture: ComponentFixture<AppChangeOwnerModalComponent>;
 
     const appsServiceSpy = createSpyObj<AppsService>('AppsServiceSpy', ['updateApplicationBase']);
-    appsServiceSpy.updateApplicationBase.and.returnValue(of('1'))
+    appsServiceSpy.updateApplicationBaseOwner.and.returnValue(of('1'))
 
     const userServiceSpy = createSpyObj<UserService>('UserServiceSpy', ['getAll'])
     userServiceSpy.getAll.and.returnValue(of([]));
