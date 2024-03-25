@@ -14,10 +14,10 @@
   <div class="col-xs-8 col-sm-9 col-md-9 col-lg-10" *ngIf="app">
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-        <h2 style="margin-bottom: 4px;">{{app?.applicationBase.name}}</h2>
+        <h2 style="margin: 4px 0;">{{app?.applicationBase.name}}</h2>
         <rate *ngIf="app?.applicationBase.id" [showVotes]="true" [short]="true" [pathUrl]="getPathUrl(app?.applicationBase.id)"></rate>
         <rate *ngIf="!app?.applicationBase.id" [showVotes]="true" [short]="true" [pathUrl]="getPathUrl(1)"></rate>
-        <div class="text-muted" style="font-size: small;">
+        <div class="text-muted mt-2" style="font-size: small;">
           <span *ngIf="isVersionView()">v.{{app?.application.version}}</span>
           <a *ngIf="!isVersionView()" style="cursor: pointer;" (click)="showVersions()">{{'APP_INSTANCE.SHOW_VERSIONS_LABEL' | translate }}</a>
           | <a [href]="getValidLink(app?.applicationBase.licenseUrl)" target="_blank">{{app?.applicationBase.license}}</a>
@@ -39,8 +39,7 @@
         </a>
       </div>
     </div>
-    <hr>
-    <div class="row">
+    <div class="row mt-2">
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" *ngIf="app?.applicationBase.tags">
         <a *ngFor="let tag of app?.applicationBase.tags" class="tag-button">
           {{tag.name | titlecase}}
@@ -59,33 +58,30 @@
 
 <div class='row' *ngIf="app?.applicationBase.id && !screenshots">
   <h3>{{'SCREENSHOTS.HEADER' | translate}}</h3>
-  <hr>
   <screenshots [pathUrl]="'/apps/' + app?.applicationBase.id + '/screenshots'"></screenshots>
 </div>
 
 <div class='row' *ngIf="!app?.applicationBase.id || screenshots">
   <h3>{{'SCREENSHOTS.HEADER' | translate}}</h3>
-  <hr>
   <div class="carousel slide media-carousel col-md-12" id="app-preview-carousel" *ngIf="screenshots">
-        <div class="carousel-inner">
-            <div class="item" *ngFor="let row of screenshots | group:3; let firstRow = last" [ngClass]="{'active': firstRow}">
-                <div class="row">
-                    <div class="col-md-4" *ngFor="let screenshot of row">
-                        <a class="thumbnail">
-                            <img alt="Screenshot" [src]="screenshot.objectURL || 'assets/images/app-screenshot-example.png'">
-                        </a>
-                    </div>
-                </div>
-            </div>
+    <div class="carousel-inner">
+      <div class="item" *ngFor="let row of screenshots | group:4; let firstRow = last" [ngClass]="{'active': firstRow}">
+        <div class="row">
+          <div class="col-md-3" *ngFor="let screenshot of row">
+            <a class="thumbnail">
+              <img alt="Screenshot" [src]="screenshot.objectURL || 'assets/images/app-screenshot-example.png'">
+            </a>
+          </div>
         </div>
-        <a data-slide="prev" href="#app-preview-carousel" class="left carousel-control" *ngIf="screenshots.length > 3">&lt;</a>
-        <a data-slide="next" href="#app-preview-carousel" class="right carousel-control" *ngIf="screenshots.length > 3">&gt;</a>
+      </div>
+    </div>
+    <a data-slide="prev" href="#app-preview-carousel" class="left flex justify-content-center align-items-center carousel-control" *ngIf="screenshots.length > 3"><span class="fa fa-angle-left" style="width: 20px; height: 20px"></span></a>
+    <a data-slide="next" href="#app-preview-carousel" class="right flex justify-content-center align-items-center carousel-control" *ngIf="screenshots.length > 3"><span class="fa fa-angle-right" style="width: 20px; height: 20px"></span></a>
   </div>
 </div>
 
-<div class="row">
+<div class="row mt-5 mb-8">
   <h3>{{'APPLICATIONS.DESCRIPTION' | translate}}</h3>
-  <hr>
   <div [innerHTML]="getDescription()?.fullDescription">
 
   </div>
@@ -93,12 +89,12 @@
 
 <hr>
 
-<div *ngIf="app?.applicationBase.id" class="row">
+<div *ngIf="app?.applicationBase.id" class="row mb-6 mt-6">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 block-border">
     <rating-extended name="appRateUpdate" [editable]="false" [pathUrl]="getPathUrl(app?.applicationBase.id)"></rating-extended>
   </div>
 </div>
-<div *ngIf="!app?.applicationBase.id" class="row">
+<div *ngIf="!app?.applicationBase.id" class="row mb-6 mt-6">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 block-border">
     <rating-extended name="appRateUpdate" [editable]="false" [pathUrl]="getPathUrl(1)"></rating-extended>
   </div>
@@ -116,7 +112,7 @@
   </div>
 </div>
 
-<div class="row" *ngIf="app?.application.configUpdateWizardTemplate">
+  <div class="row" *ngIf="app?.application.configUpdateWizardTemplate">
     <hr>
     <div class="col-xs-12">
       <h3>{{'APPS_PREVIEW.UPDATE_CONFIG_WIZARD_PREVIEW_HEADER' | translate}}</h3>
