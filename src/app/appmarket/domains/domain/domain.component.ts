@@ -15,8 +15,7 @@ import {DcnDeploymentType} from '../../../model/dcndeploymenttype';
 import {CustomerNetwork} from '../../../model/customernetwork';
 import {MinLengthDirective} from '../../../directive/min-length.directive';
 import {MaxLengthDirective} from '../../../directive/max-length.directive';
-import { KeyValue } from '../../../model/key-value';
-import { DomainAnnotation } from '../../../model/domain-annotation';
+import {DomainAnnotation} from '../../../model/domain-annotation';
 
 
 @Component({
@@ -71,6 +70,8 @@ export class DomainComponent extends BaseComponent implements OnInit {
                 this.domainService.getOne(this.domainId).subscribe(
                     (domain: Domain) => {
                         this.domain = domain;
+                        this.domain.applicationStatePerDomain
+                            .sort((a, b) => a.applicationBaseName.localeCompare(b.applicationBaseName))
                     },
                     err => {
                         console.error(err);
