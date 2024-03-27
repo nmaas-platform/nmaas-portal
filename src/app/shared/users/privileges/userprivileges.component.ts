@@ -102,11 +102,11 @@ export class UserPrivilegesComponent extends BaseComponent implements OnInit {
                 this.domainService.getOne(domainId).subscribe((domain) => this.domains.push(domain));
             });
         }
-        this.getAllDomain();
+        this.getMyDomains();
     }
 
-    public getAllDomain() {
-        this.domainService.getAll().subscribe(domains => {
+    public getMyDomains() {
+        this.domainService.getMyDomains().subscribe(domains => {
             domains.forEach(domain => {
                 if (!this.domainCache.hasData(domain.id)) {
                     this.domainCache.setData(domain.id, domain)
