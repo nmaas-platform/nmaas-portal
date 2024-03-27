@@ -10,28 +10,28 @@
 		<div class="col-xs-8 col-sm-9 col-md-9 col-lg-10">
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" *ngIf="app">
-					<h2 style="margin-bottom: 4px;">{{app?.name}}</h2>
+					<h2 style="margin: 4px 0;">{{app?.name}}</h2>
 					<rate [showVotes]="true" [short]="true" [pathUrl]="getPathUrl(appId)"></rate>
-					<div class="text-muted" style="font-size: small;">
-						<span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="activeVersions.length !== 0">
-							<a class="{{activeVersions.length > 0 ? '' : 'disabled-url'}}" style="cursor: pointer;" (click)="showVersions()">{{'APP_INSTANCE.SHOW_VERSIONS_LABEL' | translate }}</a>
-						</span>
+					<div class="text-muted mt-2" style="font-size: small;">
+							<span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="activeVersions.length !== 0">
+								<a class="{{activeVersions.length > 0 ? '' : 'disabled-url'}}" style="cursor: pointer;" (click)="showVersions()">{{'APP_INSTANCE.SHOW_VERSIONS_LABEL' | translate }}</a>
+							</span>
 						|
 						<span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="!!app?.licenseUrl">
-							<a class="{{app?.licenseUrl ? '' : 'disabled-url'}}" [href]="getValidLink(app?.licenseUrl)" target="_blank">{{app?.license || 'License'}}</a>
-						</span>
+								<a class="{{app?.licenseUrl ? '' : 'disabled-url'}}" [href]="getValidLink(app?.licenseUrl)" target="_blank">{{app?.license || 'License'}}</a>
+							</span>
 						|
 						<span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="!!app?.wwwUrl">
-							<a class="{{app?.wwwUrl ? '' : 'disabled-url'}}" [href]="getValidLink(app?.wwwUrl)">WWW</a>
-						</span>
+								<a class="{{app?.wwwUrl ? '' : 'disabled-url'}}" [href]="getValidLink(app?.wwwUrl)">WWW</a>
+							</span>
 						|
 						<span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="!!app?.sourceUrl">
-							<a class="{{app?.sourceUrl ? '' : 'disabled-url'}}" [href]="getValidLink(app?.sourceUrl)" target="_blank">{{'APP_INSTANCE.SOURCE' | translate}}</a>
-						</span>
+								<a class="{{app?.sourceUrl ? '' : 'disabled-url'}}" [href]="getValidLink(app?.sourceUrl)" target="_blank">{{'APP_INSTANCE.SOURCE' | translate}}</a>
+							</span>
 						|
 						<span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="!!app?.issuesUrl">
-							<a class="{{app?.issuesUrl ? '' : 'disabled-url'}}" [href]="getValidLink(app?.issuesUrl)" target="_blank">{{'APP_INSTANCE.ISSUES' | translate}}</a>
-						</span>
+								<a class="{{app?.issuesUrl ? '' : 'disabled-url'}}" [href]="getValidLink(app?.issuesUrl)" target="_blank">{{'APP_INSTANCE.ISSUES' | translate}}</a>
+							</span>
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -47,15 +47,14 @@
 					</a>
 				</div>
 			</div>
-			<hr>
-			<div class="row">
+			<div class="row mt-2">
 				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" *ngIf="app?.tags">
 					<a *ngFor="let tag of app.tags" class="tag-button">
 						{{tag.name | lowercase}}
 					</a>
 				</div>
 			</div>
-<!--			block the button until app and domain are downloaded to load proper tooltip state-->
+			<!--			block the button until app and domain are downloaded to load proper tooltip state-->
 			<div class="row" *ngIf="app && domain">
 				<div *ngIf="!subscribed && isSubscriptionAllowed()" class="btn-group pull-right"
 					 pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_SUBSCRIBE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="defaultTooltipDisabled">
@@ -74,21 +73,18 @@
 
 	<div class='row'>
 		<h3>{{'SCREENSHOTS.HEADER' | translate}}</h3>
-		<hr>
 		<screenshots [pathUrl]="'/apps/' + appId + '/screenshots'"></screenshots>
 	</div>
 
-	<div class="row">
+	<div class="row mt-5 mb-8">
 		<h3>{{'APPLICATIONS.DESCRIPTION' | translate}}</h3>
-		<hr>
 		<div [innerHTML]="getDescription()?.fullDescription">
-
 		</div>
 	</div>
 
 	<hr>
 
-	<div *ngIf="appId" class="row">
+	<div *ngIf="appId" class="row mb-6 mt-6">
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 block-border">
 			<rating-extended name="appRateUpdate" [editable]="true" (onChange)="onRateChanged()" [pathUrl]="getPathUrl(appId)"></rating-extended>
 		</div>
