@@ -550,7 +550,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * checks if there are multiple access methods or if one access method is not default
+     * checks if there are any access method
      * returns true if conditions are satisfied
      */
     public shouldDisplayModal(): boolean {
@@ -560,14 +560,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         if (!this.appInstance.serviceAccessMethods) {
             return false;
         }
-        if (this.appInstance.serviceAccessMethods.length >= 1) {
-            return true;
-        }
-        if (this.appInstance.serviceAccessMethods.length === 1 &&
-            this.accessMethodTypeAsEnum(this.appInstance.serviceAccessMethods[0].type) !== ServiceAccessMethodType.DEFAULT) {
-            return true;
-        }
-        return false;
+        return this.appInstance.serviceAccessMethods.length > 0;
     }
 
     public checkStatus(): void {
