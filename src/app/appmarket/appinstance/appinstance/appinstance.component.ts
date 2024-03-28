@@ -560,7 +560,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         if (!this.appInstance.serviceAccessMethods) {
             return false;
         }
-        if (this.appInstance.serviceAccessMethods.length > 1) {
+        if (this.appInstance.serviceAccessMethods.length >= 1) {
             return true;
         }
         if (this.appInstance.serviceAccessMethods.length === 1 &&
