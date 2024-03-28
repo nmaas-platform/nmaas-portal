@@ -95,23 +95,31 @@ export class UserPrivilegesComponent extends BaseComponent implements OnInit {
 
     ngOnInit() {
         if (this.authService.hasRole(Role[Role.ROLE_SYSTEM_ADMIN])) {
-            this.domainService.getAll().subscribe((domains) => this.domains = domains);
+            this.domainService.getAll().subscribe((domains) => {
+                this.domains = domains
+                this.saveDomainsInCache(domains);
+            });
         } else if (this.authService.hasRole(Role[Role.ROLE_DOMAIN_ADMIN])) {
             const domainIds: number[] = this.authService.getDomainsWithRole(Role[Role.ROLE_DOMAIN_ADMIN]);
             domainIds.forEach((domainId) => {
                 this.domainService.getOne(domainId).subscribe((domain) => this.domains.push(domain));
             });
+        } else {
+            this.getMyDomains();
         }
-        this.getMyDomains();
+    }
+
+    private saveDomainsInCache(domains: Domain[]) {
+        domains.forEach(domain => {
+            if (!this.domainCache.hasData(domain.id)) {
+                this.domainCache.setData(domain.id, domain)
+            }
+        })
     }
 
     public getMyDomains() {
         this.domainService.getMyDomains().subscribe(domains => {
-            domains.forEach(domain => {
-                if (!this.domainCache.hasData(domain.id)) {
-                    this.domainCache.setData(domain.id, domain)
-                }
-            })
+            this.saveDomainsInCache(domains)
         })
     }
 

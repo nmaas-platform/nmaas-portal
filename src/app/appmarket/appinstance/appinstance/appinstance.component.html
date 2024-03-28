@@ -138,8 +138,9 @@
                                         {{'APP_INSTANCE.ENABLE_AUTO_UPGRADES_BUTTON' | translate}}
                                     </a>
                                 </li>
-                                <li *ngIf="appInstance.upgradePossible">
-                                    <a role="button" (click)="this.appUpgradeModal.show()">
+                                <li *ngIf="appInstance.upgradePossible" >
+                                    <a *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
+                                       role="button" (click)="this.appUpgradeModal.show()">
                                         {{'APP_INSTANCE.UPGRADE_BUTTON' | translate}}
                                     </a>
                                 </li>
