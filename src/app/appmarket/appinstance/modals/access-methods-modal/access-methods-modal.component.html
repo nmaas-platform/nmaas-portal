@@ -14,7 +14,7 @@
                 <tr *ngFor="let am of externalAccessMethods">
                     <td><strong>{{am.name}}</strong></td>
                     <td class="text-right"><a type="button" class="btn btn-primary"
-                           href="{{validateURL(am.url)}}">{{'APP_ACCESS_METHODS_MODAL.EXTERNAL_ACCESS' | translate}}</a>
+                           href="{{validateURL(am.url)}}" target="_blank" rel="noopener noreferrer">{{'APP_ACCESS_METHODS_MODAL.EXTERNAL_ACCESS' | translate}}</a>
                     </td>
                 </tr>
                 </tbody>
@@ -33,7 +33,7 @@
                 <tr *ngFor="let am of publicAccessMethods">
                     <td><strong>{{am.name}}</strong></td>
                     <td class="text-right"><a type="button" class="btn btn-primary"
-                           href="{{validateURL(am.url)}}">{{'APP_ACCESS_METHODS_MODAL.PUBLIC_ACCESS' | translate}}</a>
+                           href="{{validateURL(am.url)}}" target="_blank" rel="noopener noreferrer">{{'APP_ACCESS_METHODS_MODAL.PUBLIC_ACCESS' | translate}}</a>
                     </td>
                 </tr>
                 </tbody>
