@@ -5,5 +5,7 @@ export enum ParameterType{
     SMTP_PASSWORD,
     DOMAIN_CODENAME,
     BASE_URL,
-    RELEASE_NAME
+    RELEASE_NAME,
+    SMTP_HOST_WITH_PORT,
+    SMTP_FROM_DEFAULT_DOMAIN
 }
