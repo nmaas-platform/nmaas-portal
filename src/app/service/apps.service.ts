@@ -9,7 +9,7 @@ import {catchError, debounceTime} from 'rxjs/operators';
 import {AppStateChange} from '../model/appstatechange';
 import {ApplicationBase} from '../model/application-base';
 import {Application} from '../model/application';
-import {ApplicationDTO} from '../model/application-dto';
+import {ApplicationDTO, ApplicationVersionList} from '../model/application-dto';
 import {ApplicationVersion} from '../model/application-version';
 
 @Injectable({
@@ -50,6 +50,11 @@ export class AppsService extends GenericDataService {
     public hasRunningInstances(id: number): Observable<boolean> {
         return this.http.get<boolean>(this.appConfig.getApiUrl() + '/apps/instances/running/app/' + id);
     }
+    // getAllVersionWithBase 
+    public getApplicationBaseWithVersion(id: number): Observable<ApplicationVersionList> {
+        return this.get<ApplicationVersionList>(this.appConfig.getApiUrl() + '/apps/base/allversions/' + id);
+    }
+
     // application version
     public getApplicationVersions(id: number): Observable<ApplicationVersion[]> {
         return  this.get<ApplicationVersion[]>(this.appConfig.getApiUrl() + `/apps/versions/${id}`)

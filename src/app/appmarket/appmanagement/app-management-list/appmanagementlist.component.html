@@ -49,6 +49,9 @@
                 <a (click)="appAddJsonVersion.show()" >{{ 'APPS_MANAGEMENT.ADD_NEW_VERSION_BUTTON' | translate }} (JSON)</a>
               </li>
               <li>
+                <a (click)="getApplicationInfoJSONWithBase(app?.id)"> {{'APPS_MANAGEMENT.EXPORT_JSON' | translate}}</a>
+              </li>
+              <li>
                 <a [routerLink]="['/admin/apps/edit', app?.id]">{{ 'APPS_MANAGEMENT.EDIT_BUTTON' | translate }}</a>
               </li>
               <li>
@@ -78,7 +81,7 @@
                 <a (click)="showModal($event, app, version)" *ngIf="getStateAsString(version?.state) !== 'DELETED'">{{ 'APPS_MANAGEMENT.CHANGE_STATE_BUTTON' | translate }}</a>
               </li>
               <li>
-                <a (click)="getApplicationInfoJSON(version?.appVersionId)">{{'APPS_MANAGEMENT.EXPORT_JSON' | translate}}</a>
+                <a (click)="getApplicationInfoJSONWithoutBase(version?.appVersionId)">{{'APPS_MANAGEMENT.EXPORT_JSON' | translate}}</a>
               </li>
               <li>
                 <a [routerLink]="['/admin/apps/edit/version', version?.appVersionId]">{{ 'APPS_MANAGEMENT.EDIT_BUTTON' | translate }}</a>

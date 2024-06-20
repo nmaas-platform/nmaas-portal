@@ -130,9 +130,27 @@ export class AppManagementListComponent implements OnInit {
         })
     }
 
-    public getApplicationInfoJSON(id: number) {
+    public getApplicationInfoJSONWithBase(id: number) {
+        this.appsService.getApplicationBaseWithVersion(id).subscribe( appDTO => {
+            // appDTO = this.deleteIDsFields(appDTO);
+           let blob = new Blob([JSON.stringify(appDTO, null, 4)], {type: 'application/json'})
+            this.blobUrl = window.URL.createObjectURL(blob);
+            let a = document.createElement('a');
+            document.body.appendChild(a);
+            a.setAttribute('style', 'display: none');
+            a.href = this.blobUrl;
+            a.download = `${appDTO.applicationBase.name}.json`
+            a.click();
+            window.URL.revokeObjectURL(this.blobUrl);
+            a.remove();
+        })
+    }
+
+    public getApplicationInfoJSONWithoutBase(id: number) {
         this.appsService.getApplicationDTO(id).subscribe( appDTO => {
             appDTO = this.deleteIDsFields(appDTO);
+            // delete appDTO.applicationBase;
+            console.log(appDTO);
            let blob = new Blob([JSON.stringify(appDTO, null, 4)], {type: 'application/json'})
             this.blobUrl = window.URL.createObjectURL(blob);
             let a = document.createElement('a');
