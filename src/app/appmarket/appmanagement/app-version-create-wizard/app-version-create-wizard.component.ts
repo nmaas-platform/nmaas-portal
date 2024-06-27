@@ -20,6 +20,7 @@ import {AbstractControl, ValidatorFn} from '@angular/forms';
 import {MultiSelect} from 'primeng/multiselect';
 import {MenuItem, SelectItem} from 'primeng/api';
 import {ApplicationDTO} from '../../../model/application-dto';
+import { ApplicationVersion } from '../../../model/application-version';
 
 export function noParameterTypeInControlValueValidator(): ValidatorFn {
 
@@ -64,6 +65,8 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
     public formDisplayChange = true;
     public logo: any[] = [];
     public screenshots: any[] = [];
+    public applicationVersions: ApplicationVersion[] = [];
+    public selectedVersion : string;
 
     // properties for global parameters deploy validation
     // in future extensions pack this into single object
@@ -528,6 +531,14 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
             this.applicationDTO.application.appDeploymentSpec.kubernetesTemplate.helmChartRepository.name =
                 this.applicationDTO.applicationBase.name.toLowerCase().replace(' ', '-');
         }
+    }
+
+    public onVersionSelect(event: any) {
+        console.log("Slected version ",event )
+        this.appsService.getApplication(event.value.appVersionId).subscribe(data => {
+            console.log(data);
+            this.applicationDTO.application = data;
+        })
     }
 
 }

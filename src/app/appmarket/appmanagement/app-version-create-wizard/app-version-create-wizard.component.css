@@ -118,3 +118,8 @@
 .formio-editor-read-only-content {
     white-space: pre-wrap;
 }
+
+:host ::ng-deep .p-dropdown {
+    width: 200px;
+}
+
