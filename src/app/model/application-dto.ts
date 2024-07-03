@@ -10,3 +10,14 @@ export class ApplicationDTO {
         this.application = new Application()
     }
 }
+
+
+export class ApplicationVersionList {
+    public applicationBase: ApplicationBase = undefined;
+    public applications: Application[] = []
+
+    constructor() {
+        this.applicationBase = new ApplicationBase();
+        this.applications = []
+    }
+}
