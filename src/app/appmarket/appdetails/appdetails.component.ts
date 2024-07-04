@@ -30,6 +30,7 @@ import {ApplicationBase} from '../../model/application-base';
 export class AppDetailsComponent implements OnInit {
 
     public defaultTooltipDisabled = false;
+    numberOfScreenshots;
 
     protected state = 0;
 
@@ -190,6 +191,10 @@ export class AppDetailsComponent implements OnInit {
 
     public showVersions() {
         this.versionVisible = !this.versionVisible;
+    }
+
+    screenshots(number) {
+        this.numberOfScreenshots = number;
     }
 
 }
