@@ -3,7 +3,7 @@ html, body {
 }
 
 .container-fluid {
-	min-height: 100vh;
+	min-height: 70vh;
     background-repeat: no-repeat;
     background-color: rgb(255, 255, 255);
 	padding-bottom: 50px;
@@ -62,4 +62,30 @@ html, body {
 	justify-self: center;
 	display: grid;
 	width: 100%;
+}
+
+.container {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 75rem;
+}
+.w-40{
+	width: 40%;
+}
+.flex{
+	display: flex;
+}
+.flex-column{
+	flex-direction: column;
+}
+.button{
+	text-decoration: none;
+	background: #DC6E28;
+	font-weight: bold;
+	color:#ffffff;
+	border-radius: 30px;
+	padding:12px 25px;
+}
+.margin2{
+	margin: 3rem 0;
 }
