@@ -132,7 +132,6 @@ export class AppManagementListComponent implements OnInit {
 
     public getApplicationInfoJSONWithBase(id: number) {
         this.appsService.getApplicationBaseWithVersion(id).subscribe( appDTO => {
-            // appDTO = this.deleteIDsFields(appDTO);
            let blob = new Blob([JSON.stringify(appDTO, null, 4)], {type: 'application/json'})
             this.blobUrl = window.URL.createObjectURL(blob);
             let a = document.createElement('a');
@@ -149,7 +148,7 @@ export class AppManagementListComponent implements OnInit {
     public getApplicationInfoJSONWithoutBase(id: number) {
         this.appsService.getApplicationDTO(id).subscribe( appDTO => {
             appDTO = this.deleteIDsFields(appDTO);
-            // delete appDTO.applicationBase;
+            delete appDTO.applicationBase;
             console.log(appDTO);
            let blob = new Blob([JSON.stringify(appDTO, null, 4)], {type: 'application/json'})
             this.blobUrl = window.URL.createObjectURL(blob);
