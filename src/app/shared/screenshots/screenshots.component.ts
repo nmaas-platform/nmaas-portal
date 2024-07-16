@@ -31,7 +31,6 @@ export class ScreenshotsComponent implements OnInit {
     ngOnInit() {
         this.appsService.getAppScreenshotsByUrl(this.pathUrl).subscribe(fileInfos =>  {
             this.imagesFileInfo = fileInfos
-            console.log(this.imagesFileInfo)
             this.numberOfScreenshots.emit(this.imagesFileInfo.length);
         }
         );
