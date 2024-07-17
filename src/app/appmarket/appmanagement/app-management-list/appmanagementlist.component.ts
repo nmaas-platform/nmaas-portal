@@ -156,7 +156,7 @@ export class AppManagementListComponent implements OnInit {
             document.body.appendChild(a);
             a.setAttribute('style', 'display: none');
             a.href = this.blobUrl;
-            a.download = `${appDTO.applicationBase.name}-${appDTO.application.version}.json`
+            a.download = `${appDTO.application.name}-${appDTO.application.version}.json`
             a.click();
             window.URL.revokeObjectURL(this.blobUrl);
             a.remove();
