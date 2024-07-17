@@ -139,7 +139,7 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
 
     public appVersionCompare(a: ApplicationVersion, b: ApplicationVersion): number {
         // defaults version that cannot be parsed to `0.0.0`
-        return semver.compare(semver.coerce(a.version) || '0.0.0', semver.coerce(b.version) || '0.0.0')
+        return semver.compare(semver.coerce(b.version) || '0.0.0', semver.coerce(a.version) || '0.0.0')
     }
 
     public handleError(err: any): void {
