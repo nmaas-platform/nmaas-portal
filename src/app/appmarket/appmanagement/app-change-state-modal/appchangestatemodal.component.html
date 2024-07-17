@@ -30,7 +30,10 @@
         </div>
       </div>
       <br *ngIf="errorMessage">
-      <div class="alert alert-danger text-left" *ngIf="errorMessage">
+      <div class="alert alert-danger text-left" *ngIf="errorMessage && translateError">
+        {{errorMessage | translate}}
+      </div>
+      <div class="alert alert-danger text-left" *ngIf="errorMessage && !translateError">
         {{errorMessage}}
       </div>
     </div>

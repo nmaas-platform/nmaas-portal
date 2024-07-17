@@ -27,6 +27,8 @@ export class AppChangeStateModalComponent implements OnInit, OnChanges {
 
   public errorMessage: string;
 
+  public translateError = false;
+
   constructor(public appsService: AppsService) {}
 
   ngOnInit() {
@@ -73,7 +75,18 @@ export class AppChangeStateModalComponent implements OnInit, OnChanges {
       this.stateChange.shouldSendNotification = undefined;
       this.filterStates();
       this.modal.hide();
-    }, error => this.errorMessage = error.message);
+    }, error => {
+      if(error.statusCode === 406 && error.message.includes("DELETED")) {
+        console.error(error.message)
+        this.errorMessage = "APP_CHANGE_STATE_MODAL.ERROR_DELETED"
+        console.log(this.errorMessage)
+        this.translateError = true;
+      } else {
+        this.errorMessage = error.message
+        this.translateError = false;
+      }
+    }
+    );
   }
 
   public show(): void {
