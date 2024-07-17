@@ -16,17 +16,17 @@
     </div>
   </div>
   <div class="panel">
+    <input type="checkbox" [checked]="rulesAccepted" (click)="changeRulesAcceptedFlag()"> {{'APPS_WIZARD.ACCEPT_RULES_CHECKBOX' | translate}}
+  <button type="button" class="btn btn-success pull-right" (click)="nextStep()" [disabled]="!rulesAccepted" [tooltipDisabled]="rulesAccepted" pTooltip="{{'APPS_WIZARD.ACCEPT_RULES_TOOLTIP' | translate}}" tooltipPosition="bottom" [showDelay]="50">{{'APPS_WIZARD.NEXT_BUTTON' | translate}}</button>
   <h4>{{'APPS_MANAGEMENT.SELECT_VERSION' | translate}}</h4>  
-  <p-dropdown ngDefaultControl id="version_select" [(ngModel)]="selectedVersion" [options]="applicationDTO?.applicationBase?.versions" 
-    optionLabel="version" placeholder="Choose a version" (onChange)="onVersionSelect($event)">
+  <p-dropdown ngDefaultControl id="version_select" [ngModel]="selectedVersion" [options]="applicationDTO?.applicationBase?.versions" 
+    optionLabel="version" [placeholder]="selectedVersion" (onChange)="onVersionSelect($event)">
     <ng-template let-option pTemplate="items">
       {{ option.version }}
     </ng-template>
   </p-dropdown>
   </div>
-  <input type="checkbox" [checked]="rulesAccepted" (click)="changeRulesAcceptedFlag()"> {{'APPS_WIZARD.ACCEPT_RULES_CHECKBOX' | translate}}
-  <button type="button" class="btn btn-success pull-right" (click)="nextStep()" [disabled]="!rulesAccepted" [tooltipDisabled]="rulesAccepted" pTooltip="{{'APPS_WIZARD.ACCEPT_RULES_TOOLTIP' | translate}}" tooltipPosition="bottom" [showDelay]="50">{{'APPS_WIZARD.NEXT_BUTTON' | translate}}</button>
-</div>
+  </div>
 
 <div *ngIf="activeStepIndex === 1">
   <div class="bs-callout bs-callout-primary">
