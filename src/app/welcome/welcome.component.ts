@@ -14,6 +14,8 @@ export class WelcomeComponent implements OnInit, AfterViewChecked, AfterContentC
 
     public autoLogout = false;
 
+    public landingProfile = '';
+
     constructor(private appConfig: AppConfigService,
                 public router: Router,
                 private serviceHealth: ServiceUnavailableService,
@@ -32,36 +34,42 @@ export class WelcomeComponent implements OnInit, AfterViewChecked, AfterContentC
         if (!this.serviceHealth.isServiceAvailable) {
             this.router.navigate(['/service-unavailable']);
         }
-        this.onResize();
+        // this.onResize();
+
+        this.landingProfile = this.appConfig.getLandingProfile();
+        console.log("Landing profile = ", this.landingProfile)
     }
 
     ngAfterContentChecked() {
-        this.onResize();
+        // this.onResize();
     }
 
     ngAfterViewChecked() {
-        this.onResize();
+        // this.onResize();
     }
 
     public onCloseBanner() {
         this.autoLogout = false;
         this.router.navigate(['welcome/login']);
     }
+    
+    // As the comment belove said, its very old solution ( working, but may produce problems) If we rebuild the landing page completly, 
+    //I would advice to not use onRize // kbeyrowski  
 
-    onResize() {
-        // TODO
-        // rewrite this code, use css instead of js for better performance
-        this.height = document.getElementById('global-footer').offsetHeight;
-        const navHeight = document.getElementById('navbar').offsetHeight;
-        // document.getElementById("welcome-container").style.marginBottom = `${this.height}px`;
-        // document.getElementById("welcome-container").style.marginTop = `${navHeight + 2}px`;
-        document.getElementById('login-out').style.maxHeight = `calc(95vh - ${this.height + navHeight + 10}px)`;
-        // document.getElementById('login-out').style.paddingTop = `${navHeight}`;
-        if (this.height > 90) {
-            document.getElementById('global-footer').style.textAlign = 'center';
-            document.getElementById('login-out').style.maxHeight = `calc(94vh - ${this.height + navHeight + 10}px)`;
-        } else {
-            document.getElementById('global-footer').style.textAlign = 'right';
-        }
-    }
+    // onResize() {
+    //     // TODO
+    //     // rewrite this code, use css instead of js for better performance
+    //     this.height = document.getElementById('global-footer').offsetHeight;
+    //     const navHeight = document.getElementById('navbar').offsetHeight;
+    //     // document.getElementById("welcome-container").style.marginBottom = `${this.height}px`;
+    //     // document.getElementById("welcome-container").style.marginTop = `${navHeight + 2}px`;
+    //     document.getElementById('login-out').style.maxHeight = `calc(95vh - ${this.height + navHeight + 10}px)`;
+    //     // document.getElementById('login-out').style.paddingTop = `${navHeight}`;
+    //     if (this.height > 90) {
+    //         document.getElementById('global-footer').style.textAlign = 'center';
+    //         document.getElementById('login-out').style.maxHeight = `calc(94vh - ${this.height + navHeight + 10}px)`;
+    //     } else {
+    //         document.getElementById('global-footer').style.textAlign = 'right';
+    //     }
+    // }
 }

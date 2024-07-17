@@ -67,5 +67,9 @@ export class AppConfigService {
 
     public getTestInstanceModalKey(): string {
         return 'test_instance_modal';
-}
+    }
+
+    public getLandingProfile(): string {
+      return this.config.landing || ''
+    }
 }
