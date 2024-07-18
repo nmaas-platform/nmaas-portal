@@ -120,14 +120,18 @@ export class AppManagementListComponent implements OnInit {
     }
 
     public openRemovalModal(app: ApplicationBase): void {
-        this.appsService.hasRunningInstances(app.id).subscribe({
-            next: hasRunningInstances => {
-                this.hasRunningInstances = hasRunningInstances;
-                this.appToRemove = app;
-                this.confirmRemovalModal.show();
-            },
-            error: err => console.error(err)
-        })
+    //     this.appsService.hasRunningInstances(app.id).subscribe({
+    //         next: hasRunningInstances => {
+    //             this.hasRunningInstances = hasRunningInstances;
+    //             this.appToRemove = app;
+    //             this.confirmRemovalModal.show();
+    //         },
+    //         error: err => console.error(err)
+    //     })
+        if(app.versions.find(version => version.state === ApplicationState.DELETED)) {
+            this.hasRunningInstances = true;
+        }
+        this.confirmRemovalModal.show();
     }
 
     public getApplicationInfoJSONWithBase(id: number) {
