@@ -120,7 +120,7 @@ export class AppManagementListComponent implements OnInit {
     }
 
     public openRemovalModal(app: ApplicationBase): void {
-        if(app.versions.find(version => version.state === ApplicationState.DELETED)) {
+        if(app.versions.find(version => version.state !== ApplicationState.DELETED)) {
             this.hasRunningInstances = true;
         }
         this.appToRemove = app;
