@@ -108,9 +108,13 @@
 
             <ul *ngIf="!authService.isLogged()" class="nav navbar-nav pull-right-lg" id="navbar-main-not-logged">
                 <li>
-                    <button *ngIf="router.url == '/welcome' || router.url.startsWith('/welcome/login') || router.url == '/welcome/registration'"
-                            class="btn navbar-btn" data-target="#login-register-panel" data-toggle="collapse">
-                        {{ 'NAVBAR.LOGIN_REGISTER' | translate }}
+                    <button *ngIf="router.url == '/welcome' || router.url.startsWith('/welcome/login') || router.url == '/welcome/registration'" data-parent="#accordion"
+                            class="btn navbar-btn accordion-group" data-target="#login-panel" data-toggle="collapse" [routerLink]="['welcome/login']">
+                        {{ 'WELCOME.LOGIN' | translate }}
+                    </button>
+                    <button *ngIf="router.url == '/welcome' || router.url.startsWith('/welcome/login') || router.url == '/welcome/registration'" data-parent="#accordion"
+                            class="btn navbar-btn accordion-group" data-target="#register-panel" data-toggle="collapse" [routerLink]="['welcome/registration']">
+                        {{ 'WELCOME.REGISTER' | translate }}
                     </button>
                 </li>
                 <li *ngIf="isServiceAvailable">
