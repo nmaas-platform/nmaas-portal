@@ -12,7 +12,7 @@
 <div *ngIf="landingProfile === 'VNOC'; else elseBlock">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="welcome-container"
-                 style="text-align: justify; padding: 0">
+             style="text-align: justify; padding: 0">
             <div class="col-lg-12" style="padding: 0">
                 <section class="flex" style="justify-content: space-between; align-items: center;">
                     <div class="flex flex-column w-50" style="padding-left:160px; align-items: center">
@@ -44,21 +44,27 @@
                     </div>
                 </section>
             </div>
-            <div id="login-register-panel" class="col-lg-3 col-md-5 col-sm-6 col-xs-12 pull-right login-vertical-offset"
-                 [ngClass]="router.url.startsWith('/welcome/login?ssoUserId=') ? '' : 'collapse'"
-                 style="z-index: 800; position: fixed; right: 1px; margin-top: -15px; max-height: 50vh; font-size: 14px; padding-top: 20px">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default" style="border:none">
+                    <div id="login-panel" class="col-lg-3 col-md-5 col-sm-6 col-xs-12 pull-right login-vertical-offset panel-collapse collapse"
+                         [ngClass]="router.url.startsWith('/welcome/login?ssoUserId=') ? '' : 'collapse'"
+                         style="z-index: 800; position: fixed; right: 1px; max-height: 50vh; font-size: 14px;">
+                        <div class="panel panel-default ">
+                            <div class="panel-body" id="login-out" style="overflow-y: auto;">
+                                <nmaas-login></nmaas-login>
+                            </div>
+                        </div>
                     </div>
-                    <div class="panel-body" id="login-out" style="overflow-y: auto;">
-                        <ul class="nav nav-tabs nav-justified">
-                            <li role="login" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:false}">
-                                <a [routerLink]="['login']">{{ 'WELCOME.LOGIN' | translate }}</a></li>
-                            <li role="registration" [routerLinkActive]="['active']"
-                                [routerLinkActiveOptions]="{exact:true}">
-                                <a [routerLink]="['registration']">{{ 'WELCOME.REGISTER' | translate }}</a></li>
-                        </ul>
-                        <router-outlet></router-outlet>
+                </div>
+                <div class="panel panel-default" style="border:none" >
+                    <div id="register-panel" class="col-lg-3 col-md-5 col-sm-6 col-xs-12 pull-right login-vertical-offset panel-collapse collapse"
+                         [ngClass]="router.url.startsWith('/welcome/login?ssoUserId=') ? '' : 'collapse'"
+                         style="z-index: 800; position: fixed; right: 1px; max-height: 50vh; font-size: 14px;">
+                        <div class="panel panel-default">
+                            <div class="panel-body" id="login-out" style="overflow-y: auto;">
+                                <nmaas-registration></nmaas-registration>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -139,21 +145,27 @@
                         </div>
                     </section>
                 </div>
-                <div id="login-register-panel" class="col-lg-3 col-md-5 col-sm-6 col-xs-12 pull-right login-vertical-offset"
-                     [ngClass]="router.url.startsWith('/welcome/login?ssoUserId=') ? '' : 'collapse'"
-                     style="z-index: 800; position: fixed; right: 1px; margin-top: -15px; max-height: 50vh; font-size: 14px; padding-top: 20px">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default" style="border:none">
+                        <div id="login-panel" class="col-lg-3 col-md-5 col-sm-6 col-xs-12 pull-right login-vertical-offset panel-collapse collapse"
+                             [ngClass]="router.url.startsWith('/welcome/login?ssoUserId=') ? '' : 'collapse'"
+                             style="z-index: 800; position: fixed; right: 1px; max-height: 50vh; font-size: 14px;">
+                            <div class="panel panel-default ">
+                                <div class="panel-body" id="login-out" style="overflow-y: auto;">
+                                    <nmaas-login></nmaas-login>
+                                </div>
+                            </div>
                         </div>
-                        <div class="panel-body" id="login-out" style="overflow-y: auto;">
-                            <ul class="nav nav-tabs nav-justified">
-                                <li role="login" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:false}">
-                                    <a [routerLink]="['login']">{{ 'WELCOME.LOGIN' | translate }}</a></li>
-                                <li role="registration" [routerLinkActive]="['active']"
-                                    [routerLinkActiveOptions]="{exact:true}">
-                                    <a [routerLink]="['registration']">{{ 'WELCOME.REGISTER' | translate }}</a></li>
-                                </ul>
-                            <router-outlet></router-outlet>
+                    </div>
+                    <div class="panel panel-default" style="border:none" >
+                        <div id="register-panel" class="col-lg-3 col-md-5 col-sm-6 col-xs-12 pull-right login-vertical-offset panel-collapse collapse"
+                             [ngClass]="router.url.startsWith('/welcome/login?ssoUserId=') ? '' : 'collapse'"
+                             style="z-index: 800; position: fixed; right: 1px; max-height: 50vh; font-size: 14px;">
+                            <div class="panel panel-default">
+                                <div class="panel-body" id="login-out" style="overflow-y: auto;">
+                                    <nmaas-registration></nmaas-registration>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -54,3 +54,20 @@
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14px;
 }
+.btn-primary{
+    background:#233354;
+    border:none;
+}
+.btn-primary:hover{
+    background: #414f6b;
+    border:none;
+}
+.btn-primary[disabled]{
+    text-shadow:none;
+    background: #414f6b;
+    cursor: not-allowed;
+    /*color: #61b4f9;*/
+}
+.btn-primary[disabled]:hover{
+    background: #414f6b;
+}

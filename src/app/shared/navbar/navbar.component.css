@@ -26,6 +26,15 @@
 .lang-circle-icon{
   height: 26px;
 }
+.navbar-left{
+  padding-top: 6px;
+  display: flex;
+  align-items: center;
+}
+.navbar-right{
+  display:flex;
+  align-items: center;
+}
 
 @media (max-width: 1199px) {
   .navbar-collapse .nav > .divider-vertical {
@@ -39,6 +48,7 @@
   }
   .navbar-left,.navbar-right {
     float: none !important;
+    display:block;
   }
   .navbar-toggle {
     display: block;
@@ -81,10 +91,11 @@
 }
 
 .navbar .divider-vertical {
-  height: 50px;
+  height: 30px;
+  width: 1px;
   margin: 0 5px;
-  border-right: 2px solid #ffffff;
-  border-left: 2px solid #e6e6e6;
+  background-color: #6D788E;
+  border-radius: 99px;
 }
 
 .navbar-inverse .divider-vertical {
@@ -93,7 +104,17 @@
 }
 
 .btn{
+  background: transparent;
   margin-left: 5px;
+}
+.btn:hover:active:focus{
+  color:#142548;
+  background: #D1D1D1;
+}
+.btn:focus{
+  color:#142548;
+  background: #D1D1D1;
+  outline: none;
 }
 
 .navbar-list, .navbar-list:link {
@@ -141,6 +162,10 @@
   padding-bottom: 10px;
   line-height: 20px;
 }
+.dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover{
+  background-color: #233354;
+  background-image: unset;
+}
 
 .dropdown-menu>li>span {
   display: block;
@@ -171,4 +196,25 @@
   margin: 0.5rem 0;
   overflow: hidden;
   border-top: 1px solid #e9ecef;
+}
+.navbar-default{
+  padding: 5px 0;
+  border-top: none;
+  color: #6D788E;
+}
+.navbar-default .navbar-nav>li>a{
+  color: #6D788E;
+  padding:10px;
+}
+.navbar-default .navbar-nav>.active>a{
+  border-radius: 5px;
+  color: #142548;
+ padding:10px;
+  background-color: #D1D1D1;
+}
+.navbar-default .navbar-nav>.open>a{
+  border-radius: 5px;
+  color: #142548;
+  padding:10px;
+  background-color: #D1D1D1;
 }
