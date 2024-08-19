@@ -75,3 +75,9 @@ html, body {
 		stroke-dashoffset: 0;
 	}
 }
+.panel-group{
+	margin: 0;
+}
+.panel+.panel{
+	margin: 0;
+}
