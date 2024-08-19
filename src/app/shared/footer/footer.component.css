@@ -85,3 +85,7 @@ a:hover {
   align-items: center;
   flex-direction: row;
 }
+.container-width {
+  width: 85vw;
+  margin: auto;
+}

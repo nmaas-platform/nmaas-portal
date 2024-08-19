@@ -78,4 +78,7 @@
 :host ::ng-deep  .p-dropdown {
     width: 200px;
 }
-
+.ui-dropdown-panel {
+    max-height: 150px;
+    overflow-y: auto;
+}
