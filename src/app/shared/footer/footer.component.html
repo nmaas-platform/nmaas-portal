@@ -13,9 +13,7 @@
 			<div class="col-sm-2 col-sm-offset-5">
                 <p>
                     <a *ngIf="landingProfile === 'VNOC'" href="https://docs.nmaas.eu/use-cases/virtual-noc/vnoc-introduction/">Documentation</a>
-                </p>
-                <p>
-                    <a *ngIf="landingProfile === 'VLAB'" href="https://docs.nmaas.eu/use-cases/virtual-lab/vlab-introduction/">Documentation</a>
+                    <a *ngIf="landingProfile !== 'VNOC'" href="https://docs.nmaas.eu/use-cases/virtual-lab/vlab-introduction/">Documentation</a>
                 </p>
                 <p><a routerLink="/privacy">{{ 'FOOTER.NOTICE' | translate }}</a></p>
                 <p><a routerLink="/aup">{{ 'FOOTER.AUP' | translate }}</a></p>
