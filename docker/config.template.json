@@ -10,5 +10,5 @@
 	"captchaKey": "${CAPTCHA_KEY}",
     "showGitInfo": true,
     "showChangelog": true,
-	"landing" :"${LANDING_PROFILE}"
+	"landing" :"${LANDING_PAGE}"
 }
