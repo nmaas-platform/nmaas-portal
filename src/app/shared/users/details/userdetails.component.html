@@ -2,6 +2,16 @@
 	<div class="panel-heading">{{'USER_DETAILS.HEADER' | translate}}</div>
 	<div class="panel-body">
 		<form *ngIf="user" (submit)="submit()" class="form-horizontal" #userDetailsForm="ngForm">
+			<div class="flex justify-content-end mb-4">
+				<button *ngIf="!isInMode(ComponentMode.VIEW)" type="button"
+						class="btn btn-text" (click)="onModeChange()">{{'USER_DETAILS.VIEW_BUTTON' | translate}}</button>
+				<button *ngIf="!isInMode(ComponentMode.VIEW)" type="submit" [disabled]="userDetailsForm.invalid"
+						class="btn btn-danger">{{'USER_DETAILS.SUBMIT_BUTTON' | translate}}</button>
+				<button *ngIf="isInMode(ComponentMode.VIEW) && isModeAllowed(ComponentMode.EDIT) && authService.hasRole('ROLE_SYSTEM_ADMIN')" type="button"
+						class="btn btn-text" (click)="onModeChange()">{{'USER_DETAILS.EDIT_BUTTON' | translate}}</button>
+			</div>
+
+
 
 			<div class="form-group">
 				<label class="col-sm-2 control-label">{{'USER_DETAILS.USERNAME' | translate}}</label>
@@ -43,14 +53,7 @@
 					<p class="form-control-static">{{user?.id}}</p>
 				</div>
 			</div>
-
-			<button *ngIf="!isInMode(ComponentMode.VIEW)" type="button"
-				class="btn btn-default" (click)="onModeChange()">{{'USER_DETAILS.VIEW_BUTTON' | translate}}</button>
-			<button *ngIf="!isInMode(ComponentMode.VIEW)" type="submit" [disabled]="userDetailsForm.invalid"
-				class="btn btn-danger">{{'USER_DETAILS.SUBMIT_BUTTON' | translate}}</button>
-			<button *ngIf="isInMode(ComponentMode.VIEW) && isModeAllowed(ComponentMode.EDIT) && authService.hasRole('ROLE_SYSTEM_ADMIN')" type="button"
-				class="btn btn-default" (click)="onModeChange()">{{'USER_DETAILS.EDIT_BUTTON' | translate}}</button>
-			<button (click)="passwordModal.show()" class="btn btn-success" *ngIf="canChangePassword() && !user.ssoUser" style="float: right;">{{'USER_DETAILS.CHANGE_PASSWORD_BUTTON' | translate}}</button>
+			<button (click)="passwordModal.show()" class="btn btn-secondary" *ngIf="canChangePassword() && !user.ssoUser" style="float: right;">{{'USER_DETAILS.CHANGE_PASSWORD_BUTTON' | translate}}</button>
 		</form>
 		<br>
 		<div class="alert alert-danger" *ngIf="errorMessage">
