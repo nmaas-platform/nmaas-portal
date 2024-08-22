@@ -84,14 +84,13 @@
                            class="col-sm-3 control-label">{{ 'PORTAL_CONFIGURATION.DOMAIN_SELECTION_ENABLED' | translate }}</label>
                     <div class="col-sm-9 pd-top-7">
                         <input type="checkbox" id="registrationDomainSelectionEnabled" name="registrationDomainSelectionEnabled"
-                               [(ngModel)]="this.configuration.registrationDomainSelectionEnabled"
-                               [checked]="this.configuration.registrationDomainSelectionEnabled === true">
+                               [(ngModel)]="this.configuration.registrationDomainSelectionEnabled">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="bulkDomainsAllowForSsoAccounts"
-                           class="col-sm-3 control-label">{{'BULK_DOMAINS_ALLOW_FOR_SSO_ACCOUNTS' | translate}}</label>
+                           class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.BULK_DOMAINS_ALLOW_FOR_SSO_ACCOUNTS' | translate}}</label>
                     <div class="col-sm-9 pd-top-7">
                         <input type="checkbox" id="bulkDomainsAllowForSsoAccounts" name="bulkDomainsAllowForSsoAccounts"
                                [(ngModel)]="this.configuration.bulkDomainsAllowForSsoAccounts"
@@ -101,10 +100,11 @@
 
                 <div class="form-group">
                     <label for="bulkDomainsSendEmailForNewAccounts"
-                           class="col-sm-3 control-label">{{'BULK_DOMAINS_SEND_EMAIL_FOR_NEW_ACCOUNTS' | translate}}</label>
+                           class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.BULK_DOMAINS_SEND_EMAIL_FOR_NEW_ACCOUNTS' | translate}}</label>
                     <div class="col-sm-9 pd-top-7">
                         <input type="checkbox" id="bulkDomainsSendEmailForNewAccounts" name="bulkDomainsSendEmailForNewAccounts"
-                               [(ngModel)]="this.configuration.bulkDomainsSendEmailForNewAccounts">
+                               [(ngModel)]="this.configuration.bulkDomainsSendEmailForNewAccounts"
+                               [checked]="this.configuration.bulkDomainsSendEmailForNewAccounts === true">
                     </div>
                 </div>
 
