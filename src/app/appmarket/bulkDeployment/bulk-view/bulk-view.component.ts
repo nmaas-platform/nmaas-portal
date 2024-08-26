@@ -108,7 +108,7 @@ export class BulkViewComponent implements OnInit, OnDestroy {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `NMaaS-AppBulk-${id}.csv`;
+            a.download = `nmaas-bulk-applications-${id}.csv`;
             document.body.appendChild(a);
             a.click();
             window.URL.revokeObjectURL(url);

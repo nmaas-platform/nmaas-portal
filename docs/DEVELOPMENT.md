@@ -1,4 +1,4 @@
-# NMaaS Portal (GUI)
+# nmaas Portal (GUI)
 
 ### Technologies
 ---
@@ -19,17 +19,17 @@ See `package.json` for detailed package list.
 + (running on server) Build project using `ng build` and deploy using http server of your choice
 + (running tests) Chrome is required for running tests, however `karma-chrome-launcher` should download Chrome automatically if it is not detected. Run test using `npm test` or `npm test-headless`. See `package.json` for detailed test commands.
 
-### Running NMaaS Portal locally
+### Running nmaas Portal locally
 ---
 Go to`nmaas-portal` directory in terminal or command line
 Run command `npm start` or `ng serve`
 After successful compilation go to `http://localhost:4200` in your browser (do not close terminal or command line)
-Note: First run requires entering `npm install` command in order to install all of missing dependencies (use `--force` or `--legacy-peer-deps` due to angular-formio)
+Note: First run requires entering `npm install` command to install all of the missing dependencies (use `--force` or `--legacy-peer-deps` due to angular-formio)
 
-### Running NMaaS Portal on dedicated machine
+### Running nmaas Portal on dedicated machine
 ---
-In order to run NMaaS Portal on dedicated machine perform the following steps:
-+ Build the NMaaS Portal by running `gradlew clean build` in the reactor directory.
+To run the nmaas Portal on a dedicated machine, perform the following steps:
++ Build the nmaas Portal by running `gradlew clean build` in the reactor directory.
   - In order to build for production environment use additional option `--configuration production`
 + The output archive `nmaas-portal-x.x.x.zip` file is created in `nmaas-portal/build/distributions` directory.
 + Run the http server in `nmaas-portal/build/app`
@@ -43,7 +43,7 @@ More information about code quality (including code coverage, test status) are a
 
 ### Default settings
 ---
-NMaaS Portal and Platform URLs:
+nmaas Portal and Platform URLs:
 + Portal: `http://<HOSTNAME>:9009`
 + Platform API: `http://<HOSTNAME>:9001/api`
 
@@ -51,9 +51,9 @@ Admin user:
 + username: `admin`
 + password: `admin`
 
-### Building and uploading NMaaS Portal Docker image
+### Building and uploading nmaas Portal Docker image
 ---
-In order to build the NMaaS Portal Docker image first alter the `build_and_publish.sh` script with custom REPOSITORY, PACKAGE and TAG values and execute `build_and_publish.sh` to automatically build and publish `nmaas-portal` image to selected Docker repository.
+To build the nmaas Portal Docker image first alter the `build_and_publish.sh` script with custom REPOSITORY, PACKAGE and TAG values and execute `build_and_publish.sh` to automatically build and publish `nmaas-portal` image to selected Docker repository.
 
 ### Issues
 ---
