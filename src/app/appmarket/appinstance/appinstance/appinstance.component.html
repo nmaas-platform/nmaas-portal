@@ -68,16 +68,16 @@
                 <!-- Deployment buttons -->
 
                 <!-- if application is still being deployed -->
-                <div class="btn-group pull-right"
+                <div class=" pull-right"
                      *ngIf="getStateAsEnum(appInstanceStatus?.state) != AppInstanceState.FAILURE
                          && getStateAsEnum(appInstanceStatus?.state) != AppInstanceState.RUNNING
                          && getStateAsEnum(appInstanceStatus?.state) != AppInstanceState.REMOVED
                          && getStateAsEnum(appInstanceStatus?.state) != AppInstanceState.DONE">
                     <button *ngIf="getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.CONFIGURATION_AWAITING"
-                            role="button" class="btn btn-primary" (click)="applyConfig.show()">
+                            role="button" class="btn btn-primary m-1" (click)="applyConfig.show()">
                         {{'APP_INSTANCE.CONFIGURE' | translate}}
                     </button>
-                    <button class="btn btn-danger"
+                    <button class="btn btn-danger m-1"
                             *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
                             (click)="this.appAbortModal.show()">{{'APP_INSTANCE.ABORT_BUTTON' | translate}}</button>
                 </div>
@@ -241,7 +241,7 @@
             <button type="button" class="btn btn-primary "
                     [disabled]="appVersions.length === 0 || selectedVersion === ''"
                     (click)="this.manualUpdateVersion()">{{'APP_INSTANCES.MANUAL_UPDATE.YES_BUTTON' | translate}}</button>
-            <button type="button" class="btn btn-danger"
+            <button type="button" class="btn btn-secondary"
                     (click)="this.manualUpdateModal.hide()">{{'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
         </div>
     </nmaas-modal>
