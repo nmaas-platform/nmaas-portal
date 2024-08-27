@@ -134,6 +134,12 @@
                                         {{'APP_INSTANCE.ENABLE_AUTO_UPGRADES_BUTTON' | translate}}
                                     </a>
                                 </li>
+                                <li *ngIf="appInstance.autoUpgradesEnabled">
+                                    <a *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
+                                       role="button" (click)="this.disableAutoUpgradesModal.show()">
+                                        {{'APP_INSTANCE.DISABLE_AUTO_UPGRADES_BUTTON' | translate}}
+                                    </a>
+                                </li>
                                 <li *ngIf="appInstance.upgradePossible">
                                     <a *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
                                        role="button" (click)="this.appUpgradeModal.show()">
@@ -149,12 +155,6 @@
                                 <li *roles="['ROLE_SYSTEM_ADMIN' ]">
                                     <a role="button" (click)="this.openVersionUpdateModal()">
                                         {{'APP_INSTANCES.MANUAL_UPDATE.HEADER' | translate}}
-                                    </a>
-                                </li>
-                                <li *ngIf="appInstance.autoUpgradesEnabled">
-                                    <a *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
-                                       role="button" (click)="this.disableAutoUpgradesModal.show()">
-                                        {{'APP_INSTANCE.DISABLE_AUTO_UPGRADES_BUTTON' | translate}}
                                     </a>
                                 </li>
                                 <li *ngIf="app.application.appDeploymentSpec.allowLogAccess">
