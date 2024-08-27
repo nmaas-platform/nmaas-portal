@@ -14,7 +14,7 @@
     </div>
     <input type="checkbox" [checked]="rulesAccepted"
            (click)="changeRulesAcceptedFlag()"> {{'APPS_WIZARD.ACCEPT_RULES_CHECKBOX' | translate}}
-    <button type="button" class="btn btn-success pull-right" (click)="nextStep()" [disabled]="!rulesAccepted"
+    <button type="button" class="btn btn-primary pull-right" (click)="nextStep()" [disabled]="!rulesAccepted"
             [tooltipDisabled]="rulesAccepted" pTooltip="{{'APPS_WIZARD.ACCEPT_RULES_TOOLTIP' | translate}}"
             tooltipPosition="bottom" [showDelay]="50">{{'APPS_WIZARD.NEXT_BUTTON' | translate}}</button>
 </div>
@@ -131,7 +131,7 @@
                 </div>
             </form>
         </div>
-        <button type="button" class="btn btn-success pull-right" (click)="nextStep()" [disabled]="basicInfoForm.invalid"
+        <button type="button" class="btn btn-primary pull-right" (click)="nextStep()" [disabled]="basicInfoForm.invalid"
                 [tooltipDisabled]="!basicInfoForm.invalid" pTooltip="{{'APPS_WIZARD.DISABLED_NEXT_BUTTON_TOOLTIP' | translate}}"
                 tooltipPosition="bottom" [showDelay]="50">{{'APPS_WIZARD.NEXT_BUTTON' | translate}}</button>
     </div>
@@ -173,7 +173,7 @@
             </p-fileUpload>
         </div>
     </div>
-    <button type="button" class="btn btn-success pull-right"
+    <button type="button" class="btn btn-primary pull-right"
             (click)="nextStep()">{{'APPS_WIZARD.NEXT_BUTTON' | translate}}</button>
 </div>
 
@@ -265,7 +265,7 @@
                 </div>
             </div>
         </form>
-        <button type="button" class="btn btn-success pull-right" (click)="nextStep()"
+        <button type="button" class="btn btn-primary pull-right" (click)="nextStep()"
                 [disabled]="descriptionForm.invalid" [tooltipDisabled]="!descriptionForm.invalid"
                 pTooltip="{{'APPS_WIZARD.DISABLED_NEXT_BUTTON_TOOLTIP' | translate}}"
                 tooltipPosition="bottom" [showDelay]="50">{{'APPS_WIZARD.NEXT_BUTTON' | translate}}</button>
@@ -381,7 +381,7 @@
                                                      (output)="removeStorageVolume($event)"></app-storage-volume-edit>
                         </li>
                     </ul>
-                    <button class="btn btn-success" role="button"
+                    <button class="btn btn-primary" role="button"
                             (click)="addNewStorageVolume()">{{'APPS_WIZARD.NEW_STORAGE_VOLUME' | translate}}</button>
                 </div>
 
@@ -395,14 +395,14 @@
                                                     (output)="removeAccessMethod($event)"></app-access-method-edit>
                         </li>
                     </ul>
-                    <button class="btn btn-success" role="button"
+                    <button class="btn btn-primary" role="button"
                             (click)="addNewAccessMethod()">{{'APPS_WIZARD.NEW_ACCESS_METHOD' | translate}}</button>
                 </div>
 
             </div>
         </form>
     </div>
-    <button type="button" class="btn btn-success pull-right" [disabled]="appDeploymentForm.invalid" (click)="nextStep()"
+    <button type="button" class="btn btn-primary pull-right" [disabled]="appDeploymentForm.invalid" (click)="nextStep()"
             [tooltipDisabled]="!appDeploymentForm.invalid" pTooltip="{{'APPS_WIZARD.DISABLED_NEXT_BUTTON_TOOLTIP' | translate}}"
             tooltipPosition="bottom" [showDelay]="50">{{'APPS_WIZARD.NEXT_BUTTON' | translate}} </button>
 </div>
@@ -468,7 +468,7 @@
                                       [(ngModel)]="termsContent"
                                       pTooltip="{{'APPS_WIZARD.TERMS_CONTENT_TOOLTIP' | translate}}" 
                                       tooltipPosition="bottom" [showDelay]="50"></textarea>
-                            <button role="button" class="btn btn-success" (click)="changeTermsAcceptanceInForms()">{{'APPS_WIZARD.TERMS_CONTENT_BUTTON' | translate}}</button>
+                            <button role="button" class="btn btn-primary" (click)="changeTermsAcceptanceInForms()">{{'APPS_WIZARD.TERMS_CONTENT_BUTTON' | translate}}</button>
                         </div>
                     </div>
                     <div *ngIf="applicationDTO.application.appConfigurationSpec.configFileRepositoryRequired">
@@ -591,7 +591,7 @@
                 </div>
             </div>
         </div>
-        <button type="button" class="btn btn-success pull-right" [disabled]="appConfigForm.invalid" (click)="nextStep()"
+        <button type="button" class="btn btn-primary pull-right" [disabled]="appConfigForm.invalid" (click)="nextStep()"
                 [tooltipDisabled]="!appConfigForm.invalid" pTooltip="{{'APPS_WIZARD.DISABLED_NEXT_BUTTON_TOOLTIP' | translate}}"
                 tooltipPosition="bottom" [showDelay]="50">{{'APPS_WIZARD.NEXT_BUTTON' | translate}} </button>
     </div>
@@ -602,14 +602,14 @@
     <div class="alert alert-danger" *ngIf="errorMessage">
         {{errorMessage}}
     </div>
-    <button type="button" class="btn btn-success pull-right" (click)="addApplication()"
+    <button type="button" class="btn btn-primary pull-right" (click)="addApplication()"
             *ngIf="activeStepIndex === 6 && isInMode(ComponentMode.CREATE)"
             [disabled]="isInvalidDescriptions()">{{'APPS_WIZARD.SUBMIT_BUTTON' | translate}}</button>
-    <button type="button" class="btn btn-success pull-right" (click)="updateApplication()"
+    <button type="button" class="btn btn-primary pull-right" (click)="updateApplication()"
             *ngIf="activeStepIndex === 4 && isInMode(ComponentMode.EDIT)"
             [disabled]="isInvalidDescriptions()">{{'APPS_WIZARD.SUBMIT_BUTTON' | translate}}</button>
 </div>
-<button type="button" class="btn btn-warning pull-left" (click)="previousStep()"
+<button type="button" class="btn btn-secondary pull-left" (click)="previousStep()"
         *ngIf="activeStepIndex != 0">{{'APPS_WIZARD.PREVIOUS_BUTTON' | translate}}</button>
 
 <nmaas-modal>

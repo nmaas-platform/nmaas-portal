@@ -68,12 +68,12 @@
                                        [(ngModel)]="configuration.appInstanceFailureEmailList[i]"/>
                             </div>
 
-                            <button role="button" type="button" class="btn btn-default" (click)="removeEmailEntry(email)">
+                            <button role="button" type="button" class="btn btn-danger" (click)="removeEmailEntry(email)">
                                 Remove
                             </button>
                         </div>
                         <div class="pd-left-15">
-                            <button role="button" type="button" class="btn btn-success" (click)="addEmailEntry()">Add
+                            <button role="button" type="button" class="btn btn-secondary" (click)="addEmailEntry()">Add
                             </button>
                         </div>
                     </div>
@@ -107,9 +107,11 @@
                                [checked]="this.configuration.bulkDomainsSendEmailForNewAccounts === true">
                     </div>
                 </div>
+                <div class="flex justify-content-end">
+                    <button class="btn btn-primary"
+                            type="submit">{{ 'PORTAL_CONFIGURATION.SUBMIT_BUTTON' | translate }}</button>
+                </div>
 
-                <button class="btn btn-primary"
-                        type="submit">{{ 'PORTAL_CONFIGURATION.SUBMIT_BUTTON' | translate }}</button>
                 <div class="alert alert-danger" style="margin-top: 5px" *ngIf="errorMsg">
                     {{errorMsg}}
                 </div>

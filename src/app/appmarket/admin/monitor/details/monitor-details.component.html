@@ -36,9 +36,11 @@
         <div class="alert alert-danger" *ngIf="errMsg">
             {{errMsg}}
         </div>
-        <button *ngIf="!isInMode(ComponentMode.VIEW)" [disabled]="!monitorForm.form.valid" type="submit"
-                class="btn btn-primary">{{'MONITOR_DETAILS.SUBMIT_BUTTON' | translate}}</button>
-        <button type="button" class="btn btn-danger" [routerLink]="['/admin/monitor']">{{'MONITOR_DETAILS.GO_BACK_BUTTON' | translate}}</button>
+        <div class="flex justify-content-between">
+            <button type="button" class="btn btn-secondary" [routerLink]="['/admin/monitor']">{{'MONITOR_DETAILS.GO_BACK_BUTTON' | translate}}</button>
+            <button *ngIf="!isInMode(ComponentMode.VIEW)" [disabled]="!monitorForm.form.valid" type="submit"
+                    class="btn btn-primary">{{'MONITOR_DETAILS.SUBMIT_BUTTON' | translate}}</button>
+        </div>
     </form>
     <div *ngIf="!monitorEntry">{{'MONITOR_DETAILS.NOT_FOUND_ERROR' | translate}}</div>
 </div>

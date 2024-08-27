@@ -45,7 +45,7 @@
 
 .line-1 {
     height: 10px;
-    background: #428bca;
+    background: #233354;
     width: 100% !important;
     margin-top: 19px;
 }
@@ -58,18 +58,18 @@
 }
 
 .step-active {
-    background-color:  #428bca;
+    background-color:  #233354;
     color: white;
 }
 
 .step-done {
-    background-color:  #428bca;
+    background-color:  #233354;
     color: white;
 }
 
 .step-next {
     background-color: white;
-    color:  #428bca;
+    color:  #233354;
 }
 
 

@@ -225,7 +225,7 @@
 					</div>
 				</div>
 				<br>
-				<button type="button" class="btn btn-sm btn-default" (click)="addNetwork()" *ngIf="!isInMode(ComponentMode.VIEW)"><span class="glyphicon glyphicon-plus"></span> {{'DOMAIN_DETAILS.ADD' | translate}}</button>
+				<button type="button" class="btn btn-sm btn-primary" (click)="addNetwork()" *ngIf="!isInMode(ComponentMode.VIEW)"><span class="glyphicon glyphicon-plus"></span> {{'DOMAIN_DETAILS.ADD' | translate}}</button>
 			</div>
 		</div>
 
@@ -257,8 +257,9 @@
 			</div>
 		</div>
 
-
-		<button *ngIf="!isInMode(ComponentMode.VIEW)" type="submit" class="btn btn-default" [disabled]="!domainForm.form.valid">{{ 'DOMAIN_DETAILS.SUBMIT_BUTTON' | translate }}</button>
+		<div class="flex justify-content-end">
+			<button *ngIf="!isInMode(ComponentMode.VIEW)" type="submit" class="btn btn-primary" [disabled]="!domainForm.form.valid">{{ 'DOMAIN_DETAILS.SUBMIT_BUTTON' | translate }}</button>
+		</div>
 	</form>
 </div>
 

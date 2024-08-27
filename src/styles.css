@@ -71,3 +71,24 @@
 .btn-primary[disabled]:hover{
     background: #414f6b;
 }
+.btn{
+    border:none
+}
+.btn-secondary{
+    background: #3767BE;
+    color: #ffffff;
+}
+.btn-secondary:hover{
+    background: #32559B;
+    color: #ffffff
+}
+.btn-danger{
+    background: #C70500;
+}
+.btn-text{
+    color: #32559B;
+    background: #ffffff;
+}
+.btn-text:hover{
+    background: #EBEEF5;
+}
