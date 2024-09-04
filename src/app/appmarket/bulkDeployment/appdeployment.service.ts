@@ -89,5 +89,9 @@ export class AppdeploymentService {
         return this.http.get(this.getUrl() + `app/csv/${id}`, {responseType: 'blob'})
     }
 
+    public refreshStatesInBulkDeployment(id: number) : Observable<BulkDeployment> {
+        return this.http.get<BulkDeployment>(this.getUrl() + `refresh/${id}`)
+    }
+
 
 }
