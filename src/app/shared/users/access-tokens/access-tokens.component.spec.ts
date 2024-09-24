@@ -4,6 +4,7 @@ import {AccessTokensComponent} from './access-tokens.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {ReactiveFormsModule} from '@angular/forms';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AccessTokensComponent', () => {
     let component: AccessTokensComponent;
@@ -21,7 +22,8 @@ describe('AccessTokensComponent', () => {
                         useClass: TranslateFakeLoader
                     }
                 }),
-            ]
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         })
             .compileComponents();
 
