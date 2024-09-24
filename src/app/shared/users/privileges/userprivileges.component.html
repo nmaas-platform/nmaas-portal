@@ -24,7 +24,7 @@
 					</select>
 				</div>
 				<div class="col-lg-3">
-					<button type="submit" class="btn btn-danger">{{'USER_PRIVILEGES.ADD_BUTTON' | translate}}</button>
+					<button type="submit" class="btn btn-primary">{{'USER_PRIVILEGES.ADD_BUTTON' | translate}}</button>
 				</div>
 			</form>
 			<hr>
@@ -48,7 +48,7 @@
 				<tbody *ngIf="(domainId == domainService.getGlobalDomainId() && authService.hasRole('ROLE_SYSTEM_ADMIN')) || isInMode(ComponentMode.PROFILVIEW)">
 					<ng-template ngFor let-userrole [ngForOf]="user?.roles">
 					<tr *ngIf="userrole.domainId != domainService.getGlobalDomainId() || userrole.role != 'ROLE_GUEST'">
-						<td>{{getDomainName(userrole.domainId)|async}}</td>
+						<td>{{userrole.domainName}}</td>
 						<td>{{"ENUM.USER_ROLES." + userrole.role.toUpperCase() | translate}}</td>
 						<td *ngIf="!isInMode(ComponentMode.PROFILVIEW) && authService.hasRole('ROLE_SYSTEM_ADMIN') && user?.username !== authService.getUsername()" class="text-right">
 							<button type="button" class="btn btn-danger"
@@ -61,7 +61,7 @@
 				<tbody *ngIf="domainId != domainService.getGlobalDomainId() && ((authService.hasDomainRole(domainId, 'ROLE_DOMAIN_ADMIN') || authService.hasRole('ROLE_SYSTEM_ADMIN'))) && !isInMode(ComponentMode.PROFILVIEW)">
 					<ng-template ngFor let-userrole [ngForOf]="user?.roles">
 						<tr *ngIf="domainId == userrole.domainId">
-							<td>{{getDomainName(userrole.domainId)|async}}</td>
+							<td>{{userrole.domainName}}</td>
 							<td>{{"ENUM.USER_ROLES." + userrole.role.toUpperCase() | translate}}</td>
 							<td class="text-right">
 								<button *ngIf="authService.hasRole('ROLE_SYSTEM_ADMIN') && domainId===domainService.getGlobalDomainId()"  type="button" class="btn btn-danger"

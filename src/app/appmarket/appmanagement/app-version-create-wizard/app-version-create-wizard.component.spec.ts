@@ -9,6 +9,7 @@ import {ConfigTemplateService} from '../../../service/configtemplate.service';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {StepsModule} from 'primeng/steps';
 import {SharedModule} from '../../../shared';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AppVersionCreateWizardComponent', () => {
     let component: AppVersionCreateWizardComponent;
@@ -33,6 +34,7 @@ describe('AppVersionCreateWizardComponent', () => {
                     }
                 }),
             ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA],
             providers: [
                 {provide: TagService, useValue: tagServiceSpy},
                 {provide: AppsService, useValue: {}},

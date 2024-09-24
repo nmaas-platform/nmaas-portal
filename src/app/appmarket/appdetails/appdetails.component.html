@@ -60,11 +60,11 @@
 					 pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_SUBSCRIBE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="defaultTooltipDisabled">
 					<button class="btn btn-primary" [disabled]="!active || !isApplicationEnabledInDomain()" (click)="subscribe()">{{'APPLICATIONS.SUBSCRIBE_BUTTON' | translate}}</button>
 				</div>
-				<div *ngIf="subscribed" class="btn-group pull-right" >
+				<div *ngIf="subscribed" class=" pull-right" >
 					<div class="btn no-padding" pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_DEPLOY' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="defaultTooltipDisabled">
-						<button *ngIf="isSubscriptionAllowed()" class="btn btn-primary first-button-substitute" [disabled]="!isApplicationEnabledInDomain()" (click)="appInstallModal.show()">{{'APPLICATIONS.DEPLOY_BUTTON' | translate}}</button>
+						<button *ngIf="isSubscriptionAllowed()" class="btn btn-primary m-1" [disabled]="!isApplicationEnabledInDomain()" (click)="appInstallModal.show()">{{'APPLICATIONS.DEPLOY_BUTTON' | translate}}</button>
 					</div>
-					<button *ngIf="isSubscriptionAllowed()" class="btn btn-danger" (click)="unsubscribe()">{{'APPLICATIONS.UNSUBSCRIBE_BUTTON' | translate}}</button>
+					<button *ngIf="isSubscriptionAllowed()" class="btn btn-danger m-1" (click)="unsubscribe()">{{'APPLICATIONS.UNSUBSCRIBE_BUTTON' | translate}}</button>
 				</div>
 
 			</div>
@@ -72,8 +72,8 @@
 	</div>
 
 	<div class='row'>
-		<h3>{{'SCREENSHOTS.HEADER' | translate}}</h3>
-		<screenshots [pathUrl]="'/apps/' + appId + '/screenshots'"></screenshots>
+		<h3 *ngIf="numberOfScreenshots > 0">{{'SCREENSHOTS.HEADER' | translate}}</h3>
+		<screenshots (numberOfScreenshots)="screenshots($event)" [pathUrl]="'/apps/' + appId + '/screenshots'"></screenshots>
 	</div>
 
 	<div class="row mt-5 mb-8">

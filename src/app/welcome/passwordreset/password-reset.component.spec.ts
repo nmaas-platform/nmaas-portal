@@ -5,7 +5,7 @@ import {UserService} from '../../service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ModalComponent} from '../../shared/modal';
 import {RouterTestingModule} from '@angular/router/testing';
-import {PasswordStrengthMeterModule} from 'angular-password-strength-meter';
+import {IPasswordStrengthMeterService, PasswordStrengthMeterModule} from 'angular-password-strength-meter';
 import {ReCaptchaV3Service} from 'ng-recaptcha';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
@@ -17,6 +17,9 @@ describe('Password reset component', () => {
     beforeEach(waitForAsync(() => {
         const userServiceSpy = createSpyObj('UserService', ['validateResetRequest'])
         userServiceSpy.validateResetRequest.and.returnValue(of({}))
+
+        const passowrdSpy = createSpyObj('IPasswordStrengthMeterService', ['score'])
+        passowrdSpy.score.and.returnValue("4")
 
         TestBed.configureTestingModule({
             declarations: [PasswordResetComponent, ModalComponent],
@@ -35,6 +38,7 @@ describe('Password reset component', () => {
             providers: [
                 {provide: UserService, useValue: userServiceSpy},
                 {provide: ReCaptchaV3Service, useValue: {}},
+                {provide: IPasswordStrengthMeterService, useValue: passowrdSpy}
             ]
         }).compileComponents();
     }));

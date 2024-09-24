@@ -4,6 +4,7 @@ import { AppdeploymentComponent } from './appdeployment.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterModule} from '@angular/router';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AppdeploymentComponent', () => {
   let component: AppdeploymentComponent;
@@ -21,7 +22,8 @@ describe('AppdeploymentComponent', () => {
             useClass: TranslateFakeLoader
           }
         }),
-          ]
+          ],
+          schemas: [NO_ERRORS_SCHEMA],
     })
     .compileComponents();
   });

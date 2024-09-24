@@ -9,6 +9,7 @@ import {DomainService} from '../../../service';
 import {of} from 'rxjs';
 import {SearchDomainPipe} from '../domain-search.pipe';
 import {PaginatePipe, PaginationService} from 'ngx-pagination';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('DomainslistComponent', () => {
     let component: DomainsListComponent;
@@ -37,7 +38,8 @@ describe('DomainslistComponent', () => {
                 {provide: AuthService, useValue: authServiceSpy},
                 {provide: DomainService, useValue: domainServiceSpy},
                 PaginationService
-            ]
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         })
             .compileComponents();
     }));

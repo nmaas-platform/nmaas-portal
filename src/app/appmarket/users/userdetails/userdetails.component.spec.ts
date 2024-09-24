@@ -6,7 +6,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {UserService} from '../../../service';
 import {AuthService} from '../../../auth/auth.service';
 import createSpyObj = jasmine.createSpyObj;
-import {Component} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, Component} from '@angular/core';
 
 @Component({
     selector: 'nmaas-userdetails',
@@ -46,7 +46,8 @@ describe('UserDetailsComponent', () => {
             providers: [
                 {provide: UserService, useValue: {}},
                 {provide: AuthService, useValue: authServiceSpy},
-            ]
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })
             .compileComponents();
     }));

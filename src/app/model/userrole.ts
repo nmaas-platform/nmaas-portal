@@ -17,10 +17,11 @@ export function RoleAware(constructor: Function) {
 
 export class UserRole {
   public domainId: number = undefined;
+  public domainName: string = undefined;
 
   public role: Role  = undefined;
 
-  constructor(domainId?: number, role?: Role) {
+  constructor(domainId?: number, domainName?: string, role?: Role) {
     this.domainId = domainId;
     this.role = role;
   }

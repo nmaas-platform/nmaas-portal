@@ -20,6 +20,9 @@ import {AbstractControl, ValidatorFn} from '@angular/forms';
 import {MultiSelect} from 'primeng/multiselect';
 import {MenuItem, SelectItem} from 'primeng/api';
 import {ApplicationDTO} from '../../../model/application-dto';
+import { ApplicationVersion } from '../../../model/application-version';
+import * as semver from 'semver';
+import { Application } from '../../../model/application';
 
 export function noParameterTypeInControlValueValidator(): ValidatorFn {
 
@@ -64,6 +67,8 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
     public formDisplayChange = true;
     public logo: any[] = [];
     public screenshots: any[] = [];
+    public applicationVersions: ApplicationVersion[] = [];
+    public selectedVersion : any ;
 
     // properties for global parameters deploy validation
     // in future extensions pack this into single object
@@ -88,6 +93,7 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
     }
 
     ngOnInit() {
+        this.selectedVersion = "Select version"
         this.modal.setModalType('success');
         this.modal.setStatusOfIcons(false);
         this.mode = this.getMode(this.route);
@@ -106,10 +112,11 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
                 this.appsService.getLatestVersion(params['name']).subscribe(
                     (result: ApplicationDTO) => {
                         this.applicationDTO = result;
-                        this.applicationDTO.application.version = undefined;
+                        this.selectedVersion = this.applicationDTO.application.version;
                         this.applicationDTO.application.state = ApplicationState.NEW;
                         this.appName = appName;
                         this.fillWizardWithData(result);
+                        this.applicationDTO?.applicationBase?.versions.sort(this.appVersionCompare)
                     },
                     err => this.handleError(err)
                 );
@@ -117,8 +124,10 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
                 this.appsService.getApplicationDTO(appId).subscribe(
                     (result: ApplicationDTO) => {
                         this.applicationDTO = result;
+                        this.selectedVersion = this.applicationDTO.application.version;
                         this.appName = result.application.name;
                         this.fillWizardWithData(result);
+                        this.applicationDTO?.applicationBase?.versions.sort(this.appVersionCompare)
                     },
                     err => this.handleError(err)
                 );
@@ -126,6 +135,11 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
                 this.activeStepIndex = 1;
             }
         });
+    }
+
+    public appVersionCompare(a: ApplicationVersion, b: ApplicationVersion): number {
+        // defaults version that cannot be parsed to `0.0.0`
+        return semver.compare(semver.coerce(b.version) || '0.0.0', semver.coerce(a.version) || '0.0.0')
     }
 
     public handleError(err: any): void {
@@ -528,6 +542,14 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
             this.applicationDTO.application.appDeploymentSpec.kubernetesTemplate.helmChartRepository.name =
                 this.applicationDTO.applicationBase.name.toLowerCase().replace(' ', '-');
         }
+    }
+
+    public onVersionSelect(event: any) {
+        console.log("Slected version ",event )
+        this.appsService.getApplication(event.value.appVersionId).subscribe(data => {
+            console.log(data);
+            this.applicationDTO.application = data;
+        })
     }
 
 }

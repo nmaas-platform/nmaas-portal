@@ -1,0 +1,53 @@
+stages:
+  - test
+  - sonar
+  - build
+
+test:
+  stage: test
+  image: trion/ng-cli-karma:15.2.10
+  script:
+    - npm ci --force
+    - ng build
+    - ng test --code-coverage --watch=false --browsers=Chrome
+  coverage: '/Lines.*?(\d+(?:\.\d+)?)%/'
+  artifacts:
+    paths:
+      - coverage/
+
+sonar:
+  stage: sonar
+  image: trion/ng-cli:15.2.10
+  only:
+    - develop
+  script:
+    - npm ci --force
+    - npm run sonar -- -Dsonar.host.url=${SONAR_HOST} -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.projectName=${SONAR_PROJECT_NAME} -Dsonar.branch.name=develop -Dsonar.login=${SONAR_LOGIN_TOKEN}
+
+build_and_push_latest_image:
+  stage: build
+  image: korvoj/docker-git:26.1.3
+  only:
+    - develop
+  variables:
+    IMAGE_TAG: "latest"
+  script:
+    - |
+      docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $DOCKER_REPOSITORY
+      docker build -t $DOCKER_REPOSITORY_LOCAL:$IMAGE_TAG .
+      docker push $DOCKER_REPOSITORY_LOCAL:$IMAGE_TAG
+      docker logout $DOCKER_REPOSITORY
+
+build_and_push_release_image:
+  stage: build
+  image: korvoj/docker-git:26.1.3
+  only:
+    - tags
+  script:
+    - |
+      export IMAGE_TAG=$(echo $CI_COMMIT_TAG | cut -c 2-)
+      docker image prune -f
+      docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $DOCKER_REPOSITORY
+      docker build -t $DOCKER_REPOSITORY_LOCAL:$IMAGE_TAG .
+      docker push $DOCKER_REPOSITORY_LOCAL:$IMAGE_TAG
+      docker logout $DOCKER_REPOSITORY

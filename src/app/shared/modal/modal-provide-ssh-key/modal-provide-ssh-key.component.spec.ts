@@ -4,6 +4,7 @@ import { ModalProvideSshKeyComponent } from './modal-provide-ssh-key.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {ModalComponent} from '../modal.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('ModalProvideSshKeyComponent', () => {
   let component: ModalProvideSshKeyComponent;
@@ -20,7 +21,9 @@ describe('ModalProvideSshKeyComponent', () => {
             useClass: TranslateFakeLoader
           }
         }),
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
     })
     .compileComponents();
   }));

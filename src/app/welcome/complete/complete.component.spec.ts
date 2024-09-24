@@ -11,6 +11,7 @@ import {InternationalizationService} from '../../service/internationalization.se
 import {of} from 'rxjs';
 import createSpyObj = jasmine.createSpyObj;
 import {ModalComponent} from '../../shared/modal';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('CompleteComponent', () => {
     let component: CompleteComponent;
@@ -46,7 +47,9 @@ describe('CompleteComponent', () => {
                 {provide: ProfileService, useValue: profileServiceSpy},
                 {provide: AuthService, useValue: authServiceSpy},
                 {provide: InternationalizationService, useValue: internationalizationSpy},
-            ]
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
         })
             .compileComponents();
     }));

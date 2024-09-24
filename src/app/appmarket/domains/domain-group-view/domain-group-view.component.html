@@ -40,7 +40,7 @@
             </div>
             <div class="panel-body">
                 <div *roles="['ROLE_SYSTEM_ADMIN']" style="display: flex; justify-content: end">
-                    <button  type="button" class="btn btn-success" (click)="showModalUser()">{{'DOMAINS.GROUP.ADD_USERS' | translate}}</button>
+                    <button  type="button" class="btn btn-secondary" (click)="showModalUser()">{{'DOMAINS.GROUP.ADD_USERS' | translate}}</button>
                 </div>
                 <div *roles="['ROLE_VL_MANAGER']" style="display: flex; justify-content: end">
                     <button  type="button" class="btn btn-warning" (click)="removeMyAccess()">{{'DOMAINS.GROUP.DELETE_MYSELF' | translate}}</button>
@@ -82,7 +82,7 @@
             </div>
             <div class="panel-body collapse" id="domains-list">
                 <div style="display: flex; justify-content: end">
-                    <button type="button" class="btn btn-success" (click)="showModal()">{{'DOMAINS.LIST.ADD' | translate}}</button>
+                    <button type="button" class="btn btn-secondary" (click)="showModal()">{{'DOMAINS.LIST.ADD' | translate}}</button>
                 </div>
                 <table class="table table-hover table-condensed" aria-describedby="Domains in Group table" style="margin-top: 2rem">
                     <thead>
@@ -118,7 +118,7 @@
             </div>
             <div class="panel-body collapse" id="app-status" >
                 <div style="display: flex; justify-content: end; margin-bottom: 2rem">
-                    <button  class="btn btn-primary"  type="button" (click)="toggleAll()">{{'SHARED.TOGGLE' | translate}}</button>
+                    <button  class="btn btn-secondary"  type="button" (click)="toggleAll()">{{'SHARED.TOGGLE' | translate}}</button>
                 </div>
                 <table class="table table-hover table-condensed" aria-describedby="Domain details table">
                     <thead>
@@ -181,8 +181,9 @@
                 </table>
             </div>
         </div>
-
-        <button  type="submit" class="btn btn-default" [disabled]="!domainForm.form.valid">{{ 'DOMAIN_DETAILS.SUBMIT_BUTTON' | translate }}</button>
+        <div class="flex justify-content-end">
+            <button  type="submit" class="btn btn-primary" [disabled]="!domainForm.form.valid">{{ 'DOMAIN_DETAILS.SUBMIT_BUTTON' | translate }}</button>
+        </div>
 
     </form>
 </div>
@@ -210,8 +211,8 @@
         </table>
     </div>
     <div class="nmaas-modal-footer">
-        <button type="button" class="btn btn-default" (click)="modal.hide()">{{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}</button>
         <button type="button" class="btn btn-primary" (click)="closeModal()" [disabled]="false">{{'DOMAINS.LIST.ADD' | translate}}</button>
+        <button type="button" class="btn btn-secondary" (click)="modal.hide()">{{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}</button>
     </div>
 </nmaas-modal>
 
@@ -233,7 +234,7 @@
                 <tr class="table-row">
                     <td>{{user.username}}</td>
                     <td>{{user.firstname}} {{user.lastname}}</td>
-                    <td> <button *roles="['ROLE_SYSTEM_ADMIN']" type="button" class="btn btn-success" (click)="addUser(user)">{{'DOMAINS.GROUP.ADD' | translate}}</button> </td>
+                    <td> <button *roles="['ROLE_SYSTEM_ADMIN']" type="button" class="btn btn-secondary" (click)="addUser(user)">{{'DOMAINS.GROUP.ADD' | translate}}</button> </td>
                 </tr>
             </ng-template>
             </thead>
@@ -257,7 +258,7 @@
         </table>
     </div>
     <div class="nmaas-modal-footer">
-        <button type="button" class="btn btn-default" (click)="closeModalUserAccess()">{{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}</button>
         <button type="button" class="btn btn-primary" (click)="saveUsers()" [disabled]="false">{{'DOMAINS.GROUP.ADD_USERS' | translate}}</button>
+        <button type="button" class="btn btn-secondary" (click)="closeModalUserAccess()">{{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}</button>
     </div>
 </nmaas-modal>

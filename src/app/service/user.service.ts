@@ -56,7 +56,7 @@ export class UserService extends GenericDataService {
         const url: string = (domainId === undefined ? this.getUsersUrl() : this.getDomainUsersUrl(domainId)) + userId + '/roles';
         const targetDomainId: number = (domainId === undefined ? this.appConfig.getNmaasGlobalDomainId() : domainId);
 
-        return this.post<UserRole, UserRole>(url, new UserRole(targetDomainId, role));
+        return this.post<UserRole, UserRole>(url, new UserRole(targetDomainId, undefined, role));
     }
 
     public removeRole(userId: number, role: Role, domainId?: number): Observable<void> {

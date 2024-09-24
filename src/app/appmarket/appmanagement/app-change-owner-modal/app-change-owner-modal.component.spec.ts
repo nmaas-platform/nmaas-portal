@@ -6,6 +6,7 @@ import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-transl
 import createSpyObj = jasmine.createSpyObj;
 import {AppsService, UserService} from '../../../service';
 import {of} from 'rxjs';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AppChangeOwnerModalComponent', () => {
     let component: AppChangeOwnerModalComponent;
@@ -32,7 +33,9 @@ describe('AppChangeOwnerModalComponent', () => {
             providers: [
                 {provide: AppsService, useValue: appsServiceSpy},
                 {provide: UserService, useValue: userServiceSpy},
-            ]
+            ],
+            schemas: [NO_ERRORS_SCHEMA],
+
         })
             .compileComponents();
     });

@@ -4,6 +4,7 @@ import { AppAddJsonVersionAppComponent } from './app-add-json-version-app.compon
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AppAddJsonVersionAppComponent', () => {
   let component: AppAddJsonVersionAppComponent;
@@ -21,7 +22,8 @@ describe('AppAddJsonVersionAppComponent', () => {
             useClass: TranslateFakeLoader
           }
         }),
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
     })
     .compileComponents();
   });

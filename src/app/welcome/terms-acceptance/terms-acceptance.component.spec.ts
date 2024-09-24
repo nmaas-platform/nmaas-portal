@@ -7,6 +7,7 @@ import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-transl
 import {UserService} from '../../service';
 import {AuthService} from '../../auth/auth.service';
 import {ModalComponent} from '../../shared/modal';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('TermsAcceptanceComponent', () => {
     let component: TermsAcceptanceComponent;
@@ -28,7 +29,8 @@ describe('TermsAcceptanceComponent', () => {
             providers: [
                 {provide: UserService, useValue: {}},
                 {provide: AuthService, useValue: {}}
-            ]
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })
             .compileComponents();
     }));

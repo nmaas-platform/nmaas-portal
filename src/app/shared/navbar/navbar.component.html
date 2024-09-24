@@ -1,7 +1,7 @@
-<nav class="navbar navbar-default" id="navbar" role="navigation">
+<nav class="navbar navbar-default" id="navbar" role="navigation" style="margin:0">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a routerLink="/"><img alt="Geant" src="assets/images/logo-small.png" style="margin: 5px"></a>
+            <a routerLink="/"><img alt="Geant" src="assets/images/logo-small.png" style="margin: 8px; padding:4px; height:35px"></a>
             <button class="navbar-toggle" data-target="#navbarCollapse" data-toggle="collapse" type="button">
                 <span class="sr-only">Toggle Navigation</span>
                 <em class="fas fa-bars"></em>
@@ -108,9 +108,13 @@
 
             <ul *ngIf="!authService.isLogged()" class="nav navbar-nav pull-right-lg" id="navbar-main-not-logged">
                 <li>
-                    <button *ngIf="router.url == '/welcome' || router.url.startsWith('/welcome/login') || router.url == '/welcome/registration'"
-                            class="btn navbar-btn" data-target="#login-register-panel" data-toggle="collapse">
-                        {{ 'NAVBAR.LOGIN_REGISTER' | translate }}
+                    <button *ngIf="router.url == '/welcome' || router.url.startsWith('/welcome/login') || router.url == '/welcome/registration'" data-parent="#accordion"
+                            class="btn navbar-btn accordion-group" data-target="#login-panel" data-toggle="collapse" [routerLink]="['welcome/login']">
+                        {{ 'WELCOME.LOGIN' | translate }}
+                    </button>
+                    <button *ngIf="router.url == '/welcome' || router.url.startsWith('/welcome/login') || router.url == '/welcome/registration'" data-parent="#accordion"
+                            class="btn navbar-btn accordion-group" data-target="#register-panel" data-toggle="collapse" [routerLink]="['welcome/registration']">
+                        {{ 'WELCOME.REGISTER' | translate }}
                     </button>
                 </li>
                 <li *ngIf="isServiceAvailable">

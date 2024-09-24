@@ -225,7 +225,7 @@
 					</div>
 				</div>
 				<br>
-				<button type="button" class="btn btn-sm btn-default" (click)="addNetwork()" *ngIf="!isInMode(ComponentMode.VIEW)"><span class="glyphicon glyphicon-plus"></span> {{'DOMAIN_DETAILS.ADD' | translate}}</button>
+				<button type="button" class="btn btn-sm btn-primary" (click)="addNetwork()" *ngIf="!isInMode(ComponentMode.VIEW)"><span class="glyphicon glyphicon-plus"></span> {{'DOMAIN_DETAILS.ADD' | translate}}</button>
 			</div>
 		</div>
 
@@ -257,8 +257,9 @@
 			</div>
 		</div>
 
-
-		<button *ngIf="!isInMode(ComponentMode.VIEW)" type="submit" class="btn btn-default" [disabled]="!domainForm.form.valid">{{ 'DOMAIN_DETAILS.SUBMIT_BUTTON' | translate }}</button>
+		<div class="flex justify-content-end">
+			<button *ngIf="!isInMode(ComponentMode.VIEW)" type="submit" class="btn btn-primary" [disabled]="!domainForm.form.valid">{{ 'DOMAIN_DETAILS.SUBMIT_BUTTON' | translate }}</button>
+		</div>
 	</form>
 </div>
 
@@ -272,7 +273,7 @@
 		</div>
 	</div>
 	<div class="nmaas-modal-footer text-center">
-		<button class="btn btn-danger" style="display: inline-block" (click)="updateDcnConfigured()">{{ 'DOMAIN_DETAILS.YES_BUTTON' | translate }}</button>
-		<button class="btn btn-primary" style="display: inline-block" (click)="this.modal.hide()">{{ 'DOMAIN_DETAILS.CANCEL_BUTTON' | translate }}</button>
+		<button class="btn btn-primary" style="display: inline-block" (click)="updateDcnConfigured()">{{ 'DOMAIN_DETAILS.YES_BUTTON' | translate }}</button>
+		<button class="btn btn-secondary" style="display: inline-block" (click)="this.modal.hide()">{{ 'DOMAIN_DETAILS.CANCEL_BUTTON' | translate }}</button>
 	</div>
 </nmaas-modal>

@@ -6,6 +6,7 @@ import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-transl
 import {SSHKeyService} from '../../../service/sshkey.service';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('SshKeysComponent', () => {
     let component: SshKeysComponent;
@@ -34,7 +35,8 @@ describe('SshKeysComponent', () => {
             ],
             providers: [
                 {provide: SSHKeyService, useValue: sshKeyServiceSpy}
-            ]
+            ],
+            schemas: [NO_ERRORS_SCHEMA],
         })
             .compileComponents();
     }));

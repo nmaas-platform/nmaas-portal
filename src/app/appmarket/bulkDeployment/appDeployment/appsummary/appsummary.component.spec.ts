@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AppsummaryComponent } from './appsummary.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AppsummaryComponent', () => {
   let component: AppsummaryComponent;
@@ -12,7 +13,8 @@ describe('AppsummaryComponent', () => {
       declarations: [ AppsummaryComponent ],
       imports : [
         HttpClientTestingModule,
-          ]
+          ],
+          schemas: [NO_ERRORS_SCHEMA],
     })
     .compileComponents();
   });

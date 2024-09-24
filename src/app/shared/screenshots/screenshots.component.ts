@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, Input, ViewEncapsulation, Output, EventEmitter} from '@angular/core';
 
 
 import { AppsService } from '../../service';
@@ -22,12 +22,19 @@ export class ScreenshotsComponent implements OnInit {
 
     public customModalVisible = false;
     public customModalVisibleAnimate = false;
+    @Output()
+    numberOfScreenshots: EventEmitter<any> = new EventEmitter<any>();
 
     constructor(public appsService: AppsService) {
     }
 
     ngOnInit() {
-        this.appsService.getAppScreenshotsByUrl(this.pathUrl).subscribe(fileInfos => this.imagesFileInfo = fileInfos);
+        this.appsService.getAppScreenshotsByUrl(this.pathUrl).subscribe(fileInfos =>  {
+            this.imagesFileInfo = fileInfos
+            this.numberOfScreenshots.emit(this.imagesFileInfo.length);
+        }
+        );
+      
     }
 
     public showImage(url: string): void {

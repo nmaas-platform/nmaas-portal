@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 
 import {JWT_OPTIONS, JwtModule} from '@auth0/angular-jwt';
@@ -99,7 +99,11 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
     exports: [
         TranslateModule
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    schemas: [
+        CUSTOM_ELEMENTS_SCHEMA,
+        NO_ERRORS_SCHEMA
+    ]
 })
 export class AppModule {
 }

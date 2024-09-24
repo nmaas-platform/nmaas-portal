@@ -9,6 +9,7 @@ import {of} from 'rxjs';
 import createSpyObj = jasmine.createSpyObj;
 import {UserService} from '../../../service';
 import {AuthService} from '../../../auth/auth.service';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('DomainGroupViewComponent', () => {
   let component: DomainGroupViewComponent;
@@ -41,7 +42,8 @@ describe('DomainGroupViewComponent', () => {
       providers: [
         {provide: UserService, useValue: userServiceSpy},
         {provide: AuthService, useValue: authServiceSpy},
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     })
     .compileComponents();
   });

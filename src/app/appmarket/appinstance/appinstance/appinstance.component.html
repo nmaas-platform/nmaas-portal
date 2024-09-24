@@ -68,16 +68,16 @@
                 <!-- Deployment buttons -->
 
                 <!-- if application is still being deployed -->
-                <div class="btn-group pull-right"
+                <div class=" pull-right"
                      *ngIf="getStateAsEnum(appInstanceStatus?.state) != AppInstanceState.FAILURE
                          && getStateAsEnum(appInstanceStatus?.state) != AppInstanceState.RUNNING
                          && getStateAsEnum(appInstanceStatus?.state) != AppInstanceState.REMOVED
                          && getStateAsEnum(appInstanceStatus?.state) != AppInstanceState.DONE">
                     <button *ngIf="getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.CONFIGURATION_AWAITING"
-                            role="button" class="btn btn-primary" (click)="applyConfig.show()">
+                            role="button" class="btn btn-primary m-1" (click)="applyConfig.show()">
                         {{'APP_INSTANCE.CONFIGURE' | translate}}
                     </button>
-                    <button class="btn btn-danger"
+                    <button class="btn btn-danger m-1"
                             *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
                             (click)="this.appAbortModal.show()">{{'APP_INSTANCE.ABORT_BUTTON' | translate}}</button>
                 </div>
@@ -94,12 +94,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <ng-container *ngIf="getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.RUNNING">
-                                <li *ngIf="shouldDisplayButton()">
-                                    <a href="{{validateURL(appInstance?.serviceAccessMethods[0].url)}}" role="button">
-                                        {{'APP_INSTANCE.GO_TO_APP_BUTTON' | translate}}
-                                    </a>
-                                </li>
-                                <li *ngIf="shouldDisplayModal()">
+                                <li>
                                     <a role="button" (click)="this.accessMethodsModal.show()">
                                         {{'APP_INSTANCE.APP_ACCESS_METHODS' | translate}}
                                     </a>
@@ -139,6 +134,12 @@
                                         {{'APP_INSTANCE.ENABLE_AUTO_UPGRADES_BUTTON' | translate}}
                                     </a>
                                 </li>
+                                <li *ngIf="appInstance.autoUpgradesEnabled">
+                                    <a *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
+                                       role="button" (click)="this.disableAutoUpgradesModal.show()">
+                                        {{'APP_INSTANCE.DISABLE_AUTO_UPGRADES_BUTTON' | translate}}
+                                    </a>
+                                </li>
                                 <li *ngIf="appInstance.upgradePossible">
                                     <a *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
                                        role="button" (click)="this.appUpgradeModal.show()">
@@ -154,12 +155,6 @@
                                 <li *roles="['ROLE_SYSTEM_ADMIN' ]">
                                     <a role="button" (click)="this.openVersionUpdateModal()">
                                         {{'APP_INSTANCES.MANUAL_UPDATE.HEADER' | translate}}
-                                    </a>
-                                </li>
-                                <li *ngIf="appInstance.autoUpgradesEnabled">
-                                    <a *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
-                                       role="button" (click)="this.disableAutoUpgradesModal.show()">
-                                        {{'APP_INSTANCE.DISABLE_AUTO_UPGRADES_BUTTON' | translate}}
                                     </a>
                                 </li>
                                 <li *ngIf="app.application.appDeploymentSpec.allowLogAccess">
@@ -229,7 +224,7 @@
             <h4 style="text-align: center">{{'APP_INSTANCES.MANUAL_UPDATE.HEADER' | translate}}</h4>
         </div>
         <div class="nmaas-modal-body">
-            <div class="" style="height: 150px">
+            <div class="" style="height: 250px">
                 <p>{{'APP_INSTANCES.MANUAL_UPDATE.BODY' | translate}}</p>
                 <div *ngIf="appVersions.length > 0">
                     <p-dropdown id="manualUpdate" [options]="appVersions" optionLabel="version" optionValue="version"
@@ -246,7 +241,7 @@
             <button type="button" class="btn btn-primary "
                     [disabled]="appVersions.length === 0 || selectedVersion === ''"
                     (click)="this.manualUpdateVersion()">{{'APP_INSTANCES.MANUAL_UPDATE.YES_BUTTON' | translate}}</button>
-            <button type="button" class="btn btn-danger"
+            <button type="button" class="btn btn-secondary"
                     (click)="this.manualUpdateModal.hide()">{{'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
         </div>
     </nmaas-modal>
@@ -421,7 +416,7 @@
         <div class="nmaas-modal-footer">
             <button type="button" class="btn btn-primary"
                     (click)="redeploy(); redeployConfirm.hide()">{{'REDEPLOY_MODAL.OK_BUTTON' | translate}}</button>
-            <button type="button" class="btn btn-primary"
+            <button type="button" class="btn btn-secondary"
                     (click)="redeployConfirm.hide()">{{'REDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
         </div>
     </nmaas-modal>
@@ -437,7 +432,7 @@
         <div class="nmaas-modal-footer">
             <button type="button" class="btn btn-primary"
                     (click)="removalFailedInstance(); removeConfirm.hide()">{{'REMOVE_MODAL.OK_BUTTON' | translate}}</button>
-            <button type="button" class="btn btn-primary"
+            <button type="button" class="btn btn-secondary"
                     (click)="removeConfirm.hide()">{{'REMOVE_MODAL.CANCEL_BUTTON' | translate}}</button>
         </div>
     </nmaas-modal>
@@ -453,7 +448,7 @@
         <div class="nmaas-modal-footer">
             <button type="button" class="btn btn-primary"
                     (click)="enableAutoUpgrades(); enableAutoUpgradesConfirm.hide()">{{'ENABLE_AUTO_UPGRADES_MODAL.OK_BUTTON' | translate}}</button>
-            <button type="button" class="btn btn-primary"
+            <button type="button" class="btn btn-secondary"
                     (click)="enableAutoUpgradesConfirm.hide()">{{'ENABLE_AUTO_UPGRADES_MODAL.CANCEL_BUTTON' | translate}}</button>
         </div>
     </nmaas-modal>
@@ -469,7 +464,7 @@
         <div class="nmaas-modal-footer">
             <button type="button" class="btn btn-primary"
                     (click)="disableAutoUpgrades(); disableAutoUpgradesConfirm.hide()">{{'DISABLE_AUTO_UPGRADES_MODAL.OK_BUTTON' | translate}}</button>
-            <button type="button" class="btn btn-primary"
+            <button type="button" class="btn btn-secondary"
                     (click)="disableAutoUpgradesConfirm.hide()">{{'DISABLE_AUTO_UPGRADES_MODAL.CANCEL_BUTTON' | translate}}</button>
         </div>
     </nmaas-modal>

@@ -5,7 +5,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterModule} from '@angular/router';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {SecurePipe} from '../../../../pipe';
-import {Pipe, PipeTransform} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
   name: 'secure'
@@ -34,7 +34,8 @@ describe('AppuploadComponent', () => {
             useClass: TranslateFakeLoader
           }
         }),
-          ]
+          ],
+          schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     })
     .compileComponents();
   });

@@ -5,6 +5,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ModalComponent} from '../modal.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('ModalNotificationSendComponent', () => {
   let component: ModalNotificationSendComponent;
@@ -21,7 +22,8 @@ describe('ModalNotificationSendComponent', () => {
             useClass: TranslateFakeLoader
           }
         }),
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     })
     .compileComponents();
   }));

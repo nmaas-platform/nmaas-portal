@@ -197,6 +197,8 @@
                     </div>
 
                     <div class="flex justify-content-end">
+                        <button class="btn btn-primary mr-2" (click)="refreshStates()">{{'BULK.APP.REFRESH' | translate}}</button>
+
                         <button class="btn btn-primary" (click)="getAppBulkDetails(this.bulkId)">{{'BULK.APP.DOWNLOAD_CSV' | translate}}</button>
                     </div>
                 </div>
@@ -233,9 +235,9 @@
                  <li *ngIf="response.type === 'APPLICATION' && response?.details['appInstanceId'] !== undefined">
                 <a [routerLink]="['/instances/', response?.details['appInstanceId']]">{{ 'BULK.LIST.MOVE_APP' | translate }}</a>
               </li>
-                  <li *ngIf="response.type === 'APPLICATION' && response.state !== 'COMPLETED'">
+                  <!-- <li *ngIf="response.type === 'APPLICATION' && response.state !== 'COMPLETED'">
                     <a>{{ 'BULK.APP.CHECK_STATE' | translate }}</a>
-                </li>
+                </li> -->
             </ul>
           </span>
                             </td>

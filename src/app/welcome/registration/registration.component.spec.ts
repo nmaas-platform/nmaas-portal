@@ -10,6 +10,7 @@ import {ModalComponent} from '../../shared/modal';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
 import {RouterTestingModule} from '@angular/router/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('RegistrationComponent', () => {
     let component: RegistrationComponent;
@@ -40,7 +41,8 @@ describe('RegistrationComponent', () => {
                 {provide: ConfigurationService, useValue: configurationServiceSpy},
                 {provide: AppConfigService, useValue: {}},
                 {provide: ReCaptchaV3Service, useValue: {}},
-            ]
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })
             .compileComponents();
     }));

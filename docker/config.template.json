@@ -9,5 +9,6 @@
 	},
 	"captchaKey": "${CAPTCHA_KEY}",
     "showGitInfo": true,
-    "showChangelog": true
+    "showChangelog": true,
+	"landing" :"${LANDING_PAGE}"
 }

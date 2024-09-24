@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DomainAnnotationsComponent } from './domain-annotations.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('DomainAnnotationsComponent', () => {
   let component: DomainAnnotationsComponent;
@@ -19,7 +20,8 @@ describe('DomainAnnotationsComponent', () => {
               useClass: TranslateFakeLoader
           }
       }),
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
 

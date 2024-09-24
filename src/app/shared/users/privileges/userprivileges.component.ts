@@ -7,8 +7,6 @@ import {UserService} from '../../../service/user.service';
 import {BaseComponent} from '../../common/basecomponent/base.component';
 import {Component, Input, OnInit} from '@angular/core';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
-import {Observable, of} from 'rxjs';
-import {CacheService} from '../../../service/cache.service';
 import {UserDataService} from '../../../service/userdata.service';
 
 @Component({
@@ -28,9 +26,6 @@ export class UserPrivilegesComponent extends BaseComponent implements OnInit {
 
     public domains: Domain[] = [];
     public roles: Role[] = [];
-
-    public domainCache: CacheService<number, Domain> = new CacheService<number, Domain>();
-
     public newPrivilegeForm: UntypedFormGroup;
 
     constructor(protected fb: UntypedFormBuilder,
@@ -66,7 +61,7 @@ export class UserPrivilegesComponent extends BaseComponent implements OnInit {
             roles = this.filterRoles(roles, this.newPrivilegeForm.get('domainId').value);
         } else if (this.newPrivilegeForm.get('domainId').value != null) {
             // default (domain) role set
-            roles = [Role.ROLE_GUEST, Role.ROLE_USER, Role.ROLE_DOMAIN_ADMIN, Role.ROLE_VL_DOMAIN_ADMIN];
+            roles = [Role.ROLE_GUEST, Role.ROLE_USER, Role.ROLE_DOMAIN_ADMIN];
             roles = this.filterRoles(roles, this.newPrivilegeForm.get('domainId').value);
         } else {
             // no roles
@@ -97,33 +92,20 @@ export class UserPrivilegesComponent extends BaseComponent implements OnInit {
         if (this.authService.hasRole(Role[Role.ROLE_SYSTEM_ADMIN])) {
             this.domainService.getAll().subscribe((domains) => {
                 this.domains = domains
-                this.saveMultipleDomainsInCache(domains);
             });
         } else if (this.authService.hasRole(Role[Role.ROLE_DOMAIN_ADMIN])) {
             const domainIds: number[] = this.authService.getDomainsWithRole(Role[Role.ROLE_DOMAIN_ADMIN]);
             domainIds.forEach((domainId) => {
                 this.domainService.getOne(domainId).subscribe((domain) => {
                     this.domains.push(domain)
-                    this.saveDomainInCache(domain)
                 });
             });
-        } else {
-            this.getMyDomains();
         }
     }
 
-    private saveMultipleDomainsInCache(domains: Domain[]) {
-        domains.forEach(domain => this.saveDomainInCache(domain))
-    }
-
-    private saveDomainInCache(domain: Domain) {
-        if (!this.domainCache.hasData(domain.id)) {
-            this.domainCache.setData(domain.id, domain)
-        }
-    }
 
     public getMyDomains() {
-        this.domainService.getMyDomains().subscribe(domains => this.saveMultipleDomainsInCache(domains))
+        this.domainService.getMyDomains().subscribe(domains => this.domains.push(...domains))
     }
 
     public add(): void {
@@ -140,12 +122,6 @@ export class UserPrivilegesComponent extends BaseComponent implements OnInit {
     public remove(userId: number, role: Role, domainId?: number): void {
         this.userService.removeRole(userId, role, domainId).subscribe(
             () => this.userService.getOne(this.user.id).subscribe((user) => this.user = user))
-    }
-
-    public getDomainName(domainId: number): Observable<string> {
-        if (this.domainCache.hasData(domainId)) {
-            return of(this.domainCache.getData(domainId).name);
-        }
     }
 
     /**
