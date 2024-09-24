@@ -78,4 +78,6 @@
 :host ::ng-deep  .p-dropdown {
     width: 200px;
 }
-
+:host ::ng-deep.p-dropdown-panel .p-dropdown-items {
+    max-height: 150px;
+}

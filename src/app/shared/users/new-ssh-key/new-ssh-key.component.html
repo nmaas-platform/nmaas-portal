@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-success" (click)="modal.show()">{{'SSH_KEYS.BUTTON_NEW_KEY' | translate}}</button>
+<button type="button" class="btn btn-secondary" (click)="modal.show()">{{'SSH_KEYS.BUTTON_NEW_KEY' | translate}}</button>
 
 <nmaas-modal styleModal="info">
   <div class="nmaas-modal-header">{{'SSH_KEYS.MODAL.HEADER' | translate}}</div>
@@ -27,11 +27,10 @@
           <div *ngIf="key.errors.pattern">{{'SSH_KEYS.MODAL.ERROR.KEY_PATTERN' | translate}}</div>
         </div>
 
-        <input type="submit" class="btn btn-success" value="{{'SSH_KEYS.MODAL.BUTTON_ADD' | translate}}" [disabled]="!requestForm.valid">
-        <button type="button" class="btn btn-primary pull-right" (click)="modal.hide()">{{'SSH_KEYS.MODAL.BUTTON_CANCEL' | translate}}</button>
+        <input type="submit" style="border-radius: 4px" class="btn btn-primary" value="{{'SSH_KEYS.MODAL.BUTTON_ADD' | translate}}" [disabled]="!requestForm.valid">
+        <button type="button" class="btn btn-secondary pull-right" (click)="modal.hide()">{{'SSH_KEYS.MODAL.BUTTON_CANCEL' | translate}}</button>
 
       </form>
-      <hr/>
       <div *ngIf="error" class="alert alert-danger">
         {{error}}
       </div>

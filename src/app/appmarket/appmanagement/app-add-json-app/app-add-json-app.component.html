@@ -17,7 +17,7 @@
             <textarea rows="10" cols="100" pInputTextarea [(ngModel)]="jsonText" (keyup)="this.JsonError = false; this.error = ''"></textarea>
         </div>
         <div class="flex flex-row justify-content-center justify-content-center mt-2">
-            <button *ngIf="jsonText.length >0" pButton class="btn btn-success"
+            <button *ngIf="jsonText.length >0" pButton class="btn btn-secondary"
                     (click)="sendJsonText()"> {{'APPS_MANAGEMENT.SEND_JSON' | translate}}</button>
         </div>
 
@@ -32,7 +32,7 @@
 
     </div>
     <div class="nmaas-modal-footer">
-        <button type="button" class="btn btn-default" (click)="modal.hide()">
+        <button type="button" class="btn btn-primary" (click)="modal.hide()">
             {{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}
         </button>
     </div>

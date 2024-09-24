@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppnavigatorComponent } from './appnavigator.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterModule} from '@angular/router';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AppnavigatorComponent', () => {
   let component: AppnavigatorComponent;
@@ -14,7 +15,8 @@ describe('AppnavigatorComponent', () => {
       imports : [
           HttpClientTestingModule,
         RouterModule.forRoot([]),
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
     })
     .compileComponents();
   });

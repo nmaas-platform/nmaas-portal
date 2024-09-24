@@ -13,7 +13,7 @@ import { DomainAnnotationsComponent } from './domain-annotations/domain-annotati
 export const DomainsRoutes: Route[] = [
     {
         path: 'admin/domains', component: DomainsListComponent, canActivate: [AuthGuard, RoleGuard],
-        data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN', 'ROLE_OPERATOR', 'ROLE_VL_DOMAIN_ADMIN']}
+        data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN', 'ROLE_OPERATOR', 'ROLE_VL_DOMAIN_ADMIN', 'ROLE_VL_MANAGER']}
     },
     {
         path: 'admin/domains/add', component: DomainComponent, canActivate: [AuthGuard, RoleGuard],

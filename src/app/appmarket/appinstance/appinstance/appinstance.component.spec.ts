@@ -21,7 +21,7 @@ import {AppDeploymentSpec} from '../../../model/app-deployment-spec';
 import {AppConfigurationSpec} from '../../../model/app-configuration-spec';
 import {ApplicationState} from '../../../model/application-state';
 import {AppInstanceStateHistory} from '../../../model/app-instance-state-history';
-import {Component, Directive, Input, Pipe, PipeTransform} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, Component, Directive, Input, NO_ERRORS_SCHEMA, Pipe, PipeTransform} from '@angular/core';
 import {Domain} from '../../../model/domain';
 import {AccessMethodsModalComponent} from '../modals/access-methods-modal/access-methods-modal.component';
 import {ModalComponent} from '../../../shared/modal';
@@ -290,7 +290,8 @@ describe('Component: AppInstance', () => {
                 {provide: AppImagesService, useValue: appImagesServiceStub},
                 {provide: ShellClientService, useValue: mockShellClientService},
                 {provide: ActivatedRoute, useValue: {params: of({id: 1})}}
-            ]
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         }).compileComponents().then((result) => {
             console.log(result);
         });

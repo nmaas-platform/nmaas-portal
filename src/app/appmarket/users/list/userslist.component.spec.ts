@@ -8,6 +8,7 @@ import {UserDataService} from '../../../service/userdata.service';
 import {RouterTestingModule} from '@angular/router/testing';
 import {of} from 'rxjs';
 import createSpyObj = jasmine.createSpyObj;
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('UsersListComponent', () => {
     let component: UsersListComponent;
@@ -46,7 +47,8 @@ describe('UsersListComponent', () => {
                         selectedDomainId: of(1)
                     }
                 },
-            ]
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         })
             .compileComponents();
     }));

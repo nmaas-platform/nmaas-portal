@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {NavbarComponent} from './navbar.component';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
@@ -10,6 +10,7 @@ import {Component, Directive, Input} from '@angular/core';
 import {InternationalizationService} from '../../service/internationalization.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {DatePipe} from '@angular/common';
+import {UserDataService} from '../../service/userdata.service';
 
 @Component({
     selector: 'nmaas-domain-filter',
@@ -40,6 +41,7 @@ describe('NavbarComponent_Shared', () => {
     let languageService: InternationalizationService;
     let domainService: DomainService;
     let authService: AuthService;
+    let userDataService: UserDataService;
 
     beforeEach(waitForAsync(() => {
         const mockDomainService = jasmine.createSpyObj(['getGlobalDomainId']);
@@ -52,6 +54,8 @@ describe('NavbarComponent_Shared', () => {
         mockAuthService.hasRole.and.returnValue(false);
         mockAuthService.getDomains.and.returnValue([]);
         mockAuthService.getRoles.and.returnValue([]);
+        const mockUserDataService = jasmine.createSpyObj(['selectedDomainId'])
+        mockUserDataService.selectedDomainId.and.returnValue(1)
 
         TestBed.configureTestingModule({
             declarations: [
@@ -74,6 +78,7 @@ describe('NavbarComponent_Shared', () => {
                 {provide: DomainService, useValue: mockDomainService},
                 {provide: InternationalizationService, useValue: mockLanguageService},
                 {provide: AuthService, useValue: mockAuthService},
+                {provide: UserDataService, useValue: userDataService},
                 DatePipe
             ]
         }).compileComponents().then((result) => {
@@ -87,6 +92,7 @@ describe('NavbarComponent_Shared', () => {
         languageService = fixture.debugElement.injector.get(InternationalizationService);
         domainService = fixture.debugElement.injector.get(DomainService);
         authService = fixture.debugElement.injector.get(AuthService);
+        userDataService = fixture.debugElement.injector.get(UserDataService);
         // future use
         // spyOn(languageService, 'getEnabledLanguages').and.returnValue(of(['en', 'fr', 'pl']));
         // spyOn(languageService, 'shouldUpdate').and.returnValue(false);

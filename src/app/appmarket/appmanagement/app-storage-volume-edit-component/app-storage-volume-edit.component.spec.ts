@@ -4,6 +4,7 @@ import {AppStorageVolumeEditComponent} from './app-storage-volume-edit.component
 import {FormsModule} from '@angular/forms';
 import {ServiceStorageVolumeType} from '../../../model/service-storage-volume';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AppStorageVolumeEditComponent', () => {
   let component: AppStorageVolumeEditComponent;
@@ -20,7 +21,8 @@ describe('AppStorageVolumeEditComponent', () => {
             useClass: TranslateFakeLoader
           }
         })
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     })
     .compileComponents();
   }));

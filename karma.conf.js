@@ -33,7 +33,9 @@ module.exports = function (config) {
                 'text/x-typescript': ['ts', 'tsx']
             },
             coverageReporter: {
-                dir: 'coverage',
+                dir: require('path').join(__dirname, 'coverage'),
+                subdir: '.',
+                exclude: ['**/*.spec.ts'],
                 reporters: [
                     {type: 'html', subdir: '.'},
                     {type: 'lcovonly', subdir: '.', file: 'lcov.info'},
@@ -48,13 +50,14 @@ module.exports = function (config) {
                 }
             },
 
-            reporters: ['progress'],
+            reporters: ['progress', 'kjhtml'],
             port: 9876,
             colors: true,
             logLevel: config.LOG_WARN,
             autoWatch: false,
             browsers: ['Chrome', 'ChromeHeadless', "Chromium"],
-            singleRun: true
+            singleRun: true,
+            restartOnFileChange: false
         }
     );
 };

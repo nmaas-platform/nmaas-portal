@@ -6,6 +6,7 @@ import {Observable, of} from 'rxjs';
 import {Rate} from '../../model';
 import {HttpResponse} from '@angular/common/http';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 class MockAppService {
     public getAppRateByUrl(urlPath: string): Observable<Rate> {
@@ -34,7 +35,9 @@ describe('RatingExtendedComponent', () => {
             ],
             providers: [
                 {provide: AppsService, useClass: MockAppService},
-            ]
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+
         });
         TestBed.compileComponents();
     }));

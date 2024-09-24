@@ -4,7 +4,7 @@ import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
 import {AppDetailsComponent} from './appdetails.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AppConfigService, AppImagesService, AppsService, DomainService} from '../../service';
-import {Component, Input, Pipe, PipeTransform} from '@angular/core';
+import {Component, Input, NO_ERRORS_SCHEMA, Pipe, PipeTransform} from '@angular/core';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {AppSubscriptionsService} from '../../service/appsubscriptions.service';
 import {UserDataService} from '../../service/userdata.service';
@@ -155,6 +155,7 @@ describe('Component: AppDetails', () => {
                 {provide: DomainService, useValue: domainServiceSpy},
                 {provide: ActivatedRoute, useValue: {params: of({id: 1})}}
             ],
+            schemas: [NO_ERRORS_SCHEMA],
         }).compileComponents();
     }));
 

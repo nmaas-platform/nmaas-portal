@@ -6,5 +6,7 @@ export class Configuration {
     public testInstance: boolean;
     public sendAppInstanceFailureEmails: boolean;
     public registrationDomainSelectionEnabled: boolean;
+    public bulkDomainsAllowForSsoAccounts: boolean;
+    public bulkDomainsSendEmailForNewAccounts: boolean;
     public appInstanceFailureEmailList: string[] = [];
 }

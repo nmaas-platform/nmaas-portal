@@ -1,16 +1,20 @@
 <footer class="footer col-xs-12" id="global-footer">
-	<div class="container">
+	<div class="container-width">
 		<div class="row row-center">
 			<div class="col-sm-2">
-				<!-- NMaaS Logo optionally -->
+				<!-- nmaas Logo optionally -->
                 <a href="https://www.geant.org/">
-                    <img alt="Geant Logo" src="/assets/images/geant-logo.png" class="image-link"/>
+                    <img alt="Geant Logo" src="/assets/images/geant-logo.png"  width="200" class="image-link"/>
                 </a>
 			</div>
             <div class="col-sm-3">
                     <img alt="EU flag" src="/assets/images/cofunded.png" width="200" style="padding-top: 15px; "/>
 			</div>
 			<div class="col-sm-2 col-sm-offset-5">
+                <p>
+                    <a *ngIf="landingProfile === 'VNOC'" href="https://docs.nmaas.eu/use-cases/virtual-noc/vnoc-introduction/">Documentation</a>
+                    <a *ngIf="landingProfile !== 'VNOC'" href="https://docs.nmaas.eu/use-cases/virtual-lab/vlab-introduction/">Documentation</a>
+                </p>
                 <p><a routerLink="/privacy">{{ 'FOOTER.NOTICE' | translate }}</a></p>
                 <p><a routerLink="/aup">{{ 'FOOTER.AUP' | translate }}</a></p>
                 <p><a routerLink="/about">{{ 'FOOTER.CONTACT' | translate }}</a></p>
@@ -20,13 +24,13 @@
         <div class="row">
             <div class="col-xs-10">
             </div>
-            <div class="col-xs-2">
-                <div>
-                    <a class="footer-light footer-move-top" (click)="this.moveToTop();">
-                        <em class="fas fa-arrow-up"></em> {{ 'FOOTER.TOP' | translate }}
-                    </a>
-                </div>
-            </div>
+<!--            <div class="col-xs-2">-->
+<!--                <div>-->
+<!--                    <a class="footer-light footer-move-top" (click)="this.moveToTop();">-->
+<!--                        <em class="fas fa-arrow-up"></em> {{ 'FOOTER.TOP' | translate }}-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
 
 	</div>

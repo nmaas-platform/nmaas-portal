@@ -59,6 +59,8 @@ import {DropdownModule} from 'primeng/dropdown';
 import {SortableHeaderDirective} from '../service/sort-domain.directive';
 import {InputTextModule} from 'primeng/inputtext';
 import { DomainNamespaceAnnotationsComponent } from './domain-namespace-annotations/domain-namespace-annotations.component';
+import { DEFAULT_PSM_OPTIONS } from 'angular-password-strength-meter/zxcvbn';
+
 
 @NgModule({
     imports: [
@@ -69,7 +71,7 @@ import { DomainNamespaceAnnotationsComponent } from './domain-namespace-annotati
         RouterModule,
         ReactiveFormsModule,
         RecaptchaV3Module,
-        PasswordStrengthMeterModule,
+        PasswordStrengthMeterModule.forRoot(DEFAULT_PSM_OPTIONS) ,
         TranslateModule.forChild(),
         NgxPaginationModule,
         FormioModule,

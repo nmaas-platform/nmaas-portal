@@ -6,10 +6,17 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {UserService} from '../../../service';
 import {SharedModule} from '../../shared.module';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import createSpyObj = jasmine.createSpyObj;
+import { IPasswordStrengthMeterService } from 'angular-password-strength-meter';
+
 
 describe('PasswordComponent', () => {
     let component: PasswordComponent;
     let fixture: ComponentFixture<PasswordComponent>;
+
+     const passowrdSpy = createSpyObj('IPasswordStrengthMeterService', ['score'])
+        passowrdSpy.score.and.returnValue("4")
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -26,8 +33,10 @@ describe('PasswordComponent', () => {
                 }),
             ],
             providers: [
-                {provide: UserService, useValue: {}}
-            ]
+                {provide: UserService, useValue: {}},
+                {provide: IPasswordStrengthMeterService, useValue: passowrdSpy}
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })
             .compileComponents();
     }));

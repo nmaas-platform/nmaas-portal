@@ -10,5 +10,5 @@ export const UsersRoutes: Route[] = [
     { path: 'admin/users/view/:id', component: UserDetailsComponent, canActivate: [AuthGuard, RoleGuard],
                       data: {mode: ComponentMode.VIEW, roles: ['ROLE_SYSTEM_ADMIN']} },
     { path: 'domain/users', component: UsersListComponent, canActivate: [AuthGuard, RoleGuard],
-        data: {roles: ['ROLE_DOMAIN_ADMIN', 'ROLE_VL_MANAGER']}},
+        data: {roles: ['ROLE_DOMAIN_ADMIN', 'ROLE_VL_MANAGER', 'ROLE_VL_MANAGER']}},
 ];

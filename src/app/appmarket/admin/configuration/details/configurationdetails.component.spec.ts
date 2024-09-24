@@ -8,6 +8,7 @@ import {of} from 'rxjs';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {InternationalizationService} from '../../../../service/internationalization.service';
 import createSpyObj = jasmine.createSpyObj;
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('ConfigurationDetailsComponent', () => {
     let component: ConfigurationDetailsComponent;
@@ -38,6 +39,7 @@ describe('ConfigurationDetailsComponent', () => {
                 {provide: ConfigurationService, useValue: configurationServiceSpy},
                 {provide: InternationalizationService, useValue: internationalizationSpy}
             ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })
             .compileComponents();
     }));

@@ -6,13 +6,14 @@ import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-transl
 import createSpyObj = jasmine.createSpyObj;
 import {AppsService, UserService} from '../../../service';
 import {of} from 'rxjs';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AppChangeOwnerModalComponent', () => {
     let component: AppChangeOwnerModalComponent;
     let fixture: ComponentFixture<AppChangeOwnerModalComponent>;
 
-    const appsServiceSpy = createSpyObj<AppsService>('AppsServiceSpy', ['updateApplicationBase']);
-    appsServiceSpy.updateApplicationBase.and.returnValue(of('1'))
+    const appsServiceSpy = createSpyObj<AppsService>('AppsServiceSpy', ['updateApplicationBaseOwner']);
+    appsServiceSpy.updateApplicationBaseOwner.and.returnValue(of('1'))
 
     const userServiceSpy = createSpyObj<UserService>('UserServiceSpy', ['getAll'])
     userServiceSpy.getAll.and.returnValue(of([]));
@@ -32,7 +33,9 @@ describe('AppChangeOwnerModalComponent', () => {
             providers: [
                 {provide: AppsService, useValue: appsServiceSpy},
                 {provide: UserService, useValue: userServiceSpy},
-            ]
+            ],
+            schemas: [NO_ERRORS_SCHEMA],
+
         })
             .compileComponents();
     });

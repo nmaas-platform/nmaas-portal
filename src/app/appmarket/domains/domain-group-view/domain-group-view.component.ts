@@ -7,6 +7,7 @@ import {DomainGroup} from '../../../model/domaingroup';
 import {Domain} from '../../../model/domain';
 import {User} from '../../../model';
 import {AuthService} from '../../../auth/auth.service';
+import { ProfileService } from '../../../service/profile.service';
 
 @Component({
     selector: 'app-domain-group-view',
@@ -35,7 +36,8 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
                 private route: ActivatedRoute,
                 private domainService: DomainService,
                 private userService: UserService,
-                private authService: AuthService
+                private authService: AuthService,
+                private profileService: ProfileService
     ) {
         super();
     }
@@ -69,10 +71,14 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
         console.log(this.domainGroup)
         // creation
         if (this.domainGroup.id === undefined || this.domainGroup.id === null) {
-            this.domainService.createDomainGroup(this.domainGroup).subscribe(data => {
-                console.warn('crated', data);
-                this.router.navigate(['/admin/domains/groups/', data.id]);
+            this.profileService.getOne().subscribe(owner => {
+                this.domainGroup.managers.push(owner)
+                this.domainService.createDomainGroup(this.domainGroup).subscribe(data => {
+                    console.warn('crated', data);
+                    this.router.navigate(['/admin/domains/groups/', data.id]);
+                })
             })
+           
         } else {
             this.domainService.updateDomainGroup(this.domainGroup, this.domainGroupId).subscribe(_ => {
                 if (refresh) {

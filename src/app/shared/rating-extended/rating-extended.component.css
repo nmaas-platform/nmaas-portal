@@ -1,5 +1,6 @@
 .rate-container{
     margin-top: 10px;
+    direction: rtl;
 }
 
 .fa-star{
@@ -12,24 +13,24 @@
     margin-right: 0;
 }
 
+.progress-dark-green{
+    background-color: rgb(69, 123, 1) !important;
+    background-image: linear-gradient(rgb(69, 123, 1), rgb(69, 123, 1));
+}
+
 .progress-green{
-    background-color: rgb(0, 190, 19) !important;
-    background-image: linear-gradient(rgb(0, 190, 19), rgb(0, 190, 19));
-}
-
-.progress-dark-blue{
-    background-color: rgb(0, 94, 155) !important;
-    background-image: linear-gradient(rgb(0, 94, 155), rgb(0, 94, 155));
-}
-
-.progress-blue{
-    background-color: rgb(0, 152, 192) !important;
-    background-image: linear-gradient(rgb(0, 152, 192), rgb(0, 152, 192));
+    background-color: rgb(128, 178, 65) !important;
+    background-image: linear-gradient(rgb(128, 178, 65), rgb(128, 178, 65));
 }
 
 .progress-yellow{
-    background-color: rgb(241, 189, 0) !important;
-    background-image: linear-gradient(rgb(241, 189, 0), rgb(241, 189, 0));
+    background-color: rgb(246, 222, 0) !important;
+    background-image: linear-gradient(rgb(246, 222, 0), rgb(246, 222, 0));
+}
+
+.progress-orange{
+    background-color: rgb(255, 138, 0) !important;
+    background-image: linear-gradient(rgb(255, 138, 0), rgb(255, 138, 0));
 }
 
 .progress-red{
@@ -41,7 +42,7 @@
     color: gray;
 }
 
-.fa-star-button:hover{
+.fa-star-button:hover, .fa-star-button:hover ~ span{
     color: rgb(189, 141, 0) !important;
 }
 

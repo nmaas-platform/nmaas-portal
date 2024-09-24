@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { AppUpgradeModalComponent } from './app-upgrade-modal.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AppUpgradeModalComponent', () => {
   let component: AppUpgradeModalComponent;
@@ -19,7 +20,8 @@ describe('AppUpgradeModalComponent', () => {
             useClass: TranslateFakeLoader
           }
         }),
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
     })
     .compileComponents();
   }));

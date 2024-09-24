@@ -52,7 +52,7 @@ export class AppChangeOwnerModalComponent {
 
   public submit(): void {
     this.applicationBase.owner = this.selectedUsername;
-    this.appsService.updateApplicationBase(this.applicationBase).subscribe();
+    this.appsService.updateApplicationBaseOwner(this.applicationBase).subscribe();
     this.selectedUsername = undefined;
     this.applicationBase = undefined;
     this.modal.hide();

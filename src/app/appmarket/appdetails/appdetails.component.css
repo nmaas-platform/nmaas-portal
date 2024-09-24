@@ -32,13 +32,18 @@ hr{
     border: 0;
 }
 
-.first-button-substitute{
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
+/*.first-button-substitute{*/
+/*    border-top-right-radius: 0;*/
+/*    border-bottom-right-radius: 0;*/
+/*}*/
 
 .disabled-url {
     pointer-events: none;
     cursor: default!important;
     color: gray;
+}
+
+.thumbnail{
+    border: none;
+    box-shadow: none;
 }

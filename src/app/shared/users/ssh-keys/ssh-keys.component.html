@@ -1,6 +1,9 @@
 <div style="margin-bottom: 120px;" class="panel panel-default">
     <div class="panel-heading">{{'SSH_KEYS.HEADER' | translate}}</div>
     <div class="panel-body">
+        <div class="flex justify-content-end mb-4">
+            <app-new-ssh-key (out)="getData()"></app-new-ssh-key>
+        </div>
         <table class="table table-hover" aria-describedby="User ssh keys table">
             <thead>
             <tr>
@@ -22,8 +25,5 @@
             </tr>
             </tbody>
         </table>
-      <div>
-          <app-new-ssh-key (out)="getData()"></app-new-ssh-key>
-      </div>
     </div>
 </div>

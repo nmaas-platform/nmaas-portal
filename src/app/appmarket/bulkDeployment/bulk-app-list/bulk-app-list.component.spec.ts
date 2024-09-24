@@ -4,6 +4,7 @@ import { BulkAppListComponent } from './bulk-app-list.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import createSpyObj = jasmine.createSpyObj;
 import {AuthService} from '../../../auth/auth.service';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('BulkAppListComponent', () => {
   let component: BulkAppListComponent;
@@ -23,7 +24,8 @@ describe('BulkAppListComponent', () => {
       ],
       providers: [
         {provide: AuthService, useValue: authServiceSpy},
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   });

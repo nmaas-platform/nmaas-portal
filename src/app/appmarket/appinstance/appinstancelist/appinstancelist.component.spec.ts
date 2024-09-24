@@ -16,7 +16,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {TranslateStateModule} from '../../../shared/translate-state/translate-state.module';
 import {RolesDirective} from '../../../directive/roles.directive';
 import {JwtModule} from '@auth0/angular-jwt';
-import {Pipe, PipeTransform} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Pipe, PipeTransform} from '@angular/core';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {AppinstanceSearchPipe} from '../appinstance-search.pipe';
 
@@ -88,7 +88,8 @@ describe('AppInstanceListComponent', () => {
                 },
                 {provide: SessionService, useValue: sessionServiceSpy},
                 {provide: SortService, useValue: {}},
-            ]
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         }).compileComponents();
     }));
 
