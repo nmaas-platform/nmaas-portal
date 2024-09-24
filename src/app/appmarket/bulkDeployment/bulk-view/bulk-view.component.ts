@@ -115,4 +115,11 @@ export class BulkViewComponent implements OnInit, OnDestroy {
         })
     }
 
+
+    public refreshStates() {
+        this.deployService.refreshStatesInBulkDeployment(this.bulkId).subscribe( deply => {
+            this.bulk = deply;
+            console.log("Updated states of bulks")
+        })
+    }
 }
