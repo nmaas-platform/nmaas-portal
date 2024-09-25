@@ -24,6 +24,9 @@ function compareAppsPopularity(a: ApplicationBase, b: ApplicationBase, stats: an
     const bPop = stats[b.name] ? stats[b.name] : 0;
     return (aPop - bPop) * -1; // desc
 }
+function compareAppsId(a: ApplicationBase, b: ApplicationBase): number {
+    return (a.id - b.id);
+}
 
 @Component({
     selector: 'nmaas-applications-view',
@@ -53,8 +56,8 @@ export class ApplicationsViewComponent implements OnInit, OnChanges {
     public searchedAppName = '';
     protected searchedTag = 'all';
 
-    public sortModeList = ['NONE', 'NAME', 'RATING', 'POPULAR'];
-    public sortMode = 'NONE';
+    public sortModeList = [ 'NAME', 'RATING', 'POPULAR', 'DATE'];
+    public sortMode = 'NAME';
 
     private popStats: any = {};
 
@@ -73,6 +76,7 @@ export class ApplicationsViewComponent implements OnInit, OnChanges {
                 this.popStats = data;
             }
         )
+        this.onSort()
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -165,6 +169,8 @@ export class ApplicationsViewComponent implements OnInit, OnChanges {
                         return [...apps].sort(compareAppsRating)
                     case 'POPULAR':
                         return [...apps].sort(popComp)
+                    case 'DATE':
+                        return [...apps].sort(compareAppsId)
                     default:
                         return apps
                 }
