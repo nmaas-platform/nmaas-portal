@@ -76,7 +76,7 @@ export class ApplicationsViewComponent implements OnInit, OnChanges {
                 this.popStats = data;
             }
         )
-        this.onSort()
+
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -110,7 +110,7 @@ export class ApplicationsViewComponent implements OnInit, OnChanges {
         }
 
         this.applications = applications;
-
+        this.doSearch()
     }
 
     protected updateSelected() {
