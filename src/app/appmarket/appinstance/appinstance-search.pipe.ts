@@ -13,13 +13,11 @@ export class AppinstanceSearchPipe implements PipeTransform {
 
         let result = [];
         value.forEach( val => {
-            if (val.name.toLowerCase().includes(searchValue.toLowerCase() ||
-                val.applicationName.toLowerCase().includes(searchValue.toLowerCase()) ||
-                val.id.toLowerCase().includes(searchValue.toLowerCase()))
+            if (val.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+                val.applicationName.toLowerCase().includes(searchValue.toLowerCase())
             ) {
                 result.push(val);
             }
-
         })
 
         return result;
