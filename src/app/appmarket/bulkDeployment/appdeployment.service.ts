@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ApplicationBase} from '../../model/application-base';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {AppConfigService} from '../../service';
 import {BulkResponse} from '../../model/bulk-response';
 import {Observable} from 'rxjs';
@@ -89,14 +89,5 @@ export class AppdeploymentService {
         return this.http.get(this.getUrl() + `app/csv/${id}`, {responseType: 'blob'})
     }
 
-    public refreshStatesInBulkDeployment(id: number) : Observable<BulkDeployment> {
-        return this.http.get<BulkDeployment>(this.getUrl() + `refresh/${id}`)
-    }
 
-
-    public removeBulkDeployment(id: number, removeAll: boolean): Observable<void> {
-        let params = new HttpParams()
-        params = params.append('removeAll', removeAll)
-        return this.http.delete<void>(this.getUrl() + `${id}`, {params})
-    }
 }
