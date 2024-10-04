@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, Input, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {BulkDeployment} from '../../../model/bulk-deployment';
 import {BulkType} from '../../../model/bulk-response';
 import {SortableHeaderDirective} from '../../../service/sort-domain.directive';
@@ -42,12 +42,6 @@ export class BulkListComponent {
     public searchValue = '';
 
     public removeAll = false;
-    public bulkToDelete;
-
-    public errorMessage = '';
-
-    @Output()
-    public reloadBulks = new EventEmitter<void>();
 
     constructor(private appDeploy: AppdeploymentService,
                 private sanitizer: DomSanitizer) {
@@ -152,26 +146,5 @@ export class BulkListComponent {
             return bulk.details['appInstanceNo']
         }
         return null
-    }
-
-    public removeBulkDeployment() {
-        this.appDeploy.removeBulkDeployment(this.bulkToDelete.id, this.removeAll)
-            .subscribe({
-                next: (_) => {
-                    this.reloadData()
-                    this.modal.hide()
-                },
-                error: err => {
-                    this.errorMessage = err.error.message
-                }
-            })
-    }
-
-    public setBulkToDelete(bulk: BulkDeployment) {
-        this.bulkToDelete = bulk
-    }
-
-    private reloadData() {
-        this.reloadBulks.emit()
     }
 }
