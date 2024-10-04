@@ -51,16 +51,17 @@ import {DomainRolesDirective} from '../directive/domain-roles.directive';
 import {SshKeysComponent} from './users/ssh-keys/ssh-keys.component';
 import {NewSshKeyComponent} from './users/new-ssh-key/new-ssh-key.component';
 import {ModalProvideSshKeyComponent} from './modal/modal-provide-ssh-key/modal-provide-ssh-key.component';
-import { ContactComponent } from './contact/contact.component';
+import {ContactComponent} from './contact/contact.component';
 import {FormioModule} from '@formio/angular';
-import { PreferencesComponent } from './users/preferences/preferences.component';
+import {PreferencesComponent} from './users/preferences/preferences.component';
 import {TooltipModule} from 'primeng/tooltip';
 import {DropdownModule} from 'primeng/dropdown';
 import {SortableHeaderDirective} from '../service/sort-domain.directive';
 import {InputTextModule} from 'primeng/inputtext';
-import { DomainNamespaceAnnotationsComponent } from './domain-namespace-annotations/domain-namespace-annotations.component';
+import {DomainNamespaceAnnotationsComponent} from './domain-namespace-annotations/domain-namespace-annotations.component';
 import { DEFAULT_PSM_OPTIONS } from 'angular-password-strength-meter/zxcvbn';
 
+import {AccessTokensComponent} from './users/access-tokens/access-tokens.component';
 
 @NgModule({
     imports: [
@@ -123,7 +124,8 @@ import { DEFAULT_PSM_OPTIONS } from 'angular-password-strength-meter/zxcvbn';
         ContactComponent,
         PreferencesComponent,
         SortableHeaderDirective,
-        DomainNamespaceAnnotationsComponent
+        DomainNamespaceAnnotationsComponent,
+        AccessTokensComponent
     ],
     providers: [
         PasswordValidator,
@@ -174,7 +176,8 @@ import { DEFAULT_PSM_OPTIONS } from 'angular-password-strength-meter/zxcvbn';
         ModalProvideSshKeyComponent,
         PreferencesComponent,
         SortableHeaderDirective,
-        DomainNamespaceAnnotationsComponent
+        DomainNamespaceAnnotationsComponent,
+        AccessTokensComponent
     ]
 })
 export class SharedModule {
