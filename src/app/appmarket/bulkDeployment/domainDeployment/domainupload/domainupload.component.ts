@@ -13,9 +13,9 @@ export class DomainuploadComponent {
 
     public showProgressBar = false;
 
-    public csvText = '"domain","username","networks","domainGroups","email"\n' +
-        '"ExampleDomain","TestUser","","Lab1","email@domain.com"\n' +
-        '"ExampleDomain2","TestUser2","","Lab1","email2@domain.com"\n';
+    public csvText = '"domain","username","networks","domainGroups","email","ssoEnabled"\n' +
+        '"ExDom1","TestUsr1","","ExGroup1","test1@user.com","true"\n' +
+        '"ExDom2","TestUsr2","","ExGroup2","test2@user.com","false"\n';
 
     public errorMessage = '';
     public changeDetector = false;
