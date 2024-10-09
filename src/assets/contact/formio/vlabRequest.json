@@ -85,7 +85,7 @@
             ]
           },
           {
-            "label": "Data Grid",
+            "label": "DATES",
             "disableAddingRemovingRows": true,
             "hideLabel" : true,
             "reorder": false,
@@ -93,11 +93,8 @@
             "enableRowGroups": false,
             "initEmpty": false,
             "tableView": false,
-            "defaultValue": [
-              {}
-            ],
             "key": "dates",
-            "type": "dates",
+            "type": "datagrid",
             "input": true,
             "components": [{
                 "label": "START_DAY",
