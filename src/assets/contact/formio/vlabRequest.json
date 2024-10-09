@@ -127,7 +127,7 @@
             "key": "endDay",
             "type": "day",
             "input": true,
-            "defaultValue": "0/00/0000"
+            "defaultValue": "00/00/0000"
           },
           {
             "label": "MESSAGE_ADDITIONAL",
