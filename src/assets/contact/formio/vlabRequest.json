@@ -1,0 +1,158 @@
+{
+    "display": "form",
+    "components": [
+        {
+            "label": "EMAIL",
+            "placeholder": "EMAIL_CONTACT",
+            "tableView": true,
+            "persistent": false,
+            "validate": {
+              "required": true
+            },
+            "key": "email",
+            "type": "email",
+            "input": true
+          },
+          {
+            "label": "INSTITUTION",
+            "placeholder": "INSTITUTION_PLACEHOLDER",
+            "tableView": true,
+            "persistent": false,
+            "validate": {
+              "required": true
+            },
+            "key": "institution",
+            "type": "textfield",
+            "input": true
+          },
+          {
+            "label": "STUDENTS",
+            "placeholder": "STUDENTS_PLACEHOLDER",
+            "tableView": true,
+            "persistent": false,
+            "delimiter": false,
+            "requireDecimal": false,
+            "validate": {
+              "required": true,
+              "integer" : true
+            },
+            "key": "students",
+            "type": "number",
+            "input": true
+          },
+          {
+            "label": "MANAGERS",
+            "placeholder": "MANAGERS_PLACEHOLDER",
+            "tableView": true,
+            "persistent": false,
+            "delimiter": false,
+            "requireDecimal": false,
+            "validate": {
+              "required": true,
+              "integer" : true
+            },
+            "key": "managers",
+            "type": "number",
+            "input": true
+          },
+          {
+            "label": "APP_LIST",
+            "description": "APP_LIST_DESCRIPTION",
+            "hideLabel": false,
+            "disableAddingRemovingRows": false,
+            "addAnother": "APP_LIST_ADD",
+            "addAnotherPosition": "bottom",
+            "multiple": true,
+            "tableView": true,
+            "alwaysEnabled": false,
+            "type": "datagrid",
+            "input": true,
+            "key": "appList",
+            "tab": 0,
+            "components": [
+              {
+                "label": "APP_LIST_SUB",
+                "hideLabel": true,
+                "tableView": true,
+                "type": "textfield",
+                "input": true,
+                "key": "appListName",
+                "placeholder": "Application name",
+                "tab": 0,
+                "inputFormat": "plain",
+                "row": "0-0"
+              }
+            ]
+          },
+          {
+            "label": "START_DAY",
+            "hideInputLabels": false,
+            "inputsLabelPosition": "top",
+            "useLocaleSettings": false,
+            "tableView": false,
+            "fields": {
+              "day": {
+                "hide": false
+              },
+              "month": {
+                "hide": false
+              },
+              "year": {
+                "hide": false
+              }
+            },
+            "key": "startDay",
+            "type": "day",
+            "input": true,
+            "defaultValue": "00/00/0000"
+          },
+          {
+            "label": "END_DAY",
+            "hideInputLabels": false,
+            "inputsLabelPosition": "top",
+            "useLocaleSettings": false,
+            "tableView": true,
+            "fields": {
+              "day": {
+                "hide": false
+              },
+              "month": {
+                "hide": false
+              },
+              "year": {
+                "hide": false
+              }
+            },
+            "key": "endDay",
+            "type": "day",
+            "input": true,
+            "defaultValue": "00/00/0000"
+          },
+          {
+            "label": "MESSAGE_ADDITIONAL",
+            "placeholder": "MESSAGE_ADDITIONAL_PLACEHOLDER",
+            "autoExpand": false,
+            "showCharCount": true,
+            "tableView": true,
+            "persistent": false,
+            "validate": {
+              "required": true,
+              "minLength": 0,
+              "maxLength": 600
+            },
+            "key": "message",
+            "type": "textarea",
+            "rows": 5,
+            "input": true
+          },
+          {
+            "type": "button",
+            "label": "Submit",
+            "key": "submit",
+            "disableOnInvalid": true,
+            "input": true,
+            "tableView": false
+          }
+    ]
+  }
+  
