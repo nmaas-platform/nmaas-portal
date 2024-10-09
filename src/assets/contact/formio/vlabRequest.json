@@ -85,68 +85,90 @@
             ]
           },
           {
-            "label": "START_DAY",
-            "customClass": "pl-3",
+            "label": "Data Grid",
+            "disableAddingRemovingRows": true,
+            "hideLabel" : true,
+            "reorder": false,
+            "layoutFixed": false,
+            "enableRowGroups": false,
+            "initEmpty": false,
             "tableView": false,
-            "datePicker": {
-              "disableWeekends": false,
-              "disableWeekdays": false
-            },
-            "enableMinDateInput": false,
-            "enableMaxDateInput": false,
-            "key": "startDay",
-            "type": "datetime",
+            "defaultValue": [
+              {}
+            ],
+            "key": "dates",
+            "type": "dates",
             "input": true,
-            "enableTime": false,
-            "format": "dd-MM-yyyy",
-            "widget": {
-              "type": "calendar",
-              "displayInTimezone": "viewer",
-              "locale": "en",
-              "useLocaleSettings": false,
-              "allowInput": true,
-              "mode": "single",
-              "enableTime": false,
-              "noCalendar": false,
-              "format": "MM-yyyy",
-              "time_24hr": false,
-              "minDate": null,
-              "disableWeekends": false,
-              "disableWeekdays": false,
-              "maxDate": null
-            }
-          },
-          {
-            "label": "END_DAY",
-            "customClass": "pl-3",
-            "tableView": true,
-            "datePicker": {
-              "disableWeekends": false,
-              "disableWeekdays": false
-            },
-            "enableMinDateInput": false,
-            "enableMaxDateInput": false,
-            "key": "endDay",
-            "type": "datetime",
-            "input": true,
-            "enableTime": false,
-            "format": "dd-MM-yyyy",
-            "widget": {
-              "type": "calendar",
-              "displayInTimezone": "viewer",
-              "locale": "en",
-              "useLocaleSettings": false,
-              "allowInput": true,
-              "mode": "single",
-              "enableTime": false,
-              "noCalendar": false,
-              "format": "MM-yyyy",
-              "time_24hr": false,
-              "minDate": null,
-              "disableWeekends": false,
-              "disableWeekdays": false,
-              "maxDate": null
-            }
+            "components": [{
+                "label": "START_DAY",
+                "customClass": "pl-3",
+                "tableView": false,
+                "datePicker": {
+                  "disableWeekends": false,
+                  "disableWeekdays": false
+                },
+                "enableMinDateInput": false,
+                "enableMaxDateInput": false,
+                "key": "startDay",
+                "type": "datetime",
+                "input": true,
+                "validate": {
+                  "required": true
+                },
+                "enableTime": false,
+                "format": "dd-MM-yyyy",
+                "widget": {
+                  "type": "calendar",
+                  "displayInTimezone": "viewer",
+                  "locale": "en",
+                  "useLocaleSettings": false,
+                  "allowInput": true,
+                  "mode": "single",
+                  "enableTime": false,
+                  "noCalendar": false,
+                  "format": "MM-yyyy",
+                  "time_24hr": false,
+                  "minDate": null,
+                  "disableWeekends": false,
+                  "disableWeekdays": false,
+                  "maxDate": null
+                }
+              },
+              {
+                "label": "END_DAY",
+                "customClass": "pl-3",
+                "tableView": true,
+                "datePicker": {
+                  "disableWeekends": false,
+                  "disableWeekdays": false
+                },
+                "enableMinDateInput": false,
+                "enableMaxDateInput": false,
+                "key": "endDay",
+                "type": "datetime",
+                "input": true,
+                "validate": {
+                    "required": true
+                  },
+                "enableTime": false,
+                "format": "dd-MM-yyyy",
+                "widget": {
+                  "type": "calendar",
+                  "displayInTimezone": "viewer",
+                  "locale": "en",
+                  "useLocaleSettings": false,
+                  "allowInput": true,
+                  "mode": "single",
+                  "enableTime": false,
+                  "noCalendar": false,
+                  "format": "MM-yyyy",
+                  "time_24hr": false,
+                  "minDate": null,
+                  "disableWeekends": false,
+                  "disableWeekdays": false,
+                  "maxDate": null
+                }
+              }]
           },
           {
             "label": "MESSAGE_ADDITIONAL",
