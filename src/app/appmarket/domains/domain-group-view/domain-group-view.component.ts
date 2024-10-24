@@ -162,6 +162,10 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
 
     public deleteUserAccess(user: User) {
         this.domainGroup.managers = this.domainGroup.managers.filter(val => val.id !== user.id);
+        this.domainService.updateDomainGroupManagers(this.domainGroup.managers, this.domainGroupId).subscribe( view => {
+            console.log("Get updated managers.. ", view);
+            this.domainGroup = view;
+        })
     }
 
     /**
@@ -197,7 +201,11 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
     public saveUsers() {
         this.domainGroup.managers.push(...this.usersToAdd);
         this.usersToAdd = [];
-        this.userAccessModal.hide();
+        this.domainService.updateDomainGroupManagers(this.domainGroup.managers, this.domainGroupId).subscribe( view => {
+            console.log("Get updated managers.. ", view);
+            this.domainGroup = view;
+            this.userAccessModal.hide();
+        })
     }
 
    public removeUserFromSelected(user: User) {
