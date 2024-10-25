@@ -24,6 +24,7 @@ export class TagFilterComponent implements OnInit {
 
     ngOnInit() {
         this.tagService.getTags().pipe(map(tags => {
+            tags = tags.map(tag => tag.toLowerCase())
             tags.sort((a, b) => a < b ? -1 : 1)
             return tags;
         })).subscribe(value => this.tagsValue = value)
