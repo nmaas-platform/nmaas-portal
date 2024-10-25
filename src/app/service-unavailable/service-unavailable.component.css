@@ -33,3 +33,19 @@
     right: 0;
     left: auto;
 }
+.position{
+    flex-direction: column;
+    width: 90%;
+}
+.size{
+    width: 100%;
+}
+@media (min-width: 700px){
+    .position{
+        flex-direction: row;
+        width: 60%;
+    }
+    .size{
+        width: 50%;
+    }
+}
