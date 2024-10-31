@@ -59,6 +59,14 @@ html, body {
 		display: flex;
 	}
 }
+.banner{
+	background-color : #424242;
+	color: #E8E8E8;
+	padding: 12px;
+	justify-self: center;
+	display: grid;
+	width: 100%;
+}
 .button{
 	text-decoration: none;
 	font-weight: bold;

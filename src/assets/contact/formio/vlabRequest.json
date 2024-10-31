@@ -1,0 +1,197 @@
+{
+    "display": "form",
+    "components": [
+        {
+            "label": "EMAIL",
+            "placeholder": "EMAIL_CONTACT",
+            "tableView": true,
+            "persistent": false,
+            "validate": {
+              "required": true
+            },
+            "key": "email",
+            "type": "email",
+            "input": true
+          },
+          {
+            "label": "INSTITUTION",
+            "placeholder": "INSTITUTION_PLACEHOLDER",
+            "tableView": true,
+            "persistent": false,
+            "validate": {
+              "required": true
+            },
+            "key": "institution",
+            "type": "textfield",
+            "input": true
+          },
+          {
+            "label": "STUDENTS",
+            "placeholder": "STUDENTS_PLACEHOLDER",
+            "tableView": true,
+            "persistent": false,
+            "delimiter": false,
+            "requireDecimal": false,
+            "validate": {
+              "required": true,
+              "integer" : true
+            },
+            "key": "students",
+            "type": "number",
+            "input": true
+          },
+          {
+            "label": "MANAGERS",
+            "placeholder": "MANAGERS_PLACEHOLDER",
+            "tableView": true,
+            "persistent": false,
+            "delimiter": false,
+            "requireDecimal": false,
+            "validate": {
+              "required": true,
+              "integer" : true
+            },
+            "key": "managers",
+            "type": "number",
+            "input": true
+          },
+          {
+            "label": "APP_LIST",
+            "description": "APP_LIST_DESCRIPTION",
+            "hideLabel": false,
+            "disableAddingRemovingRows": false,
+            "addAnother": "APP_LIST_ADD",
+            "addAnotherPosition": "bottom",
+            "multiple": true,
+            "tableView": true,
+            "alwaysEnabled": false,
+            "type": "datagrid",
+            "input": true,
+            "key": "appList",
+            "tab": 0,
+            "components": [
+              {
+                "label": "APP_LIST_SUB",
+                "hideLabel": true,
+                "tableView": true,
+                "type": "textfield",
+                "input": true,
+                "key": "appListName",
+                "placeholder": "Application name",
+                "tab": 0,
+                "inputFormat": "plain",
+                "row": "0-0"
+              }
+            ]
+          },
+          {
+            "label": "DATES",
+            "disableAddingRemovingRows": true,
+            "hideLabel" : true,
+            "reorder": false,
+            "layoutFixed": false,
+            "enableRowGroups": false,
+            "initEmpty": false,
+            "tableView": false,
+            "key": "dates",
+            "type": "datagrid",
+            "input": true,
+            "components": [{
+                "label": "START_DAY",
+                "customClass": "pl-3",
+                "tableView": false,
+                "datePicker": {
+                  "disableWeekends": false,
+                  "disableWeekdays": false
+                },
+                "enableMinDateInput": false,
+                "enableMaxDateInput": false,
+                "key": "startDay",
+                "type": "datetime",
+                "input": true,
+                "validate": {
+                  "required": true
+                },
+                "enableTime": false,
+                "format": "dd-MM-yyyy",
+                "widget": {
+                  "type": "calendar",
+                  "displayInTimezone": "viewer",
+                  "locale": "en",
+                  "useLocaleSettings": false,
+                  "allowInput": true,
+                  "mode": "single",
+                  "enableTime": false,
+                  "noCalendar": false,
+                  "format": "MM-yyyy",
+                  "time_24hr": false,
+                  "minDate": null,
+                  "disableWeekends": false,
+                  "disableWeekdays": false,
+                  "maxDate": null
+                }
+              },
+              {
+                "label": "END_DAY",
+                "customClass": "pl-3",
+                "tableView": true,
+                "datePicker": {
+                  "disableWeekends": false,
+                  "disableWeekdays": false
+                },
+                "enableMinDateInput": false,
+                "enableMaxDateInput": false,
+                "key": "endDay",
+                "type": "datetime",
+                "input": true,
+                "validate": {
+                    "required": true
+                  },
+                "enableTime": false,
+                "format": "dd-MM-yyyy",
+                "widget": {
+                  "type": "calendar",
+                  "displayInTimezone": "viewer",
+                  "locale": "en",
+                  "useLocaleSettings": false,
+                  "allowInput": true,
+                  "mode": "single",
+                  "enableTime": false,
+                  "noCalendar": false,
+                  "format": "MM-yyyy",
+                  "time_24hr": false,
+                  "minDate": null,
+                  "disableWeekends": false,
+                  "disableWeekdays": false,
+                  "maxDate": null
+                }
+              }]
+          },
+          {
+            "label": "MESSAGE_ADDITIONAL",
+            "placeholder": "MESSAGE_ADDITIONAL_PLACEHOLDER",
+            "autoExpand": false,
+            "showCharCount": true,
+            "tableView": true,
+            "persistent": false,
+            "validate": {
+              "required": true,
+              "minLength": 0,
+              "maxLength": 600
+            },
+            "key": "message",
+            "type": "textarea",
+            "rows": 5,
+            "input": true
+          },
+          {
+            "type": "button",
+            "label": "Submit",
+            "key": "submit",
+            "disableOnInvalid": true,
+            "input": true,
+            "tableView": false
+          }
+    ]
+  }
+  
