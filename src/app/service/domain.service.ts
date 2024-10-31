@@ -116,6 +116,10 @@ export class DomainService extends GenericDataService {
     return this.put(this.url + 'group/' + id, domainGroup);
   }
 
+  public updateDomainGroupManagers(managers: User[], id: number): Observable<DomainGroup> {
+    return this.put(this.url + 'group/members/' + id, managers);
+  }
+
   public getAnnotations(): Observable<DomainAnnotation[]> {
     return this.get<DomainAnnotation[]>(this.url + 'annotations')
   }
