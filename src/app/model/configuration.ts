@@ -9,4 +9,6 @@ export class Configuration {
     public bulkDomainsAllowForSsoAccounts: boolean;
     public bulkDomainsSendEmailForNewAccounts: boolean;
     public appInstanceFailureEmailList: string[] = [];
+    public bulkDeploymentJobCron: string;
+    public parallelDeploymentsLimit: number;
 }
