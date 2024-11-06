@@ -107,6 +107,30 @@
                                [checked]="this.configuration.bulkDomainsSendEmailForNewAccounts === true">
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label for="bulkDeploymentJobCron"
+                           class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.BULK_DEPLOYMENT_CRON' | translate}}</label>
+                    <div class="col-sm-9 pd-top-7 ">
+                        <div class="input-width">
+                            <input class="form-control" type="text" id="bulkDeploymentJobCron" name="bulkDeploymentJobCron"
+                            [(ngModel)]="this.configuration.bulkDeploymentJobCron">
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="parallelDeploymentsLimit"
+                           class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.BULK_DEPLOYMENT_LIMIT' | translate}}</label>
+                    <div class="col-sm-9 pd-top-7">
+                        <div class="input-width">
+                            <input class="form-control" type="number" id="parallelDeploymentsLimit" name="parallelDeploymentsLimit"
+                            [(ngModel)]="this.configuration.parallelDeploymentsLimit">
+                        </div>
+                    
+                    </div>
+                </div>
                 <div class="flex justify-content-end">
                     <button class="btn btn-primary"
                             type="submit">{{ 'PORTAL_CONFIGURATION.SUBMIT_BUTTON' | translate }}</button>
