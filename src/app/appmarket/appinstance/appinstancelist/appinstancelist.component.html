@@ -5,14 +5,17 @@
     <div class="col-sm-12 col-sm-12 col-md-12">
         <div style="margin-left: -10px;" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <form class="form-inline" role="form">
-                <div class="form-group">
-                    <label for="selectionType">{{ 'APP_INSTANCES.SHOW' | translate }}: </label>
-                    <select id="selectionType" class="form-control" [(ngModel)]="listSelection"
-                            (change)="onSelectionChange($event)" [selectedIndex]="listSelection"
-                            [ngModelOptions]="{standalone: true}">
-                        <option *ngFor="let sl of AppInstanceListSelection | keys"
-                                [value]="sl.key">{{ translateEnum(sl.value) | titlecase }}</option>
-                    </select>
+                <div class="form-group " style="display: inline-flex; align-items: flex-end">
+                    <label class="mr-3" for="selectionType">{{ 'APP_INSTANCES.SHOW' | translate }}: </label>
+                    <p-selectButton
+                            id="selectionType"
+                            [options]="selectionOptions"
+                            [(ngModel)]="listSelection"
+                            [ngModelOptions]="{standalone: true}"
+                            (ngModelChange)="onSelectionChange($event)"
+                            optionLabel="label"
+                            optionValue="value"
+                            ngDefaultControl/>
                 </div>
                 <strong class="checkbox-label" *domainRoles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR'];domainId:domainId">
                     {{'APP_INSTANCES.UNDEPLOYED_VISIBLE' | translate}}:
