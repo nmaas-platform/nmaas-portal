@@ -4,7 +4,7 @@ import {AppInstance, AppInstanceState, parseAppInstanceState} from '../../../mod
 import {AppConfigService, AppInstanceService, CustomerSearchCriteria, DomainService} from '../../../service';
 import {AuthService} from '../../../auth/auth.service';
 import {UserDataService} from '../../../service/userdata.service';
-import {Observable, of} from 'rxjs';
+import {forkJoin, Observable, of} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 import {map} from 'rxjs/operators';
 import {SessionService} from '../../../service/session.service';
@@ -55,6 +55,10 @@ export class AppInstanceListComponent implements OnInit {
     public domains: Domain[] = [];
 
     public searchValue = '';
+    public selectionOptions = [
+        { label: this.translateEnum(AppInstanceListSelection.ALL), value: AppInstanceListSelection.ALL },
+        { label: this.translateEnum(AppInstanceListSelection.MY), value: AppInstanceListSelection.MY },
+    ];
 
 
     constructor(private appInstanceService: AppInstanceService,
@@ -92,6 +96,16 @@ export class AppInstanceListComponent implements OnInit {
             }
 
             this.update(domainId)
+        });
+
+        forkJoin({
+            all: this.translateService.get('ENUM.ALL'),
+            my: this.translateService.get('ENUM.MY')
+        }).subscribe(translations => {
+            this.selectionOptions = [
+                { label: translations.all, value: AppInstanceListSelection.ALL },
+                { label: translations.my, value: AppInstanceListSelection.MY },
+            ];
         });
 
     }

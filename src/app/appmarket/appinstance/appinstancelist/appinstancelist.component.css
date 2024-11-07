@@ -33,3 +33,7 @@ tr.clickable {
     display: block;
 }
 
+::ng-deep.p-selectbutton .p-button.p-highlight{
+    background: #233354 !important;
+    border-color: #233354;
+}
