@@ -71,6 +71,10 @@ export class LoginComponent implements OnInit {
         );
     }
 
+    public triggerOIDC() {
+        window.location.href = 'http://localhost:9000/oauth2/authorization/my-oidc';
+
+    }
 
     public checkSSO() {
         const params = this.router.parseUrl(this.router.url).queryParams;
