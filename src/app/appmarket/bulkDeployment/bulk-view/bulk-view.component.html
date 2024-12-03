@@ -218,7 +218,7 @@
                                     *ngIf="response.state == 'PROCESSING'"
                                     class="pi pi-spin pi-spinner ml-1"
                                     style="font-size: 1.4rem"></em>
-                                <em *ngIf="response.state == 'FAILED'" class="pi pi-info-circle"
+                                <em *ngIf="response.state == 'FAILED' && response?.details['appInstanceId'] === undefined" class="pi pi-info-circle"
                                     style="font-size: 1.4rem"
                                     pTooltip="{{response?.details['errorMessage']}}"
                                     tooltipStyleClass="p-tooltip-width " [fitContent]="false"></em></td>
@@ -226,8 +226,8 @@
                             <td>{{getAppInstanceName(response)}}</td>
                             <td>{{getDomainCodeName(response)}}</td>
                             <td style="width: 5%" class="text-right">
-                    <span  class="dropdown">
-            <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
+                    <span *ngIf="response?.details['appInstanceId'] !== undefined" class="dropdown">
+            <a  style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
                data-toggle="dropdown" href="#" role="button">
               <em class="fas fa-cog icon-black icon-bigger"></em>
             </a>
