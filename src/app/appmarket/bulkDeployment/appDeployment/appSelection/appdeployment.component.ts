@@ -15,6 +15,8 @@ export class AppdeploymentComponent implements OnInit {
 
   public selectedApp: ApplicationBase = null;
 
+  public parallelDeploymentsLimit = 0;
+
   constructor(private readonly appService: AppsService,
               private readonly deployService: AppdeploymentService,
               private router: Router) { }
@@ -28,6 +30,7 @@ export class AppdeploymentComponent implements OnInit {
 
   selectApp() {
     this.deployService.setSelectedApp(this.selectedApp);
+    this.deployService.setParallel(this.parallelDeploymentsLimit);
     this.router.navigate(['admin/apps/bulks/new/upload'])
   }
 }

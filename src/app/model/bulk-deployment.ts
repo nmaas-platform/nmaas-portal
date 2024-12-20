@@ -9,6 +9,7 @@ export class BulkDeployment {
     public state: BulkDeploymentState;
     public type: BulkType;
     public details: Map<string, string>;
+    public parallelDeploymentsLimit: number;
 }
 
 export enum BulkDeploymentState {
