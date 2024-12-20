@@ -16,6 +16,7 @@ export class AppdeploymentService {
 
     private selectedApp: string = undefined;
     private selectedAppId: string = undefined;
+    private parallelDeploymentsLimit: number = 1;
 
     public result: BulkResponse[] = [];
 
@@ -40,6 +41,10 @@ export class AppdeploymentService {
         localStorage.setItem(this.DEPLOY_APP_ID_KEY, this.selectedAppId)
     }
 
+    setParallel(parallel: number ) {
+        this.parallelDeploymentsLimit = parallel;
+    }
+
     public getSelectedApp() {
         return this.selectedApp;
     }
@@ -56,6 +61,7 @@ export class AppdeploymentService {
         const formParams = new FormData();
         formParams.append('file', file);
         formParams.append('appName', name)
+        formParams.append('limit', this.parallelDeploymentsLimit.toString())
         return this.http.post<BulkDeployment>(this.getUrl() + 'apps', formParams);
     }
 
