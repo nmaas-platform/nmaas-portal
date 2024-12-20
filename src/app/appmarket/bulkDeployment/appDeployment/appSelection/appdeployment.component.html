@@ -10,7 +10,7 @@
         <p-dropdown [options]="apps" optionLabel="name" [(ngModel)]="selectedApp" [filter]="true"></p-dropdown>
     </div>
     <div class="row" style="margin-top: 3rem;">
-        <h4>{{'BULK.APP.PARAlLEL' | translate}}</h4>
+        <h4>{{'BULK.APP.PARALLEL' | translate}}</h4>
     </div>
       <div style="margin-top: 3rem;">
         <input type="number" pInputText   [(ngModel)]="parallelDeploymentsLimit" [max]="limitFromConfiguration" [min]="1" (ngModelChange)="onKeyPress($event)" >    
