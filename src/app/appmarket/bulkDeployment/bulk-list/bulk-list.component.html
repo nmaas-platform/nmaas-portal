@@ -102,7 +102,7 @@
                 <li *ngIf="mode === bulkTypeApp">
                     <a (click)="getAppBulkDetails(bulk?.id)"> {{"BULK.APP.DOWNLOAD_CSV" | translate}}</a>
                 </li>
-                <li *ngIf="mode === bulkTypeApp && bulk?.state !== 'REMOVED'">
+                <li *ngIf="mode === bulkTypeApp && bulk?.state !== 'REMOVED' && bulk?.state !== 'COMPLETED'">
                     <a (click)="modal.show()">{{ 'BULK.LIST.REMOVE' | translate }}</a>
                 </li>
             </ul>
