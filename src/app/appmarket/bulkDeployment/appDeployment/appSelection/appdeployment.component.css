@@ -2,6 +2,6 @@
     width: 300px;
 }
 
-:host ::ng-deep .p-inputnumber {
+:host ::ng-deep .p-inputtext {
     width: 300px;
 }
