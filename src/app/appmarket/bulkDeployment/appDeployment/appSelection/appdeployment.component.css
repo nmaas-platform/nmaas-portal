@@ -1,3 +1,7 @@
 :host ::ng-deep .p-dropdown {
     width: 300px;
 }
+
+:host ::ng-deep .p-inputtext {
+    width: 300px;
+}
