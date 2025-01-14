@@ -24,6 +24,7 @@ import {TranslateLoaderImpl} from './i18n/translate-loader-impl.service';
 import {ServiceUnavailableModule} from './service-unavailable/service-unavailable.module';
 import {ServiceUnavailableService} from './service-unavailable/service-unavailable.service';
 import {NgTerminalModule} from 'ng-terminal';
+import { provideZxvbnServiceForPSM } from 'angular-password-strength-meter/zxcvbn';
 
 export function appConfigFactory(config: AppConfigService) {
     return function create() {
@@ -81,6 +82,7 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
         AuthGuard,
         AuthService,
         AppConfigService,
+        provideZxvbnServiceForPSM(),
         {
             provide: APP_INITIALIZER,
             useFactory: appConfigFactory,
