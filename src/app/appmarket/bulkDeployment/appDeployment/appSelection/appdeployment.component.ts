@@ -3,6 +3,7 @@ import {ApplicationBase} from '../../../../model/application-base';
 import {AppsService, ConfigurationService} from '../../../../service';
 import {AppdeploymentService} from '../../appdeployment.service';
 import {Router} from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-appselection',
@@ -15,14 +16,17 @@ export class AppdeploymentComponent implements OnInit {
 
   public selectedApp: ApplicationBase = null;
 
-  public parallelDeploymentsLimit = 0;
+  public parallelDeploymentsLimit = 1;
   public limitFromConfiguration = 50;
+
+  myGroup : FormGroup;
 
   constructor(private readonly appService: AppsService,
               private readonly deployService: AppdeploymentService,
               private router: Router,
               private readonly configuration: ConfigurationService) { }
 
+        
   ngOnInit(): void {
     this.appService.getAllActiveApplicationBase().subscribe(data => {
       data.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
@@ -31,6 +35,7 @@ export class AppdeploymentComponent implements OnInit {
     this.configuration.getConfiguration().subscribe(configuration => {
       this.limitFromConfiguration = configuration.parallelDeploymentsLimit;
       console.log("Limit from config", this.limitFromConfiguration)
+      this.parallelDeploymentsLimit = configuration.parallelDeploymentsLimit;
       })
 
   }
@@ -38,7 +43,11 @@ export class AppdeploymentComponent implements OnInit {
 
   public onKeyPress(event) {
     console.log(event);
-    if(event > this.limitFromConfiguration) {
+    if(event < 1) {
+      this.parallelDeploymentsLimit = 1;
+      console.log("Changing limit to ", this.parallelDeploymentsLimit )
+    }
+    if(event > this.limitFromConfiguration ) {
       console.log("Changing limit to ", this.limitFromConfiguration)
       this.parallelDeploymentsLimit = this.limitFromConfiguration;
     }
