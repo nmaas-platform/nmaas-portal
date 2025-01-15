@@ -29,6 +29,8 @@ export class DomainFilterComponent implements OnInit {
 
     private filteredDomainsSub = new BehaviorSubject<any[]>([]);
 
+    private domainsLocal : Domain[] = [];
+
     public filteredDomains = this.filteredDomainsSub.asObservable();
 
     constructor(private authService: AuthService,
@@ -63,10 +65,8 @@ export class DomainFilterComponent implements OnInit {
     }
 
     public updateFilter() {
-        this.domains.subscribe(data => {
-            const filtered = data.filter(obj => obj.name.toLowerCase().includes(this.searchTerm.toLowerCase()));
-            this.filteredDomainsSub.next(filtered);
-        });
+                   this.filteredDomainsSub.next(this.domainsLocal.filter(obj => obj.name.toLowerCase().includes(this.searchTerm.toLowerCase())));
+        
     }
 
     public updateDomains(): void {
@@ -122,6 +122,7 @@ export class DomainFilterComponent implements OnInit {
                     if (defaultDomain !== undefined && this.profile.defaultDomain !== globalDomainId) {
                         domains.unshift(defaultDomain)
                     }
+                    this.domainsLocal = domains;
                     return domains
                 }
             )

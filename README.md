@@ -11,9 +11,9 @@
     <br />
     <a href="https://docs.nmaas.eu/">Explore documentation</a>
     ·
-    <a href="https://github.com/nmaas-platform/nmaas-portal/issues">Report Bug</a>
+    <a href="https://gitlab.software.geant.org/nmaas/nmaas-portal/-/issues">Report Bug</a>
     ·
-    <a href="https://github.com/nmaas-platform/nmaas-portal/issues">Request Feature</a>
+    <a href="https://gitlab.software.geant.org/nmaas/nmaas-portal/-/issues">Request Feature</a>
   </p>
 </div>
 

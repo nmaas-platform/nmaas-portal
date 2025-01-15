@@ -35,6 +35,8 @@ import {TimelineModule} from 'primeng/timeline';
 import {ButtonModule} from 'primeng/button';
 import {AppLogAccessComponent} from './app-log-access/app-log-access.component';
 import {FormioAppConfig, FormioModule} from '@formio/angular';
+import {SelectButtonModule} from 'primeng/selectbutton';
+
 
 @NgModule({
   declarations: [
@@ -72,6 +74,7 @@ import {FormioAppConfig, FormioModule} from '@formio/angular';
         TimelineModule,
         ButtonModule,
         InputTextModule,
+        SelectButtonModule,
     ],
   exports: [
     AppInstanceComponent,
