@@ -26,14 +26,6 @@
     </fieldset>
 </form>
 <div class="form-group">
-    <button type="submit" (click)="triggerSSO()" class="btn btn-primary btn-block"
-            [disabled]="!this.configuration?.ssoLoginAllowed || loading || ssoLoading">
-        {{ 'LOGIN.LOGIN_WITH' | translate }}
-    </button>
-    <img alt="sso" *ngIf="ssoLoading" src="data:"/>
-    <div *ngIf="ssoError" class="alert alert-danger">{{ssoError}}</div>
-</div>
-<div class="form-group">
     <button type="submit" (click)="triggerOIDC()" class="btn btn-primary btn-block">
         {{ 'LOGIN.LOGIN_WITH' | translate }}
     </button>
