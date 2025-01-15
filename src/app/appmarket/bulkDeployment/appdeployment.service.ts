@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ApplicationBase} from '../../model/application-base';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {AppConfigService} from '../../service';
 import {BulkResponse} from '../../model/bulk-response';
 import {Observable} from 'rxjs';
@@ -93,5 +93,9 @@ export class AppdeploymentService {
         return this.http.get<BulkDeployment>(this.getUrl() + `refresh/${id}`)
     }
 
+    public removeBulkDeployment(id: number, removeAll: boolean)  {
+        const params = new HttpParams().set('removeAll', removeAll);
+        return this.http.delete(this.getUrl() +`${id}`, { params });
+    }
 
 }

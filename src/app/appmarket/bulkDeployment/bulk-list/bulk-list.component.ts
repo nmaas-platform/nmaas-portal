@@ -42,6 +42,7 @@ export class BulkListComponent {
     public searchValue = '';
 
     public removeAll = false;
+    public removeBulkId = 0;
 
     constructor(private appDeploy: AppdeploymentService,
                 private sanitizer: DomSanitizer) {
@@ -146,5 +147,12 @@ export class BulkListComponent {
             return bulk.details['appInstanceNo']
         }
         return null
+    }
+
+    public removeBulk(): void {
+        this.appDeploy.removeBulkDeployment(this.removeBulkId, this.removeAll).subscribe(_ => {
+            console.log("Bulk removed")
+        })
+        this.removeAll = false;
     }
 }
