@@ -1,17 +1,32 @@
-	<div class="row">
-		<div class="col-xs-4 col-sm-3 col-md-3 col-lg-2">
-			<div class="thumbnail" *ngIf="app">
-				<img alt="App logo" [src]="(appImagesService.getAppLogoUrl(appId) | secure) || 'assets/images/app-logo-example.png'"/>
+	<div class="background-section"  style=" display: flex; flex-direction: column">
+		<div style=" display: flex; flex-direction: row; justify-content: space-between; padding-bottom: 50px">
+			<div style="display: flex; align-items: center;">
+				<div  *ngIf="app">
+					<img alt="App logo" [src]="(appImagesService.getAppLogoUrl(appId) | secure) || 'assets/images/app-logo-example.png'" height="90px"/>
+				</div>
+				<div *ngIf="!app">
+					<img alt="App logo" src="assets/images/app-logo-example.png" height="90px"/>
+				</div>
+				<h3 style="margin:0 20px;">{{app?.name}}</h3>
 			</div>
-			<div class="thumbnail" *ngIf="!app">
-				<img alt="App logo" src="assets/images/app-logo-example.png"/>
+			<div class="" *ngIf="app && domain" style="display:flex; align-items: center">
+				<div *ngIf="!subscribed && isSubscriptionAllowed()" class="btn-group pull-right"
+					 pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_SUBSCRIBE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="defaultTooltipDisabled">
+					<button class="btn btn-primary" [disabled]="!active || !isApplicationEnabledInDomain()" (click)="subscribe()">{{'APPLICATIONS.SUBSCRIBE_BUTTON' | translate}}</button>
+				</div>
+				<div *ngIf="subscribed" class=" pull-right" >
+					<div class="btn no-padding" pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_DEPLOY' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="defaultTooltipDisabled">
+						<button *ngIf="isSubscriptionAllowed()" class="btn btn-danger m-1" (click)="unsubscribe()">{{'APPLICATIONS.UNSUBSCRIBE_BUTTON' | translate}}</button>
+					</div>
+					<button *ngIf="isSubscriptionAllowed()" class="btn btn-primary m-1" [disabled]="!isApplicationEnabledInDomain()" (click)="appInstallModal.show()">{{'APPLICATIONS.DEPLOY_BUTTON' | translate}}</button>
+				</div>
+
 			</div>
 		</div>
-		<div class="col-xs-8 col-sm-9 col-md-9 col-lg-10">
-			<div class="row">
-				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" *ngIf="app">
-					<h2 style="margin: 4px 0;">{{app?.name}}</h2>
-					<rate [showVotes]="true" [short]="true" [pathUrl]="getPathUrl(appId)"></rate>
+		<div class="" style="display: flex;flex-direction: column;">
+			<div class="">
+				<div class="" *ngIf="app">
+<!--					<rate [showVotes]="true" [short]="true" [pathUrl]="getPathUrl(appId)"></rate>-->
 					<div class="text-muted mt-2" style="font-size: small;">
 							<span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="activeVersions.length !== 0">
 								<a class="{{activeVersions.length > 0 ? '' : 'disabled-url'}}" style="cursor: pointer;" (click)="showVersions()">{{'APP_INSTANCE.SHOW_VERSIONS_LABEL' | translate }}</a>
@@ -40,57 +55,43 @@
 					</div>
 				</div>
 			</div>
-			<div class="row" *ngIf="versionVisible">
-				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" *ngIf="activeVersions">
+			<div class="" *ngIf="versionVisible">
+				<div class="" *ngIf="activeVersions">
 					<a *ngFor="let version of activeVersions" class="tag-button">
 						v.{{version}}
 					</a>
 				</div>
 			</div>
-			<div class="row mt-2">
-				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" *ngIf="app?.tags">
+			<div class="">
+				<div class="" *ngIf="app?.tags">
 					<a *ngFor="let tag of app.tags" class="tag-button">
 						{{tag.name | lowercase}}
 					</a>
 				</div>
 			</div>
 			<!--			block the button until app and domain are downloaded to load proper tooltip state-->
-			<div class="row" *ngIf="app && domain">
-				<div *ngIf="!subscribed && isSubscriptionAllowed()" class="btn-group pull-right"
-					 pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_SUBSCRIBE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="defaultTooltipDisabled">
-					<button class="btn btn-primary" [disabled]="!active || !isApplicationEnabledInDomain()" (click)="subscribe()">{{'APPLICATIONS.SUBSCRIBE_BUTTON' | translate}}</button>
-				</div>
-				<div *ngIf="subscribed" class=" pull-right" >
-					<div class="btn no-padding" pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_DEPLOY' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="defaultTooltipDisabled">
-						<button *ngIf="isSubscriptionAllowed()" class="btn btn-primary m-1" [disabled]="!isApplicationEnabledInDomain()" (click)="appInstallModal.show()">{{'APPLICATIONS.DEPLOY_BUTTON' | translate}}</button>
-					</div>
-					<button *ngIf="isSubscriptionAllowed()" class="btn btn-danger m-1" (click)="unsubscribe()">{{'APPLICATIONS.UNSUBSCRIBE_BUTTON' | translate}}</button>
-				</div>
 
+		</div>
+	</div>
+	<div class="background-section">
+		<div>
+			<p style="font-weight: bold">{{'APPLICATIONS.DESCRIPTION' | translate}}</p>
+			<div [innerHTML]="getDescription()?.fullDescription">
 			</div>
 		</div>
-	</div>
-
-	<div class='row'>
-		<h3 *ngIf="numberOfScreenshots > 0">{{'SCREENSHOTS.HEADER' | translate}}</h3>
-		<screenshots (numberOfScreenshots)="screenshots($event)" [pathUrl]="'/apps/' + appId + '/screenshots'"></screenshots>
-	</div>
-
-	<div class="row mt-5 mb-8">
-		<h3>{{'APPLICATIONS.DESCRIPTION' | translate}}</h3>
-		<div [innerHTML]="getDescription()?.fullDescription">
+		<div style="padding-top:50px">
+			<p style="font-weight: bold" *ngIf="numberOfScreenshots > 0">{{'SCREENSHOTS.HEADER' | translate}}</p>
+			<screenshots (numberOfScreenshots)="screenshots($event)" [pathUrl]="'/apps/' + appId + '/screenshots'"></screenshots>
 		</div>
 	</div>
 
-	<hr>
+<!--	<div *ngIf="appId" class="row mb-6 mt-6">-->
+<!--		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 block-border">-->
+<!--			<rating-extended name="appRateUpdate" [editable]="true" (onChange)="onRateChanged()" [pathUrl]="getPathUrl(appId)"></rating-extended>-->
+<!--		</div>-->
+<!--	</div>-->
 
-	<div *ngIf="appId" class="row mb-6 mt-6">
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 block-border">
-			<rating-extended name="appRateUpdate" [editable]="true" (onChange)="onRateChanged()" [pathUrl]="getPathUrl(appId)"></rating-extended>
-		</div>
-	</div>
-
-	<comments [pathUrl]="'/apps/' + appId + '/comments'"></comments>
+<!--	<comments [pathUrl]="'/apps/' + appId + '/comments'"></comments>-->
 
 
 	<nmaas-modal-app-install *ngIf="app && domain" [app]="app" [domain]="domain">

@@ -1,0 +1,5 @@
+.form-control[disabled], fieldset[disabled] .form-control{
+    background: transparent;
+    border:none;
+    box-shadow: none;
+}
