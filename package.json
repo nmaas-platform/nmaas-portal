@@ -25,7 +25,7 @@
     "@angular/platform-browser-dynamic": "17.3.12",
     "@angular/router": "17.3.12",
     "@auth0/angular-jwt": "^5.2.0",
-    "@formio/angular": "^7.0.0",
+    "@formio/angular": "7.0.0",
     "@formio/js": "^5.0.0",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
