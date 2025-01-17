@@ -16,3 +16,11 @@
     padding-left: 15px;
     padding-right:15px;
 }
+.position{
+    display: flex;
+}
+@media (max-width: 991px){
+    .position{
+        flex-direction: column-reverse;
+    }
+}
