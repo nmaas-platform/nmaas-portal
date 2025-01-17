@@ -71,18 +71,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "nmaas-gui:build"
+            "buildTarget": "nmaas-gui:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "nmaas-gui:build:production"
+              "buildTarget": "nmaas-gui:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "nmaas-gui:build"
+            "buildTarget": "nmaas-gui:build"
           }
         },
         "test": {
