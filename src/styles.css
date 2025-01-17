@@ -7,6 +7,10 @@
 /* These classes are copy pasted from bootstrap 4 to work with formio panel display */
 /* remove when applying actual bootstrap 4 */
 
+:root {
+    --left-panel-width: 300px;
+}
+
 .card {
     position: relative;
     display: -webkit-box;
