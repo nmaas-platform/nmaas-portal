@@ -1,5 +1,6 @@
 {
 	"apiUrl": "http://localhost:9000/api",
+	"oidcUrl": "http://localhost:9000/oauth2/authorization/my-oidc",
 	"tokenName": "token",
 	"nmaas": {
 		"globalDomainId": 1

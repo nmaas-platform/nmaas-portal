@@ -5,6 +5,7 @@ import {AppConfigService} from '../service/appconfig.service';
 import {AuthService} from './auth.service'
 import {AuthGuard} from './auth.guard'
 import {RoleGuard} from './role.guard';
+import { LoginSuccessComponent } from './login-success/login-success.component';
 
 
 export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
@@ -15,6 +16,9 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
 });
 
 @NgModule({
+    declarations: [
+        LoginSuccessComponent
+    ],
   providers: [
     AuthGuard,
     RoleGuard,

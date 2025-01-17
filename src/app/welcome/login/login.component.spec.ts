@@ -10,6 +10,7 @@ import {ConfigurationService, UserService} from '../../service';
 import {SSOService} from '../../service/sso.service';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 
 describe('Component: Login', () => {
@@ -28,6 +29,7 @@ describe('Component: Login', () => {
                 FormsModule,
                 ReactiveFormsModule,
                 RouterTestingModule,
+                HttpClientTestingModule,
                 TranslateModule.forRoot({
                     loader: {
                         provide: TranslateLoader,
