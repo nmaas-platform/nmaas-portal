@@ -25,10 +25,7 @@ export class AppConfigService {
     }
 
     public getOidcUrl(): string {
-        if (this.config == null) {
-            return 'http://localhost:9000/oauth2/authorization/my-oidc';
-        }
-        return this.config.oidcUrl;
+        return this.config.apiUrl + '/oauth2/authorization/my-oidc';
     }
 
     public getApiUrl(): string {
