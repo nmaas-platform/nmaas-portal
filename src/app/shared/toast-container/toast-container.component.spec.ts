@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ToastContainerComponent } from './toast-container.component';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {MessageService} from "primeng/api";
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('ToastContainerComponent', () => {
   let component: ToastContainerComponent;
@@ -21,7 +22,11 @@ describe('ToastContainerComponent', () => {
       ],
       providers: [
         MessageService
-      ]
+      ],
+       schemas: [
+              CUSTOM_ELEMENTS_SCHEMA,
+              NO_ERRORS_SCHEMA
+          ]
     })
     .compileComponents();
   });
