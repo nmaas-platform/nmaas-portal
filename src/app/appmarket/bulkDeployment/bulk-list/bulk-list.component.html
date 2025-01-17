@@ -102,8 +102,8 @@
                 <li *ngIf="mode === bulkTypeApp && bulk?.state !== 'REMOVED'">
                     <a (click)="getAppBulkDetails(bulk?.id)"> {{"BULK.APP.DOWNLOAD_CSV" | translate}}</a>
                 </li>
-                <li *ngIf="mode === bulkTypeApp && bulk?.state !== 'REMOVED' ">
-                    <a (click)="modal.show()">{{ 'BULK.LIST.REMOVE' | translate }}</a>
+                <li *ngIf="mode === bulkTypeApp && bulk?.state !== 'REMOVED'">
+                    <a (click)="modal.show(); removeBulkId=bulk?.id">{{ 'BULK.LIST.REMOVE' | translate }}</a>
                 </li>
             </ul>
           </span>
@@ -133,6 +133,6 @@
     </div>
     <div class="nmaas-modal-footer">
         <button type="button" class="btn btn-secondary" (click)="modal.hide()">{{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}</button>
-        <button type="button" class="btn btn-primary"   [disabled]="false">{{'BULK.REMOVE.REMOVE' | translate}}</button>
+        <button type="button" class="btn btn-primary"   (click)="this.removeBulk()">{{'BULK.REMOVE.REMOVE' | translate}}</button>
     </div>
 </nmaas-modal>
