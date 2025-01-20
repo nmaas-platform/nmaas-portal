@@ -20,6 +20,10 @@ export class BulkAppListComponent implements OnInit {
     }
 
     ngOnInit(): void {
+     this.onRefresh();
+    }
+
+    onRefresh() : void {
         if (this.authService.getRoles().find(value => value === 'ROLE_VL_MANAGER') !== undefined) {
             this.deployService.getBulksAppDeploymentsOwner().subscribe(data => {
                 data = data.sort((a, b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime())
@@ -32,4 +36,4 @@ export class BulkAppListComponent implements OnInit {
             });
         }
     }
-}
+ }

@@ -1,4 +1,4 @@
-import {Component, Input, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, EventEmitter, Input, Output, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {BulkDeployment} from '../../../model/bulk-deployment';
 import {BulkType} from '../../../model/bulk-response';
 import {SortableHeaderDirective} from '../../../service/sort-domain.directive';
@@ -31,6 +31,9 @@ export class BulkListComponent {
 
     @ViewChild(ModalComponent, {static: true})
     public readonly modal: ModalComponent;
+
+    @Output()
+    public refresh: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 
     public readonly bulkTypeDomain = BulkType.DOMAIN;
@@ -151,8 +154,13 @@ export class BulkListComponent {
 
     public removeBulk(): void {
         this.appDeploy.removeBulkDeployment(this.removeBulkId, this.removeAll).subscribe(_ => {
-            console.log("Bulk removed")
+            this.refreshBulks();
+            this.modal.hide();
         })
         this.removeAll = false;
+    }
+
+    public refreshBulks(): void {
+        this.refresh.emit(true);
     }
 }
