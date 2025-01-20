@@ -60,6 +60,7 @@ import {SortableHeaderDirective} from '../service/sort-domain.directive';
 import {InputTextModule} from 'primeng/inputtext';
 import { DomainNamespaceAnnotationsComponent } from './domain-namespace-annotations/domain-namespace-annotations.component';
 import { provideZxvbnServiceForPSM  } from 'angular-password-strength-meter/zxcvbn';
+import { AccessTokensComponent } from './users/access-token/access-tokens.component';
 
 
 @NgModule({
@@ -123,7 +124,8 @@ import { provideZxvbnServiceForPSM  } from 'angular-password-strength-meter/zxcv
         ContactComponent,
         PreferencesComponent,
         SortableHeaderDirective,
-        DomainNamespaceAnnotationsComponent
+        DomainNamespaceAnnotationsComponent,
+        AccessTokensComponent
     ],
     providers: [
         PasswordValidator,
@@ -174,7 +176,8 @@ import { provideZxvbnServiceForPSM  } from 'angular-password-strength-meter/zxcv
         ModalProvideSshKeyComponent,
         PreferencesComponent,
         SortableHeaderDirective,
-        DomainNamespaceAnnotationsComponent
+        DomainNamespaceAnnotationsComponent,
+        AccessTokensComponent
     ]
 })
 export class SharedModule {
