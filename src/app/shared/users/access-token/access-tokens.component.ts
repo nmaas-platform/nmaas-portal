@@ -51,6 +51,13 @@ export class AccessTokensComponent implements OnInit {
         );
     }
 
+    deleteToken(id: number) {
+        this.tokenService.deleteToken(id).subscribe(
+            (_) => this.getData(),
+            error => console.error(error)
+        );
+    }
+
     public createNewToken() {
         this.tokenService.createToken(this.requestForm.value.name.trim()).subscribe({
             next: val => {

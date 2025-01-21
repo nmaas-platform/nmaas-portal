@@ -17,9 +17,13 @@
                 <td>{{token.name}}</td>
                 <td>{{token.tokenValue}}</td>
                 <td>{{token.valid}}</td>
-                <td>
+                <td *ngIf="token.valid">
                     <button type="button" class="btn btn-danger"
                             (click)="invalidate(token.id)">{{'TOKENS.BUTTON_INVALIDATE' | translate}}</button>
+                </td>
+                <td *ngIf="!token.valid">
+                    <button type="button" class="btn btn-danger"
+                            (click)="deleteToken(token.id)">{{'TOKENS.BUTTON_DELETE' | translate}}</button>
                 </td>
             </tr>
             <tr *ngIf="tokensList.length === 0">
