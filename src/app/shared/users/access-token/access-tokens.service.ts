@@ -22,6 +22,10 @@ export class AccessTokenService extends GenericDataService {
         return this.http.put<void>(`${this.getUrl()}/${id}`, '')
     }
 
+    public deleteToken(id: number): Observable<void> {
+        return this.http.put<void>(`${this.getUrl()}/delete/${id}`, '')
+    }
+
     public createToken(tokenName: string): Observable<AccessToken> {
         return this.http.post<AccessToken>(this.getUrl(), tokenName)
     }
