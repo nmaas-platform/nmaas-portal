@@ -66,8 +66,8 @@ export class AccessTokensComponent implements OnInit {
                 this.modal.hide();
             },
             error: err => {
-                console.warn(err.error.message)
-                this.requestForm.controls['name'].setErrors({notUnique: true, message: err.error.message}); 
+                console.warn(err.error)
+                this.requestForm.controls['name'].setErrors({notUnique: true, message: err.error}); 
                 console.log(this.requestForm)
             }
         })
