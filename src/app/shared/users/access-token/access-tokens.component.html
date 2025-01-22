@@ -53,6 +53,8 @@
                 <div *ngIf="name.errors.required">{{'SSH_KEYS.MODAL.ERROR.NAME_REQUIRED' | translate}}</div>
                 <div *ngIf="name.errors.minlength">{{'SSH_KEYS.MODAL.ERROR.NAME_MINLENGTH' | translate}}</div>
                 <div *ngIf="name.errors.maxlength">{{'SSH_KEYS.MODAL.ERROR.NAME_MAXLENGTH' | translate}}</div>
+                <div *ngIf="name.errors.notUnique">{{name.errors.message}}</div>
+
             </div>
             <input type="submit" class="btn btn-success" value="{{'SSH_KEYS.MODAL.BUTTON_ADD' | translate}}"
                    [disabled]="!requestForm.valid">
