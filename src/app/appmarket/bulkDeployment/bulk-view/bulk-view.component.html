@@ -62,7 +62,7 @@
                             <td>{{getDomainId(response)}}</td>
                             <td>{{getDomainName(response)}}</td>
                             <td>{{getDomainCodeName(response)}}</td>
-                            <td style="width: 5%" class="text-right">
+                            <td style="width: 5%" class="text-right" *ngIf="bulk.state !== 'REMOVED'">
                                 <i *ngIf="response.type === 'DOMAIN'" class="pi pi-search" style="font-size: 1.8rem; cursor: pointer" [routerLink]="['/admin/domains/view/', response?.details['domainId']]"></i>
                                 <i *ngIf="response.type === 'USER'" class="pi pi-search" style="font-size: 1.8rem; cursor: pointer" [routerLink]="['/admin/users/view', response?.details['userId']]"></i>
                     <!-- <span class="dropdown">
@@ -235,8 +235,8 @@
                             <td>{{getAppInstanceId(response)}}</td>
                             <td>{{getAppInstanceName(response)}}</td>
                             <td>{{getDomainCodeName(response)}}</td>
-                            <td style="width: 5%" class="text-right">
-                                <i class="pi pi-search" style="font-size: 1.8rem; cursor: pointer" [routerLink]="['/instances/', response?.details['appInstanceId']]"></i>
+                            <td style="width: 5%" class="text-right"  >
+                                <i *ngIf="bulk.state !== 'REMOVED'" class="pi pi-search" style="font-size: 1.8rem; cursor: pointer" [routerLink]="['/instances/', response?.details['appInstanceId']]"></i>
                     <!-- <span *ngIf="response?.details['appInstanceId'] !== undefined" class="dropdown">
             <a  style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
                data-toggle="dropdown" href="#" role="button">

@@ -35,6 +35,7 @@ export class BulkListComponent {
     @Output()
     public refresh: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+    public showDeleted = false;
 
     public readonly bulkTypeDomain = BulkType.DOMAIN;
     public readonly bulkTypeApp = BulkType.APPLICATION;
@@ -161,6 +162,6 @@ export class BulkListComponent {
     }
 
     public refreshBulks(): void {
-        this.refresh.emit(true);
+        this.refresh.emit(this.showDeleted);
     }
 }

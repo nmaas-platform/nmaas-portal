@@ -10,6 +10,7 @@ export class BulkDeployment {
     public type: BulkType;
     public details: Map<string, string>;
     public parallelDeploymentsLimit: number;
+    public deleted: boolean;
 }
 
 export enum BulkDeploymentState {

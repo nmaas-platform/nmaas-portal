@@ -13,7 +13,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {AppRestartModalComponent} from '../modals/app-restart-modal';
 import {AppAbortModalComponent} from '../modals/app-abort-modal';
 import {RouterTestingModule} from '@angular/router/testing';
-import {StorageServiceModule} from 'ngx-webstorage-service';
 import {AppInstanceState, User} from '../../../model';
 import {Role} from '../../../model/userrole';
 import {ServiceAccessMethodType} from '../../../model/service-access-method';
@@ -272,7 +271,6 @@ describe('Component: AppInstance', () => {
                 PipesModule,
                 FormioModule,
                 RouterTestingModule,
-                StorageServiceModule,
                 JwtModule.forRoot({}),
                 TranslateModule.forRoot({
                     loader: {
