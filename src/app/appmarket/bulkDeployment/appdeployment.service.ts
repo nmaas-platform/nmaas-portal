@@ -71,16 +71,20 @@ export class AppdeploymentService {
         return this.http.post<BulkDeployment>(this.getUrl() + 'domains', formParams);
     }
 
-    public getBulksDomainDeployments(): Observable<BulkDeployment[]> {
-        return this.http.get<BulkDeployment[]>(this.getUrl() + 'domains');
+    public getBulksDomainDeployments(showDeleted: boolean = false): Observable<BulkDeployment[]> {
+        const formParams = new HttpParams().append('deleted', showDeleted);
+    
+        return this.http.get<BulkDeployment[]>(this.getUrl() + 'domains', {params:formParams});
     }
 
     public getBulksDomainDeploymentsOwner(): Observable<BulkDeployment[]> {
         return this.http.get<BulkDeployment[]>(this.getUrl() + 'domains/vl');
     }
 
-    public getBulksAppDeployments(): Observable<BulkDeployment[]> {
-        return this.http.get<BulkDeployment[]>(this.getUrl() + 'apps');
+    public getBulksAppDeployments(showDeleted: boolean = false): Observable<BulkDeployment[]> {
+        const formParams = new HttpParams().append('deleted', showDeleted);
+
+        return this.http.get<BulkDeployment[]>(this.getUrl() + 'apps', {params:formParams});
     }
 
     public getBulksAppDeploymentsOwner(): Observable<BulkDeployment[]> {

@@ -23,14 +23,14 @@ export class BulkAppListComponent implements OnInit {
      this.onRefresh();
     }
 
-    onRefresh() : void {
+    onRefresh(showDeleted = false) : void {
         if (this.authService.getRoles().find(value => value === 'ROLE_VL_MANAGER') !== undefined) {
             this.deployService.getBulksAppDeploymentsOwner().subscribe(data => {
                 data = data.sort((a, b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime())
                 this.bulks = data
             });
         } else {
-            this.deployService.getBulksAppDeployments().subscribe(data => {
+            this.deployService.getBulksAppDeployments(showDeleted).subscribe(data => {
                 data = data.sort((a, b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime())
                 this.bulks = data
             });

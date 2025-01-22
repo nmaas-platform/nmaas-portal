@@ -21,7 +21,6 @@ import {ClustersModule} from './admin/clusters/clusters.module';
 import {ClusterService} from '../service/cluster.service';
 import {ConfigurationModule} from './admin/configuration/configuration.module';
 import {MonitorModule} from './admin/monitor/monitor.module';
-import {StorageServiceModule} from 'ngx-webstorage-service';
 import {TranslateModule} from '@ngx-translate/core';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
@@ -48,6 +47,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {InputTextModule} from 'primeng/inputtext';
 import {BulkSearchPipe} from './bulkDeployment/bulk-list/bulk-search.pipe';
 import {CheckboxModule} from 'primeng/checkbox';
+import { InputSwitchModule } from 'primeng/inputswitch';
+
 
 @NgModule({
     declarations: [
@@ -66,7 +67,6 @@ import {CheckboxModule} from 'primeng/checkbox';
     ],
     imports: [
         FormsModule,
-        StorageServiceModule,
         CommonModule,
         RouterModule,
         SharedModule,
@@ -94,6 +94,7 @@ import {CheckboxModule} from 'primeng/checkbox';
         InputTextModule,
         TooltipModule,
         CheckboxModule,
+        InputSwitchModule
     ],
     exports: [
         AppMarketComponent,

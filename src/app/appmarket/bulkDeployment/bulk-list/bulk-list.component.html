@@ -7,7 +7,12 @@
         <div *ngIf="mode=== bulkTypeApp">
             <button class="btn btn-primary" [routerLink]="['/admin/apps/bulks/new']">New deployment</button>
         </div>
+        
         <div class="flex">
+            <div  *roles="['ROLE_SYSTEM_ADMIN']"  class="flex align-items-center mr-6 pt-2">
+                <label  *ngIf="mode=== bulkTypeApp" class="mr-2" for="showDeleted">Show all</label>
+                <p-inputSwitch  *ngIf="mode=== bulkTypeApp"  id="showDeleted" (onChange)="refreshBulks()" [(ngModel)]="showDeleted" ngDefaultControl/>
+            </div>
             <div class="flex align-items-center mr-1">{{ 'BULK.LIST.PER_PAGE' | translate }}:</div>
             <span id="selectionItems" class="dropdown"
                   style="vertical-align: middle; display: inline-block; margin-right: 1rem;">
@@ -102,7 +107,7 @@
                 <li *ngIf="mode === bulkTypeApp && bulk?.state !== 'REMOVED'">
                     <a (click)="getAppBulkDetails(bulk?.id)"> {{"BULK.APP.DOWNLOAD_CSV" | translate}}</a>
                 </li>
-                <li *ngIf="mode === bulkTypeApp && bulk?.state !== 'REMOVED'">
+                <li *ngIf="mode === bulkTypeApp && !(bulk?.state === 'REMOVED' || bulk?.deleted )">
                     <a (click)="modal.show(); removeBulkId=bulk?.id">{{ 'BULK.LIST.REMOVE' | translate }}</a>
                 </li>
             </ul>
