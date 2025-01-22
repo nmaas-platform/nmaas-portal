@@ -54,7 +54,7 @@ export class AccessTokensComponent implements OnInit {
     deleteToken(id: number) {
         this.tokenService.deleteToken(id).subscribe(
             (_) => this.getData(),
-            error => console.error(error)
+            error => console.error(error.err)
         );
     }
 
@@ -65,7 +65,11 @@ export class AccessTokensComponent implements OnInit {
                 this.requestForm.reset();
                 this.modal.hide();
             },
-            error: err => console.warn(err)
+            error: err => {
+                console.warn(err.error.message)
+                this.requestForm.controls['name'].setErrors({notUnique: true, message: err.error.message}); 
+                console.log(this.requestForm)
+            }
         })
     }
 
