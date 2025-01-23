@@ -196,10 +196,10 @@
             
         </div>
 
-        <div class="flex justify-content-end" style="padding-right: 1.5rem">
+        <div *ngIf="bulk.state !== 'REMOVED'" class="flex justify-content-end" style="padding-right: 1.5rem">
             <button class="btn btn-primary mr-2" (click)="refreshStates()">{{'BULK.APP.REFRESH' | translate}}</button>
 
-            <button class="btn btn-primary" (click)="getAppBulkDetails(this.bulkId)">{{'BULK.APP.DOWNLOAD_CSV' | translate}}</button>
+            <button *ngIf="bulk.state !== 'FAILED'" class="btn btn-primary" (click)="getAppBulkDetails(this.bulkId)">{{'BULK.APP.DOWNLOAD_CSV' | translate}}</button>
         </div>
         <div class="panel panel-default" style="margin-top: 3rem">
             <div class="panel-heading">
@@ -236,7 +236,7 @@
                             <td>{{getAppInstanceName(response)}}</td>
                             <td>{{getDomainCodeName(response)}}</td>
                             <td style="width: 5%" class="text-right"  >
-                                <i *ngIf="bulk.state !== 'REMOVED'" class="pi pi-search" style="font-size: 1.8rem; cursor: pointer" [routerLink]="['/instances/', response?.details['appInstanceId']]"></i>
+                                <i *ngIf="response?.details['appInstanceId'] !== undefined" class="pi pi-search" style="font-size: 1.8rem; cursor: pointer" [routerLink]="['/instances/', response?.details['appInstanceId']]"></i>
                     <!-- <span *ngIf="response?.details['appInstanceId'] !== undefined" class="dropdown">
             <a  style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
                data-toggle="dropdown" href="#" role="button">
