@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ApplicationBase} from '../../model/application-base';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {AppConfigService} from '../../service';
 import {BulkResponse} from '../../model/bulk-response';
 import {Observable} from 'rxjs';
@@ -71,16 +71,20 @@ export class AppdeploymentService {
         return this.http.post<BulkDeployment>(this.getUrl() + 'domains', formParams);
     }
 
-    public getBulksDomainDeployments(): Observable<BulkDeployment[]> {
-        return this.http.get<BulkDeployment[]>(this.getUrl() + 'domains');
+    public getBulksDomainDeployments(showDeleted: boolean = false): Observable<BulkDeployment[]> {
+        const formParams = new HttpParams().append('deleted', showDeleted);
+    
+        return this.http.get<BulkDeployment[]>(this.getUrl() + 'domains', {params:formParams});
     }
 
     public getBulksDomainDeploymentsOwner(): Observable<BulkDeployment[]> {
         return this.http.get<BulkDeployment[]>(this.getUrl() + 'domains/vl');
     }
 
-    public getBulksAppDeployments(): Observable<BulkDeployment[]> {
-        return this.http.get<BulkDeployment[]>(this.getUrl() + 'apps');
+    public getBulksAppDeployments(showDeleted: boolean = false): Observable<BulkDeployment[]> {
+        const formParams = new HttpParams().append('deleted', showDeleted);
+
+        return this.http.get<BulkDeployment[]>(this.getUrl() + 'apps', {params:formParams});
     }
 
     public getBulksAppDeploymentsOwner(): Observable<BulkDeployment[]> {
@@ -99,5 +103,9 @@ export class AppdeploymentService {
         return this.http.get<BulkDeployment>(this.getUrl() + `refresh/${id}`)
     }
 
+    public removeBulkDeployment(id: number, removeAll: boolean)  {
+        const params = new HttpParams().set('removeAll', removeAll);
+        return this.http.delete(this.getUrl() +`${id}`, { params });
+    }
 
 }

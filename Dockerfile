@@ -1,14 +1,14 @@
-FROM alpine:3.16 as builder
+FROM alpine:3.21 as builder
 
 COPY . /build
 WORKDIR /build
 
 RUN apk add nodejs npm
-RUN npm install -g @angular/cli@16
-RUN npm i --force --legacy-peer-deps
+RUN npm install -g @angular/cli@17
+RUN npm i --force 
 RUN ng build --base-href / --configuration production
 
-FROM nginx:1.23-alpine
+FROM nginx:1.27-alpine
 MAINTAINER nmaas@lists.geant.org
 
 ARG webdir=/usr/share/nginx/html

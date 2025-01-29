@@ -20,19 +20,19 @@ export class UserService extends GenericDataService {
 
     public getAll(domainId?: number): Observable<User[]> {
         return this.get<User[]>(domainId === undefined || domainId === this.domainService.getGlobalDomainId() ?
-            this.getUsersUrl() : this.getDomainUsersUrl(domainId));
+            this.getUsersUrlWithoutDash() : this.getDomainUsersUrl(domainId));
     }
 
     public getOne(userId: number, domainId?: number): Observable<User> {
-        return this.get<User>((domainId === undefined ? this.getUsersUrl() : this.getDomainUsersUrl(domainId)) + '/'  + userId);
+        return this.get<User>((domainId === undefined ? this.getUsersUrl() : this.getDomainUsersUrl(domainId)) + userId);
     }
 
     public deleteOne(userId: number, domainId?: number): Observable<any> {
-        return this.delete<any>((domainId === undefined ? this.getUsersUrl() : this.getDomainUsersUrl(domainId)) + '/'  + userId);
+        return this.delete<any>((domainId === undefined ? this.getUsersUrl() : this.getDomainUsersUrl(domainId)) + userId);
     }
 
     public getRoles(userId: number, domainId?: number): Observable<UserRole[]> {
-        return this.get<UserRole[]>((domainId === undefined ? this.getUsersUrl() : this.getDomainUsersUrl(domainId)) + '/'  + userId + '/roles');
+        return this.get<UserRole[]>((domainId === undefined ? this.getUsersUrl() : this.getDomainUsersUrl(domainId))  + userId + '/roles');
     }
 
     public updateUser(userId: number, user: User): Observable<any> {
@@ -53,7 +53,7 @@ export class UserService extends GenericDataService {
     }
 
     public addRole(userId: number, role: Role, domainId?: number): Observable<any> {
-        const url: string = (domainId === undefined ? this.getUsersUrl() : this.getDomainUsersUrl(domainId)) + '/' + userId + '/roles';
+        const url: string = (domainId === undefined ? this.getUsersUrl() : this.getDomainUsersUrl(domainId)) + userId + '/roles';
         const targetDomainId: number = (domainId === undefined ? this.appConfig.getNmaasGlobalDomainId() : domainId);
 
         return this.post<UserRole, UserRole>(url, new UserRole(targetDomainId, undefined, role));
@@ -87,8 +87,13 @@ export class UserService extends GenericDataService {
         return this.appConfig.getApiUrl() + '/users/';
     }
 
+    protected getUsersUrlWithoutDash(): string {
+        return this.appConfig.getApiUrl() + '/users';
+    }
+
+
     protected getDomainUsersUrl(domainId: number): string {
-        return this.appConfig.getApiUrl() + '/domains/' + domainId + '/users';
+        return this.appConfig.getApiUrl() + '/domains/' + domainId + '/users/';
     }
 
     public getDomainUsersAsAdmin(domainId: number): Observable<User[]> {

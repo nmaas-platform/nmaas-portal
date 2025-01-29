@@ -33,7 +33,7 @@ import {SortableColumnComponent} from './sortable-column/sortable-column.compone
 import {SortableTableDirective} from './sortable-column/sortable-table.directive';
 import {AppInstallModalComponent} from './modal/appinstall';
 import {RatingExtendedComponent} from './rating-extended/rating-extended.component';
-import {PasswordStrengthMeterModule} from 'angular-password-strength-meter';
+import {PasswordStrengthMeterComponent} from 'angular-password-strength-meter';
 import {AboutComponent} from './about/about.component';
 import {ChangelogComponent} from './changelog/changelog.component';
 import {NotificationService} from '../service/notification.service';
@@ -59,7 +59,8 @@ import {DropdownModule} from 'primeng/dropdown';
 import {SortableHeaderDirective} from '../service/sort-domain.directive';
 import {InputTextModule} from 'primeng/inputtext';
 import { DomainNamespaceAnnotationsComponent } from './domain-namespace-annotations/domain-namespace-annotations.component';
-import { DEFAULT_PSM_OPTIONS } from 'angular-password-strength-meter/zxcvbn';
+import { provideZxvbnServiceForPSM  } from 'angular-password-strength-meter/zxcvbn';
+import { AccessTokensComponent } from './users/access-token/access-tokens.component';
 
 
 @NgModule({
@@ -71,7 +72,7 @@ import { DEFAULT_PSM_OPTIONS } from 'angular-password-strength-meter/zxcvbn';
         RouterModule,
         ReactiveFormsModule,
         RecaptchaV3Module,
-        PasswordStrengthMeterModule.forRoot(DEFAULT_PSM_OPTIONS) ,
+        PasswordStrengthMeterComponent,
         TranslateModule.forChild(),
         NgxPaginationModule,
         FormioModule,
@@ -123,7 +124,8 @@ import { DEFAULT_PSM_OPTIONS } from 'angular-password-strength-meter/zxcvbn';
         ContactComponent,
         PreferencesComponent,
         SortableHeaderDirective,
-        DomainNamespaceAnnotationsComponent
+        DomainNamespaceAnnotationsComponent,
+        AccessTokensComponent
     ],
     providers: [
         PasswordValidator,
@@ -174,7 +176,8 @@ import { DEFAULT_PSM_OPTIONS } from 'angular-password-strength-meter/zxcvbn';
         ModalProvideSshKeyComponent,
         PreferencesComponent,
         SortableHeaderDirective,
-        DomainNamespaceAnnotationsComponent
+        DomainNamespaceAnnotationsComponent,
+        AccessTokensComponent
     ]
 })
 export class SharedModule {

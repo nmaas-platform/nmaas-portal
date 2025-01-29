@@ -1,0 +1,66 @@
+<div style="margin-bottom: 15px;" class="panel panel-default">
+    <div class="panel-heading">{{'TOKENS.HEADER' | translate}}</div>
+    <div class="panel-body">
+        <table class="table table-hover" aria-describedby="User access tokens table">
+            <thead>
+            <tr>
+                <th scope="col">{{'TOKENS.TABLE.ID' | translate}}</th>
+                <th scope="col">{{'TOKENS.TABLE.NAME' | translate}}</th>
+                <th scope="col">{{'TOKENS.TABLE.VALUE' | translate}}</th>
+                <th scope="col">{{'TOKENS.TABLE.VALID' | translate}}</th>
+                <th scope="col">{{'TOKENS.TABLE.ACTIONS' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let token of tokensList">
+                <td>{{token.id}}</td>
+                <td>{{token.name}}</td>
+                <td>{{token.tokenValue}}</td>
+                <td>{{token.valid}}</td>
+                <td *ngIf="token.valid">
+                    <button type="button" class="btn btn-danger"
+                            (click)="invalidate(token.id)">{{'TOKENS.BUTTON_INVALIDATE' | translate}}</button>
+                </td>
+                <td *ngIf="!token.valid">
+                    <button type="button" class="btn btn-danger"
+                            (click)="deleteToken(token.id)">{{'TOKENS.BUTTON_DELETE' | translate}}</button>
+                </td>
+            </tr>
+            <tr *ngIf="tokensList.length === 0">
+                <td colspan="3" style="text-align: center">{{'TOKENS.NO_TOKENS' | translate}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div>
+            <button type="button" class="btn btn-success"
+                    (click)="modal.show()">{{'TOKENS.NEW_TOKEN' | translate}}</button>
+
+        </div>
+    </div>
+</div>
+
+<nmaas-modal styleModal="info">
+    <div class="nmaas-modal-header">{{'TOKENS.MODAL.HEADER' | translate}}</div>
+    <div class="nmaas-modal-body" style="height: 60%; max-height: 80vh;overflow-y: auto;">
+        <form [formGroup]="requestForm" (ngSubmit)="createNewToken()">
+            <div class="form-group">
+                <label class="control-label" for="new-token-name">
+                    {{'TOKENS.MODAL.NAME' | translate}}:
+                </label>
+                <input id="new-token-name" type="text" class="form-control" formControlName="name">
+            </div>
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+                <div *ngIf="name.errors.required">{{'SSH_KEYS.MODAL.ERROR.NAME_REQUIRED' | translate}}</div>
+                <div *ngIf="name.errors.minlength">{{'SSH_KEYS.MODAL.ERROR.NAME_MINLENGTH' | translate}}</div>
+                <div *ngIf="name.errors.maxlength">{{'SSH_KEYS.MODAL.ERROR.NAME_MAXLENGTH' | translate}}</div>
+                <div *ngIf="name.errors.notUnique">{{name.errors.message}}</div>
+
+            </div>
+            <input type="submit" class="btn btn-success" value="{{'SSH_KEYS.MODAL.BUTTON_ADD' | translate}}"
+                   [disabled]="!requestForm.valid">
+            <button type="button" class="btn btn-primary pull-right"
+                    (click)="modal.hide()">{{'SSH_KEYS.MODAL.BUTTON_CANCEL' | translate}}</button>
+
+        </form>
+    </div>
+</nmaas-modal>

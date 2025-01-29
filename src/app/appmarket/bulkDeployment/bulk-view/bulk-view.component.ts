@@ -91,6 +91,7 @@ export class BulkViewComponent implements OnInit, OnDestroy {
         this.refresh = timer(0, 20000).pipe(map(() => {
             this.deployService.getBulkDeployment(this.bulk.id).subscribe(bulk => {
                 this.bulk = bulk;
+                if(bulk.state === 'REMOVED') this.refresh.unsubscribe();
             })
         })).subscribe()
     }

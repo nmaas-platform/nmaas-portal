@@ -1,4 +1,4 @@
-import {Component, Input, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, EventEmitter, Input, Output, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {BulkDeployment} from '../../../model/bulk-deployment';
 import {BulkType} from '../../../model/bulk-response';
 import {SortableHeaderDirective} from '../../../service/sort-domain.directive';
@@ -32,6 +32,10 @@ export class BulkListComponent {
     @ViewChild(ModalComponent, {static: true})
     public readonly modal: ModalComponent;
 
+    @Output()
+    public refresh: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+    public showDeleted = false;
 
     public readonly bulkTypeDomain = BulkType.DOMAIN;
     public readonly bulkTypeApp = BulkType.APPLICATION;
@@ -42,6 +46,7 @@ export class BulkListComponent {
     public searchValue = '';
 
     public removeAll = false;
+    public removeBulkId = 0;
 
     constructor(private appDeploy: AppdeploymentService,
                 private sanitizer: DomSanitizer) {
@@ -146,5 +151,17 @@ export class BulkListComponent {
             return bulk.details['appInstanceNo']
         }
         return null
+    }
+
+    public removeBulk(): void {
+        this.appDeploy.removeBulkDeployment(this.removeBulkId, this.removeAll).subscribe(_ => {
+            this.refreshBulks();
+            this.modal.hide();
+        })
+        this.removeAll = false;
+    }
+
+    public refreshBulks(): void {
+        this.refresh.emit(this.showDeleted);
     }
 }

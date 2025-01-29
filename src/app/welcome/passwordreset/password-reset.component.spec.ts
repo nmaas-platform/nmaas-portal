@@ -5,7 +5,7 @@ import {UserService} from '../../service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ModalComponent} from '../../shared/modal';
 import {RouterTestingModule} from '@angular/router/testing';
-import {IPasswordStrengthMeterService, PasswordStrengthMeterModule} from 'angular-password-strength-meter';
+import {IPasswordStrengthMeterService, PasswordStrengthMeterComponent} from 'angular-password-strength-meter';
 import {ReCaptchaV3Service} from 'ng-recaptcha';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
@@ -33,7 +33,7 @@ describe('Password reset component', () => {
                         useClass: TranslateFakeLoader
                     }
                 }),
-                PasswordStrengthMeterModule
+                PasswordStrengthMeterComponent
             ],
             providers: [
                 {provide: UserService, useValue: userServiceSpy},
