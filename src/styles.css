@@ -2,12 +2,14 @@
 @import '../node_modules/primeng/resources/themes/nova/theme.css';
 @import '../node_modules/primeicons/primeicons.css';
 @import '../node_modules/primeng/resources/primeng.min.css';
-@import '../node_modules/formiojs/dist/formio.full.min.css';
+/* @import '../node_modules/@formio/core/dist/formio.ful.min.css'; */
 
 /* These classes are copy pasted from bootstrap 4 to work with formio panel display */
 /* remove when applying actual bootstrap 4 */
 :root{
+    --left-panel-width: 300px;
     /*light-mode*/
+
     --button-text-color: #ffffff;
     --primary-button-color: #3767BE;
     --primary-button-hover: #32559B;
@@ -33,6 +35,7 @@
     --app-background-color: #F6F6F7;
     --tag-color: #F0D7DD;
     --background: #ffffff;
+
 
     /*dark-mode*/
     --d-button-text-color: #1C1F27;

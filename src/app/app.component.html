@@ -1,6 +1,24 @@
-<div class="flex-container">
-    <app-navbar></app-navbar>
+<div *ngIf="!isLoggedIn" class="flex-container"> <!---  -->
+    <app-navbar ></app-navbar>
     <router-outlet></router-outlet>
-    <div class="flex-spacer"></div>
-    <nmaas-footer></nmaas-footer>
+    <!-- <div class="flex-spacer"></div>
+    <nmaas-footer></nmaas-footer> -->
+
 </div>
+
+<div *ngIf="isLoggedIn" class="flex-container-row">
+    <div class="side-menu">
+        <app-left-menu></app-left-menu>
+    </div>
+    <div class="flex-spacer">
+      
+    </div>
+
+    <div class="content-area" [style]="{'margin-left': 'var(--left-panel-width)'}">
+        <router-outlet></router-outlet>
+    </div>
+    <!-- <div class="flex-spacer"></div>
+    <nmaas-footer></nmaas-footer> -->
+</div>
+
+<app-toast-container aria-live="polite" aria-atomic="true"></app-toast-container>

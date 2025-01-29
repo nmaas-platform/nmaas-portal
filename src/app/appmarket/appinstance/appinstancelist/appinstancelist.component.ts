@@ -108,6 +108,16 @@ export class AppInstanceListComponent implements OnInit {
         });
 
 
+        forkJoin({
+            all: this.translateService.get('ENUM.ALL'),
+            my: this.translateService.get('ENUM.MY')
+        }).subscribe(translations => {
+            this.selectionOptions = [
+                { label: translations.all, value: AppInstanceListSelection.ALL },
+                { label: translations.my, value: AppInstanceListSelection.MY },
+            ];
+        });
+
     }
 
     public getDomainNameById(id: number): string {

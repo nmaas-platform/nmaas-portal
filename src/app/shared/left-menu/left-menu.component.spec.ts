@@ -1,0 +1,30 @@
+// import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+// import { LeftMenuComponent } from './left-menu.component';
+// import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+// import { MessageService } from 'primeng/api';
+
+// describe('LeftMenuComponent', () => {
+//   let component: LeftMenuComponent;
+//   let fixture: ComponentFixture<LeftMenuComponent>;
+
+//   beforeEach(async () => {
+//     await TestBed.configureTestingModule({
+//       imports: [LeftMenuComponent],
+//       providers: [MessageService], 
+//       schemas: [
+//               CUSTOM_ELEMENTS_SCHEMA,
+//               NO_ERRORS_SCHEMA
+//           ]
+//     })
+//     .compileComponents();
+    
+//     fixture = TestBed.createComponent(LeftMenuComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
+
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

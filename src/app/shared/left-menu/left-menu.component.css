@@ -1,0 +1,27 @@
+.side-menu {
+    background-color: #333;
+    color: white;
+    height: calc(100vh - 2rem);
+    position: static;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border: 2px solid red;
+  }
+  .side-menu ul {
+    list-style: none;
+    padding: 0;
+  }
+  .side-menu li {
+    margin: 0.5rem 0;
+  }
+  .side-menu a {
+    color: white;
+    text-decoration: none;
+  }
+  .side-menu a:hover {
+    text-decoration: underline;
+  }
+

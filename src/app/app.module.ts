@@ -24,6 +24,12 @@ import {TranslateLoaderImpl} from './i18n/translate-loader-impl.service';
 import {ServiceUnavailableModule} from './service-unavailable/service-unavailable.module';
 import {ServiceUnavailableService} from './service-unavailable/service-unavailable.service';
 import {NgTerminalModule} from 'ng-terminal';
+import { provideZxvbnServiceForPSM } from 'angular-password-strength-meter/zxcvbn';
+import { FormioModule } from '@formio/angular';
+import { LeftMenuComponent } from './shared/left-menu/left-menu.component';
+import { ToastContainerComponent, ToastMode } from './shared/toast-container/toast-container.component';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 export function appConfigFactory(config: AppConfigService) {
     return function create() {
@@ -50,6 +56,8 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
 @NgModule({
     declarations: [
         AppComponent,
+        LeftMenuComponent,
+        ToastContainerComponent
     ],
     imports: [
         BrowserModule,
@@ -75,12 +83,15 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
                 deps: [HttpClient, AppConfigService, ServiceUnavailableService]
             }
         }),
-        NgTerminalModule
+        NgTerminalModule,
+        FormioModule, 
+        ToastModule,
     ],
     providers: [
         AuthGuard,
         AuthService,
         AppConfigService,
+        provideZxvbnServiceForPSM(),
         {
             provide: APP_INITIALIZER,
             useFactory: appConfigFactory,
@@ -94,7 +105,8 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
             useFactory: serviceAvailableFactory,
             deps: [AppConfigService, HttpClient, ServiceUnavailableService],
             multi: true,
-        }
+        },
+        MessageService
     ],
     exports: [
         TranslateModule

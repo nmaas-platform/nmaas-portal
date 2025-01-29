@@ -362,6 +362,9 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         if (this.intervalCheckerState) {
             this.intervalCheckerState.unsubscribe();
         }
+        if (this.intervalCheckerStateHistory) {
+            this.intervalCheckerStateHistory.unsubscribe();
+        }
     }
 
     public redeploy(): void {

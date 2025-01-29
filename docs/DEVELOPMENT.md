@@ -51,10 +51,6 @@ Admin user:
 + username: `admin`
 + password: `admin`
 
-### Building and uploading nmaas Portal Docker image
----
-To build the nmaas Portal Docker image first alter the `build_and_publish.sh` script with custom REPOSITORY, PACKAGE and TAG values and execute `build_and_publish.sh` to automatically build and publish `nmaas-portal` image to selected Docker repository.
-
 ### Issues
 ---
 As of Angular 14, there is an issue with ```ivy``` and ```ngcc```, regarding ```angular-formio```, however everything seems to be working fine.  

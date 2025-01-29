@@ -16,6 +16,7 @@ export class AppComponent {
 
     config: any;
     private timer: IdleTimer;
+    public isLoggedIn  = false;
 
     constructor(private appConfigService: AppConfigService, private configService: ConfigurationService,
                 private authService: AuthService, private translate: TranslateService,
@@ -23,6 +24,7 @@ export class AppComponent {
     }
 
     async ngOnInit() {
+        this.isLoggedIn = this.authService.isLogged() ;
         if (this.serviceHealth.isServiceAvailable === false) {
             this.router.navigate(['/service-unavailable']);
         }
@@ -31,7 +33,9 @@ export class AppComponent {
         console.debug('Configuration: ' + JSON.stringify(this.config));
         await this.delay(2000);
         console.warn("User logged ? -", this.authService.isLogged())
+        this.updateLogin();
         if (this.authService.isLogged()) {
+            this.isLoggedIn = true;
                     this.timer = new IdleTimer({
                         timeout: 900, // 15 min
                         onTimeout: () => {
@@ -40,6 +44,13 @@ export class AppComponent {
                         }
                     });
                 }
+    }
+
+    private updateLogin() {
+        this.authService.isLoggedIn$.subscribe(isLogged => {
+            console.log("User state update", isLogged);
+            this.isLoggedIn = isLogged;
+    });
     }
 
     public handleDefaultLanguage(): void {
