@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../auth.service';
 
 @Component({
@@ -8,19 +8,21 @@ import {AuthService} from '../auth.service';
     styleUrls: ['./login-success.component.css']
 })
 export class LoginSuccessComponent implements OnInit {
-    constructor(private route: ActivatedRoute,
-                private authService: AuthService) {
+    constructor(private readonly router: Router,
+                private readonly route: ActivatedRoute,
+                private readonly authService: AuthService) {
     }
 
 
     ngOnInit(): void {
-        // Pobieranie tokena z parametrów URL
         this.route.queryParams.subscribe(params => {
             const token = params['token'];
             const refreshToken = params['refresh_token'];
             if (token) {
                 this.authService.storeToken(token);
             }
-        });
+            this.router.navigate(['/portal'])
+        })
+
     }
 }
