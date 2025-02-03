@@ -34,4 +34,13 @@
     white-space: nowrap !important;
 }
 
+:host ::ng-deep .job-done-bar {
+    .p-progressbar-value {
+        border: 0 none;
+        margin: 0;
+        background:green;
+    }
+}
+    
+
 

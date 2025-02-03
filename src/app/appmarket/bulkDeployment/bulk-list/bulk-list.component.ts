@@ -1,17 +1,19 @@
-import {Component, EventEmitter, Input, Output, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, Output, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {BulkDeployment} from '../../../model/bulk-deployment';
 import {BulkType} from '../../../model/bulk-response';
 import {SortableHeaderDirective} from '../../../service/sort-domain.directive';
 import {ModalComponent} from '../../../shared';
 import {AppdeploymentService} from '../appdeployment.service';
 import {DomSanitizer} from '@angular/platform-browser';
+import { BulkQueueDetails } from '../../../model/bulk-queue-details';
+import { map, timer } from 'rxjs';
 
 @Component({
     selector: 'app-bulk-list',
     templateUrl: './bulk-list.component.html',
     styleUrls: ['./bulk-list.component.css']
 })
-export class BulkListComponent {
+export class BulkListComponent implements OnDestroy {
 
     public static BULK_ENTRY_DETAIL_KEY_APP_INSTANCE_NO = 'appInstanceNo';
     public static BULK_ENTRY_DETAIL_KEY_APP_INSTANCE_NAME = 'appName';
@@ -48,8 +50,14 @@ export class BulkListComponent {
     public removeAll = false;
     public removeBulkId = 0;
 
+    public queueDetails : BulkQueueDetails;
+
+    public refreshQueue = undefined;
+    public sidebarVisible4 = false;
+
     constructor(private appDeploy: AppdeploymentService,
                 private sanitizer: DomSanitizer) {
+                    this.update();
     }
 
     public getApplicationName(details: Map<string, string>) {
@@ -163,5 +171,34 @@ export class BulkListComponent {
 
     public refreshBulks(): void {
         this.refresh.emit(this.showDeleted);
+    }
+
+    public getQueueDetails(): void {
+        this.appDeploy.getQueueDetails(0).subscribe(queue => {
+           console.log(queue);
+           this.queueDetails = queue;
+        })   
+    }
+
+     public update() {
+            this.refreshQueue = timer(0, 60000).pipe(map(() => {
+              this.getQueueDetails();
+            })).subscribe()
+        }
+
+    public getQueryNumber() {
+        return this.queueDetails?.jobInQueue + this.queueDetails?.jobInProcess;
+    }
+
+        
+    public ngOnDestroy() {
+        if (this.refresh !== undefined) {
+            this.refresh.unsubscribe();
+            this.refreshQueue.unsubscribe();
+        }
+    }
+
+    public open() {
+
     }
 }

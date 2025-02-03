@@ -5,6 +5,7 @@ import {AppConfigService} from '../../service';
 import {BulkResponse} from '../../model/bulk-response';
 import {Observable} from 'rxjs';
 import {BulkDeployment} from '../../model/bulk-deployment';
+import { BulkQueueDetails } from '../../model/bulk-queue-details';
 
 @Injectable({
     providedIn: 'root'
@@ -107,5 +108,10 @@ export class AppdeploymentService {
         const params = new HttpParams().set('removeAll', removeAll);
         return this.http.delete(this.getUrl() +`${id}`, { params });
     }
+
+    public getQueueDetails(id: number) : Observable<BulkQueueDetails> {
+        return this.http.get<BulkQueueDetails>(this.getUrl() + `queue/${id}`)
+    }
+
 
 }
