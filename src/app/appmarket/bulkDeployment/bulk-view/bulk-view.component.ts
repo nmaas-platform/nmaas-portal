@@ -6,6 +6,7 @@ import {BulkResponse, BulkType} from '../../../model/bulk-response';
 import {timer} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {AppImagesService} from '../../../service';
+import { BulkQueueDetails } from '../../../model/bulk-queue-details';
 
 @Component({
     selector: 'app-bulk-view',
@@ -20,6 +21,13 @@ export class BulkViewComponent implements OnInit, OnDestroy {
 
     public refresh = undefined;
 
+    public progressBarMode ;
+    public progressBarValue ;
+
+    public queueDetails :BulkQueueDetails; 
+
+    public jobDone = false;
+
     constructor(public deployService: AppdeploymentService,
                 private route: ActivatedRoute,
                 private router: Router,
@@ -28,6 +36,7 @@ export class BulkViewComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+    
         this.route.params.subscribe(params => {
             if (params['id'] !== undefined) {
                 this.bulkId = +params['id'];
@@ -35,6 +44,7 @@ export class BulkViewComponent implements OnInit, OnDestroy {
                     (bulk) => {
                         this.bulk = bulk;
                         this.bulkType = bulk.type;
+                        this.getQueueDetails();
                         if (this.bulkType === BulkType.APPLICATION) {
                             this.update();
                         }
@@ -92,7 +102,18 @@ export class BulkViewComponent implements OnInit, OnDestroy {
             this.deployService.getBulkDeployment(this.bulk.id).subscribe(bulk => {
                 this.bulk = bulk;
                 if(bulk.state === 'REMOVED') this.refresh.unsubscribe();
+                if(bulk.state === 'PROCESSING' && this.queueDetails.jobInProcessId === bulk.id) {
+                    this.progressBarMode = "determinate"
+                    this.setBarValue();
+                } else if(bulk.state === 'PROCESSING') {
+                    this.setBarValue();
+                    this.progressBarMode = "indeterminate"
+                } else {
+                    this.progressBarMode = "determinate"
+                    this.setBarValue();
+                }
             })
+           
         })).subscribe()
     }
 
@@ -120,7 +141,27 @@ export class BulkViewComponent implements OnInit, OnDestroy {
     public refreshStates() {
         this.deployService.refreshStatesInBulkDeployment(this.bulkId).subscribe( deply => {
             this.bulk = deply;
+            this.getQueueDetails();
             console.log("Updated states of bulks")
         })
+    }
+
+    public setBarValue() {
+        this.getQueueDetails();
+    }
+    
+    public getQueueDetails(): void {
+     this.deployService.getQueueDetails(this.bulkId).subscribe(queue => {
+        console.log(queue);
+        this.queueDetails = queue;
+        if(queue.jobDone === this.bulk.entries.length) {
+            this.progressBarValue = 100;
+            this.jobDone = true;
+        } else {
+            this.progressBarValue =  queue.jobDone * 100 / this.bulk.entries.length;
+            this.jobDone = false;
+        }
+        
+     })   
     }
 }

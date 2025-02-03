@@ -48,6 +48,10 @@ import {InputTextModule} from 'primeng/inputtext';
 import {BulkSearchPipe} from './bulkDeployment/bulk-list/bulk-search.pipe';
 import {CheckboxModule} from 'primeng/checkbox';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { SidebarModule } from 'primeng/sidebar';
+import { ProgressBarModule } from 'primeng/progressbar';
+
 
 
 @NgModule({
@@ -94,7 +98,10 @@ import { InputSwitchModule } from 'primeng/inputswitch';
         InputTextModule,
         TooltipModule,
         CheckboxModule,
-        InputSwitchModule
+        InputSwitchModule,
+        OverlayPanelModule,
+        SidebarModule,
+        ProgressBarModule
     ],
     exports: [
         AppMarketComponent,

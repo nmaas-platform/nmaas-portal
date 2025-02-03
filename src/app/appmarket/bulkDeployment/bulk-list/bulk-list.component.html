@@ -9,6 +9,34 @@
         </div>
         
         <div class="flex">
+            <div  *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_VL_MANAGER']"  class="flex align-items-center mr-6 pt-2">
+        
+                <p-button 
+                    type="button" 
+                    class="mr-2" 
+                    (onClick)="sidebarVisible4 = true" 
+                    label="Deployments Queue"
+                    severity="secondary"
+                     ></p-button>
+                <p-sidebar [(visible)]="sidebarVisible4" position="left" styleClass="w-30rem">
+                    <h3>Deployments Queue</h3>
+                    <div class="flex flex-column">
+                        <div class="flex grid">
+                            <label class="col-10" for="jobInQueue">Jobs in queue</label>
+                            <span class="col-2 " id="jobInQueue">{{queueDetails?.jobInQueue}}</span>
+                        </div>
+                        <div class="flex grid">
+                            <label class="col-10" for="jobInProcess">In progress</label>
+                            <span class="col-2 " id="jobInProcess">{{queueDetails?.jobInProcess}}</span>
+                        </div>
+                        <div class="flex grid">
+                            <label class="col-10" for="jobInProcessId">Current proccessing bulk id</label>
+                            <span class="col-2" id="jobInProcessId">{{queueDetails?.jobInProcessId}}</span>
+                        </div>
+                    </div>
+                </p-sidebar>
+                
+            </div>
             <div  *roles="['ROLE_SYSTEM_ADMIN']"  class="flex align-items-center mr-6 pt-2">
                 <label  *ngIf="mode=== bulkTypeApp" class="mr-2" for="showDeleted">Show all</label>
                 <p-inputSwitch  *ngIf="mode=== bulkTypeApp"  id="showDeleted" (onChange)="refreshBulks()" [(ngModel)]="showDeleted" ngDefaultControl/>

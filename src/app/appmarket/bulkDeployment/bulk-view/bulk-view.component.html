@@ -201,7 +201,15 @@
 
             <button *ngIf="bulk.state !== 'FAILED'" class="btn btn-primary" (click)="getAppBulkDetails(this.bulkId)">{{'BULK.APP.DOWNLOAD_CSV' | translate}}</button>
         </div>
-        <div class="panel panel-default" style="margin-top: 3rem">
+        <div class="mt-4">
+            <p-progressBar [mode]="progressBarMode"[value]="progressBarValue" id="progressBarr" [style]="{ height: '18px' }" [styleClass]="jobDone ? 'job-done-bar' : 'normal-bar'">
+                <ng-template pTemplate="content" let-value> 
+                    <span>{{queueDetails?.jobDone}} <span *ngIf="queueDetails?.jobDone !== bulk.entries.length">(+{{queueDetails?.jobInProcess}})</span> / {{bulk.entries.length}}</span>    
+                    </ng-template>
+            </p-progressBar>
+
+        </div>
+        <div class="panel panel-default" style="margin-top: 1rem">
             <div class="panel-heading">
 
                 <div style="display: flex; justify-content: start; align-items: center">
