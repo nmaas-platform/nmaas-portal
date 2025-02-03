@@ -15,7 +15,7 @@ body{
 }
 
 .flex-spacer {
-    flex: 1 0 auto;
+    /*flex: 1 0 auto;*/
     /* width: 100%;
     height: 100%; */
 }
@@ -37,8 +37,8 @@ body{
 
   .side-menu {
     width: var(--left-panel-width);
-    background-color: #333;
-    color: white;
+    background-color: var(--menu-color);
+    color: var(--l-text-color);
     height: 100vh ;
     position: fixed;
     top: 0;

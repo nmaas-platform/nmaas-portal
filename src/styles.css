@@ -26,11 +26,13 @@
     --danger-text-button-color: #CB433F;
     --danger-text-button-text-hover: #A40400;
     --danger-text-button-background-hover: #FEF2F2;
+    --user-button-background: #ffffff;
+    --user-button-background-hover: #EAF0FF;
 
     --menu-color: #F2F4F7;
     --menu-pink: #C80071;
     --card-color: #F6F6F7;
-    --text-color: #233354;
+    --l-text-color: #233354;
     --app-text-color: #233354;
     --app-background-color: #F6F6F7;
     --tag-color: #F0D7DD;
@@ -54,6 +56,8 @@
     --d-danger-text-button-color: #FFACAC;
     --d-danger-text-button-text-hover: #C70500;
     --d-danger-text-button-background-hover: #FEF2F2;
+    --d-user-button-background: #1C1F27;
+    --d-user-button-background-hover: #5B9FFF;
 
     --d-menu-color: #3C3F47;
     --d-menu-pink: #C80071;
@@ -65,7 +69,7 @@
     --d-background: #1C1F27;
 }
 .form-control:focus {
-    border-color: var(--text-color);
+    border-color: var(--l-text-color);
     outline: 0;
     box-shadow: none;
 }

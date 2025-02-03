@@ -1,15 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastContainerComponent, ToastMode } from '../toast-container/toast-container.component';
+import {Router} from '@angular/router';
+import {MenuItem} from 'primeng/api';
 
 @Component({
   selector: 'app-left-menu',
   templateUrl: './left-menu.component.html',
   styleUrl: './left-menu.component.css'
 })
-export class LeftMenuComponent  implements OnInit{
+export class LeftMenuComponent  implements OnInit {
+  items: MenuItem[];
 
-  constructor(private toast: ToastContainerComponent) {
-
+  constructor(private toast: ToastContainerComponent,
+              public router: Router) {
+    this.items = [
+      {
+        label: 'Profile',
+        routerLink: ['/profile']
+      },
+      {
+        label: 'About',
+        routerLink: ['/about']
+      },
+      {
+        label: 'Logout',
+        routerLink: ['/logout']
+      }
+    ]
   }
 
   public ngOnInit(): void {

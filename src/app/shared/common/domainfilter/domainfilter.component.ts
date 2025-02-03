@@ -29,7 +29,9 @@ export class DomainFilterComponent implements OnInit {
 
     private filteredDomainsSub = new BehaviorSubject<any[]>([]);
 
-    private domainsLocal : Domain[] = [];
+    private domainsLocal: Domain[] = [];
+
+    selectedDomain: any;
 
     public filteredDomains = this.filteredDomainsSub.asObservable();
 
@@ -54,6 +56,7 @@ export class DomainFilterComponent implements OnInit {
 
                 this.updateDomains();
                 this.domains.subscribe(domain => {
+                    this.selectedDomain = domain[0];
                     this.domainName = domain[0].name;
                     this.userData.selectDomainId(domain[0].id)
                     this.filteredDomainsSub.next(domain);

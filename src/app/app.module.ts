@@ -30,6 +30,8 @@ import { LeftMenuComponent } from './shared/left-menu/left-menu.component';
 import { ToastContainerComponent, ToastMode } from './shared/toast-container/toast-container.component';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import {SplitButtonModule} from 'primeng/splitbutton';
+import {MenuModule} from 'primeng/menu';
 
 export function appConfigFactory(config: AppConfigService) {
     return function create() {
@@ -84,8 +86,10 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
             }
         }),
         NgTerminalModule,
-        FormioModule, 
+        FormioModule,
         ToastModule,
+        SplitButtonModule,
+        MenuModule,
     ],
     providers: [
         AuthGuard,
