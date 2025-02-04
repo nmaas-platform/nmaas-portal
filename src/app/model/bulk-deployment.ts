@@ -11,6 +11,7 @@ export class BulkDeployment {
     public details: Map<string, string>;
     public parallelDeploymentsLimit: number;
     public deleted: boolean;
+    public completionDate: Date;
 }
 
 export enum BulkDeploymentState {
