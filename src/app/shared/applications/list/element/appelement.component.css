@@ -108,3 +108,8 @@ body{
 	/*transform: scale(1);*/
 	/*-webkit-transform: scale(1);*/
 }
+@media (min-width:1550px){
+	.col-xl-3{
+		width: 25%
+	}
+}

@@ -1,17 +1,17 @@
 
 <div class="col-sm-12 col-sm-12 col-md-12" style="display: flex; align-items: flex-end; flex-wrap: wrap;">
-	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
 		<nmaas-inline-search [value]="searchedAppName"
 			(changed)="filterAppsByName($event)"></nmaas-inline-search>
 	</div>
 
-	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
 		<nmaas-tag-filter (changed)="filterAppsByTag($event)"></nmaas-tag-filter>
 	</div>
-	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 form-inline">
-		<div class="form-group">
+	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 form-inline">
+		<div class="form-group" style="width: 100%">
 			<label for="sortMode" style="margin-right: 6px;" >{{'APP_INSTANCES.SORT' | translate}}</label>
-			<select id="sortMode" name="sortMode" class="form-control" [(ngModel)]="sortMode" (ngModelChange)="onSort()">
+			<select id="sortMode" name="sortMode" class="form-control" [(ngModel)]="sortMode" (ngModelChange)="onSort()" style="width: 100%">
 				<option *ngFor="let opt of sortModeList" [value]="opt">{{('APP_INSTANCES.SORT_MODE.' + opt) | translate}}</option>
 			</select>
 		</div>
