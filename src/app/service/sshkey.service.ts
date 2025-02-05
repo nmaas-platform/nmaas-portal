@@ -26,4 +26,17 @@ export class SSHKeyService extends GenericDataService {
   public invalidate(id: number): Observable<any> {
     return this.delete(this.appConfig.getApiUrl() + '/user/keys/' + id);
   }
+
+  public getAllByUserId(userId: number): Observable<SSHKeyView[]> {
+    return this.get<SSHKeyView[]>(this.appConfig.getApiUrl() + '/user/keys/view/' + userId);
+  }
+
+  public createKeyForUser(request: SSHKeyRequest, userId: number ): Observable<any> {
+    return this.put<SSHKeyRequest, any>(this.appConfig.getApiUrl() + '/user/keys/view/' + userId, request);
+  }
+
+  public invalidateUserKey(keyId: number, userId: number): Observable<any> {
+    return this.delete(this.appConfig.getApiUrl() + '/user/keys/view/' + userId + "/" + keyId);
+  }
+
 }
