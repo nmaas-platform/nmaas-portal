@@ -7,6 +7,7 @@ import {timer} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {AppImagesService} from '../../../service';
 import { BulkQueueDetails } from '../../../model/bulk-queue-details';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-bulk-view',
@@ -27,11 +28,13 @@ export class BulkViewComponent implements OnInit, OnDestroy {
     public queueDetails :BulkQueueDetails; 
 
     public jobDone = false;
+    public completionDate = "";
 
     constructor(public deployService: AppdeploymentService,
                 private route: ActivatedRoute,
                 private router: Router,
                 public appImagesService: AppImagesService,
+                private datePipe: DatePipe
     ) {
     }
 
@@ -45,6 +48,7 @@ export class BulkViewComponent implements OnInit, OnDestroy {
                         this.bulk = bulk;
                         this.bulkType = bulk.type;
                         this.getQueueDetails();
+                        this.setCompletionDate(bulk);
                         if (this.bulkType === BulkType.APPLICATION) {
                             this.update();
                         }
@@ -101,6 +105,7 @@ export class BulkViewComponent implements OnInit, OnDestroy {
         this.refresh = timer(0, 20000).pipe(map(() => {
             this.deployService.getBulkDeployment(this.bulk.id).subscribe(bulk => {
                 this.bulk = bulk;
+                this.setCompletionDate(bulk);
                 if(bulk.state === 'REMOVED') this.refresh.unsubscribe();
                 if(bulk.state === 'PROCESSING' && this.queueDetails.jobInProcessId === bulk.id) {
                     this.progressBarMode = "determinate"
@@ -125,7 +130,7 @@ export class BulkViewComponent implements OnInit, OnDestroy {
 
     public getAppBulkDetails(id: number) {
         this.deployService.getAppBulkDetails(id).subscribe( (data: Blob) => {
-            console.warn(data)
+            console.log(data)
             const blob = new Blob([data], { type: 'text/csv' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -141,9 +146,17 @@ export class BulkViewComponent implements OnInit, OnDestroy {
     public refreshStates() {
         this.deployService.refreshStatesInBulkDeployment(this.bulkId).subscribe( deply => {
             this.bulk = deply;
+            this.setCompletionDate(deply);
             this.getQueueDetails();
-            console.log("Updated states of bulks")
         })
+    }
+
+    public setCompletionDate( deployment: BulkDeployment) {
+        if(this.bulk.completionDate !== undefined && this.bulk.completionDate !== null && deployment.state === 'COMPLETED') {
+            this.completionDate = this.datePipe.transform(this.bulk.completionDate,'dd-MM-yyyy HH:mm' )
+        } else {
+            this.completionDate = " - "
+        }
     }
 
     public setBarValue() {
@@ -152,7 +165,6 @@ export class BulkViewComponent implements OnInit, OnDestroy {
     
     public getQueueDetails(): void {
      this.deployService.getQueueDetails(this.bulkId).subscribe(queue => {
-        console.log(queue);
         this.queueDetails = queue;
         if(queue.jobDone === this.bulk.entries.length) {
             this.progressBarValue = 100;
