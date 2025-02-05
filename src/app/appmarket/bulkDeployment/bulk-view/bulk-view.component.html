@@ -160,6 +160,15 @@
             </div>
         </div>
 
+        <div class="" style="padding-bottom: 5rem;">
+            <label for="id" class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.APP_NAME' | translate }}</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="id" name="id" [disabled]="true"
+                       [(ngModel)]="bulk.details['appName']" #name="ngModel">
+            </div>
+            
+        </div>
+
         <div class="" style="padding-bottom: 5rem">
             <label for="creator"
                    class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.CREATOR' | translate }}</label>
@@ -196,14 +205,7 @@
             </div>
         </div>
 
-        <div class="" style="padding-bottom: 5rem;">
-            <label for="id" class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.APP_NAME' | translate }}</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="id" name="id" [disabled]="true"
-                       [(ngModel)]="bulk.details['appName']" #name="ngModel">
-            </div>
-            
-        </div>
+      
 
         <div *ngIf="bulk.state !== 'REMOVED'" class="flex justify-content-end" style="padding-right: 1.5rem">
             <button class="btn btn-primary mr-2" (click)="refreshStates()">{{'BULK.APP.REFRESH' | translate}}</button>
