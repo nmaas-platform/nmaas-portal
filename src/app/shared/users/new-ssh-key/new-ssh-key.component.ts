@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {SSHKeyService} from '../../../service/sshkey.service';
 import {SSHKeyRequest} from '../../../model/sshkey-request';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
@@ -16,6 +16,12 @@ export class NewSshKeyComponent implements OnInit {
 
   @Output()
   public out: EventEmitter<any> = new EventEmitter<any>();
+
+  @Input()
+  public userMode = false;
+  
+  @Input()
+  public userId : number;
 
   public error: string = undefined;
 
@@ -38,17 +44,34 @@ export class NewSshKeyComponent implements OnInit {
     console.log(this.requestForm);
     request.name = this.requestForm.value.name.trim();
     request.key = this.requestForm.value.key.trim();
+    if(this.userMode) {
+      if(this.userId !== null) {
+        this.keyService.createKeyForUser(request, this.userId).subscribe(
+          data => {
+            this.error = undefined;
+            this.requestForm.reset();
+            this.modal.hide();
+            this.out.emit();
+          },
+          error => {
+            this.error = error.message;
+          }
+      );
+      }
+  } else { // profile view
     this.keyService.createKey(request).subscribe(
-        data => {
-          this.error = undefined;
-          this.requestForm.reset();
-          this.modal.hide();
-          this.out.emit();
-        },
-        error => {
-          this.error = error.message;
-        }
-    );
+      data => {
+        this.error = undefined;
+        this.requestForm.reset();
+        this.modal.hide();
+        this.out.emit();
+      },
+      error => {
+        this.error = error.message;
+      }
+  );
+  }
+    
   }
 
   get name() {
