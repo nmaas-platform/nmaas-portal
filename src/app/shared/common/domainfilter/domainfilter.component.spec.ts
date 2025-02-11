@@ -11,6 +11,7 @@ import {of} from 'rxjs';
 import {Domain} from '../../../model/domain';
 import {ProfileService} from '../../../service/profile.service';
 import {User} from '../../../model';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('DomainFilterComponent', () => {
     let component: DomainFilterComponent;
@@ -82,6 +83,7 @@ describe('DomainFilterComponent', () => {
                     }
                 }),
             ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
             providers: [
                 {provide: DomainService, useValue: domainServiceSpy},
                 {provide: AuthService, useValue: authServiceSpy},
