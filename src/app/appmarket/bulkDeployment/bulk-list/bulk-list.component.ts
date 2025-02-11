@@ -203,8 +203,7 @@ export class BulkListComponent implements OnDestroy, OnInit {
 
         
     public ngOnDestroy() {
-        if (this.refresh !== undefined) {
-            this.refresh.unsubscribe();
+        if (this.refreshQueue !== undefined) {
             this.refreshQueue.unsubscribe();
         }
     }
