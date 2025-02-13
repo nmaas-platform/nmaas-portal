@@ -18,8 +18,12 @@ export class LoginSuccessComponent implements OnInit {
         this.route.queryParams.subscribe(params => {
             const token = params['token'];
             const refreshToken = params['refresh_token'];
+            const oidcToken = params['oidc_token'];
             if (token) {
                 this.authService.storeToken(token);
+            }
+            if (refreshToken) {
+                this.authService.storeOidcToken(oidcToken);
             }
             this.router.navigate(['/portal'])
         })

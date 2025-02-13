@@ -5,6 +5,8 @@ import {AppConfigService} from '../service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Authority} from '../model';
+import _default from '@formio/js/lib/mjs/translations/en';
+
 
 export class DomainRoles {
     constructor(private domainId: number, private roles: string[] = []) {
@@ -34,17 +36,30 @@ export class AuthService {
                 private appConfig: AppConfigService,
                 private jwtHelper: JwtHelperService) {
     }
+
     //TODO make this static again and serive this feature in other way
     public storeToken(token: string): void {
         localStorage.setItem(this.appConfig.config.tokenName, token);
+    }
+
+    public storeOidcToken(token: string): void {
+        localStorage.setItem('oidc-token', token);
     }
 
     private getToken(): string {
         return localStorage.getItem(this.appConfig.config.tokenName)
     }
 
+    private getOidcToken(): string {
+        return localStorage.getItem('oidc-token')
+    }
+
     private removeToken(): void {
         localStorage.removeItem(this.appConfig.config.tokenName);
+    }
+
+    private removeOidcToken(): void {
+        localStorage.removeItem('oidc-token');
     }
 
     public getSelectedLanguage(): string {
@@ -265,9 +280,20 @@ export class AuthService {
     }
 
     public logout(): void {
-        this.removeToken();
-        this.isLoggedInSubject.next(false);
-        localStorage.removeItem('_expiredTime');
+        const oidcToken = this.getOidcToken();
+
+        if (oidcToken === null) {
+            this.removeToken();
+            this.isLoggedInSubject.next(false);
+            localStorage.removeItem('_expiredTime');
+        } else {
+            this.removeToken();
+            this.removeOidcToken();
+            this.isLoggedInSubject.next(false);
+            localStorage.removeItem('_expiredTime');
+            this.http.get(this.appConfig.getApiUrl() + '/oidc/logout/' + oidcToken).subscribe(() => {
+            })
+        }
     }
 
     public isLogged(): boolean {
