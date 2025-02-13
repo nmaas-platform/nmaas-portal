@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import {AuthService} from './auth.service';
 import {ConfigurationService} from '../service';
+import { debounceTime } from 'rxjs';
 
 @Injectable()
 export class AuthGuard  {
@@ -11,7 +12,7 @@ export class AuthGuard  {
 
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (this.auth.isLogged()) {
-      this.maintenanceService.getConfiguration().subscribe(value => {
+      this.maintenanceService.getConfiguration().pipe(debounceTime(500)).subscribe(value => {
          if (!this.auth.hasRole('ROLE_SYSTEM_ADMIN') && value.maintenance) {
              this.auth.logout();
              this.router.navigate(['/welcome/login']);

@@ -11,4 +11,5 @@ export class Configuration {
     public appInstanceFailureEmailList: string[] = [];
     public bulkDeploymentJobCron: string;
     public parallelDeploymentsLimit: number;
+    public bulkDeploymentQueueRefresh: number;
 }

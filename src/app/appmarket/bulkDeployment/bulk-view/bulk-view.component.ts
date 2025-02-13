@@ -5,7 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {BulkResponse, BulkType} from '../../../model/bulk-response';
 import {timer} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {AppImagesService} from '../../../service';
+import {AppImagesService, ConfigurationService} from '../../../service';
 import { BulkQueueDetails } from '../../../model/bulk-queue-details';
 import { DatePipe } from '@angular/common';
 
@@ -30,22 +30,29 @@ export class BulkViewComponent implements OnInit, OnDestroy {
     public jobDone = false;
     public completionDate = "";
 
+    public configRefresh = 60;
+
     constructor(public deployService: AppdeploymentService,
                 private route: ActivatedRoute,
                 private router: Router,
                 public appImagesService: AppImagesService,
-                private datePipe: DatePipe
+                private datePipe: DatePipe,
+                private configService: ConfigurationService
     ) {
     }
 
     ngOnInit(): void {
-    
+        this.configService.getConfiguration().subscribe(conf => {
+            this.configRefresh = conf.bulkDeploymentQueueRefresh;
+        })
+
         this.route.params.subscribe(params => {
             if (params['id'] !== undefined) {
                 this.bulkId = +params['id'];
                 this.deployService.getBulkDeployment(this.bulkId).subscribe(
                     (bulk) => {
                         this.bulk = bulk;
+                        this.sortByInstanceId();
                         this.bulkType = bulk.type;
                         this.getQueueDetails();
                         this.setCompletionDate(bulk);
@@ -102,9 +109,10 @@ export class BulkViewComponent implements OnInit, OnDestroy {
     }
 
     public update() {
-        this.refresh = timer(0, 20000).pipe(map(() => {
+        this.refresh = timer(0, this.configRefresh * 1000).pipe(map(() => {
             this.deployService.getBulkDeployment(this.bulk.id).subscribe(bulk => {
                 this.bulk = bulk;
+                this.sortByInstanceId();
                 this.setCompletionDate(bulk);
                 if(bulk.state === 'REMOVED') this.refresh.unsubscribe();
                 if(bulk.state === 'PROCESSING' && this.queueDetails.jobInProcessId === bulk.id) {
@@ -146,6 +154,7 @@ export class BulkViewComponent implements OnInit, OnDestroy {
     public refreshStates() {
         this.deployService.refreshStatesInBulkDeployment(this.bulkId).subscribe( deply => {
             this.bulk = deply;
+            this.sortByInstanceId();
             this.setCompletionDate(deply);
             this.getQueueDetails();
         })
@@ -169,11 +178,19 @@ export class BulkViewComponent implements OnInit, OnDestroy {
         if(queue.jobDone === this.bulk.entries.length) {
             this.progressBarValue = 100;
             this.jobDone = true;
-        } else {
+            this.progressBarMode = "determinate"
+        } else if(queue.jobDone === 0) {
+            this.progressBarMode = "indeterminate"
+        }else {
+            this.progressBarMode = "determinate"
             this.progressBarValue =  queue.jobDone * 100 / this.bulk.entries.length;
             this.jobDone = false;
         }
         
      })   
+    }
+
+    public sortByInstanceId() {
+        this.bulk.entries.sort((a,b) => this.getAppInstanceId(a) < this.getAppInstanceId(b) ? 1 : -1);
     }
 }

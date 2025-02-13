@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, Output, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {BulkDeployment} from '../../../model/bulk-deployment';
 import {BulkType} from '../../../model/bulk-response';
 import {SortableHeaderDirective} from '../../../service/sort-domain.directive';
@@ -7,13 +7,14 @@ import {AppdeploymentService} from '../appdeployment.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import { BulkQueueDetails } from '../../../model/bulk-queue-details';
 import { map, timer } from 'rxjs';
+import { ConfigurationService } from '../../../service';
 
 @Component({
     selector: 'app-bulk-list',
     templateUrl: './bulk-list.component.html',
     styleUrls: ['./bulk-list.component.css']
 })
-export class BulkListComponent implements OnDestroy {
+export class BulkListComponent implements OnDestroy, OnInit {
 
     public static BULK_ENTRY_DETAIL_KEY_APP_INSTANCE_NO = 'appInstanceNo';
     public static BULK_ENTRY_DETAIL_KEY_APP_INSTANCE_NAME = 'appName';
@@ -55,9 +56,19 @@ export class BulkListComponent implements OnDestroy {
     public refreshQueue = undefined;
     public sidebarVisible4 = false;
 
+    public configRefresh = 60;
+
+
     constructor(private appDeploy: AppdeploymentService,
-                private sanitizer: DomSanitizer) {
-                    this.update();
+                private sanitizer: DomSanitizer,
+                private configService: ConfigurationService) {   
+    }
+
+    public ngOnInit(): void {
+        this.configService.getConfiguration().subscribe(conf => {
+            this.configRefresh = conf.bulkDeploymentQueueRefresh;
+            this.update();
+        })
     }
 
     public getApplicationName(details: Map<string, string>) {
@@ -181,7 +192,7 @@ export class BulkListComponent implements OnDestroy {
     }
 
      public update() {
-            this.refreshQueue = timer(0, 60000).pipe(map(() => {
+            this.refreshQueue = timer(0, this.refreshQueue * 1000).pipe(map(() => {
               this.getQueueDetails();
             })).subscribe()
         }
@@ -192,8 +203,7 @@ export class BulkListComponent implements OnDestroy {
 
         
     public ngOnDestroy() {
-        if (this.refresh !== undefined) {
-            this.refresh.unsubscribe();
+        if (this.refreshQueue !== undefined) {
             this.refreshQueue.unsubscribe();
         }
     }
