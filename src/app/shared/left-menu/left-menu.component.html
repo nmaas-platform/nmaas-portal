@@ -6,9 +6,9 @@
         <div style="margin-top: 30px">
             <nmaas-domain-filter class="drop-domain"></nmaas-domain-filter>
         </div>
-        <ul style="margin-top: 30px">
+        <ul *ngIf="!toggleAdmin" style="margin-top: 30px">
           <li [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" >
-              <a (click)="showToastTest()" style="display: flex; align-items: center;" [routerLink]="['/']">
+              <a  style="display: flex; align-items: center;" [routerLink]="['/']">
                   <i class="pi pi-th-large" style="margin-right:10px; font-size: 15px"></i>Applications</a>
           </li>
           <li [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" >
@@ -16,9 +16,43 @@
                   <i class="pi pi-server" style="margin-right:10px; font-size: 15px"></i>Instances</a>
           </li>
         </ul>
+        <ul *ngIf="toggleAdmin" style="margin-top: 30px">
+            <li [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" >
+                <a  style="display: flex; align-items: center;" [routerLink]="['/dashboard']">
+                    <i class="pi pi-chart-bar" style="margin-right:10px; font-size: 15px"></i>Dashboard</a>
+            </li>
+            <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_VL_MANAGER', 'ROLE_VL_DOMAIN_ADMIN']"
+                [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" >
+                <a  style="display: flex; align-items: center;" [routerLink]="['/admin/domains']">
+                    <i class="pi pi-server" style="margin-right:10px; font-size: 15px"></i>{{ 'NAVBAR.DOMAINS' | translate }}</a>
+            </li>
+            <li *roles="['ROLE_SYSTEM_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" >
+                <a  style="display: flex; align-items: center;" [routerLink]="['/admin/users']">
+                    <i class="pi pi-users" style="margin-right:10px; font-size: 15px"></i>{{ 'NAVBAR.USERS' | translate }}</a>
+            </li>
+            <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" >
+                <a  style="display: flex; align-items: center;" [routerLink]="['/']">
+                    <i class="pi pi-th-large" style="margin-right:10px; font-size: 15px"></i>Catalog</a>
+            </li>
+            <li *roles="['ROLE_SYSTEM_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" >
+                <a  style="display: flex; align-items: center;" [routerLink]="['/admin/configuration']">
+                    <i class="pi pi-cog" style="margin-right:10px; font-size: 15px"></i>Settings</a>
+            </li>
+            <li *roles="['ROLE_SYSTEM_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" >
+                <a  style="display: flex; align-items: center;" [routerLink]="['/admin/languages']">
+                    <i class="pi pi-tags" style="margin-right:10px; font-size: 15px"></i>{{'NAVBAR.LANGUAGES' | translate }}</a>
+            </li>
+            <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" >
+                <a  style="display: flex; align-items: center;" [routerLink]="['/admin/monitor']">
+                    <i class="pi pi-chart-line" style="margin-right:10px; font-size: 15px"></i>{{ 'NAVBAR.MONITOR' | translate }}</a>
+            </li>
+
+        </ul>
     </div>
     <div class="menu flex">
-        <p-menu #menu [model]="items" [popup]="true" class="test" />
-        <p-button (onClick)="menu.toggle($event)" class="user-button"><i class="pi pi-user" style="font-size: 13px; margin-right:10px"></i> User</p-button>
+        <p-menu  #menu [model]="items" [popup]="true" class="test" />
+        <p-button *ngIf="!toggleAdmin" (onClick)="menu.toggle($event)" class="user-button"><i class="pi pi-user" style="font-size: 13px; margin-right:10px"></i> User</p-button>
+        <p-button *ngIf="!toggleAdmin" (onClick)="adminPanel()" style="margin-top:10px"><i class="pi pi-sign-in" style="margin-right:10px; font-size: 15px"></i>Go to admin panel</p-button>
+        <p-button *ngIf="toggleAdmin" (onClick)="adminPanel()" style="margin-top:10px"><i class="pi pi-sign-in" style="margin-right:10px; font-size: 15px"></i>Go to user panel</p-button>
     </div>
 </div>

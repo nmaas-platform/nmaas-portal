@@ -1,64 +1,64 @@
-<div class="col-sm-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10">
-    <h3>{{ 'DOMAINS.TITLE' | translate }}</h3>
-    <div class="flex space-between align-content-center" style="height: 50px;">
-        <div class="flex" style="height: 45px;">
-            <a *roles="['ROLE_SYSTEM_ADMIN']" [routerLink]="['add']" class="btn btn-primary" style="margin-top: 10px;"
-               role="button">{{'DOMAINS.ADD_BUTTON' | translate}}</a>
-        </div>
-        <div *roles="['ROLE_SYSTEM_ADMIN']" class="flex" style="align-content: center; height: 35px; margin-top: 10px;">
-            <button class="btn btn-primary" [routerLink]="['annotations']">{{'DOMAINS.ANNOTATIONS.EDIT' | translate}}</button>
-        </div>
-        <div *roles="['ROLE_SYSTEM_ADMIN']" class="flex" style="align-content: center; height: 35px;  margin-top: 8px;">
-            <span style="align-content: center; margin-right: 5px; margin-top: 10px;"> {{'DOMAINS.NOTACTIVE' | translate}}</span>
-            <p-checkbox id="showNotActive" [binary]="true" [(ngModel)]=" showNotActive" class="flex align-content-start" ></p-checkbox>
-        </div>
-        <div class="flex align-content-center" style="align-content: center; height: 35px;  margin-top: 8px;">
-            <p class="flex align-content-center" style="margin-top: 10px;">{{ 'DOMAINS.ITEMS_PER_PAGE' | translate }}:</p>
-            <span id="selectionItems" class="dropdown flex align-content-center" style="vertical-align: middle; display: inline-block; margin-right: 1rem;">
-        <button class="dropdown-toggle btn" data-toggle="dropdown" data-close-others="true">
-            <span class="flex mt-2 mr-1">{{maxItemsOnPage}}</span>
-        </button>
-        <ul class="dropdown-menu">
-            <li *ngFor="let item of itemsPerPage" [ngClass]="{'active': maxItemsOnPage == item}">
-                <a (click)="setItems(item)">
-                    <span>{{item.toString()}}</span>
-                </a>
-            </li>
-        </ul>
-    </span>
-            <input pInputText class="flex" name="search" id="search" placeholder="Search" type="text" style="height: 34px" (keydown)="changelog()" [(ngModel)]="searchValue">
-        </div>
+<div style="display: flex; align-items: center;  margin-top:20px">
+    <div style="margin-right:20px">
+		<span class="p-input-icon-right" style="width: 100%">
+     		 <i class="pi pi-search" style="font-size: 13px; top: 16px; margin-right: 5px;"></i>
+			<input  pInputText type="text" name="search" class="form-control" style="width: 100%"
+                    [(ngModel)]="searchValue" placeholder="{{'SEARCH' | translate}}">
+		</span>
     </div>
-    <br>
-    <table #table class="table table-hover table-condensed" aria-describedby="Domains list" sortable-table (sorted)="onSort($event)">
-        <thead>
-        <tr>
-            <th scope="col" class="column-sortable" sortable-column="codename" sort-direction="asc">{{ 'DOMAINS.CODE_NAME' | translate }}
-            </th>
-            <th scope="col" class="column-sortable" sortable-column="name" >{{ 'DOMAINS.NAME' | translate }}
-            </th>
-            <th scope="col" class="column-sortable" sortable-column="active" >{{ 'DOMAINS.ACTIVATE' | translate }}
-            </th>
-            <th scope="col">&nbsp;</th>
-        </tr>
-        </thead>
+    <div class="flex" style="margin-right:20px">
+        <button *roles="['ROLE_SYSTEM_ADMIN']" [routerLink]="['add']" class="btn btn-primary"
+           role="button">{{'DOMAINS.ADD_BUTTON' | translate}}</button>
+    </div>
+    <div *roles="['ROLE_SYSTEM_ADMIN']" class="flex" style="margin-right:20px" >
+        <button class="btn btn-primary" [routerLink]="['annotations']">{{'DOMAINS.ANNOTATIONS.EDIT' | translate}}</button>
+    </div>
+    <div *roles="['ROLE_SYSTEM_ADMIN']" class="flex" >
+        <p-checkbox id="showNotActive" [binary]="true" [(ngModel)]=" showNotActive" class="flex" ></p-checkbox>
+        <label for="showNotActive"> {{'DOMAINS.NOTACTIVE' | translate}}</label>
+    </div>
+</div>
+    <h4 style="margin-top:40px; font-weight: bold">{{ 'DOMAINS.TITLE' | translate }}</h4>
 
-        <tbody>
-        <ng-template ngFor let-domain
-                     [ngForOf]="domains | async | searchDomain: searchValue: showNotActive | paginate: {itemsPerPage: maxItemsOnPage, currentPage: p}">
-            <tr *ngIf="!domain.deleted" class="clickable" [routerLink]="['view/', domain.id]">
-                <td>{{domain?.codename}}</td>
-                <td>{{domain?.name}}</td>
-                <td><span class="glyphicon glyphicon-ok" *ngIf="domain?.active"></span><span
-                        class="glyphicon glyphicon-remove" *ngIf="!(domain?.active)"></span></td>
-                <td class="text-right">
-					<span class="dropdown">
+    <div class="background-section">
+        <p-table [value]="domains | async | searchDomain: searchValue: showNotActive"
+                 [paginator]="true"
+                 [rows]="maxItemsOnPage"
+                 [rowsPerPageOptions]="[15, 20, 25, 30, 50]"
+                 [responsiveLayout]="'scroll'">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="codename">
+                        {{ 'DOMAINS.CODE_NAME' | translate }}
+                        <p-sortIcon field="codename"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="name">
+                        {{ 'DOMAINS.NAME' | translate }}
+                        <p-sortIcon field="name"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="active">
+                        {{ 'DOMAINS.ACTIVATE' | translate }}
+                        <p-sortIcon field="active"></p-sortIcon>
+                    </th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-domain>
+                <tr  [routerLink]="['view/', domain.id]" *ngIf="!domain.deleted">
+                    <td>{{domain?.codename}}</td>
+                    <td>{{domain?.name}}</td>
+                    <td>
+                        <span class="glyphicon glyphicon-ok" *ngIf="domain?.active"></span>
+                        <span class="glyphicon glyphicon-remove" *ngIf="!(domain?.active)"></span>
+                    </td>
+                    <td class="text-right">
+                <span class="dropdown">
 						<a style="display: inline-block; text-align:right" class="dropdown-toggle " aria-expanded="false"
                            aria-haspopup="true"
                            data-toggle="dropdown" href="#" role="button">
 							<em class="fas fa-cog icon-black icon-bigger"></em>
 						</a>
-						<ul class="dropdown-menu pull-right-drop">
+						<ul class="dropdown-menu pull-right-drop" [appendTo]="'body'" >
 							<li><a [routerLink]="['view/', domain.id]" class="">
 								{{ 'DOMAINS.DETAILS_BUTTON' | translate }}</a>
 							</li>
@@ -66,26 +66,18 @@
                                    class="">{{ 'DOMAINS.EDIT_BUTTON' | translate }}</a>
 							</li>
 							<li><a *roles="['ROLE_SYSTEM_ADMIN']" (click)="$event.stopPropagation(); changeState(domain)"
-								   class="">{{ getStateLabel(domain?.active) }}</a>
+                                   class="">{{ getStateLabel(domain?.active) }}</a>
 							</li>
 							<li><a *roles="['ROLE_SYSTEM_ADMIN']" (click)="$event.stopPropagation(); openRemovalModal(domain)"
-								   class="">{{ 'DOMAINS.DELETE_BUTTON' | translate }}</a>
+                                   class="">{{ 'DOMAINS.DELETE_BUTTON' | translate }}</a>
 							</li>
 						</ul>
 					</span>
-                </td>
-            </tr>
-        </ng-template>
-        </tbody>
-    </table>
-    <pagination-controls class="text-right" (pageChange)="p = $event"
-                         previousLabel="{{ 'PAGINATION.PREVIOUS' | translate }}"
-                         nextLabel="{{ 'PAGINATION.NEXT' | translate }}"
-                         screenReaderPaginationLabel="{{ 'PAGINATION.SCREEN_READER.PAGINATION' | translate }}"
-                         screenReaderPageLabel="{{ 'PAGINATION.SCREEN_READER.PAGE' | translate }}"
-                         screenReaderCurrentLabel="{{ 'PAGINATION.SCREEN_READER.CURRENT' | translate }}"></pagination-controls>
-
-</div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 
 <nmaas-removal-confirmation-modal [object]="domainToRemove" [disableButton]="false" (onConfirm)="softRemoveDomain(domainToRemove.id)"
                                 [header]="'DOMAIN_DETAILS.MODAL.HEADER'" [description]="'DOMAIN_DETAILS.MODAL.DESCRIPTION'"></nmaas-removal-confirmation-modal>

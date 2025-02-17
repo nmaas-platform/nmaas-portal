@@ -10,6 +10,7 @@ import {MenuItem} from 'primeng/api';
 })
 export class LeftMenuComponent  implements OnInit {
   items: MenuItem[];
+  toggleAdmin = false;
 
   constructor(private toast: ToastContainerComponent,
               public router: Router) {
@@ -35,6 +36,9 @@ export class LeftMenuComponent  implements OnInit {
 
   public showToastTest() {
     this.toast.show("Test test", ToastMode.DANGER, "HEADER")
+  }
+  adminPanel() {
+    this.toggleAdmin = !this.toggleAdmin;
   }
 
 }
