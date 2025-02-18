@@ -61,6 +61,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import { DomainNamespaceAnnotationsComponent } from './domain-namespace-annotations/domain-namespace-annotations.component';
 import { provideZxvbnServiceForPSM  } from 'angular-password-strength-meter/zxcvbn';
 import { LeftMenuComponent } from './left-menu/left-menu.component';
+import {TableModule} from 'primeng/table';
 
 
 @NgModule({
@@ -80,6 +81,7 @@ import { LeftMenuComponent } from './left-menu/left-menu.component';
         DropdownModule,
         InputTextModule,
         FormioModule,
+        TableModule,
     ],
     declarations: [
         RateComponent,

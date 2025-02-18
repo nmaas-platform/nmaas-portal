@@ -69,21 +69,7 @@ tr.clickable {
 :host ::ng-deep .p-paginator .p-dropdown .p-dropdown-label{
     padding-right: 10px;
 }
-::ng-deep.p-selectbutton .p-button.p-highlight{
-    background: var(--primary-button-color) !important;
-    border-color: var(--primary-button-color);
-}
-:host ::ng-deep .p-selectbutton .p-button{
-    background: #fff;
-}
-:host ::ng-deep .p-button .p-button-label{
-    font-weight: normal;
-}
-:host ::ng-deep .p-selectbutton .p-button:not(.p-disabled):not(.p-highlight):hover{
-    background: var(--primary-button-color);
-    border-color: var(--primary-button-color);
-    color: var(--background);
-}
+
 label{
     padding-left:5px;
     display: unset;
