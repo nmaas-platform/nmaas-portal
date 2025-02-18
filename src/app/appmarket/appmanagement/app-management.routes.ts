@@ -15,48 +15,48 @@ import {AppsummaryComponent} from '../bulkDeployment/appDeployment/appsummary/ap
 
 export const AppManagementRoutes: Route[] = [
     {
-        path: 'admin/apps',
+        path: 'apps',
         component: AppManagementListComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER']}
     },
     {
-        path: 'admin/apps/create',
+        path: 'apps/create',
         component: AppCreateWizardComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER'], mode: ComponentMode.CREATE}
     },
     {
-        path: 'admin/apps/create/version/:name',
+        path: 'apps/create/version/:name',
         component: AppVersionCreateWizardComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER'], mode: ComponentMode.CREATE}
     },
     {
-        path: 'admin/apps/edit/:id',
+        path: 'apps/edit/:id',
         component: AppCreateWizardComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER'], mode: ComponentMode.EDIT}
     },
     {
-        path: 'admin/apps/edit/version/:id',
+        path: 'apps/edit/version/:id',
         component: AppVersionCreateWizardComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER'], mode: ComponentMode.EDIT}
     },
     {
-        path: 'admin/apps/view/:id',
+        path: 'apps/view/:id',
         component: AppPreviewComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER']}
     },
     {
-        path: 'admin/apps/bulks',
+        path: 'apps/bulks',
         component: BulkAppListComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_VL_MANAGER']}
     },
-    { path: 'admin/apps/bulks/new',
+    { path: 'apps/bulks/new',
         component: AppnavigatorComponent,
         children: [
             {path: '', redirectTo: 'select', pathMatch: 'full'},
@@ -65,7 +65,7 @@ export const AppManagementRoutes: Route[] = [
             {path: 'summary', component: AppsummaryComponent}
         ]},
     {
-        path: 'admin/apps/bulks/:id',
+        path: 'apps/bulks/:id',
         component: BulkViewComponent,
         canActivate: [AuthGuard, RoleGuard],
         data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_VL_MANAGER' ]}

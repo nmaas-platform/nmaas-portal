@@ -63,6 +63,7 @@ import { provideZxvbnServiceForPSM  } from 'angular-password-strength-meter/zxcv
 import { AccessTokensComponent } from './users/access-token/access-tokens.component';
 import { LeftMenuComponent } from './left-menu/left-menu.component';
 import {TableModule} from 'primeng/table';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 
 @NgModule({
@@ -128,7 +129,8 @@ import {TableModule} from 'primeng/table';
         PreferencesComponent,
         SortableHeaderDirective,
         DomainNamespaceAnnotationsComponent,
-        AccessTokensComponent
+        AccessTokensComponent,
+        AdminDashboardComponent
     ],
     providers: [
         PasswordValidator,

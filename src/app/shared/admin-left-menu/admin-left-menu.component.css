@@ -1,0 +1,62 @@
+.menu {
+    background-color: var(--menu-color);
+    color: var(--l-text-color);
+    /*height: calc(100vh - 2rem);*/
+    /*position: static;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+  }
+  .menu ul {
+    list-style: none;
+    padding: 0;
+  }
+  .menu li {
+      padding: 10px 10px;
+      margin: 0.5rem 0;
+      border-radius: 4px;
+  }
+.menu li:hover {
+    padding: 10px 5px;
+    background: var(--background);
+    border-left: 5px solid var(--menu-pink)
+}
+.menu li.active{
+    padding: 10px 5px;
+}
+.menu li.active:hover{
+    padding: 10px 5px;
+}
+.active{
+    padding: 10px 5px;
+    background: white;
+    border-left: 5px solid var(--menu-pink)
+}
+  .menu a {
+    color: var(--l-text-color);
+    text-decoration: none;
+  }
+:host ::ng-deep .p-button{
+    padding: 8px 10px;
+    width:100%;
+    background: var(--user-button-background);
+    border: none;
+}
+:host ::ng-deep .p-button:hover{
+    background: var(--user-button-background-hover)
+}
+:host ::ng-deep .p-menu.p-menu-overlay{
+    position: static;
+    width:100%;
+    margin-bottom:5px;
+    border:none;
+}
+:host ::ng-deep .p-menu .p-menuitem > .p-menuitem-content .p-menuitem-link  {
+    text-decoration: none;
+    padding: 1.3rem;
+}
+:host ::ng-deep .p-menu .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover{
+    background:var(--user-button-background-hover);
+}

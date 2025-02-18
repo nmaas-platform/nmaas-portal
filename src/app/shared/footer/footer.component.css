@@ -1,8 +1,9 @@
 footer {
   flex-shrink: 0;
-  padding-bottom: 15px;
+  padding-bottom: 0px;
   padding-top: 15px;
   background-color: #e7e7e7;
+  /* margin-left: -1rem; */
 }
 
 /*explicit text alignment for chrome*/
@@ -86,6 +87,6 @@ a:hover {
   flex-direction: row;
 }
 .container-width {
-  width: 85vw;
+  width: calc(100vw - var(--left-panel-width));
   margin: auto;
 }

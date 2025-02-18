@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastContainerComponent, ToastMode } from '../toast-container/toast-container.component';
-import {Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {MenuItem} from 'primeng/api';
 
 @Component({
@@ -11,9 +11,11 @@ import {MenuItem} from 'primeng/api';
 export class LeftMenuComponent  implements OnInit {
   items: MenuItem[];
   toggleAdmin = false;
+  currentUrl : string ;
 
   constructor(private toast: ToastContainerComponent,
-              public router: Router) {
+              public router: Router,
+              private readonly activeRoute: ActivatedRoute,) {
     this.items = [
       {
         label: 'Profile',
@@ -31,6 +33,15 @@ export class LeftMenuComponent  implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.currentUrl = event.urlAfterRedirects;
+        console.log('Aktualny URL:', this.currentUrl);
+        if(this.currentUrl.includes('admin')) {
+          this.toggleAdmin = true;
+        }
+      }
+    })
       console.log("test left menu ")
   }
 
