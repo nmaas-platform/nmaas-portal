@@ -24,7 +24,7 @@ export class DomainService extends GenericDataService {
   constructor(http: HttpClient, appConfig: AppConfigService) {
     super(http, appConfig);
     this.updateRequiredFlag = false;
-    this.url = this.appConfig.getApiUrl() + '/domains/';
+    this.url = this.appConfig.getApiUrl() + '/domains';
   }
 
   public getGlobalDomainId(): number {
@@ -40,7 +40,7 @@ export class DomainService extends GenericDataService {
   }
 
   public getOne(domainId: number): Observable<Domain> {
-    return this.get<Domain>(this.url + domainId);
+    return this.get<Domain>(this.url + '/' + domainId);
   }
 
   public add(domain: Domain): Observable<Id> {
@@ -48,19 +48,19 @@ export class DomainService extends GenericDataService {
   }
 
   public update(domain: Domain): Observable<any> {
-    return this.put<Domain, Id>(this.url + domain.id, domain);
+    return this.put<Domain, Id>(this.url + '/' + domain.id, domain);
   }
 
   public updateTechDetails(domain: Domain): Observable<any> {
-    return this.patch<Domain, Id>(this.url + domain.id, domain)
+    return this.patch<Domain, Id>(this.url + '/' + domain.id, domain)
   }
 
   public updateDcnConfigured(domain: Domain): Observable<any> {
-    return this.patch<Domain, Id>(this.url + domain.id + '/dcn?configured=' + domain.domainDcnDetails.dcnConfigured, null);
+    return this.patch<Domain, Id>(this.url  + '/' + domain.id + '/dcn?configured=' + domain.domainDcnDetails.dcnConfigured, null);
   }
 
   public updateDomainState(domain: Domain): Observable<any> {
-    return this.patch<Domain, Id>(this.url + domain.id + '/state?active=' + !domain.active, null);
+    return this.patch<Domain, Id>(this.url + '/' + domain.id + '/state?active=' + !domain.active, null);
   }
 
   public remove(domainId: number, softRemove?: boolean): Observable<any> {
@@ -68,15 +68,15 @@ export class DomainService extends GenericDataService {
     if (softRemove !== undefined) {
       params = params.append("softRemove", softRemove.toString())
     }
-    return this.http.delete(this.url + domainId, {params})
+    return this.http.delete(this.url + '/' + domainId, {params})
   }
 
   public getMyDomains(): Observable<Domain[]> {
-    return this.get<Domain[]>(this.url + 'my');
+    return this.get<Domain[]>(this.url + '/my');
   }
 
   public getUsers(domainId: number): Observable<User[]> {
-    return this.get<User[]>(this.url + 'users');
+    return this.get<User[]>(this.url + '/users');
   }
 
   public setUpdateRequiredFlag(flag: boolean) {
@@ -89,50 +89,50 @@ export class DomainService extends GenericDataService {
 
   // GROUPS
   public getAllDomainGroups(): Observable<DomainGroup[]> {
-    return this.get<DomainGroup[]>(this.url + 'group');
+    return this.get<DomainGroup[]>(this.url + '/group');
   }
 
   public getDomainGroup(domainGroupId: number): Observable<DomainGroup> {
-    return this.get<DomainGroup>(this.url + 'group/' + domainGroupId);
+    return this.get<DomainGroup>(this.url + '/group/' + domainGroupId);
   }
 
   public deleteDomainGroup(domainGroupId: number): Observable<void> {
-    return this.delete<void>(this.url + 'group/' + domainGroupId);
+    return this.delete<void>(this.url + '/group/' + domainGroupId);
   }
 
   public addDomainsToGroup(groupCodeName: string, domainIds: number[]): Observable<DomainGroup> {
-    return this.post(this.url + 'group/' + groupCodeName, domainIds);
+    return this.post(this.url + '/group/' + groupCodeName, domainIds);
   }
 
   public deleteDomainFromGroup(groupId: number, domainId: number): Observable<DomainGroup> {
-    return this.patch(this.url + 'group/' + groupId, domainId);
+    return this.patch(this.url + '/group/' + groupId, domainId);
   }
 
   public createDomainGroup(domainGroup: DomainGroup): Observable<Id> {
-    return this.post(this.url + 'group', domainGroup);
+    return this.post(this.url + '/group', domainGroup);
   }
 
   public updateDomainGroup(domainGroup: DomainGroup, id: number): Observable<Id> {
-    return this.put(this.url + 'group/' + id, domainGroup);
+    return this.put(this.url + '/group/' + id, domainGroup);
   }
 
   public updateDomainGroupManagers(managers: User[], id: number): Observable<DomainGroup> {
-    return this.put(this.url + 'group/members/' + id, managers);
+    return this.put(this.url + '/group/members/' + id, managers);
   }
 
   public getAnnotations(): Observable<DomainAnnotation[]> {
-    return this.get<DomainAnnotation[]>(this.url + 'annotations')
+    return this.get<DomainAnnotation[]>(this.url + '/annotations')
   }
 
   public addAnnotations(annotation: KeyValue): Observable<void> {
-    return this.post(this.url + 'annotations', annotation)
+    return this.post(this.url + '/annotations', annotation)
   }
 
-  public deleteAnnotation(id: number) : Observable<void>{
-    return this.delete(`${this.url}annotations/${id}`)
+  public deleteAnnotation(id: number) : Observable<void> {
+    return this.delete(`${this.url}/annotations/${id}`)
   }
 
   public updateAnnotation(annotation: DomainAnnotation): Observable<void> {
-    return this.put(`${this.url}annotations/${annotation.id}`, annotation)
+    return this.put(`${this.url}/annotations/${annotation.id}`, annotation)
   }
 }

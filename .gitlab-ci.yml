@@ -20,6 +20,7 @@ sonar:
   image: trion/ng-cli:17.3.7
   only:
     - develop
+    - /^release/
   script:
     - npm ci --force
     - npm run sonar -- -Dsonar.host.url=${SONAR_HOST} -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.projectName=${SONAR_PROJECT_NAME} -Dsonar.branch.name=develop -Dsonar.login=${SONAR_LOGIN_TOKEN}

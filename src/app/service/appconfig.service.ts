@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 
 @Injectable({
@@ -10,7 +10,8 @@ export class AppConfigService {
 
     public jwtAllowedDomains: string[] = []
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {
+    }
 
     public load() {
         return new Promise<void>((resolve) => {
@@ -23,39 +24,43 @@ export class AppConfigService {
         });
     }
 
+    public getOidcUrl(): string {
+        return this.config.apiUrl + '/oauth2/authorization/my-oidc';
+    }
+
     public getApiUrl(): string {
-      if (this.config == null) {
-        return 'http://localhost/api';
-      }
-      return this.config.apiUrl;
+        if (this.config == null) {
+            return 'http://localhost/api';
+        }
+        return this.config.apiUrl;
     }
 
     public getNmaasGlobalDomainId(): number {
-      if (this.config == null) {
-         return 0;
-      }
-      return this.config.nmaas.globalDomainId || 0;
+        if (this.config == null) {
+            return 0;
+        }
+        return this.config.nmaas.globalDomainId || 0;
     }
 
     public getHttpTimeout(): number {
-      if (this.config == null) {
-         return 10000;
-      }
-      return this.config.http.timeout || 10000;
+        if (this.config == null) {
+            return 10000;
+        }
+        return this.config.http.timeout || 10000;
     }
 
     public getShowGitInfo(): boolean {
-      if (this.config == null) {
-          return false;
-      }
-      return this.config.showGitInfo || false;
+        if (this.config == null) {
+            return false;
+        }
+        return this.config.showGitInfo || false;
     }
 
     public getShowChangelog(): boolean {
-      if (this.config == null) {
-          return false;
-      }
-      return this.config.showChangelog || false;
+        if (this.config == null) {
+            return false;
+        }
+        return this.config.showChangelog || false;
     }
 
     public getSiteKey(): string {
@@ -70,6 +75,6 @@ export class AppConfigService {
     }
 
     public getLandingProfile(): string {
-      return this.config.landing || ''
+        return this.config.landing || ''
     }
 }

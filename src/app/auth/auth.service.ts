@@ -34,8 +34,8 @@ export class AuthService {
                 private appConfig: AppConfigService,
                 private jwtHelper: JwtHelperService) {
     }
-
-    private storeToken(token: string): void {
+    //TODO make this static again and serive this feature in other way
+    public storeToken(token: string): void {
         localStorage.setItem(this.appConfig.config.tokenName, token);
     }
 

@@ -62,7 +62,7 @@
                             <td>{{getDomainId(response)}}</td>
                             <td>{{getDomainName(response)}}</td>
                             <td>{{getDomainCodeName(response)}}</td>
-                            <td style="width: 5%" class="text-right">
+                            <td style="width: 5%" class="text-right" *ngIf="bulk.state !== 'REMOVED'">
                                 <i *ngIf="response.type === 'DOMAIN'" class="pi pi-search" style="font-size: 1.8rem; cursor: pointer" [routerLink]="['/admin/domains/view/', response?.details['domainId']]"></i>
                                 <i *ngIf="response.type === 'USER'" class="pi pi-search" style="font-size: 1.8rem; cursor: pointer" [routerLink]="['/admin/users/view', response?.details['userId']]"></i>
                     <!-- <span class="dropdown">
@@ -160,6 +160,15 @@
             </div>
         </div>
 
+        <div class="" style="padding-bottom: 5rem;">
+            <label for="id" class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.APP_NAME' | translate }}</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="id" name="id" [disabled]="true"
+                       [(ngModel)]="bulk.details['appName']" #name="ngModel">
+            </div>
+            
+        </div>
+
         <div class="" style="padding-bottom: 5rem">
             <label for="creator"
                    class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.CREATOR' | translate }}</label>
@@ -187,21 +196,31 @@
             </div>
         </div>
 
-        <div class="" style="padding-bottom: 5rem;">
-            <label for="id" class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.APP_NAME' | translate }}</label>
+        <div class="" style="padding-bottom: 5rem">
+            <label for="completionDate"
+                   class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.COMPLETION_DATE' | translate }}</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="id" name="id" [disabled]="true"
-                       [(ngModel)]="bulk.details['appName']" #name="ngModel">
+                <input type="text" class="form-control" id="completionDate" name="completionDate" [disabled]="true"
+                       placeholder="{{completionDate}}">
             </div>
-            
         </div>
 
-        <div class="flex justify-content-end" style="padding-right: 1.5rem">
+      
+
+        <div *ngIf="bulk.state !== 'REMOVED'" class="flex justify-content-end" style="padding-right: 1.5rem">
             <button class="btn btn-primary mr-2" (click)="refreshStates()">{{'BULK.APP.REFRESH' | translate}}</button>
 
-            <button class="btn btn-primary" (click)="getAppBulkDetails(this.bulkId)">{{'BULK.APP.DOWNLOAD_CSV' | translate}}</button>
+            <button *ngIf="bulk.state !== 'FAILED'" class="btn btn-primary" (click)="getAppBulkDetails(this.bulkId)">{{'BULK.APP.DOWNLOAD_CSV' | translate}}</button>
         </div>
-        <div class="panel panel-default" style="margin-top: 3rem">
+        <div class="mt-4">
+            <p-progressBar [mode]="progressBarMode"[value]="progressBarValue" id="progressBarr" [style]="{ height: '18px' }" [styleClass]="jobDone ? 'job-done-bar' : 'normal-bar'">
+                <ng-template pTemplate="content" let-value> 
+                    <span>{{queueDetails?.jobDone}} <span *ngIf="queueDetails?.jobDone !== bulk.entries.length">(+{{queueDetails?.jobInProcess}})</span> / {{bulk.entries.length}}</span>    
+                    </ng-template>
+            </p-progressBar>
+
+        </div>
+        <div class="panel panel-default" style="margin-top: 1rem">
             <div class="panel-heading">
 
                 <div style="display: flex; justify-content: start; align-items: center">
@@ -235,8 +254,8 @@
                             <td>{{getAppInstanceId(response)}}</td>
                             <td>{{getAppInstanceName(response)}}</td>
                             <td>{{getDomainCodeName(response)}}</td>
-                            <td style="width: 5%" class="text-right">
-                                <i class="pi pi-search" style="font-size: 1.8rem; cursor: pointer" [routerLink]="['/instances/', response?.details['appInstanceId']]"></i>
+                            <td style="width: 5%" class="text-right"  >
+                                <i *ngIf="response?.details['appInstanceId'] !== undefined" class="pi pi-search" style="font-size: 1.8rem; cursor: pointer" [routerLink]="['/instances/', response?.details['appInstanceId']]"></i>
                     <!-- <span *ngIf="response?.details['appInstanceId'] !== undefined" class="dropdown">
             <a  style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
                data-toggle="dropdown" href="#" role="button">

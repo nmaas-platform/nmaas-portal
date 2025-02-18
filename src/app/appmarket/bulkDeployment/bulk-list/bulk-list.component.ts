@@ -1,17 +1,20 @@
-import {Component, Input, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {BulkDeployment} from '../../../model/bulk-deployment';
 import {BulkType} from '../../../model/bulk-response';
 import {SortableHeaderDirective} from '../../../service/sort-domain.directive';
 import {ModalComponent} from '../../../shared';
 import {AppdeploymentService} from '../appdeployment.service';
 import {DomSanitizer} from '@angular/platform-browser';
+import { BulkQueueDetails } from '../../../model/bulk-queue-details';
+import { map, timer } from 'rxjs';
+import { ConfigurationService } from '../../../service';
 
 @Component({
     selector: 'app-bulk-list',
     templateUrl: './bulk-list.component.html',
     styleUrls: ['./bulk-list.component.css']
 })
-export class BulkListComponent {
+export class BulkListComponent implements OnDestroy, OnInit {
 
     public static BULK_ENTRY_DETAIL_KEY_APP_INSTANCE_NO = 'appInstanceNo';
     public static BULK_ENTRY_DETAIL_KEY_APP_INSTANCE_NAME = 'appName';
@@ -32,6 +35,10 @@ export class BulkListComponent {
     @ViewChild(ModalComponent, {static: true})
     public readonly modal: ModalComponent;
 
+    @Output()
+    public refresh: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+    public showDeleted = false;
 
     public readonly bulkTypeDomain = BulkType.DOMAIN;
     public readonly bulkTypeApp = BulkType.APPLICATION;
@@ -42,9 +49,26 @@ export class BulkListComponent {
     public searchValue = '';
 
     public removeAll = false;
+    public removeBulkId = 0;
+
+    public queueDetails : BulkQueueDetails;
+
+    public refreshQueue = undefined;
+    public sidebarVisible4 = false;
+
+    public configRefresh = 60;
+
 
     constructor(private appDeploy: AppdeploymentService,
-                private sanitizer: DomSanitizer) {
+                private sanitizer: DomSanitizer,
+                private configService: ConfigurationService) {   
+    }
+
+    public ngOnInit(): void {
+        this.configService.getConfiguration().subscribe(conf => {
+            this.configRefresh = conf.bulkDeploymentQueueRefresh;
+            this.update();
+        })
     }
 
     public getApplicationName(details: Map<string, string>) {
@@ -146,5 +170,45 @@ export class BulkListComponent {
             return bulk.details['appInstanceNo']
         }
         return null
+    }
+
+    public removeBulk(): void {
+        this.appDeploy.removeBulkDeployment(this.removeBulkId, this.removeAll).subscribe(_ => {
+            this.refreshBulks();
+            this.modal.hide();
+        })
+        this.removeAll = false;
+    }
+
+    public refreshBulks(): void {
+        this.refresh.emit(this.showDeleted);
+    }
+
+    public getQueueDetails(): void {
+        this.appDeploy.getQueueDetails(0).subscribe(queue => {
+           console.log(queue);
+           this.queueDetails = queue;
+        })   
+    }
+
+     public update() {
+            this.refreshQueue = timer(0, this.refreshQueue * 1000).pipe(map(() => {
+              this.getQueueDetails();
+            })).subscribe()
+        }
+
+    public getQueryNumber() {
+        return this.queueDetails?.jobInQueue + this.queueDetails?.jobInProcess;
+    }
+
+        
+    public ngOnDestroy() {
+        if (this.refreshQueue !== undefined) {
+            this.refreshQueue.unsubscribe();
+        }
+    }
+
+    public open() {
+
     }
 }

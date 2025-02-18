@@ -14,7 +14,7 @@ export class ConfigurationService extends GenericDataService{
 
   constructor(http: HttpClient, appConfig: AppConfigService) {
     super(http, appConfig);
-    this.uri = this.appConfig.getApiUrl() + '/configuration/'
+    this.uri = this.appConfig.getApiUrl() + '/configuration'
   }
 
   public getConfiguration(): Observable<Configuration> {
@@ -22,7 +22,7 @@ export class ConfigurationService extends GenericDataService{
   }
 
   public updateConfiguration(configuration: Configuration): Observable<any>{
-    return this.put(this.uri + configuration.id, configuration);
+    return this.put(this.uri + "/"+ configuration.id, configuration);
   }
 
 }

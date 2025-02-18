@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {SSHKeyService} from '../../../service/sshkey.service';
 import {Observable} from 'rxjs';
 import {SSHKeyView} from '../../../model/sshkey-view';
@@ -8,16 +8,37 @@ import {SSHKeyView} from '../../../model/sshkey-view';
   templateUrl: './ssh-keys.component.html',
   styleUrls: ['./ssh-keys.component.css']
 })
-export class SshKeysComponent implements OnInit {
+export class SshKeysComponent implements OnInit, OnChanges {
 
   public keys: Observable<SSHKeyView[]> = undefined;
   public keysList: SSHKeyView[] = [];
 
+  @Input()
+  public userMode = false;
+
+  @Input()
+  public userId : number;
+
   constructor(private keyService: SSHKeyService) { }
 
   ngOnInit() {
-    this.keys = this.keyService.getAll();
-    this.getData();
+    if(this.userMode) {
+        if(this.userId !== null) {
+            this.keys = this.keyService.getAllByUserId(this.userId);
+            this.getData();
+        }
+    } else { // profile view
+        this.keys = this.keyService.getAll();
+        this.getData();
+    }
+   
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['userId']) {
+        this.ngOnInit();
+      console.log('Nowa wartość userId:', this.userId);
+    }
   }
 
   getData() {
@@ -33,15 +54,28 @@ export class SshKeysComponent implements OnInit {
   }
 
   invalidate(id: number) {
-      this.keyService.invalidate(id).subscribe(
-          data => {
-              console.log('invalidating ssh key id: ' + id + ' success');
-              this.getData();
-          },
-          error => {
-              console.error(error);
-          }
-      );
+    if(this.userMode) {
+        this.keyService.invalidateUserKey(id, this.userId).subscribe(
+            data => {
+                console.log('invalidating ssh key id: ' + id + ' success');
+                this.getData();
+            },
+            error => {
+                console.error(error);
+            }
+        );
+    } else {
+        this.keyService.invalidate(id).subscribe(
+            data => {
+                console.log('invalidating ssh key id: ' + id + ' success');
+                this.getData();
+            },
+            error => {
+                console.error(error);
+            }
+        );
+    }
+      
   }
 
 }

@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 
 import {Router} from '@angular/router';
 import {AuthService} from '../../auth/auth.service';
-import {ConfigurationService, UserService} from '../../service';
+import {AppConfigService, ConfigurationService, UserService} from '../../service';
 import {Configuration} from '../../model/configuration';
 import {SSOService} from '../../service/sso.service';
 import {SSOConfig} from '../../model/sso';
@@ -37,7 +37,8 @@ export class LoginComponent implements OnInit {
                 private ssoService: SSOService,
                 private fb: UntypedFormBuilder,
                 private userService: UserService,
-                private translate: TranslateService) {
+                private translate: TranslateService,
+                private appConfig: AppConfigService) {
         this.resetPasswordForm = fb.group({
             email: ['', [Validators.required, Validators.email]]
         });
@@ -71,6 +72,9 @@ export class LoginComponent implements OnInit {
         );
     }
 
+    public triggerOIDC() {
+        window.location.href = this.appConfig.getOidcUrl();
+    }
 
     public checkSSO() {
         const params = this.router.parseUrl(this.router.url).queryParams;
