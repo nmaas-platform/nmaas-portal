@@ -21,10 +21,10 @@ body{
   flex-direction: column;
 }
 
-/* .flex-spacer {
+ .flex-spacer {
     flex: 1 0 auto;
     height: 100%
-} */
+}
 
 .logged-out-layout {
     display: flex;

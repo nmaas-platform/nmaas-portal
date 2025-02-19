@@ -2,7 +2,8 @@ footer {
   flex-shrink: 0;
   padding-bottom: 0px;
   padding-top: 15px;
-  background-color: #e7e7e7;
+  background-color: var(--menu-color);
+  display:flex;
   /* margin-left: -1rem; */
 }
 
@@ -18,9 +19,9 @@ a:link{
   text-decoration: underline;
 }
 
-a:hover {
-  font-weight: 600;
-}
+/*a:hover {*/
+/*  font-weight: 600;*/
+/*}*/
 
 .img-footer{
   max-height: 34px;
