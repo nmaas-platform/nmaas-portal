@@ -10,25 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AdminLeftMenuComponent {
 
-   items: MenuItem[];
-    toggleAdmin = false;
-
-    constructor(private toast: ToastContainerComponent,
-                  public router: Router) {
-        this.items = [
-          {
-            label: 'Profile',
-            routerLink: ['/profile']
-          },
-          {
-            label: 'About',
-            routerLink: ['/about']
-          },
-          {
-            label: 'Logout',
-            routerLink: ['/logout']
-          }
-        ]
-      }
+    constructor() {
+    }
 
 }

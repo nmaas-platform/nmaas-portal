@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminLeftMenuComponent } from './admin-left-menu.component';
+import { MessageService } from 'primeng/api';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AdminLeftMenuComponent', () => {
   let component: AdminLeftMenuComponent;
@@ -8,7 +10,12 @@ describe('AdminLeftMenuComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminLeftMenuComponent]
+      declarations: [AdminLeftMenuComponent],
+      providers: [MessageService],
+      schemas: [
+                            CUSTOM_ELEMENTS_SCHEMA,
+                            NO_ERRORS_SCHEMA
+                        ]
     })
     .compileComponents();
     

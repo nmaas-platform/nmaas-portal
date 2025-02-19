@@ -31,7 +31,7 @@
                     <i class="pi pi-users" style="margin-right:10px; font-size: 15px"></i>{{ 'NAVBAR.USERS' | translate }}</a>
             </li>
             <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" >
-                <a  style="display: flex; align-items: center;" [routerLink]="['/']">
+                <a  style="display: flex; align-items: center;" [routerLink]="['/admin/apps']">
                     <i class="pi pi-th-large" style="margin-right:10px; font-size: 15px"></i>Catalog</a>
             </li>
             <li *roles="['ROLE_SYSTEM_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" >
