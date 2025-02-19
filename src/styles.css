@@ -79,6 +79,10 @@
     margin:20px 0;
     padding:30px;
 }
+.header{
+    margin-top:40px;
+    font-weight: bold
+}
 .card {
     position: relative;
     display: -webkit-box;

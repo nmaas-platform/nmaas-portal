@@ -36,7 +36,7 @@
             </button>
  </div>
 
-    <h4 style="margin-top:40px; font-weight: bold"> {{ 'USERS.TITLE' | translate }}</h4>
+    <h4 class="header"> {{ 'USERS.TITLE' | translate }}</h4>
     <div class="background-section">
         <p-table #dt [value]="displayUsers" [paginator]="true" [rows]="maxItemsOnPage"
                  [rowsPerPageOptions]="[15, 20, 25, 30, 50]" >

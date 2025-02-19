@@ -67,7 +67,7 @@
 </div>
 
 <div style="margin-top:40px"  *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']">
-    <h4 style="margin-top:40px; font-weight: bold" *ngIf="undeployedVisible">{{ 'APP_INSTANCES.UNDEPLOYED' | translate }}</h4>
+    <h4 class="header" *ngIf="undeployedVisible">{{ 'APP_INSTANCES.UNDEPLOYED' | translate }}</h4>
     <div style="margin-top:30px" *ngIf="undeployedVisible" class="background-section">
         <p-table [value]="appUndeployedInstances | async | paginate: { itemsPerPage: maxItemsOnPageSec, currentPage: secondPageNumber, id: p_second }"
                  [paginator]="true"

@@ -18,7 +18,7 @@
         <label for="showNotActive"> {{'DOMAINS.NOTACTIVE' | translate}}</label>
     </div>
 </div>
-    <h4 style="margin-top:40px; font-weight: bold">{{ 'DOMAINS.TITLE' | translate }}</h4>
+    <h4 class="header">{{ 'DOMAINS.TITLE' | translate }}</h4>
 
     <div class="background-section">
         <p-table [value]="domains | async | searchDomain: searchValue: showNotActive"
