@@ -1,16 +1,16 @@
-<div class="col-sm-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10">
-  <h3>{{'LANGUAGE_MANAGEMENT.TITLE' | translate }}</h3>
-  <hr>
-  <table class="table table-hover table-condensed" aria-describedby="Language list table">
-    <thead>
+<div class="">
+  <h4 class="header">{{'LANGUAGE_MANAGEMENT.TITLE' | translate }}</h4>
+  <div class="background-section">
+    <table class="table table-hover table-condensed" aria-describedby="Language list table">
+      <thead>
       <tr>
         <th scope="col">&nbsp;</th>
         <th scope="col">{{'LANGUAGE_MANAGEMENT.LANGUAGE' | translate }}</th>
         <th scope="col">&nbsp;</th>
       </tr>
-    </thead>
+      </thead>
 
-    <tbody>
+      <tbody>
       <ng-template ngFor let-lang [ngForOf]="languages" let-i="index">
         <tr class="clickable" [routerLink]="['/admin/languages/' + lang.language]">
           <td><img alt="language" src="assets/images/country/{{lang.language}}_circle.png" style="height: 22px;"></td>
@@ -18,7 +18,7 @@
           <td class="text-right">
             <span class="dropdown">
               <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
-                    data-toggle="dropdown" href="#" role="button">
+                 data-toggle="dropdown" href="#" role="button">
                 <em class="fas fa-cog icon-black icon-bigger"></em>
               </a>
               <ul class="dropdown-menu pull-right-drop">
@@ -42,8 +42,10 @@
           </td>
         </tr>
       </ng-template>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
+
 </div>
 
 <nmaas-modal (click)="modal.hide()">
