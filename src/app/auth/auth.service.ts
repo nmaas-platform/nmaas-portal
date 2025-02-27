@@ -5,7 +5,6 @@ import {AppConfigService} from '../service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Authority} from '../model';
-import _default from '@formio/js/lib/mjs/translations/en';
 
 
 export class DomainRoles {
