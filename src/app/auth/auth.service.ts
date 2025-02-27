@@ -291,7 +291,7 @@ export class AuthService {
             this.removeOidcToken();
             this.isLoggedInSubject.next(false);
             localStorage.removeItem('_expiredTime');
-            this.http.get(this.appConfig.getApiUrl() + '/oidc/logout/' + oidcToken).subscribe(() => {
+            this.http.get(this.appConfig.config.apiUrl + '/oidc/logout/' + oidcToken).subscribe(() => {
             })
         }
     }
