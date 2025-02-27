@@ -52,7 +52,12 @@
     <div class="menu flex">
         <p-menu  #menu [model]="items" [popup]="true" class="test" />
         <p-button  (onClick)="menu.toggle($event)" class="user-button"><i class="pi pi-user" style="font-size: 13px; margin-right:10px"></i> User</p-button>
-        <p-button *ngIf="!toggleAdmin" (onClick)="adminPanel()" style="margin-top:10px"><i class="pi pi-sign-in" style="margin-right:10px; font-size: 15px"></i>Go to admin panel</p-button>
-        <p-button *ngIf="toggleAdmin" (onClick)="adminPanel()" style="margin-top:10px"><i class="pi pi-sign-in" style="margin-right:10px; font-size: 15px"></i>Go to user panel</p-button>
+        <div style="margin-top:10px" [routerLink]="['admin/dashboard']">
+            <p-button *ngIf="!toggleAdmin" (onClick)="adminPanel()" ><i class="pi pi-sign-in" style="margin-right:10px; font-size: 15px"></i>Go to admin panel</p-button>
+        </div>
+        <div [routerLink]="['/']"  >
+            <p-button *ngIf="toggleAdmin" (onClick)="adminPanel()" ><i class="pi pi-sign-in" style="margin-right:10px; font-size: 15px"></i>Go to user panel</p-button>
+        </div>
+
     </div>
 </div>

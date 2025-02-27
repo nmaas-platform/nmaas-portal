@@ -79,3 +79,6 @@ li::marker {
 :host ::ng-deep .p-paginator .p-dropdown .p-dropdown-label{
     padding-right: 10px;
 }
+:host ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page.p-highlight{
+    background: var(--user-button-background-hover);
+}
