@@ -1,14 +1,19 @@
-<div class="col-sm-12 col-sm-offset-1 col-sm 10 col-md-offset-1 col-md-10">
-    <h3>{{'DOMAINS.LIST.GROUPS' | translate}}</h3>
-    <div class="flex space-between">
-        <div class="flex">
-            <a *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_VL_MANAGER']" [routerLink]="['/admin/domains/groups/add']" class="btn btn-primary"
-               role="button">{{'DOMAINS.ADD_BUTTON' | translate}}</a>
-        </div>
-        <div class="flex">
+<div style="display: flex; align-items: center;  margin-top:20px">
+    <div style="margin-right:20px">
+        <span class="p-input-icon-right" style="width: 100%">
+     		 <i class="pi pi-search" style="font-size: 13px; top: 16px; margin-right: 5px;"></i>
             <input pInputText class="flex" name="search" id="search" placeholder="Search" type="text" style="height: 34px" [(ngModel)]="searchValue">
-        </div>
+        </span>
     </div>
+    <div class="flex" style="margin-right:20px">
+        <button *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_VL_MANAGER']" [routerLink]="['/admin/domains/groups/add']" class="btn btn-primary"
+       role="button">{{'DOMAINS.ADD_BUTTON' | translate}}</button>
+    </div>
+</div>
+<h4 class="header">{{'DOMAINS.LIST.GROUPS' | translate}}</h4>
+
+<div class="background-section">
+
     <table class="table table-hover table-condensed" aria-describedby="Apps management table" style="margin-top: 20px;">
         <thead>
         <tr>

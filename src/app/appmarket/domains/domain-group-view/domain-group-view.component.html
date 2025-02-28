@@ -1,50 +1,54 @@
-<div class="col-sm-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10">
-    <h3>{{ 'DOMAINS.LIST.GROUP' | translate }}</h3>
+<div class="">
+    <h4 class="header">{{ 'DOMAINS.LIST.GROUP' | translate }}</h4>
     <form *ngIf="domainGroup" (submit)="submit(false)" class="form-horizontal" #domainForm="ngForm">
-        <div class="form-group">
-            <label for="name" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.NAME' | translate }}</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control"  id="name" name="name"
-                       [(ngModel)]="domainGroup.name" #name="ngModel" required>
-                <div *ngIf="name.invalid && (name.dirty || name.touched)"
-                     class="alert alert-danger">
-                    <div *ngIf="name.errors.required">{{ 'DOMAIN_DETAILS.NAME_IS_REQUIRED_MESSAGE' | translate }}</div>
+        <div class="background-section">
+            <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.NAME' | translate }}</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control"  id="name" name="name"
+                           [(ngModel)]="domainGroup.name" #name="ngModel" required>
+                    <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                         class="alert alert-danger">
+                        <div *ngIf="name.errors.required">{{ 'DOMAIN_DETAILS.NAME_IS_REQUIRED_MESSAGE' | translate }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" *ngIf="!isInMode(ComponentMode.EDIT)">
+                <label for="codename" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.CODE_NAME' | translate }}</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control"  id="codename"
+                           name="codename" pattern="[a-zA-Z0-9-]*"
+                           [(ngModel)]="domainGroup.codename" #codename="ngModel" minlength="2" maxlength="20" required>
+                    <div *ngIf="codename.invalid && (codename.dirty || codename.touched)"
+                         class="alert alert-danger">
+
+                        <div *ngIf="codename.errors.required">{{ 'DOMAIN_DETAILS.CODE_NAME_IS_REQUIRED_MESSAGE' | translate }}</div>
+                        <div *ngIf="codename.errors.pattern">{{ 'DOMAIN_DETAILS.CODE_NAME_PATTERN_MESSAGE_1' | translate }}</div>
+                        <div *ngIf="codename.errors.minlength || codename.errors.maxlength">{{ 'DOMAIN_DETAILS.CODE_NAME_PATTERN_MESSAGE_2' | translate }}</div>
+
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="form-group" *ngIf="!isInMode(ComponentMode.EDIT)">
-            <label for="codename" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.CODE_NAME' | translate }}</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control"  id="codename"
-                       name="codename" pattern="[a-zA-Z0-9-]*"
-                       [(ngModel)]="domainGroup.codename" #codename="ngModel" minlength="2" maxlength="20" required>
-                <div *ngIf="codename.invalid && (codename.dirty || codename.touched)"
-                     class="alert alert-danger">
-
-                    <div *ngIf="codename.errors.required">{{ 'DOMAIN_DETAILS.CODE_NAME_IS_REQUIRED_MESSAGE' | translate }}</div>
-                    <div *ngIf="codename.errors.pattern">{{ 'DOMAIN_DETAILS.CODE_NAME_PATTERN_MESSAGE_1' | translate }}</div>
-                    <div *ngIf="codename.errors.minlength || codename.errors.maxlength">{{ 'DOMAIN_DETAILS.CODE_NAME_PATTERN_MESSAGE_2' | translate }}</div>
-
-                </div>
-            </div>
-        </div>
-        <div *ngIf="!this.addingMode" class="panel panel-default" style="margin-top: 3rem">
+        <div *ngIf="!this.addingMode" class="background-section" style="margin-top: 3rem">
             <div class="panel-heading">
 
-                <div style="display: flex; justify-content: start; align-items: center">
-                    <div>
+                <div style="display: flex; justify-content:space-between">
+                    <h4 style="font-size:15px; font-weight: bold">
                         {{ 'DOMAINS.GROUP.ACCESS_USER' | translate }}
+                    </h4>
+                    <div *roles="['ROLE_SYSTEM_ADMIN']" style="display: flex; justify-content: end">
+                        <button  type="button" class="btn btn-text" (click)="showModalUser()">{{'DOMAINS.GROUP.ADD_USERS' | translate}}</button>
+                    </div>
+                    <div *roles="['ROLE_VL_MANAGER']" style="display: flex; justify-content: end">
+                        <button  type="button" class="btn btn-warning" (click)="removeMyAccess()">{{'DOMAINS.GROUP.DELETE_MYSELF' | translate}}</button>
                     </div>
                 </div>
             </div>
             <div class="panel-body">
-                <div *roles="['ROLE_SYSTEM_ADMIN']" style="display: flex; justify-content: end">
-                    <button  type="button" class="btn btn-secondary" (click)="showModalUser()">{{'DOMAINS.GROUP.ADD_USERS' | translate}}</button>
-                </div>
-                <div *roles="['ROLE_VL_MANAGER']" style="display: flex; justify-content: end">
-                    <button  type="button" class="btn btn-warning" (click)="removeMyAccess()">{{'DOMAINS.GROUP.DELETE_MYSELF' | translate}}</button>
-                </div>
+
                 <table class="table table-hover table-condensed" aria-describedby="Domains in Group table" style="margin-top: 2rem">
                     <thead>
                     <tr>
