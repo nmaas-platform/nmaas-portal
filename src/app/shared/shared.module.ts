@@ -61,6 +61,9 @@ import {InputTextModule} from 'primeng/inputtext';
 import { DomainNamespaceAnnotationsComponent } from './domain-namespace-annotations/domain-namespace-annotations.component';
 import { provideZxvbnServiceForPSM  } from 'angular-password-strength-meter/zxcvbn';
 import { AccessTokensComponent } from './users/access-token/access-tokens.component';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { ButtonModule } from 'primeng/button';
 
 
 @NgModule({
@@ -80,6 +83,9 @@ import { AccessTokensComponent } from './users/access-token/access-tokens.compon
         DropdownModule,
         InputTextModule,
         FormioModule,
+        InputGroupModule,
+        InputGroupAddonModule,
+        ButtonModule
     ],
     declarations: [
         RateComponent,

@@ -42,7 +42,7 @@
 <nmaas-modal styleModal="info">
     <div class="nmaas-modal-header">{{'TOKENS.MODAL.HEADER' | translate}}</div>
     <div class="nmaas-modal-body" style="height: 60%; max-height: 80vh;overflow-y: auto;">
-        <form [formGroup]="requestForm" (ngSubmit)="createNewToken()">
+        <form *ngIf="!showCopyToken" [formGroup]="requestForm" (ngSubmit)="createNewToken()">
             <div class="form-group">
                 <label class="control-label" for="new-token-name">
                     {{'TOKENS.MODAL.NAME' | translate}}:
@@ -62,5 +62,19 @@
                     (click)="modal.hide()">{{'SSH_KEYS.MODAL.BUTTON_CANCEL' | translate}}</button>
 
         </form>
+        <div *ngIf="showCopyToken">
+                <span class="text-bold">
+                    {{"TOKENS.MODAL.TOKEN_COPY" | translate}}
+                </span>
+                <div>
+                    <p-inputGroup>
+                        <input pInputText [(ngModel)]="newToken.tokenValue" placeholder="Token to copy" />
+                        <button pButton icon="pi pi-copy" (click)="copyToClipboard()">{{"TOKENS.MODAL.COPY"}}</button>
+                    </p-inputGroup>
+                </div>
+                <div class="mt-6 flex ">
+                    <button (click)="ConfirmAndClose()" pButton >{{"TOKENS.MODAL.TOKEN_SAVED" | translate}}</button>
+                </div>
+        </div>
     </div>
 </nmaas-modal>
