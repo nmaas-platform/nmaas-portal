@@ -92,3 +92,7 @@
 .btn-text:hover{
     background: #EBEEF5;
 }
+
+.text-bold {
+    font-weight: 700;;
+}
