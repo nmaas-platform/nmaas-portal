@@ -64,11 +64,9 @@ export class AccessTokensComponent implements OnInit {
     public createNewToken() {
         this.tokenService.createToken(this.requestForm.value.name.trim()).subscribe({
             next: val => {
-                // this.tokensList.push(val)
                 this.requestForm.reset();
                 this.showCopyToken = true;
                 this.newToken = val;
-                // this.modal.hide();
             },
             error: err => {
                 console.warn(err.error)
