@@ -328,7 +328,9 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
         if (!this.applicationDTO.application.configWizardTemplate) {
             this.applicationDTO.application.configWizardTemplate = new ConfigWizardTemplate();
         }
+        console.log(event);
         this.applicationDTO.application.configWizardTemplate.template = event.form;
+        console.log(this.applicationDTO.application.configWizardTemplate.template)
     }
 
     public setUpdateConfigTemplate(event): void {

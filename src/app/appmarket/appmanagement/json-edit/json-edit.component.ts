@@ -28,8 +28,9 @@ export class JsonEditComponent {
 
   @Input()
   set object(obj: any) {
-    console.log('setting value')
     const contentString = JSON.stringify(obj, null, 2);
+    // console.log('setting value', contentString)
+
     if (this.content && contentString !== this.content.value) {
       this.content.setValue(contentString)
     }
