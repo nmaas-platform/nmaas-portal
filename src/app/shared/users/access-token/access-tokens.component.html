@@ -68,12 +68,12 @@
                 </span>
                 <div>
                     <p-inputGroup>
-                        <input pInputText [(ngModel)]="newToken.tokenValue" placeholder="Token to copy" />
-                        <button pButton icon="pi pi-copy" (click)="copyToClipboard()">{{"TOKENS.MODAL.COPY"}}</button>
+                        <input pInputText [(ngModel)]="newToken.tokenValue"  readonly="true"  placeholder="Token to copy" />
+                        <button class="btn btn-secondary" type="button" (click)="copyToClipboard()">{{"TOKENS.MODAL.COPY" | translate}}</button>
                     </p-inputGroup>
                 </div>
                 <div class="mt-6 flex ">
-                    <button (click)="ConfirmAndClose()" pButton >{{"TOKENS.MODAL.TOKEN_SAVED" | translate}}</button>
+                    <button class="btn btn-primary" type="button"  (click)="ConfirmAndClose()"  >{{"TOKENS.MODAL.TOKEN_SAVED" | translate}}</button>
                 </div>
         </div>
     </div>
