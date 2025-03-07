@@ -536,12 +536,13 @@
                             <form-builder *ngIf="formDisplayChange && applicationDTO.application.configWizardTemplate.template"
                                           [form]="applicationDTO.application.configWizardTemplate.template" (change)="setConfigTemplate($event)">
                             </form-builder>
+                           
                         </p-tabPanel>
 
                         <p-tabPanel header="{{'APPS_WIZARD.RAW_JSON' | translate}}">
                             <h4>{{'APPS_WIZARD.FORM_DEFINITION' | translate}}</h4>
-                            <app-json-edit *ngIf="formDisplayChange && applicationDTO.application.configWizardTemplate?.template"
-                                           [(object)]="applicationDTO.application.configWizardTemplate.template"></app-json-edit>
+                            <!-- <app-json-edit *ngIf="formDisplayChange && applicationDTO.application.configWizardTemplate?.template"
+                                           [(object)]="applicationDTO.application.configWizardTemplate.template"></app-json-edit> -->
                             <h4>{{'APPS_WIZARD.FORM_PREVIEW' | translate}}</h4>
                             <formio *ngIf="formDisplayChange && applicationDTO.application.configWizardTemplate?.template"
                                     [form]="applicationDTO.application.configWizardTemplate.template"

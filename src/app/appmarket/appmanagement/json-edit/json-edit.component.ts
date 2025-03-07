@@ -32,7 +32,7 @@ export class JsonEditComponent {
     // console.log('setting value', contentString)
 
     if (this.content && contentString !== this.content.value) {
-      this.content.setValue(contentString)
+      // this.content.setValue(contentString)
     }
   }
 
@@ -41,7 +41,7 @@ export class JsonEditComponent {
         value => {
           console.log('json value update', this.objectForm.valid, value)
           if (this.content.valid) {
-            this.objectChange.emit(JSON.parse(value.content))
+            // this.objectChange.emit(JSON.parse(value.content))
           }
         }
     )

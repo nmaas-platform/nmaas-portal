@@ -59,6 +59,8 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
     public languages: SelectItem[] = [];
     public formDisplayChange = true;
 
+    public template ;
+
     // properties for global parameters deploy validation
     // in future extensions pack this into single object
     public deployParamKeyValidator: ValidatorFn = noParameterTypeInControlValueValidator();
@@ -205,8 +207,32 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
         });
         this.configFileTemplates.push(new ConfigFileTemplate());
         this.applicationDTO.application.configWizardTemplate = new ConfigWizardTemplate();
-        this.applicationDTO.application.configWizardTemplate.template = this.configTemplateService.getConfigTemplate();
-    }
+        this.applicationDTO.application.configWizardTemplate.template = {
+            "components": [
+                {
+                    "label": "Tabs",
+                    "components": [
+                        {
+                            "label": "Base",
+                            "key": "configTab",
+                        }
+                    ],
+                    "type": "tabs",
+                    "input": false,
+                    "key": "tabs"
+                },
+                {
+                    "type": "button",
+                    "label": "Apply configuration",
+                    "disableOnInvalid": true,
+                    "theme": "primary",
+                    "input": false,
+                    "tableView": true
+                }
+            ]
+        }
+    };
+    
 
     public nextStep(): void {
         this.activeStepIndex += 1;
@@ -325,9 +351,9 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
     }
 
     public setConfigTemplate(event): void {
-        if (!this.applicationDTO.application.configWizardTemplate) {
-            this.applicationDTO.application.configWizardTemplate = new ConfigWizardTemplate();
-        }
+        // if (!this.applicationDTO.application.configWizardTemplate) {
+        //     this.applicationDTO.application.configWizardTemplate = new ConfigWizardTemplate();
+        // }
         console.log(event);
         this.applicationDTO.application.configWizardTemplate.template = event.form;
         console.log(this.applicationDTO.application.configWizardTemplate.template)
@@ -541,7 +567,7 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
         if (this.applicationDTO.application.appConfigurationSpec.configFileRepositoryRequired) {
             this.removeDefaultElement();
         } else {
-            this.addDefaultElement();
+            // this.addDefaultElement();
             this.removeElementsFromUpdateConfig();
         }
     }
