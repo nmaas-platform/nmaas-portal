@@ -43,7 +43,7 @@
 			<div class="row" *ngIf="versionVisible">
 				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" *ngIf="activeVersions">
 					<a *ngFor="let version of activeVersions" class="tag-button">
-						v.{{version}}
+						v {{version}}
 					</a>
 				</div>
 			</div>
