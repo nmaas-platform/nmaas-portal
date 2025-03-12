@@ -24,15 +24,4 @@ export class ClusterService extends GenericDataService {
         return this.get<Cluster>(this.url);
     }
 
-    public add(cluster: Cluster): Observable<any> {
-        return this.post(this.url, cluster);
-    }
-
-    public update(cluster: Cluster): Observable<any> {
-        return this.put(this.url + cluster.id, cluster);
-    }
-
-    public remove(clusterId: number): Observable<any> {
-        return this.http.delete(this.url + clusterId);
-    }
 }
