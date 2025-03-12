@@ -17,7 +17,7 @@ export class ClusterService extends GenericDataService {
     constructor(http: HttpClient, appConfig: AppConfigService) {
         super(http, appConfig);
 
-        this.url = this.appConfig.getApiUrl() + '/management/kubernetes/';
+        this.url = this.appConfig.getApiUrl() + '/management/kubernetes';
     }
 
     public getCluster(): Observable<Cluster> {
