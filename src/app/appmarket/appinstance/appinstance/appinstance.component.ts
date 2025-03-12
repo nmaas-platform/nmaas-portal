@@ -164,8 +164,6 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                     this.configurationTemplate = this.getTemplate(appInstance.configWizardTemplate.template);
                     this.app = appInstance.application;
 
-                    this.updateAppInstancePodNames();
-
                     this.submission.data.configuration = JSON.parse(appInstance.configuration);
 
                     if (this.appInstance.configUpdateWizardTemplate != null) {
