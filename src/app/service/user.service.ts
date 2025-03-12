@@ -93,7 +93,7 @@ export class UserService extends GenericDataService {
 
 
     protected getDomainUsersUrl(domainId: number): string {
-        return this.appConfig.getApiUrl() + '/domains/' + domainId + '/users/';
+        return this.appConfig.getApiUrl() + '/domains/' + domainId + '/users';
     }
 
     public getDomainUsersAsAdmin(domainId: number): Observable<User[]> {
@@ -101,7 +101,7 @@ export class UserService extends GenericDataService {
     }
 
     protected getUserAcceptanceUrl(): string {
-        return this.appConfig.getApiUrl() + '/users/terms/';
+        return this.appConfig.getApiUrl() + '/users/terms';
     }
 
     protected getEnableOrDisableUsersUrl(userId: number, enabled: boolean): string {
