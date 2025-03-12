@@ -64,8 +64,8 @@
             </ng-template>
 
             <ng-template pTemplate="body" let-user>
-                <tr (click)="view(user.id)">
-                    <td>{{ user.username }}</td>
+                <tr>
+                    <td (click)="view(user.id)">{{ user.username }}</td>
                     <td>{{(user.firstname || '') + ' ' + (user.lastname || '')}}</td>
                     <td *ngIf="!domainMode">{{user.email}}</td>
                     <td *ngIf="domainId === domainService.getGlobalDomainId()">
@@ -121,7 +121,7 @@
                             <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false"
                                aria-haspopup="true"
                                data-toggle="dropdown" href="#" role="button">
-                                <em class="fas fa-cog icon-black icon-bigger"></em>
+                                <em class="pi pi-cog" style="font-size: 1.8rem; color: var(--l-text-color)"></em>
                             </a>
                             <ul class="dropdown-menu pull-right-drop">
                                 <li *ngIf="isModeAllowed(ComponentMode.VIEW)">

@@ -1,40 +1,40 @@
 <div class="">
   <h4 class="header">{{'LANGUAGE_MANAGEMENT.TITLE' | translate }}</h4>
   <div class="background-section">
-    <table class="table table-hover table-condensed" aria-describedby="Language list table">
-      <thead>
-      <tr>
-        <th scope="col">&nbsp;</th>
-        <th scope="col">{{'LANGUAGE_MANAGEMENT.LANGUAGE' | translate }}</th>
-        <th scope="col">&nbsp;</th>
-      </tr>
-      </thead>
+    <p-table [value]="languages" class="p-datatable-hover p-datatable-sm" [responsive]="true">
+      <ng-template pTemplate="header">
+        <tr>
+          <th></th>
+          <th>{{'LANGUAGE_MANAGEMENT.LANGUAGE' | translate }}</th>
+          <th></th>
+        </tr>
+      </ng-template>
 
-      <tbody>
-      <ng-template ngFor let-lang [ngForOf]="languages" let-i="index">
-        <tr class="clickable" [routerLink]="['/admin/languages/' + lang.language]">
-          <td><img alt="language" src="assets/images/country/{{lang.language}}_circle.png" style="height: 22px;"></td>
-          <td>{{'LANGUAGE.' + lang.language.toUpperCase() + '_LABEL' | translate}}</td>
+      <ng-template pTemplate="body" let-lang>
+        <tr class="clickable" >
+          <td [routerLink]="['/admin/languages/' + lang.language]">
+            <img alt="language" src="assets/images/country/{{lang.language}}_circle.png" style="height: 22px;">
+          </td>
+          <td [routerLink]="['/admin/languages/' + lang.language]">{{'LANGUAGE.' + lang.language.toUpperCase() + '_LABEL' | translate}}</td>
           <td class="text-right">
             <span class="dropdown">
-              <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
-                 data-toggle="dropdown" href="#" role="button">
-                <em class="fas fa-cog icon-black icon-bigger"></em>
+              <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
+                <em class="pi pi-cog" style="font-size: 1.8rem; color: var(--l-text-color)"></em>
               </a>
               <ul class="dropdown-menu pull-right-drop">
                 <li>
                   <a [routerLink]="['/admin/languages/' + lang.language]">
-					{{ 'LANGUAGE_MANAGEMENT.EDIT_BUTTON' | translate }}
+                    {{ 'LANGUAGE_MANAGEMENT.EDIT_BUTTON' | translate }}
                   </a>
                 </li>
                 <li>
                   <a *ngIf="lang.enabled" (click)="changeLanguageState(lang)">
-					{{ 'LANGUAGE_MANAGEMENT.LANGUAGE_DISABLED' | translate }}
+                    {{ 'LANGUAGE_MANAGEMENT.LANGUAGE_DISABLED' | translate }}
                   </a>
                 </li>
                 <li>
                   <a *ngIf="!lang.enabled" (click)="changeLanguageState(lang)">
-					{{ 'LANGUAGE_MANAGEMENT.LANGUAGE_ENABLED' | translate }}
+                    {{ 'LANGUAGE_MANAGEMENT.LANGUAGE_ENABLED' | translate }}
                   </a>
                 </li>
               </ul>
@@ -42,8 +42,7 @@
           </td>
         </tr>
       </ng-template>
-      </tbody>
-    </table>
+    </p-table>
   </div>
 
 </div>

@@ -13,9 +13,9 @@ tr.clickable {
     cursor: pointer;
 }
 
-.dropdown:hover .dropdown-menu {
-    display: block;
-}
+/*.dropdown:hover .dropdown-menu {*/
+/*    display: block;*/
+/*}*/
 
 .space-between {
     display: flex;
@@ -78,4 +78,7 @@ label{
 }
 :host ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page.p-highlight{
     background: var(--user-button-background-hover);
+}
+:host ::ng-deep .p-datatable>.p-datatable-wrapper {
+    overflow: visible;
 }

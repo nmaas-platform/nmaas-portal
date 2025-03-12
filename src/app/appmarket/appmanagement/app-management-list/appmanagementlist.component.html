@@ -15,31 +15,36 @@
   </div>
   <h4 class="header">{{'APPS_MANAGEMENT.TITLE'| translate}}</h4>
   <div class="background-section">
-    <table class="table table-hover table-condensed" aria-describedby="Apps management table" style="margin-top:15px">
-      <thead>
-      <tr>
-        <th scope="col"></th>
-        <th scope="col">{{'APPS_MANAGEMENT.NAME' | translate}}</th>
-        <th scope="col">{{'APPS_MANAGEMENT.OWNER' | translate}}</th>
-        <th scope="col" *ngIf="isAnySubtableVisible()">{{'APPS_MANAGEMENT.VERSION' | translate}}</th>
-        <th scope="col" *ngIf="isAnySubtableVisible()">{{'APPS_MANAGEMENT.STATE' | translate}}</th>
-        <th scope="col"></th>
-      </tr>
-      </thead>
+    <p-table [value]="apps" class="p-datatable-hover p-datatable-sm" [responsive]="true">
+      <ng-template pTemplate="header">
+        <tr>
+          <th></th>
+          <th>{{'APPS_MANAGEMENT.NAME' | translate}}</th>
+          <th>{{'APPS_MANAGEMENT.OWNER' | translate}}</th>
+          <th *ngIf="isAnySubtableVisible()">{{'APPS_MANAGEMENT.VERSION' | translate}}</th>
+          <th *ngIf="isAnySubtableVisible()">{{'APPS_MANAGEMENT.STATE' | translate}}</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </ng-template>
 
-      <tbody>
-      <ng-template ngFor let-app [ngForOf]="apps" let-i="index">
-        <tr class="table-row" (click)="clickTableRow(i)">
-          <td style="width: 5%" *ngIf="!versionRowVisible[i]"><span class="glyphicon glyphicon-chevron-right"></span></td>
-          <td style="width: 5%" *ngIf="versionRowVisible[i]"><span class="glyphicon glyphicon-chevron-down"></span></td>
-          <td style="width: 25%">{{app?.name}}</td>
-          <td style="width: 20%">{{app?.owner}}</td>
-          <td style="width: 15%"></td>
-          <td style="width: 15%"></td>
-          <td style="width: 20%" class="text-right">
+      <ng-template pTemplate="body" let-app let-i="rowIndex">
+        <tr>
+          <td *ngIf="!versionRowVisible[i]"  (click)="clickTableRow(i)">
+            <span class="pi pi-chevron-right"></span>
+          </td>
+          <td *ngIf="versionRowVisible[i]"  (click)="clickTableRow(i)">
+            <span class="pi pi-chevron-down"></span>
+          </td>
+          <td  (click)="clickTableRow(i)">{{app?.name}}</td>
+          <td  (click)="clickTableRow(i)">{{app?.owner}}</td>
+          <td></td>
+          <td></td>
+          <td class="text-right">
             <span class="dropdown">
               <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
-                <em class="fas fa-cog icon-black icon-bigger"></em>
+                <em class="pi pi-cog" style="font-size: 1.8rem; color: var(--l-text-color)"></em>
               </a>
               <ul class="dropdown-menu pull-right-drop">
                 <li *roles="['ROLE_SYSTEM_ADMIN']">
@@ -48,7 +53,7 @@
                 <li>
                   <a [routerLink]="['/admin/apps/create/version', app?.name]">{{ 'APPS_MANAGEMENT.ADD_NEW_VERSION_BUTTON' | translate }}</a>
                 </li>
-                 <li>
+                <li>
                   <a (click)="appAddJsonVersion.show()" >{{ 'APPS_MANAGEMENT.ADD_NEW_VERSION_BUTTON' | translate }} (JSON)</a>
                 </li>
                 <li>
@@ -64,8 +69,8 @@
             </span>
           </td>
         </tr>
-        <ng-template ngFor let-version [ngForOf]="app.versions.sort(appVersionCompare)">
-          <tr *ngIf="versionRowVisible[i]" class="table-row" >
+        <ng-container *ngIf="versionRowVisible[i]">
+          <tr *ngFor="let version of app.versions.sort(appVersionCompare)">
             <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]"></td>
             <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]"></td>
             <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]"></td>
@@ -73,30 +78,29 @@
             <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]">{{"ENUM.STATE." + getStateAsString(version.state).toUpperCase() | translate }}</td>
             <td class="text-right">
               <a [routerLink]="['/admin/apps/view', version?.appVersionId]">
-                <em class="far fa-eye icon-black icon-bigger"></em>
+                <em class="pi pi-eye" style="font-size: 1.8rem; color: var(--l-text-color); margin-right:10px"></em>
               </a>
               <span class="dropdown">
-              <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
-                <em class="fas fa-cog icon-black icon-bigger"></em>
-              </a>
-              <ul class="dropdown-menu pull-right-drop">
-                <li *roles="['ROLE_SYSTEM_ADMIN']">
-                  <a (click)="showModal($event, app, version)" *ngIf="getStateAsString(version?.state) !== 'DELETED'">{{ 'APPS_MANAGEMENT.CHANGE_STATE_BUTTON' | translate }}</a>
-                </li>
-                <li>
-                  <a (click)="getApplicationInfoJSONWithoutBase(version?.appVersionId)">{{'APPS_MANAGEMENT.EXPORT_JSON' | translate}}</a>
-                </li>
-                <li>
-                  <a [routerLink]="['/admin/apps/edit/version', version?.appVersionId]">{{ 'APPS_MANAGEMENT.EDIT_BUTTON' | translate }}</a>
-                </li>
-              </ul>
-            </span>
+            <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
+              <em class="pi pi-cog" style="font-size: 1.8rem; color: var(--l-text-color)"></em>
+            </a>
+            <ul class="dropdown-menu pull-right-drop">
+              <li *roles="['ROLE_SYSTEM_ADMIN']">
+                <a (click)="showModal($event, app, version)" *ngIf="getStateAsString(version?.state) !== 'DELETED'">{{ 'APPS_MANAGEMENT.CHANGE_STATE_BUTTON' | translate }}</a>
+              </li>
+              <li>
+                <a (click)="getApplicationInfoJSONWithoutBase(version?.appVersionId)">{{'APPS_MANAGEMENT.EXPORT_JSON' | translate}}</a>
+              </li>
+              <li>
+                <a [routerLink]="['/admin/apps/edit/version', version?.appVersionId]">{{ 'APPS_MANAGEMENT.EDIT_BUTTON' | translate }}</a>
+              </li>
+            </ul>
+          </span>
             </td>
           </tr>
-        </ng-template>
+        </ng-container>
       </ng-template>
-      </tbody>
-    </table>
+    </p-table>
   </div>
 </div>
 <app-appchangestatemodal [appName]="selectedAppName" [app]="selectedVersion"></app-appchangestatemodal>

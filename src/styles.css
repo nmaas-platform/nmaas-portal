@@ -169,3 +169,8 @@
     background: var(--primary-text-button-background-hover);
     color: var(--primary-text-button-text-hover)
 }
+
+.dropdown-menu{
+    right:0;
+    left:unset;
+}
