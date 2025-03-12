@@ -29,21 +29,4 @@ export class ClusterDetailsComponent extends BaseComponent implements OnInit {
         });
     }
 
-    public onSave($event) {
-        const upCluster: Cluster = $event;
-        if (!upCluster) {
-            return;
-        }
-        if (this.isInMode(ComponentMode.CREATE)) {
-            this.clusterService.add(upCluster)
-                .subscribe(() => this.router.navigateByUrl('/admin/clusters'), err => this.error = err.message);
-        } else {
-            this.clusterService.update(upCluster)
-                .subscribe(() => this.router.navigateByUrl('/admin/clusters'), err => this.error = err.message);
-        }
-    }
-
-    public onDelete($event): void {
-        this.clusterService.remove($event).subscribe(() => this.router.navigate(['/admin/clusters/']));
-    }
 }
