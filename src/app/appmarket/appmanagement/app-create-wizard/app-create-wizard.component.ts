@@ -59,7 +59,7 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
     public languages: SelectItem[] = [];
     public formDisplayChange = true;
 
-    public template ;
+    public template : any;
 
     // properties for global parameters deploy validation
     // in future extensions pack this into single object
@@ -207,30 +207,7 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
         });
         this.configFileTemplates.push(new ConfigFileTemplate());
         this.applicationDTO.application.configWizardTemplate = new ConfigWizardTemplate();
-        this.applicationDTO.application.configWizardTemplate.template = {
-            "components": [
-                {
-                    "label": "Tabs",
-                    "components": [
-                        {
-                            "label": "Base",
-                            "key": "configTab",
-                        }
-                    ],
-                    "type": "tabs",
-                    "input": false,
-                    "key": "tabs"
-                },
-                {
-                    "type": "button",
-                    "label": "Apply configuration",
-                    "disableOnInvalid": true,
-                    "theme": "primary",
-                    "input": false,
-                    "tableView": true
-                }
-            ]
-        }
+        this.applicationDTO.application.configWizardTemplate.template = this.configTemplateService.getConfigTemplate();
     };
     
 
@@ -351,12 +328,15 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
     }
 
     public setConfigTemplate(event): void {
-        // if (!this.applicationDTO.application.configWizardTemplate) {
-        //     this.applicationDTO.application.configWizardTemplate = new ConfigWizardTemplate();
-        // }
-        console.log(event);
-        this.applicationDTO.application.configWizardTemplate.template = event.form;
-        console.log(this.applicationDTO.application.configWizardTemplate.template)
+      
+        if(event.type === "addComponent" || event.type === "saveComponent") {
+            console.log(event);
+            this.template = event.form;
+            this.applicationDTO.application.configWizardTemplate.template = null;
+            this.applicationDTO.application.configWizardTemplate.template = Object.assign({}, this.template);
+            console.log('Wizard saved',this.applicationDTO.application.configWizardTemplate.template)
+        }
+       
     }
 
     public setUpdateConfigTemplate(event): void {
