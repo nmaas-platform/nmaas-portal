@@ -59,6 +59,8 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
     public languages: SelectItem[] = [];
     public formDisplayChange = true;
 
+    public template : any;
+
     // properties for global parameters deploy validation
     // in future extensions pack this into single object
     public deployParamKeyValidator: ValidatorFn = noParameterTypeInControlValueValidator();
@@ -206,7 +208,8 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
         this.configFileTemplates.push(new ConfigFileTemplate());
         this.applicationDTO.application.configWizardTemplate = new ConfigWizardTemplate();
         this.applicationDTO.application.configWizardTemplate.template = this.configTemplateService.getConfigTemplate();
-    }
+    };
+    
 
     public nextStep(): void {
         this.activeStepIndex += 1;
@@ -325,10 +328,15 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
     }
 
     public setConfigTemplate(event): void {
-        if (!this.applicationDTO.application.configWizardTemplate) {
-            this.applicationDTO.application.configWizardTemplate = new ConfigWizardTemplate();
+      
+        if(event.type === "addComponent" || event.type === "saveComponent") {
+            console.log(event);
+            this.template = event.form;
+            this.applicationDTO.application.configWizardTemplate.template = null;
+            this.applicationDTO.application.configWizardTemplate.template = Object.assign({}, this.template);
+            console.log('Wizard saved',this.applicationDTO.application.configWizardTemplate.template)
         }
-        this.applicationDTO.application.configWizardTemplate.template = event.form;
+       
     }
 
     public setUpdateConfigTemplate(event): void {
@@ -539,7 +547,7 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
         if (this.applicationDTO.application.appConfigurationSpec.configFileRepositoryRequired) {
             this.removeDefaultElement();
         } else {
-            this.addDefaultElement();
+            // this.addDefaultElement();
             this.removeElementsFromUpdateConfig();
         }
     }
