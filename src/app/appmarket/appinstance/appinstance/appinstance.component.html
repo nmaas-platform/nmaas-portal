@@ -1,73 +1,61 @@
-<div class="container" *ngIf="appInstance">
-    <div class="row">
-        <!-- App logo -->
-        <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2">
-            <div class="thumbnail" *ngIf="app">
-                <img alt="App logo"
-                     [src]="(appImagesService.getAppLogoUrl(app?.applicationBase.id) | secure) || 'assets/images/app-logo-example.png'"/>
+<div class="" *ngIf="appInstance">
+    <div class="background-section">
+        <div style=" display: flex; flex-direction: row; justify-content: space-between; padding-bottom: 50px">
+            <div style="display: flex; align-items: center;">
+                <div class="" *ngIf="app">
+                    <img alt="App logo"
+                         [src]="(appImagesService.getAppLogoUrl(app?.applicationBase.id) | secure) || 'assets/images/app-logo-example.png'" height="90px"/>
+                </div>
+                <div class="" *ngIf="!app">
+                    <img alt="App logo" src="assets/images/app-logo-example.png" height="90px"/>
+                </div>
+                <h2 style="margin:0 20px;">{{appInstance?.name}} ({{app?.applicationBase.name}})</h2>
             </div>
-            <div class="thumbnail" *ngIf="!app">
-                <img alt="App logo" src="assets/images/app-logo-example.png"/>
-            </div>
+            <h3><em style="color: #337ab7;">{{ translateState(appInstanceStatus?.state) }}</em></h3>
         </div>
-        <!-- App information-->
-        <div class="col-xs-8 col-sm-9 col-md-9 col-lg-10">
-            <div class="row flex-stretch">
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <h2 style="margin-bottom: 4px;">{{appInstance?.name}} ({{app?.applicationBase.name}})</h2>
-                    <rate *ngIf="app?.applicationBase.id" [showVotes]="true" [short]="true"
-                          [pathUrl]="getPathUrl(app?.applicationBase.id)"></rate>
-                    <div class="text-muted" style="font-size: small;">
-                        {{app?.application.version ? 'v.' + app?.application.version : 'None'}}
-                        |
-                        <span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
-                              tooltipPosition="bottom" [showDelay]="50"
-                              [tooltipDisabled]="!!app?.applicationBase.licenseUrl">
-							<a class="{{app?.applicationBase.licenseUrl ? '' : 'disabled-url'}}"
-                               [href]="app?.applicationBase.licenseUrl"
-                               target="_blank">{{app?.applicationBase.license || 'License'}}</a>
-						</span>
-                        |
-                        <span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
-                              tooltipPosition="bottom" [showDelay]="50"
-                              [tooltipDisabled]="!!app?.applicationBase.wwwUrl">
-							<a class="{{app?.applicationBase.wwwUrl ? '' : 'disabled-url'}}"
-                               [href]="app?.applicationBase.wwwUrl">WWW</a>
-						</span>
-                        |
-                        <span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
-                              tooltipPosition="bottom" [showDelay]="50"
-                              [tooltipDisabled]="!!app?.applicationBase.sourceUrl">
-							<a class="{{app?.applicationBase.sourceUrl ? '' : 'disabled-url'}}"
-                               [href]="app?.applicationBase.sourceUrl"
-                               target="_blank">{{'APP_INSTANCE.SOURCE' | translate}}</a>
-						</span>
-                        |
-                        <span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
-                              tooltipPosition="bottom" [showDelay]="50"
-                              [tooltipDisabled]="!!app?.applicationBase.issuesUrl">
-							<a class="{{app?.applicationBase.issuesUrl ? '' : 'disabled-url'}}"
-                               [href]="app?.applicationBase.issuesUrl"
-                               target="_blank">{{'APP_INSTANCE.ISSUES' | translate}}</a>
-						</span>
-                    </div>
+        <div style=" display: flex; flex-direction: row; justify-content: space-between;">
+            <div class="" style="display: flex;flex-direction: column;">
+                <div class="text-muted mt-2" style="font-size: small;">
+                    {{app?.application.version ? 'v.' + app?.application.version : 'None'}}
+                    |
+                    <span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
+                          tooltipPosition="bottom" [showDelay]="50"
+                          [tooltipDisabled]="!!app?.applicationBase.licenseUrl">
+				    <a class="{{app?.applicationBase.licenseUrl ? '' : 'disabled-url'}}"
+                       [href]="app?.applicationBase.licenseUrl"
+                       target="_blank">{{app?.applicationBase.license || 'License'}}</a>
+				</span>
+                    |
+                    <span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
+                          tooltipPosition="bottom" [showDelay]="50"
+                          [tooltipDisabled]="!!app?.applicationBase.wwwUrl">
+				    <a class="{{app?.applicationBase.wwwUrl ? '' : 'disabled-url'}}"
+                       [href]="app?.applicationBase.wwwUrl">WWW</a>
+				</span>
+                    |
+                    <span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
+                          tooltipPosition="bottom" [showDelay]="50"
+                          [tooltipDisabled]="!!app?.applicationBase.sourceUrl">
+				    <a class="{{app?.applicationBase.sourceUrl ? '' : 'disabled-url'}}"
+                       [href]="app?.applicationBase.sourceUrl"
+                       target="_blank">{{'APP_INSTANCE.SOURCE' | translate}}</a>
+				</span>
+                    |
+                    <span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
+                          tooltipPosition="bottom" [showDelay]="50"
+                          [tooltipDisabled]="!!app?.applicationBase.issuesUrl">
+				    <a class="{{app?.applicationBase.issuesUrl ? '' : 'disabled-url'}}"
+                       [href]="app?.applicationBase.issuesUrl"
+                       target="_blank">{{'APP_INSTANCE.ISSUES' | translate}}</a>
+				</span>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 container-bottom-right">
-                    <h3><em style="color: #337ab7;">{{ translateState(appInstanceStatus?.state) }}</em></h3>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <!-- Tags -->
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" *ngIf="app?.applicationBase.tags">
+                <div class="" *ngIf="app?.applicationBase.tags">
                     <a *ngFor="let tag of app.applicationBase.tags" class="tag-button">
                         {{tag.name | titlecase}}
                     </a>
                 </div>
-
-                <!-- Deployment buttons -->
-
-                <!-- if application is still being deployed -->
+            </div>
+            <div>
                 <div class=" pull-right"
                      *ngIf="getStateAsEnum(appInstanceStatus?.state) != AppInstanceState.FAILURE
                          && getStateAsEnum(appInstanceStatus?.state) != AppInstanceState.RUNNING
@@ -86,7 +74,7 @@
                 <div *ngIf="appInstance && (
                      getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.RUNNING ||
                      getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.FAILURE)"
-                     class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                     class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="btn-group pull-right">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -199,6 +187,83 @@
             </div>
         </div>
     </div>
+    <div class="background-section">
+        <!-- Installation step description text -->
+        <div id="app-progress-info" style="font-size: 16px;" class="">
+            <div id="app-progress-info-sub alert"
+                 [ngClass]="{
+				 'alert-danger': getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.FAILURE || getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.UNKNOWN,
+				 'other-states': getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.FAILURE && getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.UNKNOWN }"
+                 class="">
+                <div *ngIf="getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.FAILURE" class="info-container">
+                    <span class="glyphicon glyphicon-exclamation-sign info-icon" aria-hidden="true"></span>
+                    <span [innerHTML]="'APP_INSTANCE.INSTALLATION_PROGRESS.DEFAULT_ERROR_MESSAGE' | translate"></span>
+                </div>
+                <div *ngIf="getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.FAILURE && getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.UNKNOWN"
+                     class="info-container">
+                    <span class="glyphicon glyphicon-info-sign info-icon" aria-hidden="true"></span>
+                    <span [innerHTML]="'APP_INSTANCE.USER_FRIENDLY.' + getStateAsString(appInstanceStatus?.state) | translate"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress bar -->
+        <div class=''>
+            <h3 style="margin-bottom: 30px">{{'APP_INSTANCE.INSTALLATION_PROGRESS.HEADER' | translate}}</h3>
+
+
+            <div id="app-prop" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="overflow-x: auto;">
+                <nmaas-appinstanceprogress [stages]='getStages()'
+                                           [activeState]="getStateAsEnum(appInstanceStatus?.state)"></nmaas-appinstanceprogress>
+            </div>
+        </div>
+
+
+        <!-- Show additional information checkbox -->
+        <div class="" >
+            <label style="margin-top: 40px">
+                {{ 'APP_INSTANCE.ADDITIONAL_INFO' | translate}}
+                <input type="checkbox" [(ngModel)]="showAppInstanceHistory" (change)="showHistory()">
+            </label>
+        </div>
+
+        <!-- App Instance State History table -->
+        <div class="" *ngIf="this.showAppInstanceHistory && this.appInstanceStateHistory">
+            <h3>{{'APP_INSTANCE.DEPLOYMENT_HISTORY.HEADER' | translate}}</h3>
+            <hr>
+            <table class="table table-hover table-condensed" aria-describedby="App instance deployment history table">
+                <thead>
+                <tr>
+                    <th scope="col">{{'APP_INSTANCE.DEPLOYMENT_HISTORY.TIMESTAMP' | translate}}</th>
+                    <th scope="col">{{'APP_INSTANCE.DEPLOYMENT_HISTORY.STATE_TRANSITIONS' | translate}}</th>
+                    <th scope="col">&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                <ng-template ngFor let-history
+                             [ngForOf]="this.appInstanceStateHistory | paginate: { itemsPerPage: maxItemsOnPage, currentPage: pageNumber, id: p_first }"
+                             let-isLast="last">
+                    <tr>
+                        <td>{{history.timestamp | localDate:'medium' }}</td>
+                        <td *ngIf="history.previousState !== null">
+                            {{history.previousState | translate }}
+                            <span class="glyphicon glyphicon-arrow-right"
+                                  style="padding-left: 5px;padding-right: 5px"></span>
+                            {{history.currentState | translate }}
+                        </td>
+                        <td *ngIf="history.previousState === null">{{history.currentState | translate }}</td>
+                    </tr>
+                </ng-template>
+                </tbody>
+            </table>
+            <pagination-controls class="text-right" (pageChange)="pageNumber = $event" id="{{ p_first }}"
+                                 previousLabel="{{ 'PAGINATION.PREVIOUS' | translate }}"
+                                 nextLabel="{{ 'PAGINATION.NEXT' | translate }}"
+                                 screenReaderPaginationLabel="{{ 'PAGINATION.SCREEN_READER.PAGINATION' | translate }}"
+                                 screenReaderPageLabel="{{ 'PAGINATION.SCREEN_READER.PAGE' | translate }}"
+                                 screenReaderCurrentLabel="{{ 'PAGINATION.SCREEN_READER.CURRENT' | translate }}"></pagination-controls>
+        </div>
+    </div>
 
     <!-- Undeploy modal-->
     <nmaas-modal styleModal="warning" #undeployModal>
@@ -300,82 +365,6 @@
                     (click)="closeShowConfigModal()">{{'UNDEPLOY_MODAL.CLOSE' | translate}}</button>
         </div>
     </nmaas-modal>
-
-    <!-- Installation step description text -->
-    <div id="app-progress-info" style="font-size: 16px;" class="col-xs-12">
-        <div id="app-progress-info-sub alert"
-             [ngClass]="{
-				 'alert-danger': getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.FAILURE || getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.UNKNOWN,
-				 'other-states': getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.FAILURE && getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.UNKNOWN }"
-             class="col-xs-offset-1 col-xs-10">
-            <div *ngIf="getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.FAILURE" class="info-container">
-                <span class="glyphicon glyphicon-exclamation-sign info-icon" aria-hidden="true"></span>
-                <span [innerHTML]="'APP_INSTANCE.INSTALLATION_PROGRESS.DEFAULT_ERROR_MESSAGE' | translate"></span>
-            </div>
-            <div *ngIf="getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.FAILURE && getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.UNKNOWN"
-                 class="info-container">
-                <span class="glyphicon glyphicon-info-sign info-icon" aria-hidden="true"></span>
-                <span [innerHTML]="'APP_INSTANCE.USER_FRIENDLY.' + getStateAsString(appInstanceStatus?.state) | translate"></span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Progress bar -->
-    <div class='row'>
-        <h3>{{'APP_INSTANCE.INSTALLATION_PROGRESS.HEADER' | translate}}</h3>
-        <hr>
-
-        <div id="app-prop" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="overflow-x: auto;">
-            <nmaas-appinstanceprogress [stages]='getStages()'
-                                       [activeState]="getStateAsEnum(appInstanceStatus?.state)"></nmaas-appinstanceprogress>
-        </div>
-    </div>
-    <hr>
-
-    <!-- Show additional information checkbox -->
-    <div class="row">
-        <label>
-            {{ 'APP_INSTANCE.ADDITIONAL_INFO' | translate}}
-            <input type="checkbox" [(ngModel)]="showAppInstanceHistory" (change)="showHistory()">
-        </label>
-    </div>
-
-    <!-- App Instance State History table -->
-    <div class="row" *ngIf="this.showAppInstanceHistory && this.appInstanceStateHistory">
-        <h3>{{'APP_INSTANCE.DEPLOYMENT_HISTORY.HEADER' | translate}}</h3>
-        <hr>
-        <table class="table table-hover table-condensed" aria-describedby="App instance deployment history table">
-            <thead>
-            <tr>
-                <th scope="col">{{'APP_INSTANCE.DEPLOYMENT_HISTORY.TIMESTAMP' | translate}}</th>
-                <th scope="col">{{'APP_INSTANCE.DEPLOYMENT_HISTORY.STATE_TRANSITIONS' | translate}}</th>
-                <th scope="col">&nbsp;</th>
-            </tr>
-            </thead>
-            <tbody>
-            <ng-template ngFor let-history
-                         [ngForOf]="this.appInstanceStateHistory | paginate: { itemsPerPage: maxItemsOnPage, currentPage: pageNumber, id: p_first }"
-                         let-isLast="last">
-                <tr>
-                    <td>{{history.timestamp | localDate:'medium' }}</td>
-                    <td *ngIf="history.previousState !== null">
-                        {{history.previousState | translate }}
-                        <span class="glyphicon glyphicon-arrow-right"
-                              style="padding-left: 5px;padding-right: 5px"></span>
-                        {{history.currentState | translate }}
-                    </td>
-                    <td *ngIf="history.previousState === null">{{history.currentState | translate }}</td>
-                </tr>
-            </ng-template>
-            </tbody>
-        </table>
-        <pagination-controls class="text-right" (pageChange)="pageNumber = $event" id="{{ p_first }}"
-                             previousLabel="{{ 'PAGINATION.PREVIOUS' | translate }}"
-                             nextLabel="{{ 'PAGINATION.NEXT' | translate }}"
-                             screenReaderPaginationLabel="{{ 'PAGINATION.SCREEN_READER.PAGINATION' | translate }}"
-                             screenReaderPageLabel="{{ 'PAGINATION.SCREEN_READER.PAGE' | translate }}"
-                             screenReaderCurrentLabel="{{ 'PAGINATION.SCREEN_READER.CURRENT' | translate }}"></pagination-controls>
-    </div>
 
     <!-- apply config modal -->
     <nmaas-modal styleModal="info" #applyConfig>
