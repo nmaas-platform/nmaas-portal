@@ -65,105 +65,188 @@
 
 <!--        </div>-->
 <!--    </div>-->
-    <div class="background-section">
-        <table *ngIf="mode === 'DOMAIN'" class="table table-hover table-condensed" style="margin-top: 3rem"
-               aria-describedby="Bulk deployment table" sortable-table (sorted)="onSort($event)">
-            <thead>
-            <tr>
-                <th scope="col" class="column-sortable" sortable-column="id">{{'BULK.LIST.ID' | translate}}</th>
-                <th scope="col" class="column-sortable" sortable-column="creator">{{'BULK.LIST.CREATOR' | translate}}</th>
-                <th scope="col" class="column-sortable" sortable-column="date">{{'BULK.LIST.CREATION_DATE' | translate}}</th>
-                <th scope="col" class="column-sortable" sortable-column="state">{{'BULK.LIST.STATE' | translate}}</th>
-                <th scope="col" ></th>
-            </tr>
-            </thead>
+    <div *ngIf="mode === 'DOMAIN'" class="background-section">
+        <p-table *ngIf="mode === 'DOMAIN'" [value]="bulks" class="p-datatable-hover p-datatable-sm" [responsive]="true" (onSort)="onSort($event)">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="id">{{'BULK.LIST.ID' | translate}}</th>
+                    <th pSortableColumn="creator">{{'BULK.LIST.CREATOR' | translate}}</th>
+                    <th pSortableColumn="date">{{'BULK.LIST.CREATION_DATE' | translate}}</th>
+                    <th pSortableColumn="state">{{'BULK.LIST.STATE' | translate}}</th>
+                    <th></th>
+                </tr>
+            </ng-template>
 
-            <tbody>
-            <ng-template ngFor let-bulk [ngForOf]="bulks" let-i="index">
+            <ng-template pTemplate="body" let-bulk>
                 <tr class="table-row">
-                    <td style="width: 10%">{{bulk?.id}}</td>
-                    <td style="width: 25%">{{bulk?.creator.username}}</td>
-                    <td style="width: 25%">{{bulk?.creationDate | date: 'dd-MM-yyyy HH:mm'}}</td>
-                    <td style="width: 15%">{{'BULK.STATE.' + bulk?.state | translate}}</td>
-                    <td style="width: 20%" class="text-right">
-                    <span class="dropdown">
-            <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
-               data-toggle="dropdown" href="#" role="button">
-              <em class="fas fa-cog icon-black icon-bigger"></em>
-            </a>
-            <ul class="dropdown-menu pull-right-drop">
-              <li *ngIf="mode === bulkTypeDomain">
-                <a [routerLink]="['/admin/domains/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>
-              </li>
-            </ul>
-          </span>
+                    <td>{{bulk?.id}}</td>
+                    <td>{{bulk?.creator.username}}</td>
+                    <td>{{bulk?.creationDate | date: 'dd-MM-yyyy HH:mm'}}</td>
+                    <td>{{'BULK.STATE.' + bulk?.state | translate}}</td>
+                    <td class="text-right">
+                        <span class="dropdown">
+                          <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
+                            <em class="fas fa-cog icon-black icon-bigger"></em>
+                          </a>
+                          <ul class="dropdown-menu pull-right-drop">
+                            <li *ngIf="mode === bulkTypeDomain">
+                              <a [routerLink]="['/admin/domains/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>
+                            </li>
+                          </ul>
+                        </span>
                     </td>
                 </tr>
             </ng-template>
-            </tbody>
-        </table>
+        </p-table>
+
+
+<!--        <table *ngIf="mode === 'DOMAIN'" class="table table-hover table-condensed" style="margin-top: 3rem"-->
+<!--               aria-describedby="Bulk deployment table" sortable-table (sorted)="onSort($event)">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th scope="col" class="column-sortable" sortable-column="id">{{'BULK.LIST.ID' | translate}}</th>-->
+<!--                <th scope="col" class="column-sortable" sortable-column="creator">{{'BULK.LIST.CREATOR' | translate}}</th>-->
+<!--                <th scope="col" class="column-sortable" sortable-column="date">{{'BULK.LIST.CREATION_DATE' | translate}}</th>-->
+<!--                <th scope="col" class="column-sortable" sortable-column="state">{{'BULK.LIST.STATE' | translate}}</th>-->
+<!--                <th scope="col" ></th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+
+<!--            <tbody>-->
+<!--            <ng-template ngFor let-bulk [ngForOf]="bulks" let-i="index">-->
+<!--                <tr class="table-row">-->
+<!--                    <td style="width: 10%">{{bulk?.id}}</td>-->
+<!--                    <td style="width: 25%">{{bulk?.creator.username}}</td>-->
+<!--                    <td style="width: 25%">{{bulk?.creationDate | date: 'dd-MM-yyyy HH:mm'}}</td>-->
+<!--                    <td style="width: 15%">{{'BULK.STATE.' + bulk?.state | translate}}</td>-->
+<!--                    <td style="width: 20%" class="text-right">-->
+<!--                    <span class="dropdown">-->
+<!--            <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"-->
+<!--               data-toggle="dropdown" href="#" role="button">-->
+<!--              <em class="fas fa-cog icon-black icon-bigger"></em>-->
+<!--            </a>-->
+<!--            <ul class="dropdown-menu pull-right-drop">-->
+<!--              <li *ngIf="mode === bulkTypeDomain">-->
+<!--                <a [routerLink]="['/admin/domains/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </span>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--            </ng-template>-->
+<!--            </tbody>-->
+<!--        </table>-->
     </div>
 
     <div *ngIf="mode === 'APPLICATION'" class="background-section">
-        <table *ngIf="mode === 'APPLICATION'" class="table table-hover table-condensed" style="margin-top: 3rem"
-               aria-describedby="Bulk deployment table" sortable-table (sorted)="onSort($event)">
-            <thead>
-            <tr>
-                <th scope="col" class="column-sortable" sortable-column="id">{{'BULK.LIST.ID' | translate}}</th>
-                <th scope="col" class="column-sortable" sortable-column="creator">{{'BULK.LIST.CREATOR' | translate}}</th>
-                <th scope="col" class="column-sortable" sortable-column="app_name">{{'BULK.LIST.APP_NAME' | translate}}</th>
-                <th scope="col" class="column-sortable"
-                    sortable-column="instance_no">{{'BULK.LIST.INSTANCE_NO' | translate}}</th>
-                <th scope="col" class="column-sortable" sortable-column="date"
-                    sort-direction="desc">{{'BULK.LIST.CREATION_DATE' | translate}}</th>
-                <th scope="col" class="column-sortable" sortable-column="state">{{'BULK.LIST.STATE' | translate}}</th>
-                <th scope="col"></th>
-            </tr>
-            </thead>
+        <p-table *ngIf="mode === 'APPLICATION'" [value]="bulks | searchBulk: searchValue: true "
+                 class="p-datatable-hover p-datatable-sm"
+                 [responsive]="true"
+                 [paginator]="true"
+                 [rows]="maxItemsOnPage"
+                 [rowsPerPageOptions]="[15, 20, 25, 30, 50]"
+                 (onSort)="onSort($event)">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="id">{{'BULK.LIST.ID' | translate}}</th>
+                    <th pSortableColumn="creator">{{'BULK.LIST.CREATOR' | translate}}</th>
+                    <th pSortableColumn="app_name">{{'BULK.LIST.APP_NAME' | translate}}</th>
+                    <th pSortableColumn="instance_no">{{'BULK.LIST.INSTANCE_NO' | translate}}</th>
+                    <th pSortableColumn="date" pSortOrder="-1">{{'BULK.LIST.CREATION_DATE' | translate}}</th>
+                    <th pSortableColumn="state">{{'BULK.LIST.STATE' | translate}}</th>
+                    <th></th>
+                </tr>
+            </ng-template>
 
-            <tbody>
-            <ng-template ngFor let-bulk
-                         [ngForOf]="bulks | searchBulk: searchValue: true | paginate: {itemsPerPage: maxItemsOnPage, currentPage: p}"
-                         let-i="index">
+            <ng-template pTemplate="body" let-bulk>
                 <tr class="table-row">
-                    <td style="width: 5%">{{bulk?.id}}</td>
-                    <td style="width: 15%">{{bulk?.creator.username}}</td>
-                    <td style="width: 20%">{{getApplicationName(bulk?.details)}}</td>
-                    <td style="width: 20%">{{getInstancesNumber(bulk?.details)}}</td>
-                    <td style="width: 15%">{{bulk?.creationDate | date: 'dd-MM-yyyy HH:mm'}}</td>
-                    <td style="width: 20%">{{'BULK.STATE.' + bulk?.state | translate}}</td>
-                    <td style="width: 5%" class="text-right">
-                    <span class="dropdown">
-            <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
-               data-toggle="dropdown" href="#" role="button">
-              <em class="fas fa-cog icon-black icon-bigger"></em>
-            </a>
-            <ul class="dropdown-menu pull-right-drop">
-                <li *ngIf="mode === bulkTypeApp">
-                    <a [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>
-                </li>
-                <li *ngIf="mode === bulkTypeApp && bulk?.state !== 'REMOVED'">
-                    <a (click)="getAppBulkDetails(bulk?.id)"> {{"BULK.APP.DOWNLOAD_CSV" | translate}}</a>
-                </li>
-                <li *ngIf="mode === bulkTypeApp && !(bulk?.state === 'REMOVED' || bulk?.deleted )">
-                    <a (click)="modal.show(); removeBulkId=bulk?.id">{{ 'BULK.LIST.REMOVE' | translate }}</a>
-                </li>
-            </ul>
-          </span>
+                    <td>{{bulk?.id}}</td>
+                    <td>{{bulk?.creator.username}}</td>
+                    <td>{{getApplicationName(bulk?.details)}}</td>
+                    <td>{{getInstancesNumber(bulk?.details)}}</td>
+                    <td>{{bulk?.creationDate | date: 'dd-MM-yyyy HH:mm'}}</td>
+                    <td>{{'BULK.STATE.' + bulk?.state | translate}}</td>
+                    <td class="text-right">
+                        <span class="dropdown">
+                          <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
+                            <em class="fas fa-cog icon-black icon-bigger"></em>
+                          </a>
+                          <ul class="dropdown-menu pull-right-drop">
+                            <li *ngIf="mode === bulkTypeApp">
+                              <a [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>
+                            </li>
+                            <li *ngIf="mode === bulkTypeApp && bulk?.state !== 'REMOVED'">
+                              <a (click)="getAppBulkDetails(bulk?.id)"> {{"BULK.APP.DOWNLOAD_CSV" | translate}}</a>
+                            </li>
+                            <li *ngIf="mode === bulkTypeApp && !(bulk?.state === 'REMOVED' || bulk?.deleted )">
+                              <a (click)="modal.show(); removeBulkId=bulk?.id">{{ 'BULK.LIST.REMOVE' | translate }}</a>
+                            </li>
+                          </ul>
+                        </span>
                     </td>
                 </tr>
             </ng-template>
-            </tbody>
-        </table>
+        </p-table>
+
+<!--        <table *ngIf="mode === 'APPLICATION'" class="table table-hover table-condensed" style="margin-top: 3rem"-->
+<!--               aria-describedby="Bulk deployment table" sortable-table (sorted)="onSort($event)">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th scope="col" class="column-sortable" sortable-column="id">{{'BULK.LIST.ID' | translate}}</th>-->
+<!--                <th scope="col" class="column-sortable" sortable-column="creator">{{'BULK.LIST.CREATOR' | translate}}</th>-->
+<!--                <th scope="col" class="column-sortable" sortable-column="app_name">{{'BULK.LIST.APP_NAME' | translate}}</th>-->
+<!--                <th scope="col" class="column-sortable"-->
+<!--                    sortable-column="instance_no">{{'BULK.LIST.INSTANCE_NO' | translate}}</th>-->
+<!--                <th scope="col" class="column-sortable" sortable-column="date"-->
+<!--                    sort-direction="desc">{{'BULK.LIST.CREATION_DATE' | translate}}</th>-->
+<!--                <th scope="col" class="column-sortable" sortable-column="state">{{'BULK.LIST.STATE' | translate}}</th>-->
+<!--                <th scope="col"></th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+
+<!--            <tbody>-->
+<!--            <ng-template ngFor let-bulk-->
+<!--                         [ngForOf]="bulks | searchBulk: searchValue: true | paginate: {itemsPerPage: maxItemsOnPage, currentPage: p}"-->
+<!--                         let-i="index">-->
+<!--                <tr class="table-row">-->
+<!--                    <td style="width: 5%">{{bulk?.id}}</td>-->
+<!--                    <td style="width: 15%">{{bulk?.creator.username}}</td>-->
+<!--                    <td style="width: 20%">{{getApplicationName(bulk?.details)}}</td>-->
+<!--                    <td style="width: 20%">{{getInstancesNumber(bulk?.details)}}</td>-->
+<!--                    <td style="width: 15%">{{bulk?.creationDate | date: 'dd-MM-yyyy HH:mm'}}</td>-->
+<!--                    <td style="width: 20%">{{'BULK.STATE.' + bulk?.state | translate}}</td>-->
+<!--                    <td style="width: 5%" class="text-right">-->
+<!--                    <span class="dropdown">-->
+<!--            <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"-->
+<!--               data-toggle="dropdown" href="#" role="button">-->
+<!--              <em class="fas fa-cog icon-black icon-bigger"></em>-->
+<!--            </a>-->
+<!--            <ul class="dropdown-menu pull-right-drop">-->
+<!--                <li *ngIf="mode === bulkTypeApp">-->
+<!--                    <a [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>-->
+<!--                </li>-->
+<!--                <li *ngIf="mode === bulkTypeApp && bulk?.state !== 'REMOVED'">-->
+<!--                    <a (click)="getAppBulkDetails(bulk?.id)"> {{"BULK.APP.DOWNLOAD_CSV" | translate}}</a>-->
+<!--                </li>-->
+<!--                <li *ngIf="mode === bulkTypeApp && !(bulk?.state === 'REMOVED' || bulk?.deleted )">-->
+<!--                    <a (click)="modal.show(); removeBulkId=bulk?.id">{{ 'BULK.LIST.REMOVE' | translate }}</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--          </span>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--            </ng-template>-->
+<!--            </tbody>-->
+<!--        </table>-->
 
     </div>
 
-    <pagination-controls class="text-right" (pageChange)="p = $event"
-                         previousLabel="{{ 'PAGINATION.PREVIOUS' | translate }}"
-                         nextLabel="{{ 'PAGINATION.NEXT' | translate }}"
-                         screenReaderPaginationLabel="{{ 'PAGINATION.SCREEN_READER.PAGINATION' | translate }}"
-                         screenReaderPageLabel="{{ 'PAGINATION.SCREEN_READER.PAGE' | translate }}"
-                         screenReaderCurrentLabel="{{ 'PAGINATION.SCREEN_READER.CURRENT' | translate }}"></pagination-controls>
+<!--    <pagination-controls class="text-right" (pageChange)="p = $event"-->
+<!--                         previousLabel="{{ 'PAGINATION.PREVIOUS' | translate }}"-->
+<!--                         nextLabel="{{ 'PAGINATION.NEXT' | translate }}"-->
+<!--                         screenReaderPaginationLabel="{{ 'PAGINATION.SCREEN_READER.PAGINATION' | translate }}"-->
+<!--                         screenReaderPageLabel="{{ 'PAGINATION.SCREEN_READER.PAGE' | translate }}"-->
+<!--                         screenReaderCurrentLabel="{{ 'PAGINATION.SCREEN_READER.CURRENT' | translate }}"></pagination-controls>-->
 
 </div>
 
