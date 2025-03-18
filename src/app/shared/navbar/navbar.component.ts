@@ -62,6 +62,7 @@ export class NavbarComponent implements OnInit {
                     if (this.languageService.shouldUpdate()) {
                         this.getSupportedLanguages();
                         this.languageService.setUpdateRequiredFlag(false);
+                        this.authService.loadUser();
                     }
                 });
             }
@@ -88,10 +89,13 @@ export class NavbarComponent implements OnInit {
     }
 
     public checkUserRole(): boolean {
-        return this.authService.getDomains().filter(value => value !== this.domainService.getGlobalDomainId()).length > 0
+        if(this.authService.isLogged()) {
+            return this.authService.getDomains().filter(value => value !== this.domainService.getGlobalDomainId()).length > 0
             || this.authService.getRoles().filter(value => value !== 'ROLE_INCOMPLETE')
                 .filter(value => value !== 'ROLE_GUEST')
                 .length > 0;
+        }
+       
     }
 
     public showNotificationModal(): void {

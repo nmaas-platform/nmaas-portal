@@ -37,11 +37,14 @@ export class AuthService {
                 private appConfig: AppConfigService,
                 private jwtHelper: JwtHelperService,
                 private profileService: ProfileService) {
-        this.profileService.getOne().subscribe(profile => {
+        
+    }
+
+    public loadUser(): void {
+        this.profileService.getOne().pipe(debounceTime(1000)).subscribe(profile => {
             this.profile = profile
         })
     }
-
 
     //TODO make this static again and serive this feature in other way
     public storeToken(token: string): void {
@@ -165,13 +168,14 @@ export class AuthService {
     public getDomains(): number[] {
 
         console.warn(this.profile)
-
-        if (this.profile === undefined) {
-            return [];
-        } else {
-            return this.profile.getDomainIds();
+        if(this.isLogged) {
+            if (this.profile !== undefined && this.profile !== null && this.profile.getDomainIds() === undefined) {
+                return this.profile.getDomainIds();
+            } else {
+                return [];
+            }
+    
         }
-
 
     }
 
