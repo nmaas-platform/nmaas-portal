@@ -57,7 +57,7 @@ export class NavbarComponent implements OnInit {
         this.isServiceAvailable = this.serviceAvailability.isServiceAvailable;
         this.getSupportedLanguages();
         if (this.authService.isLogged()) {
-            if (this.authService.hasRole('ROLE_SYSTEM_ADMIN')) {
+            // if (this.authService.hasRole('ROLE_SYSTEM_ADMIN')) {
                 this.refresh = interval(5000).subscribe(next => {
                     if (this.languageService.shouldUpdate()) {
                         this.getSupportedLanguages();
@@ -65,7 +65,7 @@ export class NavbarComponent implements OnInit {
                         this.authService.loadUser();
                     }
                 });
-            }
+            // }
         }
         this.intervalId = setInterval(() => {
             if (this.authService.isLogged()) {

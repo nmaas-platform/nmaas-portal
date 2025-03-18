@@ -1,6 +1,6 @@
 import {BehaviorSubject, Observable, Subject, throwError as observableThrowError} from 'rxjs';
 import {catchError, debounceTime, map} from 'rxjs/operators';
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AppConfigService} from '../service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -9,7 +9,10 @@ import {ProfileService} from '../service/profile.service';
 
 // tslint:disable:no-console
 export class DomainRoles {
-    constructor(private domainId: number, private roles: string[] = []) {
+    constructor(
+        private domainId: number,
+        private roles: string[] = []
+    ) {
     }
 
     public getDomainId(): number {
@@ -37,11 +40,13 @@ export class AuthService {
                 private appConfig: AppConfigService,
                 private jwtHelper: JwtHelperService,
                 private profileService: ProfileService) {
-        
+
     }
 
     public loadUser(): void {
-        this.profileService.getOne().pipe(debounceTime(1000)).subscribe(profile => {
+        console.warn("dupa")
+        this.profileService.getOne().subscribe(profile => {
+            console.warn(profile);
             this.profile = profile
         })
     }
@@ -107,40 +112,71 @@ export class AuthService {
         return false;
     }
 
-    public getDomainRoles(): Map<number, DomainRoles> {
-        const drMap: Map<number, DomainRoles> = new Map<number, DomainRoles>();
-
+    public getGlobalRole() {
         const token = this.getToken();
         if (token == null) {
-            return drMap;
+            return null;
         }
+        return this.jwtHelper.decodeToken(token).global_role[0];
+    }
 
-        const authorities: Authority[] = this.jwtHelper.decodeToken(token).scopes;
-        if (authorities == null) {
-            return drMap;
+    public getDomainsRoles() {
+        const token = this.getToken();
+        if (token == null) {
+            return null;
         }
+        return this.jwtHelper.decodeToken(token).roles;
 
-        for (let index = 0; index < authorities.length; index++) {
-            if (authorities[index].authority === undefined) {
-                continue;
-            }
+    }
 
-            const domainRole: string[] = authorities[index].authority.split(':', 2);
-            if (domainRole.length !== 2) {
-                continue;
-            }
-            const domainId: number = Number.parseInt(domainRole[0], 10);
-            const role: string = domainRole[1];
+    public getDomainRoles(): Map<number, DomainRoles> {
+        const domainRolesMap: Map<number, DomainRoles> = new Map<number, DomainRoles>();
 
-            let dr: DomainRoles;
-            if (!drMap.has(domainId)) {
-                drMap.set(domainId, new DomainRoles(domainId, []));
-            }
-            dr = drMap.get(domainId);
-            dr.getRoles().push(role);
+        const domains: number[] = this.getDomains();
+        for (const domain of domains) {
+            const roles: string[] = this.profile.roles
+                .filter(userRole => userRole.domainId === domain)
+                .map(userRole => userRole.role.toString())
+
+            domainRolesMap.set(domain, new DomainRoles(domain, roles));
+
         }
+        console.warn(this.profile)
+        console.warn(domains)
+        return domainRolesMap;
 
-        return drMap;
+        //
+        // const token = this.getToken();
+        // if (token == null) {
+        //     return drMap;
+        // }
+        //
+        // const authorities: Authority[] = this.jwtHelper.decodeToken(token).scopes;
+        // if (authorities == null) {
+        //     return drMap;
+        // }
+        //
+        // for (let index = 0; index < authorities.length; index++) {
+        //     if (authorities[index].authority === undefined) {
+        //         continue;
+        //     }
+        //
+        //     const domainRole: string[] = authorities[index].authority.split(':', 2);
+        //     if (domainRole.length !== 2) {
+        //         continue;
+        //     }
+        //     const domainId: number = Number.parseInt(domainRole[0], 10);
+        //     const role: string = domainRole[1];
+        //
+        //     let dr: DomainRoles;
+        //     if (!drMap.has(domainId)) {
+        //         drMap.set(domainId, new DomainRoles(domainId, []));
+        //     }
+        //     dr = drMap.get(domainId);
+        //     dr.getRoles().push(role);
+        // }
+        //
+        // return drMap;
     }
 
     public getRoles(): string[] {
@@ -166,15 +202,13 @@ export class AuthService {
 
 
     public getDomains(): number[] {
-
-        console.warn(this.profile)
-        if(this.isLogged) {
-            if (this.profile !== undefined && this.profile !== null && this.profile.getDomainIds() === undefined) {
+        if (this.isLogged()) {
+            if (this.profile !== undefined && this.profile !== null && this.profile.getDomainIds() !== undefined) {
                 return this.profile.getDomainIds();
             } else {
                 return [];
             }
-    
+
         }
 
     }

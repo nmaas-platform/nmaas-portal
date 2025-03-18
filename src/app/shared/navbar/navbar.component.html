@@ -14,9 +14,9 @@
                 <li *ngIf="checkUserRole() && shouldDisplaySubscriptions()" [routerLinkActiveOptions]="{exact:true}"
                     [routerLinkActive]="['active']"><a
                         [routerLink]="['/subscriptions']">{{ 'NAVBAR.SUBSCRIPTIONS' | translate }}</a></li>
-                <li *ngIf="!isOnlyGuestInGlobalDomain()"
-                    [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']"><a
-                        [routerLink]="['/instances']">{{ 'NAVBAR.INSTANCES' | translate }}</a></li>
+<!--                <li *ngIf="!isOnlyGuestInGlobalDomain()"-->
+<!--                    [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']"><a-->
+<!--                        [routerLink]="['/instances']">{{ 'NAVBAR.INSTANCES' | translate }}</a></li>-->
             </ul>
             <ul *ngIf="authService.isLogged()" class="nav navbar-nav navbar-right">
                 <li *ngIf="showClock" class="">
