@@ -64,6 +64,7 @@ import { AccessTokensComponent } from './users/access-token/access-tokens.compon
 import { LeftMenuComponent } from './left-menu/left-menu.component';
 import {TableModule} from 'primeng/table';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import {CheckboxModule} from 'primeng/checkbox';
 
 
 @NgModule({
@@ -84,6 +85,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
         InputTextModule,
         FormioModule,
         TableModule,
+        CheckboxModule
     ],
     declarations: [
         RateComponent,

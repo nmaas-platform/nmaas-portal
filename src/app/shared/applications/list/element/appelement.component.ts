@@ -40,6 +40,9 @@ export class AppElementComponent implements OnInit, OnChanges {
     @Input()
     public domain: Domain;
 
+    @Input()
+    public showSubscribed: boolean;
+
     @ViewChild(AppInstallModalComponent)
     public readonly modal: AppInstallModalComponent;
 

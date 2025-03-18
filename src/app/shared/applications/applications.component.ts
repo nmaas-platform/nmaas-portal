@@ -60,6 +60,7 @@ export class ApplicationsViewComponent implements OnInit, OnChanges {
     public sortMode = 'NAME';
 
     private popStats: any = {};
+    public showSubscribed = false;
 
     constructor(private appsService: AppsService,
                 private appSubsService: AppSubscriptionsService,
@@ -76,7 +77,6 @@ export class ApplicationsViewComponent implements OnInit, OnChanges {
                 this.popStats = data;
             }
         )
-
     }
 
     ngOnChanges(changes: SimpleChanges) {
