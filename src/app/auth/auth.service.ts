@@ -89,26 +89,35 @@ export class AuthService {
     }
 
     public hasRole(name: string): boolean {
-        const token = this.getToken();
-        const authorities: Authority[] = this.jwtHelper.decodeToken(token).scopes;
-
-
-        for (let i = 0; i < authorities.length; i++) {
-            if (authorities[i].authority.indexOf(name) > -1) {
-                return true;
-            }
+        // const token = this.getToken();
+        // const authorities: Authority[] = this.jwtHelper.decodeToken(token).scopes;
+        if(name === 'ROLE_SYSTEM_ADMIN') {
+            return true;
         }
+
         return false;
+        // for (let i = 0; i < authorities.length; i++) {
+        //     if (authorities[i].authority.indexOf(name) > -1) {
+        //         return true;
+        //     }
+        // }
+        // return false;
+       
     }
 
     public hasDomainRole(domainId: number, name: string): boolean {
-        const token = this.getToken();
-        const authorities: Authority[] = this.jwtHelper.decodeToken(token).scopes;
-        for (let i = 0; i < authorities.length; i++) {
-            if (authorities[i].authority.indexOf(domainId + ':' + name) > -1) {
-                return true;
-            }
+        // const token = this.getToken();
+        // const authorities: Authority[] = this.jwtHelper.decodeToken(token).scopes;
+        // for (let i = 0; i < authorities.length; i++) {
+        //     if (authorities[i].authority.indexOf(domainId + ':' + name) > -1) {
+        //         return true;
+        //     }
+        // }
+        // return false;
+        if(name === 'ROLE_DOMAIN_ADMIN') {
+            return true;
         }
+
         return false;
     }
 

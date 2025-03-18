@@ -56,6 +56,7 @@ export class NavbarComponent implements OnInit {
     ngOnInit() {
         this.isServiceAvailable = this.serviceAvailability.isServiceAvailable;
         this.getSupportedLanguages();
+        this.authService.loadUser();
         if (this.authService.isLogged()) {
             // if (this.authService.hasRole('ROLE_SYSTEM_ADMIN')) {
                 this.refresh = interval(5000).subscribe(next => {
