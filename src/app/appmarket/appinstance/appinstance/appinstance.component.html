@@ -95,7 +95,7 @@
                         <ul class="dropdown-menu">
                             <ng-container *ngIf="getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.RUNNING">
                                 <li>
-                                    <a role="button" (click)="this.accessMethodsModal.show()">
+                                    <a role="button" (click)="openAccessMethodsModal()">
                                         {{'APP_INSTANCE.APP_ACCESS_METHODS' | translate}}
                                     </a>
                                 </li>
