@@ -18,11 +18,11 @@ export class ShellClientService {
 
     public initConnection(id: number, pod: string): Observable<string> {
         // @ts-ignore
-        return this.http.post<string>(this.appConfig.getApiUrl() + '/shell/' + id + '/init/' + pod, {}, {responseType: 'text'});
+        return this.http.post<string>(this.appConfig.getApiUrl() + '/pods/shell/' + id + '/init/' + pod, {}, {responseType: 'text'});
     }
 
     public sendCommand(sessionId: string, command: Object = {}): Observable<any> {
-        return this.http.post(this.appConfig.getApiUrl() + '/shell/' + sessionId + '/command', command);
+        return this.http.post(this.appConfig.getApiUrl() + '/pods/shell/' + sessionId + '/command', command);
     }
 
     /**
@@ -30,7 +30,7 @@ export class ShellClientService {
      */
     public closeConnection(sessionId: string) {
         this.closeEventStream()
-        this.http.delete(this.appConfig.getApiUrl() + '/shell/' + sessionId).subscribe(
+        this.http.delete(this.appConfig.getApiUrl() + '/pods/shell/' + sessionId).subscribe(
             () => console.log('session completed: ', sessionId),
             error => console.error('error completing session', error))
     }
@@ -42,7 +42,7 @@ export class ShellClientService {
 
     public getServerSentEvent(sessionId: string): Observable<OnMessageEvent> {
         return new Observable<OnMessageEvent>(observableEvents => {
-            const events = this._sseService.getEventSource(this.appConfig.getApiUrl() + '/shell/' + sessionId);
+            const events = this._sseService.getEventSource(this.appConfig.getApiUrl() + '/pods/shell/' + sessionId);
 
             events.onopen = onopenEvent => {
                 this._zone.run(() => {
