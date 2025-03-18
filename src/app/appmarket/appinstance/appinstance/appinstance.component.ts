@@ -643,4 +643,13 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     }
 
 
+    public openAccessMethodsModal(): void {
+        this.appInstanceService.getDeploymentParameters(this.appInstanceId).subscribe(
+            deployParams => {
+                this.deployParametersSubject.next(deployParams)
+                this.accessMethodsModal.show()   ;
+    })
+      
+    }
+
 }
