@@ -4,7 +4,9 @@ import {AuthService} from './auth.service';
 import {AppConfigService} from '../service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {Role} from '../model/userrole';
+import {Role, UserRole} from '../model/userrole';
+import { ProfileService } from '../service/profile.service';
+import { of } from 'rxjs';
 
 describe('Service: Auth', () => {
     let authService: AuthService;
@@ -31,6 +33,13 @@ describe('Service: Auth', () => {
             return arg !== 'valid';
         });
 
+        const userRole = new UserRole();
+        userRole.role= Role.ROLE_SYSTEM_ADMIN;
+        userRole.domainName = "test";
+        userRole.domainId = 1;
+        const profileServiceStub = jasmine.createSpyObj('ProfileService', ['getRoles']);
+        profileServiceStub.getRoles.and.returnValue(of([userRole]))
+
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule
@@ -39,6 +48,7 @@ describe('Service: Auth', () => {
                 AuthService,
                 {provide: AppConfigService, useValue: appConfigServiceStub},
                 {provide: JwtHelperService, useValue: jwtSpy},
+                {provide: ProfileService, useValue: profileServiceStub}
             ],
         });
 
