@@ -4,11 +4,15 @@ import {Injectable} from '@angular/core';
 import {AppConfigService} from '../service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Authority} from '../model';
-
+import {User} from '../model';
+import {ProfileService} from '../service/profile.service';
+import {Role, UserRole} from '../model/userrole';
 
 export class DomainRoles {
-    constructor(private domainId: number, private roles: string[] = []) {
+    constructor(
+        private domainId: number,
+        private roles: string[] = []
+    ) {
     }
 
     public getDomainId(): number {
@@ -29,16 +33,52 @@ export class AuthService {
     public loginUsingSsoService: boolean;
 
     private readonly isLoggedInSubject: Subject<boolean> = new BehaviorSubject<boolean>(false);
+    public profile: UserRole[]
+
+    private rolesTabelName = 'rolesToken'
 
 
     constructor(private http: HttpClient,
                 private appConfig: AppConfigService,
-                private jwtHelper: JwtHelperService) {
+                private jwtHelper: JwtHelperService,
+                private profileService: ProfileService) {
+        this.loadAndSaveRoles();
+        this.loadUser()
+    }
+
+    public loadUser(): void {
+        this.profileService.getRoles().subscribe(roles => {
+            this.profile = roles
+            this.storeRoles(roles)
+        })
     }
 
     //TODO make this static again and serive this feature in other way
     public storeToken(token: string): void {
         localStorage.setItem(this.appConfig.config.tokenName, token);
+    }
+
+    public storeRoles(roles: UserRole[]): void {
+        const rolesString = JSON.stringify(roles);
+        localStorage.setItem(this.rolesTabelName, rolesString);
+    }
+
+    public loadAndSaveRoles() {
+        this.profile = this.loadRoles();
+    }
+
+    public loadRoles(): UserRole[] {
+        const rolesString = localStorage.getItem(this.rolesTabelName);
+        if (!rolesString) {
+            return null;
+        }
+
+        const parsed = JSON.parse(rolesString);
+        return parsed.map((item: any) => Object.assign(new UserRole(), item));
+    }
+
+    public removeRoles(): void {
+        localStorage.removeItem(this.rolesTabelName)
     }
 
     public storeOidcToken(token: string): void {
@@ -74,61 +114,63 @@ export class AuthService {
     }
 
     public hasRole(name: string): boolean {
-        const token = this.getToken();
-        const authorities: Authority[] = this.jwtHelper.decodeToken(token).scopes;
-        for (let i = 0; i < authorities.length; i++) {
-            if (authorities[i].authority.indexOf(name) > -1) {
+
+        const roles = this.getRoles()
+
+        for (const role of roles) {
+            if (role === name) {
                 return true;
             }
         }
         return false;
+
     }
 
     public hasDomainRole(domainId: number, name: string): boolean {
-        const token = this.getToken();
-        const authorities: Authority[] = this.jwtHelper.decodeToken(token).scopes;
-        for (let i = 0; i < authorities.length; i++) {
-            if (authorities[i].authority.indexOf(domainId + ':' + name) > -1) {
-                return true;
+        let result = false;
+        const domainRoles: Map<number, DomainRoles> = this.getDomainRoles();
+        for (const [mapDomainId, domainRolesValue] of domainRoles) {
+            if (mapDomainId === domainId) {
+                domainRolesValue.getRoles().forEach(role => {
+                    if (role === name) {
+                        result = true;
+                    }
+                })
             }
         }
-        return false;
+        return result;
+    }
+
+    public getGlobalRole(): string[] {
+        const token = this.getToken();
+        if (token == null) {
+            return null;
+        }
+        return this.jwtHelper.decodeToken(token).global_role;
+    }
+
+    public getDomainsRoles() {
+        const token = this.getToken();
+        if (token == null) {
+            return null;
+        }
+        return this.jwtHelper.decodeToken(token).roles;
+
     }
 
     public getDomainRoles(): Map<number, DomainRoles> {
-        const drMap: Map<number, DomainRoles> = new Map<number, DomainRoles>();
+        const domainRolesMap: Map<number, DomainRoles> = new Map<number, DomainRoles>();
 
-        const token = this.getToken();
-        if (token == null) {
-            return drMap;
+        const domains: number[] = this.getDomains();
+        for (const domain of domains) {
+            const roles: string[] = this.profile
+                .filter(userRole => userRole.domainId === domain)
+                .map(userRole => Role[userRole.role])
+
+            domainRolesMap.set(domain, new DomainRoles(domain, roles));
+
         }
-
-        const authorities: Authority[] = this.jwtHelper.decodeToken(token).scopes;
-        if (authorities == null) {
-            return drMap;
-        }
-
-        for (let index = 0; index < authorities.length; index++) {
-            if (authorities[index].authority === undefined) {
-                continue;
-            }
-
-            const domainRole: string[] = authorities[index].authority.split(':', 2);
-            if (domainRole.length !== 2) {
-                continue;
-            }
-            const domainId: number = Number.parseInt(domainRole[0], 10);
-            const role: string = domainRole[1];
-
-            let dr: DomainRoles;
-            if (!drMap.has(domainId)) {
-                drMap.set(domainId, new DomainRoles(domainId, []));
-            }
-            dr = drMap.get(domainId);
-            dr.getRoles().push(role);
-        }
-
-        return drMap;
+        return domainRolesMap;
     }
 
     public getRoles(): string[] {
@@ -138,56 +180,35 @@ export class AuthService {
         if (token == null) {
             return roles;
         }
+        const domainRoles: string[] = this.jwtHelper.decodeToken(token).roles;
+        const globalRole: string[] = this.jwtHelper.decodeToken(token).global_role;
 
-        const authorities: Authority[] = this.jwtHelper.decodeToken(token).scopes;
-        for (let index = 0; index < authorities.length; index++) {
-            if (authorities[index].authority === undefined) {
-                continue;
-            }
+        roles.push(globalRole[0]);
 
-            const domainRole: string[] = authorities[index].authority.split(':', 2);
-            if (domainRole.length !== 2) {
-                continue;
-            }
-            const role: string = domainRole[1];
-            if (roles.indexOf(role) === -1) {
-                roles.push(role);
-            }
+        for (const role of domainRoles) {
+
+            roles.push(role);
         }
+
         return roles;
     }
 
 
     public getDomains(): number[] {
-        const domains: number[] = [];
+        if (this.isLogged()) {
+            if (this.profile !== undefined && this.profile !== null) {
+                return this.getDomainIds();
+            } else {
+                return [];
+            }
 
-        const token = this.getToken();
-        if (token == null) {
-            return domains;
         }
+        return [];
 
-        const authorities: Authority[] = this.jwtHelper.decodeToken(token).scopes;
-
-        for (let index = 0; index < authorities.length; index++) {
-            if (authorities[index].authority === undefined) {
-                continue;
-            }
-
-            const domainIdStr: string[] = authorities[index].authority.split(':', 1);
-            if (domainIdStr.length === 0) {
-                continue;
-            }
-            const domainId: number = Number.parseInt(domainIdStr[0], 10);
-            if (domains.indexOf(domainId) === -1) {
-                domains.push(domainId);
-            }
-        }
-        return domains;
     }
 
     public getDomainsWithRole(name: string): number[] {
         const domainsWithRole: number[] = [];
-
         const domains: number[] = this.getDomains();
         domains.forEach((domainId) => {
             if (this.hasDomainRole(domainId, name)) {
@@ -220,7 +241,11 @@ export class AuthService {
                     console.debug('AUTH | DomainRoles: ' + this.getDomainRoles());
                     this.loginUsingSsoService = false;
                     this.isLoggedInSubject.next(true);
-                    return true;
+                    this.profileService.getRoles().subscribe(profile => {
+                        this.profile = profile
+                        this.storeRoles(profile);
+                        return true;
+                    })
                 } else {
                     // return false to indicate failed login
                     this.isLoggedInSubject.next(false);
@@ -307,6 +332,10 @@ export class AuthService {
         return this.isLoggedInSubject.pipe(
             debounceTime(100), // use debounceTime to aggregate multiple emissions https://rxjs.dev/api/operators/debounceTime
         );
+    }
+
+    public getDomainIds(): number[] {
+        return Array.from(new Set(this.profile.map(ur => ur.domainId)));
     }
 
 }

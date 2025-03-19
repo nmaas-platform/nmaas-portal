@@ -1,10 +1,12 @@
 /* tslint:disable:no-unused-variable */
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import {TestBed, waitForAsync} from '@angular/core/testing';
 import {AuthService} from './auth.service';
 import {AppConfigService} from '../service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {Role} from '../model/userrole';
+import {Role, UserRole} from '../model/userrole';
+import {ProfileService} from '../service/profile.service';
+import {of} from 'rxjs';
 
 describe('Service: Auth', () => {
     let authService: AuthService;
@@ -20,16 +22,27 @@ describe('Service: Auth', () => {
                 tokenName: 'token',
             }
         };
-
         const jwtSpy = jasmine.createSpyObj('JwtHelperService', ['decodeToken', 'isTokenExpired']);
         jwtSpy.decodeToken.and.returnValue({
             language: 'pl',
             sub: 'test-user',
-            scopes: [{authority: '1:' + Role[Role.ROLE_SYSTEM_ADMIN]}, {authority: '2:' + Role[Role.ROLE_USER]}]
+            global_role: ['ROLE_SYSTEM_ADMIN'],
+            roles: [`ROLE_USER`]
         });
         jwtSpy.isTokenExpired.and.callFake((arg: string): boolean => {
             return arg !== 'valid';
         });
+
+        const userRole = new UserRole();
+        userRole.role = Role.ROLE_SYSTEM_ADMIN;
+        userRole.domainName = 'test';
+        userRole.domainId = 1;
+        const userRole2 = new UserRole();
+        userRole2.role = Role.ROLE_USER;
+        userRole2.domainName = 'test2';
+        userRole2.domainId = 2;
+        const profileServiceStub = jasmine.createSpyObj('ProfileService', ['getRoles']);
+        profileServiceStub.getRoles.and.returnValue(of([userRole, userRole2]))
 
         TestBed.configureTestingModule({
             imports: [
@@ -39,10 +52,12 @@ describe('Service: Auth', () => {
                 AuthService,
                 {provide: AppConfigService, useValue: appConfigServiceStub},
                 {provide: JwtHelperService, useValue: jwtSpy},
+                {provide: ProfileService, useValue: profileServiceStub}
             ],
         });
 
         authService = TestBed.get(AuthService);
+        authService.profile = [userRole, userRole2]
         appConfigServiceSpy = TestBed.get(AppConfigService);
         jwtHelperServiceSpy = TestBed.get(JwtHelperService);
         // spyOn(appConfigServiceSpy, 'getTestInstanceModalKey').and.returnValue("test-instance-modal-key");
@@ -99,7 +114,7 @@ describe('Service: Auth', () => {
     });
 
     it('should return domains from roles', () => {
-        const result  = authService.getDomains();
+        const result = authService.getDomains();
         expect(result).toContain(1);
         expect(result).toContain(2);
         store = {token: null};
