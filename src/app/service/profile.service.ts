@@ -21,7 +21,7 @@ export class ProfileService extends GenericDataService {
   }
 
   public getRoles(): Observable<UserRole[]> {
-    return this.http.get<UserRole[]>(this.getProfileUrl() + 'roles')
+    return this.http.get<UserRole[]>(this.getProfileUrl() + 'user/roles')
   }
 
   protected getProfileUrl(): string {

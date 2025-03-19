@@ -6,7 +6,7 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from '../model';
 import {ProfileService} from '../service/profile.service';
-import { UserRole } from '../model/userrole';
+import {UserRole} from '../model/userrole';
 
 export class DomainRoles {
     constructor(
@@ -27,7 +27,6 @@ export class DomainRoles {
         return (this.roles != null ? this.roles.indexOf(role) >= 0 : false);
     }
 }
-
 @Injectable()
 export class AuthService {
     public loginUsingSsoService: boolean;
@@ -35,7 +34,7 @@ export class AuthService {
     private readonly isLoggedInSubject: Subject<boolean> = new BehaviorSubject<boolean>(false);
     private profile: UserRole[]
 
-    private rolesTabelName = "rolesToken"
+    private rolesTabelName = 'rolesToken'
 
 
     constructor(private http: HttpClient,
@@ -58,7 +57,7 @@ export class AuthService {
         localStorage.setItem(this.appConfig.config.tokenName, token);
     }
 
-    public storeRoles(roles : UserRole[]) : void {
+    public storeRoles(roles: UserRole[]): void {
         const rolesString = JSON.stringify(roles);
         localStorage.setItem(this.rolesTabelName, rolesString);
     }
@@ -69,7 +68,7 @@ export class AuthService {
 
     public loadRoles(): UserRole[] {
         const rolesString = localStorage.getItem(this.rolesTabelName);
-        if(!rolesString) {
+        if (!rolesString) {
             return null;
         }
 
@@ -77,7 +76,7 @@ export class AuthService {
         return parsed.map((item: any) => Object.assign(new UserRole(), item));
     }
 
-    public removeRoles() : void {
+    public removeRoles(): void {
         localStorage.removeItem(this.rolesTabelName)
     }
 
@@ -339,6 +338,6 @@ export class AuthService {
 
     public getDomainIds(): number[] {
         return Array.from(new Set(this.profile.map(ur => ur.domainId)));
-      }
+    }
 
 }
