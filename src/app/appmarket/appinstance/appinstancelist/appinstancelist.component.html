@@ -1,28 +1,42 @@
-<div style="display: flex; align-items: center; justify-content: space-between; margin-top:20px">
+<div style="display: flex; align-items: flex-start; justify-content: space-between; margin-top:20px">
     <div style="display:flex; align-items: center;">
         <input pInputText name="search" id="search" placeholder="Search" type="text" [(ngModel)]="searchValue">
-        <div style="margin-left:20px">
+        <div class="" style="display: inline-flex; align-items: center; margin-right:20px">
+            <label class="mr-3" for="selectionType">{{ 'APP_INSTANCES.SHOW' | translate }}: </label>
+            <p-selectButton
+                    id="selectionType"
+                    [options]="selectionOptions"
+                    [(ngModel)]="listSelection"
+                    [ngModelOptions]="{standalone: true}"
+                    (ngModelChange)="onSelectionChange($event)"
+                    optionLabel="label"
+                    optionValue="value"
+                    ngDefaultControl/>
+        </div>
+        <div style="display: flex">
             <p-checkbox *domainRoles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR'];domainId:domainId"
                         id="show_visible" inputId="show_visible" binary="true" [(ngModel)]="undeployedVisible" [ngModelOptions]="{standalone: true}"></p-checkbox>
-            <label for="show_visible" *domainRoles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR'];domainId:domainId">{{'APP_INSTANCES.UNDEPLOYED_VISIBLE' | translate}}</label>
+            <label for="show_visible" style="text-wrap: nowrap" *domainRoles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR'];domainId:domainId">{{'APP_INSTANCES.UNDEPLOYED_VISIBLE' | translate}}</label>
         </div>
     </div>
     <div class="" style="display: inline-flex; align-items: center">
-        <label class="mr-3" for="selectionType">{{ 'APP_INSTANCES.SHOW' | translate }}: </label>
         <p-selectButton
                 id="selectionType"
-                [options]="selectionOptions"
-                [(ngModel)]="listSelection"
+                [options]="viewOptions"
+                [(ngModel)]="selectedOption"
                 [ngModelOptions]="{standalone: true}"
-                (ngModelChange)="onSelectionChange($event)"
                 optionLabel="label"
                 optionValue="value"
-                ngDefaultControl/>
+                ngDefaultControl>
+            <ng-template let-item pTemplate>
+                <i style="font-size: 14px; padding: 0 10px" [class]="item.icon"></i>
+            </ng-template>
+        </p-selectButton>
     </div>
 </div>
 
 <h4 style="margin-top:40px; font-weight: bold" *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']">{{ 'APP_INSTANCES.DEPLOYED' | translate }}</h4>
-<div class="background-section" style="margin-top:30px">
+<div *ngIf="selectedOption === 'list'" class="background-section" style="margin-top:30px">
     <p-table [value]="appDeployedInstances | async | searchAppInstance: searchValue"
              [paginator]="true"
              [rows]="maxItemsOnPage"
@@ -66,9 +80,52 @@
     </p-table>
 </div>
 
+<div *ngIf="selectedOption === 'cards'" class="grid col-12">
+    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12"  *ngFor="let appInstance of appDeployedInstances | async | searchAppInstance: searchValue">
+        <div class="background-section" [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain()}"
+             [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : [appInstance.id]" >
+            <div  style="display:flex; justify-content: space-between; margin-bottom: 30px">
+                <div>
+                    <p>{{appInstance?.name}}</p>
+                    <p>{{ appInstance?.applicationName }}</p>
+                </div>
+                <div>
+                    <div class="" *ngIf="appInstance?.application">
+                        <img alt="App logo"
+                             [src]="(appImagesService.getAppLogoUrl(appInstance?.application.applicationBase.id) | secure) || 'assets/images/app-logo-example.png'" height="50px"/>
+                    </div>
+                    <div class="" *ngIf="!appInstance?.application">
+                        <img alt="App logo" src="assets/images/app-logo-example.png" height="50px"/>
+                    </div>
+                </div>
+            </div>
+            <div  *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.FAILURE ||
+                    getStateAsEnum(appInstance?.state) == AppInstanceState.REMOVED">
+                <p class="failure">{{ translateState(appInstance?.state) }}</p>
+                <p-progressBar class="failure" [value]="100" [style]="{'height': '6px'}"></p-progressBar>
+            </div>
+            <div  *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.RUNNING ||
+                    getStateAsEnum(appInstance?.state) == AppInstanceState.DEPLOYING ||
+                    getStateAsEnum(appInstance?.state) == AppInstanceState.CONFIGURATION_AWAITING ||
+                    getStateAsEnum(appInstance?.state) == AppInstanceState.CONNECTING">
+                <p class="running">{{ translateState(appInstance?.state) }}</p>
+                <p-progressBar class="running" mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+            </div>
+            <div  *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.DONE ||
+                    getStateAsEnum(appInstance?.state) == AppInstanceState.RUNNING ">
+                <p class="done">{{ translateState(appInstance?.state) }}</p>
+                <p-progressBar class="done" [value]="100" [style]="{'height': '6px'}"></p-progressBar>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
 <div style="margin-top:40px"  *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']">
     <h4 class="header" *ngIf="undeployedVisible">{{ 'APP_INSTANCES.UNDEPLOYED' | translate }}</h4>
-    <div style="margin-top:30px" *ngIf="undeployedVisible" class="background-section">
+    <div style="margin-top:30px" *ngIf="undeployedVisible && selectedOption === 'list'" class="background-section">
         <p-table [value]="appUndeployedInstances | async | paginate: { itemsPerPage: maxItemsOnPageSec, currentPage: secondPageNumber, id: p_second }"
                  [paginator]="true"
                  [rows]="maxItemsOnPageSec"

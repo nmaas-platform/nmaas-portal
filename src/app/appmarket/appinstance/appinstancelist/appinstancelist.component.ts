@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 import {AppInstance, AppInstanceState, parseAppInstanceState} from '../../../model';
-import {AppConfigService, AppInstanceService, CustomerSearchCriteria, DomainService} from '../../../service';
+import {AppConfigService, AppImagesService, AppInstanceService, CustomerSearchCriteria, DomainService} from '../../../service';
 import {AuthService} from '../../../auth/auth.service';
 import {UserDataService} from '../../../service/userdata.service';
 import {forkJoin, Observable, of} from 'rxjs';
@@ -53,6 +53,11 @@ export class AppInstanceListComponent implements OnInit {
     public domainId = 0;
 
     public domains: Domain[] = [];
+    public viewOptions = [
+        {icon: 'pi pi-list', value: 'list'},
+        {icon: 'pi pi-th-large', value: 'cards'}
+    ];
+    public selectedOption = 'list';
 
     public searchValue = '';
     public selectionOptions = [
@@ -67,7 +72,8 @@ export class AppInstanceListComponent implements OnInit {
                 public authService: AuthService,
                 private appConfig: AppConfigService,
                 private translateService: TranslateService,
-                private sessionService: SessionService) {
+                private sessionService: SessionService,
+                public appImagesService: AppImagesService) {
 
     }
 
@@ -106,18 +112,6 @@ export class AppInstanceListComponent implements OnInit {
                 { label: translations.my, value: AppInstanceListSelection.MY },
             ];
         });
-
-
-        forkJoin({
-            all: this.translateService.get('ENUM.ALL'),
-            my: this.translateService.get('ENUM.MY')
-        }).subscribe(translations => {
-            this.selectionOptions = [
-                { label: translations.all, value: AppInstanceListSelection.ALL },
-                { label: translations.my, value: AppInstanceListSelection.MY },
-            ];
-        });
-
     }
 
     public getDomainNameById(id: number): string {
@@ -239,5 +233,9 @@ export class AppInstanceListComponent implements OnInit {
 
     public userHasGuestRoleInCurrentDomain(): boolean {
         return this.authService.hasDomainRole(this.domainId, 'ROLE_GUEST');
+    }
+
+    public getStateAsEnum(state: string | AppInstanceState): AppInstanceState {
+        return typeof state === 'string' ? AppInstanceState[state] : state;
     }
 }

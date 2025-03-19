@@ -25,7 +25,7 @@
     height: 20px;
 }
 
-tr.clickable {
+.clickable {
     cursor: pointer;
 }
 
@@ -102,4 +102,34 @@ label{
 }
 :host ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page.p-highlight{
     background: var(--user-button-background-hover);
+}
+:host ::ng-deep .p-button.p-button-icon-only{
+    width: unset;
+}
+::ng-deep .running .p-progressbar .p-progressbar-value {
+    background: #EBBD59;
+}
+.running{
+    color: #EBBD59;
+    font-weight: bold;
+}
+::ng-deep .failure .p-progressbar .p-progressbar-value{
+    background: #AA0404;
+}
+.failure{
+    color: #AA0404;
+    font-weight: bold;
+}
+::ng-deep .done .p-progressbar .p-progressbar-value{
+    background: #136214;
+}
+.done{
+    color: #136214;
+    font-weight: bold;
+}
+::ng-deep .p-progressbar .p-progressbar-label{
+    display: none;
+}
+p-selectbutton{
+    width: max-content;
 }
