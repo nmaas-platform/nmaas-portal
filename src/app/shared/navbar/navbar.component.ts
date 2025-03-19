@@ -90,13 +90,12 @@ export class NavbarComponent implements OnInit {
     }
 
     public checkUserRole(): boolean {
-        if(this.authService.isLogged()) {
+        if (this.authService.isLogged()) {
             return this.authService.getDomains().filter(value => value !== this.domainService.getGlobalDomainId()).length > 0
             || this.authService.getRoles().filter(value => value !== 'ROLE_INCOMPLETE')
                 .filter(value => value !== 'ROLE_GUEST')
                 .length > 0;
         }
-       
     }
 
     public showNotificationModal(): void {
@@ -104,7 +103,7 @@ export class NavbarComponent implements OnInit {
     }
 
     public isOnlyGuestInGlobalDomain(): boolean {
-        const globalDomainRoles = this.authService.getDomainRoles().get(this.domainService.getGlobalDomainId()).getRoles()
+        const globalDomainRoles = this.authService.getGlobalRole()
         return globalDomainRoles  // does have any role in global domain (not undefined)
             && globalDomainRoles.length === 1  // only one role in global domain
             && globalDomainRoles[0] === 'ROLE_GUEST'  // this single role is ROLE_GUEST

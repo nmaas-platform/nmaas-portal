@@ -4,10 +4,9 @@ import {Injectable} from '@angular/core';
 import {AppConfigService} from '../service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Authority, User} from '../model';
+import {User} from '../model';
 import {ProfileService} from '../service/profile.service';
 
-// tslint:disable:no-console
 export class DomainRoles {
     constructor(
         private domainId: number,
@@ -40,13 +39,11 @@ export class AuthService {
                 private appConfig: AppConfigService,
                 private jwtHelper: JwtHelperService,
                 private profileService: ProfileService) {
-
+        this.loadUser()
     }
 
     public loadUser(): void {
-        console.warn("dupa")
         this.profileService.getOne().subscribe(profile => {
-            console.warn(profile);
             this.profile = profile
         })
     }
@@ -89,44 +86,40 @@ export class AuthService {
     }
 
     public hasRole(name: string): boolean {
-        // const token = this.getToken();
-        // const authorities: Authority[] = this.jwtHelper.decodeToken(token).scopes;
-        if(name === 'ROLE_SYSTEM_ADMIN') {
-            return true;
-        }
 
+        const roles = this.getRoles()
+
+        for (const role of roles) {
+            if (role === name) {
+                return true;
+            }
+        }
         return false;
-        // for (let i = 0; i < authorities.length; i++) {
-        //     if (authorities[i].authority.indexOf(name) > -1) {
-        //         return true;
-        //     }
-        // }
-        // return false;
-       
+
     }
 
     public hasDomainRole(domainId: number, name: string): boolean {
-        // const token = this.getToken();
-        // const authorities: Authority[] = this.jwtHelper.decodeToken(token).scopes;
-        // for (let i = 0; i < authorities.length; i++) {
-        //     if (authorities[i].authority.indexOf(domainId + ':' + name) > -1) {
-        //         return true;
-        //     }
-        // }
-        // return false;
-        if(name === 'ROLE_DOMAIN_ADMIN') {
-            return true;
-        }
 
+        const domainRoles: Map<number, DomainRoles> = this.getDomainRoles();
+
+        for (const [mapDomainId, domainRolesValue] of domainRoles) {
+            if (mapDomainId === domainId) {
+                domainRolesValue.getRoles().forEach(role => {
+                    if (role === name) {
+                        return true;
+                    }
+                })
+            }
+        }
         return false;
     }
 
-    public getGlobalRole() {
+    public getGlobalRole(): string[] {
         const token = this.getToken();
         if (token == null) {
             return null;
         }
-        return this.jwtHelper.decodeToken(token).global_role[0];
+        return this.jwtHelper.decodeToken(token).global_role;
     }
 
     public getDomainsRoles() {
@@ -150,42 +143,7 @@ export class AuthService {
             domainRolesMap.set(domain, new DomainRoles(domain, roles));
 
         }
-        console.warn(this.profile)
-        console.warn(domains)
         return domainRolesMap;
-
-        //
-        // const token = this.getToken();
-        // if (token == null) {
-        //     return drMap;
-        // }
-        //
-        // const authorities: Authority[] = this.jwtHelper.decodeToken(token).scopes;
-        // if (authorities == null) {
-        //     return drMap;
-        // }
-        //
-        // for (let index = 0; index < authorities.length; index++) {
-        //     if (authorities[index].authority === undefined) {
-        //         continue;
-        //     }
-        //
-        //     const domainRole: string[] = authorities[index].authority.split(':', 2);
-        //     if (domainRole.length !== 2) {
-        //         continue;
-        //     }
-        //     const domainId: number = Number.parseInt(domainRole[0], 10);
-        //     const role: string = domainRole[1];
-        //
-        //     let dr: DomainRoles;
-        //     if (!drMap.has(domainId)) {
-        //         drMap.set(domainId, new DomainRoles(domainId, []));
-        //     }
-        //     dr = drMap.get(domainId);
-        //     dr.getRoles().push(role);
-        // }
-        //
-        // return drMap;
     }
 
     public getRoles(): string[] {
@@ -212,13 +170,14 @@ export class AuthService {
 
     public getDomains(): number[] {
         if (this.isLogged()) {
-            if (this.profile !== undefined && this.profile !== null && this.profile.getDomainIds() !== undefined) {
+            if (this.profile !== undefined && this.profile !== null) {
                 return this.profile.getDomainIds();
             } else {
                 return [];
             }
 
         }
+        return [];
 
     }
 
@@ -257,7 +216,10 @@ export class AuthService {
                     console.debug('AUTH | DomainRoles: ' + this.getDomainRoles());
                     this.loginUsingSsoService = false;
                     this.isLoggedInSubject.next(true);
-                    return true;
+                    this.profileService.getOne().subscribe(profile => {
+                        this.profile = profile
+                        return true;
+                    })
                 } else {
                     // return false to indicate failed login
                     this.isLoggedInSubject.next(false);
