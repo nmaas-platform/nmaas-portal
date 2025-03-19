@@ -57,7 +57,7 @@ export class UserPrivilegesComponent extends BaseComponent implements OnInit {
         if (this.authService.hasRole(Role[Role.ROLE_SYSTEM_ADMIN]) &&
             Number(this.newPrivilegeForm.get('domainId').value) === this.domainService.getGlobalDomainId()) {
             // admin (global) role set
-            roles = [Role.ROLE_OPERATOR, Role.ROLE_TOOL_MANAGER, Role.ROLE_SYSTEM_ADMIN, Role.ROLE_VL_MANAGER];
+            roles = [Role.ROLE_OPERATOR, Role.ROLE_TOOL_MANAGER, Role.ROLE_SYSTEM_ADMIN, Role.ROLE_GROUP_MANAGER];
             roles = this.filterRoles(roles, this.newPrivilegeForm.get('domainId').value);
         } else if (this.newPrivilegeForm.get('domainId').value != null) {
             // default (domain) role set
