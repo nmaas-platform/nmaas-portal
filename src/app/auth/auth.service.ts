@@ -6,7 +6,7 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from '../model';
 import {ProfileService} from '../service/profile.service';
-import {UserRole} from '../model/userrole';
+import {Role, UserRole} from '../model/userrole';
 
 export class DomainRoles {
     constructor(
@@ -27,6 +27,7 @@ export class DomainRoles {
         return (this.roles != null ? this.roles.indexOf(role) >= 0 : false);
     }
 }
+
 @Injectable()
 export class AuthService {
     public loginUsingSsoService: boolean;
@@ -126,21 +127,18 @@ export class AuthService {
     }
 
     public hasDomainRole(domainId: number, name: string): boolean {
-
+        let result = false;
         const domainRoles: Map<number, DomainRoles> = this.getDomainRoles();
-
-        console.error(domainRoles);
-
         for (const [mapDomainId, domainRolesValue] of domainRoles) {
             if (mapDomainId === domainId) {
                 domainRolesValue.getRoles().forEach(role => {
                     if (role === name) {
-                        return true;
+                        result = true;
                     }
                 })
             }
         }
-        return false;
+        return result;
     }
 
     public getGlobalRole(): string[] {
@@ -167,7 +165,7 @@ export class AuthService {
         for (const domain of domains) {
             const roles: string[] = this.profile
                 .filter(userRole => userRole.domainId === domain)
-                .map(userRole => userRole.role.toString())
+                .map(userRole => Role[userRole.role])
 
             domainRolesMap.set(domain, new DomainRoles(domain, roles));
 
@@ -182,7 +180,6 @@ export class AuthService {
         if (token == null) {
             return roles;
         }
-        console.error('JWTtokenmowi' , this.jwtHelper.decodeToken(token))
         const domainRoles: string[] = this.jwtHelper.decodeToken(token).roles;
         const globalRole: string[] = this.jwtHelper.decodeToken(token).global_role;
 
@@ -212,7 +209,6 @@ export class AuthService {
 
     public getDomainsWithRole(name: string): number[] {
         const domainsWithRole: number[] = [];
-        console.error('jakiname ', name);
         const domains: number[] = this.getDomains();
         domains.forEach((domainId) => {
             if (this.hasDomainRole(domainId, name)) {
