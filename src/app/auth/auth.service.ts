@@ -6,6 +6,7 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from '../model';
 import {ProfileService} from '../service/profile.service';
+import { UserRole } from '../model/userrole';
 
 export class DomainRoles {
     constructor(
@@ -32,25 +33,52 @@ export class AuthService {
     public loginUsingSsoService: boolean;
 
     private readonly isLoggedInSubject: Subject<boolean> = new BehaviorSubject<boolean>(false);
-    private profile: User
+    private profile: UserRole[]
+
+    private rolesTabelName = "rolesToken"
 
 
     constructor(private http: HttpClient,
                 private appConfig: AppConfigService,
                 private jwtHelper: JwtHelperService,
                 private profileService: ProfileService) {
+        this.loadAndSaveRoles();
         this.loadUser()
     }
 
     public loadUser(): void {
-        this.profileService.getOne().subscribe(profile => {
-            this.profile = profile
+        this.profileService.getRoles().subscribe(roles => {
+            this.profile = roles
+            this.storeRoles(roles)
         })
     }
 
     //TODO make this static again and serive this feature in other way
     public storeToken(token: string): void {
         localStorage.setItem(this.appConfig.config.tokenName, token);
+    }
+
+    public storeRoles(roles : UserRole[]) : void {
+        const rolesString = JSON.stringify(roles);
+        localStorage.setItem(this.rolesTabelName, rolesString);
+    }
+
+    public loadAndSaveRoles() {
+        this.profile = this.loadRoles();
+    }
+
+    public loadRoles(): UserRole[] {
+        const rolesString = localStorage.getItem(this.rolesTabelName);
+        if(!rolesString) {
+            return null;
+        }
+
+        const parsed = JSON.parse(rolesString);
+        return parsed.map((item: any) => Object.assign(new UserRole(), item));
+    }
+
+    public removeRoles() : void {
+        localStorage.removeItem(this.rolesTabelName)
     }
 
     public storeOidcToken(token: string): void {
@@ -136,7 +164,7 @@ export class AuthService {
 
         const domains: number[] = this.getDomains();
         for (const domain of domains) {
-            const roles: string[] = this.profile.roles
+            const roles: string[] = this.profile
                 .filter(userRole => userRole.domainId === domain)
                 .map(userRole => userRole.role.toString())
 
@@ -171,7 +199,7 @@ export class AuthService {
     public getDomains(): number[] {
         if (this.isLogged()) {
             if (this.profile !== undefined && this.profile !== null) {
-                return this.profile.getDomainIds();
+                return this.getDomainIds();
             } else {
                 return [];
             }
@@ -216,8 +244,9 @@ export class AuthService {
                     console.debug('AUTH | DomainRoles: ' + this.getDomainRoles());
                     this.loginUsingSsoService = false;
                     this.isLoggedInSubject.next(true);
-                    this.profileService.getOne().subscribe(profile => {
+                    this.profileService.getRoles().subscribe(profile => {
                         this.profile = profile
+                        this.storeRoles(profile);
                         return true;
                     })
                 } else {
@@ -307,5 +336,9 @@ export class AuthService {
             debounceTime(100), // use debounceTime to aggregate multiple emissions https://rxjs.dev/api/operators/debounceTime
         );
     }
+
+    public getDomainIds(): number[] {
+        return Array.from(new Set(this.profile.map(ur => ur.domainId)));
+      }
 
 }

@@ -4,6 +4,7 @@ import {AppConfigService} from './appconfig.service';
 import {Observable} from 'rxjs';
 import {User} from '../model';
 import {HttpClient} from '@angular/common/http';
+import { UserRole } from '../model/userrole';
 
 
 @Injectable({
@@ -17,6 +18,10 @@ export class ProfileService extends GenericDataService {
 
   public getOne(): Observable<User> {
     return this.http.get<User>(this.getProfileUrl() + 'user')
+  }
+
+  public getRoles(): Observable<UserRole[]> {
+    return this.http.get<UserRole[]>(this.getProfileUrl() + 'roles')
   }
 
   protected getProfileUrl(): string {
