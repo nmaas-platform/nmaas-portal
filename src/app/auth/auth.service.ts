@@ -32,7 +32,7 @@ export class AuthService {
     public loginUsingSsoService: boolean;
 
     private readonly isLoggedInSubject: Subject<boolean> = new BehaviorSubject<boolean>(false);
-    private profile: UserRole[]
+    public profile: UserRole[]
 
     private rolesTabelName = 'rolesToken'
 
@@ -129,6 +129,8 @@ export class AuthService {
 
         const domainRoles: Map<number, DomainRoles> = this.getDomainRoles();
 
+        console.error(domainRoles);
+
         for (const [mapDomainId, domainRolesValue] of domainRoles) {
             if (mapDomainId === domainId) {
                 domainRolesValue.getRoles().forEach(role => {
@@ -180,7 +182,7 @@ export class AuthService {
         if (token == null) {
             return roles;
         }
-
+        console.error('JWTtokenmowi' , this.jwtHelper.decodeToken(token))
         const domainRoles: string[] = this.jwtHelper.decodeToken(token).roles;
         const globalRole: string[] = this.jwtHelper.decodeToken(token).global_role;
 
@@ -210,7 +212,7 @@ export class AuthService {
 
     public getDomainsWithRole(name: string): number[] {
         const domainsWithRole: number[] = [];
-
+        console.error('jakiname ', name);
         const domains: number[] = this.getDomains();
         domains.forEach((domainId) => {
             if (this.hasDomainRole(domainId, name)) {
