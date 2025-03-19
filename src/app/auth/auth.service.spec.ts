@@ -37,8 +37,12 @@ describe('Service: Auth', () => {
         userRole.role= Role.ROLE_SYSTEM_ADMIN;
         userRole.domainName = "test";
         userRole.domainId = 1;
+        const userRole2 = new UserRole();
+        userRole.role= Role.ROLE_USER;
+        userRole.domainName = "test2";
+        userRole.domainId = 2;
         const profileServiceStub = jasmine.createSpyObj('ProfileService', ['getRoles']);
-        profileServiceStub.getRoles.and.returnValue(of([userRole]))
+        profileServiceStub.getRoles.and.returnValue(of([userRole, userRole2]))
 
         TestBed.configureTestingModule({
             imports: [
