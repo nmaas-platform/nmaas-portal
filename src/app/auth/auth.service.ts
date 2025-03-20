@@ -252,7 +252,7 @@ export class AuthService{
         // hack so test instance modal is shown onl after login
         localStorage.setItem(this.appConfig.getTestInstanceModalKey(), 'True');
 
-        if (this.meintenance) {
+        if (this.maintenance) {
             this.isLoggedInSubject.next(false);
             console.warn("Maintenance is on. Disabled login.")
             //add toast here 
@@ -309,7 +309,7 @@ export class AuthService{
         // hack so test instance modal is shown onl after login
         localStorage.setItem(this.appConfig.getTestInstanceModalKey(), 'True');
 
-        if (this.meintenance) {
+        if (this.maintenance) {
             this.isLoggedInSubject.next(false);
             return of(false);
         }
