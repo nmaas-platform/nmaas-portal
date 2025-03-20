@@ -41,7 +41,7 @@ export class AuthService{
 
     private refresh: any;
 
-    private meintenance: boolean = false;
+    private maintenance: boolean = false;
 
 
     constructor(private http: HttpClient,
@@ -51,7 +51,7 @@ export class AuthService{
         private maintenanceService: ConfigurationService) {
         this.loadAndSaveRoles();
         this.loadUser()
-        this.getConfigurationToCheckMeintenance();
+        this.getConfigurationToCheckMaintenance();
     }
 
     public loadUser(): void {
@@ -70,13 +70,13 @@ export class AuthService{
         }, 60000);
     }
 
-    private getConfigurationToCheckMeintenance() {
+    private getConfigurationToCheckMaintenance() {
         this.maintenanceService.getConfiguration().subscribe(value => {
             if (value !== undefined && value !== null && value.maintenance) {
                 console.warn("Maintenance is on. Disabled login.")
                 this.isLoggedInSubject.next(false);
                 this.logout();
-                this.meintenance = true;
+                this.maintenance = true;
                 return false;
             }
         });
