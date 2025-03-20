@@ -36,10 +36,8 @@ describe('Service: Auth', () => {
             return arg !== 'valid';
         });
 
-        // maintenanceServiceSpy = jasmine.createSpyObj('maintenanceService', ['getConfiguration']);
-        // maintenanceServiceSpy.getConfiguration.and.returnValue(of())
-
-    
+        maintenanceServiceSpy = jasmine.createSpyObj('maintenanceService', ['getConfiguration']);
+        maintenanceServiceSpy.getConfiguration.and.returnValue(of())
 
         const userRole = new UserRole();
         userRole.role = Role.ROLE_SYSTEM_ADMIN;
@@ -61,8 +59,7 @@ describe('Service: Auth', () => {
                 {provide: AppConfigService, useValue: appConfigServiceStub},
                 {provide: JwtHelperService, useValue: jwtSpy},
                 {provide: ProfileService, useValue: profileServiceStub},
-                // {provide: ConfigurationService, useClass: MockConfigurationService}
-                // {provide: ConfigurationService, useValue: maintenanceServiceSpy}
+                {provide: ConfigurationService, useValue: maintenanceServiceSpy}
             ],
         });
 
@@ -70,8 +67,7 @@ describe('Service: Auth', () => {
         authService.profile = [userRole, userRole2]
         appConfigServiceSpy = TestBed.get(AppConfigService);
         jwtHelperServiceSpy = TestBed.get(JwtHelperService);
-        // maintenanceServiceSpy = TestBed.get(ConfigurationService);
-        // spyOn(appConfigServiceSpy, 'getTestInstanceModalKey').and.returnValue("test-instance-modal-key");
+        maintenanceServiceSpy = TestBed.get(ConfigurationService);
 
         // local store mock
         store = {token: 'valid'};
@@ -89,6 +85,9 @@ describe('Service: Auth', () => {
     }));
 
     it('should create service', () => {
+        spyOn(authService, 'refreshUserRoles').and.callFake(() => {
+            authService['refresh'] = of(0).subscribe(() => authService.loadUser());
+        });
         expect(authService).toBeTruthy();
     });
 

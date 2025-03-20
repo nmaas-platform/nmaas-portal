@@ -31,7 +31,7 @@ export class DomainRoles {
 }
 
 @Injectable()
-export class AuthService {
+export class AuthService{
     public loginUsingSsoService: boolean;
 
     private readonly isLoggedInSubject: Subject<boolean> = new BehaviorSubject<boolean>(false);
@@ -51,8 +51,8 @@ export class AuthService {
         private maintenanceService: ConfigurationService) {
         this.loadAndSaveRoles();
         this.loadUser()
-        this.refreshUserRoles();
-        // this.getConfigurationToCheckMeintenance();
+        // this.refreshUserRoles();
+        this.getConfigurationToCheckMeintenance();
     }
 
     public loadUser(): void {
@@ -63,9 +63,9 @@ export class AuthService {
     }
 
     public refreshUserRoles(): void {
-        this.refresh = interval(60000).subscribe(next => {
-            this.loadUser();
-        });
+       this.refresh = setInterval(() => {
+        this.loadUser();
+        }, 60000);
     }
 
     private getConfigurationToCheckMeintenance() {
@@ -344,7 +344,7 @@ export class AuthService {
 
     public logout(): void {
         const oidcToken = this.getOidcToken();
-
+            this.refresh = null;
         if (oidcToken === null) {
             this.removeToken();
             this.isLoggedInSubject.next(false);
