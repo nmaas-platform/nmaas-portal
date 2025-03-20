@@ -25,7 +25,7 @@ export class LoginSuccessComponent implements OnInit {
             if (refreshToken) {
                 this.authService.storeOidcToken(oidcToken);
             }
-            this.router.navigate(['/portal'])
+            this.router.navigate(['/'])
         })
 
     }
