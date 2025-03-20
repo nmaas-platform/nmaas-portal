@@ -69,6 +69,7 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
     public screenshots: any[] = [];
     public applicationVersions: ApplicationVersion[] = [];
     public selectedVersion : any ;
+    public template: any;
 
     // properties for global parameters deploy validation
     // in future extensions pack this into single object
@@ -238,10 +239,13 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
     }
 
     public setConfigTemplate(event): void {
-        if (!this.applicationDTO.application.configWizardTemplate) {
-            this.applicationDTO.application.configWizardTemplate = new ConfigWizardTemplate();
+        if(event.type === "addComponent" || event.type === "saveComponent") {
+            console.log(event);
+            this.template = event.form;
+            this.applicationDTO.application.configWizardTemplate.template = null;
+            this.applicationDTO.application.configWizardTemplate.template = Object.assign({}, this.template);
+            console.log('Wizard saved',this.applicationDTO.application.configWizardTemplate.template)
         }
-        this.applicationDTO.application.configWizardTemplate.template = event.form;
     }
 
     public setUpdateConfigTemplate(event): void {
