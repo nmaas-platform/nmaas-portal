@@ -1,12 +1,14 @@
-import {BehaviorSubject, Observable, Subject, throwError as observableThrowError} from 'rxjs';
-import {catchError, debounceTime, map} from 'rxjs/operators';
-import {Injectable} from '@angular/core';
-import {AppConfigService} from '../service';
-import {JwtHelperService} from '@auth0/angular-jwt';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {User} from '../model';
-import {ProfileService} from '../service/profile.service';
-import {Role, UserRole} from '../model/userrole';
+import { BehaviorSubject, Observable, Subject, throwError as observableThrowError } from 'rxjs';
+import { catchError, debounceTime, map } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { AppConfigService } from '../service';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { User } from '../model';
+import { ProfileService } from '../service/profile.service';
+import { Role, UserRole } from '../model/userrole';
+import { interval, Subscription } from 'rxjs';
+
 
 export class DomainRoles {
     constructor(
@@ -37,13 +39,16 @@ export class AuthService {
 
     private rolesTabelName = 'rolesToken'
 
+    private refresh: any;
+
 
     constructor(private http: HttpClient,
-                private appConfig: AppConfigService,
-                private jwtHelper: JwtHelperService,
-                private profileService: ProfileService) {
+        private appConfig: AppConfigService,
+        private jwtHelper: JwtHelperService,
+        private profileService: ProfileService) {
         this.loadAndSaveRoles();
         this.loadUser()
+        this.refreshUserRoles();
     }
 
     public loadUser(): void {
@@ -51,6 +56,12 @@ export class AuthService {
             this.profile = roles
             this.storeRoles(roles)
         })
+    }
+
+    public refreshUserRoles(): void {
+        this.refresh = interval(60000).subscribe(next => {
+            this.loadUser();
+        });
     }
 
     //TODO make this static again and serive this feature in other way
@@ -223,46 +234,46 @@ export class AuthService {
         // hack so test instance modal is shown onl after login
         localStorage.setItem(this.appConfig.getTestInstanceModalKey(), 'True');
 
-        const headers = new HttpHeaders({'Content-Type': 'application/json', 'Accept': 'application/json'});
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
         return this.http.post(this.appConfig.config.apiUrl + '/auth/basic/login',
-            JSON.stringify({'username': username, 'password': password}), {headers: headers}).pipe(
-            debounceTime(10000),
-            map((response: Response) => {
-                console.debug('Login response: ' + response.statusText);
-                // login successful if there's a jwt token in the response
-                const token = response && response['token'];
-                if (token) {
-                    // set token property
-                    this.storeToken(token);
+            JSON.stringify({ 'username': username, 'password': password }), { headers: headers }).pipe(
+                debounceTime(10000),
+                map((response: Response) => {
+                    console.debug('Login response: ' + response.statusText);
+                    // login successful if there's a jwt token in the response
+                    const token = response && response['token'];
+                    if (token) {
+                        // set token property
+                        this.storeToken(token);
 
-                    console.debug('AUTH | User: ' + this.getUsername());
-                    console.debug('AUTH | Domains: ' + this.getDomains());
-                    console.debug('AUTH | Roles: ' + this.getRoles());
-                    console.debug('AUTH | DomainRoles: ' + this.getDomainRoles());
-                    this.loginUsingSsoService = false;
-                    this.isLoggedInSubject.next(true);
-                    this.profileService.getRoles().subscribe(profile => {
-                        this.profile = profile
-                        this.storeRoles(profile);
-                        return true;
-                    })
-                } else {
-                    // return false to indicate failed login
-                    this.isLoggedInSubject.next(false);
-                    return false;
-                }
-            }),
-            catchError((error) => {
-                let message: string;
-                if (error.error['message']) {
-                    message = error.error['message'];
-                } else {
-                    message = 'Server error';
-                }
+                        console.debug('AUTH | User: ' + this.getUsername());
+                        console.debug('AUTH | Domains: ' + this.getDomains());
+                        console.debug('AUTH | Roles: ' + this.getRoles());
+                        console.debug('AUTH | DomainRoles: ' + this.getDomainRoles());
+                        this.loginUsingSsoService = false;
+                        this.isLoggedInSubject.next(true);
+                        this.profileService.getRoles().subscribe(profile => {
+                            this.profile = profile
+                            this.storeRoles(profile);
+                            return true;
+                        })
+                    } else {
+                        // return false to indicate failed login
+                        this.isLoggedInSubject.next(false);
+                        return false;
+                    }
+                }),
+                catchError((error) => {
+                    let message: string;
+                    if (error.error['message']) {
+                        message = error.error['message'];
+                    } else {
+                        message = 'Server error';
+                    }
 
-                console.debug(error['status'] + ' - ' + message);
-                return observableThrowError(error);
-            }));
+                    console.debug(error['status'] + ' - ' + message);
+                    return observableThrowError(error);
+                }));
     }
 
     public propagateSSOLogin(userid: string): Observable<boolean> {
@@ -273,34 +284,34 @@ export class AuthService {
         // hack so test instance modal is shown onl after login
         localStorage.setItem(this.appConfig.getTestInstanceModalKey(), 'True');
 
-        const headers = new HttpHeaders({'Content-Type': 'application/json', 'Accept': 'application/json'});
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
         return this.http.post(this.appConfig.config.apiUrl + '/auth/sso/login',
-            JSON.stringify({'userid': userid}), {headers: headers}).pipe(
-            debounceTime(10000),
-            map((response: Response) => {
-                console.debug('SSO login response: ' + response);
-                // login successful if there's a jwt token in the response
-                const token = response && response['token'];
+            JSON.stringify({ 'userid': userid }), { headers: headers }).pipe(
+                debounceTime(10000),
+                map((response: Response) => {
+                    console.debug('SSO login response: ' + response);
+                    // login successful if there's a jwt token in the response
+                    const token = response && response['token'];
 
-                if (token) {
-                    this.storeToken(token);
-                    console.debug('SSO AUTH | User: ' + this.getUsername());
-                    console.debug('SSO AUTH | Domains: ' + this.getDomains());
-                    console.debug('SSO AUTH | Roles: ' + this.getRoles());
-                    console.debug('SSO AUTH | DomainRoles: ' + this.getDomainRoles());
-                    this.loginUsingSsoService = true;
-                    this.isLoggedInSubject.next(true);
-                    return true;
-                } else {
-                    // return false to indicate failed login
-                    this.isLoggedInSubject.next(false);
-                    return false;
-                }
-            }),
-            catchError((error) => {
-                console.error('SSO login error: ' + error.error['message']);
-                return observableThrowError(error);
-            }));
+                    if (token) {
+                        this.storeToken(token);
+                        console.debug('SSO AUTH | User: ' + this.getUsername());
+                        console.debug('SSO AUTH | Domains: ' + this.getDomains());
+                        console.debug('SSO AUTH | Roles: ' + this.getRoles());
+                        console.debug('SSO AUTH | DomainRoles: ' + this.getDomainRoles());
+                        this.loginUsingSsoService = true;
+                        this.isLoggedInSubject.next(true);
+                        return true;
+                    } else {
+                        // return false to indicate failed login
+                        this.isLoggedInSubject.next(false);
+                        return false;
+                    }
+                }),
+                catchError((error) => {
+                    console.error('SSO login error: ' + error.error['message']);
+                    return observableThrowError(error);
+                }));
     }
 
     public logout(): void {
