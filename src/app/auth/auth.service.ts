@@ -1,7 +1,7 @@
-import { BehaviorSubject, Observable, Subject, throwError as observableThrowError } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, throwError as observableThrowError, of } from 'rxjs';
 import { catchError, debounceTime, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { AppConfigService } from '../service';
+import { AppConfigService, ConfigurationService } from '../service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../model';
@@ -41,14 +41,18 @@ export class AuthService {
 
     private refresh: any;
 
+    private meintenance: boolean = false;
+
 
     constructor(private http: HttpClient,
         private appConfig: AppConfigService,
         private jwtHelper: JwtHelperService,
-        private profileService: ProfileService) {
+        private profileService: ProfileService,
+        private maintenanceService: ConfigurationService) {
         this.loadAndSaveRoles();
         this.loadUser()
         this.refreshUserRoles();
+        // this.getConfigurationToCheckMeintenance();
     }
 
     public loadUser(): void {
@@ -61,6 +65,18 @@ export class AuthService {
     public refreshUserRoles(): void {
         this.refresh = interval(60000).subscribe(next => {
             this.loadUser();
+        });
+    }
+
+    private getConfigurationToCheckMeintenance() {
+        this.maintenanceService.getConfiguration().subscribe(value => {
+            if (value !== undefined && value !== null && value.maintenance) {
+                console.warn("Maintenance is on. Disabled login.")
+                this.isLoggedInSubject.next(false);
+                this.logout();
+                this.meintenance = true;
+                return false;
+            }
         });
     }
 
@@ -234,6 +250,13 @@ export class AuthService {
         // hack so test instance modal is shown onl after login
         localStorage.setItem(this.appConfig.getTestInstanceModalKey(), 'True');
 
+        if (this.meintenance) {
+            this.isLoggedInSubject.next(false);
+            console.warn("Maintenance is on. Disabled login.")
+            //add toast here 
+            return of(false);
+        }
+
         const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
         return this.http.post(this.appConfig.config.apiUrl + '/auth/basic/login',
             JSON.stringify({ 'username': username, 'password': password }), { headers: headers }).pipe(
@@ -283,6 +306,11 @@ export class AuthService {
         console.debug('propagateSSOLogin ' + userid);
         // hack so test instance modal is shown onl after login
         localStorage.setItem(this.appConfig.getTestInstanceModalKey(), 'True');
+
+        if (this.meintenance) {
+            this.isLoggedInSubject.next(false);
+            return of(false);
+        }
 
         const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
         return this.http.post(this.appConfig.config.apiUrl + '/auth/sso/login',

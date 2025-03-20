@@ -1,17 +1,20 @@
 /* tslint:disable:no-unused-variable */
 import {TestBed, waitForAsync} from '@angular/core/testing';
 import {AuthService} from './auth.service';
-import {AppConfigService} from '../service';
+import {AppConfigService, ConfigurationService} from '../service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {Role, UserRole} from '../model/userrole';
 import {ProfileService} from '../service/profile.service';
-import {of} from 'rxjs';
+import {Observable, of} from 'rxjs';
+import { Configuration } from '../model/configuration';
+import { HttpHandler } from '@angular/common/http';
 
 describe('Service: Auth', () => {
     let authService: AuthService;
     let appConfigServiceSpy: jasmine.SpyObj<AppConfigService>;
     let jwtHelperServiceSpy: jasmine.SpyObj<JwtHelperService>;
+    let maintenanceServiceSpy: jasmine.SpyObj<ConfigurationService>;
 
     let store: any = {};
 
@@ -33,6 +36,11 @@ describe('Service: Auth', () => {
             return arg !== 'valid';
         });
 
+        // maintenanceServiceSpy = jasmine.createSpyObj('maintenanceService', ['getConfiguration']);
+        // maintenanceServiceSpy.getConfiguration.and.returnValue(of())
+
+    
+
         const userRole = new UserRole();
         userRole.role = Role.ROLE_SYSTEM_ADMIN;
         userRole.domainName = 'test';
@@ -46,13 +54,15 @@ describe('Service: Auth', () => {
 
         TestBed.configureTestingModule({
             imports: [
-                HttpClientTestingModule
+                HttpClientTestingModule,
             ],
             providers: [
                 AuthService,
                 {provide: AppConfigService, useValue: appConfigServiceStub},
                 {provide: JwtHelperService, useValue: jwtSpy},
-                {provide: ProfileService, useValue: profileServiceStub}
+                {provide: ProfileService, useValue: profileServiceStub},
+                // {provide: ConfigurationService, useClass: MockConfigurationService}
+                // {provide: ConfigurationService, useValue: maintenanceServiceSpy}
             ],
         });
 
@@ -60,6 +70,7 @@ describe('Service: Auth', () => {
         authService.profile = [userRole, userRole2]
         appConfigServiceSpy = TestBed.get(AppConfigService);
         jwtHelperServiceSpy = TestBed.get(JwtHelperService);
+        // maintenanceServiceSpy = TestBed.get(ConfigurationService);
         // spyOn(appConfigServiceSpy, 'getTestInstanceModalKey').and.returnValue("test-instance-modal-key");
 
         // local store mock
