@@ -39,6 +39,27 @@ describe('Service: Auth', () => {
         maintenanceServiceSpy = jasmine.createSpyObj('maintenanceService', ['getConfiguration']);
         maintenanceServiceSpy.getConfiguration.and.returnValue(of())
 
+        class MockConfigurationService {
+            protected uri: string;
+        
+            constructor() {
+                this.uri = 'http://localhost/api';
+            }
+        
+            public getApiUrl(): string {
+                return 'http://localhost/api';
+            }
+        
+            public getConfiguration(): Observable<Configuration> {
+                return of<Configuration>();
+            }
+        
+            public updateConfiguration(configuration: Configuration): Observable<any> {
+                return of<Configuration>();
+            }
+        }
+
+
         const userRole = new UserRole();
         userRole.role = Role.ROLE_SYSTEM_ADMIN;
         userRole.domainName = 'test';
@@ -59,7 +80,7 @@ describe('Service: Auth', () => {
                 {provide: AppConfigService, useValue: appConfigServiceStub},
                 {provide: JwtHelperService, useValue: jwtSpy},
                 {provide: ProfileService, useValue: profileServiceStub},
-                {provide: ConfigurationService, useValue: maintenanceServiceSpy}
+                {provide: ConfigurationService, useClass: MockConfigurationService}
             ],
         });
 
@@ -67,7 +88,7 @@ describe('Service: Auth', () => {
         authService.profile = [userRole, userRole2]
         appConfigServiceSpy = TestBed.get(AppConfigService);
         jwtHelperServiceSpy = TestBed.get(JwtHelperService);
-        maintenanceServiceSpy = TestBed.get(ConfigurationService);
+        // maintenanceServiceSpy = TestBed.get(ConfigurationService);
 
         // local store mock
         store = {token: 'valid'};
