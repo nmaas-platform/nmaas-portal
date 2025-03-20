@@ -42,9 +42,7 @@ export class DomainFilterComponent implements OnInit {
     ngOnInit() {
         if (this.authService.hasRole('ROLE_SYSTEM_ADMIN')) {
             this.refresh = interval(10000).subscribe(next => {
-                console.log("trigger domain refresh")
                 if (this.domainService.shouldUpdate()) {
-                    console.warn("updated domains ")
                     this.updateDomains();
                     this.domainService.setUpdateRequiredFlag(false);
                 }

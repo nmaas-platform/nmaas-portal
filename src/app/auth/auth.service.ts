@@ -51,11 +51,11 @@ export class AuthService{
         private maintenanceService: ConfigurationService) {
         this.loadAndSaveRoles();
         this.loadUser()
-        // this.refreshUserRoles();
         this.getConfigurationToCheckMeintenance();
     }
 
     public loadUser(): void {
+       
         this.profileService.getRoles().subscribe(roles => {
             this.profile = roles
             this.storeRoles(roles)
@@ -64,7 +64,9 @@ export class AuthService{
 
     public refreshUserRoles(): void {
        this.refresh = setInterval(() => {
-        this.loadUser();
+        if(this.isLogged()) {
+            this.loadUser();
+        }
         }, 60000);
     }
 

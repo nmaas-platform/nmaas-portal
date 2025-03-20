@@ -56,8 +56,8 @@ export class NavbarComponent implements OnInit {
     ngOnInit() {
         this.isServiceAvailable = this.serviceAvailability.isServiceAvailable;
         this.getSupportedLanguages();
+        this.authService.refreshUserRoles();
         if (this.authService.isLogged()) {
-            this.authService.refreshUserRoles();
                 this.refresh = interval(5000).subscribe(next => {
                     if (this.languageService.shouldUpdate()) {
                         this.getSupportedLanguages();

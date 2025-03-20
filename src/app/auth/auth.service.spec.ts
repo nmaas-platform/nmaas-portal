@@ -106,9 +106,6 @@ describe('Service: Auth', () => {
     }));
 
     it('should create service', () => {
-        spyOn(authService, 'refreshUserRoles').and.callFake(() => {
-            authService['refresh'] = of(0).subscribe(() => authService.loadUser());
-        });
         expect(authService).toBeTruthy();
     });
 
