@@ -328,7 +328,7 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
     }
 
     public setConfigTemplate(event): void {
-      
+      console.log(event)
         if(event.type === "addComponent" || event.type === "saveComponent") {
             console.log(event);
             this.template = event.form;
