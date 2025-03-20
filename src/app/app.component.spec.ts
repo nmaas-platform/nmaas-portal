@@ -34,6 +34,35 @@ class MockConfigurationService {
     }
 }
 
+class MockAppConfigService {
+    config: any;
+  
+    constructor() { }
+  
+    public load() {
+    }
+  
+    public getApiUrl(): string {
+      return '';
+    }
+  
+    public getNmaasGlobalDomainId(): number {
+      return 0;
+    }
+  
+    public getHttpTimeout(): number {
+      return 10000;
+    }
+  
+    public getShowGitInfo(): boolean {
+      return false;
+    }
+  
+    public getShowChangelog(): boolean {
+      return false;
+    }
+  }
+
 class MockServiceUnavailableService {
     public isServiceAvailable: boolean;
 
@@ -68,8 +97,8 @@ describe('App: NmaasPortal', () => {
                 SharedModule
             ],
             providers: [
-                {provide: AppConfigService, useClass: MockConfigurationService},
-                ConfigurationService,
+                {provide: AppConfigService, useClass: MockAppConfigService},
+                {provide: ConfigurationService, useClass: MockConfigurationService},
                 TranslateService,
                 AuthService,
                 JwtHelperService,

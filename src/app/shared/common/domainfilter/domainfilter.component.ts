@@ -106,6 +106,7 @@ export class DomainFilterComponent implements OnInit {
 
     private sortDomains(): void {
         const globalDomainId = this.domainService.getGlobalDomainId();
+        console.log(this.domains);
         this.domains = this.domains.pipe(
             map(
                 domains => {
@@ -123,10 +124,13 @@ export class DomainFilterComponent implements OnInit {
                         domains.unshift(defaultDomain)
                     }
                     this.domainsLocal = domains;
+                    this.filteredDomainsSub.next(this.domainsLocal);
                     return domains
                 }
             )
         )
+        console.log(this.domainsLocal);
+        
     }
 
     public changeDomain(domainId: number, domainName: string) {
