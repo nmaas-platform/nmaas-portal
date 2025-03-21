@@ -166,7 +166,7 @@ export class AuthService {
         for (const [mapDomainId, domainRolesValue] of domainRoles) {
             if (mapDomainId === domainId) {
                 domainRolesValue.getRoles().forEach(role => {
-                    if (role === name) {
+                    if (Role[role] === name) {
                         result = true;
                     }
                 })
