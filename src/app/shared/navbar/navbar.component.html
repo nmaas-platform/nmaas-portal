@@ -96,7 +96,7 @@
                     <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle"
                        data-toggle="dropdown" href="#" role="button">
                         <span class="glyphicon glyphicon-user"></span>
-                        {{ authService.getPreferredUseraname() }} <strong class="caret"></strong></a>
+                        {{ authService.getPreferredUsername() }} <strong class="caret"></strong></a>
                     <ul class="dropdown-menu">
                         <li [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']"><a
                                 [routerLink]="['/profile']">{{ 'NAVBAR.PROFILE' | translate }}</a></li>
