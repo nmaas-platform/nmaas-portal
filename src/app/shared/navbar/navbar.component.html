@@ -1,7 +1,8 @@
 <nav class="navbar navbar-default" id="navbar" role="navigation" style="margin:0">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a routerLink="/"><img alt="Geant" src="assets/images/logo-small.png" style="margin: 8px; padding:4px; height:35px"></a>
+            <a routerLink="/"><img alt="Geant" src="assets/images/logo-small.png"
+                                   style="margin: 8px; padding:4px; height:35px"></a>
             <button class="navbar-toggle" data-target="#navbarCollapse" data-toggle="collapse" type="button">
                 <span class="sr-only">Toggle Navigation</span>
                 <em class="fas fa-bars"></em>
@@ -20,7 +21,7 @@
             </ul>
             <ul *ngIf="authService.isLogged()" class="nav navbar-nav navbar-right">
                 <li *ngIf="showClock" class="">
-                    <div class="navbar-logout">{{'NAVBAR.EXPIRED_TIME' | translate}}: {{time}}</div>
+                    <div class="navbar-logout">{{ 'NAVBAR.EXPIRED_TIME' | translate }}: {{ time }}</div>
                 </li>
                 <li *ngIf="showClock" class="divider-vertical"></li>
                 <li *ngIf="checkUserRole()" class="drop-domain">
@@ -30,7 +31,7 @@
                 <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']" [routerLinkActiveOptions]="{exact:true}"
                     [routerLinkActive]="['active']" class="dropdown">
                     <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown"
-                       role="button">{{'NAVBAR.ADVANCED' | translate}}<strong class="caret"></strong></a>
+                       role="button">{{ 'NAVBAR.ADVANCED' | translate }}<strong class="caret"></strong></a>
                     <ul class="dropdown-menu">
                         <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']">
                             <a [routerLink]="['/admin/domains/bulks']">{{ 'BULK.DOMAIN.HEADER' | translate }}</a>
@@ -44,10 +45,10 @@
                 <li *roles="['ROLE_SYSTEM_ADMIN']" [routerLinkActiveOptions]="{exact:true}"
                     [routerLinkActive]="['active']" class="dropdown">
                     <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown"
-                       role="button">{{'NAVBAR.NOTIFICATION' | translate}}<strong class="caret"></strong></a>
+                       role="button">{{ 'NAVBAR.NOTIFICATION' | translate }}<strong class="caret"></strong></a>
                     <ul class="dropdown-menu">
                         <li *roles="['ROLE_SYSTEM_ADMIN']">
-                            <span (click)="showNotificationModal()">{{'NAVBAR.ALL_USERS' | translate}}</span>
+                            <span (click)="showNotificationModal()">{{ 'NAVBAR.ALL_USERS' | translate }}</span>
                         </li>
                     </ul>
                 </li>
@@ -66,8 +67,9 @@
                         <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER']"><a
                                 [routerLink]="['/admin/apps']">{{ 'NAVBAR.MARKET' | translate }}</a>
                         </li>
-                        <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_GROUP_MANAGER', 'ROLE_GROUP_DOMAIN_ADMIN']"><a
-                                [routerLink]="['/admin/domains']">{{ 'NAVBAR.DOMAINS' | translate }}</a>
+                        <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_GROUP_MANAGER', 'ROLE_GROUP_DOMAIN_ADMIN']">
+                            <a
+                                    [routerLink]="['/admin/domains']">{{ 'NAVBAR.DOMAINS' | translate }}</a>
                         </li>
                         <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']">
                             <a [routerLink]="['/admin/domains/groups']">{{ 'NAVBAR.DOMAIN_GROUPS' | translate }}</a>
@@ -79,7 +81,7 @@
                                 [routerLink]="['/domain/users']">{{ 'NAVBAR.DOMAIN_USERS' | translate }}</a>
                         </li>
                         <li *roles="['ROLE_SYSTEM_ADMIN']"><a
-                                [routerLink]="['/admin/languages']">{{'NAVBAR.LANGUAGES' | translate }}</a>
+                                [routerLink]="['/admin/languages']">{{ 'NAVBAR.LANGUAGES' | translate }}</a>
                         </li>
 
                         <li *roles="['ROLE_SYSTEM_ADMIN']" class="dropdown-divider"></li>
@@ -94,7 +96,7 @@
                     <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle"
                        data-toggle="dropdown" href="#" role="button">
                         <span class="glyphicon glyphicon-user"></span>
-                        {{authService.getUsername()}} <strong class="caret"></strong></a>
+                        {{ authService.getPreferredUseraname() }} <strong class="caret"></strong></a>
                     <ul class="dropdown-menu">
                         <li [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']"><a
                                 [routerLink]="['/profile']">{{ 'NAVBAR.PROFILE' | translate }}</a></li>
@@ -108,12 +110,16 @@
 
             <ul *ngIf="!authService.isLogged()" class="nav navbar-nav pull-right-lg" id="navbar-main-not-logged">
                 <li>
-                    <button *ngIf="router.url == '/welcome' || router.url.startsWith('/welcome/login') || router.url == '/welcome/registration'" data-parent="#accordion"
-                            class="btn navbar-btn accordion-group" data-target="#login-panel" data-toggle="collapse" [routerLink]="['welcome/login']">
+                    <button *ngIf="router.url == '/welcome' || router.url.startsWith('/welcome/login') || router.url == '/welcome/registration'"
+                            data-parent="#accordion"
+                            class="btn navbar-btn accordion-group" data-target="#login-panel" data-toggle="collapse"
+                            [routerLink]="['welcome/login']">
                         {{ 'WELCOME.LOGIN' | translate }}
                     </button>
-                    <button *ngIf="router.url == '/welcome' || router.url.startsWith('/welcome/login') || router.url == '/welcome/registration'" data-parent="#accordion"
-                            class="btn navbar-btn accordion-group" data-target="#register-panel" data-toggle="collapse" [routerLink]="['welcome/registration']">
+                    <button *ngIf="router.url == '/welcome' || router.url.startsWith('/welcome/login') || router.url == '/welcome/registration'"
+                            data-parent="#accordion"
+                            class="btn navbar-btn accordion-group" data-target="#register-panel" data-toggle="collapse"
+                            [routerLink]="['welcome/registration']">
                         {{ 'WELCOME.REGISTER' | translate }}
                     </button>
                 </li>
@@ -136,7 +142,7 @@
                             <a (click)="useLanguage(lang)">
                                 <img alt="lang flag" class="lang-circle-icon"
                                      src="assets/images/country/{{lang}}_circle.png"/>
-                                <span>{{lang.toUpperCase()}}</span>
+                                <span>{{ lang.toUpperCase() }}</span>
                             </a>
                         </li>
                     </ul>

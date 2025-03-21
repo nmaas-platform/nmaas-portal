@@ -112,6 +112,10 @@ export class AuthService {
         const token = this.getToken();
         return (token ? this.jwtHelper.decodeToken(token).sub : null);
     }
+    public getPreferredUseraname(): string {
+        const token = this.getToken();
+        return (token ? this.jwtHelper.decodeToken(token).preferred_username : null);
+    }
 
     public hasRole(name: string): boolean {
 
