@@ -79,7 +79,7 @@ export class AppdeploymentService {
     }
 
     public getBulksDomainDeploymentsOwner(): Observable<BulkDeployment[]> {
-        return this.http.get<BulkDeployment[]>(this.getUrl() + 'domains/vl');
+        return this.http.get<BulkDeployment[]>(this.getUrl() + 'domains/group');
     }
 
     public getBulksAppDeployments(showDeleted: boolean = false): Observable<BulkDeployment[]> {
@@ -89,7 +89,7 @@ export class AppdeploymentService {
     }
 
     public getBulksAppDeploymentsOwner(): Observable<BulkDeployment[]> {
-        return this.http.get<BulkDeployment[]>(this.getUrl() + 'apps/vl');
+        return this.http.get<BulkDeployment[]>(this.getUrl() + 'apps/group');
     }
 
     public getBulkDeployment(id: number): Observable<BulkDeployment> {
