@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {ConfigWizardTemplate} from '../../../model';
 import {MenuItem, SelectItem} from 'primeng/api';
 import {AppImagesService, AppsService, TagService} from '../../../service';
@@ -29,7 +29,7 @@ import {ApplicationBase} from '../../../model/application-base';
     styleUrls: ['./app-create-wizard.component.css']
 })
 
-export class AppCreateWizardComponent extends BaseComponent implements OnInit {
+export class AppCreateWizardComponent extends BaseComponent implements OnInit, OnDestroy {
 
     @ViewChild(ModalComponent, {static: true})
     public modal: ModalComponent;
@@ -60,6 +60,7 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
     public formDisplayChange = true;
 
     public template : any;
+    public translateUpdate: any;
 
     // properties for global parameters deploy validation
     // in future extensions pack this into single object
@@ -99,6 +100,7 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
         }));
         this.getParametersTypes().forEach(val => this.deployParameter.push({label: val.replace('_', ' '), value: val}));
         this.steps = this.getSteps();
+        this.updateStepsTranslation();
         this.route.params.subscribe(params => {
             if (params['id'] == null) {
                 this.createNewWizard();
@@ -120,6 +122,25 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
                 this.activeStepIndex = 1;
             }
         });
+    }
+
+    private updateStepsTranslation() {
+        this.translateUpdate = setInterval(() => {
+            if(this.translate.instant('APPS_WIZARD.GENERAL_INFO_STEP') !== null) {
+                this.steps = this.getSteps();
+                this.stopTranslationUpdate();
+            }
+        }, 200);
+    }
+
+    private stopTranslationUpdate() {
+        clearInterval(this.translateUpdate);
+        this.translateUpdate = null;
+    }
+
+    ngOnDestroy(): void {
+        clearInterval(this.translateUpdate);
+        this.translateUpdate = null;
     }
 
     public getSteps(): any {
