@@ -1,25 +1,25 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {BaseComponent} from '../../../shared/common/basecomponent/base.component';
-import {ModalComponent} from '../../../shared';
-import {ConfigWizardTemplate} from '../../../model';
-import {ConfigFileTemplate} from '../../../model/configfiletemplate';
-import {AppImagesService, AppsService} from '../../../service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ConfigTemplateService} from '../../../service/configtemplate.service';
-import {ParameterType} from '../../../model/parametertype';
-import {KubernetesTemplate} from '../../../model/kubernetes-template';
-import {TranslateService} from '@ngx-translate/core';
-import {DomSanitizer} from '@angular/platform-browser';
-import {ApplicationState} from '../../../model/application-state';
-import {KubernetesChart} from '../../../model/kuberneteschart';
-import {AppStorageVolume} from '../../../model/app-storage-volume';
-import {parseServiceStorageVolumeType, ServiceStorageVolumeType} from '../../../model/service-storage-volume';
-import {AppAccessMethod} from '../../../model/app-access-method';
-import {parseServiceAccessMethodType, ServiceAccessMethodType} from '../../../model/service-access-method';
-import {AbstractControl, ValidatorFn} from '@angular/forms';
-import {MultiSelect} from 'primeng/multiselect';
-import {MenuItem, SelectItem} from 'primeng/api';
-import {ApplicationDTO} from '../../../model/application-dto';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { BaseComponent } from '../../../shared/common/basecomponent/base.component';
+import { ModalComponent } from '../../../shared';
+import { ConfigWizardTemplate } from '../../../model';
+import { ConfigFileTemplate } from '../../../model/configfiletemplate';
+import { AppImagesService, AppsService } from '../../../service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ConfigTemplateService } from '../../../service/configtemplate.service';
+import { ParameterType } from '../../../model/parametertype';
+import { KubernetesTemplate } from '../../../model/kubernetes-template';
+import { TranslateService } from '@ngx-translate/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ApplicationState } from '../../../model/application-state';
+import { KubernetesChart } from '../../../model/kuberneteschart';
+import { AppStorageVolume } from '../../../model/app-storage-volume';
+import { parseServiceStorageVolumeType, ServiceStorageVolumeType } from '../../../model/service-storage-volume';
+import { AppAccessMethod } from '../../../model/app-access-method';
+import { parseServiceAccessMethodType, ServiceAccessMethodType } from '../../../model/service-access-method';
+import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { MultiSelect } from 'primeng/multiselect';
+import { MenuItem, SelectItem } from 'primeng/api';
+import { ApplicationDTO } from '../../../model/application-dto';
 import { ApplicationVersion } from '../../../model/application-version';
 import * as semver from 'semver';
 import { Application } from '../../../model/application';
@@ -34,7 +34,7 @@ export function noParameterTypeInControlValueValidator(): ValidatorFn {
         }
         const notValid = labels.filter(val => control.value.includes(val)).length === 0;
         console.log('checking: ', control.value, 'valid: ', !notValid);
-        return notValid ? {'noParameterTypeInControlValue': {value: control.value}} : null;
+        return notValid ? { 'noParameterTypeInControlValue': { value: control.value } } : null;
     };
 }
 
@@ -43,10 +43,10 @@ export function noParameterTypeInControlValueValidator(): ValidatorFn {
     templateUrl: './app-version-create-wizard.component.html',
     styleUrls: ['./app-version-create-wizard.component.css']
 })
-export class AppVersionCreateWizardComponent extends BaseComponent implements OnInit {
+export class AppVersionCreateWizardComponent extends BaseComponent implements OnInit, OnDestroy {
 
 
-    @ViewChild(ModalComponent, {static: true})
+    @ViewChild(ModalComponent, { static: true })
     public modal: ModalComponent;
 
     @ViewChild('tagsMultiSelect')
@@ -68,8 +68,9 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
     public logo: any[] = [];
     public screenshots: any[] = [];
     public applicationVersions: ApplicationVersion[] = [];
-    public selectedVersion : any ;
+    public selectedVersion: any;
     public template: any;
+    public translateUpdate: any;
 
     // properties for global parameters deploy validation
     // in future extensions pack this into single object
@@ -84,12 +85,12 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
     };
 
     constructor(public appsService: AppsService,
-                public route: ActivatedRoute,
-                public translate: TranslateService,
-                public dom: DomSanitizer,
-                public configTemplateService: ConfigTemplateService,
-                public router: Router,
-                public appImagesService: AppImagesService) {
+        public route: ActivatedRoute,
+        public translate: TranslateService,
+        public dom: DomSanitizer,
+        public configTemplateService: ConfigTemplateService,
+        public router: Router,
+        public appImagesService: AppImagesService) {
         super();
     }
 
@@ -98,14 +99,21 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
         this.modal.setModalType('success');
         this.modal.setStatusOfIcons(false);
         this.mode = this.getMode(this.route);
-        this.getParametersTypes().forEach(val => this.deployParameter.push({label: val.replace('_', ' '), value: val}));
-        this.steps = [
-            {label: this.translate.instant('APPS_WIZARD.GENERAL_INFO_STEP')},
-            {label: this.translate.instant('APPS_WIZARD.BASIC_APP_INFO_STEP')},
-            {label: this.translate.instant('APPS_WIZARD.APP_DEPLOYMENT_SPEC_STEP')},
-            {label: this.translate.instant('APPS_WIZARD.CONFIG_TEMPLATES_STEP')},
-            {label: this.translate.instant('APPS_WIZARD.SHORT_REVIEW_STEP')}
-        ];
+        this.getParametersTypes().forEach(val => this.deployParameter.push({ label: val.replace('_', ' '), value: val }));
+        //trick to avoid using this.translate.onChange cuz its not working on current angular without changing language 
+        this.translateUpdate = setInterval(() => {
+            if(this.translate.instant('APPS_WIZARD.GENERAL_INFO_STEP') !== null) {
+                this.steps = [
+                    { label: this.translate.instant('APPS_WIZARD.GENERAL_INFO_STEP') },
+                    { label: this.translate.instant('APPS_WIZARD.BASIC_APP_INFO_STEP') },
+                    { label: this.translate.instant('APPS_WIZARD.APP_DEPLOYMENT_SPEC_STEP') },
+                    { label: this.translate.instant('APPS_WIZARD.CONFIG_TEMPLATES_STEP') },
+                    { label: this.translate.instant('APPS_WIZARD.SHORT_REVIEW_STEP') }
+                ];
+                this.stopTranslationUpdate();
+            }
+        }, 200);
+
         this.route.params.subscribe(params => {
             const appName = params['name']
             const appId = params['id']
@@ -136,6 +144,16 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
                 this.activeStepIndex = 1;
             }
         });
+    }
+
+    private stopTranslationUpdate() {
+        clearInterval(this.translateUpdate);
+        this.translateUpdate = null;
+    }
+
+    ngOnDestroy(): void {
+        clearInterval(this.translateUpdate);
+        this.translateUpdate = null;
     }
 
     public appVersionCompare(a: ApplicationVersion, b: ApplicationVersion): number {
@@ -239,12 +257,12 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
     }
 
     public setConfigTemplate(event): void {
-        if(event.type === "addComponent" || event.type === "saveComponent") {
+        if (event.type === "addComponent" || event.type === "saveComponent") {
             console.log(event);
             this.template = event.form;
             this.applicationDTO.application.configWizardTemplate.template = null;
             this.applicationDTO.application.configWizardTemplate.template = Object.assign({}, this.template);
-            console.log('Wizard saved',this.applicationDTO.application.configWizardTemplate.template)
+            console.log('Wizard saved', this.applicationDTO.application.configWizardTemplate.template)
         }
     }
 
@@ -498,7 +516,7 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
     }
 
     private convertToProperImageFile(file: any) {
-        const result: any = new File([file], 'uploaded file', {type: file.type});
+        const result: any = new File([file], 'uploaded file', { type: file.type });
         result.objectURL = this.dom.bypassSecurityTrustUrl(URL.createObjectURL(result));
         return result;
     }
@@ -549,7 +567,7 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
     }
 
     public onVersionSelect(event: any) {
-        console.log("Slected version ",event )
+        console.log("Slected version ", event)
         this.appsService.getApplication(event.value.appVersionId).subscribe(data => {
             console.log(data);
             this.applicationDTO.application = data;
