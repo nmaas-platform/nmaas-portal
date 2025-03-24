@@ -65,6 +65,9 @@ import { LeftMenuComponent } from './left-menu/left-menu.component';
 import {TableModule} from 'primeng/table';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import {CheckboxModule} from 'primeng/checkbox';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { ButtonModule } from 'primeng/button';
 
 
 @NgModule({
@@ -85,7 +88,10 @@ import {CheckboxModule} from 'primeng/checkbox';
         InputTextModule,
         FormioModule,
         TableModule,
-        CheckboxModule
+        CheckboxModule,
+        InputGroupModule,
+        InputGroupAddonModule,
+        ButtonModule
     ],
     declarations: [
         RateComponent,

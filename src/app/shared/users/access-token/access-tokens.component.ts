@@ -20,6 +20,9 @@ export class AccessTokensComponent implements OnInit {
 
     public newTokenName = '';
 
+    public showCopyToken = false;
+    public newToken :AccessToken;
+
     @ViewChild(ModalComponent, {static: true})
     public readonly modal: ModalComponent;
 
@@ -61,9 +64,9 @@ export class AccessTokensComponent implements OnInit {
     public createNewToken() {
         this.tokenService.createToken(this.requestForm.value.name.trim()).subscribe({
             next: val => {
-                this.tokensList.push(val)
                 this.requestForm.reset();
-                this.modal.hide();
+                this.showCopyToken = true;
+                this.newToken = val;
             },
             error: err => {
                 console.warn(err.error)
@@ -71,6 +74,24 @@ export class AccessTokensComponent implements OnInit {
                 console.log(this.requestForm)
             }
         })
+    }
+
+    public copyToClipboard() {
+        if (this.newToken.tokenValue) {
+            navigator.clipboard.writeText(this.newToken.tokenValue).then(() => {
+                console.log('Copied to clipbord');
+            }, (err) => {
+                console.error('Some errors accoured: ', err);
+            });
+        }
+    }
+
+    public ConfirmAndClose() {
+        this.showCopyToken = false;
+        this.newToken = null;
+        this.getData();
+        this.modal.hide();
+       
     }
 
     get name() {

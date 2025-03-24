@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {ConfigWizardTemplate} from '../../../model';
 import {MenuItem, SelectItem} from 'primeng/api';
 import {AppImagesService, AppsService, TagService} from '../../../service';
@@ -29,7 +29,7 @@ import {ApplicationBase} from '../../../model/application-base';
     styleUrls: ['./app-create-wizard.component.css']
 })
 
-export class AppCreateWizardComponent extends BaseComponent implements OnInit {
+export class AppCreateWizardComponent extends BaseComponent implements OnInit, OnDestroy {
 
     @ViewChild(ModalComponent, {static: true})
     public modal: ModalComponent;
@@ -58,6 +58,9 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
     public selectedLanguages: string[] = [];
     public languages: SelectItem[] = [];
     public formDisplayChange = true;
+
+    public template : any;
+    public translateUpdate: any;
 
     // properties for global parameters deploy validation
     // in future extensions pack this into single object
@@ -97,6 +100,7 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
         }));
         this.getParametersTypes().forEach(val => this.deployParameter.push({label: val.replace('_', ' '), value: val}));
         this.steps = this.getSteps();
+        this.updateStepsTranslation();
         this.route.params.subscribe(params => {
             if (params['id'] == null) {
                 this.createNewWizard();
@@ -118,6 +122,25 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
                 this.activeStepIndex = 1;
             }
         });
+    }
+
+    private updateStepsTranslation() {
+        this.translateUpdate = setInterval(() => {
+            if(this.translate.instant('APPS_WIZARD.GENERAL_INFO_STEP') !== null) {
+                this.steps = this.getSteps();
+                this.stopTranslationUpdate();
+            }
+        }, 200);
+    }
+
+    private stopTranslationUpdate() {
+        clearInterval(this.translateUpdate);
+        this.translateUpdate = null;
+    }
+
+    ngOnDestroy(): void {
+        clearInterval(this.translateUpdate);
+        this.translateUpdate = null;
     }
 
     public getSteps(): any {
@@ -206,7 +229,8 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
         this.configFileTemplates.push(new ConfigFileTemplate());
         this.applicationDTO.application.configWizardTemplate = new ConfigWizardTemplate();
         this.applicationDTO.application.configWizardTemplate.template = this.configTemplateService.getConfigTemplate();
-    }
+    };
+    
 
     public nextStep(): void {
         this.activeStepIndex += 1;
@@ -325,10 +349,15 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
     }
 
     public setConfigTemplate(event): void {
-        if (!this.applicationDTO.application.configWizardTemplate) {
-            this.applicationDTO.application.configWizardTemplate = new ConfigWizardTemplate();
+      console.log(event)
+        if(event.type === "addComponent" || event.type === "saveComponent") {
+            console.log(event);
+            this.template = event.form;
+            this.applicationDTO.application.configWizardTemplate.template = null;
+            this.applicationDTO.application.configWizardTemplate.template = Object.assign({}, this.template);
+            console.log('Wizard saved',this.applicationDTO.application.configWizardTemplate.template)
         }
-        this.applicationDTO.application.configWizardTemplate.template = event.form;
+       
     }
 
     public setUpdateConfigTemplate(event): void {
@@ -539,7 +568,7 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit {
         if (this.applicationDTO.application.appConfigurationSpec.configFileRepositoryRequired) {
             this.removeDefaultElement();
         } else {
-            this.addDefaultElement();
+            // this.addDefaultElement();
             this.removeElementsFromUpdateConfig();
         }
     }

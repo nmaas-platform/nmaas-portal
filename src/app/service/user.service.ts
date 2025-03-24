@@ -20,7 +20,7 @@ export class UserService extends GenericDataService {
 
     public getAll(domainId?: number): Observable<User[]> {
         return this.get<User[]>(domainId === undefined || domainId === this.domainService.getGlobalDomainId() ?
-            this.getUsersUrlWithoutDash() : this.getDomainUsersUrl(domainId));
+            this.getUsersUrlWithoutDash() : this.getDomainUsersUrlWithoutDash(domainId));
     }
 
     public getOne(userId: number, domainId?: number): Observable<User> {
@@ -96,12 +96,16 @@ export class UserService extends GenericDataService {
         return this.appConfig.getApiUrl() + '/domains/' + domainId + '/users/';
     }
 
+    protected getDomainUsersUrlWithoutDash(domainId: number): string {
+        return this.appConfig.getApiUrl() + '/domains/' + domainId + '/users';
+    }
+
     public getDomainUsersAsAdmin(domainId: number): Observable<User[]> {
         return this.get<User[]>(this.appConfig.getApiUrl() + '/domains/' + domainId + '/users/admin');
     }
 
     protected getUserAcceptanceUrl(): string {
-        return this.appConfig.getApiUrl() + '/users/terms/';
+        return this.appConfig.getApiUrl() + '/users/terms';
     }
 
     protected getEnableOrDisableUsersUrl(userId: number, enabled: boolean): string {

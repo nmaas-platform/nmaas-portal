@@ -54,7 +54,7 @@ export const AppManagementRoutes: Route[] = [
         path: 'apps/bulks',
         component: BulkAppListComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_VL_MANAGER']}
+        data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']}
     },
     { path: 'apps/bulks/new',
         component: AppnavigatorComponent,
@@ -68,6 +68,6 @@ export const AppManagementRoutes: Route[] = [
         path: 'apps/bulks/:id',
         component: BulkViewComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_VL_MANAGER' ]}
+        data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER' ]}
     },
 ];

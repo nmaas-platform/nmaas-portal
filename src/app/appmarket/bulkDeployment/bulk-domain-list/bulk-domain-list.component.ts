@@ -20,7 +20,7 @@ export class BulkDomainListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.authService.getRoles().find(value => value === 'ROLE_VL_MANAGER') !== undefined) {
+        if (this.authService.getRoles().find(value => value === 'ROLE_GROUP_MANAGER') !== undefined) {
             this.deployService.getBulksDomainDeploymentsOwner().subscribe(data => {
                 data = data.sort((a, b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime())
                 this.bulks = data

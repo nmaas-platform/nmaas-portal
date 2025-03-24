@@ -49,11 +49,12 @@ describe('NavbarComponent_Shared', () => {
         const mockLanguageService = jasmine.createSpyObj(['getEnabledLanguages', 'shouldUpdate']);
         mockLanguageService.getEnabledLanguages.and.returnValue(of(['en', 'fr', 'pl']));
         mockLanguageService.shouldUpdate.and.returnValue(false);
-        const mockAuthService = jasmine.createSpyObj(['isLogged', 'hasRole', 'getDomains', 'getRoles']);
+        const mockAuthService = jasmine.createSpyObj(['isLogged', 'hasRole', 'getDomains', 'getRoles', 'loadUser', 'refreshUserRoles']);
         mockAuthService.isLogged.and.returnValue(false);
         mockAuthService.hasRole.and.returnValue(false);
         mockAuthService.getDomains.and.returnValue([]);
         mockAuthService.getRoles.and.returnValue([]);
+        mockAuthService.refreshUserRoles.and.returnValue();
         const mockUserDataService = jasmine.createSpyObj(['selectedDomainId'])
         mockUserDataService.selectedDomainId.and.returnValue(1)
 

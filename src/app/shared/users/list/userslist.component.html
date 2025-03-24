@@ -1,3 +1,31 @@
+<div class="col-sm-12 col-sm-10  col-md-12">
+    <h3>
+        {{ 'USERS.TITLE' | translate }}</h3>
+    <div class="flex space-between">
+        <div class="flex">
+            <button *ngIf="authService.hasDomainRole(domainId, 'ROLE_DOMAIN_ADMIN') || authService.hasDomainRole(domainId, 'ROLE_GROUP_DOMAIN_ADMIN')"
+                    class="btn btn-primary" (click)="changeMode()">
+                <span *ngIf="isModeAllowed(ComponentMode.DELETE)">{{'USERS.ADD_TO_DOMAIN_BUTTON' | translate}}</span>
+                <span *ngIf="isModeAllowed(ComponentMode.EDIT)">{{'USERS.GO_BACK_BUTTON' | translate}}</span>
+            </button>
+        </div>
+        <div class="" style="display: flex">
+            <div *ngIf="isModeAllowed(ComponentMode.DELETE)" class="flex ">
+                <span class="mt-2 pr-1">{{ 'USERS.ITEMS_PER_PAGE' | translate }}:</span>
+                <span id="selectionItems" class="dropdown"
+                      style="vertical-align: middle; display: inline-block; margin-right: 1rem;">
+        <button class="dropdown-toggle btn" data-toggle="dropdown" data-close-others="true">
+            {{maxItemsOnPage}}
+        </button>
+        <ul class="dropdown-menu">
+            <li *ngFor="let item of itemsPerPage" [ngClass]="{'active': maxItemsOnPage == item}">
+                <a (click)="setItems(item)">
+                    <span>{{item.toString()}}</span>
+                </a>
+            </li>
+        </ul>
+    </span>
+            </div>
  <div class="" style="display: flex">
 <!--            <div *ngIf="isModeAllowed(ComponentMode.DELETE)" class="flex ">-->
 <!--                <span class="mt-2 pr-1">{{ 'USERS.ITEMS_PER_PAGE' | translate }}:</span>-->

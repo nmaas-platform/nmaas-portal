@@ -164,8 +164,6 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                     this.configurationTemplate = this.getTemplate(appInstance.configWizardTemplate.template);
                     this.app = appInstance.application;
 
-                    this.updateAppInstancePodNames();
-
                     this.submission.data.configuration = JSON.parse(appInstance.configuration);
 
                     if (this.appInstance.configUpdateWizardTemplate != null) {
@@ -644,5 +642,14 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         this.showConfigurationModal.hide()
     }
 
+
+    public openAccessMethodsModal(): void {
+        this.appInstanceService.getDeploymentParameters(this.appInstanceId).subscribe(
+            deployParams => {
+                this.deployParametersSubject.next(deployParams)
+                this.accessMethodsModal.show()   ;
+    })
+      
+    }
 
 }

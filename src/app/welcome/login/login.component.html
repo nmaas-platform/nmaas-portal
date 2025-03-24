@@ -26,7 +26,8 @@
     </fieldset>
 </form>
 <div class="form-group">
-    <button type="submit" (click)="triggerOIDC()" class="btn btn-primary btn-block">
+    <button type="submit" (click)="triggerOIDC()" class="btn btn-primary btn-block"
+            [disabled]="!this.configuration?.ssoLoginAllowed || loading || ssoLoading">
         {{ 'LOGIN.LOGIN_WITH' | translate }}
     </button>
     <img alt="sso" *ngIf="ssoLoading" src="data:"/>

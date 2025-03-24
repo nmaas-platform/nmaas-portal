@@ -13,7 +13,7 @@ import { DomainAnnotationsComponent } from './domain-annotations/domain-annotati
 export const DomainsRoutes: Route[] = [
     {
         path: 'domains', component: DomainsListComponent, canActivate: [AuthGuard, RoleGuard],
-        data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN', 'ROLE_OPERATOR', 'ROLE_VL_DOMAIN_ADMIN', 'ROLE_VL_MANAGER']}
+        data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN', 'ROLE_OPERATOR', 'ROLE_GROUP_DOMAIN_ADMIN', 'ROLE_GROUP_MANAGER']}
     },
     {
         path: 'domains/add', component: DomainComponent, canActivate: [AuthGuard, RoleGuard],
@@ -25,7 +25,7 @@ export const DomainsRoutes: Route[] = [
     },
     {
         path: 'domains/view/:id', component: DomainComponent, canActivate: [AuthGuard, RoleGuard],
-        data: {mode: ComponentMode.VIEW, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN', 'ROLE_OPERATOR', 'ROLE_VL_DOMAIN_ADMIN']}
+        data: {mode: ComponentMode.VIEW, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN', 'ROLE_OPERATOR', 'ROLE_GROUP_DOMAIN_ADMIN']}
     },
     {
         path: 'domains/edit/:id', component: DomainComponent, canActivate: [AuthGuard, RoleGuard],
@@ -33,25 +33,25 @@ export const DomainsRoutes: Route[] = [
     },
     {
         path: 'domains/groups', component: DomainGroupsComponent, canActivate: [AuthGuard, RoleGuard],
-        data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_VL_MANAGER']}
+        data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']}
     },
     {
         path: 'domains/groups/add', component: DomainGroupViewComponent, canActivate: [AuthGuard, RoleGuard],
-        data: {mode: ComponentMode.CREATE, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_VL_MANAGER']}
+        data: {mode: ComponentMode.CREATE, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']}
     },
     {
         path: 'domains/groups/:id', component: DomainGroupViewComponent, canActivate: [AuthGuard, RoleGuard],
-        data: {mode: ComponentMode.VIEW, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_VL_MANAGER']}
+        data: {mode: ComponentMode.VIEW, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']}
     },
     {
         path: 'domains/bulks/new', component: DomainuploadComponent,
-        data: {mode: ComponentMode.VIEW, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_VL_MANAGER']}},
+        data: {mode: ComponentMode.VIEW, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']}},
     {
         path: 'domains/bulks', component: BulkDomainListComponent, canActivate: [AuthGuard, RoleGuard],
-        data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_VL_MANAGER']}
+        data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']}
     },
     {
         path: 'domains/bulks/:id', component: BulkViewComponent, canActivate: [AuthGuard, RoleGuard],
-        data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_VL_MANAGER']}
+        data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']}
     }
 ];

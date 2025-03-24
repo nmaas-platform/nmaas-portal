@@ -174,3 +174,7 @@
     right:0;
     left:unset;
 }
+
+.text-bold {
+    font-weight: 700;;
+}

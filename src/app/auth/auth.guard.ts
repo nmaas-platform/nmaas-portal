@@ -12,13 +12,7 @@ export class AuthGuard  {
 
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (this.auth.isLogged()) {
-      this.maintenanceService.getConfiguration().pipe(debounceTime(500)).subscribe(value => {
-         if (!this.auth.hasRole('ROLE_SYSTEM_ADMIN') && value.maintenance) {
-             this.auth.logout();
-             this.router.navigate(['/welcome/login']);
-             return false;
-         }
-      });
+    
       if(this.auth.hasRole('ROLE_INCOMPLETE') && route.url.toString() !== 'complete') {
           this.router.navigate(['/complete']);
           return false;
