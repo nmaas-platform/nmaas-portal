@@ -1,4 +1,4 @@
-<div class="col-sm-12 col-sm-10  col-md-12">
+<!-- <div class="col-sm-12 col-sm-10  col-md-12">
     <h3>
         {{ 'USERS.TITLE' | translate }}</h3>
     <div class="flex space-between">
@@ -26,7 +26,6 @@
         </ul>
     </span>
             </div>
- <div class="" style="display: flex">
 <!--            <div *ngIf="isModeAllowed(ComponentMode.DELETE)" class="flex ">-->
 <!--                <span class="mt-2 pr-1">{{ 'USERS.ITEMS_PER_PAGE' | translate }}:</span>-->
 <!--                <span id="selectionItems" class="dropdown"-->
@@ -43,6 +42,8 @@
 <!--                    </ul>-->
 <!--                </span>-->
 <!--            </div>-->
+<div class="" style="display: flex">
+
             <div *ngIf="isModeAllowed(ComponentMode.EDIT)"
                  style="margin-right: 15px; padding-top: 5px;"> {{'USERS.SEARCH' | translate}}</div>
 
@@ -57,7 +58,7 @@
                        class="form-control" (keyup)="onSearch($event.target.value)">
                 </span>
             </div>
-            <button *ngIf="authService.hasDomainRole(domainId, 'ROLE_DOMAIN_ADMIN') || authService.hasDomainRole(domainId, 'ROLE_VL_DOMAIN_ADMIN')"
+            <button *ngIf="authService.hasDomainRole(domainId, 'ROLE_DOMAIN_ADMIN') || authService.hasDomainRole(domainId, 'ROLE_GROUP_DOMAIN_ADMIN')"
                     class="btn btn-primary" (click)="changeMode()">
                 <span *ngIf="isModeAllowed(ComponentMode.DELETE)" >{{'USERS.ADD_TO_DOMAIN_BUTTON' | translate}}</span>
                 <span *ngIf="isModeAllowed(ComponentMode.EDIT)">{{'USERS.GO_BACK_BUTTON' | translate}}</span>
