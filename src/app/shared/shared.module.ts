@@ -37,7 +37,7 @@ import {PasswordStrengthMeterComponent} from 'angular-password-strength-meter';
 import {AboutComponent} from './about/about.component';
 import {ChangelogComponent} from './changelog/changelog.component';
 import {NotificationService} from '../service/notification.service';
-import {RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module} from 'ng-recaptcha';
+import {RECAPTCHA_V3_SITE_KEY, RecaptchaModule, RecaptchaV3Module} from 'ng-recaptcha';
 import {SingleCommentComponent} from './comments/single-comment/single-comment.component';
 import {TranslateStateModule} from './translate-state/translate-state.module';
 import {MinLengthDirective} from '../directive/min-length.directive';
@@ -64,6 +64,7 @@ import { AccessTokensComponent } from './users/access-token/access-tokens.compon
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ButtonModule } from 'primeng/button';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 @NgModule({
@@ -74,7 +75,7 @@ import { ButtonModule } from 'primeng/button';
         ServicesModule,
         RouterModule,
         ReactiveFormsModule,
-        RecaptchaV3Module,
+        // RecaptchaV3Module,
         PasswordStrengthMeterComponent,
         TranslateModule.forChild(),
         NgxPaginationModule,
@@ -85,7 +86,9 @@ import { ButtonModule } from 'primeng/button';
         FormioModule,
         InputGroupModule,
         InputGroupAddonModule,
-        ButtonModule
+        ButtonModule,
+        BrowserModule,
+        RecaptchaModule
     ],
     declarations: [
         RateComponent,
