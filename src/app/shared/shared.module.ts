@@ -75,7 +75,6 @@ import { BrowserModule } from '@angular/platform-browser';
         ServicesModule,
         RouterModule,
         ReactiveFormsModule,
-        // RecaptchaV3Module,
         PasswordStrengthMeterComponent,
         TranslateModule.forChild(),
         NgxPaginationModule,
@@ -87,8 +86,7 @@ import { BrowserModule } from '@angular/platform-browser';
         InputGroupModule,
         InputGroupAddonModule,
         ButtonModule,
-        BrowserModule,
-        RecaptchaModule
+        RecaptchaV3Module
     ],
     declarations: [
         RateComponent,
