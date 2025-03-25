@@ -4,7 +4,6 @@ import {Router} from '@angular/router';
 import {AuthService} from '../../auth/auth.service';
 import {AppConfigService, ConfigurationService, UserService} from '../../service';
 import {Configuration} from '../../model/configuration';
-import {SSOService} from '../../service/sso.service';
 import {SSOConfig} from '../../model/sso';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {ModalComponent} from '../../shared/modal';
@@ -34,7 +33,6 @@ export class LoginComponent implements OnInit {
     constructor(private router: Router,
                 private auth: AuthService,
                 private configService: ConfigurationService,
-                private ssoService: SSOService,
                 private fb: UntypedFormBuilder,
                 private userService: UserService,
                 private translate: TranslateService,
@@ -47,12 +45,6 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
         this.configService.getConfiguration().subscribe(config => {
             this.configuration = config;
-            if (config.ssoLoginAllowed) {
-                this.ssoService.getOne().subscribe(sso => {
-                    this.ssoConfig = sso;
-                    this.checkSSO();
-                });
-            }
         });
     }
 
@@ -74,38 +66,6 @@ export class LoginComponent implements OnInit {
 
     public triggerOIDC() {
         window.location.href = this.appConfig.getOidcUrl();
-    }
-
-    public checkSSO() {
-        const params = this.router.parseUrl(this.router.url).queryParams;
-
-        if ('ssoUserId' in params) {
-            // Got auth data, send to api
-            this.ssoLoading = true;
-            this.ssoError = '';
-            this.auth.propagateSSOLogin(params.ssoUserId).subscribe(
-                result => {
-                    if (result === true) {
-                        this.ssoLoading = false;
-                        this.translate.setDefaultLang(this.auth.getSelectedLanguage());
-                        this.translate.use(this.auth.getSelectedLanguage());
-                        this.router.navigate(['/']);
-                    } else {
-                        this.ssoError = 'Failed to propagate SSO user id';
-                        this.ssoLoading = false;
-                    }
-                },
-                err => {
-                    this.ssoError = this.translate.instant(this.getMessage(err));
-                    this.ssoLoading = false;
-                }
-            );
-        }
-    }
-
-    public triggerSSO() {
-        const url = window.location.href.replace(/ssoUserId=.+/, '');
-        window.location.href = this.ssoConfig.loginUrl + '?return=' + url;
     }
 
     public sendResetNotification() {

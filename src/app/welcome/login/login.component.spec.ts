@@ -7,7 +7,6 @@ import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-transl
 import {ModalComponent} from '../../shared/modal';
 import {AuthService} from '../../auth/auth.service';
 import {ConfigurationService, UserService} from '../../service';
-import {SSOService} from '../../service/sso.service';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -40,7 +39,6 @@ describe('Component: Login', () => {
             providers: [
                 {provide: AuthService, useValue: {}},
                 {provide: ConfigurationService, useValue: configServiceSpy},
-                {provide: SSOService, useValue: {}},
                 {provide: UserService, useValue: {}},
             ],
         }).compileComponents();
