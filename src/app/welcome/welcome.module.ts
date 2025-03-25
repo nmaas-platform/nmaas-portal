@@ -17,7 +17,6 @@ import {CompleteComponent} from './complete/complete.component';
 import {ContentDisplayService} from '../service/content-display.service';
 import {TermsAcceptanceComponent} from './terms-acceptance/terms-acceptance.component';
 import {TranslateModule} from '@ngx-translate/core';
-import {SSOService} from '../service/sso.service';
 import {PasswordResetComponent} from './passwordreset/password-reset.component';
 import {PasswordStrengthMeterComponent} from 'angular-password-strength-meter';
 import {PolicySubpageComponent} from './policy-subpage/policy-subpage.component';
@@ -52,8 +51,7 @@ import {PolicySubpageComponent} from './policy-subpage/policy-subpage.component'
     RegistrationService,
     UserService,
     ChangelogService,
-    ContentDisplayService,
-    SSOService
+    ContentDisplayService
   ]
 })
 export class WelcomeModule {}
