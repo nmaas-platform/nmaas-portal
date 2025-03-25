@@ -15,13 +15,13 @@ body{
 }
 
 .flex-container-column {
-  flex: 1;
-  height:100vh;
-  display: flex;
-  flex-direction: column;
+    flex: 1;
+    height:100vh;
+    display: flex;
+    flex-direction: column;
 }
 
- .flex-spacer {
+.flex-spacer {
     flex: 1 0 auto;
     height: 100%
 }
@@ -30,26 +30,25 @@ body{
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-  }
-  .logged-in-layout {
+}
+.logged-in-layout {
     display: flex;
     flex-direction: row;
     min-height: 100vh;
-  }
-  .content-area {
+}
+.content-area {
     flex: 1;
     padding: 1rem;
     display: flex;
     flex-direction: column;
     min-height: calc(100vh - 150px);
-  }
+}
 
-  .router-outlet {
+.router-outlet {
     flex: 1; /* Wypełnia dostępną przestrzeń */
-  }
+}
 
-  .side-menu {
-    width: var(--left-panel-width);
+.side-menu {
     background-color: var(--menu-color);
     color: var(--l-text-color);
     height: 100vh ;
@@ -57,4 +56,4 @@ body{
     top: 0;
     left: 0;
     padding: 1rem;
-  }
+}

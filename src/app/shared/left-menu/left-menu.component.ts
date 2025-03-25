@@ -12,6 +12,7 @@ export class LeftMenuComponent  implements OnInit {
   items: MenuItem[];
   toggleAdmin = false;
   currentUrl : string ;
+  isCollapsed = false;
 
   constructor(private toast: ToastContainerComponent,
               public router: Router,
@@ -30,6 +31,8 @@ export class LeftMenuComponent  implements OnInit {
         routerLink: ['/logout']
       }
     ]
+    const storedState = sessionStorage.getItem('menuCollapsed');
+    this.isCollapsed = storedState === 'true';
   }
 
   public ngOnInit(): void {
@@ -42,7 +45,9 @@ export class LeftMenuComponent  implements OnInit {
         }
       }
     })
-      console.log("test left menu ")
+    console.log("test left menu ")
+    const newWidth = this.isCollapsed ? '100px' : '300px';
+    document.documentElement.style.setProperty('--left-panel-width', newWidth);
   }
 
   public showToastTest() {
@@ -50,6 +55,12 @@ export class LeftMenuComponent  implements OnInit {
   }
   adminPanel() {
     this.toggleAdmin = !this.toggleAdmin;
+  }
+  toggleMenu() {
+    this.isCollapsed = !this.isCollapsed;
+    const newWidth = this.isCollapsed ? '100px' : '300px';
+    document.documentElement.style.setProperty('--left-panel-width', newWidth);
+    sessionStorage.setItem('menuCollapsed', this.isCollapsed.toString());
   }
 
 }

@@ -8,16 +8,17 @@
     display: flex;
     flex-direction: column;
     padding: 1rem;
-  }
-  .menu ul {
+}
+.menu ul {
     list-style: none;
     padding: 0;
-  }
-  .menu li {
-      padding: 10px 10px;
-      margin: 0.5rem 0;
-      border-radius: 4px;
-  }
+}
+.menu li {
+    padding: 10px 10px;
+    margin: 0.5rem 0;
+    border-radius: 4px;
+}
+
 .menu li:hover {
     padding: 10px 5px;
     background: var(--background);
@@ -29,15 +30,18 @@
 .menu li.active:hover{
     padding: 10px 5px;
 }
+.collapsed{
+    width:40px;
+}
 .active{
     padding: 10px 5px;
     background: white;
     border-left: 5px solid var(--menu-pink)
 }
-  .menu a {
+.menu a {
     color: var(--l-text-color);
     text-decoration: none;
-  }
+}
 :host ::ng-deep .p-button{
     padding: 8px 10px;
     width:100%;
@@ -81,4 +85,21 @@
 :host ::ng-deep .p-accordion .p-accordion-content{
     background: transparent;
     border: none;
+}
+
+.toggle-button{
+    width: 30px;
+    height:30px;
+    background: var(--menu-color);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
+    border-radius: 50px;
+    position: absolute;
+    left: 284px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.collapsed-user{
+    width: 130px;
 }
