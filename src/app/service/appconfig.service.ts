@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import { log } from 'console';
 
 
 @Injectable({
@@ -64,6 +65,7 @@ export class AppConfigService {
     }
 
     public getSiteKey(): string {
+        console.log("Site key:", this.config.captchaKey)
         if (this.config == null) {
             return '';
         }
