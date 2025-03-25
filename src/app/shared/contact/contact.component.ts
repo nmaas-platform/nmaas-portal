@@ -12,7 +12,6 @@ import {AuthService} from '../../auth/auth.service';
 import {InternationalizationService} from '../../service/internationalization.service';
 import {TranslateService} from '@ngx-translate/core';
 import {ActivatedRoute} from '@angular/router';
-import { log } from 'console';
 
 @Component({
     selector: 'app-contact',
