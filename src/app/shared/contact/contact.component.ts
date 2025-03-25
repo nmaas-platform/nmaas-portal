@@ -12,6 +12,7 @@ import {AuthService} from '../../auth/auth.service';
 import {InternationalizationService} from '../../service/internationalization.service';
 import {TranslateService} from '@ngx-translate/core';
 import {ActivatedRoute} from '@angular/router';
+import { log } from 'console';
 
 @Component({
     selector: 'app-contact',
@@ -125,8 +126,11 @@ export class ContactComponent implements OnInit {
     private sendMail(data: any): Observable<void> {
         // submit captcha request
         return this.recaptchaV3Service.execute('contactForm').pipe(
-            catchError(_ => of('')), // in case of captcha error return empty token
+            catchError(error => {
+                console.error(error);
+                return of(error)}), // in case of captcha error return empty token
             map((token) => {
+                console.log(token)
                 const result = {token, mail: new Mail()} // create mail object
                 result.mail.otherAttributes = data; // set properties and mail attributes
                 result.mail.otherAttributes.subType = this.formType.key;
