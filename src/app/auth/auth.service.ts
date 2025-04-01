@@ -1,13 +1,11 @@
-import {BehaviorSubject, Observable, Subject, throwError as observableThrowError, of} from 'rxjs';
+import {BehaviorSubject, Observable, of, Subject, throwError as observableThrowError} from 'rxjs';
 import {catchError, debounceTime, map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {AppConfigService, ConfigurationService} from '../service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {User} from '../model';
 import {ProfileService} from '../service/profile.service';
 import {Role, UserRole} from '../model/userrole';
-import {interval, Subscription} from 'rxjs';
 
 
 export class DomainRoles {
@@ -253,6 +251,49 @@ export class AuthService {
         return domainsWithRole;
     }
 
+    public oidcLinkingLogin(oidcToken: string,
+                            email: string,
+                            password: string,
+                            uuid: string,
+                            firstName: string,
+                            lastName: string) {
+        const headers = new HttpHeaders({'Content-Type': 'application/json', 'Accept': 'application/json'});
+
+        return this.http.post(this.appConfig.config.apiUrl + '/oidc/link',
+            JSON.stringify(
+                {
+                    'oidcToken': oidcToken,
+                    'email': email,
+                    'password': password,
+                    'uuid': uuid,
+                    'firstName': firstName,
+                    'lastName': lastName,
+                }
+            ),
+            {headers: headers}).pipe(
+            debounceTime(1000),
+            map((res: Response) => {
+                    const token = res && res['token'];
+                    const oidcToken = res && res['oidcToken'];
+                    if (token) {
+                        this.storeToken(token);
+                        this.storeOidcToken(oidcToken);
+                        this.loginUsingSsoService = false;
+                        this.isLoggedInSubject.next(true);
+                        this.profileService.getRoles().subscribe(profile => {
+                            this.profile = profile
+                            this.storeRoles(profile);
+                            return true;
+                        })
+                    } else {
+                        this.isLoggedInSubject.next(false);
+                        return false;
+                    }
+                }
+            ),
+        )
+    }
+
     public login(username: string, password: string): Observable<boolean> {
         // hack so test instance modal is shown onl after login
         localStorage.setItem(this.appConfig.getTestInstanceModalKey(), 'True');
@@ -306,49 +347,6 @@ export class AuthService {
             }));
     }
 
-    public propagateSSOLogin(userid: string): Observable<boolean> {
-        console.debug('propagateSSOLogin');
-        console.debug('propagateSSOLogin ' + this.appConfig.config.apiUrl);
-        console.debug('propagateSSOLogin ' + this.appConfig.config.apiUrl + '/auth/sso/login');
-        console.debug('propagateSSOLogin ' + userid);
-        // hack so test instance modal is shown onl after login
-        localStorage.setItem(this.appConfig.getTestInstanceModalKey(), 'True');
-
-        if (this.maintenance) {
-            this.isLoggedInSubject.next(false);
-            return of(false);
-        }
-
-        const headers = new HttpHeaders({'Content-Type': 'application/json', 'Accept': 'application/json'});
-        return this.http.post(this.appConfig.config.apiUrl + '/auth/sso/login',
-            JSON.stringify({'userid': userid}), {headers: headers}).pipe(
-            debounceTime(10000),
-            map((response: Response) => {
-                console.debug('SSO login response: ' + response);
-                // login successful if there's a jwt token in the response
-                const token = response && response['token'];
-
-                if (token) {
-                    this.storeToken(token);
-                    console.debug('SSO AUTH | User: ' + this.getUsername());
-                    console.debug('SSO AUTH | Domains: ' + this.getDomains());
-                    console.debug('SSO AUTH | Roles: ' + this.getRoles());
-                    console.debug('SSO AUTH | DomainRoles: ' + this.getDomainRoles());
-                    this.loginUsingSsoService = true;
-                    this.isLoggedInSubject.next(true);
-                    return true;
-                } else {
-                    // return false to indicate failed login
-                    this.isLoggedInSubject.next(false);
-                    return false;
-                }
-            }),
-            catchError((error) => {
-                console.error('SSO login error: ' + error.error['message']);
-                return observableThrowError(error);
-            }));
-    }
-
     public logout(): void {
         const oidcToken = this.getOidcToken();
         this.refresh = null;
@@ -364,6 +362,11 @@ export class AuthService {
             this.http.get(this.appConfig.config.apiUrl + '/oidc/logout/' + oidcToken).subscribe(() => {
             })
         }
+    }
+
+    public oidcLogout(oidcToken: string): void {
+        this.http.get(this.appConfig.config.apiUrl + '/oidc/logout/' + oidcToken).subscribe(() => {
+        })
     }
 
     public isLogged(): boolean {
