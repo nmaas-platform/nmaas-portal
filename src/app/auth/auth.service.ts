@@ -15,10 +15,6 @@ export class DomainRoles {
     ) {
     }
 
-    public getDomainId(): number {
-        return this.domainId;
-    }
-
     public getRoles(): string[] {
         return this.roles;
     }
@@ -179,15 +175,6 @@ export class AuthService {
             return null;
         }
         return this.jwtHelper.decodeToken(token).global_role;
-    }
-
-    public getDomainsRoles() {
-        const token = this.getToken();
-        if (token == null) {
-            return null;
-        }
-        return this.jwtHelper.decodeToken(token).roles;
-
     }
 
     public getDomainRoles(): Map<number, DomainRoles> {
@@ -377,11 +364,6 @@ export class AuthService {
         return (token ? !this.jwtHelper.isTokenExpired(token) : false);
     }
 
-    get isLoggedIn$(): Observable<boolean> {
-        return this.isLoggedInSubject.pipe(
-            debounceTime(100), // use debounceTime to aggregate multiple emissions https://rxjs.dev/api/operators/debounceTime
-        );
-    }
 
     public getDomainIds(): number[] {
         return Array.from(new Set(this.profile.map(ur => ur.domainId)));
