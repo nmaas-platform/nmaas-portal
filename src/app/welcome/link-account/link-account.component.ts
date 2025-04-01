@@ -18,7 +18,7 @@ export class LinkAccountComponent implements OnInit, OnDestroy {
     constructor(
         private readonly route: ActivatedRoute,
         private readonly authService: AuthService,
-        private router: Router
+        private readonly router: Router
     ) {
     }
 

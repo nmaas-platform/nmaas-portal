@@ -1,23 +1,57 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LinkAccountComponent } from './link-account.component';
+import {LinkAccountComponent} from './link-account.component';
+import {ActivatedRoute} from '@angular/router';
+import {of} from 'rxjs';
+import {AuthService} from '../../auth/auth.service';
+import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 
 describe('LinkAccountComponent', () => {
-  let component: LinkAccountComponent;
-  let fixture: ComponentFixture<LinkAccountComponent>;
+    let component: LinkAccountComponent;
+    let fixture: ComponentFixture<LinkAccountComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [LinkAccountComponent]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(LinkAccountComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [LinkAccountComponent],
+            imports: [TranslateModule.forRoot({
+                loader: {
+                    provide: TranslateLoader,
+                    useClass: TranslateFakeLoader
+                }
+            })],
+            providers: [
+                {
+                    provide: ActivatedRoute,
+                    useValue: {
+                        queryParams: of({
+                            oidc_token: 'mocked.jwt.token'
+                        }),
+                        snapshot: {
+                            paramMap: {
+                                get: () => null
+                            }
+                        }
+                    }
+                },
+                {
+                    provide: AuthService,
+                    useValue: {
+                        isLogged: () => true,
+                        oidcLogout: jasmine.createSpy('oidcLogout'),
+                        oidcLinkingLogin: jasmine.createSpy('oidcLinkingLogin').and.returnValue(of({}))
+                    }
+                },
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+            ]
+        })
+            .compileComponents();
+
+        fixture = TestBed.createComponent(LinkAccountComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });
