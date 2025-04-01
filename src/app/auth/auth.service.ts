@@ -275,7 +275,7 @@ export class AuthService {
             map((res: Response) => {
                     const token = res && res['token'];
                     const oidcToken = res && res['oidcToken'];
-                    if (token) {
+                    if (token && oidcToken) {
                         this.storeToken(token);
                         this.storeOidcToken(oidcToken);
                         this.loginUsingSsoService = false;
