@@ -68,6 +68,7 @@ import {CheckboxModule} from 'primeng/checkbox';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ButtonModule } from 'primeng/button';
+import {ChartModule} from 'primeng/chart';
 
 
 @NgModule({
@@ -91,7 +92,8 @@ import { ButtonModule } from 'primeng/button';
         CheckboxModule,
         InputGroupModule,
         InputGroupAddonModule,
-        ButtonModule
+        ButtonModule,
+        ChartModule
     ],
     declarations: [
         RateComponent,
