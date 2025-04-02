@@ -3,6 +3,7 @@ import {User} from '../../model';
 import {ActivatedRoute, Router} from '@angular/router';
 import jwtDecode from 'jwt-decode';
 import {AuthService} from '../../auth/auth.service';
+import {TranslateService} from '@ngx-translate/core';
 
 
 @Component({
@@ -14,11 +15,13 @@ export class LinkAccountComponent implements OnInit, OnDestroy {
     public user: User;
     private token: string;
     public password: string;
+    public error: string;
 
     constructor(
         private readonly route: ActivatedRoute,
         private readonly authService: AuthService,
-        private readonly router: Router
+        private readonly router: Router,
+        private translate: TranslateService,
     ) {
     }
 
@@ -52,8 +55,23 @@ export class LinkAccountComponent implements OnInit, OnDestroy {
         ).subscribe(
             () => {
                 this.router.navigate(['/']);
+            },
+            err => {
+                this.error = this.translate.instant(this.getMessage(err));
             }
         )
+    }
+    private getMessage(err: any): string {
+        switch (err['status']) {
+            case 401:
+                return 'LOGIN.LOGIN_FAILURE_MESSAGE';
+            case 406:
+                return 'LOGIN.APPLICATION_UNDER_MAINTENANCE_MESSAGE';
+            case 409:
+                return 'GENERIC_MESSAGE.UNAVAILABLE_MESSAGE';
+            default:
+                return 'GENERIC_MESSAGE.UNAVAILABLE_MESSAGE';
+        }
     }
 }
 
