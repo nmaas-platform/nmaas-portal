@@ -43,7 +43,7 @@ margin-top: 50px;
                 <button type="submit" class="btn btn-primary"
                         (click)="submit()">{{ 'ACCOUNT_LINKING.CONFIRM' | translate }}
                 </button>
-
+                <div *ngIf="error" class="alert alert-danger" style="margin-top: 20px">{{error}}</div>
             </form>
             <br>
         </div>
