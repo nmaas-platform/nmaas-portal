@@ -3,19 +3,18 @@ import {TestBed, waitForAsync} from '@angular/core/testing';
 import {AuthService} from './auth.service';
 import {AppConfigService, ConfigurationService} from '../service';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {Role, UserRole} from '../model/userrole';
 import {ProfileService} from '../service/profile.service';
 import {Observable, of} from 'rxjs';
-import { Configuration } from '../model/configuration';
-import { HttpHandler } from '@angular/common/http';
+import {Configuration} from '../model/configuration';
 
 describe('Service: Auth', () => {
     let authService: AuthService;
     let appConfigServiceSpy: jasmine.SpyObj<AppConfigService>;
     let jwtHelperServiceSpy: jasmine.SpyObj<JwtHelperService>;
     let maintenanceServiceSpy: jasmine.SpyObj<ConfigurationService>;
-
+    let httpMock: HttpTestingController;
     let store: any = {};
 
     beforeEach(waitForAsync(() => {
@@ -23,7 +22,8 @@ describe('Service: Auth', () => {
             config: {
                 apiUrl: 'http://api.url',
                 tokenName: 'token',
-            }
+            },
+            getTestInstanceModalKey: () => 'testModalKey'
         };
         const jwtSpy = jasmine.createSpyObj('JwtHelperService', ['decodeToken', 'isTokenExpired']);
         jwtSpy.decodeToken.and.returnValue({
@@ -41,19 +41,19 @@ describe('Service: Auth', () => {
 
         class MockConfigurationService {
             protected uri: string;
-        
+
             constructor() {
                 this.uri = 'http://localhost/api';
             }
-        
+
             public getApiUrl(): string {
                 return 'http://localhost/api';
             }
-        
+
             public getConfiguration(): Observable<Configuration> {
                 return of<Configuration>();
             }
-        
+
             public updateConfiguration(configuration: Configuration): Observable<any> {
                 return of<Configuration>();
             }
@@ -84,6 +84,7 @@ describe('Service: Auth', () => {
             ],
         });
 
+        httpMock = TestBed.inject(HttpTestingController)
         authService = TestBed.get(AuthService);
         authService.profile = [userRole, userRole2]
         appConfigServiceSpy = TestBed.get(AppConfigService);
@@ -104,6 +105,10 @@ describe('Service: Auth', () => {
         });
 
     }));
+    afterEach(() => {
+        httpMock.verify();
+        store = {};
+    });
 
     it('should create service', () => {
         expect(authService).toBeTruthy();
@@ -180,8 +185,11 @@ describe('Service: Auth', () => {
     });
 
     it('should remove token on logout', () => {
+        store['oidc-token'] = 'some-oidc-token';
         authService.logout();
         expect(store['token']).not.toBeDefined();
+        const req = httpMock.expectOne('http://api.url/oidc/logout/some-oidc-token');
+        req.flush({});
     });
 
     it('should be logged in when token is present and valid', () => {
@@ -197,4 +205,58 @@ describe('Service: Auth', () => {
         expect(r).toEqual(false);
     });
 
+    it('should store token and oidc token in localStorage', () => {
+        authService.storeToken('abc123');
+        expect(store['token']).toEqual('abc123');
+
+        authService.storeOidcToken('oidc456');
+        expect(store['oidc-token']).toEqual('oidc456');
+    });
+
+    it('should remove roles from localStorage', () => {
+        store['rolesToken'] = 'some_roles';
+        authService.removeRoles();
+        expect(store['rolesToken']).toBeUndefined();
+    });
+
+    it('should load and parse roles from localStorage', () => {
+        const roles = [{domainId: 1, role: Role.ROLE_USER, domainName: 'x'}];
+        store['rolesToken'] = JSON.stringify(roles);
+
+        const result = authService.loadRoles();
+        expect(result.length).toEqual(1);
+        expect(result[0].role).toEqual(Role.ROLE_USER);
+    });
+
+    it('should assign loaded roles to profile', () => {
+        const roles = [{domainId: 2, role: Role.ROLE_DOMAIN_ADMIN, domainName: 'x'}];
+        store['rolesToken'] = JSON.stringify(roles);
+        authService.loadAndSaveRoles();
+        expect(authService.profile[0].role).toEqual(Role.ROLE_DOMAIN_ADMIN);
+    });
+    it('should stringify and store roles', () => {
+        const roles = [new UserRole()];
+        roles[0].domainId = 1;
+        roles[0].role = Role.ROLE_USER;
+        roles[0].domainName = 'dom1';
+
+        authService.storeRoles(roles);
+        expect(store['rolesToken']).toContain('ROLE_USER');
+    });
+    it('should get global role from token', () => {
+        const result = authService.getGlobalRole();
+        expect(result).toContain('ROLE_SYSTEM_ADMIN');
+    });
+
+    it('should handle login error with catchError', waitForAsync(() => {
+        authService.login('user', 'pass').subscribe({
+            next: () => fail('Expected error'),
+            error: (err) => {
+                expect(err.status).toEqual(401);
+            }
+        });
+
+        const req = httpMock.expectOne('http://api.url/auth/basic/login');
+        req.flush({ message: 'Invalid credentials' }, { status: 401, statusText: 'Unauthorized' });
+    }));
 });
