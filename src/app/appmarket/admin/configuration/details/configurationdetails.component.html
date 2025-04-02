@@ -143,6 +143,17 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="bulkDeploymentTimeThreshold"
+                           class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.BULK_DEPLOYMENT_THRESHOLD' | translate}}</label>
+                    <div class="col-sm-9 pd-top-7">
+                        <div class="input-width">
+                            <input class="form-control" type="number" id="bulkDeploymentTimeThreshold" name="bulkDeploymentTimeThreshold"
+                            [(ngModel)]="this.configuration.bulkDeploymentTimeThreshold">
+                        </div>
+                    
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="deploymentPrefix"
                            class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.DEPLOYMENT_PREFIX' | translate}}</label>
                     <div class="col-sm-9 pd-top-7">

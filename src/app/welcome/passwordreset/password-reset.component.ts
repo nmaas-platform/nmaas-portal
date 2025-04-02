@@ -58,8 +58,11 @@ export class PasswordResetComponent implements OnInit {
     public resetPassword() {
         if (this.form.valid) {
             this.recaptchaV3Service.execute('password_reset').pipe(
-                catchError(_ => of('')), // in case of captcha error return empty token
+                catchError(error => {
+                    console.error(error);
+                    return of(error)}), // in case of captcha error return empty tokenin case of captcha error return empty token
             ).subscribe((captchaToken) => {
+                console.log(captchaToken)
                 this.showLoading = true;
                 this.passwordReset.password = this.form.controls['newPassword'].value;
                 this.passwordReset.token = this.token;

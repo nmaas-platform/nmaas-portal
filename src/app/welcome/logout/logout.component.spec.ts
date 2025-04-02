@@ -6,7 +6,6 @@ import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
 import {AuthService} from '../../auth/auth.service';
 import {ConfigurationService} from '../../service';
-import {SSOService} from '../../service/sso.service';
 
 describe('LogoutComponent', () => {
     let component: LogoutComponent;
@@ -29,7 +28,6 @@ describe('LogoutComponent', () => {
             providers: [
                 {provide: AuthService, useValue: authServiceSpy},
                 {provide: ConfigurationService, useValue: configServiceSpy},
-                {provide: SSOService, useValue: {}}
             ]
         })
             .compileComponents();
