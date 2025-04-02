@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
 
     // only for use in linking accounts
     public triggerOIDC() {
-        if (this.configuration.maintenance) {
+        if (!this.configuration.maintenance) {
             window.location.href = this.appConfig.getOidcUrl();
         }
     }
