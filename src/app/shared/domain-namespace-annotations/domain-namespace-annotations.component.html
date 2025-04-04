@@ -64,8 +64,8 @@
 
     </div>
     <div class="nmaas-modal-footer">
-        <button type="button" class="btn btn-primary" (click)="closeModal()" [disabled]="isKeyNotUniqueAdd(newAnnotations) || !isKeyPatternCorrect">{{'DOMAINS.ADD_BUTTON' | translate}}</button>
         <button type="button" class="btn btn-secondary" (click)="modal.hide()">{{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="closeModal()" [disabled]="isKeyNotUniqueAdd(newAnnotations) || !isKeyPatternCorrect">{{'DOMAINS.ADD_BUTTON' | translate}}</button>
     </div>
 </nmaas-modal>
 
@@ -95,7 +95,7 @@
 
     </div>
     <div class="nmaas-modal-footer">
-        <button type="button" class="btn btn-primary" (click)="closeModalEdit()" [disabled]="isEditAnnotationCorrect(editAnnotation) || !isKeyPatternCorrect">{{'DOMAINS.EDIT_BUTTON' | translate}}</button>
         <button type="button" class="btn btn-secondary" (click)="editModal.hide()">{{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="closeModalEdit()" [disabled]="isEditAnnotationCorrect(editAnnotation) || !isKeyPatternCorrect">{{'DOMAINS.EDIT_BUTTON' | translate}}</button>
     </div>
 </nmaas-modal>

@@ -40,7 +40,7 @@
                 </a>
             </li>
             <p-accordion>
-                <p-accordionTab>
+                <p-accordionTab *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_GROUP_MANAGER', 'ROLE_GROUP_DOMAIN_ADMIN']">
                     <ng-template pTemplate="header">
                         <div>
                             <i class="pi pi-server" style="margin-right:10px; font-size: 15px" title="{{ 'NAVBAR.DOMAINS' | translate }}"></i>
@@ -49,7 +49,7 @@
                             </span>
                         </div>
                     </ng-template>
-                    <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_VL_MANAGER', 'ROLE_VL_DOMAIN_ADMIN']"
+                    <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_GROUP_MANAGER', 'ROLE_GROUP_DOMAIN_ADMIN']"
                         [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}" >
                         <a  style="display: flex; align-items: center;" [routerLink]="['/admin/domains']">
                             <i class="pi pi-list" style="margin-right:10px; font-size: 15px" title="List"></i>
@@ -58,7 +58,7 @@
                             </span>
                         </a>
                     </li>
-                    <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_VL_MANAGER', 'ROLE_VL_DOMAIN_ADMIN']"
+                    <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']"
                         [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
                         <a  style="display: flex; align-items: center;" [routerLink]="['/admin/domains/groups']">
                             <i class="pi pi-table" style="margin-right:10px; font-size: 15px" title="Group"></i>
@@ -67,7 +67,7 @@
                             </span>
                         </a>
                     </li>
-                    <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_VL_MANAGER', 'ROLE_VL_DOMAIN_ADMIN']"
+                    <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']"
                         [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
                         <a  style="display: flex; align-items: center;" [routerLink]="['/admin/domains/bulks']">
                             <i class="pi pi-sitemap" style="margin-right:10px; font-size: 15px" title="Bulk deployments"></i>
@@ -83,6 +83,14 @@
                     <i class="pi pi-users" style="margin-right:10px; font-size: 15px" title="{{ 'NAVBAR.USERS' | translate }}"></i>
                     <span *ngIf="!isCollapsed">
                         {{ 'NAVBAR.USERS' | translate }}
+                    </span>
+                </a>
+            </li>
+            <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_GROUP_DOMAIN_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
+                <a  style="display: flex; align-items: center;" [routerLink]="['/domain/users']">
+                    <i class="pi pi-users" style="margin-right:10px; font-size: 15px" title="{{ 'NAVBAR.DOMAIN_USERS' | translate }}"></i>
+                    <span *ngIf="!isCollapsed">
+                        {{ 'NAVBAR.DOMAIN_USERS' | translate  }}
                     </span>
                 </a>
             </li>

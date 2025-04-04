@@ -93,7 +93,7 @@ import {ChartModule} from 'primeng/chart';
         InputGroupModule,
         InputGroupAddonModule,
         ButtonModule,
-        RecaptchaV3Module
+        RecaptchaV3Module,
         ButtonModule,
         ChartModule
     ],
