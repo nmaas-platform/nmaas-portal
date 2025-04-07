@@ -62,6 +62,9 @@
                         <li *roles="['ROLE_SYSTEM_ADMIN']"><a
                                 [routerLink]="['/admin/configuration']">{{ 'NAVBAR.SETTINGS' | translate }}</a>
                         </li>
+                        <li *roles="['ROLE_SYSTEM_ADMIN']"><a
+                            [routerLink]="['/admin/manage/clusters']">{{ 'NAVBAR.SETTINGS' | translate }}</a>
+                    </li>
 
                         <li *roles="['ROLE_SYSTEM_ADMIN']" class="dropdown-divider"></li>
                         <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER']"><a

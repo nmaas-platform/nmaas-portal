@@ -1,0 +1,44 @@
+<div class="flex flex-column">
+    <div class="card flex justify-content-center">
+        <p-fileUpload name="json" (onUpload)="sendCluster($event)" customUpload="true" [draggable]="true"
+     (uploadHandler)="sendCluster($event)" [multiple]="false" accept=".yaml" maxFileSize="1000000">
+ 
+        </p-fileUpload>
+    </div>
+
+
+
+ <div class="card flex flex-grow justify-content-center">
+    <p-table [value]="clusters"                  [paginator]="true"
+    [rows]="20"  [tableStyle]="{'min-width': '50rem'}"
+    [rowsPerPageOptions]="[15, 20, 25, 30, 50]"
+    [responsiveLayout]="'scroll'">
+        <ng-template pTemplate="header">
+            <tr>
+                <th  pSortableColumn="id" id="id">Id</th>
+                <th id="name">Name</th>
+                <th id="codename">Codename</th>
+                <th id="creationDate">Creation Date</th>
+                <th id="modificationDate">ModificationDate</th>
+                <th id="configFile">Config File Path</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-deploy>
+            <tr>
+                <td>{{deploy.id}}</td>
+                <td>{{deploy.name}}</td>
+                <td>{{deploy.codename}}</td>
+                <td>{{deploy.creationDate}}</td>
+                <td>{{deploy.modificationDate}}</td>
+                <td>{{deploy.pathConfigFile}}</td>
+
+            </tr>
+        </ng-template>
+    </p-table>
+
+</div>
+
+
+</div>
+
+

@@ -1,6 +1,6 @@
 import {DefaultLogo} from '../directive/defaultlogo.directive';
 import {RolesDirective} from '../directive/roles.directive';
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule, DatePipe} from '@angular/common';
 
@@ -65,6 +65,12 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ButtonModule } from 'primeng/button';
 import { BrowserModule } from '@angular/platform-browser';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ClusterManager } from '../model/cluster-manager';
+import { ClusterManagerComponent } from './admin/clusters/manager/manager.component';
+import { TableModule } from 'primeng/table';
+
+
 
 
 @NgModule({
@@ -86,7 +92,9 @@ import { BrowserModule } from '@angular/platform-browser';
         InputGroupModule,
         InputGroupAddonModule,
         ButtonModule,
-        RecaptchaV3Module
+        RecaptchaV3Module,
+        FileUploadModule,
+        TableModule
     ],
     declarations: [
         RateComponent,
@@ -132,7 +140,8 @@ import { BrowserModule } from '@angular/platform-browser';
         PreferencesComponent,
         SortableHeaderDirective,
         DomainNamespaceAnnotationsComponent,
-        AccessTokensComponent
+        AccessTokensComponent,
+        ClusterManagerComponent
     ],
     providers: [
         PasswordValidator,
@@ -185,7 +194,11 @@ import { BrowserModule } from '@angular/platform-browser';
         SortableHeaderDirective,
         DomainNamespaceAnnotationsComponent,
         AccessTokensComponent
-    ]
+    ],
+     schemas: [
+            NO_ERRORS_SCHEMA,
+            CUSTOM_ELEMENTS_SCHEMA
+        ]
 })
 export class SharedModule {
 }
