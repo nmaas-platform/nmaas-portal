@@ -7,10 +7,18 @@ import {NgModule} from "@angular/core";
 import {SharedModule} from "../../../shared/shared.module";
 import {ClusterDetailsComponent} from "./details/clusterdetails.component";
 import {ClusterService} from "../../../service/cluster.service";
+import { ClusterManagerDetailsComponent } from "../../../shared/admin/clusters/managerdetails/managerdetails.component";
+import { ClusterManagerComponent } from "../../../shared/admin/clusters/manager/manager.component";
+import { TableModule } from 'primeng/table';
+import { FileUploadModule } from 'primeng/fileupload';
+import { TranslateModule } from "@ngx-translate/core";
+
 
 @NgModule({
     declarations: [
         ClusterDetailsComponent,
+        ClusterManagerDetailsComponent,
+        ClusterManagerComponent
     ],
     imports: [
         CommonModule,
@@ -19,9 +27,15 @@ import {ClusterService} from "../../../service/cluster.service";
         SharedModule,
         AuthModule,
         PipesModule,
+        TableModule,
+        FileUploadModule,
+         TranslateModule.forChild(),
     ],
     exports: [
-        ClusterDetailsComponent
+        ClusterDetailsComponent,
+        ClusterManagerDetailsComponent,
+        ClusterManagerComponent
+
     ],
     providers: [
         ClusterService,

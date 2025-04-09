@@ -2,7 +2,7 @@ export class ClusterInfo {
     public id: number;
 }
 
-class ClusterDeployment {
+export class ClusterDeployment {
     public smtpServerHostname: string="";
     public smtpServerPort: string="";
     public smtpServerUsername: string="";
@@ -24,7 +24,7 @@ export class ClusterExtNetwork {
     public id: number;
 }
 
-class ClusterIngress {
+export class ClusterIngress {
     public id: number;
     public controllerConfigOption: string;
     public controllerChartName: string;

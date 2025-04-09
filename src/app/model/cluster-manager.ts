@@ -1,3 +1,4 @@
+import { ClusterDeployment , ClusterExtNetwork, ClusterIngress} from './cluster'; 
 
 
 export class ClusterManager {
@@ -5,8 +6,11 @@ export class ClusterManager {
     public name: string;
     public codename: string;
     public description: string;
-    public creationDate: string;  // Możesz użyć Date, ale JSON zazwyczaj zwraca string
-    public modificationDate: string;
+    public creationDate: Date;  
+    public modificationDate: Date;
     public clusterConfigFile: string;
     public pathConfigFile: string;
+    public ingress: ClusterIngress;
+    public deployment: ClusterDeployment;
+    public externalNetworks: ClusterExtNetwork[]
 }

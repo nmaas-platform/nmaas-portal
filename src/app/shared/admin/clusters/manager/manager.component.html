@@ -25,7 +25,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-deploy>
             <tr>
-                <td>{{deploy.id}}</td>
+                <td  [routerLink]="[deploy.id]">{{deploy.id}}</td>
                 <td>{{deploy.name}}</td>
                 <td>{{deploy.codename}}</td>
                 <td>{{deploy.creationDate}}</td>

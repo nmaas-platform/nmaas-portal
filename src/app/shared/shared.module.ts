@@ -66,8 +66,6 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ButtonModule } from 'primeng/button';
 import { BrowserModule } from '@angular/platform-browser';
 import { FileUploadModule } from 'primeng/fileupload';
-import { ClusterManager } from '../model/cluster-manager';
-import { ClusterManagerComponent } from './admin/clusters/manager/manager.component';
 import { TableModule } from 'primeng/table';
 
 
@@ -141,7 +139,6 @@ import { TableModule } from 'primeng/table';
         SortableHeaderDirective,
         DomainNamespaceAnnotationsComponent,
         AccessTokensComponent,
-        ClusterManagerComponent
     ],
     providers: [
         PasswordValidator,

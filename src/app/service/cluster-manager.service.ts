@@ -28,4 +28,12 @@ export class ClusterManagerService {
     return this.http.get<ClusterManager[]>(this.url + '/all');
     }
 
+    public getClusterDetails(id: number): Observable<ClusterManager> {
+        return this.http.get<ClusterManager>(`${this.url}/${id}`);
+    }
+
+    public updateCluster(cluster: ClusterManager): Observable<ClusterManager> {
+        return this.http.put<ClusterManager>(`${this.url}/${cluster.id}`, cluster);
+    }
+
 }
