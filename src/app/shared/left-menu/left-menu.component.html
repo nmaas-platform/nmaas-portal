@@ -87,7 +87,7 @@
                 </a>
             </li>
             <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_GROUP_DOMAIN_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
-                <a  style="display: flex; align-items: center;" [routerLink]="['/domain/users']">
+                <a  style="display: flex; align-items: center;" [routerLink]="['/admin/domain/users']">
                     <i class="pi pi-users" style="margin-right:10px; font-size: 15px" title="{{ 'NAVBAR.DOMAIN_USERS' | translate }}"></i>
                     <span *ngIf="!isCollapsed">
                         {{ 'NAVBAR.DOMAIN_USERS' | translate  }}
