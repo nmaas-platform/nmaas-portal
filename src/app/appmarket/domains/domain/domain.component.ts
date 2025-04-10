@@ -109,7 +109,6 @@ export class DomainComponent extends BaseComponent implements OnInit {
                 this.router.navigate(['admin/domains/'])
         }, err => {
             console.error(err);
-            console.warn("error", err.statusCode)
             if(err.statusCode !== 409 && err?.message !== undefined) this.errorMessage = err.message;
             else this.errorMessage = err;
     
