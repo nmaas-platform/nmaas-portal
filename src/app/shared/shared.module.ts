@@ -1,6 +1,6 @@
 import {DefaultLogo} from '../directive/defaultlogo.directive';
 import {RolesDirective} from '../directive/roles.directive';
-import {NgModule} from '@angular/core';
+import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule, DatePipe} from '@angular/common';
 
@@ -65,6 +65,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ButtonModule } from 'primeng/button';
 import { BrowserModule } from '@angular/platform-browser';
+import { RolesExcludedDirective } from '../directive/roles-exluded.directive';
 
 
 @NgModule({
@@ -103,6 +104,7 @@ import { BrowserModule } from '@angular/platform-browser';
         NavbarComponent,
         DefaultLogo,
         RolesDirective,
+        RolesExcludedDirective,
         MinLengthDirective,
         MaxLengthDirective,
         SearchComponent,
@@ -179,13 +181,16 @@ import { BrowserModule } from '@angular/platform-browser';
         ModalTestInstanceComponent,
         ModalNotificationSendComponent,
         DomainRolesDirective,
+        RolesExcludedDirective,
         SshKeysComponent,
         ModalProvideSshKeyComponent,
         PreferencesComponent,
         SortableHeaderDirective,
         DomainNamespaceAnnotationsComponent,
         AccessTokensComponent
-    ]
+    ],
+    schemas: [NO_ERRORS_SCHEMA], // Dodanie schematu
+
 })
 export class SharedModule {
 }
