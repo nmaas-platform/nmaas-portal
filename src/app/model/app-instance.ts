@@ -28,6 +28,7 @@ export class AppInstance {
 
   public id: number = undefined;
   public domainId: number = undefined;
+  public domainName: string = undefined;
   public applicationId: number = undefined;
   public applicationName: string = undefined;
   public applicationVersion: string = undefined;

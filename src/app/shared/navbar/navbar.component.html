@@ -77,9 +77,13 @@
                         <li *roles="['ROLE_SYSTEM_ADMIN']"><a
                                 [routerLink]="['/admin/users']">{{ 'NAVBAR.USERS' | translate }}</a>
                         </li>
-                        <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_GROUP_DOMAIN_ADMIN']"><a
-                                [routerLink]="['/domain/users']">{{ 'NAVBAR.DOMAIN_USERS' | translate }}</a>
+                        
+                        <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_GROUP_DOMAIN_ADMIN']">
+                                <a *rolesExcluded="['ROLE_SYSTEM_ADMIN']"
+                                    [routerLink]="['/domain/users']">{{ 'NAVBAR.DOMAIN_USERS' | translate }}</a>
+                           
                         </li>
+                    
                         <li *roles="['ROLE_SYSTEM_ADMIN']"><a
                                 [routerLink]="['/admin/languages']">{{ 'NAVBAR.LANGUAGES' | translate }}</a>
                         </li>
