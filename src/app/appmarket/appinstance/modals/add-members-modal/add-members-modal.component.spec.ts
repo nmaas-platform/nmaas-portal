@@ -32,6 +32,7 @@ describe('AddMembersModalComponent', () => {
         createdAt: new Date(),
         descriptiveDeploymentId: 'test-oxidized-48',
         domainId: 4,
+        domainName: "Test Domain",
         id: 1,
         internalId: 'eccbaf70-7fdd-401a-bb3e-b8659bcfbdff',
         name: 'oxi-virt-1',
