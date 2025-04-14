@@ -49,11 +49,11 @@ body{
 }
 
 .side-menu {
-    background-color: var(--menu-color);
-    color: var(--l-text-color);
-    height: 100vh ;
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding: 1rem;
+    /*background-color: var(--menu-color);*/
+    /*color: var(--l-text-color);*/
+    /*height: 100vh ;*/
+    /*position: fixed;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    /*padding: 1rem;*/
 }

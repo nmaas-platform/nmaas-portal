@@ -117,7 +117,7 @@
                                          <strong class="caret"></strong>
                                         </span>
                                     </a>
-                                    <ul class="dropdown-menu">
+                                    <ul class="dropdown-menu"  style="left: 0; right:unset;">
                                         <li *ngFor="let role of getAllowedRoles()">
                                             <a (click)="changeUserRole(user,domainId, {value:role})">{{"ENUM.USER_ROLES." + Role[role].toUpperCase() | translate}}</a>
                                         </li>
