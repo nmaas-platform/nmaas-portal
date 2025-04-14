@@ -101,11 +101,20 @@ export class UsersListComponent extends BaseComponent implements OnInit, OnChang
     }
 
     public getAllDomain() {
-        this.domainService.getAll().subscribe(domains => {
-            domains.forEach(domain => {
-                this.domainCache.setData(domain.id, domain)
+        if(this.domainMode) {
+            this.domainService.getMyDomains().subscribe(domains => {
+                domains.forEach(domain => { 
+                    this.domainCache.setData(domain.id, domain)
+                }
+            ) })
+        } else {
+            this.domainService.getAll().subscribe(domains => {
+                domains.forEach(domain => {
+                    this.domainCache.setData(domain.id, domain)
+                })
             })
-        })
+        }
+       
     }
 
     public getDomainName(domainId: number): Observable<string> {
