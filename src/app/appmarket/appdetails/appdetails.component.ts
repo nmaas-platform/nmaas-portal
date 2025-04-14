@@ -146,7 +146,8 @@ export class AppDetailsComponent implements OnInit {
         }
 
         return this.authService.hasRole(Role[Role.ROLE_SYSTEM_ADMIN])
-            || this.authService.hasDomainRole(this.domainId, Role[Role.ROLE_DOMAIN_ADMIN]);
+            || this.authService.hasDomainRole(this.domainId, Role[Role.ROLE_DOMAIN_ADMIN])
+            || this.authService.hasDomainRole(this.domainId, Role[Role.ROLE_GROUP_DOMAIN_ADMIN]);
     }
 
     public isApplicationEnabledInDomain(): boolean {
