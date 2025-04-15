@@ -79,9 +79,7 @@ mend:
     - |
       export PRODUCT_VERSION=$(echo $CI_COMMIT_BRANCH | cut -c 9-)
       export PROJECT_VERSION=$PRODUCT_VERSION
-      apt-get update && apt-get install -y curl gnupg
-      curl -sL https://deb.nodesource.com/setup_11.x  | bash -
-      apt-get -y install nodejs
+      apt-get update && apt-get install -y curl nodejs npm
       npm install -g @angular/cli
       npm ci
       chmod +x ./gradlew
