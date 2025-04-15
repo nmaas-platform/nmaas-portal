@@ -1,6 +1,6 @@
 import {DefaultLogo} from '../directive/defaultlogo.directive';
 import {RolesDirective} from '../directive/roles.directive';
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule, DatePipe} from '@angular/common';
 
@@ -65,6 +65,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ButtonModule } from 'primeng/button';
 import { BrowserModule } from '@angular/platform-browser';
+import { RolesExcludedDirective } from '../directive/roles-exluded.directive';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TableModule } from 'primeng/table';
 
@@ -109,6 +110,7 @@ import { TableModule } from 'primeng/table';
         NavbarComponent,
         DefaultLogo,
         RolesDirective,
+        RolesExcludedDirective,
         MinLengthDirective,
         MaxLengthDirective,
         SearchComponent,
@@ -185,6 +187,7 @@ import { TableModule } from 'primeng/table';
         ModalTestInstanceComponent,
         ModalNotificationSendComponent,
         DomainRolesDirective,
+        RolesExcludedDirective,
         SshKeysComponent,
         ModalProvideSshKeyComponent,
         PreferencesComponent,
@@ -192,10 +195,8 @@ import { TableModule } from 'primeng/table';
         DomainNamespaceAnnotationsComponent,
         AccessTokensComponent
     ],
-     schemas: [
-            NO_ERRORS_SCHEMA,
-            CUSTOM_ELEMENTS_SCHEMA
-        ]
+     schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
+
 })
 export class SharedModule {
 }
