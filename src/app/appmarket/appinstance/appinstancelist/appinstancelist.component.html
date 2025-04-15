@@ -65,7 +65,7 @@
                 <td>{{ appInstance?.applicationName }}</td>
                 <td>{{ appInstance?.applicationVersion }}</td>
                 <td *ngIf="domainId === undefined || domainId === domainService.getGlobalDomainId()">
-                    {{ getDomainNameById(appInstance?.domainId) }}
+                    {{ appInstance?.domainName }}
                 </td>
                 <td>{{ appInstance?.owner?.username }}</td>
                 <td>{{ appInstance?.createdAt | localDate:'dd-MM-yyyy HH:mm' }}</td>
@@ -148,7 +148,7 @@
                     <td>{{ appInstance?.name }}</td>
                     <td>{{ appInstance?.applicationName }}</td>
                     <td *ngIf="domainId === undefined || domainId === domainService.getGlobalDomainId()">
-                        {{ getDomainNameById(appInstance?.domainId) }}
+                        {{ appInstance?.domainName }}
                     </td>
                     <td>{{ appInstance?.owner?.username }}</td>
                     <td>{{ appInstance?.createdAt | localDate:'dd-MM-yyyy HH:mm' }}</td>

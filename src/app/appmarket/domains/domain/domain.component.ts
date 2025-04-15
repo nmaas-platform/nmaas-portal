@@ -9,7 +9,7 @@ import {User} from '../../../model';
 import {Observable, of} from 'rxjs';
 import {UserRole} from '../../../model/userrole';
 import {AuthService} from '../../../auth/auth.service';
-import {ModalComponent} from '../../../shared';
+import {ModalComponent} from '../../../shared'; 
 import {map, shareReplay, take} from 'rxjs/operators';
 import {DcnDeploymentType} from '../../../model/dcndeploymenttype';
 import {CustomerNetwork} from '../../../model/customernetwork';
@@ -47,6 +47,8 @@ export class DomainComponent extends BaseComponent implements OnInit {
     public displayCustomerNetworksSection = false;
 
     public annotations : Observable<DomainAnnotation[]> = of([]);
+
+    public errorMessage = "";
 
     constructor(public domainService: DomainService,
                 protected userService: UserService,
@@ -103,7 +105,14 @@ export class DomainComponent extends BaseComponent implements OnInit {
         if (this.domainId !== undefined) {
             this.updateExistingDomain();
         } else {
-            this.domainService.add(this.domain).subscribe(() => this.router.navigate(['admin/domains/']));
+            this.domainService.add(this.domain).subscribe(() => {
+                this.router.navigate(['admin/domains/'])
+        }, err => {
+            console.error(err);
+            if(err.statusCode !== 409 && err?.message !== undefined) this.errorMessage = err.message;
+            else this.errorMessage = err;
+    
+        });
         }
         this.domainService.setUpdateRequiredFlag(true);
     }

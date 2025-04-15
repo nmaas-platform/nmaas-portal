@@ -10,22 +10,20 @@
             <tr>
                 <th scope="col">{{'TOKENS.TABLE.ID' | translate}}</th>
                 <th scope="col">{{'TOKENS.TABLE.NAME' | translate}}</th>
-                <th scope="col">{{'TOKENS.TABLE.VALUE' | translate}}</th>
                 <th scope="col">{{'TOKENS.TABLE.VALID' | translate}}</th>
                 <th scope="col">{{'TOKENS.TABLE.ACTIONS' | translate}}</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let token of tokensList">
-                <td>{{token.id}}</td>
-                <td>{{token.name}}</td>
-                <td>{{token.tokenValue}}</td>
-                <td>{{token.valid}}</td>
-                <td *ngIf="token.valid">
+                <td style="width: 25%;">{{token.id}}</td>
+                <td style="width: 25%;">{{token.name}}</td>
+                <td style="width: 25%;">{{token.valid}}</td>
+                <td style="width: 25%;" *ngIf="token.valid">
                     <button type="button" class="btn btn-danger"
                             (click)="invalidate(token.id)">{{'TOKENS.BUTTON_INVALIDATE' | translate}}</button>
                 </td>
-                <td *ngIf="!token.valid">
+                <td style="width: 25%;" *ngIf="!token.valid">
                     <button type="button" class="btn btn-danger"
                             (click)="deleteToken(token.id)">{{'TOKENS.BUTTON_DELETE' | translate}}</button>
                 </td>

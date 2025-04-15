@@ -263,6 +263,11 @@
 		<div class="flex justify-content-end">
 			<button *ngIf="!isInMode(ComponentMode.VIEW)" type="submit" class="btn btn-primary" [disabled]="!domainForm.form.valid">{{ 'DOMAIN_DETAILS.SUBMIT_BUTTON' | translate }}</button>
 		</div>
+
+		<br *ngIf="errorMessage">
+      <div class="alert alert-danger text-left" *ngIf="errorMessage">
+        {{errorMessage}}
+      </div>
 	</form>
 </div>
 

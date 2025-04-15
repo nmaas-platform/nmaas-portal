@@ -79,9 +79,6 @@ export class AppInstanceListComponent implements OnInit {
 
     ngOnInit() {
         this.sessionService.registerCulture(this.translateService.currentLang);
-        this.domainService.getAll().subscribe(result => {
-            this.domains.push(...result);
-        });
         const i = sessionStorage.getItem(this.item_number_key);
         if (i) {
             this.maxItemsOnPage = +i;
@@ -114,12 +111,6 @@ export class AppInstanceListComponent implements OnInit {
         });
     }
 
-    public getDomainNameById(id: number): string {
-        if (this.domains === undefined) {
-            return 'none';
-        }
-        return this.domains.find(value => value.id === id).name;
-    }
 
     public translateEnum(value: AppInstanceListSelection): string {
         let outValue = '';
