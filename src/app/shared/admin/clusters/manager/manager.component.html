@@ -1,14 +1,16 @@
-<div class="flex flex-column">
-    <div class="card flex justify-content-center">
-        <p-fileUpload name="json" (onUpload)="sendCluster($event)" customUpload="true" [draggable]="true"
-     (uploadHandler)="sendCluster($event)" [multiple]="false" accept=".yaml" maxFileSize="1000000">
- 
-        </p-fileUpload>
+<div class="col-sm-12 col-sm-offset-1 col-sm 10 col-md-offset-1 col-md-10">
+    <h3>{{"CLUSTERS.CONFIGURATION" | translate}}</h3>
+    <div class="" style="display: flex; justify-content: space-between; margin-top: 10px;">
+        <div >
+            <button class="btn btn-primary" (click)="modal.show()">New Cluster</button>
+        </div>
+        <div class="flex">
+            <div  *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']"  class="flex align-items-center mr-6">
+            </div>        
+        </div>
     </div>
 
-
-
- <div class="card flex flex-grow justify-content-center">
+<div class="card flex flex-grow justify-content-center mt-8">
     <p-table [value]="clusters"                  [paginator]="true"
     [rows]="20"  [tableStyle]="{'min-width': '50rem'}"
     [rowsPerPageOptions]="[15, 20, 25, 30, 50]"
@@ -37,8 +39,33 @@
     </p-table>
 
 </div>
-
-
 </div>
 
 
+<nmaas-modal >
+    <div class="nmaas-modal-header">{{'CLUSTERS.CONNECT_CLUSTER' | translate}}</div>
+    <div class="nmaas-modal-body">
+        <div class="flex flex-column">
+            <div class="mt-4">
+                <label for="name">{{'CLUSTERS.NAME' | translate}}</label>
+                <input id="name" type="text" class="form-control" [(ngModel)]="addedCluster.name" [ngModelOptions]="{standalone: true}">
+            </div>
+
+            <div class="mt-4">
+                <label for="name">{{'CLUSTERS.DESCRIPTION' | translate}}</label>
+                <input id="name" type="text" class="form-control" [(ngModel)]="addedCluster.description" [ngModelOptions]="{standalone: true}">
+            </div>
+
+
+            <div class="card flex justify-content-center mt-4" >
+                <p-fileUpload name="json" (onUpload)="sendCluster($event)" customUpload="true" [draggable]="true"  pTooltip="Upload file is required before save" 
+             (uploadHandler)="sendCluster($event)" [multiple]="false" accept=".yaml" maxFileSize="1000000">
+         
+                </p-fileUpload>
+            </div>
+            </div>
+    </div>
+    <div class="nmaas-modal-footer">
+      <button type="button" class="btn btn-secondary" [disabled]="updatedFile === null || addedCluster?.name === null || addedCluster?.description === null"(click)="closeModalAndSaveCluster()">{{'CLUSTERS.SAVE' | translate}}</button>
+    </div>
+  </nmaas-modal>
