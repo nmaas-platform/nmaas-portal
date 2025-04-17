@@ -58,8 +58,8 @@
 
 
             <div class="card flex justify-content-center mt-4" >
-                <p-fileUpload name="json" (onUpload)="sendCluster($event)" customUpload="true" [draggable]="true"  pTooltip="Upload file is required before save" 
-             (uploadHandler)="sendCluster($event)" [multiple]="false" accept=".yaml" maxFileSize="1000000">
+                <p-fileUpload name="json" (onUpload)="saveFile($event)" customUpload="true" [draggable]="true"  pTooltip="Upload file is required before save" 
+             (uploadHandler)="saveFile($event)" [multiple]="false" accept=".yaml" maxFileSize="1000000">
          
                 </p-fileUpload>
             </div>
