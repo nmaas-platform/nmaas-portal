@@ -22,7 +22,7 @@ export class ClusterManagerComponent {
     this.getAllClusters();
   }
 
- public sendCluster(event: any) {
+ public saveFile(event: any) {
     console.log(event);
     this.updatedFile =event.files[0];     
     }

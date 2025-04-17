@@ -4,15 +4,22 @@ import { ClusterManagerComponent } from './manager.component';
 import { ClusterManagerService } from '../../../../service/cluster-manager.service';
 import { of } from 'rxjs';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { ClusterManager } from '../../../../model/cluster-manager';
+import { ModalComponent } from '../../../modal';
 
 describe('ClusterManagerComponent', () => {
   let component: ClusterManagerComponent;
   let fixture: ComponentFixture<ClusterManagerComponent>;
   let clusterService: jasmine.SpyObj<ClusterManagerService>;
   let mockClusters: any[];
+  let mockModal: jasmine.SpyObj<ModalComponent>;
+
 
   beforeEach(async () => {
     const clusterServiceSpy = jasmine.createSpyObj('ClusterManagerService', ['getAllClusters', 'sendCluster']);
+    const mockModalSpy = jasmine.createSpyObj('ModalComponent', ['hide']);
+    mockModalSpy.hide.and.returnValue(null);
 
     mockClusters = [
       {
@@ -81,7 +88,14 @@ describe('ClusterManagerComponent', () => {
 
     await TestBed.configureTestingModule({
       declarations: [ClusterManagerComponent],
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule,
+        TranslateModule.forRoot({
+                            loader: {
+                                provide: TranslateLoader,
+                                useClass: TranslateFakeLoader
+                            }
+                        }),
+      ],
       providers: [
         { provide: ClusterManagerService, useValue: clusterServiceSpy }
       ],
@@ -90,6 +104,7 @@ describe('ClusterManagerComponent', () => {
 
     fixture = TestBed.createComponent(ClusterManagerComponent);
     component = fixture.componentInstance;
+    component.modal = mockModalSpy;
     clusterService = TestBed.inject(ClusterManagerService) as jasmine.SpyObj<ClusterManagerService>;
     fixture.detectChanges();
   });
@@ -104,26 +119,28 @@ describe('ClusterManagerComponent', () => {
     expect(component.clusters).toEqual(mockClusters);
   });
 
-  it('should call sendCluster when a file is uploaded', () => {
+  it('should call saveFile and store the uploaded file', () => {
     const mockFile = new File(['test content'], 'test.yaml', { type: 'application/x-yaml' });
     const mockEvent = { files: [mockFile] };
-    const mockResponse = {
-      id: 3,
-      name: 'Cluster C',
-      codename: 'CodeC',
-      creationDate: new Date(),
-      modificationDate: new Date(),
-      pathConfigFile: '/path/to/configC.yaml',
-      description: 'Description C',
-      clusterConfigFile: 'ConfigC',
-      ingress: null,
-      deployment: null,
-      externalNetworks: []
-    };
 
-    clusterService.sendCluster.and.returnValue(of(mockResponse));
+    component.saveFile(mockEvent);
 
-    component.sendCluster(mockEvent);
-    expect(clusterService.sendCluster).toHaveBeenCalledWith(mockFile, jasmine.any(Object));
+    expect(component.updatedFile).toBe(mockFile);
+    expect(component.updatedFile.name).toBe('test.yaml');
+  });
+
+  it('should call closeModalAndSaveCluster and reset state after saving', () => {
+    const mockFile = new File(['test content'], 'test.yaml', { type: 'application/x-yaml' });
+    // const mockCluster = { id: 3, name: 'Cluster C', codename: 'CodeC' };
+    component.updatedFile = mockFile;
+    component.addedCluster = mockClusters[0];
+
+    clusterService.sendCluster.and.returnValue(of(mockClusters[0]));
+
+    component.closeModalAndSaveCluster();
+
+    expect(clusterService.sendCluster).toHaveBeenCalledWith(mockFile, mockClusters[0]);
+    // expect(component.updatedFile).toBeNull();
+    // expect(component.addedCluster).toEqual(new ClusterManager());
   });
 });
