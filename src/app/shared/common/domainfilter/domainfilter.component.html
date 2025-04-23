@@ -1,15 +1,38 @@
-<span [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" class="dropdown dropdown-domains">
-		<a class="dropdown-toggle" data-close-others="true" data-toggle="dropdown" href="#">
-			<span style="color: #414F6B;">{{ "FILTER.DOMAIN" | translate }}: {{ getCurrent() }}<span class="caret"></span></span>
-		</a>
-		<ul class="dropdown-menu" [ngClass]="{'long-domain-list': (domains | async)?.length > 16}">
-			<input *ngIf="(domains | async)?.length > 16" class="search" type="text" [(ngModel)]="searchTerm"
-                   placeholder="{{ 'SEARCH' | translate}}" (input)="updateFilter()">
-			<li *ngFor="let domain of filteredDomains | async; let last = isLast"
-                [ngClass]="{'active': getCurrent() == domain?.name}">
-				<a (click)="changeDomain(domain?.id, domain?.name)">
-					<span>{{domain?.name}}</span>
-				</a>
-			</li>
-		</ul>
-</span>
+<!--<span [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" class="dropdown dropdown-domains">-->
+<!--		<a class="dropdown-toggle" data-close-others="true" data-toggle="dropdown" href="#">-->
+<!--			<span style="color: #414F6B;">{{ "FILTER.DOMAIN" | translate }}: {{ getCurrent() }}<span class="caret"></span></span>-->
+<!--		</a>-->
+<!--		<ul class="dropdown-menu" [ngClass]="{'long-domain-list': (domains | async)?.length > 16}">-->
+<!--			<input *ngIf="(domains | async)?.length > 16" class="search" type="text" [(ngModel)]="searchTerm"-->
+<!--                   placeholder="{{ 'SEARCH' | translate}}" (input)="updateFilter()">-->
+<!--			<li *ngFor="let domain of filteredDomains | async; let last = isLast"-->
+<!--                [ngClass]="{'active': getCurrent() == domain?.name}">-->
+<!--				<a (click)="changeDomain(domain?.id, domain?.name)">-->
+<!--					<span>{{domain?.name}}</span>-->
+<!--				</a>-->
+<!--			</li>-->
+<!--		</ul>-->
+<!--</span>-->
+
+<p-dropdown
+		[options]="domains | async"
+		[(ngModel)]="selectedDomain"
+		optionLabel="name"
+		[filter]="false"
+		[filterPlaceholder]="'SEARCH' | translate"
+		(onChange)="changeDomain($event.value.id, $event.value.name)"
+		appendTo="body">
+
+	<ng-template pTemplate="selectedItem" let-item>
+    <span style="color: #414F6B;">
+<!--      {{ "FILTER.DOMAIN" | translate }}: -->
+		{{ item?.name }}
+    </span>
+	</ng-template>
+
+	<ng-template pTemplate="item" let-item>
+		<span>{{ item?.name }}</span>
+	</ng-template>
+</p-dropdown>
+
+

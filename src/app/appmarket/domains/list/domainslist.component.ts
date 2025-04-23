@@ -35,9 +35,9 @@ export class DomainsListComponent implements OnInit {
     public searchValue = '';
     p: number;
 
-    public pageNumber = 1;
-    public paginatorName = 'paginator-identifier';
-    public itemsPerPage: number[] = [15, 20, 25, 30, 50];
+    // public pageNumber = 1;
+    // public paginatorName = 'paginator-identifier';
+    // public itemsPerPage: number[] = [15, 20, 25, 30, 50];
     public maxItemsOnPage = 15;
 
     public showNotActive = false;
@@ -49,11 +49,11 @@ export class DomainsListComponent implements OnInit {
     }
 
     ngOnInit() {
-        const i = sessionStorage.getItem(this.users_item_number_key)
-        if (i) {
-            this.maxItemsOnPage = +i;
-        }
-        this.update();
+        // const i = sessionStorage.getItem(this.users_item_number_key)
+        // if (i) {
+        //     this.maxItemsOnPage = +i;
+        // }
+         this.update();
     }
 
     protected getDomainsObservable(): Observable<Domain[]> {
@@ -128,11 +128,11 @@ export class DomainsListComponent implements OnInit {
     }
 
 
-    public setItems(item) {
-        // store max items per page value in this session
-        sessionStorage.setItem(this.users_item_number_key, item);
-        this.maxItemsOnPage = item;
-    }
+    // public setItems(item) {
+    //     // store max items per page value in this session
+    //     sessionStorage.setItem(this.users_item_number_key, item);
+    //     this.maxItemsOnPage = item;
+    // }
 
 
     onSorted(event: any) {

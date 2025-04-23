@@ -7,7 +7,7 @@ import {DomainService} from '../../../../service';
 @Component({
     selector: 'app-domainupload',
     templateUrl: './domainupload.component.html',
-    styleUrls: []
+    styleUrls: ['./domainupload.component.css']
 })
 export class DomainuploadComponent {
 

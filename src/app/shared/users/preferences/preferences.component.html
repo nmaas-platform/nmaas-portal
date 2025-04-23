@@ -1,16 +1,12 @@
-<div style="padding-bottom: 15px;" class="panel panel-default">
-    <div class="panel-heading">{{'USER_DETAILS.PREFERENCES' | translate}}</div>
+<div style="padding-bottom: 15px;" class="background-section">
+    <div style="display: flex; justify-content:space-between">
+        <h4  style="font-size:15px; font-weight: bold">{{'USER_DETAILS.PREFERENCES' | translate}}</h4>
+        <button *ngIf="isInMode(ComponentMode.VIEW) && isModeAllowed(ComponentMode.EDIT)" type="button"
+                class="btn btn-text" (click)="onModeChange()">{{'USER_DETAILS.EDIT_BUTTON' | translate}}</button>
+    </div>
+
     <div class="panel-body">
         <form *ngIf="user" (submit)="submit()" class="form-horizontal" #userPreferencesForm="ngForm">
-
-            <div class="flex justify-content-end mb-4">
-                <button *ngIf="!isInMode(ComponentMode.VIEW)" type="button"
-                        class="btn btn-text" (click)="onModeChange()">{{'USER_DETAILS.VIEW_BUTTON' | translate}}</button>
-                <button *ngIf="!isInMode(ComponentMode.VIEW)" type="submit" [disabled]="userPreferencesForm.invalid"
-                        class="btn btn-primary">{{'USER_DETAILS.SUBMIT_BUTTON' | translate}}</button>
-                <button *ngIf="isInMode(ComponentMode.VIEW) && isModeAllowed(ComponentMode.EDIT)" type="button"
-                        class="btn btn-text" (click)="onModeChange()">{{'USER_DETAILS.EDIT_BUTTON' | translate}}</button>
-            </div>
 
             <div class="form-group" [ngClass]="{'has-error':  defaultDomain.invalid && (defaultDomain.dirty || defaultDomain.touched),
  			    		 	'has-success': defaultDomain.valid && (defaultDomain.dirty || defaultDomain.touched)}">
@@ -22,6 +18,12 @@
                         <option *ngFor="let role of getFilteredUserRoles()" [ngValue]="role.domainId">{{getNameForDomain(role.domainId)}}</option>
                     </select>
                 </div>
+            </div>
+            <div class="flex justify-content-end mb-4">
+                <button *ngIf="!isInMode(ComponentMode.VIEW)" type="button" style="margin-right:10px"
+                        class="btn btn-secondary" (click)="onModeChange()">{{'USER_DETAILS.VIEW_BUTTON' | translate}}</button>
+                <button *ngIf="!isInMode(ComponentMode.VIEW)" type="submit" [disabled]="userPreferencesForm.invalid"
+                        class="btn btn-primary">{{'USER_DETAILS.SUBMIT_BUTTON' | translate}}</button>
             </div>
 
         </form>

@@ -1,7 +1,11 @@
 
 <form class="form-inline" role="form" (submit)="onSubmit()">
-	<div class="form-group">
-		<input type="text" name="search" class="form-control"
-			[(ngModel)]="value" placeholder="{{'SEARCH' | translate}}" (ngModelChange)="onChange()">
+	<div class="form-group" style="width: 100%">
+		<span class="p-input-icon-right" style="width: 100%">
+     		 <i class="pi pi-search" style="font-size: 13px; top: 16px; margin-right: 5px;"></i>
+			<input  pInputText type="text" name="search" class="form-control" style="width: 100%"
+				[(ngModel)]="value" placeholder="{{'SEARCH' | translate}}" (ngModelChange)="onChange()">
+		</span>
 	</div>
 </form>
+

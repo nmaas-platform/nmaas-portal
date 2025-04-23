@@ -1,8 +1,10 @@
 footer {
   flex-shrink: 0;
-  padding-bottom: 15px;
+  padding-bottom: 0px;
   padding-top: 15px;
-  background-color: #e7e7e7;
+  background-color: var(--menu-color);
+  display:flex;
+  /* margin-left: -1rem; */
 }
 
 /*explicit text alignment for chrome*/
@@ -17,9 +19,9 @@ a:link{
   text-decoration: underline;
 }
 
-a:hover {
-  font-weight: 600;
-}
+/*a:hover {*/
+/*  font-weight: 600;*/
+/*}*/
 
 .img-footer{
   max-height: 34px;
@@ -86,6 +88,6 @@ a:hover {
   flex-direction: row;
 }
 .container-width {
-  width: 85vw;
+  width: calc(100vw - var(--left-panel-width));
   margin: auto;
 }

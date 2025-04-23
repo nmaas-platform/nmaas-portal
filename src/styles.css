@@ -6,7 +6,83 @@
 
 /* These classes are copy pasted from bootstrap 4 to work with formio panel display */
 /* remove when applying actual bootstrap 4 */
+:root{
+    --left-panel-width: 300px;
+    /*light-mode*/
 
+    --button-text-color: #ffffff;
+    --primary-button-color: #3767BE;
+    --primary-button-hover: #32559B;
+    --primary-text-button-color: #3767BE;
+    --primary-text-button-text-hover: #32559B;
+    --primary-text-button-background-hover: #EAF0FF;
+    --secondary-button-color: #64748B;
+    --secondary-button-hover: #475569;
+    --secondary-text-button-color: #64748B;
+    --secondary-text-button-text-hover: #475569;
+    --secondary-text-button-background-hover: #E1E9F2;
+    --danger-button-color: #CB433F;
+    --danger-button-hover: #A40400;
+    --danger-text-button-color: #CB433F;
+    --danger-text-button-text-hover: #A40400;
+    --danger-text-button-background-hover: #FEF2F2;
+    --user-button-background: #ffffff;
+    --user-button-background-hover: #EAF0FF;
+
+    --menu-color: #F2F4F7;
+    --menu-pink: #C80071;
+    --card-color: #F6F6F7;
+    --l-text-color: #233354;
+    --app-text-color: #233354;
+    --app-background-color: #F6F6F7;
+    --tag-color: #F0D7DD;
+    --background: #ffffff;
+
+
+    /*dark-mode*/
+    --d-button-text-color: #1C1F27;
+    --d-primary-button-color: #75AEFF;
+    --d-primary-button-hover: #4880D0;
+    --d-primary-text-button-color: #A1CDFF;
+    --d-primary-text-button-text-hover: #32559B;
+    --d-primary-text-button-background-hover: #EAF0FF;
+    --d-secondary-button-color: #DFDFDF;
+    --d-secondary-button-hover: #B6B6B6;
+    --d-secondary-text-button-color: #DFDFDF;
+    --d-secondary-text-button-text-hover: #475569;
+    --d-secondary-text-button-background-hover: #EAF0FF;
+    --d-danger-button-color: #E2625F;
+    --d-danger-button-hover: #CB433F;
+    --d-danger-text-button-color: #FFACAC;
+    --d-danger-text-button-text-hover: #C70500;
+    --d-danger-text-button-background-hover: #FEF2F2;
+    --d-user-button-background: #1C1F27;
+    --d-user-button-background-hover: #5B9FFF;
+
+    --d-menu-color: #3C3F47;
+    --d-menu-pink: #C80071;
+    --d-card-color: #4D5059;
+    --d-text-color: #ffffff;
+    --d-app-text-color: #233354;
+    --d-app-background-color: #E4E7F1;
+    --d-tag-color: #F0D7DD;
+    --d-background: #1C1F27;
+}
+.form-control:focus {
+    border-color: var(--l-text-color);
+    outline: 0;
+    box-shadow: none;
+}
+.background-section{
+    background: var(--app-background-color);
+    border-radius: 10px;
+    margin:20px 0;
+    padding:30px;
+}
+.header{
+    margin-top:40px;
+    font-weight: bold
+}
 .card {
     position: relative;
     display: -webkit-box;
@@ -55,42 +131,48 @@
     font-size: 14px;
 }
 .btn-primary{
-    background:#233354;
+    background:var(--primary-button-color);
     border:none;
 }
 .btn-primary:hover{
-    background: #414f6b;
+    background: var(--primary-button-hover);
     border:none;
 }
 .btn-primary[disabled]{
     text-shadow:none;
-    background: #414f6b;
+    background:var(--primary-button-color);
     cursor: not-allowed;
     /*color: #61b4f9;*/
 }
 .btn-primary[disabled]:hover{
-    background: #414f6b;
+    background: var(--primary-button-color);
 }
 .btn{
     border:none
 }
 .btn-secondary{
-    background: #3767BE;
+    background: var(--secondary-button-color);
     color: #ffffff;
 }
 .btn-secondary:hover{
-    background: #32559B;
+    background: var(--secondary-button-hover);
     color: #ffffff
 }
 .btn-danger{
-    background: #C70500;
+    background: var(--danger-button-color);
 }
 .btn-text{
-    color: #32559B;
-    background: #ffffff;
+    color: var(--primary-text-button-color);
+    background: transparent;
 }
 .btn-text:hover{
-    background: #EBEEF5;
+    background: var(--primary-text-button-background-hover);
+    color: var(--primary-text-button-text-hover)
+}
+
+.dropdown-menu{
+    right: 0;
+    left:unset;
 }
 
 .text-bold {
