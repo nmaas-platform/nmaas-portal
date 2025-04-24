@@ -5,12 +5,18 @@ import {FormsModule} from '@angular/forms';
 import {RouterTestingModule} from '@angular/router/testing';
 import {MissingTranslationHandler, TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {CustomMissingTranslationService} from '../../../../i18n/custommissingtranslation.service';
+import { ClusterManagerService } from '../../../../service/cluster-manager.service';
 
 describe('ClusterDetailsComponent', () => {
     let component: ClusterDetailsComponent;
     let fixture: ComponentFixture<ClusterDetailsComponent>;
+    let clusterService: jasmine.SpyObj<ClusterManagerService>;
+
 
     beforeEach(waitForAsync(() => {
+
+        const clusterServiceSpy = jasmine.createSpyObj('ClusterManagerService', ['sendCluster']);
+
         TestBed.configureTestingModule({
             declarations: [ ClusterDetailsComponent ],
             imports: [
@@ -22,9 +28,14 @@ describe('ClusterDetailsComponent', () => {
                         provide: TranslateLoader,
                         useClass: TranslateFakeLoader
                     }
-                })]
+                })],
+                providers: [
+                    { provide: ClusterManagerService, useValue: clusterServiceSpy } ]
         })
             .compileComponents();
+
+            clusterService = TestBed.inject(ClusterManagerService) as jasmine.SpyObj<ClusterManagerService>;
+
     }));
 
     beforeEach(() => {

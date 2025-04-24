@@ -119,6 +119,14 @@
                 </a>
             </li>
             <li *roles="['ROLE_SYSTEM_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
+                <a  style="display: flex; align-items: center;" [routerLink]="['/admin/manage/clusters']">
+                    <i class="pi pi-cog" style="margin-right:10px; font-size: 15px"></i>
+                    <span *ngIf="!isCollapsed">
+                        {{ 'CLUSTERS.CONFIGURATION' | translate }}
+                    </span>
+                </a>
+            </li>
+            <li *roles="['ROLE_SYSTEM_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
                 <a  style="display: flex; align-items: center;" [routerLink]="['/admin/languages']">
                     <i class="pi pi-tags" style="margin-right:10px; font-size: 15px" title=" {{'NAVBAR.LANGUAGES' | translate }}"></i>
                     <span *ngIf="!isCollapsed">

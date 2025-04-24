@@ -1,0 +1,16 @@
+import { ClusterDeployment , ClusterExtNetwork, ClusterIngress} from './cluster'; 
+
+
+export class ClusterManager {
+    public id: number;
+    public name: string;
+    public codename: string;
+    public description: string;
+    public creationDate: Date;  
+    public modificationDate: Date;
+    public clusterConfigFile: string;
+    public pathConfigFile: string;
+    public ingress: ClusterIngress;
+    public deployment: ClusterDeployment;
+    public externalNetworks: ClusterExtNetwork[]
+}

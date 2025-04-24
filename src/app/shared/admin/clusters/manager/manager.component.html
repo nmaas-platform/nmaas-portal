@@ -1,0 +1,83 @@
+<div style="display: flex; align-items: center;  margin-top:20px">
+    <div style="margin-right:20px">
+        <div >
+            <button class="btn btn-primary" (click)="modal.show()">New Cluster</button>
+        </div>
+    </div>
+    <div class="flex" style="margin-right:20px">
+        
+    </div>
+</div>
+
+    <h4 class="header">{{ 'CLUSTERS.CONFIGURATION' | translate }}</h4>
+    
+<div class="background-section">
+    <p-table [value]="clusters"                  [paginator]="true"
+    [paginator]="true"
+    [rows]="maxItemsOnPage"
+    [rowsPerPageOptions]="[15, 20, 25, 30, 50]"
+    [responsiveLayout]="'scroll'">>
+        <ng-template pTemplate="header">
+            <tr>
+                <th  pSortableColumn="id" id="id"> {{ 'CLUSTERS.ID' | translate }}</th>
+                <th pSortableColumn="name" id="name"> {{ 'CLUSTERS.NAME' | translate }}</th>
+                <th pSortableColumn="codename" id="codename"> {{ 'CLUSTERS.CODENAME' | translate }}</th>
+                <th pSortableColumn="creationDate" id="creationDate"> {{ 'CLUSTERS.CREATION_DATE' | translate }}</th>
+                <th pSortableColumn="modificationDate" id="modificationDate"> {{ 'CLUSTERS.MODIFICATION_DATE' | translate }}</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-cluster>
+            <tr>
+                <td  [routerLink]="[cluster.id]">{{cluster.id}}</td>
+                <td>{{cluster.name}}</td>
+                <td>{{cluster.codename}}</td>
+                <td>{{cluster.creationDate}}</td>
+                <td>{{cluster.modificationDate}}</td>
+                <td class="text-right">
+                    <span class="dropdown">
+                            <a style="display: inline-block" class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
+                                <em class="pi pi-cog" style="font-size: 1.8rem; color: var(--l-text-color)"></em>
+                            </a>
+                            <ul class="dropdown-menu pull-right-drop" >
+                                <li><a [routerLink]="[ cluster.id]" class="">
+                                    {{ 'CLUSTERS.CONFIGURATION' | translate }}</a>
+                                </li>
+                            </ul>
+                    </span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+</div>
+
+
+<nmaas-modal >
+    <div class="nmaas-modal-header">{{'CLUSTERS.CONNECT_CLUSTER' | translate}}</div>
+    <div class="nmaas-modal-body">
+        <div class="flex flex-column">
+            <div class="mt-4">
+                <label for="name">{{'CLUSTERS.NAME' | translate}}</label>
+                <input id="name" type="text" class="form-control" [(ngModel)]="addedCluster.name" [ngModelOptions]="{standalone: true}">
+            </div>
+
+            <div class="mt-4">
+                <label for="name">{{'CLUSTERS.DESCRIPTION' | translate}}</label>
+                <input id="name" type="text" class="form-control" [(ngModel)]="addedCluster.description" [ngModelOptions]="{standalone: true}">
+            </div>
+
+
+            <div class="card flex justify-content-center mt-4" >
+                <p-fileUpload name="json" (onUpload)="saveFile($event)" customUpload="true" [draggable]="true"  pTooltip="Upload file is required before save" 
+             (uploadHandler)="saveFile($event)" [multiple]="false" accept=".yaml" maxFileSize="1000000">
+         
+                </p-fileUpload>
+            </div>
+            </div>
+    </div>
+    <div class="nmaas-modal-footer">
+      <button type="button" class="btn btn-secondary" [disabled]="updatedFile === null || addedCluster?.name === null || addedCluster?.description === null"(click)="closeModalAndSaveCluster()" 
+      pTooltip="Upload file is required before save" showDelay="2000" >{{'CLUSTERS.SAVE' | translate}}</button>
+    </div>
+  </nmaas-modal>

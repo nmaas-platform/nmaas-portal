@@ -1,6 +1,6 @@
 import {DefaultLogo} from '../directive/defaultlogo.directive';
 import {RolesDirective} from '../directive/roles.directive';
-import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule, DatePipe} from '@angular/common';
 
@@ -71,6 +71,9 @@ import { ButtonModule } from 'primeng/button';
 import { BrowserModule } from '@angular/platform-browser';
 import {ChartModule} from 'primeng/chart';
 import { RolesExcludedDirective } from '../directive/roles-exluded.directive';
+import { FileUploadModule } from 'primeng/fileupload';
+
+
 
 
 @NgModule({
@@ -96,7 +99,9 @@ import { RolesExcludedDirective } from '../directive/roles-exluded.directive';
         ButtonModule,
         RecaptchaV3Module,
         ButtonModule,
-        ChartModule
+        ChartModule,
+        FileUploadModule,
+        TableModule
     ],
     declarations: [
         RateComponent,
@@ -144,7 +149,7 @@ import { RolesExcludedDirective } from '../directive/roles-exluded.directive';
         SortableHeaderDirective,
         DomainNamespaceAnnotationsComponent,
         AccessTokensComponent,
-        AdminDashboardComponent
+        AdminDashboardComponent,
     ],
     providers: [
         PasswordValidator,
@@ -199,7 +204,7 @@ import { RolesExcludedDirective } from '../directive/roles-exluded.directive';
         DomainNamespaceAnnotationsComponent,
         AccessTokensComponent
     ],
-    schemas: [NO_ERRORS_SCHEMA], // Dodanie schematu
+     schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
 
 })
 export class SharedModule {
