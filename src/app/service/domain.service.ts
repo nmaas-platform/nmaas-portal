@@ -39,6 +39,10 @@ export class DomainService extends GenericDataService {
     return this.get<Domain[]>(this.url);
   }
 
+  public getAllBase(): Observable<Domain[]> {
+    return this.get<Domain[]>(this.url + '/base');
+  }
+
   public getOne(domainId: number): Observable<Domain> {
     return this.get<Domain>(this.url + '/' + domainId);
   }

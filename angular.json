@@ -96,7 +96,8 @@
             "tsConfig": "tsconfig.spec.json",
             "codeCoverage": true,
             "codeCoverageExclude": [
-              "src/app/test/**"
+              "src/app/test/**",
+               "**/*.spec.ts"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
