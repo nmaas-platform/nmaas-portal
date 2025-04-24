@@ -14,6 +14,7 @@ export class ClusterManagerComponent {
 
   public addedCluster: ClusterManager = new ClusterManager();
   public updatedFile : File = null;
+  public maxItemsOnPage = 15;
 
     @ViewChild(ModalComponent, { static: true })
     public modal: ModalComponent;

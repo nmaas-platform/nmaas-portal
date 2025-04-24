@@ -1,44 +1,55 @@
-<div class="col-sm-12 col-sm-offset-1 col-sm 10 col-md-offset-1 col-md-10">
-    <h3>{{"CLUSTERS.CONFIGURATION" | translate}}</h3>
-    <div class="" style="display: flex; justify-content: space-between; margin-top: 10px;">
+<div style="display: flex; align-items: center;  margin-top:20px">
+    <div style="margin-right:20px">
         <div >
             <button class="btn btn-primary" (click)="modal.show()">New Cluster</button>
         </div>
-        <div class="flex">
-            <div  *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']"  class="flex align-items-center mr-6">
-            </div>        
-        </div>
     </div>
+    <div class="flex" style="margin-right:20px">
+        
+    </div>
+</div>
 
-<div class="card flex flex-grow justify-content-center mt-8">
+    <h4 class="header">{{ 'CLUSTERS.CONFIGURATION' | translate }}</h4>
+    
+<div class="background-section">
     <p-table [value]="clusters"                  [paginator]="true"
-    [rows]="20"  [tableStyle]="{'min-width': '50rem'}"
+    [paginator]="true"
+    [rows]="maxItemsOnPage"
     [rowsPerPageOptions]="[15, 20, 25, 30, 50]"
-    [responsiveLayout]="'scroll'">
+    [responsiveLayout]="'scroll'">>
         <ng-template pTemplate="header">
             <tr>
-                <th  pSortableColumn="id" id="id">Id</th>
-                <th id="name">Name</th>
-                <th id="codename">Codename</th>
-                <th id="creationDate">Creation Date</th>
-                <th id="modificationDate">ModificationDate</th>
-                <th id="configFile">Config File Path</th>
+                <th  pSortableColumn="id" id="id"> {{ 'CLUSTERS.ID' | translate }}</th>
+                <th pSortableColumn="name" id="name"> {{ 'CLUSTERS.NAME' | translate }}</th>
+                <th pSortableColumn="codename" id="codename"> {{ 'CLUSTERS.CODENAME' | translate }}</th>
+                <th pSortableColumn="creationDate" id="creationDate"> {{ 'CLUSTERS.CREATION_DATE' | translate }}</th>
+                <th pSortableColumn="modificationDate" id="modificationDate"> {{ 'CLUSTERS.MODIFICATION_DATE' | translate }}</th>
+                <th></th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-deploy>
+        <ng-template pTemplate="body" let-cluster>
             <tr>
-                <td  [routerLink]="[deploy.id]">{{deploy.id}}</td>
-                <td>{{deploy.name}}</td>
-                <td>{{deploy.codename}}</td>
-                <td>{{deploy.creationDate}}</td>
-                <td>{{deploy.modificationDate}}</td>
-                <td>{{deploy.pathConfigFile}}</td>
-
+                <td  [routerLink]="[cluster.id]">{{cluster.id}}</td>
+                <td>{{cluster.name}}</td>
+                <td>{{cluster.codename}}</td>
+                <td>{{cluster.creationDate}}</td>
+                <td>{{cluster.modificationDate}}</td>
+                <td class="text-right">
+                    <span class="dropdown">
+                            <a style="display: inline-block" class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
+                                <em class="pi pi-cog" style="font-size: 1.8rem; color: var(--l-text-color)"></em>
+                            </a>
+                            <ul class="dropdown-menu pull-right-drop" >
+                                <li><a [routerLink]="[ cluster.id]" class="">
+                                    {{ 'CLUSTERS.CONFIGURATION' | translate }}</a>
+                                </li>
+                            </ul>
+                    </span>
+                </td>
             </tr>
         </ng-template>
     </p-table>
 
-</div>
 </div>
 
 

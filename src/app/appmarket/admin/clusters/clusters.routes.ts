@@ -7,12 +7,12 @@ import { ClusterManagerComponent } from '../../../shared/admin/clusters/manager/
 import { ClusterManagerDetailsComponent } from '../../../shared/admin/clusters/managerdetails/managerdetails.component';
 
 export const ClustersRoutes: Route[] = [
-    { path: 'admin/clusters', component: ClusterDetailsComponent, canActivate: [AuthGuard, RoleGuard],
+    { path: 'clusters', component: ClusterDetailsComponent, canActivate: [AuthGuard, RoleGuard],
         data: {mode: ComponentMode.VIEW, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']}},
-    { path: 'admin/clusters/view', component: ClusterDetailsComponent, canActivate: [AuthGuard, RoleGuard],
+    { path: 'clusters/view', component: ClusterDetailsComponent, canActivate: [AuthGuard, RoleGuard],
         data: {mode: ComponentMode.VIEW, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']}},
-    { path: 'admin/manage/clusters', component: ClusterManagerComponent, canActivate: [AuthGuard, RoleGuard],
+    { path: 'manage/clusters', component: ClusterManagerComponent, canActivate: [AuthGuard, RoleGuard],
         data: {mode: ComponentMode.VIEW, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']}},
-    { path: 'admin/manage/clusters/:id', component: ClusterManagerDetailsComponent, canActivate: [AuthGuard, RoleGuard],
+    { path: 'manage/clusters/:id', component: ClusterManagerDetailsComponent, canActivate: [AuthGuard, RoleGuard],
         data: {mode: ComponentMode.EDIT, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']}},
 ];
