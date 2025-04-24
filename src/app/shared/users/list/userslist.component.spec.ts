@@ -11,6 +11,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {RouterTestingModule} from '@angular/router/testing';
 import {of} from 'rxjs';
 import createSpyObj = jasmine.createSpyObj;
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('UserslistComponent', () => {
     let component: UsersListComponent;
@@ -57,7 +58,8 @@ describe('UserslistComponent', () => {
                     }
                 },
                 {provide: UserService, useValue: {}},
-            ]
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         })
             .compileComponents();
     }));

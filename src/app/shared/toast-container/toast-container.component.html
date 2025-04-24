@@ -1,0 +1,79 @@
+  <p-toast position="bottom-right" key="success" [baseZIndex]="5000" preventOpenDuplicates="true" >
+    <ng-template let-message pTemplate="message" >
+      <div class="flex flex-row" *ngIf="message.severity === 'success'">
+        <div class="flex flex-shrink-1 mt-2 mr-4 ml-2 mb-2">
+          <!-- <img src="../../../assets/icons/toast/toast-success.svg" class="" [alt]="'ALT.TOAST_SUCCESS' | translate"> -->
+        </div>
+        <div class="flex" style="flex: 1">
+          <div class="flex flex-column flex-grow-1 justify-content-center align-content-center ">
+            <div class="flex">
+              <h3 class="p-toast-message-success text-left mb-1 mt-1"> {{message.summary | translate}}</h3>
+            </div>
+            <div class="flex mb-3">
+              <small class="p-toast-message-success"> {{message.detail | translate}}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-toast>
+
+<p-toast position="bottom-right" key="info" [baseZIndex]="5000" preventOpenDuplicates="true">
+  <ng-template let-message pTemplate="message" >
+    <div class="flex flex-row" *ngIf="message.severity === 'info'">
+      <div class="flex flex-shrink-1 mt-2 mr-4 ml-2 mb-2">
+        <!-- <img src="assets/icons/toast/toast-info.svg" class="" [alt]="'ALT.TOAST_INFORMATION'| translate"> -->
+      </div>
+      <div class="flex" style="flex: 1">
+        <div class="flex flex-column flex-grow-1 justify-content-center align-content-center ">
+          <div class="flex">
+            <h3 class="p-toast-message-info text-left mb-1 mt-1"> {{message.summary | translate}}</h3>
+          </div>
+          <div class="flex mb-1">
+            <small class="p-toast-message-info"> {{message.detail | translate}}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-toast>
+
+<p-toast position="bottom-right" key="warn" [baseZIndex]="5000" preventOpenDuplicates="true">
+  <ng-template let-message pTemplate="message">
+    <div class="flex flex-row" *ngIf="message.severity === 'warn'">
+      <div class="flex flex-shrink-1 mt-2 mr-4 ml-2 mb-2">
+        <!-- <img src="assets/icons/toast/toast-warning.svg" class="" [alt]="'ALT.TOAST_WARNING' | translate"> -->
+      </div>
+      <div class="flex" style="flex: 1">
+        <div class="flex flex-column flex-grow-1 justify-content-center align-content-center ">
+          <div class="flex">
+            <h3 class="p-toast-message-warn text-left mb-1 mt-1"> {{message.summary | translate}}</h3>
+          </div>
+          <div class="flex mb-1">
+            <small class="p-toast-message-warn"> {{message.detail | translate}}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-toast>
+
+<p-toast position="bottom-right" key="error" [baseZIndex]="5000" preventOpenDuplicates="true" >
+  <ng-template let-message pTemplate="message">
+    <div class="flex flex-row" *ngIf="message.severity === 'error'">
+      <div class="flex flex-shrink-1 mt-2 mr-4 ml-2 mb-2">
+        <!-- <img src="assets/icons/toast/toast-error.svg" class="" [alt]="'ALT.ERROR' | translate"> -->
+      </div>
+      <div class="flex" style="flex: 1">
+        <div class="flex flex-column flex-grow-1 justify-content-center align-content-center ">
+          <div class="flex">
+            <h3 class="p-toast-message-error text-left mb-1 mt-1"> {{message.summary | translate}}</h3>
+          </div>
+          <div class="flex mb-1">
+            <small class="p-toast-message-error"> {{message.detail | translate}}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-toast>

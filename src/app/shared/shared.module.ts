@@ -61,13 +61,17 @@ import {InputTextModule} from 'primeng/inputtext';
 import { DomainNamespaceAnnotationsComponent } from './domain-namespace-annotations/domain-namespace-annotations.component';
 import { provideZxvbnServiceForPSM  } from 'angular-password-strength-meter/zxcvbn';
 import { AccessTokensComponent } from './users/access-token/access-tokens.component';
+import { LeftMenuComponent } from './left-menu/left-menu.component';
+import {TableModule} from 'primeng/table';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import {CheckboxModule} from 'primeng/checkbox';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ButtonModule } from 'primeng/button';
 import { BrowserModule } from '@angular/platform-browser';
+import {ChartModule} from 'primeng/chart';
 import { RolesExcludedDirective } from '../directive/roles-exluded.directive';
 import { FileUploadModule } from 'primeng/fileupload';
-import { TableModule } from 'primeng/table';
 
 
 
@@ -88,10 +92,14 @@ import { TableModule } from 'primeng/table';
         DropdownModule,
         InputTextModule,
         FormioModule,
+        TableModule,
+        CheckboxModule,
         InputGroupModule,
         InputGroupAddonModule,
         ButtonModule,
         RecaptchaV3Module,
+        ButtonModule,
+        ChartModule,
         FileUploadModule,
         TableModule
     ],
@@ -141,6 +149,7 @@ import { TableModule } from 'primeng/table';
         SortableHeaderDirective,
         DomainNamespaceAnnotationsComponent,
         AccessTokensComponent,
+        AdminDashboardComponent,
     ],
     providers: [
         PasswordValidator,

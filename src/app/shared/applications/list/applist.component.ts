@@ -42,7 +42,11 @@ export class AppListComponent implements OnInit, OnChanges {
     @Input()
     public domain: Observable<Domain>;
 
+    @Input()
+    public showSubscribed: boolean;
+
     public domainObject: Domain = undefined;
+
 
 
     constructor(private appSubscriptionService: AppSubscriptionsService,

@@ -18,12 +18,13 @@
         </div>
     </div>
     <div class="nmaas-modal-footer">
-        <button type="button" class="btn btn-primary" (click)="submit()" [disabled]="selectOwner.invalid">
-            {{'APPS_MANAGEMENT.CHANGE_OWNER_BUTTON' | translate}}
-        </button>
         <button type="button" class="btn btn-secondary" (click)="modal.hide()">
             {{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}
         </button>
+        <button type="button" class="btn btn-primary" (click)="submit()" [disabled]="selectOwner.invalid">
+            {{'APPS_MANAGEMENT.CHANGE_OWNER_BUTTON' | translate}}
+        </button>
+
     </div>
 </nmaas-modal>
 
