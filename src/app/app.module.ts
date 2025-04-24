@@ -26,6 +26,14 @@ import {ServiceUnavailableService} from './service-unavailable/service-unavailab
 import {NgTerminalModule} from 'ng-terminal';
 import { provideZxvbnServiceForPSM } from 'angular-password-strength-meter/zxcvbn';
 import { FormioModule } from '@formio/angular';
+import { LeftMenuComponent } from './shared/left-menu/left-menu.component';
+import { ToastContainerComponent, ToastMode } from './shared/toast-container/toast-container.component';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import {SplitButtonModule} from 'primeng/splitbutton';
+import {MenuModule} from 'primeng/menu';
+import { AdminLeftMenuComponent } from './shared/admin-left-menu/admin-left-menu.component';
+import {AccordionModule} from 'primeng/accordion';
 
 export function appConfigFactory(config: AppConfigService) {
     return function create() {
@@ -52,6 +60,9 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
 @NgModule({
     declarations: [
         AppComponent,
+        LeftMenuComponent,
+        ToastContainerComponent,
+        AdminLeftMenuComponent
     ],
     imports: [
         BrowserModule,
@@ -78,7 +89,11 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
             }
         }),
         NgTerminalModule,
-        FormioModule
+        FormioModule,
+        ToastModule,
+        SplitButtonModule,
+        MenuModule,
+        AccordionModule,
     ],
     providers: [
         AuthGuard,
@@ -98,7 +113,8 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
             useFactory: serviceAvailableFactory,
             deps: [AppConfigService, HttpClient, ServiceUnavailableService],
             multi: true,
-        }
+        },
+        MessageService
     ],
     exports: [
         TranslateModule

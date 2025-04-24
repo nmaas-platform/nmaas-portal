@@ -55,3 +55,8 @@ input.ng-dirty.ng-invalid {
 .no-padding-top {
     padding-top: 0!important;
 }
+.form-control[disabled], fieldset[disabled] .form-control{
+    background: transparent;
+    border:none;
+    box-shadow: none;
+}

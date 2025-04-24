@@ -1,6 +1,6 @@
 {
   "name": "nmaas-portal",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "license": "Apache 2.0",
   "angular-cli": {},
   "scripts": {
@@ -36,6 +36,7 @@
     "ajv": "^6.12.6",
     "angular-password-strength-meter": "^11.0.0",
     "bootstrap": "^3.4.1",
+    "chart.js": "^4.4.8",
     "document-register-element": "^1.14.10",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21",
@@ -58,7 +59,7 @@
     "@angular-devkit/build-angular": "^17.3.11",
     "@angular/cli": "^17.3.11",
     "@angular/compiler-cli": "^17.3.12",
-    "@types/jasmine": "~3.6.0",
+    "@types/jasmine": "~5.1.0",
     "@types/node": "^12.20.13",
     "codelyzer": "^6.0.0",
     "intl": "^1.2.5",

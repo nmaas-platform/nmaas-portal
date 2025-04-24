@@ -13,6 +13,29 @@ tr.clickable {
     cursor: pointer;
 }
 
-.dropdown:hover .dropdown-menu {
-    display: block;
+/*.dropdown:hover .dropdown-menu {*/
+/*    display: block;*/
+/*}*/
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th{
+    border: 1px solid #E0E2E5;
+    background:transparent;
+    border-width: 0 0 1px 0;
+}
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+    text-align: left;
+    border: 1px solid #E0E2E5;
+    border-width: 0 0 1px 0;
+    padding: 1rem 1rem;
+}
+:host ::ng-deep .p-datatable .p-paginator-bottom{
+    height: 40px;
+    background: transparent;
+    border: none;
+    margin-top:10px;
+}
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr{
+    background: transparent;
+}
+:host ::ng-deep .p-datatable>.p-datatable-wrapper {
+    overflow: visible;
 }

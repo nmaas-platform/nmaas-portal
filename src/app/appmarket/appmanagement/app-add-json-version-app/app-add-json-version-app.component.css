@@ -1,0 +1,38 @@
+:host ::ng-deep input[type=file]{
+    display:none;
+}
+:host ::ng-deep  .p-button{
+    width: unset;
+    margin-right: 5px;
+    background: var(--primary-button-color);
+    color: var(--button-text-color);
+}
+:host ::ng-deep .p-button:hover{
+    background: var(--primary-button-hover);
+    border:none;
+}
+:host ::ng-deep .p-button-label{
+    font-weight: normal;
+}
+:host ::ng-deep .p-fileupload .p-fileupload-buttonbar{
+    border: none;
+    background: transparent;
+    margin-bottom: 10px;
+    padding: 0;
+}
+:host ::ng-deep .p-fileupload .p-fileupload-content{
+    border: none;
+    padding: 0;
+    border-radius: 3px;
+
+}
+:host ::ng-deep .p-fileupload-content .p-progressbar{
+    display: none;
+}
+textarea{
+    border-color: #ccc;
+}
+:host ::ng-deep .p-inputtext:enabled:focus{
+    box-shadow: none;
+    border-color: var(--l-text-color);
+}

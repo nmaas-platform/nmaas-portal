@@ -1,7 +1,6 @@
 .tag-button{
-    background-color: white;
-    border: solid lightgray 1px;
-    color: gray;
+    background-color: var(--tag-color);
+    color: var(--text-color);
     padding: 4px 8px;
     text-align: center;
     text-decoration: none;
@@ -10,6 +9,9 @@
     margin: 8px 2px;
     border-radius: 12px;
     cursor: default;
+}
+.background-section{
+    padding:30px;
 }
 
 .block-light-gray{
@@ -22,20 +24,11 @@
     border-radius: 8px;
 }
 
-hr{
-    margin-bottom: 8px;
-    margin-top: 8px;
-}
 
 .no-padding{
     padding: 0;
     border: 0;
 }
-
-/*.first-button-substitute{*/
-/*    border-top-right-radius: 0;*/
-/*    border-bottom-right-radius: 0;*/
-/*}*/
 
 .disabled-url {
     pointer-events: none;
@@ -43,7 +36,3 @@ hr{
     color: gray;
 }
 
-.thumbnail{
-    border: none;
-    box-shadow: none;
-}

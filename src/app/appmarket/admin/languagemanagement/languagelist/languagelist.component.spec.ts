@@ -8,6 +8,7 @@ import {InternationalizationService} from '../../../../service/internationalizat
 import {AppConfigService} from '../../../../service';
 import {of} from 'rxjs';
 import {ModalComponent} from '../../../../shared/modal';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 describe('LanguagelistComponent', () => {
     let component: LanguageListComponent;
@@ -35,7 +36,8 @@ describe('LanguagelistComponent', () => {
                     }
                 },
                 {provide: AppConfigService, useValue: {}}
-            ]
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
         })
             .compileComponents();
     }));

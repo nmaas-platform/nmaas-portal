@@ -12,6 +12,10 @@ import {AuthService} from './auth/auth.service';
 import {JwtHelperService, JwtModule} from '@auth0/angular-jwt';
 import {ServiceUnavailableService} from './service-unavailable/service-unavailable.service';
 import {SharedModule} from './shared';
+import { LeftMenuComponent } from './shared/left-menu/left-menu.component';
+import { ToastContainerComponent } from './shared/toast-container/toast-container.component';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 class MockConfigurationService {
@@ -75,7 +79,9 @@ describe('App: NmaasPortal', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [
-                AppComponent
+                AppComponent,
+                LeftMenuComponent,
+                ToastContainerComponent
             ],
             imports: [
                 HttpClientTestingModule,
@@ -102,8 +108,13 @@ describe('App: NmaasPortal', () => {
                 TranslateService,
                 AuthService,
                 JwtHelperService,
+            MessageService,
                 {provide: ServiceUnavailableService, useClass: MockServiceUnavailableService}
-            ]
+        ],
+        schemas: [
+                      CUSTOM_ELEMENTS_SCHEMA,
+                      NO_ERRORS_SCHEMA
+                      ]
         });
     });
 

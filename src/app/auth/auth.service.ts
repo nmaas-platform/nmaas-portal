@@ -386,6 +386,13 @@ export class AuthService {
         })
     }
 
+    get isLoggedIn$(): Observable<boolean> {
+        this.isLoggedInSubject.next(this.isLogged());
+        return this.isLoggedInSubject.pipe(
+            debounceTime(100), // use debounceTime to aggregate multiple emissions https://rxjs.dev/api/operators/debounceTime
+        );
+    }
+
     public isLogged(): boolean {
         const token = this.getToken();
         if (token == null) {

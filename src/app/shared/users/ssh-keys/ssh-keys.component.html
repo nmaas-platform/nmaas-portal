@@ -1,9 +1,11 @@
-<div style="margin-bottom: 15px;" class="panel panel-default">
-    <div class="panel-heading">{{'SSH_KEYS.HEADER' | translate}}</div>
+<div style="padding-bottom: 15px;" class="background-section">
+
+    <div style="display: flex; justify-content:space-between">
+        <h4 style="font-size:15px; font-weight: bold" >{{'SSH_KEYS.HEADER' | translate}}</h4>
+        <app-new-ssh-key [userMode]="userMode" [userId]="userId" (out)="getData()"></app-new-ssh-key>
+    </div>
     <div class="panel-body">
-        <div class="flex justify-content-end mb-4">
-            <app-new-ssh-key [userMode]="userMode" [userId]="userId" (out)="getData()"></app-new-ssh-key>
-        </div>
+
         <table class="table table-hover" aria-describedby="User ssh keys table">
             <thead>
             <tr>

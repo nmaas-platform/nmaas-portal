@@ -1,145 +1,160 @@
-<div class="col-sm-12 col-sm-12 col-md-12">
-
-    <h3>{{ 'APP_INSTANCES.TITLE' | translate }}</h3>
-
-    <div class="col-sm-12 col-sm-12 col-md-12">
-        <div style="margin-left: -10px;" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <form class="form-inline" role="form">
-                <div class="form-group " style="display: inline-flex; align-items: flex-end">
-                    <label class="mr-3" for="selectionType">{{ 'APP_INSTANCES.SHOW' | translate }}: </label>
-                    <p-selectButton
-                            id="selectionType"
-                            [options]="selectionOptions"
-                            [(ngModel)]="listSelection"
-                            [ngModelOptions]="{standalone: true}"
-                            (ngModelChange)="onSelectionChange($event)"
-                            optionLabel="label"
-                            optionValue="value"
-                            ngDefaultControl/>
-                </div>
-                <strong class="checkbox-label" *domainRoles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR'];domainId:domainId">
-                    {{'APP_INSTANCES.UNDEPLOYED_VISIBLE' | translate}}:
-                </strong>
-                <div class="form-group" *domainRoles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR'];domainId:domainId">
-                    <label for="show_visible"></label>
-                    <input id="show_visible" type="checkbox" class="big-checkbox" [(ngModel)]="undeployedVisible" [ngModelOptions]="{standalone: true}">
-                </div>
-            </form>
+<div style="display: flex; align-items: flex-start; justify-content: space-between; margin-top:20px">
+    <div style="display:flex; align-items: center;">
+        <input pInputText name="search" id="search" placeholder="Search" type="text" [(ngModel)]="searchValue">
+        <div class="" style="display: inline-flex; align-items: center; margin-right:20px">
+            <label class="mr-3" for="selectionType">{{ 'APP_INSTANCES.SHOW' | translate }}: </label>
+            <p-selectButton
+                    id="selectionType"
+                    [options]="selectionOptions"
+                    [(ngModel)]="listSelection"
+                    [ngModelOptions]="{standalone: true}"
+                    (ngModelChange)="onSelectionChange($event)"
+                    optionLabel="label"
+                    optionValue="value"
+                    ngDefaultControl/>
         </div>
-        <div style="display: inline;" class="col-xs-12 col-sm-6 col-md-6 col-lg-6 pull-right text-right">
-            {{ 'APP_INSTANCES.ITEMS_PER_PAGE' | translate }}:
-            <span id="selectionItems" class="dropdown" style="vertical-align: middle; display: inline-block; margin-right: 10px">
-				<button class="dropdown-toggle btn" data-toggle="dropdown" data-close-others="true">
-					{{maxItemsOnPage}}
-				</button>
-				<ul class="dropdown-menu">
-					<li *ngFor="let item of itemsPerPage" [ngClass]="{'active': maxItemsOnPage == item}">
-						<a (click)="setItems(item)">
-							<span>{{item.toString()}}</span>
-						</a>
-					</li>
-				</ul>
-			</span>
-            <input pInputText name="search" id="search" placeholder="Search" type="text" [(ngModel)]="searchValue">
+        <div style="display: flex">
+            <p-checkbox *domainRoles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR'];domainId:domainId"
+                        id="show_visible" inputId="show_visible" binary="true" [(ngModel)]="undeployedVisible" [ngModelOptions]="{standalone: true}"></p-checkbox>
+            <label for="show_visible" style="text-wrap: nowrap" *domainRoles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR'];domainId:domainId">{{'APP_INSTANCES.UNDEPLOYED_VISIBLE' | translate}}</label>
+        </div>
+    </div>
+    <div class="" style="display: inline-flex; align-items: center">
+        <p-selectButton
+                id="selectionType"
+                [options]="viewOptions"
+                [(ngModel)]="selectedOption"
+                [ngModelOptions]="{standalone: true}"
+                optionLabel="label"
+                optionValue="value"
+                ngDefaultControl>
+            <ng-template let-item pTemplate>
+                <i style="font-size: 14px; padding: 0 10px" [class]="item.icon"></i>
+            </ng-template>
+        </p-selectButton>
+    </div>
+</div>
+
+<h4 style="margin-top:40px; font-weight: bold" *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']">{{ 'APP_INSTANCES.DEPLOYED' | translate }}</h4>
+<div *ngIf="selectedOption === 'list'" class="background-section" style="margin-top:30px">
+    <p-table [value]="appDeployedInstances | async | searchAppInstance: searchValue"
+             [paginator]="true"
+             [rows]="maxItemsOnPage"
+             [rowsPerPageOptions]="[5, 10, 20]"
+             [responsiveLayout]="'scroll'">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th>{{ 'APP_INSTANCES.NAME' | translate }}</th>
+                <th>{{ 'APP_INSTANCES.APPLICATION' | translate }}</th>
+                <th>{{ 'APP_INSTANCES.VERSION' | translate }}</th>
+                <th *ngIf="domainId === undefined || domainId === domainService.getGlobalDomainId()">
+                    {{ 'APP_INSTANCES.DOMAIN' | translate }}
+                </th>
+                <th>{{ 'APP_INSTANCES.OWNER' | translate }}</th>
+                <th>{{ 'APP_INSTANCES.DEPLOYED_AT' | translate }}</th>
+                <th>{{ 'APP_INSTANCES.STATE' | translate }}</th>
+                <th></th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-appInstance>
+            <tr [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain()}"
+                [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : [appInstance.id]">
+                <td>{{ appInstance?.name }}</td>
+                <td>{{ appInstance?.applicationName }}</td>
+                <td>{{ appInstance?.applicationVersion }}</td>
+                <td *ngIf="domainId === undefined || domainId === domainService.getGlobalDomainId()">
+                    {{ appInstance?.domainName }}
+                </td>
+                <td>{{ appInstance?.owner?.username }}</td>
+                <td>{{ appInstance?.createdAt | localDate:'dd-MM-yyyy HH:mm' }}</td>
+                <td>{{ translateState(appInstance?.state) }}</td>
+                <td>
+                    <ng-container *ngIf="appInstance?.upgradePossible">
+                        <span class="pi pi-arrow-circle-up"></span>
+                    </ng-container>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<div *ngIf="selectedOption === 'cards'" class="grid col-12">
+    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12"  *ngFor="let appInstance of appDeployedInstances | async | searchAppInstance: searchValue">
+        <div class="background-section" [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain()}"
+             [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : [appInstance.id]" >
+            <div  style="display:flex; justify-content: space-between; margin-bottom: 30px">
+                <div>
+                    <p>{{appInstance?.name}}</p>
+                    <p>{{ appInstance?.applicationName }}</p>
+                </div>
+                <div>
+                    <div class="" *ngIf="appInstance?.application">
+                        <img alt="App logo"
+                             [src]="(appImagesService.getAppLogoUrl(appInstance?.application.applicationBase.id) | secure) || 'assets/images/app-logo-example.png'" height="50px"/>
+                    </div>
+                    <div class="" *ngIf="!appInstance?.application">
+                        <img alt="App logo" src="assets/images/app-logo-example.png" height="50px"/>
+                    </div>
+                </div>
+            </div>
+            <div  *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.FAILURE ||
+                    getStateAsEnum(appInstance?.state) == AppInstanceState.REMOVED">
+                <p class="failure">{{ translateState(appInstance?.state) }}</p>
+                <p-progressBar class="failure" [value]="100" [style]="{'height': '6px'}"></p-progressBar>
+            </div>
+            <div  *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.RUNNING ||
+                    getStateAsEnum(appInstance?.state) == AppInstanceState.DEPLOYING ||
+                    getStateAsEnum(appInstance?.state) == AppInstanceState.CONFIGURATION_AWAITING ||
+                    getStateAsEnum(appInstance?.state) == AppInstanceState.CONNECTING">
+                <p class="running">{{ translateState(appInstance?.state) }}</p>
+                <p-progressBar class="running" mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+            </div>
+            <div  *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.DONE ||
+                    getStateAsEnum(appInstance?.state) == AppInstanceState.RUNNING ">
+                <p class="done">{{ translateState(appInstance?.state) }}</p>
+                <p-progressBar class="done" [value]="100" [style]="{'height': '6px'}"></p-progressBar>
+            </div>
+
 
         </div>
     </div>
+
 </div>
-<div class="col-sm-12 col-sm-12 col-md-12">
-    <h4 *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']">{{ 'APP_INSTANCES.DEPLOYED' | translate }}</h4>
-    <table class="table table-hover table-condensed" sortable-table (sorted)="onSorted($event)"
-           aria-describedby="Deployed instances">
-        <thead>
-        <tr>
-            <th scope="col" class="col-lg-1 col-md-1 column-sortable"
-                sortable-column="name">{{ 'APP_INSTANCES.NAME' | translate }}</th>
-            <th scope="col" class="col-lg-2 col-md-2 column-sortable"
-                sortable-column="applicationName">{{ 'APP_INSTANCES.APPLICATION' | translate }}</th>
-            <th scope="col" class="col-lg-1 col-md-1">{{ 'APP_INSTANCES.VERSION' | translate }}</th>
-            <th scope="col" class="col-lg-2 col-md-2 column-sortable" sortable-column="domainId"
-                *ngIf="domainId === undefined || domainId === domainService.getGlobalDomainId()">
-                {{ 'APP_INSTANCES.DOMAIN' | translate }}
-            </th>
-            <th scope="col" class="col-lg-1 col-md-1 column-sortable"
-                sortable-column="owner">{{ 'APP_INSTANCES.OWNER' | translate }}</th>
-            <th scope="col" class="col-lg-2 col-md-2 column-sortable" sortable-column="createdAt"
-                sort-direction="asc">{{ 'APP_INSTANCES.DEPLOYED_AT' | translate }}</th>
-            <th scope="col" class="col-lg-3 col-md-3 column-sortable"
-                sortable-column="userFriendlyState">{{ 'APP_INSTANCES.STATE' | translate }}</th>
-            <th scope="col" class="col-lg-1 col-md-1"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <ng-template ngFor let-appInstance
-                     [ngForOf]="appDeployedInstances | async | searchAppInstance: searchValue | paginate: { itemsPerPage: maxItemsOnPage, currentPage: pageNumber, id: p_first }">
-            <tr [ngClass]="userHasGuestRoleInCurrentDomain() ? '' : 'clickable'" [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : [appInstance.id]">
-                <td class="col-lg-1 col-md-1">{{appInstance?.name}}</td>
-                <td class="col-lg-2 col-md-2">{{appInstance?.applicationName}}</td>
-                <td class="col-lg-1 col-md-1">{{appInstance?.applicationVersion}}</td>
-                <td class="col-lg-2 col-md-2"
-                    *ngIf="domainId === undefined || domainId === domainService.getGlobalDomainId()">
-                    {{getDomainNameById(appInstance?.domainId)}}
-                </td>
-                <td class="col-lg-1 col-md-1">{{appInstance?.owner?.username}}</td>
-                <td class="col-lg-2 col-md-2">{{appInstance?.createdAt | localDate:'dd-MM-yyyy HH:mm'}}</td>
-                <td class="col-lg-3 col-md-3">{{ translateState(appInstance?.state) }}</td>
-                <td class="col-lg-1 col-md-1">
-                    <div *ngIf="appInstance?.upgradePossible">
-                        <span class="glyphicon glyphicon-circle-arrow-up"></span>
-                    </div>
-                </td>
-            </tr>
-        </ng-template>
-        </tbody>
-    </table>
-    <pagination-controls class="text-right" (pageChange)="pageNumber = $event" id="{{ p_first }}"
-                         previousLabel="{{ 'PAGINATION.PREVIOUS' | translate }}"
-                         nextLabel="{{ 'PAGINATION.NEXT' | translate }}"
-                         screenReaderPaginationLabel="{{ 'PAGINATION.SCREEN_READER.PAGINATION' | translate }}"
-                         screenReaderPageLabel="{{ 'PAGINATION.SCREEN_READER.PAGE' | translate }}"
-                         screenReaderCurrentLabel="{{ 'PAGINATION.SCREEN_READER.CURRENT' | translate }}"></pagination-controls>
-</div>
-<div class="col-sm-12 col-sm-12 col-md-12" *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']">
-    <h4 *ngIf="undeployedVisible">{{ 'APP_INSTANCES.UNDEPLOYED' | translate }}</h4>
-    <table *ngIf="undeployedVisible" class="table table-hover table-condensed" sortable-table (sorted)="onSorted($event)"
-           aria-describedby="Undeployed instances">
-        <thead>
-        <tr>
-            <th scope="col" class="col-lg-1 col-md-1 column-sortable"
-                sortable-column="name">{{ 'APP_INSTANCES.NAME' | translate }}</th>
-            <th scope="col" class="col-lg-2 col-md-2 column-sortable"
-                sortable-column="applicationName">{{ 'APP_INSTANCES.APPLICATION' | translate }}</th>
-            <th scope="col" class="col-lg-1 col-md-1 column-sortable" sortable-column="domainId"
-                *ngIf="domainId === undefined || domainId === domainService.getGlobalDomainId()">
-                {{ 'APP_INSTANCES.DOMAIN' | translate }}</th>
-            <th scope="col" class="col-lg-1 col-md-1 column-sortable"
-                sortable-column="owner">{{ 'APP_INSTANCES.OWNER' | translate }}</th>
-            <th scope="col" class="col-lg-2 col-md-2 column-sortable" sortable-column="createdAt"
-                sort-direction="asc">{{ 'APP_INSTANCES.DEPLOYED_AT' | translate }}</th>
-            <th scope="col" class="col-lg-3 col-md-3 column-sortable"
-                sortable-column="userFriendlyState">{{ 'APP_INSTANCES.STATE' | translate }}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <ng-template ngFor let-appInstance
-                     [ngForOf]="appUndeployedInstances | async | paginate: { itemsPerPage: maxItemsOnPageSec, currentPage: secondPageNumber, id: p_second }">
-            <tr class="clickable" [routerLink]="[appInstance.id]">
-                <td class="col-lg-1 col-md-1">{{appInstance?.name}}</td>
-                <td class="col-lg-2 col-md-2">{{appInstance?.applicationName}}</td>
-                <td class="col-lg-1 col-md-1"
-                    *ngIf="domainId === undefined || domainId === domainService.getGlobalDomainId()">
-                    {{getDomainNameById(appInstance?.domainId)}}</td>
-                <td class="col-lg-1 col-md-1">{{appInstance?.owner?.username}}</td>
-                <td class="col-lg-2 col-md-2">{{appInstance?.createdAt | localDate:'dd-MM-yyyy HH:mm'}}</td>
-                <td class="col-lg-3 col-md-3">{{ translateState(appInstance?.state) }}</td>
-            </tr>
-        </ng-template>
-        </tbody>
-    </table>
-    <pagination-controls *ngIf="undeployedVisible" class="text-right" (pageChange)="secondPageNumber = $event" id="{{ p_second }}"
-                         previousLabel="{{ 'PAGINATION.PREVIOUS' | translate }}"
-                         nextLabel="{{ 'PAGINATION.NEXT' | translate }}"
-                         screenReaderPaginationLabel="{{ 'PAGINATION.SCREEN_READER.PAGINATION' | translate }}"
-                         screenReaderPageLabel="{{ 'PAGINATION.SCREEN_READER.PAGE' | translate }}"
-                         screenReaderCurrentLabel="{{ 'PAGINATION.SCREEN_READER.CURRENT' | translate }}"></pagination-controls>
+
+<div style="margin-top:40px"  *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']">
+    <h4 class="header" *ngIf="undeployedVisible">{{ 'APP_INSTANCES.UNDEPLOYED' | translate }}</h4>
+    <div style="margin-top:30px" *ngIf="undeployedVisible && selectedOption === 'list'" class="background-section">
+        <p-table [value]="appUndeployedInstances | async | paginate: { itemsPerPage: maxItemsOnPageSec, currentPage: secondPageNumber, id: p_second }"
+                 [paginator]="true"
+                 [rows]="maxItemsOnPageSec"
+                 [rowsPerPageOptions]="[5, 10, 20]"
+                 [responsiveLayout]="'scroll'" aria-describedby="Undeployed instances">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>{{ 'APP_INSTANCES.NAME' | translate }}</th>
+                    <th>{{ 'APP_INSTANCES.APPLICATION' | translate }}</th>
+                    <th *ngIf="domainId === undefined || domainId === domainService.getGlobalDomainId()">
+                        {{ 'APP_INSTANCES.DOMAIN' | translate }}
+                    </th>
+                    <th>{{ 'APP_INSTANCES.OWNER' | translate }}</th>
+                    <th>{{ 'APP_INSTANCES.DEPLOYED_AT' | translate }}</th>
+                    <th>{{ 'APP_INSTANCES.STATE' | translate }}</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-appInstance>
+                <tr [ngClass]="{'clickable': true}" [routerLink]="[appInstance.id]">
+                    <td>{{ appInstance?.name }}</td>
+                    <td>{{ appInstance?.applicationName }}</td>
+                    <td *ngIf="domainId === undefined || domainId === domainService.getGlobalDomainId()">
+                        {{ appInstance?.domainName }}
+                    </td>
+                    <td>{{ appInstance?.owner?.username }}</td>
+                    <td>{{ appInstance?.createdAt | localDate:'dd-MM-yyyy HH:mm' }}</td>
+                    <td>{{ translateState(appInstance?.state) }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>

@@ -1,6 +1,6 @@
 import {DefaultLogo} from '../directive/defaultlogo.directive';
 import {RolesDirective} from '../directive/roles.directive';
-import {NgModule} from '@angular/core';
+import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule, DatePipe} from '@angular/common';
 
@@ -61,10 +61,16 @@ import {InputTextModule} from 'primeng/inputtext';
 import { DomainNamespaceAnnotationsComponent } from './domain-namespace-annotations/domain-namespace-annotations.component';
 import { provideZxvbnServiceForPSM  } from 'angular-password-strength-meter/zxcvbn';
 import { AccessTokensComponent } from './users/access-token/access-tokens.component';
+import { LeftMenuComponent } from './left-menu/left-menu.component';
+import {TableModule} from 'primeng/table';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import {CheckboxModule} from 'primeng/checkbox';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ButtonModule } from 'primeng/button';
 import { BrowserModule } from '@angular/platform-browser';
+import {ChartModule} from 'primeng/chart';
+import { RolesExcludedDirective } from '../directive/roles-exluded.directive';
 
 
 @NgModule({
@@ -83,10 +89,14 @@ import { BrowserModule } from '@angular/platform-browser';
         DropdownModule,
         InputTextModule,
         FormioModule,
+        TableModule,
+        CheckboxModule,
         InputGroupModule,
         InputGroupAddonModule,
         ButtonModule,
-        RecaptchaV3Module
+        RecaptchaV3Module,
+        ButtonModule,
+        ChartModule
     ],
     declarations: [
         RateComponent,
@@ -103,6 +113,7 @@ import { BrowserModule } from '@angular/platform-browser';
         NavbarComponent,
         DefaultLogo,
         RolesDirective,
+        RolesExcludedDirective,
         MinLengthDirective,
         MaxLengthDirective,
         SearchComponent,
@@ -132,7 +143,8 @@ import { BrowserModule } from '@angular/platform-browser';
         PreferencesComponent,
         SortableHeaderDirective,
         DomainNamespaceAnnotationsComponent,
-        AccessTokensComponent
+        AccessTokensComponent,
+        AdminDashboardComponent
     ],
     providers: [
         PasswordValidator,
@@ -179,13 +191,16 @@ import { BrowserModule } from '@angular/platform-browser';
         ModalTestInstanceComponent,
         ModalNotificationSendComponent,
         DomainRolesDirective,
+        RolesExcludedDirective,
         SshKeysComponent,
         ModalProvideSshKeyComponent,
         PreferencesComponent,
         SortableHeaderDirective,
         DomainNamespaceAnnotationsComponent,
         AccessTokensComponent
-    ]
+    ],
+    schemas: [NO_ERRORS_SCHEMA], // Dodanie schematu
+
 })
 export class SharedModule {
 }
