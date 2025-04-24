@@ -33,7 +33,7 @@ export class LinkAccountComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.route.queryParams.subscribe(param => {
-            this.token = param['oidc_token'];
+            this.token = param['oidc-token'];
             const decoded: TokenPayload = jwtDecode<TokenPayload>(this.token);
             this.user = new User();
             this.user.username = decoded.sub;

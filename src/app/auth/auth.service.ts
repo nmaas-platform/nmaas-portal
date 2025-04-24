@@ -26,6 +26,10 @@ export class DomainRoles {
 
 @Injectable()
 export class AuthService {
+
+    private static REFRESH_TOKEN: string = 'refresh-token';
+    private static OIDC_TOKEN: string = 'oidc-token';
+
     public loginUsingSsoService: boolean;
 
     private readonly isLoggedInSubject: Subject<boolean> = new BehaviorSubject<boolean>(false);
@@ -59,6 +63,7 @@ export class AuthService {
     public refreshUserRoles(): void {
         this.refresh = setInterval(() => {
             if (this.isLogged()) {
+                this.refreshToken()
                 this.loadUser();
             }
         }, 60000);
@@ -76,9 +81,32 @@ export class AuthService {
         });
     }
 
-    //TODO make this static again and serive this feature in other way
     public storeToken(token: string): void {
         localStorage.setItem(this.appConfig.config.tokenName, token);
+    }
+
+    public storeRefreshToken(token: string): void {
+        localStorage.setItem(AuthService.REFRESH_TOKEN, token);
+    }
+
+    public storeOidcToken(token: string): void {
+        localStorage.setItem(AuthService.OIDC_TOKEN, token);
+    }
+
+    public refreshToken() {
+        return this.http.post<any>(this.appConfig.config.apiUrl + '/auth/basic/token', {
+            refreshToken: this.getRefreshToken()
+        }).subscribe(response => {
+            const token = response && response['token'];
+            const refreshToken = response && response[AuthService.REFRESH_TOKEN];
+            if (token) {
+                this.storeToken(token);
+            }
+            if (refreshToken) {
+                this.storeRefreshToken(refreshToken)
+            }
+        })
+
     }
 
     public storeRoles(roles: UserRole[]): void {
@@ -104,16 +132,16 @@ export class AuthService {
         localStorage.removeItem(this.rolesTabelName)
     }
 
-    public storeOidcToken(token: string): void {
-        localStorage.setItem('oidc-token', token);
-    }
-
     private getToken(): string {
         return localStorage.getItem(this.appConfig.config.tokenName)
     }
 
     private getOidcToken(): string {
-        return localStorage.getItem('oidc-token')
+        return localStorage.getItem(AuthService.OIDC_TOKEN)
+    }
+
+    private getRefreshToken(): string {
+        return localStorage.getItem(AuthService.REFRESH_TOKEN)
     }
 
     private removeToken(): void {
@@ -121,7 +149,7 @@ export class AuthService {
     }
 
     private removeOidcToken(): void {
-        localStorage.removeItem('oidc-token');
+        localStorage.removeItem(AuthService.OIDC_TOKEN);
     }
 
     public getSelectedLanguage(): string {
@@ -288,7 +316,7 @@ export class AuthService {
         if (this.maintenance) {
             this.isLoggedInSubject.next(false);
             console.warn('Maintenance is on. Disabled login.')
-            //add toast here 
+            //add toast here
             return of(false);
         }
 
@@ -300,9 +328,11 @@ export class AuthService {
                 console.debug('Login response: ' + response.statusText);
                 // login successful if there's a jwt token in the response
                 const token = response && response['token'];
-                if (token) {
+                const refreshToken = response && response[AuthService.REFRESH_TOKEN];
+                if (token && refreshToken) {
                     // set token property
                     this.storeToken(token);
+                    this.storeRefreshToken(refreshToken)
 
                     console.debug('AUTH | User: ' + this.getUsername());
                     console.debug('AUTH | Domains: ' + this.getDomains());

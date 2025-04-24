@@ -1,5 +1,5 @@
 /* tslint:disable:no-unused-variable */
-import {TestBed, waitForAsync} from '@angular/core/testing';
+import {fakeAsync, TestBed, waitForAsync} from '@angular/core/testing';
 import {AuthService} from './auth.service';
 import {AppConfigService, ConfigurationService} from '../service';
 import {JwtHelperService} from '@auth0/angular-jwt';
@@ -27,6 +27,7 @@ describe('Service: Auth', () => {
         };
         const jwtSpy = jasmine.createSpyObj('JwtHelperService', ['decodeToken', 'isTokenExpired']);
         jwtSpy.decodeToken.and.returnValue({
+            preferred_username: 'username',
             language: 'pl',
             sub: 'test-user',
             global_role: ['ROLE_SYSTEM_ADMIN'],
@@ -257,6 +258,27 @@ describe('Service: Auth', () => {
         });
 
         const req = httpMock.expectOne('http://api.url/auth/basic/login');
-        req.flush({ message: 'Invalid credentials' }, { status: 401, statusText: 'Unauthorized' });
+        req.flush({message: 'Invalid credentials'}, {status: 401, statusText: 'Unauthorized'});
     }));
+
+    it('should return only uniqe domainids', () => {
+        (authService as any).profile = [
+            {domainId: 1}, {domainId: 2}, {domainId: 1}
+        ];
+        const ids = authService.getDomainIds();
+        expect(ids).toEqual([1, 2]);
+    });
+
+    it('getGlobalRole should return null when token is missing', () => {
+        delete store['token'];
+        expect(authService.getGlobalRole()).toBeNull();
+    });
+
+    it('getPreferredUsername should return preferred_username or null', () => {
+        const name = authService.getPreferredUsername();
+        expect(name).toBe('username');
+        delete store['token'];
+        expect(authService.getPreferredUsername()).toBeNull();
+    });
+
 });
