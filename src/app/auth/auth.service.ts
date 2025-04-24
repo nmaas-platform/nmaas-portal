@@ -66,7 +66,7 @@ export class AuthService {
                 this.refreshToken()
                 this.loadUser();
             }
-        }, 10000);
+        }, 60000);
     }
 
     private getConfigurationToCheckMaintenance() {
