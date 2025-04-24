@@ -1,5 +1,7 @@
-<div class="panel panel-default">
-    <div class="panel-heading">{{ 'CLUSTERS.TITLE_GENERAL' | translate }}  </div>
+<div class="">
+    <div class="background-section">  
+    <h4 style="font-size:15px; font-weight: bold">{{ 'CLUSTERS.TITLE_GENERAL' | translate }}</h4>
+
     <div class="panel-body">
         <form *ngIf="cluster" (submit)="submit()" class="form-horizontal" #clusterFormGeneral="ngForm">
             <div class="panel-default panel-heading">{{ 'CLUSTERS.GENERAL' | translate }} </div>
@@ -79,9 +81,11 @@
         </form>
     </div>
 </div>
+</div>
 
-<div class="panel panel-default">
-    <div class="panel-heading">{{ 'CLUSTERS.TITLE' | translate }}  </div>
+<div class="">
+    <div class="background-section">  
+    <h4 style="font-size:15px; font-weight: bold">{{ 'CLUSTERS.TITLE' | translate }}</h4>
     <div class="panel-body">
         <form *ngIf="cluster" (submit)="submit()" class="form-horizontal" #clusterForm="ngForm">
             <div class="panel-default panel-heading">{{ 'CLUSTERS.INGRESS' | translate }} </div>
@@ -327,8 +331,13 @@
                 <p>{{this.error}}</p>
             </div>
 
-            <button [disabled]="!clusterForm.form.valid" type="submit"
-                    class="btn btn-primary">{{ 'CLUSTERS.SUBMIT_BUTTON' | translate }}</button>
+            <div class="flex justify-content-end">
+                <button [disabled]="!clusterForm.form.valid" type="submit" class="btn btn-primary"
+                        type="submit">{{ 'PORTAL_CONFIGURATION.SUBMIT_BUTTON' | translate }}</button>
+            </div>
+            <!-- <button 
+                    class="btn btn-primary">{{ 'CLUSTERS.SUBMIT_BUTTON' | translate }}</button> -->
         </form>
     </div>
+</div>
 </div>

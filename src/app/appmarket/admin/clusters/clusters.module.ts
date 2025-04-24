@@ -12,6 +12,8 @@ import { ClusterManagerComponent } from "../../../shared/admin/clusters/manager/
 import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TranslateModule } from "@ngx-translate/core";
+import { TooltipModule } from 'primeng/tooltip';
+
 
 
 @NgModule({
@@ -30,6 +32,7 @@ import { TranslateModule } from "@ngx-translate/core";
         TableModule,
         FileUploadModule,
          TranslateModule.forChild(),
+         TooltipModule
     ],
     exports: [
         ClusterDetailsComponent,

@@ -77,6 +77,7 @@
             </div>
     </div>
     <div class="nmaas-modal-footer">
-      <button type="button" class="btn btn-secondary" [disabled]="updatedFile === null || addedCluster?.name === null || addedCluster?.description === null"(click)="closeModalAndSaveCluster()">{{'CLUSTERS.SAVE' | translate}}</button>
+      <button type="button" class="btn btn-secondary" [disabled]="updatedFile === null || addedCluster?.name === null || addedCluster?.description === null"(click)="closeModalAndSaveCluster()" 
+      pTooltip="Upload file is required before save" showDelay="2000" >{{'CLUSTERS.SAVE' | translate}}</button>
     </div>
   </nmaas-modal>
