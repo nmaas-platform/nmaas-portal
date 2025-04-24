@@ -74,7 +74,7 @@ export class DomainFilterComponent implements OnInit {
 
     public updateDomains(): void {
         if (this.authService.hasRole('ROLE_SYSTEM_ADMIN')) {
-            this.domains = this.domainService.getAll();
+            this.domains = this.domainService.getAllBase();
         } else {
             this.domains = this.domainService.getMyDomains();
             const globalDomainId = this.domainService.getGlobalDomainId();
