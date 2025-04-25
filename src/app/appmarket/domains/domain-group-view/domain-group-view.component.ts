@@ -117,6 +117,7 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
             this.refresh();
             this.domainsToAdd = [];
             this.refreshDomainForAdd();
+            
         });
         this.modal.hide();
     }
