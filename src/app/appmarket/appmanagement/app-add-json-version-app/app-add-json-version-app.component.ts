@@ -73,7 +73,7 @@ export class AppAddJsonVersionAppComponent {
         this.modal.show();
     }
 
-    private handleUpload(result: any) {
+    public handleUpload(result: any) {
         console.log('uploaded', result);
         this.modal.hide();
         this.refresh.emit(true);
