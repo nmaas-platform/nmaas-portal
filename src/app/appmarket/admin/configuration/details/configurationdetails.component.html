@@ -87,81 +87,85 @@
                                [(ngModel)]="this.configuration.registrationDomainSelectionEnabled">
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="bulkDomainsAllowForSsoAccounts"
-                           class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.BULK_DOMAINS_ALLOW_FOR_SSO_ACCOUNTS' | translate}}</label>
-                    <div class="col-sm-9 pd-top-7">
-                        <input type="checkbox" id="bulkDomainsAllowForSsoAccounts" name="bulkDomainsAllowForSsoAccounts"
-                               [(ngModel)]="this.configuration.bulkDomainsAllowForSsoAccounts"
-                               [checked]="this.configuration.bulkDomainsAllowForSsoAccounts === true">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="bulkDomainsSendEmailForNewAccounts"
-                           class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.BULK_DOMAINS_SEND_EMAIL_FOR_NEW_ACCOUNTS' | translate}}</label>
-                    <div class="col-sm-9 pd-top-7">
-                        <input type="checkbox" id="bulkDomainsSendEmailForNewAccounts" name="bulkDomainsSendEmailForNewAccounts"
-                               [(ngModel)]="this.configuration.bulkDomainsSendEmailForNewAccounts"
-                               [checked]="this.configuration.bulkDomainsSendEmailForNewAccounts === true">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="bulkDeploymentJobCron"
-                           class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.BULK_DEPLOYMENT_CRON' | translate}}</label>
-                    <div class="col-sm-9 pd-top-7 ">
-                        <div class="input-width">
-                            <input class="form-control" type="text" id="bulkDeploymentJobCron" name="bulkDeploymentJobCron"
-                            [(ngModel)]="this.configuration.bulkDeploymentJobCron">
-                        </div>
-                        
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="parallelDeploymentsLimit"
-                           class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.BULK_DEPLOYMENT_LIMIT' | translate}}</label>
-                    <div class="col-sm-9 pd-top-7">
-                        <div class="input-width">
-                            <input class="form-control" type="number" id="parallelDeploymentsLimit" name="parallelDeploymentsLimit"
-                            [(ngModel)]="this.configuration.parallelDeploymentsLimit">
-                        </div>
-                    
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="bulkDeploymentQueueRefresh"
-                           class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.BULK_DEPLOYMENT_QUEUE_REFRESH' | translate}}</label>
-                    <div class="col-sm-9 pd-top-7">
-                        <div class="input-width">
-                            <input class="form-control" type="number" id="bulkDeploymentQueueRefresh" name="bulkDeploymentQueueRefresh"
-                            [(ngModel)]="this.configuration.bulkDeploymentQueueRefresh">
-                        </div>
-                    
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="bulkDeploymentTimeThreshold"
-                           class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.BULK_DEPLOYMENT_THRESHOLD' | translate}}</label>
-                    <div class="col-sm-9 pd-top-7">
-                        <div class="input-width">
-                            <input class="form-control" type="number" id="bulkDeploymentTimeThreshold" name="bulkDeploymentTimeThreshold"
-                            [(ngModel)]="this.configuration.bulkDeploymentTimeThreshold">
-                        </div>
-                    
-                    </div>
-                </div>
                 <div class="form-group">
                     <label for="deploymentPrefix"
                            class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.DEPLOYMENT_PREFIX' | translate}}</label>
                     <div class="col-sm-9 pd-top-7">
                         <div class="input-width">
                             <input class="form-control" type="text" id="deploymentPrefix" name="deploymentPrefix"
-                            [(ngModel)]="this.configuration.deploymentPrefix">
+                                   [(ngModel)]="this.configuration.deploymentPrefix">
                         </div>
-                    
+
+                    </div>
+                </div>
+
+                <div class="panel-default panel-heading">Bulk settings</div>
+                <div class="panel-body">
+
+                    <div class="form-group">
+                        <label for="bulkDomainsAllowForSsoAccounts"
+                               class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.BULK_DOMAINS_ALLOW_FOR_SSO_ACCOUNTS' | translate}}</label>
+                        <div class="col-sm-9 pd-top-7">
+                            <input type="checkbox" id="bulkDomainsAllowForSsoAccounts" name="bulkDomainsAllowForSsoAccounts"
+                                   [(ngModel)]="this.configuration.bulkDomainsAllowForSsoAccounts"
+                                   [checked]="this.configuration.bulkDomainsAllowForSsoAccounts === true">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bulkDomainsSendEmailForNewAccounts"
+                               class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.BULK_DOMAINS_SEND_EMAIL_FOR_NEW_ACCOUNTS' | translate}}</label>
+                        <div class="col-sm-9 pd-top-7">
+                            <input type="checkbox" id="bulkDomainsSendEmailForNewAccounts" name="bulkDomainsSendEmailForNewAccounts"
+                                   [(ngModel)]="this.configuration.bulkDomainsSendEmailForNewAccounts"
+                                   [checked]="this.configuration.bulkDomainsSendEmailForNewAccounts === true">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bulkDeploymentJobCron"
+                               class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.BULK_DEPLOYMENT_CRON' | translate}}</label>
+                        <div class="col-sm-9 pd-top-7 ">
+                            <div class="input-width">
+                                <input class="form-control" type="text" id="bulkDeploymentJobCron" name="bulkDeploymentJobCron"
+                                [(ngModel)]="this.configuration.bulkDeploymentJobCron">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="parallelDeploymentsLimit"
+                               class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.BULK_DEPLOYMENT_LIMIT' | translate}}</label>
+                        <div class="col-sm-9 pd-top-7">
+                            <div class="input-width">
+                                <input class="form-control" type="number" id="parallelDeploymentsLimit" name="parallelDeploymentsLimit"
+                                [(ngModel)]="this.configuration.parallelDeploymentsLimit">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bulkDeploymentQueueRefresh"
+                               class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.BULK_DEPLOYMENT_QUEUE_REFRESH' | translate}}</label>
+                        <div class="col-sm-9 pd-top-7">
+                            <div class="input-width">
+                                <input class="form-control" type="number" id="bulkDeploymentQueueRefresh" name="bulkDeploymentQueueRefresh"
+                                [(ngModel)]="this.configuration.bulkDeploymentQueueRefresh">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bulkDeploymentTimeThreshold"
+                               class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.BULK_DEPLOYMENT_THRESHOLD' | translate}}</label>
+                        <div class="col-sm-9 pd-top-7">
+                            <div class="input-width">
+                                <input class="form-control" type="number" id="bulkDeploymentTimeThreshold" name="bulkDeploymentTimeThreshold"
+                                [(ngModel)]="this.configuration.bulkDeploymentTimeThreshold">
+                            </div>
+
+                        </div>
                     </div>
                 </div>
                 <div class="flex justify-content-end">
