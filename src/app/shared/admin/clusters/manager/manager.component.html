@@ -12,18 +12,29 @@
     <h4 class="header">{{ 'CLUSTERS.CONFIGURATION' | translate }}</h4>
     
 <div class="background-section">
-    <p-table [value]="clusters"                  [paginator]="true"
+    <p-table
+    [value]="clusters"
     [paginator]="true"
     [rows]="maxItemsOnPage"
     [rowsPerPageOptions]="[15, 20, 25, 30, 50]"
-    [responsiveLayout]="'scroll'">>
+    [responsiveLayout]="'scroll'">
         <ng-template pTemplate="header">
             <tr>
-                <th  pSortableColumn="id" id="id"> {{ 'CLUSTERS.ID' | translate }}</th>
-                <th pSortableColumn="name" id="name"> {{ 'CLUSTERS.NAME' | translate }}</th>
-                <th pSortableColumn="codename" id="codename"> {{ 'CLUSTERS.CODENAME' | translate }}</th>
-                <th pSortableColumn="creationDate" id="creationDate"> {{ 'CLUSTERS.CREATION_DATE' | translate }}</th>
-                <th pSortableColumn="modificationDate" id="modificationDate"> {{ 'CLUSTERS.MODIFICATION_DATE' | translate }}</th>
+                <th  pSortableColumn="id" id="id"> {{ 'CLUSTERS.ID' | translate }}
+                    <p-sortIcon field="id"></p-sortIcon>
+                </th>
+                <th pSortableColumn="name" id="name"> {{ 'CLUSTERS.NAME' | translate }}
+                    <p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="codename" id="codename"> {{ 'CLUSTERS.CODENAME' | translate }}
+                    <p-sortIcon field="codename"></p-sortIcon>
+                </th>
+                <th pSortableColumn="creationDate" id="creationDate"> {{ 'CLUSTERS.CREATION_DATE' | translate }}
+                    <p-sortIcon field="creationDate"></p-sortIcon>
+                </th>
+                <th pSortableColumn="modificationDate" id="modificationDate"> {{ 'CLUSTERS.MODIFICATION_DATE' | translate }}
+                    <p-sortIcon field="modificationDate"></p-sortIcon>
+                </th>
                 <th></th>
             </tr>
         </ng-template>

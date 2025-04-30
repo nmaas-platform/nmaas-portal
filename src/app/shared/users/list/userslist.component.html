@@ -71,22 +71,42 @@
                  [rowsPerPageOptions]="[15, 20, 25, 30, 50]" >
             <ng-template pTemplate="header">
                 <tr>
-                    <th scope="col" class="column-sortable" sortable-column="username"
-                        sort-direction="asc">{{ 'USERS.USER_NAME' | translate }}</th>
-                    <th scope="col" class="column-sortable" sortable-column="lastname">{{'USERS.NAME' | translate}}</th>
-                    <th *ngIf="!domainMode" scope="col" class="column-sortable"
-                        sortable-column="email">{{'USERS.EMAIL' | translate}}</th>
-                    <th scope="col" class="column-sortable" sortable-column="domains"
-                        *ngIf="domainId === domainService.getGlobalDomainId()">{{ 'USERS.DOMAINS' | translate }}</th>
-                    <th scope="col" class="column-sortable" sortable-column="globalRole"
-                        *ngIf="domainId === domainService.getGlobalDomainId()">{{ 'USERS.GLOBAL_ROLE' | translate }}</th>
-                    <th scope="col" class="column-sortable" sortable-column="roles"
-                        *ngIf="domainId !== domainService.getGlobalDomainId() && !isModeAllowed(ComponentMode.EDIT)">{{ 'USERS.ROLES' | translate }}</th>
-                    <th scope="col" class="column-sortable" *ngIf="!isModeAllowed(ComponentMode.EDIT) && !domainMode"
-                        sortable-column="firstLoginDate">{{ 'USERS.FIRST_LOGIN' | translate }}</th>
-                    <th scope="col" class="column-sortable" *ngIf="!isModeAllowed(ComponentMode.EDIT) && !domainMode"
-                        sortable-column="lastSuccessfulLoginDate">{{ 'USERS.LAST_SUCCESSFUL_LOGIN' | translate }}</th>
-                    <th scope="col" class="column-sortable" sortable-column="enabled">{{ 'USERS.ENABLED' | translate }}</th>
+                    <th scope="col" class="column-sortable" pSortableColumn="username">
+                        {{ 'USERS.USER_NAME' | translate }}
+                        <p-sortIcon field="username"></p-sortIcon>
+                    </th>
+                    <th scope="col" class="column-sortable" pSortableColumn="lastname">
+                        {{'USERS.NAME' | translate}}
+                        <p-sortIcon field="lastname"></p-sortIcon>
+                    </th>
+                    <th *ngIf="!domainMode" scope="col" class="column-sortable" pSortableColumn="email">
+                        {{'USERS.EMAIL' | translate}}
+                        <p-sortIcon field="email"></p-sortIcon>
+                    </th>
+                    <th scope="col" class="column-sortable" pSortableColumn="domains" *ngIf="domainId === domainService.getGlobalDomainId()">
+                        {{ 'USERS.DOMAINS' | translate }}
+                        <p-sortIcon field="domains"></p-sortIcon>
+                    </th>
+                    <th scope="col" class="column-sortable" pSortableColumn="globalRole" *ngIf="domainId === domainService.getGlobalDomainId()">
+                        {{ 'USERS.GLOBAL_ROLE' | translate }}
+                        <p-sortIcon field="globalRole"></p-sortIcon>
+                    </th>
+                    <th scope="col" class="column-sortable" pSortableColumn="roles" *ngIf="domainId !== domainService.getGlobalDomainId() && !isModeAllowed(ComponentMode.EDIT)">
+                        {{ 'USERS.ROLES' | translate }}
+                        <p-sortIcon field="roles"></p-sortIcon>
+                    </th>
+                    <th scope="col" class="column-sortable" *ngIf="!isModeAllowed(ComponentMode.EDIT) && !domainMode" pSortableColumn="firstLoginDate">
+                        {{ 'USERS.FIRST_LOGIN' | translate }}
+                        <p-sortIcon field="firstLoginDate"></p-sortIcon>
+                    </th>
+                    <th scope="col" class="column-sortable" *ngIf="!isModeAllowed(ComponentMode.EDIT) && !domainMode" pSortableColumn="lastSuccessfulLoginDate">
+                        {{ 'USERS.LAST_SUCCESSFUL_LOGIN' | translate }}
+                        <p-sortIcon field="lastSuccessfulLoginDate"></p-sortIcon>
+                    </th>
+                    <th scope="col" class="column-sortable" pSortableColumn="enabled">
+                        {{ 'USERS.ENABLED' | translate }}
+                        <p-sortIcon field="enabled"></p-sortIcon>
+                    </th>
                     <th *ngIf="!isModeAllowed(ComponentMode.EDIT)" scope="col">&nbsp;</th>
                     <th *ngIf="isModeAllowed(ComponentMode.EDIT)" scope="col">&nbsp;</th>
                 </tr>

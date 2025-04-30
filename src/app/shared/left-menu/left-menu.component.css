@@ -81,6 +81,7 @@
 }
 :host ::ng-deep a:focus{
     outline: none;
+    text-decoration: none;
 }
 :host ::ng-deep .p-accordion .p-accordion-content{
     background: transparent;

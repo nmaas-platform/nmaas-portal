@@ -19,10 +19,21 @@
       <ng-template pTemplate="header">
         <tr>
           <th></th>
-          <th>{{'APPS_MANAGEMENT.NAME' | translate}}</th>
-          <th>{{'APPS_MANAGEMENT.OWNER' | translate}}</th>
-          <th *ngIf="isAnySubtableVisible()">{{'APPS_MANAGEMENT.VERSION' | translate}}</th>
-          <th *ngIf="isAnySubtableVisible()">{{'APPS_MANAGEMENT.STATE' | translate}}</th>
+          <th pSortableColumn="name">
+            {{'APPS_MANAGEMENT.NAME' | translate}}
+            <p-sortIcon field="name"></p-sortIcon>
+          </th>
+          <th pSortableColumn="owner">
+            {{'APPS_MANAGEMENT.OWNER' | translate}}
+            <p-sortIcon field="owner"></p-sortIcon>
+          </th>
+          <th *ngIf="isAnySubtableVisible()">
+            {{'APPS_MANAGEMENT.VERSION' | translate}}
+
+          </th>
+          <th *ngIf="isAnySubtableVisible()">
+            {{'APPS_MANAGEMENT.STATE' | translate}}
+          </th>
           <th></th>
           <th></th>
           <th></th>

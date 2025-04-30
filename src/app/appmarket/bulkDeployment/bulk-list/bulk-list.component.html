@@ -21,7 +21,7 @@
                     label="Deployments Queue"
                     severity="secondary"
             ></p-button>
-            <p-sidebar [(visible)]="sidebarVisible4" position="left" styleClass="w-30rem">
+            <p-sidebar [(visible)]="sidebarVisible4" position="right" styleClass="w-30rem">
                 <h3>Deployments Queue</h3>
                 <div class="flex flex-column">
                     <div class="flex grid">
@@ -69,10 +69,18 @@
         <p-table *ngIf="mode === 'DOMAIN'" [value]="bulks" class="p-datatable-hover p-datatable-sm" [responsive]="true" (onSort)="onSort($event)">
             <ng-template pTemplate="header">
                 <tr>
-                    <th pSortableColumn="id">{{'BULK.LIST.ID' | translate}}</th>
-                    <th pSortableColumn="creator">{{'BULK.LIST.CREATOR' | translate}}</th>
-                    <th pSortableColumn="date">{{'BULK.LIST.CREATION_DATE' | translate}}</th>
-                    <th pSortableColumn="state">{{'BULK.LIST.STATE' | translate}}</th>
+                    <th pSortableColumn="id">{{'BULK.LIST.ID' | translate}}
+                        <p-sortIcon field="id"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="creator">{{'BULK.LIST.CREATOR' | translate}}
+                        <p-sortIcon field="creator"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="date">{{'BULK.LIST.CREATION_DATE' | translate}}
+                        <p-sortIcon field="date"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="state">{{'BULK.LIST.STATE' | translate}}
+                        <p-sortIcon field="state"></p-sortIcon>
+                    </th>
                     <th></th>
                 </tr>
             </ng-template>
@@ -148,12 +156,24 @@
                  (onSort)="onSort($event)">
             <ng-template pTemplate="header">
                 <tr>
-                    <th pSortableColumn="id">{{'BULK.LIST.ID' | translate}}</th>
-                    <th pSortableColumn="creator">{{'BULK.LIST.CREATOR' | translate}}</th>
-                    <th pSortableColumn="app_name">{{'BULK.LIST.APP_NAME' | translate}}</th>
-                    <th pSortableColumn="instance_no">{{'BULK.LIST.INSTANCE_NO' | translate}}</th>
-                    <th pSortableColumn="date" pSortOrder="-1">{{'BULK.LIST.CREATION_DATE' | translate}}</th>
-                    <th pSortableColumn="state">{{'BULK.LIST.STATE' | translate}}</th>
+                    <th pSortableColumn="id">{{'BULK.LIST.ID' | translate}}
+                        <p-sortIcon field="id"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="creator">{{'BULK.LIST.CREATOR' | translate}}
+                        <p-sortIcon field="creator"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="app_name">{{'BULK.LIST.APP_NAME' | translate}}
+                        <p-sortIcon field="app_name"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="instance_no">{{'BULK.LIST.INSTANCE_NO' | translate}}
+                        <p-sortIcon field="instance_no"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="date" pSortOrder="-1">{{'BULK.LIST.CREATION_DATE' | translate}}
+                        <p-sortIcon field="date"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="state">{{'BULK.LIST.STATE' | translate}}
+                        <p-sortIcon field="state"></p-sortIcon>
+                    </th>
                     <th></th>
                 </tr>
             </ng-template>
