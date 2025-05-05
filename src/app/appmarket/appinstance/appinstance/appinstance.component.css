@@ -85,3 +85,6 @@
 :host ::ng-deep.p-dropdown-panel .p-dropdown-items {
     max-height: 150px;
 }
+:host ::ng-deep .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{
+    background: var(--user-button-background-hover)
+}

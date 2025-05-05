@@ -150,9 +150,8 @@
                                         {{'APP_INSTANCE.VIEW_LOGS' | translate}}
                                     </a>
                                 </li>
-                                <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
-                                    style="background-color: #ff0000;">
-                                    <a role="button" (click)="this.undeployModal.show()" style="color: #ffffff;">
+                                <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']">
+                                    <a role="button" (click)="this.undeployModal.show()" style="color: var(--danger-button-color)">
                                         {{'APP_INSTANCE.UNDEPLOY_BUTTON' | translate}}
                                     </a>
                                 </li>
@@ -175,7 +174,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a role="button" style="color: red"
+                                    <a role="button" style="color: var(--danger-button-color)"
                                        *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
                                        (click)="removeConfirm.show()">{{'APP_INSTANCE.REMOVE_BUTTON' | translate}}
                                     </a>
