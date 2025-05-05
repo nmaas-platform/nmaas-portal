@@ -46,7 +46,7 @@
     "ngx-pagination": "^6.0.3",
     "ngx-webstorage-service": "^5.0.0",
     "primeflex": "^3.3.1",
-    "primeicons": "^6.0.1",
+    "primeicons": "^7.0.0",
     "primeng": "^17.18.15",
     "rxjs": "^7.8.1",
     "semver": "^7.5.4",
