@@ -16,6 +16,7 @@ import {CustomerNetwork} from '../../../model/customernetwork';
 import {MinLengthDirective} from '../../../directive/min-length.directive';
 import {MaxLengthDirective} from '../../../directive/max-length.directive';
 import {DomainAnnotation} from '../../../model/domain-annotation';
+import { ClusterManager } from '../../../model/cluster-manager';
 
 
 @Component({
@@ -50,6 +51,8 @@ export class DomainComponent extends BaseComponent implements OnInit {
 
     public errorMessage = "";
 
+    public cluster: ClusterManager = new ClusterManager();
+
     constructor(public domainService: DomainService,
                 protected userService: UserService,
                 private router: Router,
@@ -72,6 +75,9 @@ export class DomainComponent extends BaseComponent implements OnInit {
                 this.domainService.getOne(this.domainId).subscribe(
                     (domain: Domain) => {
                         this.domain = domain;
+                        if(domain.clusters.length >0) {
+                            this.cluster = domain.clusters[0];
+                        }
                         this.domain.applicationStatePerDomain
                             .sort((a, b) => a.applicationBaseName.localeCompare(b.applicationBaseName))
                     },

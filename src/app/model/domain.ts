@@ -4,6 +4,7 @@ import {DomainApplicationStatePerDomain} from './domainapplicationstateperdomain
 import {DomainGroup} from './domaingroup';
 import {KeyValue} from './key-value';
 import { DomainAnnotation } from './domain-annotation';
+import { ClusterManager } from './cluster-manager';
 
 export class Domain {
   public id: number = undefined;
@@ -16,4 +17,5 @@ export class Domain {
   public groups: DomainGroup[] = [];
   public deleted: boolean;
   public annotations: DomainAnnotation[] = [];
+  public clusters: ClusterManager[] = [];
 }
