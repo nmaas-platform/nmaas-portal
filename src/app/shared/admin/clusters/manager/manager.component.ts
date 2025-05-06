@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { ClusterManagerService } from '../../../../service/cluster-manager.service';
 import { ClusterManager } from '../../../../model/cluster-manager';
 import { ModalComponent } from '../../../modal';
+import { DomainService } from '../../../../service';
 
 @Component({
   selector: 'app-manager',
@@ -16,11 +17,16 @@ export class ClusterManagerComponent {
   public updatedFile : File = null;
   public maxItemsOnPage = 15;
 
+  public domains = [];
+
     @ViewChild(ModalComponent, { static: true })
     public modal: ModalComponent;
 
-  constructor(private clusterService: ClusterManagerService) {
+  constructor(private clusterService: ClusterManagerService,
+              private domainService: DomainService
+  ) {
     this.getAllClusters();
+    this.domainService.getAllBase().subscribe(result => this.domains = result);
   }
 
  public saveFile(event: any) {
@@ -48,6 +54,15 @@ public closeModalAndSaveCluster() {
   }
 )
 }
+
+
+public onDomainSelection(event: any) {
+
+    console.log(event);
+    this.addedCluster.domainNames = [event]
+  
+}
+
 
 
 

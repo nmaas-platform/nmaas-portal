@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from '../../../common/basecomponent/base.component';
 import { ClusterExtNetwork, IngressCertificateConfigOption, IngressControllerConfigOption, IngressResourceConfigOption, NamespaceConfigOption } from '../../../../model/cluster';
 import { DatePipe } from '@angular/common';
-import { ComponentMode } from '../../../common/componentmode';
+import { DomainService } from '../../../../service';
 
 @Component({
   selector: 'app-manager-details',
@@ -17,6 +17,9 @@ export class ClusterManagerDetailsComponent extends BaseComponent implements OnI
   public cluster: ClusterManager ;
   public cluterId;
   public error = "";
+
+  public domains = [];
+
 
     controllerConfigOption: Map<string, IngressControllerConfigOption> = new Map<string, IngressControllerConfigOption>();
 
@@ -31,6 +34,7 @@ export class ClusterManagerDetailsComponent extends BaseComponent implements OnI
                     public router: Router,
                     private route: ActivatedRoute,
                     private datePipe: DatePipe,
+                    private domainService: DomainService
                     
   ) {
     super();
@@ -38,6 +42,8 @@ export class ClusterManagerDetailsComponent extends BaseComponent implements OnI
   }
 
   public ngOnInit() {
+    this.domainService.getAllBase().subscribe(result => this.domains = result);
+
     this.route.params.subscribe(params => {
         this.cluterId = +params['id'];
 
@@ -101,5 +107,12 @@ export class ClusterManagerDetailsComponent extends BaseComponent implements OnI
             this.cluster = result;
         });
     }
+
+    public onDomainSelection(event: any) {
+
+      console.log(event);
+      this.cluster.domainNames = [event]
+    
+  }
 
 }

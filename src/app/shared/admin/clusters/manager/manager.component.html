@@ -78,6 +78,15 @@
                 <input id="name" type="text" class="form-control" [(ngModel)]="addedCluster.description" [ngModelOptions]="{standalone: true}">
             </div>
 
+            <div class="mt-4">
+                <label for="name">{{'CLUSTERS.DOMAIN' | translate}}</label>
+                <select id="domain" #domainSelect class="form-control" (change)="onDomainSelection(domainSelect.value)">
+                    <option *ngFor="let domain of domains" [value]="domain.name"
+                        >{{domain.name}}
+                    </option>
+                </select>            
+            </div>
+
 
             <div class="card flex justify-content-center mt-4" >
                 <p-fileUpload name="json" (onUpload)="saveFile($event)" customUpload="true" [draggable]="true"  pTooltip="Upload file is required before save" 
