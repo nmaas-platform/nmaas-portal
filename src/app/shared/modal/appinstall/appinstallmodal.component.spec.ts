@@ -47,6 +47,7 @@ describe('AppInstallmodalComponent', () => {
         applicationStatePerDomain: [],
         groups: [],
         annotations: [],
+        clusters: [],
     }
 
     beforeEach(waitForAsync(() => {
