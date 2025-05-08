@@ -26,7 +26,9 @@ export class ClusterManagerComponent {
               private domainService: DomainService
   ) {
     this.getAllClusters();
-    this.domainService.getAllBase().subscribe(result => this.domains = result);
+    this.domainService.getAllBase().subscribe(result => {
+      this.domains = result.filter(d => d.id !== this.domainService.getGlobalDomainId());
+    });
   }
 
  public saveFile(event: any) {
