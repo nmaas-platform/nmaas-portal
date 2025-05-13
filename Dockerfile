@@ -8,7 +8,7 @@ RUN npm install -g @angular/cli@17
 RUN npm i --force 
 RUN ng build --base-href / --configuration production
 
-FROM nginx:1.27-alpine
+FROM nginx:1.28-alpine
 MAINTAINER nmaas@lists.geant.org
 
 ARG webdir=/usr/share/nginx/html
