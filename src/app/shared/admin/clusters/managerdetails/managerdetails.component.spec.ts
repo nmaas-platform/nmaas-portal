@@ -21,6 +21,7 @@ describe('ClusterManagerDetailsComponent', () => {
   const mockCluster: ClusterManager = {
     id: 1,
     name: 'Test Cluster',
+    state: "UP",
     description: 'Test Description',
     externalNetworks: [],
     creationDate: new Date('2025-01-01'),
@@ -169,6 +170,7 @@ describe('ClusterManagerDetailsComponent', () => {
     const mockResponse: ClusterManager = {
       id: 1,
       name: 'Test Cluster',
+      state:"UP",
       description: 'Test Description',
       externalNetworks: [],
       creationDate: new Date('2025-01-01'),
