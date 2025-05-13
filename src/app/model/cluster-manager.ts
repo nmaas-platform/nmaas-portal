@@ -14,4 +14,5 @@ export class ClusterManager {
     public deployment: ClusterDeployment;
     public externalNetworks: ClusterExtNetwork[]
     public domainNames: string[];
+    public state : string;
 }
