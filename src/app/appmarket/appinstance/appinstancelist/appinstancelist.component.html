@@ -1,6 +1,9 @@
 <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-top:20px">
     <div style="display:flex; align-items: center;">
-        <input pInputText name="search" id="search" placeholder="Search" type="text" [(ngModel)]="searchValue">
+        <span class="p-input-icon-right">
+            <i class="pi pi-search" style="font-size: 13px; top: 16px; margin-right: 5px;"></i>
+             <input pInputText class="form-control" name="search" id="search" placeholder="Search" type="text" [(ngModel)]="searchValue">
+        </span>
         <div style="display: flex; margin: 0 20px">
             <p-checkbox id="show_my" inputId="show_my" binary="true" [(ngModel)]="showAll" (onChange)="onSelectionChange()"  [ngModelOptions]="{standalone: true}" ngDefaultControl></p-checkbox>
             <label for="show_my" style="text-wrap: nowrap">Show all instances</label>
