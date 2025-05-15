@@ -260,6 +260,49 @@
 			</div>
 		</div>
 
+
+			<!-- CLUSTER CONFIGURATION READ ONLY PRESENTATION  -->
+		<div class="background-section" *ngIf="isInMode(ComponentMode.VIEW) && !authService.hasRole('ROLE_OPERATOR')">
+			<h4 style="font-size:15px; font-weight: bold">{{ 'CLUSTERS.CONFIGURATION' | translate  }}</h4>
+
+			<div class="form-group" *ngIf="domain.clusters.length >0">
+				<label for="clusterId" class="col-sm-2 control-label">{{ 'CLUSTERS.ID' | translate }}</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" [disabled]="true" id="clusterId "
+						   name="clusterId " [(ngModel)]="cluster.id">
+				</div>
+			</div>
+
+			<div class="form-group" *ngIf="domain.clusters.length >0">
+				<label for="clusterName" class="col-sm-2 control-label">{{ 'CLUSTERS.NAME' | translate }}</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" [disabled]="true" id="clusterName "
+						   name="clusterName " [(ngModel)]="cluster.name">
+				</div>
+			</div>
+
+			<div class="form-group" *ngIf="domain.clusters.length >0">
+				<label for="clusterCodeName" class="col-sm-2 control-label">{{ 'CLUSTERS.CODENAME' | translate }}</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" [disabled]="true" id="clusterCodeName "
+						   name="clusterCodeName " [(ngModel)]="cluster.codename">
+				</div>
+			</div>
+
+			<div class="form-group" *ngIf="domain.clusters.length >0">
+				<label for="clusterDescription" class="col-sm-2 control-label">{{ 'CLUSTERS.DESCRIPTION' | translate }}</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" [disabled]="true" id="clusterDescription "
+						   name="clusterDescription " [(ngModel)]="cluster.description">
+				</div>
+			</div>
+
+
+
+
+
+		</div>
+
 		<div class="flex justify-content-end">
 			<button *ngIf="!isInMode(ComponentMode.VIEW)" type="submit" class="btn btn-primary" [disabled]="!domainForm.form.valid">{{ 'DOMAIN_DETAILS.SUBMIT_BUTTON' | translate }}</button>
 		</div>

@@ -52,7 +52,8 @@ describe('DomainService', () => {
     applicationStatePerDomain: [],
     groups: [],
     deleted: false,
-    annotations: []
+    annotations: [],
+    clusters: [],
   };
 
   beforeEach(() => {

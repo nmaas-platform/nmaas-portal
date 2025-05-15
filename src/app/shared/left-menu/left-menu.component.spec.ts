@@ -1,30 +1,81 @@
-// import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { LeftMenuComponent } from './left-menu.component';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { ToastContainerComponent } from '../toast-container/toast-container.component';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { of, Subject } from 'rxjs';
 
-// import { LeftMenuComponent } from './left-menu.component';
-// import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-// import { MessageService } from 'primeng/api';
+describe('LeftMenuComponent', () => {
+  let component: LeftMenuComponent;
+  let fixture: ComponentFixture<LeftMenuComponent>;
+  let mockRouter: any;
+  let mockToast: jasmine.SpyObj<ToastContainerComponent>;
+  let routerEventsSubject: Subject<any>;
+  let mockActivatedRoute: any;
 
-// describe('LeftMenuComponent', () => {
-//   let component: LeftMenuComponent;
-//   let fixture: ComponentFixture<LeftMenuComponent>;
+  beforeEach(async () => {
+    routerEventsSubject = new Subject();
+    mockRouter = {
+      events: routerEventsSubject.asObservable(),
+      navigate: jasmine.createSpy('navigate')
+    };
+    mockToast = jasmine.createSpyObj('ToastContainerComponent', ['show']);
+    mockActivatedRoute = {
+      snapshot: { params: {}, queryParams: {} }
+    };
 
-//   beforeEach(async () => {
-//     await TestBed.configureTestingModule({
-//       imports: [LeftMenuComponent],
-//       providers: [MessageService], 
-//       schemas: [
-//               CUSTOM_ELEMENTS_SCHEMA,
-//               NO_ERRORS_SCHEMA
-//           ]
-//     })
-//     .compileComponents();
-    
-//     fixture = TestBed.createComponent(LeftMenuComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   });
+    await TestBed.configureTestingModule({
+      declarations: [LeftMenuComponent],
+      providers: [
+        { provide: Router, useValue: mockRouter },
+        { provide: ToastContainerComponent, useValue: mockToast },
+        { provide: ActivatedRoute, useValue: mockActivatedRoute }
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+    }).compileComponents();
 
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
-// });
+    fixture = TestBed.createComponent(LeftMenuComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should initialize menu items and collapsed state', () => {
+    expect(component.items.length).toBeGreaterThan(0);
+    expect(component.isCollapsed).toBeFalse();
+  });
+
+  it('should update currentUrl and toggleAdmin on NavigationEnd event', () => {
+    const testUrl = '/admin/dashboard';
+    routerEventsSubject.next(new NavigationEnd(1, testUrl, testUrl));
+    expect(component.currentUrl).toBe(testUrl);
+    expect(component.toggleAdmin).toBeTrue();
+  });
+
+  it('should toggle menu collapsed state and update CSS variable', () => {
+    component.toggleMenu();
+    expect(component.isCollapsed).toBeTrue();
+    expect(sessionStorage.getItem('menuCollapsed')).toBe('true');
+
+    component.toggleMenu();
+    expect(component.isCollapsed).toBeFalse();
+    expect(sessionStorage.getItem('menuCollapsed')).toBe('false');
+  });
+
+  it('should show toast message', () => {
+    component.showToastTest();
+    expect(mockToast.show).toHaveBeenCalledWith('Test test', jasmine.anything(), 'HEADER');
+  });
+
+  it('should toggle admin panel visibility', () => {
+    component.toggleAdmin = false;
+    component.adminPanel();
+    expect(component.toggleAdmin).toBeTrue();
+
+    component.adminPanel();
+    expect(component.toggleAdmin).toBeFalse();
+  });
+});

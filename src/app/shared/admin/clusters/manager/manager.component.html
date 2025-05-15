@@ -29,6 +29,9 @@
                 <th pSortableColumn="codename" id="codename"> {{ 'CLUSTERS.CODENAME' | translate }}
                     <p-sortIcon field="codename"></p-sortIcon>
                 </th>
+                <th pSortableColumn="state" id="state"> {{ 'CLUSTERS.STATE' | translate }}
+                    <p-sortIcon field="state"></p-sortIcon>
+                </th>
                 <th pSortableColumn="creationDate" id="creationDate"> {{ 'CLUSTERS.CREATION_DATE' | translate }}
                     <p-sortIcon field="creationDate"></p-sortIcon>
                 </th>
@@ -43,8 +46,9 @@
                 <td  [routerLink]="[cluster.id]">{{cluster.id}}</td>
                 <td>{{cluster.name}}</td>
                 <td>{{cluster.codename}}</td>
-                <td>{{cluster.creationDate}}</td>
-                <td>{{cluster.modificationDate}}</td>
+                <td>{{('CLUSTERS.'+cluster.state.toString().toUpperCase() ) | translate}}</td>
+                <td>{{cluster.creationDate | date: 'dd-MM-yyyy HH:mm'}}</td>
+                <td>{{cluster.modificationDate | date: 'dd-MM-yyyy HH:mm'}}</td>
                 <td class="text-right">
                     <span class="dropdown">
                             <a style="display: inline-block" class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
@@ -78,6 +82,15 @@
                 <input id="name" type="text" class="form-control" [(ngModel)]="addedCluster.description" [ngModelOptions]="{standalone: true}">
             </div>
 
+            <div class="mt-4">
+                <label for="name">{{'CLUSTERS.DOMAIN' | translate}}</label>
+                <select id="domain" #domainSelect class="form-control" (change)="onDomainSelection(domainSelect.value)">
+                    <option *ngFor="let domain of domains" [value]="domain.name"
+                        >{{domain.name}}
+                    </option>
+                </select>            
+            </div>
+
 
             <div class="card flex justify-content-center mt-4" >
                 <p-fileUpload name="json" (onUpload)="saveFile($event)" customUpload="true" [draggable]="true"  pTooltip="Upload file is required before save" 
@@ -88,7 +101,10 @@
             </div>
     </div>
     <div class="nmaas-modal-footer">
-      <button type="button" class="btn btn-secondary" [disabled]="updatedFile === null || addedCluster?.name === null || addedCluster?.description === null"(click)="closeModalAndSaveCluster()" 
+      <button type="button" class="btn btn-primary" [disabled]="updatedFile === null || addedCluster?.name === null || addedCluster?.description === null"(click)="closeModalAndSaveCluster()" 
       pTooltip="Upload file is required before save" showDelay="2000" >{{'CLUSTERS.SAVE' | translate}}</button>
+      <button type="button" class="btn btn-secondary"
+                    (click)="this.modal.hide()">{{'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
+    
     </div>
   </nmaas-modal>

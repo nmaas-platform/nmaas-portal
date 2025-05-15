@@ -9,6 +9,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { IngressCertificateConfigOption, IngressControllerConfigOption, IngressResourceConfigOption, NamespaceConfigOption } from '../../../../model/cluster';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ClusterManagerDetailsComponent', () => {
   let component: ClusterManagerDetailsComponent;
@@ -20,6 +21,7 @@ describe('ClusterManagerDetailsComponent', () => {
   const mockCluster: ClusterManager = {
     id: 1,
     name: 'Test Cluster',
+    state: "UP",
     description: 'Test Description',
     externalNetworks: [],
     creationDate: new Date('2025-01-01'),
@@ -27,6 +29,7 @@ describe('ClusterManagerDetailsComponent', () => {
     codename: 'test-cluster',
     pathConfigFile: '/path/to/config.yaml',
     clusterConfigFile: 'Config',
+    domainNames: ["test"],
     ingress: {
         id: 1,
         controllerConfigOption: IngressControllerConfigOption.USE_EXISTING,
@@ -68,6 +71,7 @@ describe('ClusterManagerDetailsComponent', () => {
       declarations: [ClusterManagerDetailsComponent],
       imports: [FormsModule,
                 CommonModule,
+                HttpClientTestingModule,
                       TranslateModule.forRoot({
                           loader: {
                               provide: TranslateLoader,
@@ -166,6 +170,7 @@ describe('ClusterManagerDetailsComponent', () => {
     const mockResponse: ClusterManager = {
       id: 1,
       name: 'Test Cluster',
+      state:"UP",
       description: 'Test Description',
       externalNetworks: [],
       creationDate: new Date('2025-01-01'),
@@ -174,7 +179,8 @@ describe('ClusterManagerDetailsComponent', () => {
       pathConfigFile: '/path/to/config.yaml',
       clusterConfigFile: 'Config',
       ingress: null,
-      deployment: null
+      deployment: null,
+      domainNames: ["test"]
     };
 
     clusterService.sendCluster.and.returnValue(of(mockResponse));
