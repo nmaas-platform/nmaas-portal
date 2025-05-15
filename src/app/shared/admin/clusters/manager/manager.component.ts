@@ -65,6 +65,12 @@ public onDomainSelection(event: any) {
   
 }
 
+public openModal() {
+  if(this.domains.length > 0) {
+    this.addedCluster.domainNames = [this.domains[0].name];
+  }
+  this.modal.show();
+}
 
 
 

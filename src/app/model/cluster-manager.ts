@@ -15,4 +15,5 @@ export class ClusterManager {
     public externalNetworks: ClusterExtNetwork[]
     public domainNames: string[];
     public state : string;
+    public contactEmail: string;
 }
