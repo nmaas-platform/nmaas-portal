@@ -275,10 +275,10 @@
             </div>
         </div>
         <div class="nmaas-modal-footer">
-            <button type="button" class="btn btn-danger"
-                    (click)="this.undeploy()">{{'UNDEPLOY_MODAL.YES_BUTTON' | translate}}</button>
             <button type="button" class="btn btn-primary"
                     (click)="this.undeployModal.hide()">{{'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
+            <button type="button" class="btn btn-danger"
+                    (click)="this.undeploy()">{{'UNDEPLOY_MODAL.YES_BUTTON' | translate}}</button>
         </div>
     </nmaas-modal>
 
@@ -302,11 +302,11 @@
             </div>
         </div>
         <div class="nmaas-modal-footer">
+            <button type="button" class="btn btn-secondary"
+                    (click)="this.manualUpdateModal.hide()">{{'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
             <button type="button" class="btn btn-primary "
                     [disabled]="appVersions.length === 0 || selectedVersion === ''"
                     (click)="this.manualUpdateVersion()">{{'APP_INSTANCES.MANUAL_UPDATE.YES_BUTTON' | translate}}</button>
-            <button type="button" class="btn btn-secondary"
-                    (click)="this.manualUpdateModal.hide()">{{'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
         </div>
     </nmaas-modal>
 
@@ -402,10 +402,11 @@
             {{'REDEPLOY_MODAL.BODY' | translate}}
         </div>
         <div class="nmaas-modal-footer">
-            <button type="button" class="btn btn-primary"
-                    (click)="redeploy(); redeployConfirm.hide()">{{'REDEPLOY_MODAL.OK_BUTTON' | translate}}</button>
             <button type="button" class="btn btn-secondary"
                     (click)="redeployConfirm.hide()">{{'REDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
+            <button type="button" class="btn btn-primary"
+                    (click)="redeploy(); redeployConfirm.hide()">{{'REDEPLOY_MODAL.OK_BUTTON' | translate}}</button>
+
         </div>
     </nmaas-modal>
 
@@ -418,10 +419,10 @@
             {{'REMOVE_MODAL.BODY' | translate}}
         </div>
         <div class="nmaas-modal-footer">
-            <button type="button" class="btn btn-primary"
-                    (click)="removalFailedInstance(); removeConfirm.hide()">{{'REMOVE_MODAL.OK_BUTTON' | translate}}</button>
             <button type="button" class="btn btn-secondary"
                     (click)="removeConfirm.hide()">{{'REMOVE_MODAL.CANCEL_BUTTON' | translate}}</button>
+            <button type="button" class="btn btn-primary"
+                    (click)="removalFailedInstance(); removeConfirm.hide()">{{'REMOVE_MODAL.OK_BUTTON' | translate}}</button>
         </div>
     </nmaas-modal>
 
@@ -434,10 +435,10 @@
             <div [innerHTML]="'ENABLE_AUTO_UPGRADES_MODAL.BODY' | translate"></div>
         </div>
         <div class="nmaas-modal-footer">
-            <button type="button" class="btn btn-primary"
-                    (click)="enableAutoUpgrades(); enableAutoUpgradesConfirm.hide()">{{'ENABLE_AUTO_UPGRADES_MODAL.OK_BUTTON' | translate}}</button>
             <button type="button" class="btn btn-secondary"
                     (click)="enableAutoUpgradesConfirm.hide()">{{'ENABLE_AUTO_UPGRADES_MODAL.CANCEL_BUTTON' | translate}}</button>
+            <button type="button" class="btn btn-primary"
+                    (click)="enableAutoUpgrades(); enableAutoUpgradesConfirm.hide()">{{'ENABLE_AUTO_UPGRADES_MODAL.OK_BUTTON' | translate}}</button>
         </div>
     </nmaas-modal>
 
@@ -450,10 +451,10 @@
             <div [innerHTML]="'DISABLE_AUTO_UPGRADES_MODAL.BODY' | translate"></div>
         </div>
         <div class="nmaas-modal-footer">
-            <button type="button" class="btn btn-primary"
-                    (click)="disableAutoUpgrades(); disableAutoUpgradesConfirm.hide()">{{'DISABLE_AUTO_UPGRADES_MODAL.OK_BUTTON' | translate}}</button>
             <button type="button" class="btn btn-secondary"
                     (click)="disableAutoUpgradesConfirm.hide()">{{'DISABLE_AUTO_UPGRADES_MODAL.CANCEL_BUTTON' | translate}}</button>
+            <button type="button" class="btn btn-primary"
+                    (click)="disableAutoUpgrades(); disableAutoUpgradesConfirm.hide()">{{'DISABLE_AUTO_UPGRADES_MODAL.OK_BUTTON' | translate}}</button>
         </div>
     </nmaas-modal>
 
