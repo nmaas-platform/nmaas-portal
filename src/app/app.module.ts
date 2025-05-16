@@ -34,6 +34,7 @@ import {SplitButtonModule} from 'primeng/splitbutton';
 import {MenuModule} from 'primeng/menu';
 import { AdminLeftMenuComponent } from './shared/admin-left-menu/admin-left-menu.component';
 import {AccordionModule} from 'primeng/accordion';
+import { RecaptchaVisibilityService } from './service/recaptcha-visibility.service';
 
 export function appConfigFactory(config: AppConfigService) {
     return function create() {
@@ -98,6 +99,7 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
     providers: [
         AuthGuard,
         AuthService,
+        RecaptchaVisibilityService,
         AppConfigService,
         provideZxvbnServiceForPSM(),
         {

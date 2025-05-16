@@ -1,14 +1,15 @@
 import {AppConfigService} from '../service/appconfig.service';
-import {AfterContentChecked, AfterViewChecked, Component, OnInit,} from '@angular/core';
+import {AfterContentChecked, AfterViewChecked, Component, OnDestroy, OnInit,} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ServiceUnavailableService} from '../service-unavailable/service-unavailable.service';
+import { RecaptchaVisibilityService } from '../service/recaptcha-visibility.service';
 
 @Component({
     selector: 'app-welcome',
     templateUrl: './welcome.component.html',
     styleUrls: ['./welcome.component.css']
 })
-export class WelcomeComponent implements OnInit, AfterViewChecked, AfterContentChecked {
+export class WelcomeComponent implements OnInit, AfterViewChecked, AfterContentChecked, OnDestroy {
 
     private height = 0;
 
@@ -19,7 +20,8 @@ export class WelcomeComponent implements OnInit, AfterViewChecked, AfterContentC
     constructor(private appConfig: AppConfigService,
                 public router: Router,
                 private serviceHealth: ServiceUnavailableService,
-                private readonly route: ActivatedRoute) {
+                private readonly route: ActivatedRoute,
+                private readonly recaptcha: RecaptchaVisibilityService) {
         this.route.queryParams.subscribe(params => {
             console.log(params)
             if (params.logout !== undefined) {
@@ -38,14 +40,21 @@ export class WelcomeComponent implements OnInit, AfterViewChecked, AfterContentC
 
         this.landingProfile = this.appConfig.getLandingProfile();
         console.log("Landing profile = ", this.landingProfile)
+        this.recaptcha.showBadge();
     }
 
     ngAfterContentChecked() {
         // this.onResize();
+         this.recaptcha.showBadge();
     }
 
     ngAfterViewChecked() {
         // this.onResize();
+         this.recaptcha.showBadge();
+    }
+
+    ngOnDestroy(): void {
+        this.recaptcha.hideBadge();
     }
 
     public onCloseBanner() {
