@@ -13,7 +13,7 @@
       </form>
   </div>
     <div class="nmaas-modal-footer">
+        <button type="button" (click)="modal.hide()" class="btn btn-secondary text-center">{{'MESSAGE_MODAL.DISMISS' | translate}}</button>
       <button type="submit" class="btn btn-primary text-center" [disabled]="!f.valid" form="notification-form">{{'MESSAGE_MODAL.CONFIRM' | translate}}</button>
-      <button type="button" (click)="modal.hide()" class="btn btn-secondary text-center">{{'MESSAGE_MODAL.DISMISS' | translate}}</button>
     </div>
 </nmaas-modal>

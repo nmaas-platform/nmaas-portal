@@ -19,12 +19,15 @@ export class DomainService extends GenericDataService {
 
   protected url: string;
 
+  protected urlGroups: string;
+
   private updateRequiredFlag: boolean;
 
   constructor(http: HttpClient, appConfig: AppConfigService) {
     super(http, appConfig);
     this.updateRequiredFlag = false;
     this.url = this.appConfig.getApiUrl() + '/domains';
+    this.urlGroups = this.appConfig.getApiUrl() + '/groups';
   }
 
   public getGlobalDomainId(): number {
@@ -93,35 +96,35 @@ export class DomainService extends GenericDataService {
 
   // GROUPS
   public getAllDomainGroups(): Observable<DomainGroup[]> {
-    return this.get<DomainGroup[]>(this.url + '/group');
+    return this.get<DomainGroup[]>(this.urlGroups);
   }
 
   public getDomainGroup(domainGroupId: number): Observable<DomainGroup> {
-    return this.get<DomainGroup>(this.url + '/group/' + domainGroupId);
+    return this.get<DomainGroup>(this.urlGroups + '/' + domainGroupId);
   }
 
   public deleteDomainGroup(domainGroupId: number): Observable<void> {
-    return this.delete<void>(this.url + '/group/' + domainGroupId);
+    return this.delete<void>(this.urlGroups + '/' + domainGroupId);
   }
 
   public addDomainsToGroup(groupCodeName: string, domainIds: number[]): Observable<DomainGroup> {
-    return this.post(this.url + '/group/' + groupCodeName, domainIds);
+    return this.post(this.urlGroups + '/' + groupCodeName, domainIds);
   }
 
   public deleteDomainFromGroup(groupId: number, domainId: number): Observable<DomainGroup> {
-    return this.patch(this.url + '/group/' + groupId, domainId);
+    return this.patch(this.urlGroups + '/' + groupId, domainId);
   }
 
   public createDomainGroup(domainGroup: DomainGroup): Observable<Id> {
-    return this.post(this.url + '/group', domainGroup);
+    return this.post(this.urlGroups , domainGroup);
   }
 
   public updateDomainGroup(domainGroup: DomainGroup, id: number): Observable<Id> {
-    return this.put(this.url + '/group/' + id, domainGroup);
+    return this.put(this.urlGroups+ "/" + id, domainGroup);
   }
 
   public updateDomainGroupManagers(managers: User[], id: number): Observable<DomainGroup> {
-    return this.put(this.url + '/group/members/' + id, managers);
+    return this.put(this.urlGroups + '/' + id + "/members", managers);
   }
 
   public getAnnotations(): Observable<DomainAnnotation[]> {

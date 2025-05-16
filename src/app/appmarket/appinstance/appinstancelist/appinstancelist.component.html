@@ -1,17 +1,12 @@
 <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-top:20px">
     <div style="display:flex; align-items: center;">
-        <input pInputText name="search" id="search" placeholder="Search" type="text" [(ngModel)]="searchValue">
-        <div class="" style="display: inline-flex; align-items: center; margin-right:20px">
-            <label class="mr-3" for="selectionType">{{ 'APP_INSTANCES.SHOW' | translate }}: </label>
-            <p-selectButton
-                    id="selectionType"
-                    [options]="selectionOptions"
-                    [(ngModel)]="listSelection"
-                    [ngModelOptions]="{standalone: true}"
-                    (ngModelChange)="onSelectionChange($event)"
-                    optionLabel="label"
-                    optionValue="value"
-                    ngDefaultControl/>
+        <span class="p-input-icon-right">
+            <i class="pi pi-search" style="font-size: 13px; top: 16px; margin-right: 5px;"></i>
+             <input pInputText class="form-control" name="search" id="search" placeholder="Search" type="text" [(ngModel)]="searchValue">
+        </span>
+        <div style="display: flex; margin: 0 20px">
+            <p-checkbox id="show_my" inputId="show_my" binary="true" [(ngModel)]="showAll" (onChange)="onSelectionChange()"  [ngModelOptions]="{standalone: true}" ngDefaultControl></p-checkbox>
+            <label for="show_my" style="text-wrap: nowrap">Show all instances</label>
         </div>
         <div style="display: flex">
             <p-checkbox *domainRoles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR'];domainId:domainId"

@@ -23,6 +23,7 @@ export enum AppInstanceListSelection {
 export class AppInstanceListComponent implements OnInit {
 
     public undeployedVisible = false;
+    public showAll = false;
 
     private readonly item_number_key: string = 'item_number_per_page';
     private readonly list_selection_key: string = 'list_selection';
@@ -60,10 +61,6 @@ export class AppInstanceListComponent implements OnInit {
     public selectedOption = 'list';
 
     public searchValue = '';
-    public selectionOptions = [
-        { label: this.translateEnum(AppInstanceListSelection.ALL), value: AppInstanceListSelection.ALL },
-        { label: this.translateEnum(AppInstanceListSelection.MY), value: AppInstanceListSelection.MY },
-    ];
 
 
     constructor(private appInstanceService: AppInstanceService,
@@ -88,6 +85,7 @@ export class AppInstanceListComponent implements OnInit {
         const ls = AppInstanceListSelection[sessionStorage.getItem(this.list_selection_key)];
         if (ls !== undefined) {
             this.listSelection = ls;
+            this.showAll = ls === AppInstanceListSelection.ALL;
         }
         console.log(this.listSelection);
         this.userDataService.selectedDomainId.subscribe(domainId => {
@@ -100,31 +98,6 @@ export class AppInstanceListComponent implements OnInit {
 
             this.update(domainId)
         });
-        forkJoin({
-            all: this.translateService.get('ENUM.ALL'),
-            my: this.translateService.get('ENUM.MY')
-        }).subscribe(translations => {
-            this.selectionOptions = [
-                { label: translations.all, value: AppInstanceListSelection.ALL },
-                { label: translations.my, value: AppInstanceListSelection.MY },
-            ];
-        });
-    }
-
-
-    public translateEnum(value: AppInstanceListSelection): string {
-        let outValue = '';
-        if (value.toString() === 'ALL') {
-            this.translateService.get('ENUM.ALL').subscribe((res: string) => {
-                outValue = res;
-            })
-        }
-        if (value.toString() === 'MY') {
-            this.translateService.get('ENUM.MY').subscribe((res: string) => {
-                outValue = res;
-            })
-        }
-        return outValue;
     }
 
     public update(domainId: number): void {
@@ -150,7 +123,11 @@ export class AppInstanceListComponent implements OnInit {
             || this.authService.hasDomainRole(app.domainId, 'ROLE_USER');
     }
 
-    public onSelectionChange(event) {
+    public onSelectionChange() {
+        this.listSelection = this.showAll
+            ? AppInstanceListSelection.ALL
+            : AppInstanceListSelection.MY;
+
         sessionStorage.setItem(this.list_selection_key, AppInstanceListSelection[this.listSelection]);
         this.update(this.domainId);
     }
