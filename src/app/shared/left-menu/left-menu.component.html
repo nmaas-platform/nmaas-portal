@@ -6,7 +6,8 @@
                 <img *ngIf="isCollapsed"  class="logo" src="../../../assets/images/nmaas-cloud.png" width="50px">
             </div>
             <div class="toggle-button" (click)="toggleMenu()" [ngStyle]="{'left': isCollapsed ? '85px' : '284px'}">
-                <i style="font-size: 1.8rem" class="pi pi-angle-left"></i>
+                <i *ngIf="!isCollapsed" style="font-size: 1.8rem" class="pi pi-angle-left"></i>
+                <i *ngIf="isCollapsed" style="font-size: 1.8rem" class="pi pi-angle-right"></i>
             </div>
         </div>
         <div style="margin-top: 30px">
@@ -156,7 +157,7 @@
                 User
             </span>
         </p-button>
-        <div style="margin-top:10px" [routerLink]="['admin/dashboard']">
+        <div *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']" style="margin-top:10px" [routerLink]="['admin/dashboard']">
             <p-button *ngIf="!toggleAdmin" (onClick)="adminPanel()" ><i class="pi pi-sign-in" style="margin-right:10px; font-size: 18px"[ngClass]="{'collapsed': isCollapsed}" title=" Go to admin panel"></i>
                 <span *ngIf="!isCollapsed">
                       Admin panel

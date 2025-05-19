@@ -2,10 +2,10 @@
 		<div style=" display: flex; flex-direction: row; justify-content: space-between; padding-bottom: 50px">
 			<div style="display: flex; align-items: center;">
 				<div  *ngIf="app">
-					<img alt="App logo" [src]="(appImagesService.getAppLogoUrl(appId) | secure) || 'assets/images/app-logo-example.png'" height="90px"/>
+					<img alt="App logo" [src]="(appImagesService.getAppLogoUrl(appId) | secure) || 'assets/images/app-logo-example.png'" height="90px" width="90px"/>
 				</div>
 				<div *ngIf="!app">
-					<img alt="App logo" src="assets/images/app-logo-example.png" height="90px"/>
+					<img alt="App logo" src="assets/images/app-logo-example.png" height="90px" width="90px"/>
 				</div>
 				<h3 style="margin:0 20px;">{{app?.name}}</h3>
 			</div>

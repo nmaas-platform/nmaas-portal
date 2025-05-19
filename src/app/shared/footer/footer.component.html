@@ -2,13 +2,13 @@
 	<div class="container-width">
 		<div class="" style="display: flex; justify-content: space-between">
             <div style="width:50%; display: flex">
-                <div class="" style="margin-right: 20px">
+                <div *ngIf="!isLoggedIn" class="" style="margin-right: 20px">
                     <!-- nmaas Logo optionally -->
                     <a href="https://www.geant.org/">
                         <img alt="GÉANT Logo" src="/assets/images/geant-logo.png"  width="100" class="image-link"/>
                     </a>
                 </div>
-                <div class="">
+                <div *ngIf="!isLoggedIn" class="">
                     <img alt="EU flag" src="/assets/images/cofunded.png" width="180" style="padding-top: 5px; "/>
                 </div>
             </div>

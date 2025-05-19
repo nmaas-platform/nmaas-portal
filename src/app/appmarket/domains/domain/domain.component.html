@@ -120,6 +120,9 @@
 					</thead>
 
 					<tbody>
+						<tr *ngIf="domainUsers.length === 0" >
+							<td colspan="6" style="text-align: center">None</td>
+						</tr>
 					<ng-template ngFor let-user [ngForOf]="domainUsers">
 						<tr>
 							<td *ngIf="authService.hasRole('ROLE_SYSTEM_ADMIN')">{{user.id}}</td>
@@ -248,6 +251,9 @@
 					</thead>
 
 					<tbody>
+					<tr *ngIf="domain.groups.length === 0" >
+						<td colspan="6" style="text-align: center">None</td>
+					</tr>
 					<ng-template ngFor let-group [ngForOf]="domain.groups">
 						<tr>
 							<td>{{group.name}}</td>

@@ -36,7 +36,7 @@ export class DomainComponent extends BaseComponent implements OnInit {
     public domainId: number;
     public domain: Domain;
     public dcnUpdated = false;
-    public domainUsers: User[];
+    public domainUsers: User[] = [];
     protected domainCache: CacheService<number, Domain> = new CacheService<number, Domain>();
     public keys: any = Object.keys(DcnDeploymentType).filter((type) => {
         return isNaN(Number(type));
@@ -64,6 +64,7 @@ export class DomainComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.warn('WWWWWWWWWWWWWWWWwwww', this.domainUsers)
         console.log(this.getCurrentMode());
         this.modal.setModalType('warning');
         this.modal.setStatusOfIcons(true);
