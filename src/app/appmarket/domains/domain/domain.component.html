@@ -1,108 +1,111 @@
-<div class="col-sm-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10">
+<div class="">
 	<h3>{{ 'DOMAIN_DETAILS.TITLE' | translate }}</h3>
+
 	<form *ngIf="domain" (submit)="submit()" class="form-horizontal" #domainForm="ngForm">
-		<div class="form-group">
-			<label for="name" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.NAME' | translate }}</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW) || authService.hasRole('ROLE_OPERATOR')" id="name" name="name"
-					[(ngModel)]="domain.name" #name="ngModel" required>
-				<div *ngIf="name.invalid && (name.dirty || name.touched)"
-					class="alert alert-danger">
-					<div *ngIf="name.errors.required">{{ 'DOMAIN_DETAILS.NAME_IS_REQUIRED_MESSAGE' | translate }}</div>
+		<div class="background-section">
+			<div class="form-group">
+				<label for="name" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.NAME' | translate }}</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW) || authService.hasRole('ROLE_OPERATOR')" id="name" name="name"
+						   [(ngModel)]="domain.name" #name="ngModel" required>
+					<div *ngIf="name.invalid && (name.dirty || name.touched)"
+						 class="alert alert-danger">
+						<div *ngIf="name.errors.required">{{ 'DOMAIN_DETAILS.NAME_IS_REQUIRED_MESSAGE' | translate }}</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="form-group" *ngIf="!isInMode(ComponentMode.EDIT)">
+				<label for="codename" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.CODE_NAME' | translate }}</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="codename"
+						   name="codename" pattern="[a-z0-9-]*"
+						   [(ngModel)]="domain.codename" #codename="ngModel" minlength="2" maxlength="12" required>
+					<div *ngIf="codename.invalid && (codename.dirty || codename.touched)"
+						 class="alert alert-danger">
+
+						<div *ngIf="codename.errors.required">{{ 'DOMAIN_DETAILS.CODE_NAME_IS_REQUIRED_MESSAGE' | translate }}</div>
+						<div *ngIf="codename.errors.pattern">{{ 'DOMAIN_DETAILS.CODE_NAME_PATTERN_MESSAGE_1' | translate }}</div>
+						<div *ngIf="codename.errors.minlength || codename.errors.maxlength">{{ 'DOMAIN_DETAILS.CODE_NAME_PATTERN_MESSAGE_2' | translate }}</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group" *ngIf="!isInMode(ComponentMode.CREATE) && (authService.hasRole('ROLE_SYSTEM_ADMIN') || authService.hasRole('ROLE_OPERATOR'))">
+				<label class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.ID_IN_DB' | translate }}</label>
+				<div class="col-sm-10">
+					<p class="form-control-static">{{domain.id}}</p>
+				</div>
+			</div>
+			<hr/>
+
+			<div class="form-group">
+				<label for="kubernetesNamespace" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.KUBERNETES_NAMESPACE' | translate }}</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="kubernetesNamespace" pattern="[a-z0-9-]*" maxlength="64" #namespace="ngModel"
+						   name="kubernetesNamespace" [(ngModel)]="domain.domainTechDetails.kubernetesNamespace" placeholder="{{'DOMAIN_DETAILS.KUBERNETES_NAMESPACE_PLACEHOLDER' | translate}}">
+					<div *ngIf="namespace.invalid && (namespace.dirty || namespace.touched)" class="alert alert-danger">
+						<div *ngIf="namespace.errors.pattern">{{ 'DOMAIN_DETAILS.NAMESPACE_PATTERN_VALIDATION_MESSAGE' | translate }}</div>
+						<div *ngIf="namespace.errors.maxlength">{{ 'DOMAIN_DETAILS.NAMESPACE_MAX_LENGTH_VALIDATION_MESSAGE' | translate }}</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group" *ngIf="domain.id !== domainService.getGlobalDomainId()">
+				<label for="kubernetesStorageClass" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.KUBERNETES_STORAGE_CLASS' | translate }}</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="kubernetesStorageClass"
+						   name="kubernetesStorageClass" [(ngModel)]="domain.domainTechDetails.kubernetesStorageClass">
+				</div>
+			</div>
+
+			<div class="form-group" *ngIf="domain.id !== domainService.getGlobalDomainId()">
+				<label for="kubernetesIngressClass" class="col-sm-2 control-label">{{'DOMAIN_DETAILS.KUBERNETES_INGRESS_CLASS' | translate }}</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="kubernetesIngressClass"
+						   name="kubernetesIngressClass" [(ngModel)]="domain.domainTechDetails.kubernetesIngressClass">
+				</div>
+			</div>
+
+			<div class="form-group" *ngIf="domain.id !== domainService.getGlobalDomainId()">
+				<label for="externalServiceDomain " class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.EXTERNAL_SERVICE_DOMAIN' | translate }}</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="externalServiceDomain "
+						   name="externalServiceDomain " [(ngModel)]="domain.domainTechDetails.externalServiceDomain">
+				</div>
+			</div>
+
+			<div class="form-group" *ngIf="domain?.id !== domainService.getGlobalDomainId()">
+				<label class="col-sm-2 control-label text-right" for="dcnDeploymentType">{{'DOMAIN_DETAILS.DCN_DEPLOYMENT_TYPE' | translate }}</label>
+				<div class="col-sm-10">
+					<select class="form-control" id="dcnDeploymentType" name="dcnDeploymentType" [(ngModel)]="domain.domainDcnDetails.dcnDeploymentType" [disabled]="isInMode(ComponentMode.VIEW)" required>
+						<option *ngFor="let type of keys" [value]="type">{{type | titlecase}}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group" *ngIf="domain?.id !== domainService.getGlobalDomainId() && isInMode(ComponentMode.VIEW) && isManual()">
+				<label class="col-sm-2 control-label text-right" for="configured-status">{{ 'DOMAIN_DETAILS.DCN_STATUS' | translate }}</label>
+				<div class="col-sm-10" id="configured-status" style="padding-top: 6px;">
+					<p *ngIf="domain?.domainDcnDetails?.dcnConfigured">{{ 'DOMAIN_DETAILS.CONFIGURED_VIEW' | translate }}</p>
+					<p *ngIf="!domain?.domainDcnDetails?.dcnConfigured">{{ 'DOMAIN_DETAILS.NOT_CONFIGURED_VIEW' | translate }}</p>
+				</div>
+			</div>
+
+			<div class="form-group" *ngIf="domain.id !== domainService.getGlobalDomainId() && !isInMode(ComponentMode.VIEW) && isManual()">
+				<label for="dcnConfigured" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.DCN_CONFIGURED' | translate }}</label>
+				<div class="col-sm-10">
+					<input type="checkbox" class="btn btn-default" [disabled]="isInMode(ComponentMode.VIEW)" id="dcnConfigured"
+						   name="dcnConfigured" [(ngModel)]="domain.domainDcnDetails.dcnConfigured" (change)="changeDcnFieldUpdatedFlag()">
 				</div>
 			</div>
 		</div>
 
 
-		<div class="form-group" *ngIf="!isInMode(ComponentMode.EDIT)">
-			<label for="codename" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.CODE_NAME' | translate }}</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="codename"
-					name="codename" pattern="[a-z0-9-]*"
-					[(ngModel)]="domain.codename" #codename="ngModel" minlength="2" maxlength="12" required>
-				<div *ngIf="codename.invalid && (codename.dirty || codename.touched)"
-					class="alert alert-danger">
-
-					<div *ngIf="codename.errors.required">{{ 'DOMAIN_DETAILS.CODE_NAME_IS_REQUIRED_MESSAGE' | translate }}</div>
-					<div *ngIf="codename.errors.pattern">{{ 'DOMAIN_DETAILS.CODE_NAME_PATTERN_MESSAGE_1' | translate }}</div>
-					<div *ngIf="codename.errors.minlength || codename.errors.maxlength">{{ 'DOMAIN_DETAILS.CODE_NAME_PATTERN_MESSAGE_2' | translate }}</div>
-
-				</div>
-			</div>
-		</div>
-
-		<div class="form-group" *ngIf="!isInMode(ComponentMode.CREATE) && (authService.hasRole('ROLE_SYSTEM_ADMIN') || authService.hasRole('ROLE_OPERATOR'))">
-			<label class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.ID_IN_DB' | translate }}</label>
-			<div class="col-sm-10">
-				<p class="form-control-static">{{domain.id}}</p>
-			</div>
-		</div>
-
-		<hr/>
-
-		<div class="form-group">
-			<label for="kubernetesNamespace" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.KUBERNETES_NAMESPACE' | translate }}</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="kubernetesNamespace" pattern="[a-z0-9-]*" maxlength="64" #namespace="ngModel"
-				name="kubernetesNamespace" [(ngModel)]="domain.domainTechDetails.kubernetesNamespace" placeholder="{{'DOMAIN_DETAILS.KUBERNETES_NAMESPACE_PLACEHOLDER' | translate}}">
-				<div *ngIf="namespace.invalid && (namespace.dirty || namespace.touched)" class="alert alert-danger">
-					<div *ngIf="namespace.errors.pattern">{{ 'DOMAIN_DETAILS.NAMESPACE_PATTERN_VALIDATION_MESSAGE' | translate }}</div>
-					<div *ngIf="namespace.errors.maxlength">{{ 'DOMAIN_DETAILS.NAMESPACE_MAX_LENGTH_VALIDATION_MESSAGE' | translate }}</div>
-				</div>
-			</div>
-		</div>
-
-        <div class="form-group" *ngIf="domain.id !== domainService.getGlobalDomainId()">
-            <label for="kubernetesStorageClass" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.KUBERNETES_STORAGE_CLASS' | translate }}</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="kubernetesStorageClass"
-                       name="kubernetesStorageClass" [(ngModel)]="domain.domainTechDetails.kubernetesStorageClass">
-            </div>
-        </div>
-
-		<div class="form-group" *ngIf="domain.id !== domainService.getGlobalDomainId()">
-			<label for="kubernetesIngressClass" class="col-sm-2 control-label">{{'DOMAIN_DETAILS.KUBERNETES_INGRESS_CLASS' | translate }}</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="kubernetesIngressClass"
-					   name="kubernetesIngressClass" [(ngModel)]="domain.domainTechDetails.kubernetesIngressClass">
-			</div>
-		</div>
-
-		<div class="form-group" *ngIf="domain.id !== domainService.getGlobalDomainId()">
-			<label for="externalServiceDomain " class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.EXTERNAL_SERVICE_DOMAIN' | translate }}</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="externalServiceDomain "
-					   name="externalServiceDomain " [(ngModel)]="domain.domainTechDetails.externalServiceDomain">
-			</div>
-		</div>
-
-		<div class="form-group" *ngIf="domain?.id !== domainService.getGlobalDomainId()">
-			<label class="col-sm-2 control-label text-right" for="dcnDeploymentType">{{'DOMAIN_DETAILS.DCN_DEPLOYMENT_TYPE' | translate }}</label>
-			<div class="col-sm-10">
-				<select class="form-control" id="dcnDeploymentType" name="dcnDeploymentType" [(ngModel)]="domain.domainDcnDetails.dcnDeploymentType" [disabled]="isInMode(ComponentMode.VIEW)" required>
-					<option *ngFor="let type of keys" [value]="type">{{type | titlecase}}</option>
-				</select>
-			</div>
-		</div>
-
-		<div class="form-group" *ngIf="domain?.id !== domainService.getGlobalDomainId() && isInMode(ComponentMode.VIEW) && isManual()">
-			<label class="col-sm-2 control-label text-right" for="configured-status">{{ 'DOMAIN_DETAILS.DCN_STATUS' | translate }}</label>
-			<div class="col-sm-10" id="configured-status" style="padding-top: 6px;">
-				<p *ngIf="domain?.domainDcnDetails?.dcnConfigured">{{ 'DOMAIN_DETAILS.CONFIGURED_VIEW' | translate }}</p>
-				<p *ngIf="!domain?.domainDcnDetails?.dcnConfigured">{{ 'DOMAIN_DETAILS.NOT_CONFIGURED_VIEW' | translate }}</p>
-			</div>
-		</div>
-
-		<div class="form-group" *ngIf="domain.id !== domainService.getGlobalDomainId() && !isInMode(ComponentMode.VIEW) && isManual()">
-			<label for="dcnConfigured" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.DCN_CONFIGURED' | translate }}</label>
-			<div class="col-sm-10">
-				<input type="checkbox" class="btn btn-default" [disabled]="isInMode(ComponentMode.VIEW)" id="dcnConfigured"
-				name="dcnConfigured" [(ngModel)]="domain.domainDcnDetails.dcnConfigured" (change)="changeDcnFieldUpdatedFlag()">
-			</div>
-		</div>
-
-		<div class="panel panel-default" *ngIf="isInMode(ComponentMode.VIEW) && !authService.hasRole('ROLE_OPERATOR')">
-			<div class="panel-heading">{{ 'DOMAIN_DETAILS.DOMAIN_USERS' | translate }}</div>
+		<div class="background-section" *ngIf="isInMode(ComponentMode.VIEW) && !authService.hasRole('ROLE_OPERATOR')">
+			<h4 style="font-size:15px; font-weight: bold">{{ 'DOMAIN_DETAILS.DOMAIN_USERS' | translate }}</h4>
 			<div class="panel-body">
 				<table class="table table-hover table-condensed" aria-describedby="Domains details table">
 					<thead>
@@ -147,8 +150,8 @@
 		<app-domain-namespace-annotations [annotationRead]="annotations" (annotations)="handleAnnotationsChange($event)" (trigerDelete)="handleAnnotationDelete($event)"></app-domain-namespace-annotations>
 		</div>
 
-		<div *ngIf="isInMode(ComponentMode.VIEW)" class="panel panel-default">
-			<div class="panel-heading">{{ 'DOMAIN_DETAILS.APP_STATUS' | translate }}</div>
+		<div *ngIf="isInMode(ComponentMode.VIEW)" class="background-section">
+			<h4 style="font-size:15px; font-weight: bold">{{ 'DOMAIN_DETAILS.APP_STATUS' | translate }}</h4>
 			<div class="panel-body">
 				<table class="table table-hover table-condensed" aria-describedby="Domain details table">
 					<thead>
@@ -207,8 +210,8 @@
 			</div>
 		</div>
 
-		<div class="panel panel-default" *ngIf="displayCustomerNetworksSection && domain.id !== domainService.getGlobalDomainId()">
-			<div class="panel-heading">{{'DOMAIN_DETAILS.CUSTOMER_NETWORKS' | translate}}</div>
+		<div class="background-section" *ngIf="displayCustomerNetworksSection && domain.id !== domainService.getGlobalDomainId()">
+			<h4 style="font-size:15px; font-weight: bold">{{'DOMAIN_DETAILS.CUSTOMER_NETWORKS' | translate}}</h4>
 			<div class="panel-body">
 				<div class="text-center" *ngIf="isInMode(ComponentMode.VIEW) && domain.domainDcnDetails.customerNetworks.length == 0">
 					<h5>{{'DOMAIN_DETAILS.CUSTOMER_NETWORKS_EMPTY_LIST_MESSAGE' | translate}}</h5>
@@ -233,8 +236,8 @@
 
 
 
-		<div class="panel panel-default" *ngIf="isInMode(ComponentMode.VIEW) && !authService.hasRole('ROLE_OPERATOR')">
-			<div class="panel-heading">{{ 'DOMAINS.LIST.GROUP' | translate }}</div>
+		<div class="background-section" *ngIf="isInMode(ComponentMode.VIEW) && !authService.hasRole('ROLE_OPERATOR')">
+			<h4 style="font-size:15px; font-weight: bold">{{ 'DOMAINS.LIST.GROUP' | translate }}</h4>
 			<div class="panel-body">
 				<table class="table table-hover table-condensed" aria-describedby="Domain group list">
 					<thead>
@@ -257,9 +260,57 @@
 			</div>
 		</div>
 
+
+			<!-- CLUSTER CONFIGURATION READ ONLY PRESENTATION  -->
+		<div class="background-section" *ngIf="isInMode(ComponentMode.VIEW) && !authService.hasRole('ROLE_OPERATOR')">
+			<h4 style="font-size:15px; font-weight: bold">{{ 'CLUSTERS.CONFIGURATION' | translate  }}</h4>
+
+			<div class="form-group" *ngIf="domain.clusters.length >0">
+				<label for="clusterId" class="col-sm-2 control-label">{{ 'CLUSTERS.ID' | translate }}</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" [disabled]="true" id="clusterId "
+						   name="clusterId " [(ngModel)]="cluster.id">
+				</div>
+			</div>
+
+			<div class="form-group" *ngIf="domain.clusters.length >0">
+				<label for="clusterName" class="col-sm-2 control-label">{{ 'CLUSTERS.NAME' | translate }}</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" [disabled]="true" id="clusterName "
+						   name="clusterName " [(ngModel)]="cluster.name">
+				</div>
+			</div>
+
+			<div class="form-group" *ngIf="domain.clusters.length >0">
+				<label for="clusterCodeName" class="col-sm-2 control-label">{{ 'CLUSTERS.CODENAME' | translate }}</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" [disabled]="true" id="clusterCodeName "
+						   name="clusterCodeName " [(ngModel)]="cluster.codename">
+				</div>
+			</div>
+
+			<div class="form-group" *ngIf="domain.clusters.length >0">
+				<label for="clusterDescription" class="col-sm-2 control-label">{{ 'CLUSTERS.DESCRIPTION' | translate }}</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" [disabled]="true" id="clusterDescription "
+						   name="clusterDescription " [(ngModel)]="cluster.description">
+				</div>
+			</div>
+
+
+
+
+
+		</div>
+
 		<div class="flex justify-content-end">
 			<button *ngIf="!isInMode(ComponentMode.VIEW)" type="submit" class="btn btn-primary" [disabled]="!domainForm.form.valid">{{ 'DOMAIN_DETAILS.SUBMIT_BUTTON' | translate }}</button>
 		</div>
+
+		<br *ngIf="errorMessage">
+      <div class="alert alert-danger text-left" *ngIf="errorMessage">
+        {{errorMessage}}
+      </div>
 	</form>
 </div>
 

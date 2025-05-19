@@ -17,43 +17,44 @@ import {CompleteComponent} from './complete/complete.component';
 import {ContentDisplayService} from '../service/content-display.service';
 import {TermsAcceptanceComponent} from './terms-acceptance/terms-acceptance.component';
 import {TranslateModule} from '@ngx-translate/core';
-import {SSOService} from '../service/sso.service';
 import {PasswordResetComponent} from './passwordreset/password-reset.component';
 import {PasswordStrengthMeterComponent} from 'angular-password-strength-meter';
 import {PolicySubpageComponent} from './policy-subpage/policy-subpage.component';
+import {LinkAccountComponent} from './link-account/link-account.component';
 
 @NgModule({
-  declarations: [
-    WelcomeComponent,
-    LoginComponent,
-    LogoutComponent,
-    RegistrationComponent,
-    ProfileComponent,
-    CompleteComponent,
-    TermsAcceptanceComponent,
-    PasswordResetComponent,
-    PolicySubpageComponent
-  ],
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
-    RouterModule,
-    SharedModule,
-    PipesModule,
-    AppMarketModule,
-    PasswordStrengthMeterComponent,
-    TranslateModule.forChild()
-  ],
-  exports: [
-    WelcomeComponent
-  ],
-  providers: [
-    RegistrationService,
-    UserService,
-    ChangelogService,
-    ContentDisplayService,
-    SSOService
-  ]
+    declarations: [
+        WelcomeComponent,
+        LoginComponent,
+        LogoutComponent,
+        RegistrationComponent,
+        ProfileComponent,
+        CompleteComponent,
+        TermsAcceptanceComponent,
+        PasswordResetComponent,
+        PolicySubpageComponent,
+        LinkAccountComponent
+    ],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        CommonModule,
+        RouterModule,
+        SharedModule,
+        PipesModule,
+        AppMarketModule,
+        PasswordStrengthMeterComponent,
+        TranslateModule.forChild()
+    ],
+    exports: [
+        WelcomeComponent
+    ],
+    providers: [
+        RegistrationService,
+        UserService,
+        ChangelogService,
+        ContentDisplayService
+    ]
 })
-export class WelcomeModule {}
+export class WelcomeModule {
+}

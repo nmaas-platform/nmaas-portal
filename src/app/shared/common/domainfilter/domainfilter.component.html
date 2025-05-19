@@ -20,11 +20,13 @@
 		optionLabel="name"
 		[filter]="false"
 		[filterPlaceholder]="'SEARCH' | translate"
-		(onChange)="changeDomain($event.value.id, $event.value.name)">
+		(onChange)="changeDomain($event.value.id, $event.value.name)"
+		appendTo="body">
 
 	<ng-template pTemplate="selectedItem" let-item>
     <span style="color: #414F6B;">
-      {{ "FILTER.DOMAIN" | translate }}: {{ item?.name }}
+<!--      {{ "FILTER.DOMAIN" | translate }}: -->
+		{{ item?.name }}
     </span>
 	</ng-template>
 

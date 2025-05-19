@@ -23,22 +23,26 @@
 
 .other-states{
     padding:15px;
-    margin-bottom:20px;
+    margin:50px 0;
     border-bottom: 1px solid lightgray;
     border-top: 1px solid lightgray;
     text-align: center;
     color: #337ab7;
+    background-image: none;
+    width:100%;
+    background: transparent;
 }
 
 .alert-danger{
     padding:15px;
-    margin-bottom:20px;
+    margin:50px 0;
     text-align: center;
     border-bottom: 1px solid #a94442;
     border-top: 1px solid #a94442;
     border-radius: 0;
-    background-color: #FFFFFF;
     background-image: none;
+    width:100%;
+    background: transparent;
 }
 
 .h-100 {
@@ -80,4 +84,7 @@
 }
 :host ::ng-deep.p-dropdown-panel .p-dropdown-items {
     max-height: 150px;
+}
+:host ::ng-deep .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{
+    background: var(--user-button-background-hover)
 }

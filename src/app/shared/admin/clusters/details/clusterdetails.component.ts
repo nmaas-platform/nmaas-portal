@@ -6,6 +6,8 @@ import {
     IngressResourceConfigOption,
     NamespaceConfigOption
 } from '../../../../model/cluster';
+import { ClusterManager } from '../../../../model/cluster-manager';
+import { ClusterManagerService } from '../../../../service/cluster-manager.service';
 import {BaseComponent} from '../../../common/basecomponent/base.component';
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Router} from '@angular/router';
@@ -37,9 +39,21 @@ export class ClusterDetailsComponent extends BaseComponent {
     @Output()
     public onDelete: EventEmitter<string> = new EventEmitter<string>();
 
-    constructor(private router: Router) {
+    constructor(private router: Router, private clusterService: ClusterManagerService) {
         super();
         this.initializeMaps();
+    }
+
+    public sendCluster(event: any) {
+    console.log(event);
+    const file = event.files[0];
+    const view = new ClusterManager();
+    view.name = "test"
+    view.description="testest"
+    this.clusterService.sendCluster(file, view).subscribe(result => { 
+        console.log(result);
+    }
+    )
     }
 
     public submit(): void {

@@ -64,6 +64,7 @@ export class AppConfigService {
     }
 
     public getSiteKey(): string {
+        console.log("Site key:", this.config.captchaKey)
         if (this.config == null) {
             return '';
         }

@@ -26,9 +26,10 @@
           <div *ngIf="key.errors.required">{{'SSH_KEYS.MODAL.ERROR.KEY_REQUIRED' | translate}}</div>
           <div *ngIf="key.errors.pattern">{{'SSH_KEYS.MODAL.ERROR.KEY_PATTERN' | translate}}</div>
         </div>
-
-        <input type="submit" style="border-radius: 4px" class="btn btn-primary" value="{{'SSH_KEYS.MODAL.BUTTON_ADD' | translate}}" [disabled]="!requestForm.valid">
-        <button type="button" class="btn btn-secondary pull-right" (click)="modal.hide()">{{'SSH_KEYS.MODAL.BUTTON_CANCEL' | translate}}</button>
+        <div style="display: flex; justify-content: flex-end">
+          <button type="button" class="btn btn-secondary mr-2" (click)="modal.hide()">{{'SSH_KEYS.MODAL.BUTTON_CANCEL' | translate}}</button>
+          <input type="submit" style="border-radius: 4px" class="btn btn-primary" value="{{'SSH_KEYS.MODAL.BUTTON_ADD' | translate}}" [disabled]="!requestForm.valid">
+        </div>
 
       </form>
       <div *ngIf="error" class="alert alert-danger">

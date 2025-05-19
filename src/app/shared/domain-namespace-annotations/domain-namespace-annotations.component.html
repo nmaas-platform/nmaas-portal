@@ -1,14 +1,15 @@
-<div class="panel panel-default" style="width: 100% !important;" >
+<div class="background-section" style="width: 100% !important;" >
     <div class="panel-heading">
-        <div style="display: flex; justify-content: start; align-items: center">
-            <div>
+        <div style="display: flex; justify-content:space-between">
+            <h4 style="font-size:15px; font-weight: bold">
                 {{'DOMAINS.ANNOTATIONS.CREATION' | translate}}
-            </div>
+            </h4>
+            <button type="button" class="btn btn-text" (click)="addAnnotation()">{{'DOMAINS.ANNOTATIONS.ADD'| translate}}</button>
         </div>
     </div>
     <div class="panel-body">
         <div  style="display: flex; justify-content: end">
-            <button type="button" class="btn btn-primary" (click)="addAnnotation()">{{'DOMAINS.ANNOTATIONS.ADD'| translate}}</button>
+
         </div>
         <div class="grid flex flex-grow-1">
             <div class="col-4">
@@ -63,8 +64,8 @@
 
     </div>
     <div class="nmaas-modal-footer">
-        <button type="button" class="btn btn-primary" (click)="closeModal()" [disabled]="isKeyNotUniqueAdd(newAnnotations) || !isKeyPatternCorrect">{{'DOMAINS.ADD_BUTTON' | translate}}</button>
         <button type="button" class="btn btn-secondary" (click)="modal.hide()">{{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="closeModal()" [disabled]="isKeyNotUniqueAdd(newAnnotations) || !isKeyPatternCorrect">{{'DOMAINS.ADD_BUTTON' | translate}}</button>
     </div>
 </nmaas-modal>
 
@@ -94,7 +95,7 @@
 
     </div>
     <div class="nmaas-modal-footer">
-        <button type="button" class="btn btn-primary" (click)="closeModalEdit()" [disabled]="isEditAnnotationCorrect(editAnnotation) || !isKeyPatternCorrect">{{'DOMAINS.EDIT_BUTTON' | translate}}</button>
         <button type="button" class="btn btn-secondary" (click)="editModal.hide()">{{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="closeModalEdit()" [disabled]="isEditAnnotationCorrect(editAnnotation) || !isKeyPatternCorrect">{{'DOMAINS.EDIT_BUTTON' | translate}}</button>
     </div>
 </nmaas-modal>

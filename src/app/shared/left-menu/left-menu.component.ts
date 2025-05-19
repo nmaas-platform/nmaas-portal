@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { ToastContainerComponent, ToastMode } from '../toast-container/toast-container.component';
-import {Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {MenuItem} from 'primeng/api';
+import {ModalNotificationSendComponent} from '../modal/modal-notification-send/modal-notification-send.component';
 
 @Component({
   selector: 'app-left-menu',
@@ -9,11 +10,17 @@ import {MenuItem} from 'primeng/api';
   styleUrl: './left-menu.component.css'
 })
 export class LeftMenuComponent  implements OnInit {
+  @ViewChild(ModalNotificationSendComponent, {static: true})
+  public notificationModal;
+
   items: MenuItem[];
   toggleAdmin = false;
+  currentUrl : string ;
+  isCollapsed = false;
 
   constructor(private toast: ToastContainerComponent,
-              public router: Router) {
+              public router: Router,
+              private readonly activeRoute: ActivatedRoute,) {
     this.items = [
       {
         label: 'Profile',
@@ -28,10 +35,23 @@ export class LeftMenuComponent  implements OnInit {
         routerLink: ['/logout']
       }
     ]
+    const storedState = sessionStorage.getItem('menuCollapsed');
+    this.isCollapsed = storedState === 'true';
   }
 
   public ngOnInit(): void {
-      console.log("test left menu ")
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.currentUrl = event.urlAfterRedirects;
+        console.log('Aktualny URL:', this.currentUrl);
+        if(this.currentUrl.includes('admin')) {
+          this.toggleAdmin = true;
+        }
+      }
+    })
+    console.log("test left menu ")
+    const newWidth = this.isCollapsed ? '100px' : '300px';
+    document.documentElement.style.setProperty('--left-panel-width', newWidth);
   }
 
   public showToastTest() {
@@ -39,6 +59,15 @@ export class LeftMenuComponent  implements OnInit {
   }
   adminPanel() {
     this.toggleAdmin = !this.toggleAdmin;
+  }
+  toggleMenu() {
+    this.isCollapsed = !this.isCollapsed;
+    const newWidth = this.isCollapsed ? '100px' : '300px';
+    document.documentElement.style.setProperty('--left-panel-width', newWidth);
+    sessionStorage.setItem('menuCollapsed', this.isCollapsed.toString());
+  }
+  public showNotificationModal(): void {
+    this.notificationModal.show();
   }
 
 }

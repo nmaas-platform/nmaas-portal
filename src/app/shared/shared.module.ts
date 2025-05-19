@@ -1,6 +1,6 @@
 import {DefaultLogo} from '../directive/defaultlogo.directive';
 import {RolesDirective} from '../directive/roles.directive';
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule, DatePipe} from '@angular/common';
 
@@ -37,7 +37,7 @@ import {PasswordStrengthMeterComponent} from 'angular-password-strength-meter';
 import {AboutComponent} from './about/about.component';
 import {ChangelogComponent} from './changelog/changelog.component';
 import {NotificationService} from '../service/notification.service';
-import {RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module} from 'ng-recaptcha';
+import {RECAPTCHA_V3_SITE_KEY, RecaptchaModule, RecaptchaV3Module} from 'ng-recaptcha';
 import {SingleCommentComponent} from './comments/single-comment/single-comment.component';
 import {TranslateStateModule} from './translate-state/translate-state.module';
 import {MinLengthDirective} from '../directive/min-length.directive';
@@ -63,6 +63,17 @@ import { provideZxvbnServiceForPSM  } from 'angular-password-strength-meter/zxcv
 import { AccessTokensComponent } from './users/access-token/access-tokens.component';
 import { LeftMenuComponent } from './left-menu/left-menu.component';
 import {TableModule} from 'primeng/table';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import {CheckboxModule} from 'primeng/checkbox';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { ButtonModule } from 'primeng/button';
+import { BrowserModule } from '@angular/platform-browser';
+import {ChartModule} from 'primeng/chart';
+import { RolesExcludedDirective } from '../directive/roles-exluded.directive';
+import { FileUploadModule } from 'primeng/fileupload';
+
+
 
 
 @NgModule({
@@ -73,7 +84,6 @@ import {TableModule} from 'primeng/table';
         ServicesModule,
         RouterModule,
         ReactiveFormsModule,
-        RecaptchaV3Module,
         PasswordStrengthMeterComponent,
         TranslateModule.forChild(),
         NgxPaginationModule,
@@ -83,6 +93,15 @@ import {TableModule} from 'primeng/table';
         InputTextModule,
         FormioModule,
         TableModule,
+        CheckboxModule,
+        InputGroupModule,
+        InputGroupAddonModule,
+        ButtonModule,
+        RecaptchaV3Module,
+        ButtonModule,
+        ChartModule,
+        FileUploadModule,
+        TableModule
     ],
     declarations: [
         RateComponent,
@@ -99,6 +118,7 @@ import {TableModule} from 'primeng/table';
         NavbarComponent,
         DefaultLogo,
         RolesDirective,
+        RolesExcludedDirective,
         MinLengthDirective,
         MaxLengthDirective,
         SearchComponent,
@@ -128,7 +148,8 @@ import {TableModule} from 'primeng/table';
         PreferencesComponent,
         SortableHeaderDirective,
         DomainNamespaceAnnotationsComponent,
-        AccessTokensComponent
+        AccessTokensComponent,
+        AdminDashboardComponent,
     ],
     providers: [
         PasswordValidator,
@@ -175,13 +196,16 @@ import {TableModule} from 'primeng/table';
         ModalTestInstanceComponent,
         ModalNotificationSendComponent,
         DomainRolesDirective,
+        RolesExcludedDirective,
         SshKeysComponent,
         ModalProvideSshKeyComponent,
         PreferencesComponent,
         SortableHeaderDirective,
         DomainNamespaceAnnotationsComponent,
         AccessTokensComponent
-    ]
+    ],
+     schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
+
 })
 export class SharedModule {
 }

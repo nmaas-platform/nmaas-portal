@@ -12,4 +12,6 @@ export class Configuration {
     public bulkDeploymentJobCron: string;
     public parallelDeploymentsLimit: number;
     public bulkDeploymentQueueRefresh: number;
+    public deploymentPrefix: string;
+    public bulkDeploymentTimeThreshold: number;
 }

@@ -536,6 +536,7 @@
                             <form-builder *ngIf="formDisplayChange && applicationDTO.application.configWizardTemplate.template"
                                           [form]="applicationDTO.application.configWizardTemplate.template" (change)="setConfigTemplate($event)">
                             </form-builder>
+                           
                         </p-tabPanel>
 
                         <p-tabPanel header="{{'APPS_WIZARD.RAW_JSON' | translate}}">

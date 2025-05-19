@@ -24,7 +24,7 @@ export class BulkAppListComponent implements OnInit {
     }
 
     onRefresh(showDeleted = false) : void {
-        if (this.authService.getRoles().find(value => value === 'ROLE_VL_MANAGER') !== undefined) {
+        if (this.authService.getRoles().find(value => value === 'ROLE_GROUP_MANAGER') !== undefined) {
             this.deployService.getBulksAppDeploymentsOwner().subscribe(data => {
                 data = data.sort((a, b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime())
                 this.bulks = data

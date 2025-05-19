@@ -14,34 +14,46 @@ body{
     flex-direction: row;
 }
 
+.flex-container-column {
+    flex: 1;
+    height:100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 .flex-spacer {
-    /*flex: 1 0 auto;*/
-    /* width: 100%;
-    height: 100%; */
+    flex: 1 0 auto;
+    height: 100%
 }
 
 .logged-out-layout {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-  }
-  .logged-in-layout {
+}
+.logged-in-layout {
     display: flex;
     flex-direction: row;
     min-height: 100vh;
-  }
-  .content-area {
+}
+.content-area {
     flex: 1;
     padding: 1rem;
-  }
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 150px);
+}
 
-  .side-menu {
-    width: var(--left-panel-width);
-    background-color: var(--menu-color);
-    color: var(--l-text-color);
-    height: 100vh ;
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding: 1rem;
-  }
+.router-outlet {
+    flex: 1; /* Wypełnia dostępną przestrzeń */
+}
+
+.side-menu {
+    /*background-color: var(--menu-color);*/
+    /*color: var(--l-text-color);*/
+    /*height: 100vh ;*/
+    /*position: fixed;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    /*padding: 1rem;*/
+}

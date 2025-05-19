@@ -34,6 +34,7 @@ import {AppAddJsonAppComponent} from './app-add-json-app/app-add-json-app.compon
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {AppAddJsonVersionAppComponent} from './app-add-json-version-app/app-add-json-version-app.component';
 import {DomainsModule} from '../domains/domains.module';
+import {TableModule} from 'primeng/table';
 
 
 export function getJsonTemplates(config: ConfigTemplateService) {
@@ -83,7 +84,8 @@ export function formioAppConfigFactory(appConfig: AppConfigService) {
         TooltipModule,
         DropdownModule,
         InputTextareaModule,
-        DomainsModule
+        DomainsModule,
+        TableModule
     ],
     exports: [],
     providers: [

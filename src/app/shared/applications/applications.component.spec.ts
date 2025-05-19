@@ -18,6 +18,7 @@ import {of} from 'rxjs';
 import {AppInstallModalComponent} from '../modal/appinstall';
 import {ModalComponent} from '../modal';
 import {Domain} from '../../model/domain';
+import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA} from '@angular/core';
 
 describe('ApplicationsComponent', () => {
   let component: ApplicationsViewComponent;
@@ -52,7 +53,8 @@ describe('ApplicationsComponent', () => {
               }
           }),
       ],
-      providers: [AppsService, AppSubscriptionsService, UserDataService, AppConfigService, TagService, DomainService, AppInstanceService]
+      providers: [AppsService, AppSubscriptionsService, UserDataService, AppConfigService, TagService, DomainService, AppInstanceService],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   }));

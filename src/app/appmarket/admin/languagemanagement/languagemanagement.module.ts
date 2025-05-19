@@ -8,17 +8,19 @@ import {TranslateModule} from '@ngx-translate/core';
 import {SharedModule} from '../../../shared';
 import {FormsModule} from '@angular/forms';
 import {InputSwitchModule} from 'primeng/inputswitch';
+import {TableModule} from 'primeng/table';
 
 @NgModule({
   declarations: [LanguageListComponent, LanguageDetailsComponent],
-  imports: [
-    CommonModule,
-    FormsModule,
-    InputSwitchModule,
-    RouterModule,
-    SharedModule,
-    TranslateModule.forChild()
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        InputSwitchModule,
+        RouterModule,
+        SharedModule,
+        TranslateModule.forChild(),
+        TableModule
+    ],
   providers: [InternationalizationService]
 })
 export class LanguageManagementModule { }

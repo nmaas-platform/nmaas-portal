@@ -32,6 +32,8 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import {SplitButtonModule} from 'primeng/splitbutton';
 import {MenuModule} from 'primeng/menu';
+import { AdminLeftMenuComponent } from './shared/admin-left-menu/admin-left-menu.component';
+import {AccordionModule} from 'primeng/accordion';
 
 export function appConfigFactory(config: AppConfigService) {
     return function create() {
@@ -59,7 +61,8 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
     declarations: [
         AppComponent,
         LeftMenuComponent,
-        ToastContainerComponent
+        ToastContainerComponent,
+        AdminLeftMenuComponent
     ],
     imports: [
         BrowserModule,
@@ -90,6 +93,7 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
         ToastModule,
         SplitButtonModule,
         MenuModule,
+        AccordionModule,
     ],
     providers: [
         AuthGuard,

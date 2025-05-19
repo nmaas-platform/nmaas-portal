@@ -26,11 +26,6 @@
 .lang-circle-icon{
   height: 26px;
 }
-.navbar-left{
-  padding-top: 6px;
-  display: flex;
-  align-items: center;
-}
 .navbar-right{
   display:flex;
   align-items: center;
@@ -48,7 +43,6 @@
   }
   .navbar-left,.navbar-right {
     float: none !important;
-    display:block;
   }
   .navbar-toggle {
     display: block;
@@ -203,18 +197,16 @@
   color: #414F6B;
 }
 .navbar-default .navbar-nav>li>a{
-  color: #414F6B;
-  padding:10px;
+  color: #6D788E;
 }
 .navbar-default .navbar-nav>.active>a{
   border-radius: 5px;
   color: #142548;
- padding:10px;
+  /*font-weight: bold;*/
   background-color: #D1D1D1;
 }
 .navbar-default .navbar-nav>.open>a{
   border-radius: 5px;
   color: #142548;
-  padding:10px;
   background-color: #D1D1D1;
 }

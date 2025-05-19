@@ -1,4 +1,31 @@
- <div class="" style="display: flex">
+<!-- <div class="col-sm-12 col-sm-10  col-md-12">
+    <h3>
+        {{ 'USERS.TITLE' | translate }}</h3>
+    <div class="flex space-between">
+        <div class="flex">
+            <button *ngIf="authService.hasDomainRole(domainId, 'ROLE_DOMAIN_ADMIN') || authService.hasDomainRole(domainId, 'ROLE_GROUP_DOMAIN_ADMIN')"
+                    class="btn btn-primary" (click)="changeMode()">
+                <span *ngIf="isModeAllowed(ComponentMode.DELETE)">{{'USERS.ADD_TO_DOMAIN_BUTTON' | translate}}</span>
+                <span *ngIf="isModeAllowed(ComponentMode.EDIT)">{{'USERS.GO_BACK_BUTTON' | translate}}</span>
+            </button>
+        </div>
+        <div class="" style="display: flex">
+            <div *ngIf="isModeAllowed(ComponentMode.DELETE)" class="flex ">
+                <span class="mt-2 pr-1">{{ 'USERS.ITEMS_PER_PAGE' | translate }}:</span>
+                <span id="selectionItems" class="dropdown"
+                      style="vertical-align: middle; display: inline-block; margin-right: 1rem;">
+        <button class="dropdown-toggle btn" data-toggle="dropdown" data-close-others="true">
+            {{maxItemsOnPage}}
+        </button>
+        <ul class="dropdown-menu">
+            <li *ngFor="let item of itemsPerPage" [ngClass]="{'active': maxItemsOnPage == item}">
+                <a (click)="setItems(item)">
+                    <span>{{item.toString()}}</span>
+                </a>
+            </li>
+        </ul>
+    </span>
+            </div>
 <!--            <div *ngIf="isModeAllowed(ComponentMode.DELETE)" class="flex ">-->
 <!--                <span class="mt-2 pr-1">{{ 'USERS.ITEMS_PER_PAGE' | translate }}:</span>-->
 <!--                <span id="selectionItems" class="dropdown"-->
@@ -15,6 +42,8 @@
 <!--                    </ul>-->
 <!--                </span>-->
 <!--            </div>-->
+<div class="" style="display: flex">
+
             <div *ngIf="isModeAllowed(ComponentMode.EDIT)"
                  style="margin-right: 15px; padding-top: 5px;"> {{'USERS.SEARCH' | translate}}</div>
 
@@ -29,43 +58,63 @@
                        class="form-control" (keyup)="onSearch($event.target.value)">
                 </span>
             </div>
-            <button *ngIf="authService.hasDomainRole(domainId, 'ROLE_DOMAIN_ADMIN') || authService.hasDomainRole(domainId, 'ROLE_VL_DOMAIN_ADMIN')"
+            <button *ngIf="authService.hasDomainRole(domainId, 'ROLE_DOMAIN_ADMIN') || authService.hasDomainRole(domainId, 'ROLE_GROUP_DOMAIN_ADMIN')"
                     class="btn btn-primary" (click)="changeMode()">
                 <span *ngIf="isModeAllowed(ComponentMode.DELETE)" >{{'USERS.ADD_TO_DOMAIN_BUTTON' | translate}}</span>
                 <span *ngIf="isModeAllowed(ComponentMode.EDIT)">{{'USERS.GO_BACK_BUTTON' | translate}}</span>
             </button>
  </div>
 
-    <h4 style="margin-top:40px; font-weight: bold"> {{ 'USERS.TITLE' | translate }}</h4>
+    <h4 class="header"> {{ 'USERS.TITLE' | translate }}</h4>
     <div class="background-section">
         <p-table #dt [value]="displayUsers" [paginator]="true" [rows]="maxItemsOnPage"
                  [rowsPerPageOptions]="[15, 20, 25, 30, 50]" >
             <ng-template pTemplate="header">
                 <tr>
-                    <th scope="col" class="column-sortable" sortable-column="username"
-                        sort-direction="asc">{{ 'USERS.USER_NAME' | translate }}</th>
-                    <th scope="col" class="column-sortable" sortable-column="lastname">{{'USERS.NAME' | translate}}</th>
-                    <th *ngIf="!domainMode" scope="col" class="column-sortable"
-                        sortable-column="email">{{'USERS.EMAIL' | translate}}</th>
-                    <th scope="col" class="column-sortable" sortable-column="domains"
-                        *ngIf="domainId === domainService.getGlobalDomainId()">{{ 'USERS.DOMAINS' | translate }}</th>
-                    <th scope="col" class="column-sortable" sortable-column="globalRole"
-                        *ngIf="domainId === domainService.getGlobalDomainId()">{{ 'USERS.GLOBAL_ROLE' | translate }}</th>
-                    <th scope="col" class="column-sortable" sortable-column="roles"
-                        *ngIf="domainId !== domainService.getGlobalDomainId() && !isModeAllowed(ComponentMode.EDIT)">{{ 'USERS.ROLES' | translate }}</th>
-                    <th scope="col" class="column-sortable" *ngIf="!isModeAllowed(ComponentMode.EDIT) && !domainMode"
-                        sortable-column="firstLoginDate">{{ 'USERS.FIRST_LOGIN' | translate }}</th>
-                    <th scope="col" class="column-sortable" *ngIf="!isModeAllowed(ComponentMode.EDIT) && !domainMode"
-                        sortable-column="lastSuccessfulLoginDate">{{ 'USERS.LAST_SUCCESSFUL_LOGIN' | translate }}</th>
-                    <th scope="col" class="column-sortable" sortable-column="enabled">{{ 'USERS.ENABLED' | translate }}</th>
+                    <th scope="col" class="column-sortable" pSortableColumn="username">
+                        {{ 'USERS.USER_NAME' | translate }}
+                        <p-sortIcon field="username"></p-sortIcon>
+                    </th>
+                    <th scope="col" class="column-sortable" pSortableColumn="lastname">
+                        {{'USERS.NAME' | translate}}
+                        <p-sortIcon field="lastname"></p-sortIcon>
+                    </th>
+                    <th *ngIf="!domainMode" scope="col" class="column-sortable" pSortableColumn="email">
+                        {{'USERS.EMAIL' | translate}}
+                        <p-sortIcon field="email"></p-sortIcon>
+                    </th>
+                    <th scope="col" class="column-sortable" pSortableColumn="domains" *ngIf="domainId === domainService.getGlobalDomainId()">
+                        {{ 'USERS.DOMAINS' | translate }}
+                        <p-sortIcon field="domains"></p-sortIcon>
+                    </th>
+                    <th scope="col" class="column-sortable" pSortableColumn="globalRole" *ngIf="domainId === domainService.getGlobalDomainId()">
+                        {{ 'USERS.GLOBAL_ROLE' | translate }}
+                        <p-sortIcon field="globalRole"></p-sortIcon>
+                    </th>
+                    <th scope="col" class="column-sortable" pSortableColumn="roles" *ngIf="domainId !== domainService.getGlobalDomainId() && !isModeAllowed(ComponentMode.EDIT)">
+                        {{ 'USERS.ROLES' | translate }}
+                        <p-sortIcon field="roles"></p-sortIcon>
+                    </th>
+                    <th scope="col" class="column-sortable" *ngIf="!isModeAllowed(ComponentMode.EDIT) && !domainMode" pSortableColumn="firstLoginDate">
+                        {{ 'USERS.FIRST_LOGIN' | translate }}
+                        <p-sortIcon field="firstLoginDate"></p-sortIcon>
+                    </th>
+                    <th scope="col" class="column-sortable" *ngIf="!isModeAllowed(ComponentMode.EDIT) && !domainMode" pSortableColumn="lastSuccessfulLoginDate">
+                        {{ 'USERS.LAST_SUCCESSFUL_LOGIN' | translate }}
+                        <p-sortIcon field="lastSuccessfulLoginDate"></p-sortIcon>
+                    </th>
+                    <th scope="col" class="column-sortable" pSortableColumn="enabled">
+                        {{ 'USERS.ENABLED' | translate }}
+                        <p-sortIcon field="enabled"></p-sortIcon>
+                    </th>
                     <th *ngIf="!isModeAllowed(ComponentMode.EDIT)" scope="col">&nbsp;</th>
                     <th *ngIf="isModeAllowed(ComponentMode.EDIT)" scope="col">&nbsp;</th>
                 </tr>
             </ng-template>
 
             <ng-template pTemplate="body" let-user>
-                <tr (click)="view(user.id)">
-                    <td>{{ user.username }}</td>
+                <tr>
+                    <td (click)="view(user.id)">{{ user.username }}</td>
                     <td>{{(user.firstname || '') + ' ' + (user.lastname || '')}}</td>
                     <td *ngIf="!domainMode">{{user.email}}</td>
                     <td *ngIf="domainId === domainService.getGlobalDomainId()">
@@ -88,7 +137,7 @@
                                          <strong class="caret"></strong>
                                         </span>
                                     </a>
-                                    <ul class="dropdown-menu">
+                                    <ul class="dropdown-menu"  style="left: 0; right:unset;">
                                         <li *ngFor="let role of getAllowedRoles()">
                                             <a (click)="changeUserRole(user,domainId, {value:role})">{{"ENUM.USER_ROLES." + Role[role].toUpperCase() | translate}}</a>
                                         </li>
@@ -121,7 +170,7 @@
                             <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false"
                                aria-haspopup="true"
                                data-toggle="dropdown" href="#" role="button">
-                                <em class="fas fa-cog icon-black icon-bigger"></em>
+                                <em class="pi pi-cog" style="font-size: 1.8rem; color: var(--l-text-color)"></em>
                             </a>
                             <ul class="dropdown-menu pull-right-drop">
                                 <li *ngIf="isModeAllowed(ComponentMode.VIEW)">

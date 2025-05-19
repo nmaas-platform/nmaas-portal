@@ -17,11 +17,19 @@ export class LoginSuccessComponent implements OnInit {
     ngOnInit(): void {
         this.route.queryParams.subscribe(params => {
             const token = params['token'];
-            const refreshToken = params['refresh_token'];
+            const refreshToken = params['refresh-token'];
+            const oidcToken = params['oidc-token'];
             if (token) {
                 this.authService.storeToken(token);
             }
-            this.router.navigate(['/portal'])
+            if (oidcToken) {
+                this.authService.storeOidcToken(oidcToken);
+            }
+            if (refreshToken) {
+                this.authService.storeRefreshToken(refreshToken);
+            }
+            this.authService.loadUser();
+            this.router.navigate(['/'])
         })
 
     }

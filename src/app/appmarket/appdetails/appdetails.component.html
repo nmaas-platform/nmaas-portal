@@ -10,14 +10,17 @@
 				<h3 style="margin:0 20px;">{{app?.name}}</h3>
 			</div>
 			<div class="" *ngIf="app && domain" style="display:flex; align-items: center">
-				<div *ngIf="!subscribed && isSubscriptionAllowed()" class="btn-group pull-right"
+				<div *ngIf="!subscribed && isSubscriptionAllowed()" class="pull-right"
 					 pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_SUBSCRIBE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="defaultTooltipDisabled">
-					<button class="btn btn-primary" [disabled]="!active || !isApplicationEnabledInDomain()" (click)="subscribe()">{{'APPLICATIONS.SUBSCRIBE_BUTTON' | translate}}</button>
+					<button class="btn btn-primary m-1" [disabled]="!active || !isApplicationEnabledInDomain()" (click)="subscribe()">{{'APPLICATIONS.SUBSCRIBE_BUTTON' | translate}}</button>
+					<button class="btn btn-primary m-1"[routerLink]="['/admin/apps/bulks']">Bulk deployments</button>
 				</div>
+
 				<div *ngIf="subscribed" class=" pull-right" >
 					<div class="btn no-padding" pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_DEPLOY' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="defaultTooltipDisabled">
 						<button *ngIf="isSubscriptionAllowed()" class="btn btn-danger m-1" (click)="unsubscribe()">{{'APPLICATIONS.UNSUBSCRIBE_BUTTON' | translate}}</button>
 					</div>
+					<button class="btn btn-primary m-1" [routerLink]="['/admin/apps/bulks']">Bulk deployments</button>
 					<button *ngIf="isSubscriptionAllowed()" class="btn btn-primary m-1" [disabled]="!isApplicationEnabledInDomain()" (click)="appInstallModal.show()">{{'APPLICATIONS.DEPLOY_BUTTON' | translate}}</button>
 				</div>
 
@@ -58,7 +61,7 @@
 			<div class="" *ngIf="versionVisible">
 				<div class="" *ngIf="activeVersions">
 					<a *ngFor="let version of activeVersions" class="tag-button">
-						v.{{version}}
+						v{{version}}
 					</a>
 				</div>
 			</div>
@@ -81,7 +84,7 @@
 		</div>
 		<div style="padding-top:50px">
 			<p style="font-weight: bold" *ngIf="numberOfScreenshots > 0">{{'SCREENSHOTS.HEADER' | translate}}</p>
-			<screenshots (numberOfScreenshots)="screenshots($event)" [pathUrl]="'/apps/' + appId + '/screenshots'"></screenshots>
+			<screenshots style="display: flex" (numberOfScreenshots)="screenshots($event)" [pathUrl]="'/apps/' + appId + '/screenshots'"></screenshots>
 		</div>
 	</div>
 

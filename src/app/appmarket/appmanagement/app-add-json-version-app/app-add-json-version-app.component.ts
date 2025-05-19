@@ -5,7 +5,7 @@ import {AppsService} from '../../../service';
 @Component({
     selector: 'app-app-add-json-version-app',
     templateUrl: './app-add-json-version-app.component.html',
-    styleUrls: []
+    styleUrls: ['app-add-json-version-app.component.css']
 })
 export class AppAddJsonVersionAppComponent {
 
@@ -73,7 +73,7 @@ export class AppAddJsonVersionAppComponent {
         this.modal.show();
     }
 
-    private handleUpload(result: any) {
+    public handleUpload(result: any) {
         console.log('uploaded', result);
         this.modal.hide();
         this.refresh.emit(true);

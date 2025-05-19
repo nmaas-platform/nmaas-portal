@@ -28,6 +28,7 @@ describe('DomainFilterComponent', () => {
         applicationStatePerDomain: [],
         groups: [],
         annotations: [],
+        clusters: [],
     }
 
     const domain1: Domain = {
@@ -41,6 +42,7 @@ describe('DomainFilterComponent', () => {
         applicationStatePerDomain: [],
         groups: [],
         annotations: [],
+        clusters: [],
     };
 
     const domain2: Domain = {
@@ -54,6 +56,7 @@ describe('DomainFilterComponent', () => {
         applicationStatePerDomain: [],
         groups: [],
         annotations: [],
+        clusters: [],
     };
 
     beforeEach(waitForAsync(() => {

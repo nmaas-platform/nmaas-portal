@@ -13,6 +13,6 @@ tr.clickable {
     cursor: pointer;
 }
 
-.dropdown:hover .dropdown-menu {
-    display: block;
-}
+/*.dropdown:hover .dropdown-menu {*/
+/*    display: block;*/
+/*}*/

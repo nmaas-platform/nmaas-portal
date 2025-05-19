@@ -58,11 +58,11 @@ export class DomainsListComponent implements OnInit {
 
     protected getDomainsObservable(): Observable<Domain[]> {
         if (this.authService.hasRole(Role[Role.ROLE_SYSTEM_ADMIN]) || this.authService.hasRole(Role[Role.ROLE_OPERATOR])) {
-            return this.domainService.getAll().pipe(
+            return this.domainService.getAllBase().pipe(
                 map((domains) => domains.filter((domain) => domain.id !== this.domainService.getGlobalDomainId())));
         } else {
             return this.domainService.getMyDomains().pipe(
-                map((domains) => domains.filter((domain) => this.authService.hasDomainRole(domain.id, Role[Role.ROLE_DOMAIN_ADMIN]) || this.authService.hasDomainRole(domain.id, Role[Role.ROLE_VL_DOMAIN_ADMIN]))));
+                map((domains) => domains.filter((domain) => this.authService.hasDomainRole(domain.id, Role[Role.ROLE_DOMAIN_ADMIN]) || this.authService.hasDomainRole(domain.id, Role[Role.ROLE_GROUP_DOMAIN_ADMIN]))));
         }
     }
 
