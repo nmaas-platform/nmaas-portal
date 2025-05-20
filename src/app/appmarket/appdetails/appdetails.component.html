@@ -4,8 +4,8 @@
 				<div  *ngIf="app">
 					<img alt="App logo" [src]="(appImagesService.getAppLogoUrl(appId) | secure) || 'assets/images/app-logo-example.png'" height="90px" width="90px"/>
 				</div>
-				<div *ngIf="!app">
-					<img alt="App logo" src="assets/images/app-logo-example.png" height="90px" width="90px"/>
+				<div *ngIf="!app" style="height:90px; align-content:center;">
+					<img alt="App logo" src="assets/images/app-logo-example.png" width="90px"/>
 				</div>
 				<h3 style="margin:0 20px;">{{app?.name}}</h3>
 			</div>

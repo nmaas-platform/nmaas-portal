@@ -36,7 +36,7 @@
 			<div class="form-group" *ngIf="!isInMode(ComponentMode.CREATE) && (authService.hasRole('ROLE_SYSTEM_ADMIN') || authService.hasRole('ROLE_OPERATOR'))">
 				<label class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.ID_IN_DB' | translate }}</label>
 				<div class="col-sm-10">
-					<p class="form-control-static">{{domain.id}}</p>
+					<p class="form-control-static" style="padding: 6px 12px">{{domain.id}}</p>
 				</div>
 			</div>
 			<hr/>
@@ -89,8 +89,8 @@
 			<div class="form-group" *ngIf="domain?.id !== domainService.getGlobalDomainId() && isInMode(ComponentMode.VIEW) && isManual()">
 				<label class="col-sm-2 control-label text-right" for="configured-status">{{ 'DOMAIN_DETAILS.DCN_STATUS' | translate }}</label>
 				<div class="col-sm-10" id="configured-status" style="padding-top: 6px;">
-					<p *ngIf="domain?.domainDcnDetails?.dcnConfigured">{{ 'DOMAIN_DETAILS.CONFIGURED_VIEW' | translate }}</p>
-					<p *ngIf="!domain?.domainDcnDetails?.dcnConfigured">{{ 'DOMAIN_DETAILS.NOT_CONFIGURED_VIEW' | translate }}</p>
+					<p style="padding: 2px 12px" *ngIf="domain?.domainDcnDetails?.dcnConfigured">{{ 'DOMAIN_DETAILS.CONFIGURED_VIEW' | translate }}</p>
+					<p style="padding: 2px 12px" *ngIf="!domain?.domainDcnDetails?.dcnConfigured">{{ 'DOMAIN_DETAILS.NOT_CONFIGURED_VIEW' | translate }}</p>
 				</div>
 			</div>
 
@@ -104,11 +104,11 @@
 		</div>
 
 
-		<div class="background-section" *ngIf="isInMode(ComponentMode.VIEW) && !authService.hasRole('ROLE_OPERATOR')">
+		<div  class="background-section" *ngIf="isInMode(ComponentMode.VIEW) && !authService.hasRole('ROLE_OPERATOR')">
 			<h4 style="font-size:15px; font-weight: bold">{{ 'DOMAIN_DETAILS.DOMAIN_USERS' | translate }}</h4>
-			<div class="panel-body">
-				<table class="table table-hover table-condensed" aria-describedby="Domains details table">
-					<thead>
+			<div  class="panel-body">
+				<table *ngIf="domainUsers.length !== 0" class="table table-hover table-condensed" aria-describedby="Domains details table">
+					<thead  >
 					<tr>
 						<th scope="col" *roles="['ROLE_SYSTEM_ADMIN']">{{ 'DOMAIN_DETAILS.ID' | translate }}</th>
 						<th scope="col">{{ 'DOMAIN_DETAILS.USER_NAME' | translate }}</th>
@@ -120,9 +120,6 @@
 					</thead>
 
 					<tbody>
-						<tr *ngIf="domainUsers.length === 0" >
-							<td colspan="6" style="text-align: center">None</td>
-						</tr>
 					<ng-template ngFor let-user [ngForOf]="domainUsers">
 						<tr>
 							<td *ngIf="authService.hasRole('ROLE_SYSTEM_ADMIN')">{{user.id}}</td>
@@ -145,6 +142,11 @@
 
 					</tbody>
 				</table>
+				<div>
+					<tr *ngIf="domainUsers.length === 0" >
+						<td >None</td>
+					</tr>
+				</div>
 			</div>
 		</div>
 
@@ -242,7 +244,7 @@
 		<div class="background-section" *ngIf="isInMode(ComponentMode.VIEW) && !authService.hasRole('ROLE_OPERATOR')">
 			<h4 style="font-size:15px; font-weight: bold">{{ 'DOMAINS.LIST.GROUP' | translate }}</h4>
 			<div class="panel-body">
-				<table class="table table-hover table-condensed" aria-describedby="Domain group list">
+				<table *ngIf="domain.groups.length !== 0" class="table table-hover table-condensed" aria-describedby="Domain group list">
 					<thead>
 					<tr>
 						<th scope="col">{{ 'DOMAINS.LIST.DOMAIN_NAME' | translate }}</th>
@@ -251,9 +253,6 @@
 					</thead>
 
 					<tbody>
-					<tr *ngIf="domain.groups.length === 0" >
-						<td colspan="6" style="text-align: center">None</td>
-					</tr>
 					<ng-template ngFor let-group [ngForOf]="domain.groups">
 						<tr>
 							<td>{{group.name}}</td>
@@ -263,6 +262,9 @@
 
 					</tbody>
 				</table>
+				<div *ngIf="domain.groups.length === 0" >
+					<p>None</p>
+				</div>
 			</div>
 		</div>
 
@@ -270,8 +272,11 @@
 			<!-- CLUSTER CONFIGURATION READ ONLY PRESENTATION  -->
 		<div class="background-section" *ngIf="isInMode(ComponentMode.VIEW) && !authService.hasRole('ROLE_OPERATOR')">
 			<h4 style="font-size:15px; font-weight: bold">{{ 'CLUSTERS.CONFIGURATION' | translate  }}</h4>
+			<div class="panel-body" *ngIf="domain.clusters.length === 0" >
+				<p>None</p>
+			</div>
 
-			<div class="form-group" *ngIf="domain.clusters.length >0">
+			<div class="form-group panel-body" *ngIf="domain.clusters.length >0">
 				<label for="clusterId" class="col-sm-2 control-label">{{ 'CLUSTERS.ID' | translate }}</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" [disabled]="true" id="clusterId "
@@ -279,7 +284,7 @@
 				</div>
 			</div>
 
-			<div class="form-group" *ngIf="domain.clusters.length >0">
+			<div class="form-group panel-body" *ngIf="domain.clusters.length >0">
 				<label for="clusterName" class="col-sm-2 control-label">{{ 'CLUSTERS.NAME' | translate }}</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" [disabled]="true" id="clusterName "
@@ -287,7 +292,7 @@
 				</div>
 			</div>
 
-			<div class="form-group" *ngIf="domain.clusters.length >0">
+			<div class="form-group panel-body" *ngIf="domain.clusters.length >0">
 				<label for="clusterCodeName" class="col-sm-2 control-label">{{ 'CLUSTERS.CODENAME' | translate }}</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" [disabled]="true" id="clusterCodeName "
@@ -295,7 +300,7 @@
 				</div>
 			</div>
 
-			<div class="form-group" *ngIf="domain.clusters.length >0">
+			<div class="form-group panel-body" *ngIf="domain.clusters.length >0">
 				<label for="clusterDescription" class="col-sm-2 control-label">{{ 'CLUSTERS.DESCRIPTION' | translate }}</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" [disabled]="true" id="clusterDescription "
