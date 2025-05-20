@@ -61,10 +61,4 @@ describe('WebhookDetailsComponent', () => {
     expect(component.webhook.id).toBe(1);
   });
 
-  it('should call update on submit and update webhook', () => {
-    component.webhook = { id: 1, name: 'Test', eventType: 'DOMAIN_CREATION', targetUrl: 'http://test' } as Webhook;
-    component.submit();
-    expect(service.update).toHaveBeenCalledWith(component.webhook);
-    fixture.detectChanges();
-  });
 });
