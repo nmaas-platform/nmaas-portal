@@ -18,10 +18,18 @@
         <ng-template pTemplate="header">
             <tr>
                 <th></th>
-                <th>{{'APPS_MANAGEMENT.NAME' | translate}}</th>
-                <th>{{'DOMAINS.CODE_NAME' | translate}}</th>
-                <th>{{'DOMAINS.LIST.DOMAIN_NAME' | translate}}</th>
-                <th>{{'DOMAINS.LIST.DOMAIN_CODE_NAME' | translate}}</th>
+                <th pSortableColumn="name">{{'APPS_MANAGEMENT.NAME' | translate}}
+                    <p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="codenam">{{'DOMAINS.CODE_NAME' | translate}}
+                    <p-sortIcon field="codename"></p-sortIcon>
+                </th>
+                <th pSortableColumn="domainName">{{'DOMAINS.LIST.DOMAIN_NAME' | translate}}
+                    <p-sortIcon field="domainName"></p-sortIcon>
+                </th>
+                <th pSortableColumn="domainCode">{{'DOMAINS.LIST.DOMAIN_CODE_NAME' | translate}}
+                    <p-sortIcon field="domainCode"></p-sortIcon>
+                </th>
                 <th></th>
             </tr>
         </ng-template>

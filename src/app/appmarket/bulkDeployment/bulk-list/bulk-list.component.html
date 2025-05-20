@@ -81,28 +81,28 @@
                     <th pSortableColumn="state">{{'BULK.LIST.STATE' | translate}}
                         <p-sortIcon field="state"></p-sortIcon>
                     </th>
-                    <th></th>
+<!--                    <th></th>-->
                 </tr>
             </ng-template>
 
             <ng-template pTemplate="body" let-bulk>
                 <tr class="table-row">
-                    <td>{{bulk?.id}}</td>
-                    <td>{{bulk?.creator.username}}</td>
-                    <td>{{bulk?.creationDate | date: 'dd-MM-yyyy HH:mm'}}</td>
-                    <td>{{'BULK.STATE.' + bulk?.state | translate}}</td>
-                    <td class="text-right">
-                        <span class="dropdown">
-                          <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
-                            <em class="fas fa-cog icon-black icon-bigger"></em>
-                          </a>
-                          <ul class="dropdown-menu pull-right-drop">
-                            <li *ngIf="mode === bulkTypeDomain">
-                              <a [routerLink]="['/admin/domains/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>
-                            </li>
-                          </ul>
-                        </span>
-                    </td>
+                    <td [routerLink]="['/admin/domains/bulks/', bulk?.id]">{{bulk?.id}}</td>
+                    <td [routerLink]="['/admin/domains/bulks/', bulk?.id]">{{bulk?.creator.username}}</td>
+                    <td [routerLink]="['/admin/domains/bulks/', bulk?.id]">{{bulk?.creationDate | date: 'dd-MM-yyyy HH:mm'}}</td>
+                    <td [routerLink]="['/admin/domains/bulks/', bulk?.id]">{{'BULK.STATE.' + bulk?.state | translate}}</td>
+<!--                    <td class="text-right">-->
+<!--                        <span class="dropdown">-->
+<!--                          <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">-->
+<!--                            <em class="fas fa-cog icon-black icon-bigger"></em>-->
+<!--                          </a>-->
+<!--                          <ul class="dropdown-menu pull-right-drop">-->
+<!--                            <li *ngIf="mode === bulkTypeDomain">-->
+<!--                              <a [routerLink]="['/admin/domains/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>-->
+<!--                            </li>-->
+<!--                          </ul>-->
+<!--                        </span>-->
+<!--                    </td>-->
                 </tr>
             </ng-template>
         </p-table>
@@ -180,21 +180,21 @@
 
             <ng-template pTemplate="body" let-bulk>
                 <tr class="table-row">
-                    <td>{{bulk?.id}}</td>
-                    <td>{{bulk?.creator.username}}</td>
-                    <td>{{getApplicationName(bulk?.details)}}</td>
-                    <td>{{getInstancesNumber(bulk?.details)}}</td>
-                    <td>{{bulk?.creationDate | date: 'dd-MM-yyyy HH:mm'}}</td>
-                    <td>{{'BULK.STATE.' + bulk?.state | translate}}</td>
+                    <td [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{bulk?.id}}</td>
+                    <td [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{bulk?.creator.username}}</td>
+                    <td [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{getApplicationName(bulk?.details)}}</td>
+                    <td [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{getInstancesNumber(bulk?.details)}}</td>
+                    <td [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{bulk?.creationDate | date: 'dd-MM-yyyy HH:mm'}}</td>
+                    <td [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{'BULK.STATE.' + bulk?.state | translate}}</td>
                     <td class="text-right">
                         <span class="dropdown">
                           <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
                             <em class="fas fa-cog icon-black icon-bigger"></em>
                           </a>
                           <ul class="dropdown-menu pull-right-drop">
-                            <li *ngIf="mode === bulkTypeApp">
-                              <a [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>
-                            </li>
+<!--                            <li *ngIf="mode === bulkTypeApp">-->
+<!--                              <a [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>-->
+<!--                            </li>-->
                             <li *ngIf="mode === bulkTypeApp && bulk?.state !== 'REMOVED'">
                               <a (click)="getAppBulkDetails(bulk?.id)"> {{"BULK.APP.DOWNLOAD_CSV" | translate}}</a>
                             </li>

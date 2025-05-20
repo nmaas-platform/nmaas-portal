@@ -190,6 +190,7 @@ body .p-datatable .p-datatable-tbody > tr > td {
     border: 1px solid #E0E2E5;
     border-width: 0 0 1px 0;
     padding: 1rem 1rem;
+    cursor: pointer;
 }
 body .p-datatable .p-paginator-bottom{
     height: 40px;

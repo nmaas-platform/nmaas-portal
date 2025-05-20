@@ -46,8 +46,8 @@
             <ng-template pTemplate="body" let-domain>
                 <tr *ngIf="!domain.deleted">
                     <td [routerLink]="['view/', domain.id]">{{domain?.codename}}</td>
-                    <td>{{domain?.name}}</td>
-                    <td>
+                    <td [routerLink]="['view/', domain.id]">{{domain?.name}}</td>
+                    <td [routerLink]="['view/', domain.id]">
                         <span class="glyphicon glyphicon-ok" *ngIf="domain?.active"></span>
                         <span class="glyphicon glyphicon-remove" *ngIf="!(domain?.active)"></span>
                     </td>
@@ -57,9 +57,6 @@
                                     <em class="pi pi-cog" style="font-size: 1.8rem; color: var(--l-text-color)"></em>
                                 </a>
                                 <ul class="dropdown-menu pull-right-drop" [appendTo]="'body'" >
-                                    <li><a [routerLink]="['view/', domain.id]" class="">
-                                        {{ 'DOMAINS.DETAILS_BUTTON' | translate }}</a>
-                                    </li>
                                     <li><a *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']" [routerLink]="['edit/', domain.id]"
                                            class="">{{ 'DOMAINS.EDIT_BUTTON' | translate }}</a>
                                     </li>

@@ -52,8 +52,8 @@
     background: var(--user-button-background-hover)
 }
 :host ::ng-deep .p-menu.p-menu-overlay{
-    position: static;
-    width:100%;
+    position: absolute;
+    width:93%;
     margin-bottom:5px;
     border:none;
 }
