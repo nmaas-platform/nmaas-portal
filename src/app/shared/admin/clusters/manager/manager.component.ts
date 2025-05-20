@@ -16,6 +16,8 @@ export class ClusterManagerComponent {
   public addedCluster: ClusterManager = new ClusterManager();
   public updatedFile : File = null;
   public maxItemsOnPage = 15;
+  public searchValue = '';
+  filteredClusters: ClusterManager[] = [];
 
   public domains = [];
 
@@ -23,49 +25,50 @@ export class ClusterManagerComponent {
     public modal: ModalComponent;
 
   constructor(private clusterService: ClusterManagerService,
-              private domainService: DomainService
-  ) {
+              private domainService: DomainService) {
     this.getAllClusters();
     this.domainService.getAllBase().subscribe(result => {
       this.domains = result.filter(d => d.id !== this.domainService.getGlobalDomainId());
     });
   }
 
- public saveFile(event: any) {
-    console.log(event);
-    this.updatedFile =event.files[0];     
-    }
-
-public getAllClusters() {
-    this.clusterService.getAllClusters().subscribe(result => { 
-          console.log(result);
-            this.clusters = result;
-        })
-      }
-
-public closeModalAndSaveCluster() {
-  this.clusterService.sendCluster(this.updatedFile, this.addedCluster).subscribe(result => { 
-    console.log(result);
-    this.getAllClusters();
-    this.modal.hide();
-    this.updatedFile = null;
-    this.addedCluster = new ClusterManager();
-  }, error => {
-    console.error(error);
-    
+  public saveFile(event: any) {
+        console.log(event);
+        this.updatedFile =event.files[0];
   }
-)
-}
+
+  public getAllClusters() {
+       this.clusterService.getAllClusters().subscribe(result => {
+           console.log(result);
+           this.clusters = result;
+           this.filterClusters();
+         })
+  }
+
+  public closeModalAndSaveCluster() {
+       this.clusterService.sendCluster(this.updatedFile, this.addedCluster).subscribe(result => {
+            console.log(result);
+            this.getAllClusters();
+            this.modal.hide();
+            this.updatedFile = null;
+            this.addedCluster = new ClusterManager();
+       }, error => {
+            console.error(error);
+       })
+     }
 
 
-public onDomainSelection(event: any) {
-
-    console.log(event);
-    this.addedCluster.domainNames = [event]
-  
-}
-
-
-
+     public onDomainSelection(event: any) {
+            console.log(event);
+            this.addedCluster.domainNames = [event]
+     }
+    filterClusters() {
+        const value = this.searchValue?.toLowerCase() || '';
+        this.filteredClusters = this.clusters.filter(cluster =>
+            cluster.name?.toLowerCase().includes(value) ||
+            cluster.codename?.toLowerCase().includes(value) ||
+            cluster.id?.toString().includes(value)
+        );
+    }
 
 }
