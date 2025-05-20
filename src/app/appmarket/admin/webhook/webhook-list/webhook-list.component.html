@@ -1,0 +1,112 @@
+<div style="display: flex; align-items: center;  margin-top:20px">
+    <div style="margin-right:20px">
+        <div >
+            <button class="btn btn-primary" (click)="openModal()">{{'WEBHOOKS.NEW' | translate}}</button>
+        </div>
+    </div>
+    <div class="flex" style="margin-right:20px">
+        
+    </div>
+</div>
+
+    <h4 class="header">{{ 'WEBHOOKS.TITLE' | translate }}</h4>
+    
+<div class="background-section">
+    <p-table
+    [value]="webkooks"
+    [paginator]="true"
+    [rows]="maxItemsOnPage"
+    [rowsPerPageOptions]="[15, 20, 25, 30, 50]"
+    [responsiveLayout]="'scroll'">
+        <ng-template pTemplate="header">
+            <tr>
+                <th  pSortableColumn="id" id="id"> {{ 'WEBHOOKS.ID' | translate }}
+                    <p-sortIcon field="id"></p-sortIcon>
+                </th>
+                <th pSortableColumn="name" id="name"> {{ 'WEBHOOKS.NAME' | translate }}
+                    <p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="url" id="url"> {{ 'WEBHOOKS.TARGET_URL' | translate }}
+                    <p-sortIcon field="url"></p-sortIcon>
+                </th>
+                <th pSortableColumn="type" id="type"> {{ 'WEBHOOKS.TYPE' | translate }}
+                    <p-sortIcon field="type"></p-sortIcon>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-webhook>
+            <tr>
+                <td  [routerLink]="[webhook.id]">{{webhook.id}}</td>
+                <td>{{webhook.name}}</td>
+                <td>{{('WEBHOOKS.' + webhook.eventType.toString().toUpperCase() ) | translate}}</td>
+                <td>{{webhook.targetUrl}}</td>
+    
+                <td class="text-right">
+                    <span class="dropdown">
+                            <a style="display: inline-block" class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
+                                <em class="pi pi-cog" style="font-size: 1.8rem; color: var(--l-text-color)"></em>
+                            </a>
+                            <ul class="dropdown-menu pull-right-drop" >
+                                <li><a [routerLink]="[ webhook.id]" class="">
+                                    {{ 'WEBHOOKS.DETAILS' | translate }}</a>
+                                </li>
+                            </ul>
+                    </span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+</div>
+
+
+<nmaas-modal >
+    <div class="nmaas-modal-header">{{'WEBHOOKS.TITLE_SHORT' | translate}}</div>
+    <div class="nmaas-modal-body">
+        <div class="flex flex-column">
+            <div class="mt-4">
+                <label for="name">{{'WEBHOOKS.NAME' | translate}}</label>
+                <input id="name" type="text" class="form-control" [(ngModel)]="addedWebhook.name" [ngModelOptions]="{standalone: true}">
+            </div>
+
+            <div class="mt-4">
+                <label for="desc">{{'WEBHOOKS.TARGET_URL' | translate}}</label>
+                <input id="desc" type="text" class="form-control" [(ngModel)]="addedWebhook.targetUrl" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="mt-4">
+                <label for="contactEmail">{{'WEBHOOKS.TYPE' | translate}}</label>
+              <select id="domain" #typeSelect class="form-control" (change)="onTypeSelect(typeSelect.value)" >
+                    <option *ngFor="let t of type" [value]="t.name"
+                        >{{t.name | translate}}
+                    </option>
+                </select>       
+            </div>
+
+
+            <div class="mt-4">
+                    <label for="assignDomain">Auth required</label>
+                    <input class="ml-2" type="checkbox" [(ngModel)]="authRequired"  id="authRequired"/>
+                </div>
+
+            <div *ngIf="authRequired" class="mt-4">
+                <label for="desc">{{'WEBHOOKS.TOKEN' | translate}}</label>
+                <input id="desc" type="text" class="form-control" [(ngModel)]="addedWebhook.tokenValue" [ngModelOptions]="{standalone: true}">
+            </div>
+
+            <div *ngIf="authRequired" class="mt-4">
+                <label for="desc">{{'WEBHOOKS.AUTH' | translate}}</label>
+                <input id="desc" type="text" class="form-control" [(ngModel)]="addedWebhook.authorizationHeader" [ngModelOptions]="{standalone: true}">
+            </div>
+
+            
+            </div>
+    </div>
+    <div class="nmaas-modal-footer">
+      <button type="button" class="btn btn-primary" [disabled]=" addedWebhook?.name === null "(click)="closeModalAndSaveWebhook()" 
+      pTooltip="Upload file is required before save" showDelay="2000" >{{'CLUSTERS.SAVE' | translate}}</button>
+      <button type="button" class="btn btn-secondary"
+                    (click)="this.modal.hide()">{{'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
+    
+    </div>
+  </nmaas-modal>

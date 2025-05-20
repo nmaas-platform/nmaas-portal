@@ -16,6 +16,7 @@ export class ClusterManagerComponent {
   public addedCluster: ClusterManager = new ClusterManager();
   public updatedFile : File = null;
   public maxItemsOnPage = 15;
+  public assignedDomain: boolean = false;
 
   public domains = [];
 
@@ -72,6 +73,8 @@ public openModal() {
   this.modal.show();
 }
 
-
+public onDomainChange(event: any) {
+console.log(event);
+}
 
 }
