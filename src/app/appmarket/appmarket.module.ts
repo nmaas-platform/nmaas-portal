@@ -51,6 +51,9 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { SidebarModule } from 'primeng/sidebar';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { WebhookDetailsComponent } from './admin/webhook/webhook-details/webhook-details.component';
+import { WebhookListComponent } from './admin/webhook/webhook-list/webhook-list.component';
+import { WebhookService } from '../service/webhook.service';
 
 
 
@@ -67,7 +70,9 @@ import { ProgressBarModule } from 'primeng/progressbar';
         BulkViewComponent,
         BulkAppListComponent,
         BulkListComponent,
-        BulkSearchPipe
+        BulkSearchPipe,
+        WebhookDetailsComponent,
+        WebhookListComponent
     ],
     imports: [
         FormsModule,
@@ -101,7 +106,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
         InputSwitchModule,
         OverlayPanelModule,
         SidebarModule,
-        ProgressBarModule
+        ProgressBarModule,
     ],
     exports: [
         AppMarketComponent,
@@ -116,6 +121,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
         ClusterService,
         SortService,
         SessionService,
+        WebhookService
     ],
     schemas: [
         NO_ERRORS_SCHEMA,

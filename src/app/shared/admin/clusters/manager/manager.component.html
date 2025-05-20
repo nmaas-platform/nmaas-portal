@@ -88,12 +88,20 @@
 
 
             <div class="mt-4">
+                
+                <div>
+                    <label for="assignDomain">Assign to domain? </label>
+                    <input type="checkbox" [(ngModel)]="assignedDomain" (change)="onDomainChange($event)" id="assignDomain" />
+                </div>
+               <div class="mt-4" *ngIf="assignedDomain">
                 <label for="name">{{'CLUSTERS.DOMAIN' | translate}}</label>
-                <select id="domain" #domainSelect class="form-control" (change)="onDomainSelection(domainSelect.value)">
+                 <select id="domain" #domainSelect class="form-control" (change)="onDomainSelection(domainSelect.value)" plaaceholder="testtesttest" >
                     <option *ngFor="let domain of domains" [value]="domain.name"
                         >{{domain.name}}
                     </option>
                 </select>            
+                </div>      
+               
             </div>
 
 
