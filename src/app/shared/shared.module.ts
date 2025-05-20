@@ -72,6 +72,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {ChartModule} from 'primeng/chart';
 import { RolesExcludedDirective } from '../directive/roles-exluded.directive';
 import { FileUploadModule } from 'primeng/fileupload';
+import { RecaptchaVisibilityService } from '../service/recaptcha-visibility.service';
 
 
 
@@ -155,6 +156,7 @@ import { FileUploadModule } from 'primeng/fileupload';
         PasswordValidator,
         UserDataService,
         NotificationService,
+        RecaptchaVisibilityService,
         AppConfigService,
         DatePipe,
         {
