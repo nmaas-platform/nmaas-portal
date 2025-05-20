@@ -1,3 +1,4 @@
+<h4 class="header">{{ 'CLUSTERS.CONFIGURATION' | translate }}</h4>
 <div style="display: flex; align-items: center;  margin-top:20px">
     <div style=" display:flex; align-items: center;">
         <div style="margin-right:20px;">
@@ -11,7 +12,7 @@
     </div>
 </div>
 
-    <h4 class="header">{{ 'CLUSTERS.CONFIGURATION' | translate }}</h4>
+
     
 <div class="background-section">
     <p-table
@@ -103,10 +104,11 @@
             </div>
     </div>
     <div class="nmaas-modal-footer">
+        <button type="button" class="btn btn-secondary"
+                (click)="this.modal.hide()">{{'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
       <button type="button" class="btn btn-primary" [disabled]="updatedFile === null || addedCluster?.name === null || addedCluster?.description === null"(click)="closeModalAndSaveCluster()" 
       pTooltip="Upload file is required before save" showDelay="2000" >{{'CLUSTERS.SAVE' | translate}}</button>
-      <button type="button" class="btn btn-secondary"
-                    (click)="this.modal.hide()">{{'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
+
     
     </div>
   </nmaas-modal>
