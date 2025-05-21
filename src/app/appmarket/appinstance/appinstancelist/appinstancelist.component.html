@@ -1,3 +1,4 @@
+<h4 style="margin-top:40px; font-weight: bold" *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']">{{ 'APP_INSTANCES.DEPLOYED' | translate }}</h4>
 <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-top:20px">
     <div style="display:flex; align-items: center;">
         <span class="p-input-icon-right">
@@ -30,7 +31,7 @@
     </div>
 </div>
 
-<h4 style="margin-top:40px; font-weight: bold" *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']">{{ 'APP_INSTANCES.DEPLOYED' | translate }}</h4>
+
 <div *ngIf="selectedOption === 'list'" class="background-section" style="margin-top:30px">
     <p-table [value]="appDeployedInstances | async | searchAppInstance: searchValue"
              [paginator]="true"

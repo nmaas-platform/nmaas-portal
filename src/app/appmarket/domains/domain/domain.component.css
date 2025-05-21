@@ -60,3 +60,12 @@ input.ng-dirty.ng-invalid {
     border:none;
     box-shadow: none;
 }
+.form-control[disabled],
+fieldset[disabled] .form-control {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: transparent;
+    border:none;
+    box-shadow: none;
+}

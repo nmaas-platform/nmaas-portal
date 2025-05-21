@@ -42,7 +42,8 @@
 <!--                    </ul>-->
 <!--                </span>-->
 <!--            </div>-->
-<div class="" style="display: flex">
+<h4 class="header"> {{ 'USERS.TITLE' | translate }}</h4>
+<div class="" style="display: flex; margin-top:20px">
 
             <div *ngIf="isModeAllowed(ComponentMode.EDIT)"
                  style="margin-right: 15px; padding-top: 5px;"> {{'USERS.SEARCH' | translate}}</div>
@@ -65,7 +66,7 @@
             </button>
  </div>
 
-    <h4 class="header"> {{ 'USERS.TITLE' | translate }}</h4>
+
     <div class="background-section">
         <p-table #dt [value]="displayUsers" [paginator]="true" [rows]="maxItemsOnPage"
                  [rowsPerPageOptions]="[15, 20, 25, 30, 50]" >

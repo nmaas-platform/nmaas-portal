@@ -1,5 +1,6 @@
+<h4 class="header">{{header | translate}}</h4>
 <div class="">
-    <div style="display:flex; ">
+    <div style="display:flex; margin-top:20px">
         <div style="margin-right:20px">
           <span class="p-input-icon-right" style="width: 100%">
                <i class="pi pi-search" style="font-size: 13px; top: 16px; margin-right: 5px;"></i>
@@ -45,7 +46,7 @@
             <p-inputSwitch  *ngIf="mode=== bulkTypeApp"  id="showDeleted" (onChange)="refreshBulks()" [(ngModel)]="showDeleted" ngDefaultControl/>
         </div>
     </div>
-    <h4 class="header">{{header | translate}}</h4>
+
 <!--    <div class="" style="display: flex; justify-content: space-between; margin-top: 10px;">-->
 <!--        <div class="flex">-->
 <!--            <div class="flex align-items-center mr-1">{{ 'BULK.LIST.PER_PAGE' | translate }}:</div>-->
