@@ -241,3 +241,8 @@ body .p-datatable .p-sortable-column.p-highlight{
 body .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon{
     color:var(--primary-button-color);
 }
+
+.grecaptcha-badge { 
+    visibility: hidden; 
+    bottom: 45px !important;
+}

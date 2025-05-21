@@ -120,8 +120,16 @@
                 </a>
             </li>
             <li *roles="['ROLE_SYSTEM_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
+                <a  style="display: flex; align-items: center;" [routerLink]="['/admin/webhooks']">
+                    <i class="pi pi-share-alt" style="margin-right:10px; font-size: 18px" title="Settings"></i>
+                    <span *ngIf="!isCollapsed">
+                        {{ 'WEBHOOKS.TITLE_SHORT' | translate }}
+                    </span>
+                </a>
+            </li>
+            <li *roles="['ROLE_SYSTEM_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
                 <a  style="display: flex; align-items: center;" [routerLink]="['/admin/manage/clusters']">
-                    <i class="pi pi-cog" style="margin-right:10px; font-size: 18px"></i>
+                    <i class="pi pi-cloud" style="margin-right:10px; font-size: 18px"></i>
                     <span *ngIf="!isCollapsed">
                         {{ 'CLUSTERS.CONFIGURATION' | translate }}
                     </span>
@@ -129,7 +137,7 @@
             </li>
             <li *roles="['ROLE_SYSTEM_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
                 <a  style="display: flex; align-items: center;" [routerLink]="['/admin/languages']">
-                    <i class="pi pi-tags" style="margin-right:10px; font-size: 18px" title=" {{'NAVBAR.LANGUAGES' | translate }}"></i>
+                    <i class="pi pi-language" style="margin-right:10px; font-size: 18px" title=" {{'NAVBAR.LANGUAGES' | translate }}"></i>
                     <span *ngIf="!isCollapsed">
                         {{'NAVBAR.LANGUAGES' | translate }}
                     </span>

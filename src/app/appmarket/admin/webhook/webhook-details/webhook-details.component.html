@@ -1,0 +1,81 @@
+<div class="">
+    <div class="background-section">  
+    <h4 style="font-size:15px; font-weight: bold">{{ 'WEBHOOKS.TITLE' | translate }}</h4>
+
+    <div class="panel-body">
+        <form *ngIf="webhook" (submit)="submit()" class="form-horizontal" #webhookForm="ngForm">
+            <div class="panel-default panel-heading">{{ 'CLUSTERS.GENERAL' | translate }} </div>
+            <div class="panel-body">
+               
+                <div class="form-group">
+                    <label for="clusterId" class="col-sm-2 control-label">{{ 'WEBHOOKS.ID' | translate }}</label>
+                    <div class="col-sm-10">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="clusterId" name="clusterId"
+                                   [(ngModel)]="webhook.id" [disabled]="true">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="clusterName" class="col-sm-2 control-label">{{ 'WEBHOOKS.NAME' | translate }}</label>
+                    <div class="col-sm-10">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="clusterName" name="clusterName"
+                                   [(ngModel)]="webhook.name" [disabled]="false">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="targetUrl" class="col-sm-2 control-label">{{ 'WEBHOOKS.TARGEt_URL' | translate }}</label>
+                    <div class="col-sm-10">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="targetUrl" name="targetUrl"
+                                   [(ngModel)]="webhook.targetUrl" [disabled]="false">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="clusterDescription" class="col-sm-2 control-label">{{ 'WEBHOOKS.TYPE' | translate }}</label>
+                    <div class="col-sm-10">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="clusterDescription" name="clusterDescription"
+                                   placeholder="{{webhook.eventType | translate}}" [disabled]="true">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="token" class="col-sm-2 control-label">{{ 'WEBHOOKS.TOKEN' | translate }}</label>
+                    <div class="col-sm-10">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="token" name="token"
+                                   [(ngModel)]="webhook.tokenValue" [disabled]="false">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="auth" class="col-sm-2 control-label">{{ 'WEBHOOKS.AUTH' | translate }}</label>
+                    <div class="col-sm-10">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="auth" name="auth"
+                                   [(ngModel)]="webhook.authorizationHeader" [disabled]="false">
+                        </div>
+                    </div>
+                </div>
+
+            <div class="flex justify-content-end">
+                <button [disabled]="!webhookForm.form.valid" type="submit" class="btn btn-primary"
+                        type="submit">{{ 'PORTAL_CONFIGURATION.SUBMIT_BUTTON' | translate }}</button>
+            </div>
+               
+
+            </div>
+        </form>
+    </div>
+</div>
+</div>

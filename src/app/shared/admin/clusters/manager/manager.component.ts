@@ -14,8 +14,9 @@ export class ClusterManagerComponent {
   public clusters: ClusterManager[] = [];
 
   public addedCluster: ClusterManager = new ClusterManager();
-  public updatedFile : File = null;
+  public updatedFile: File = null;
   public maxItemsOnPage = 15;
+  public assignedDomain: boolean = false;
   public searchValue = '';
   filteredClusters: ClusterManager[] = [];
 
@@ -34,7 +35,7 @@ export class ClusterManagerComponent {
 
   public saveFile(event: any) {
         console.log(event);
-        this.updatedFile =event.files[0];
+        this.updatedFile = event.files[0];
   }
 
   public getAllClusters() {
@@ -58,10 +59,23 @@ export class ClusterManagerComponent {
      }
 
 
-     public onDomainSelection(event: any) {
-            console.log(event);
-            this.addedCluster.domainNames = [event]
-     }
+public onDomainSelection(event: any) {
+
+    console.log(event);
+    this.addedCluster.domainNames = [event]
+}
+
+public openModal() {
+  if (this.domains.length > 0) {
+    this.addedCluster.domainNames = [this.domains[0].name];
+  }
+  this.modal.show();
+}
+
+public onDomainChange(event: any) {
+console.log(event);
+}
+
     filterClusters() {
         const value = this.searchValue?.toLowerCase() || '';
         this.filteredClusters = this.clusters.filter(cluster =>
@@ -70,5 +84,4 @@ export class ClusterManagerComponent {
             cluster.id?.toString().includes(value)
         );
     }
-
 }

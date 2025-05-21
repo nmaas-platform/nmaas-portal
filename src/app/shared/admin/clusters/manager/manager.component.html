@@ -59,7 +59,7 @@
                             </a>
                             <ul class="dropdown-menu pull-right-drop" >
                                 <li><a [routerLink]="[ cluster.id]" class="">
-                                    {{ 'CLUSTERS.CONFIGURATION' | translate }}</a>
+                                    {{ 'CLUSTERS.DETAILS' | translate }}</a>
                                 </li>
                             </ul>
                     </span>
@@ -81,17 +81,30 @@
             </div>
 
             <div class="mt-4">
-                <label for="name">{{'CLUSTERS.DESCRIPTION' | translate}}</label>
-                <input id="name" type="text" class="form-control" [(ngModel)]="addedCluster.description" [ngModelOptions]="{standalone: true}">
+                <label for="desc">{{'CLUSTERS.DESCRIPTION' | translate}}</label>
+                <input id="desc" type="text" class="form-control" [(ngModel)]="addedCluster.description" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="mt-4">
+                <label for="contactEmail">{{'CLUSTERS.CONTACT_MAIL' | translate}}</label>
+                <input id="contactEmail" type="text" class="form-control" [(ngModel)]="addedCluster.contactEmail" [ngModelOptions]="{standalone: true}">
             </div>
 
+
             <div class="mt-4">
+
+                <div>
+                    <label for="assignDomain">Assign to domain? </label>
+                    <input type="checkbox" [(ngModel)]="assignedDomain" (change)="onDomainChange($event)" id="assignDomain" />
+                </div>
+               <div class="mt-4" *ngIf="assignedDomain">
                 <label for="name">{{'CLUSTERS.DOMAIN' | translate}}</label>
-                <select id="domain" #domainSelect class="form-control" (change)="onDomainSelection(domainSelect.value)">
+                 <select id="domain" #domainSelect class="form-control" (change)="onDomainSelection(domainSelect.value)" plaaceholder="testtesttest" >
                     <option *ngFor="let domain of domains" [value]="domain.name"
                         >{{domain.name}}
                     </option>
                 </select>            
+                </div>
+
             </div>
 
 
@@ -106,7 +119,7 @@
     <div class="nmaas-modal-footer">
         <button type="button" class="btn btn-secondary"
                 (click)="this.modal.hide()">{{'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
-      <button type="button" class="btn btn-primary" [disabled]="updatedFile === null || addedCluster?.name === null || addedCluster?.description === null"(click)="closeModalAndSaveCluster()" 
+      <button type="button" class="btn btn-primary" [disabled]="updatedFile === null || addedCluster?.name === null || addedCluster?.description === null"(click)="closeModalAndSaveCluster()"
       pTooltip="Upload file is required before save" showDelay="2000" >{{'CLUSTERS.SAVE' | translate}}</button>
 
     
