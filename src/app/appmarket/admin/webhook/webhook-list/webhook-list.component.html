@@ -78,8 +78,7 @@
                 <label for="contactEmail">{{'WEBHOOKS.TYPE' | translate}}</label>
               <select id="domain" #typeSelect class="form-control" (change)="onTypeSelect(typeSelect.value)" >
                     <option *ngFor="let t of type" [value]="t.name"
-                        >{{t.name | translate}}
-                    </option>
+                        >{{('WEBHOOKS.' + t.name ) | translate}}</option>
                 </select>       
             </div>
 

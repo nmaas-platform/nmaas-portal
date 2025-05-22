@@ -63,6 +63,11 @@ export class AppInstanceService extends GenericDataService {
         return this.post<AppInstanceRequest, Id>(this.getUrl() + 'domain/' + domainId, new AppInstanceRequest(appId, name, autoUpgradesEnabled));
     }
 
+    public createAppInstanceInCluster(domainId: number, appId: number, name: string, autoUpgradesEnabled: boolean, clusterId: number):  Observable<Id> {
+        const params = new HttpParams().set('clusterId', clusterId.toString());
+        return this.http.post<Id>(this.getUrl() + 'domain/' + domainId, new AppInstanceRequest(appId, name, autoUpgradesEnabled), { params });
+    }
+
     public removeAppInstance(appInstanceId: number): Observable<any> {
         return this.delete<any>(this.getUrl() + appInstanceId);
     }

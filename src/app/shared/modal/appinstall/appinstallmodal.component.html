@@ -26,6 +26,21 @@
 			<div style="padding-top: 15px">
 				<p><strong>{{'INSTALL_MODAL.DOMAIN' | translate}}: </strong>{{domainName}}</p>
 			</div>
+
+			<div class="form-group" style="padding-top: 15px">
+				<label for="showCluster" style="padding-left: 0px" class="col-sm-10 control-label">{{ 'INSTALL_MODAL.REMOTE_CLUSTER' | translate }}:</label>
+				<div class="col-sm-2">
+					<input type="checkbox" id="showCluster" name="showCluster"
+						   [(ngModel)]="showClusterOptions" [checked]="showClusterOptions == true" (onchange)="onClusterOptionChange($event)">
+				</div>
+			</div>
+			<div *ngIf="showClusterOptions" style="padding-top: 15px">
+				<label for="selectCluster" class="control-label">{{'INSTALL_MODAL.SELECT_CLUSTER' | translate}}</label>
+				<select class="form-control" name="selectCluster" id="selectCluster" [(ngModel)]="selectedCluster" required>
+					<option *ngFor="let cluster of domain?.clusters" [value]="cluster.id" >{{cluster.name}}</option>
+				</select>
+			</div>
+
 		</div>
 	</div>
 	<div class="nmaas-modal-footer">
