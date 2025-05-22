@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {DashboardService} from '../../service/dashboard.service';
 import {UserDataService} from '../../service/userdata.service';
+import {AppImagesService, AppsService} from '../../service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -16,24 +18,29 @@ export class AdminDashboardComponent {
   instanceCountInPeriodDetails: any[] = [];
   applicationUpgradeStatus: any[] = [];
   domainId;
+  public appId: number;
+  appNameToIdMap: { [key: string]: number } = {};
+  rangeDates: Date[] = [];
+
+  startDate;
+  endDate;
 
   constructor(protected dashboardService: DashboardService,
-              private userDataService: UserDataService) {
+              private userDataService: UserDataService,
+              public appImagesService: AppImagesService,
+              private route: ActivatedRoute,
+              private appsService: AppsService) {
   }
 
 
   ngOnInit() {
+    this.setDefaultDate()
+    this.getAdmin()
     this.userDataService.selectedDomainId.subscribe((domainId) => {
           this.domainId = domainId
           this.getDomainAdmin()
     });
-    this.dashboardService.getAdmin().subscribe(
-        (response) => {
-          this.adminData = response;
-          this.chartData();
-          this.instanceCountInPeriodDetails = this.adminData.instanceCountInPeriodDetails;
-        }
-    )
+
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
@@ -76,8 +83,11 @@ export class AdminDashboardComponent {
   }
 
   chartData() {
-    const appNames = Object.keys(this.adminData.popularApps);
-    const appValues = Object.values(this.adminData.popularApps);
+    const entries = Object.entries(this.adminData.popularApps);
+    const sortedEntries = entries.sort((a, b) =>  Number(b[1]) -  Number(a[1]));
+    const topEntries = sortedEntries.slice(0, 10);
+    const appNames = topEntries.map(e => e[0]);
+    const appValues = topEntries.map(e => e[1]);
 
     this.popularAppsChartData = {
       labels: appNames,
@@ -95,6 +105,23 @@ export class AdminDashboardComponent {
   formatDate(date: any): string {
     return new Date(date).toLocaleString();
   }
+  getAdmin() {
+    this.appsService.getAllApplicationBase().subscribe(apps => {
+      apps.forEach(app => {
+        this.appNameToIdMap[app.name] = app.id;
+      });
+      this.dashboardService.getAdmin(this.startDate, this.endDate).subscribe(
+          (response) => {
+            this.adminData = response;
+            this.instanceCountInPeriodDetails = this.adminData.instanceCountInPeriodDetails.map(instance => ({
+              ...instance,
+              appId: this.appNameToIdMap[instance.applicationName] || null
+            }));
+            this.chartData();
+          }
+      );
+    });
+  }
   getDomainAdmin() {
     this.dashboardService.getDomainAdmin(this.domainId).subscribe(
         (response) => {
@@ -102,5 +129,21 @@ export class AdminDashboardComponent {
           this.applicationUpgradeStatus  = this.domainAdminData.applicationUpgradeStatus;
         }
     )
+  }
+  onDateChange(dates: Date[] | null) {
+    if (!dates || dates.length < 2 || !dates[0] || !dates[1]) {
+      this.setDefaultDate();
+    } else {
+      this.startDate = dates[0].toISOString();
+      this.endDate = dates[1].toISOString();
+    }
+    this.getAdmin()
+  }
+  setDefaultDate() {
+    const end = new Date();
+    const start = new Date();
+    start.setDate(start.getDate() - 7);
+    this.startDate = start.toISOString();
+    this.endDate = end.toISOString();
   }
 }
