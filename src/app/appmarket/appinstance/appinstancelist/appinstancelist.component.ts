@@ -23,7 +23,7 @@ export enum AppInstanceListSelection {
 export class AppInstanceListComponent implements OnInit {
 
     public undeployedVisible = false;
-    public showAll = false;
+    public showMy = false;
 
     private readonly item_number_key: string = 'item_number_per_page';
     private readonly list_selection_key: string = 'list_selection';
@@ -85,7 +85,7 @@ export class AppInstanceListComponent implements OnInit {
         const ls = AppInstanceListSelection[sessionStorage.getItem(this.list_selection_key)];
         if (ls !== undefined) {
             this.listSelection = ls;
-            this.showAll = ls === AppInstanceListSelection.ALL;
+            this.showMy = ls === AppInstanceListSelection.MY;
         }
         console.log(this.listSelection);
         this.userDataService.selectedDomainId.subscribe(domainId => {
@@ -124,9 +124,9 @@ export class AppInstanceListComponent implements OnInit {
     }
 
     public onSelectionChange() {
-        this.listSelection = this.showAll
-            ? AppInstanceListSelection.ALL
-            : AppInstanceListSelection.MY;
+        this.listSelection = this.showMy
+            ? AppInstanceListSelection.MY
+            : AppInstanceListSelection.ALL;
 
         sessionStorage.setItem(this.list_selection_key, AppInstanceListSelection[this.listSelection]);
         this.update(this.domainId);
