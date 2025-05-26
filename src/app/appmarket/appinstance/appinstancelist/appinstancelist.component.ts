@@ -86,6 +86,9 @@ export class AppInstanceListComponent implements OnInit {
         if (ls !== undefined) {
             this.listSelection = ls;
             this.showMy = ls === AppInstanceListSelection.MY;
+        } else {
+            this.listSelection = AppInstanceListSelection.ALL;
+            sessionStorage.setItem(this.list_selection_key, AppInstanceListSelection[this.listSelection]);
         }
         console.log(this.listSelection);
         this.userDataService.selectedDomainId.subscribe(domainId => {
