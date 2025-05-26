@@ -14,11 +14,13 @@ export class WebhookListComponent implements OnInit {
 
   public addedWebhook: Webhook = new Webhook();
   public maxItemsOnPage = 15;
+  public searchValue = '';
+  filteredWebhooks: Webhook[] = [];
 
   public authRequired: boolean = false;
 
-  public type =[
-    { name: "DOMAIN_CREATION", value: "DOMAIN_CREATION" },  
+  public type = [
+    { name: "DOMAIN_CREATION", value: "DOMAIN_CREATION" },
     { name: "APPLICATION_DEPLOYMENT", value: "APPLICATION_DEPLOYMENT" },
     { name: "USER_ASSIGNMENT", value: "USER_ASSIGNMENT" },
     { name: "DOMAIN_GROUP_CHANGE", value: "DOMAIN_GROUP_CHANGE" }
@@ -29,7 +31,7 @@ export class WebhookListComponent implements OnInit {
 
 
   constructor(private service: WebhookService) {
-    }  
+    }
 
   ngOnInit() {
    this.refreshList();
@@ -38,6 +40,7 @@ export class WebhookListComponent implements OnInit {
   public refreshList() {
     this.service.getAll().subscribe(result => {
       this.webkooks = result;
+      this.filterWebhooks()
     })
   }
 
@@ -56,7 +59,13 @@ export class WebhookListComponent implements OnInit {
        this.modal.hide();
        this.refreshList();
     });
-   
   }
 
+  filterWebhooks() {
+    const value = this.searchValue?.toLowerCase() || '';
+    this.filteredWebhooks = this.webkooks.filter(webhook =>
+        webhook.name?.toLowerCase().includes(value) ||
+        webhook.id?.toString().includes(value)
+    );
+  }
 }

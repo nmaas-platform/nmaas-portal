@@ -73,6 +73,7 @@ import {ChartModule} from 'primeng/chart';
 import { RolesExcludedDirective } from '../directive/roles-exluded.directive';
 import { FileUploadModule } from 'primeng/fileupload';
 import { RecaptchaVisibilityService } from '../service/recaptcha-visibility.service';
+import {CalendarModule} from 'primeng/calendar';
 
 
 
@@ -102,7 +103,8 @@ import { RecaptchaVisibilityService } from '../service/recaptcha-visibility.serv
         ButtonModule,
         ChartModule,
         FileUploadModule,
-        TableModule
+        TableModule,
+        CalendarModule
     ],
     declarations: [
         RateComponent,

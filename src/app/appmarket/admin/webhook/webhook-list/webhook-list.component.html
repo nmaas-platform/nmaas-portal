@@ -1,19 +1,24 @@
+<h4 class="header">{{ 'WEBHOOKS.TITLE' | translate }}</h4>
 <div style="display: flex; align-items: center;  margin-top:20px">
-    <div style="margin-right:20px">
-        <div >
+    <div style=" display:flex; align-items: center;">
+        <div style="margin-right:20px">
             <button class="btn btn-primary" (click)="openModal()">{{'WEBHOOKS.NEW' | translate}}</button>
         </div>
+        <span class="p-input-icon-right">
+            <i class="pi pi-search" style="font-size: 13px; top: 16px; margin-right: 5px;"></i>
+             <input pInputText class="form-control" name="search" id="search"
+                    placeholder="Search" type="text" [(ngModel)]="searchValue"  (ngModelChange)="filterWebhooks()">
+        </span>
     </div>
     <div class="flex" style="margin-right:20px">
         
     </div>
 </div>
 
-    <h4 class="header">{{ 'WEBHOOKS.TITLE' | translate }}</h4>
     
 <div class="background-section">
     <p-table
-    [value]="webkooks"
+    [value]="filteredWebhooks"
     [paginator]="true"
     [rows]="maxItemsOnPage"
     [rowsPerPageOptions]="[15, 20, 25, 30, 50]"

@@ -3,20 +3,35 @@
         <div style="display: flex; flex-wrap: wrap;">
             <div class="background-section" style="flex: 1 1 30%; margin-right: 20px">
                 <h5 style="font-weight: bold">Current number of user </h5>
-                <h1 style="font-weight: bold">{{ adminData.userCount}}</h1>
+                <h1 style="font-weight: bold">{{ adminData?.userCount}}</h1>
             </div>
             <div class="background-section" style="flex: 1 1 30%; margin-right: 20px">
                 <h5 style="font-weight: bold">Current number of domains </h5>
-                <h1 style="font-weight: bold">{{ adminData.domainsCount}}</h1>
+                <h1 style="font-weight: bold">{{ adminData?.domainsCount}}</h1>
             </div>
             <div class="background-section" style="flex: 1 1 30% ;">
                 <h5 style="font-weight: bold">Current number of deployed applications </h5>
-                <h1 style="font-weight: bold">{{ adminData.instanceCount}}</h1>
+                <h1 style="font-weight: bold">{{ adminData?.instanceCount}}</h1>
             </div>
         </div>
         <div class="grid" style="display: flex; justify-content: space-between;">
             <div class="background-section width-50 " style="margin-right: 20px">
-                <h5 style="font-weight: bold">Application deployments in the last week</h5>
+                <div style="    display: flex; justify-content: space-between;">
+                    <h5 style="font-weight: bold">Application deployments <ng-container *ngIf="rangeDates && rangeDates[0] && rangeDates[1]; else lastWeek">
+                        from {{ rangeDates[0] | date:'dd.MM.yyyy' }} to {{ rangeDates[1] | date:'dd.MM.yyyy' }}
+                    </ng-container>
+                        <ng-template #lastWeek>in the last week</ng-template></h5>
+                    <p-calendar
+                            [(ngModel)]="rangeDates"
+                            selectionMode="range"
+                            [readonlyInput]="true"
+                            (ngModelChange)="onDateChange($event)"
+                            placeholder="Select date range"
+                            showClear="true"
+                            dateFormat="dd.mm.yy"
+                    />
+                </div>
+
                 <p-table [value]="instanceCountInPeriodDetails"   [scrollable]="true" [style]="{'width': '100%', 'max-height': '50vh'}">
                     <ng-template pTemplate="header">
                         <tr>
@@ -28,7 +43,7 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-instance>
                         <tr>
-                            <td><img style="height: 40px" src="../../../assets/images/app-logo-example.png"/></td>
+                            <td><img style="height: 40px" [src]="(appImagesService.getAppLogoUrl(instance.appId) | secure) || '../../../assets/images/app-logo-example.png'"/></td>
                             <td>{{instance.applicationName}}</td>
                             <td>{{instance.applicationVersion}}</td>
                             <td>{{instance.domainName}}</td>
@@ -98,7 +113,7 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-app>
                     <tr>
-                        <td><img style="height: 40px" src="../../../assets/images/app-logo-example.png"/></td>
+                        <td><img style="height: 40px" [src]="(appImagesService.getAppLogoUrl(app.appId) | secure) || '../../../assets/images/app-logo-example.png'"/></td>
                         <td>{{app.appName}}</td>
                         <td>{{app.appId}}</td>
                         <td>{{app.instanceName}}</td>
