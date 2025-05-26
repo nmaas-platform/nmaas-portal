@@ -39,21 +39,17 @@
                     <h4 style="font-size:15px; font-weight: bold">
                         {{ 'DOMAINS.GROUP.ACCESS_USER' | translate }}
                     </h4>
-                    <div *roles="['ROLE_SYSTEM_ADMIN']" style="display: flex; justify-content: end">
-                        <button  type="button" class="btn btn-text" (click)="showModalUser()">{{'DOMAINS.GROUP.ADD_USERS' | translate}}</button>
-                    </div>
-                    <div *roles="['ROLE_VL_MANAGER']" style="display: flex; justify-content: end">
-                        <button  type="button" class="btn btn-warning" (click)="removeMyAccess()">{{'DOMAINS.GROUP.DELETE_MYSELF' | translate}}</button>
+                    <div style="display: flex; gap:10px;">
+                        <div *roles="['ROLE_SYSTEM_ADMIN']" style="display: flex; justify-content: end">
+                            <button  type="button" class="btn btn-text" (click)="showModalUser()">{{'DOMAINS.GROUP.ADD_USERS' | translate}}</button>
+                        </div>
+                        <div *roles="['ROLE_VL_MANAGER']" style="display: flex; justify-content: end;">
+                            <button  type="button" class="btn btn-danger" (click)="removeMyAccess()">{{'DOMAINS.GROUP.DELETE_MYSELF' | translate}}</button>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="panel-body">
-                <div *roles="['ROLE_SYSTEM_ADMIN']" style="display: flex; justify-content: end">
-                    <button  type="button" class="btn btn-secondary" (click)="showModalUser()">{{'DOMAINS.GROUP.ADD_USERS' | translate}}</button>
-                </div>
-                <div *roles="['ROLE_GROUP_MANAGER']" style="display: flex; justify-content: end">
-                    <button  type="button" class="btn btn-warning" (click)="removeMyAccess()">{{'DOMAINS.GROUP.DELETE_MYSELF' | translate}}</button>
-                </div>
                 <table class="table table-hover table-condensed" aria-describedby="Domains in Group table" style="margin-top: 2rem">
                     <thead>
                     <tr>
@@ -65,9 +61,12 @@
                         <tr class="table-row">
                             <td style="width: 40%" >{{user.username}}</td>
                             <td style="width: 40%" >{{user.firstname}} {{user.lastname}}</td>
-                            <td class="flex justify-content-end">
-                                <div class="flex">
-                                    <button *roles="['ROLE_SYSTEM_ADMIN']" type="button" class="btn btn-danger" (click)="deleteUserAccess(user)">{{'DOMAINS.GROUP.DELETE_USER' | translate}}</button>
+                            <td style="text-align:end">
+                                <div class="">
+                                    <button *roles="['ROLE_SYSTEM_ADMIN']" type="button" class="btn btn-danger-text" (click)="deleteUserAccess(user)">
+                                        <i class="pi pi-trash" style="font-size: 15px;"></i>
+<!--                                        {{'DOMAINS.GROUP.DELETE_USER' | translate}}-->
+                                    </button>
                                 </div>
 
                             </td>
@@ -80,18 +79,18 @@
         </div>
 
 
-        <div *ngIf="!this.addingMode" class="panel panel-default" style="margin-top: 3rem">
+        <div *ngIf="!this.addingMode" class="background-section " style="margin-top: 3rem">
             <div class="panel-heading">
-                <div style="display: flex; justify-content: space-between; align-items: center">
-                    <div>
+                <div style="display: flex; justify-content: space-between; align-items: center" >
+                    <h4 style="font-size:15px; font-weight: bold">
                         {{ 'DOMAINS.LIST.LIST' | translate }}
-                    </div>
+                    </h4>
                     <button class="btn pull-right toggle-button" data-toggle="collapse" [attr.data-target]="'#domains-list'" type="button" aria-expanded="false"> </button>
                 </div>
             </div>
             <div class="panel-body collapse" id="domains-list">
                 <div style="display: flex; justify-content: end">
-                    <button type="button" class="btn btn-secondary" (click)="showModal()">{{'DOMAINS.LIST.ADD' | translate}}</button>
+                    <button type="button" class="btn btn-text" (click)="showModal()">{{'DOMAINS.LIST.ADD' | translate}}</button>
                 </div>
                 <table class="table table-hover table-condensed" aria-describedby="Domains in Group table" style="margin-top: 2rem">
                     <thead>
@@ -104,8 +103,11 @@
                         <tr class="table-row">
                             <td style="width: 40%" >{{domain.name}}</td>
                             <td style="width: 40%" >{{domain.codename}}</td>
-                            <td class="flex justify-content-end">
-                                <button type="button" class="btn btn-danger" (click)="deleteDomainFromGroup(domain)">{{'DOMAINS.LIST.DELETE' | translate}}</button>
+                            <td style="text-align: end">
+                                <button type="button" class="btn btn-danger-text" (click)="deleteDomainFromGroup(domain)">
+                                    <i class="pi pi-trash" style="font-size: 15px;"></i>
+<!--                                    {{'DOMAINS.LIST.DELETE' | translate}}-->
+                                </button>
                             </td>
                         </tr>
                     </ng-template>
@@ -114,20 +116,20 @@
             </div>
         </div>
 
-        <div *ngIf="!this.addingMode" class="panel panel-default" style="margin-top: 3rem">
+        <div *ngIf="!this.addingMode" class="background-section" style="margin-top: 3rem">
             <div class="panel-heading">
 
                 <div style="display: flex; justify-content: space-between; align-items: center">
-                    <div>
+                    <h4 style="font-size:15px; font-weight: bold">
                         {{ 'DOMAIN_DETAILS.APP_STATUS' | translate }}
-                    </div>
+                    </h4>
                     <button class="btn pull-right toggle-button" data-toggle="collapse" [attr.data-target]="'#app-status'" type="button" aria-expanded="false"> </button>
 
                 </div>
             </div>
             <div class="panel-body collapse" id="app-status" >
                 <div style="display: flex; justify-content: end; margin-bottom: 2rem">
-                    <button  class="btn btn-secondary"  type="button" (click)="toggleAll()">{{'SHARED.TOGGLE' | translate}}</button>
+                    <button  class="btn btn-text"  type="button" (click)="toggleAll()">{{'SHARED.TOGGLE' | translate}}</button>
                 </div>
                 <table class="table table-hover table-condensed" aria-describedby="Domain details table">
                     <thead>

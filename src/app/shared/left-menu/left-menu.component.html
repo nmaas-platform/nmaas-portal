@@ -151,7 +151,7 @@
                     </span>
                 </a>
             </li>
-            <li *roles="['ROLE_SYSTEM_ADMIN']" (click)="showNotificationModal()" [ngClass]="{'collapsed': isCollapsed}">
+            <li *roles="['ROLE_SYSTEM_ADMIN']" (click)="showNotificationModal()" [ngClass]="{'collapsed': isCollapsed}" style="cursor:pointer">
                 <i class="pi pi-send" style="margin-right:10px; font-size: 18px" title="{{ 'NAVBAR.ALL_USERS' | translate }}"></i>
                 <span *ngIf="!isCollapsed">{{ 'NAVBAR.ALL_USERS' | translate }}</span>
             </li>
