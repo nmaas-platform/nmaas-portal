@@ -270,50 +270,58 @@
 
 
 			<!-- CLUSTER CONFIGURATION READ ONLY PRESENTATION  -->
-		<div class="background-section" *ngIf="isInMode(ComponentMode.VIEW) && !authService.hasRole('ROLE_OPERATOR')">
+		 <div class="background-section" *ngIf="isInMode(ComponentMode.VIEW) && !authService.hasRole('ROLE_OPERATOR')">
 			<h4 style="font-size:15px; font-weight: bold">{{ 'CLUSTERS.CONFIGURATION' | translate  }}</h4>
 			<div class="panel-body" *ngIf="domain.clusters.length === 0" >
 				<p>None</p>
 			</div>
 
 			<div class="form-group panel-body" *ngIf="domain.clusters.length >0">
-				<label for="clusterId" class="col-sm-2 control-label">{{ 'CLUSTERS.ID' | translate }}</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" [disabled]="true" id="clusterId "
-						   name="clusterId " [(ngModel)]="cluster.id">
+					<p-table
+    [value]="domain.clusters"
+    [paginator]="true"
+    [rows]="10"
+    [responsiveLayout]="'scroll'">
+        <ng-template pTemplate="header">
+            <tr>
+                <th  pSortableColumn="id" id="id"> {{ 'CLUSTERS.ID' | translate }}
+                    <p-sortIcon field="id"></p-sortIcon>
+                </th>
+                <th pSortableColumn="name" id="name"> {{ 'CLUSTERS.NAME' | translate }}
+                    <p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="codename" id="codename"> {{ 'CLUSTERS.CODENAME' | translate }}
+                    <p-sortIcon field="codename"></p-sortIcon>
+                </th>
+                <th pSortableColumn="state" id="state"> {{ 'CLUSTERS.STATE' | translate }}
+                    <p-sortIcon field="state"></p-sortIcon>
+                </th>
+                <th pSortableColumn="creationDate" id="creationDate"> {{ 'CLUSTERS.CREATION_DATE' | translate }}
+                    <p-sortIcon field="creationDate"></p-sortIcon>
+                </th>
+                <th pSortableColumn="modificationDate" id="modificationDate"> {{ 'CLUSTERS.MODIFICATION_DATE' | translate }}
+                    <p-sortIcon field="modificationDate"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-cluster>
+            <tr>
+                <td [routerLink]="['/admin/manage/clusters/',cluster.id]">{{cluster.id}}</td>
+                <td [routerLink]="['/admin/manage/clusters/',cluster.id]">{{cluster.name}}</td>
+                <td [routerLink]="['/admin/manage/clusters/',cluster.id]">{{cluster.codename}}</td>
+                <td [routerLink]="['/admin/manage/clusters/',cluster.id]">{{('CLUSTERS.'+cluster.state.toString().toUpperCase() ) | translate}}</td>
+                <td [routerLink]="['/admin/manage/clusters/',cluster.id]">{{cluster.creationDate | date: 'dd-MM-yyyy HH:mm'}}</td>
+                <td [routerLink]="['/admin/manage/clusters/',cluster.id]">{{cluster.modificationDate | date: 'dd-MM-yyyy HH:mm'}}</td>
+                
+            </tr>
+        </ng-template>
+    </p-table>
+
+
 				</div>
-			</div>
-
-			<div class="form-group panel-body" *ngIf="domain.clusters.length >0">
-				<label for="clusterName" class="col-sm-2 control-label">{{ 'CLUSTERS.NAME' | translate }}</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" [disabled]="true" id="clusterName "
-						   name="clusterName " [(ngModel)]="cluster.name">
 				</div>
-			</div>
 
-			<div class="form-group panel-body" *ngIf="domain.clusters.length >0">
-				<label for="clusterCodeName" class="col-sm-2 control-label">{{ 'CLUSTERS.CODENAME' | translate }}</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" [disabled]="true" id="clusterCodeName "
-						   name="clusterCodeName " [(ngModel)]="cluster.codename">
-				</div>
-			</div>
-
-			<div class="form-group panel-body" *ngIf="domain.clusters.length >0">
-				<label for="clusterDescription" class="col-sm-2 control-label">{{ 'CLUSTERS.DESCRIPTION' | translate }}</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" [disabled]="true" id="clusterDescription "
-						   name="clusterDescription " [(ngModel)]="cluster.description">
-				</div>
-			</div>
-
-
-
-
-
-		</div>
-
+		 
 		<div class="flex justify-content-end">
 			<button *ngIf="!isInMode(ComponentMode.VIEW)" type="submit" class="btn btn-primary" [disabled]="!domainForm.form.valid">{{ 'DOMAIN_DETAILS.SUBMIT_BUTTON' | translate }}</button>
 		</div>

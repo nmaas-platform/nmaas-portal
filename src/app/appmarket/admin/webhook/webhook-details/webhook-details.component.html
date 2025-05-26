@@ -42,27 +42,33 @@
                     <div class="col-sm-10">
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="clusterDescription" name="clusterDescription"
-                                   placeholder="{{webhook.eventType | translate}}" [disabled]="true">
+                                   placeholder="{{'WEBHOOKS.' +webhook.eventType | translate}}" [disabled]="true">
                         </div>
                     </div>
                 </div>
-
                 <div class="form-group">
+                    <label for="assignDomain" class="col-sm-2 control-label">Auth required</label>
+                     <div class="col-sm-10">
+                    <input class="ml-5 mt-2" type="checkbox" [(ngModel)]="authRequired" [ngModelOptions]="{standalone: true}"  id="authRequired"/>
+                     </div>
+                </div>
+
+                <div *ngIf="authRequired" class="form-group">
                     <label for="token" class="col-sm-2 control-label">{{ 'WEBHOOKS.TOKEN' | translate }}</label>
                     <div class="col-sm-10">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="token" name="token"
+                            <input type="text" class="form-control" id="token" name="token" [ngModelOptions]="{standalone: true}"
                                    [(ngModel)]="webhook.tokenValue" [disabled]="false">
                         </div>
                     </div>
                 </div>
 
 
-                <div class="form-group">
+                <div *ngIf="authRequired" class="form-group">
                     <label for="auth" class="col-sm-2 control-label">{{ 'WEBHOOKS.AUTH' | translate }}</label>
                     <div class="col-sm-10">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="auth" name="auth"
+                            <input type="text" class="form-control" id="auth" name="auth" [ngModelOptions]="{standalone: true}"
                                    [(ngModel)]="webhook.authorizationHeader" [disabled]="false">
                         </div>
                     </div>

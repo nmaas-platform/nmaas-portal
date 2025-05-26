@@ -72,8 +72,19 @@ public openModal() {
   this.modal.show();
 }
 
+public deleteCluster(cluster: ClusterManager) {
+  this.clusterService.deleteCluster(cluster.id).subscribe(() => { 
+    console.log('Cluster deleted successfully');
+    this.getAllClusters();
+  }, error => {
+    console.error('Error deleting cluster:', error);   
+  }
+  );
+}
+
 public onDomainChange(event: any) {
-console.log(event);
+  console.log(event);
+  this.addedCluster.domainNames = [this.domains[0].name];
 }
 
     filterClusters() {
