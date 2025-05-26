@@ -13,6 +13,7 @@ export class WebhookDetailsComponent extends BaseComponent implements OnInit {
 
   public webhooksId: number;
   public webhook: Webhook;
+  public authRequired: boolean = false;
 
   constructor(private service: WebhookService,
       public router: Router,
@@ -28,6 +29,9 @@ export class WebhookDetailsComponent extends BaseComponent implements OnInit {
         this.service.getOne(this.webhooksId).subscribe(result => {
           console.log(result);
           this.webhook = result;
+          if(this.webhook.tokenValue !== null ) {
+            this.authRequired = true;
+          }
         } )
     })
       }

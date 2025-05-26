@@ -36,4 +36,8 @@ export class ClusterManagerService {
         return this.http.put<ClusterManager>(`${this.url}/${cluster.id}`, cluster);
     }
 
+     public deleteCluster(id: number): Observable<void> {
+        return this.http.delete<void>(this.url + '/' + id);
+    }
+
 }
