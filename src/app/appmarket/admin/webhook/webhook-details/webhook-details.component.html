@@ -79,6 +79,9 @@
                         type="submit">{{ 'PORTAL_CONFIGURATION.SUBMIT_BUTTON' | translate }}</button>
             </div>
                
+            <div>
+                <div *ngIf="errorMessage" class="alert alert-danger mt-2">{{ errorMessage }}</div>
+            </div>
 
             </div>
         </form>
