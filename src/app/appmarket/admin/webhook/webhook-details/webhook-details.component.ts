@@ -15,6 +15,8 @@ export class WebhookDetailsComponent extends BaseComponent implements OnInit {
   public webhook: Webhook;
   public authRequired: boolean = false;
 
+  public errorMessage: string = "";
+
   constructor(private service: WebhookService,
       public router: Router,
       private route: ActivatedRoute) {
@@ -42,6 +44,9 @@ export class WebhookDetailsComponent extends BaseComponent implements OnInit {
         this.service.update(this.webhook).subscribe(result => {
             console.log(result);
             this.webhook = result;
+        }, error => {
+            console.error(error);
+            this.errorMessage = "Error updating webhook: " + error.message;
         });
     }
 }

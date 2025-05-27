@@ -47,6 +47,10 @@ export class ClusterManagerComponent {
   }
 
   public closeModalAndSaveCluster() {
+    if(this.addedCluster.domainNames !== undefined && this.addedCluster.domainNames !== null) {
+      this.addedCluster.domainNames = [null];
+    }
+    console.log(this.addedCluster);
        this.clusterService.sendCluster(this.updatedFile, this.addedCluster).subscribe(result => {
             console.log(result);
             this.getAllClusters();

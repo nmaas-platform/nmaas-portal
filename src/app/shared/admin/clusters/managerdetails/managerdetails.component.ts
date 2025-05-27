@@ -17,6 +17,7 @@ export class ClusterManagerDetailsComponent extends BaseComponent implements OnI
   public cluster: ClusterManager ;
   public cluterId;
   public error = "";
+  public selectedDomain: string = ""
 
   public domains = [];
 
@@ -50,6 +51,9 @@ export class ClusterManagerDetailsComponent extends BaseComponent implements OnI
         this.clusterService.getClusterDetails(this.cluterId).subscribe(result => {
           console.log(result);
           this.cluster = result;
+          if(this.cluster.domainNames !== undefined && this.cluster.domainNames !== null && this.cluster.domainNames.length > 0) {
+            this.selectedDomain = this.cluster.domainNames[0];
+          }
         } )
     })
   }
