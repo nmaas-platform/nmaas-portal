@@ -161,6 +161,14 @@
 .btn-danger{
     background: var(--danger-button-color);
 }
+.btn-danger-text{
+    color: var(--danger-text-button-color);
+    background: transparent;
+}
+.btn-danger-text:hover{
+    color: var(--danger-button-hover);
+    background: var(--danger-text-button-background-hover);
+}
 .btn-text{
     color: var(--primary-text-button-color);
     background: transparent;
@@ -245,4 +253,7 @@ body .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon{
 .grecaptcha-badge { 
     visibility: hidden; 
     bottom: 45px !important;
+}
+body .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+    vertical-align: middle;
 }

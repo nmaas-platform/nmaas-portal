@@ -68,11 +68,11 @@
                                        [(ngModel)]="configuration.appInstanceFailureEmailList[i]"/>
                             </div>
 
-                            <button role="button" type="button" class="btn btn-danger" (click)="removeEmailEntry(email)">
-                                Remove
+                            <button role="button" type="button" class="btn btn-danger-text" (click)="removeEmailEntry(email)">
+                                <i class="pi pi-trash" style="font-size: 15px;"></i>
                             </button>
                         </div>
-                        <div class="pd-left-15">
+                        <div class="">
                             <button role="button" type="button" class="btn btn-secondary" (click)="addEmailEntry()">Add
                             </button>
                         </div>
