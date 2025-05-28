@@ -49,7 +49,7 @@
                 <div class="form-group">
                     <label for="assignDomain" class="col-sm-2 control-label">Auth required</label>
                      <div class="col-sm-10">
-                    <input class="ml-5 mt-2" type="checkbox" [(ngModel)]="authRequired" [ngModelOptions]="{standalone: true}"  id="authRequired"/>
+                    <input class="ml-5 mt-2" type="checkbox" [(ngModel)]="authRequired" [ngModelOptions]="{standalone: true}"  id="authRequired" (change)="onCheckboxChange()" />
                      </div>
                 </div>
 
@@ -58,7 +58,7 @@
                     <div class="col-sm-10">
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="token" name="token" [ngModelOptions]="{standalone: true}"
-                                   [(ngModel)]="webhook.tokenValue" [disabled]="false">
+                                   [(ngModel)]="webhook.tokenValue" [disabled]="false" >
                         </div>
                     </div>
                 </div>
