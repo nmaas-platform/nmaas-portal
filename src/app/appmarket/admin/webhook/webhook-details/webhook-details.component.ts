@@ -15,6 +15,9 @@ export class WebhookDetailsComponent extends BaseComponent implements OnInit {
   public webhook: Webhook;
   public authRequired: boolean = false;
 
+  public token : string = "";
+  public authorizationHeader: string = "";
+
   public errorMessage: string = "";
 
   constructor(private service: WebhookService,
@@ -31,6 +34,10 @@ export class WebhookDetailsComponent extends BaseComponent implements OnInit {
         this.service.getOne(this.webhooksId).subscribe(result => {
           console.log(result);
           this.webhook = result;
+          this.token = this.webhook.tokenValue;
+          this.authorizationHeader = this.webhook.authorizationHeader;
+                    console.log("Doing copy", this.token, this.authorizationHeader)
+
           if(this.webhook.tokenValue !== null ) {
             this.authRequired = true;
           }
@@ -44,9 +51,22 @@ export class WebhookDetailsComponent extends BaseComponent implements OnInit {
         this.service.update(this.webhook).subscribe(result => {
             console.log(result);
             this.webhook = result;
+            this.token =result.tokenValue;
+            this.authorizationHeader = result.authorizationHeader;
         }, error => {
             console.error(error);
             this.errorMessage = "Error updating webhook: " + error.message;
         });
+    }
+
+    public onCheckboxChange() {
+      console.log("Auth", this.authRequired, this.webhook, this.token, this.authorizationHeader)
+      if(!this.authRequired) {
+        this.webhook.tokenValue = null;
+        this.webhook.authorizationHeader = null;
+      } else {
+        this.webhook.tokenValue = this.token;
+        this.webhook.authorizationHeader = this.authorizationHeader; 
+      }
     }
 }
