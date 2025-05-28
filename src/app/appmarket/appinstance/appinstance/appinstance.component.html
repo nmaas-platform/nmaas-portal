@@ -81,6 +81,16 @@
                             {{'APP_INSTANCE.INSTANCE_ACTIONS' | translate}} <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
+                            <li *ngIf="getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.SCALE_DOWN">
+                                <a role="button" (click)="scaleDown()">
+                                    {{'APP_INSTANCE.SCALE_DOWN' | translate}}
+                                </a>
+                            </li>
+                            <li *ngIf="getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.SCALE_DOWN">
+                                <a role="button" (click)="scaleUp()">
+                                    {{'APP_INSTANCE.SCALE_UP' | translate}}
+                                </a>
+                            </li>
                             <ng-container *ngIf="getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.RUNNING">
                                 <li>
                                     <a role="button" (click)="openAccessMethodsModal()">
