@@ -69,14 +69,14 @@
 
     <div class="background-section">
         <p-table #dt [value]="displayUsers" [paginator]="true" [rows]="maxItemsOnPage"
-                 [rowsPerPageOptions]="[15, 20, 25, 30, 50]" >
+                 [rowsPerPageOptions]="[15, 20, 25, 30, 50]" (sortFunction)="customSort($event)" [customSort]="true">
             <ng-template pTemplate="header">
                 <tr>
-                    <th scope="col" class="column-sortable" pSortableColumn="username">
+                    <th  scope="col" class="column-sortable" pSortableColumn="username">
                         {{ 'USERS.USER_NAME' | translate }}
                         <p-sortIcon field="username"></p-sortIcon>
                     </th>
-                    <th scope="col" class="column-sortable" pSortableColumn="lastname">
+                    <th  scope="col" class="column-sortable" pSortableColumn="lastname">
                         {{'USERS.NAME' | translate}}
                         <p-sortIcon field="lastname"></p-sortIcon>
                     </th>
@@ -84,11 +84,10 @@
                         {{'USERS.EMAIL' | translate}}
                         <p-sortIcon field="email"></p-sortIcon>
                     </th>
-                    <th scope="col" class="column-sortable" pSortableColumn="domains" *ngIf="domainId === domainService.getGlobalDomainId()">
+                    <th scope="col" class="column-sortable"  *ngIf="domainId === domainService.getGlobalDomainId()">
                         {{ 'USERS.DOMAINS' | translate }}
-                        <p-sortIcon field="domains"></p-sortIcon>
                     </th>
-                    <th scope="col" class="column-sortable" pSortableColumn="globalRole" *ngIf="domainId === domainService.getGlobalDomainId()">
+                    <th scope="col" class="column-sortable" pSortableColumn="globalRole" *ngIf="domainId === domainService.getGlobalDomainId() ">
                         {{ 'USERS.GLOBAL_ROLE' | translate }}
                         <p-sortIcon field="globalRole"></p-sortIcon>
                     </th>
@@ -104,7 +103,7 @@
                         {{ 'USERS.LAST_SUCCESSFUL_LOGIN' | translate }}
                         <p-sortIcon field="lastSuccessfulLoginDate"></p-sortIcon>
                     </th>
-                    <th scope="col" class="column-sortable" pSortableColumn="enabled">
+                    <th  scope="col" class="column-sortable" pSortableColumn="enabled">
                         {{ 'USERS.ENABLED' | translate }}
                         <p-sortIcon field="enabled"></p-sortIcon>
                     </th>
