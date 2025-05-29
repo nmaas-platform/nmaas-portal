@@ -153,6 +153,12 @@ export class AppInstanceService extends GenericDataService {
         return this.http.get<Map<string, string>>(this.getUrl() + `${appInstanceId}/parameters`);
 
     }
+    public scaleDown(appInstanceId: number): Observable<any> {
+        return this.http.put(this.getUrl() + `${appInstanceId}/scale-down`, null)
+    }
+    public scaleUp(appInstanceId: number): Observable<any> {
+        return this.http.put(this.getUrl() + `${appInstanceId}/scale-up`, null)
+    }
 }
 
 export class CustomerSearchCriteria {
