@@ -69,4 +69,13 @@ export class WebhookDetailsComponent extends BaseComponent implements OnInit {
         this.webhook.authorizationHeader = this.authorizationHeader; 
       }
     }
+
+    public isFormValid(): boolean {
+      if(this.authRequired) {
+        return this.webhook.tokenValue !== null && this.webhook.tokenValue !== "" &&
+               this.webhook.authorizationHeader !== null && this.webhook.authorizationHeader !== "";
+      } else {
+        return true;
+      } 
+    }
 }
