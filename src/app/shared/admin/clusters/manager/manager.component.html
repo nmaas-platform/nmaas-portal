@@ -23,9 +23,6 @@
     [responsiveLayout]="'scroll'">
         <ng-template pTemplate="header">
             <tr>
-                <th  pSortableColumn="id" id="id"> {{ 'CLUSTERS.ID' | translate }}
-                    <p-sortIcon field="id"></p-sortIcon>
-                </th>
                 <th pSortableColumn="name" id="name"> {{ 'CLUSTERS.NAME' | translate }}
                     <p-sortIcon field="name"></p-sortIcon>
                 </th>
@@ -35,23 +32,14 @@
                 <th pSortableColumn="state" id="state"> {{ 'CLUSTERS.STATE' | translate }}
                     <p-sortIcon field="state"></p-sortIcon>
                 </th>
-                <th pSortableColumn="creationDate" id="creationDate"> {{ 'CLUSTERS.CREATION_DATE' | translate }}
-                    <p-sortIcon field="creationDate"></p-sortIcon>
-                </th>
-                <th pSortableColumn="modificationDate" id="modificationDate"> {{ 'CLUSTERS.MODIFICATION_DATE' | translate }}
-                    <p-sortIcon field="modificationDate"></p-sortIcon>
-                </th>
                 <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-cluster>
             <tr>
-                <td  [routerLink]="[cluster.id]">{{cluster.id}}</td>
                 <td [routerLink]="[cluster.id]">{{cluster.name}}</td>
                 <td [routerLink]="[cluster.id]">{{cluster.codename}}</td>
                 <td [routerLink]="[cluster.id]">{{('CLUSTERS.'+cluster.state.toString().toUpperCase() ) | translate}}</td>
-                <td [routerLink]="[cluster.id]">{{cluster.creationDate | date: 'dd-MM-yyyy HH:mm'}}</td>
-                <td [routerLink]="[cluster.id]">{{cluster.modificationDate | date: 'dd-MM-yyyy HH:mm'}}</td>
                 <td class="text-right">
                     <span class="dropdown">
                             <a style="display: inline-block" class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">

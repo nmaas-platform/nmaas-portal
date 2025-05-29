@@ -26,7 +26,7 @@
                             selectionMode="range"
                             [readonlyInput]="true"
                             (ngModelChange)="onDateChange($event)"
-                            placeholder="Select date range"
+
                             showClear="true"
                             dateFormat="dd.mm.yy"
                     />
@@ -42,8 +42,9 @@
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-instance>
-                        <tr>
-                            <td><img style="height: 40px" [src]="(appImagesService.getAppLogoUrl(instance.appId) | secure) || '../../../assets/images/app-logo-example.png'"/></td>
+                        <tr [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain()}"
+                            [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : [instance.id]">
+                            <td><img style="width: 40px" [src]="(appImagesService.getAppLogoUrl(instance.appId) | secure) || '../../../assets/images/app-logo-example.png'"/></td>
                             <td>{{instance.applicationName}}</td>
                             <td>{{instance.applicationVersion}}</td>
                             <td>{{instance.domainName}}</td>
@@ -113,7 +114,7 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-app>
                     <tr>
-                        <td><img style="height: 40px" [src]="(appImagesService.getAppLogoUrl(app.appId) | secure) || '../../../assets/images/app-logo-example.png'"/></td>
+                        <td><img style="width: 40px" [src]="(appImagesService.getAppLogoUrl(app.appId) | secure) || '../../../assets/images/app-logo-example.png'"/></td>
                         <td>{{app.appName}}</td>
                         <td>{{app.appId}}</td>
                         <td>{{app.instanceName}}</td>
