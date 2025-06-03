@@ -36,7 +36,7 @@ export class AdminDashboardComponent {
 
 
   ngOnInit() {
-    this.setDefaultDate()
+    this.setDefaultDate();
     this.getAdmin()
     this.userDataService.selectedDomainId.subscribe((domainId) => {
           this.domainId = domainId
@@ -133,9 +133,10 @@ export class AdminDashboardComponent {
     )
   }
   onDateChange(dates: Date[] | null) {
-    if (!dates || dates.length < 2 || !dates[0] || !dates[1]) {
+    if (!dates || dates.length === 0 ) {
       this.setDefaultDate();
     } else {
+      this.rangeDates = dates;
       this.startDate = dates[0].toISOString();
       this.endDate = dates[1].toISOString();
     }
@@ -147,7 +148,7 @@ export class AdminDashboardComponent {
     start.setDate(start.getDate() - 7);
     this.startDate = start.toISOString();
     this.endDate = end.toISOString();
-    this.rangeDates = [new Date(start.setDate(start.getDate() - 7)), end]
+    this.rangeDates = [start, end]
   }
   public userHasGuestRoleInCurrentDomain(): boolean {
     return this.authService.hasDomainRole(this.domainId, 'ROLE_GUEST');
