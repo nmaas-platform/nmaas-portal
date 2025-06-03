@@ -18,7 +18,7 @@
           <ng-template ngFor let-innerKey [ngForOf]="getKeys(languageContent[key])" let-i="index">
             <tr *ngIf="!isObject(languageContent[key][innerKey])">
               <td>{{innerKey}}</td>
-              <td><input [(ngModel)]="languageContent[key][innerKey]" name="input-{{innerKey}}-{{i}}"/></td>
+              <td><input style="width:100%" [(ngModel)]="languageContent[key][innerKey]" name="input-{{innerKey}}-{{i}}"/></td>
             </tr>
             <tr *ngIf="isObject(languageContent[key][innerKey])">
               <td>{{innerKey}}</td>
@@ -92,13 +92,13 @@
   <div class=" background-section" style="padding: 10px">
     <div class="panel-heading">{{'LANGUAGE_MANAGEMENT.LABELS_TRANSLATION' | translate }}</div>
     <div class="panel-body">
-      <textarea style="width:100%;" class="form-control" [rows]="50" [(ngModel)]="language.content" name="content-textarea"></textarea>
+      <textarea style="width:100%; overflow: auto; max-height: 500px;" pInputTextarea [autoResize]="true" class="form-control" [rows]="50" [(ngModel)]="language.content" name="content-textarea"></textarea>
     </div>
   </div>
   <h3>{{'LANGUAGE_MANAGEMENT.MAILS_TRANSLATION' | translate }}</h3>
   <hr>
   <ng-template ngFor let-template [ngForOf]="mailTemplates">
-    <div class="panel panel-default">
+    <div class="background-section">
       <div class="panel-heading">{{template.mailType}}</div>
       <div class="panel-body">
         <label for="raw-subject-textarea">{{'LANGUAGE_MANAGEMENT.SUBJECT_LABEL' | translate}}</label>

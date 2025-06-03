@@ -9,6 +9,7 @@ import {SharedModule} from '../../../shared';
 import {FormsModule} from '@angular/forms';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import {TableModule} from 'primeng/table';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [LanguageListComponent, LanguageDetailsComponent],
@@ -19,7 +20,8 @@ import {TableModule} from 'primeng/table';
         RouterModule,
         SharedModule,
         TranslateModule.forChild(),
-        TableModule
+        TableModule,
+        InputTextareaModule
     ],
   providers: [InternationalizationService]
 })
