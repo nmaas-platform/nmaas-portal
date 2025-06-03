@@ -56,9 +56,17 @@ export class DomainFilterComponent implements OnInit {
 
                 this.updateDomains();
                 this.domains.subscribe(domain => {
-                    this.selectedDomain = domain[0];
-                    this.domainName = domain[0].name;
-                    this.userData.selectDomainId(domain[0].id)
+                    const savedDomainId = sessionStorage.getItem('selectedDomainId');
+                    const savedDomain = domain.find(d => d.id === Number(savedDomainId));
+                    if (savedDomain) {
+                        this.selectedDomain = savedDomain;
+                        this.domainName = savedDomain.name;
+                        this.userData.selectDomainId(savedDomain.id);
+                    } else {
+                        this.selectedDomain = domain[0];
+                        this.domainName = domain[0].name;
+                        this.userData.selectDomainId(domain[0].id)
+                    }
                     this.filteredDomainsSub.next(domain);
                 });
             }
@@ -141,6 +149,9 @@ export class DomainFilterComponent implements OnInit {
         this.domainId = domainId;
         this.domainName = domainName;
         this.userData.selectDomainId(Number(domainId));
+
+        sessionStorage.setItem('selectedDomainId', domainId.toString());
+        sessionStorage.setItem('selectedDomainName', domainName);
     }
 
     public getCurrent() {

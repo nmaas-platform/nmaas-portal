@@ -3,6 +3,7 @@ import {DashboardService} from '../../service/dashboard.service';
 import {UserDataService} from '../../service/userdata.service';
 import {AppImagesService, AppsService} from '../../service';
 import {ActivatedRoute} from '@angular/router';
+import {AuthService} from '../../auth/auth.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -29,7 +30,8 @@ export class AdminDashboardComponent {
               private userDataService: UserDataService,
               public appImagesService: AppImagesService,
               private route: ActivatedRoute,
-              private appsService: AppsService) {
+              private appsService: AppsService,
+              public authService: AuthService) {
   }
 
 
@@ -145,5 +147,9 @@ export class AdminDashboardComponent {
     start.setDate(start.getDate() - 7);
     this.startDate = start.toISOString();
     this.endDate = end.toISOString();
+    this.rangeDates = [new Date(start.setDate(start.getDate() - 7)), end]
+  }
+  public userHasGuestRoleInCurrentDomain(): boolean {
+    return this.authService.hasDomainRole(this.domainId, 'ROLE_GUEST');
   }
 }

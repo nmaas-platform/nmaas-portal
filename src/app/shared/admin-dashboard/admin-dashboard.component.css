@@ -66,4 +66,6 @@ th{
         width:100%
     }
 }
-
+:host ::ng-deep .p-datatable>.p-datatable-wrapper {
+    overflow: auto;
+}

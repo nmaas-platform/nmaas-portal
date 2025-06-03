@@ -6,6 +6,7 @@ import { UserDataService } from '../../service/userdata.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import {AppImagesService, AppsService} from '../../service';
 import {ActivatedRoute} from '@angular/router';
+import {AuthService} from '../../auth/auth.service';
 
 describe('AdminDashboardComponent', () => {
   let component: AdminDashboardComponent;
@@ -19,6 +20,8 @@ describe('AdminDashboardComponent', () => {
   ];
 
   beforeEach(async () => {
+    const authServiceSpy = jasmine.createSpyObj('AuthService', ['hasDomainRole']);
+    authServiceSpy.hasDomainRole.and.returnValue(true)
     mockDashboardService = jasmine.createSpyObj('DashboardService', ['getAdmin', 'getDomainAdmin']);
     mockUserDataService = jasmine.createSpyObj('UserDataService', ['selectedDomainId']);
     const appImagesServiceSpy = jasmine.createSpyObj('AppImagesService', ['getAppLogoUrl']);
@@ -40,7 +43,8 @@ describe('AdminDashboardComponent', () => {
         {provide: AppImagesService, useValue: appImagesServiceSpy},
         { provide: UserDataService, useValue: mockUserDataService },
         {provide: ActivatedRoute, useValue: {params: of({id: 1})}},
-        { provide: AppsService, useValue: appsServiceSpy }
+        { provide: AppsService, useValue: appsServiceSpy },
+        {provide: AuthService, useValue: authServiceSpy}
       ],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA] // Add this to allow unknown properties
     }).compileComponents();
