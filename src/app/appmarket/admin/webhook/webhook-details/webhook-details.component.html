@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="targetUrl" class="col-sm-2 control-label">{{ 'WEBHOOKS.TARGEt_URL' | translate }}</label>
+                    <label for="targetUrl" class="col-sm-2 control-label">{{ 'WEBHOOKS.TARGET_URL' | translate }}</label>
                     <div class="col-sm-10">
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="targetUrl" name="targetUrl"
@@ -42,37 +42,46 @@
                     <div class="col-sm-10">
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="clusterDescription" name="clusterDescription"
-                                   placeholder="{{webhook.eventType | translate}}" [disabled]="true">
+                                   placeholder="{{'WEBHOOKS.' +webhook.eventType | translate}}" [disabled]="true">
                         </div>
                     </div>
                 </div>
-
                 <div class="form-group">
+                    <label for="assignDomain" class="col-sm-2 control-label">Auth required</label>
+                     <div class="col-sm-10">
+                    <input class="ml-5 mt-2" type="checkbox" [(ngModel)]="authRequired" [ngModelOptions]="{standalone: true}"  id="authRequired" (change)="onCheckboxChange()" />
+                     </div>
+                </div>
+
+                <div *ngIf="authRequired" class="form-group">
                     <label for="token" class="col-sm-2 control-label">{{ 'WEBHOOKS.TOKEN' | translate }}</label>
                     <div class="col-sm-10">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="token" name="token"
-                                   [(ngModel)]="webhook.tokenValue" [disabled]="false">
+                            <input type="text" class="form-control" id="token" name="token" [ngModelOptions]="{standalone: true}"
+                                   [(ngModel)]="webhook.tokenValue" [disabled]="false" [required]="authRequired" >
                         </div>
                     </div>
                 </div>
 
 
-                <div class="form-group">
+                <div *ngIf="authRequired" class="form-group">
                     <label for="auth" class="col-sm-2 control-label">{{ 'WEBHOOKS.AUTH' | translate }}</label>
                     <div class="col-sm-10">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="auth" name="auth"
-                                   [(ngModel)]="webhook.authorizationHeader" [disabled]="false">
+                            <input type="text" class="form-control" id="auth" name="auth" [ngModelOptions]="{standalone: true}"
+                                   [(ngModel)]="webhook.authorizationHeader" [disabled]="false" [required]="authRequired">
                         </div>
                     </div>
                 </div>
 
             <div class="flex justify-content-end">
-                <button [disabled]="!webhookForm.form.valid" type="submit" class="btn btn-primary"
+                <button [disabled]="!webhookForm.form.valid || !isFormValid()" type="submit" class="btn btn-primary"
                         type="submit">{{ 'PORTAL_CONFIGURATION.SUBMIT_BUTTON' | translate }}</button>
             </div>
                
+            <div>
+                <div *ngIf="errorMessage" class="alert alert-danger mt-2">{{ errorMessage }}</div>
+            </div>
 
             </div>
         </form>

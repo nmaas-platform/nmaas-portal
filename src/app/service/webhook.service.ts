@@ -35,4 +35,8 @@ export class WebhookService extends GenericDataService {
         return this.put<Webhook, Webhook>(this.url + '/' + webhook.id, webhook);
     }
 
+    public remove(id:number) {
+        return this.delete<void>(this.url + '/' + id);
+    }
+
 }

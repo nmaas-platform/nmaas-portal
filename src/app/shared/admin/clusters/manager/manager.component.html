@@ -49,7 +49,11 @@
                                 <li><a [routerLink]="[ cluster.id]" class="">
                                     {{ 'CLUSTERS.DETAILS' | translate }}</a>
                                 </li>
+                                <li><a (click)="deleteCluster(cluster)" class="">
+                                    {{ 'CLUSTERS.REMOVE' | translate }}</a>
+                                </li>
                             </ul>
+
                     </span>
                 </td>
             </tr>

@@ -37,7 +37,7 @@
                 <th pSortableColumn="type" id="type"> {{ 'WEBHOOKS.TYPE' | translate }}
                     <p-sortIcon field="type"></p-sortIcon>
                 </th>
-<!--                <th></th>-->
+               <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-webhook>
@@ -47,18 +47,19 @@
                 <td [routerLink]="[webhook.id]">{{('WEBHOOKS.' + webhook.eventType.toString().toUpperCase() ) | translate}}</td>
                 <td [routerLink]="[webhook.id]">{{webhook.targetUrl}}</td>
     
-<!--                <td class="text-right">-->
-<!--                    <span class="dropdown">-->
-<!--                            <a style="display: inline-block" class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">-->
-<!--                                <em class="pi pi-cog" style="font-size: 1.8rem; color: var(&#45;&#45;l-text-color)"></em>-->
-<!--                            </a>-->
-<!--                            <ul class="dropdown-menu pull-right-drop" >-->
-<!--                                <li><a [routerLink]="[ webhook.id]" class="">-->
-<!--                                    {{ 'WEBHOOKS.DETAILS' | translate }}</a>-->
-<!--                                </li>-->
-<!--                            </ul>-->
-<!--                    </span>-->
-<!--                </td>-->
+               <td class="text-right">
+                   <span class="dropdown">
+                           <a style="display: inline-block" class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
+                               <em class="pi pi-cog" style="font-size: 1.8rem; color: var(&#45;&#45;l-text-color)"></em>
+                           </a>
+                           <ul class="dropdown-menu pull-right-drop" >
+
+                                <li> <a (click)="removeWebhook(webhook.id)" class="">
+                                   {{ 'WEBHOOKS.REMOVE' | translate }} </a>
+                               </li>
+                           </ul>
+                   </span>
+                </td> 
             </tr>
         </ng-template>
     </p-table>
@@ -83,8 +84,7 @@
                 <label for="contactEmail">{{'WEBHOOKS.TYPE' | translate}}</label>
               <select id="domain" #typeSelect class="form-control" (change)="onTypeSelect(typeSelect.value)" >
                     <option *ngFor="let t of type" [value]="t.name"
-                        >{{t.name | translate}}
-                    </option>
+                        >{{('WEBHOOKS.' + t.name ) | translate}}</option>
                 </select>       
             </div>
 
@@ -109,7 +109,7 @@
     </div>
     <div class="nmaas-modal-footer">
       <button type="button" class="btn btn-primary" [disabled]=" addedWebhook?.name === null "(click)="closeModalAndSaveWebhook()" 
-      pTooltip="Upload file is required before save" showDelay="2000" >{{'CLUSTERS.SAVE' | translate}}</button>
+      pTooltip="Upload file is required before save" showDelay="2000" >{{'WEBHOOKS.SAVE' | translate}}</button>
       <button type="button" class="btn btn-secondary"
                     (click)="this.modal.hide()">{{'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
     

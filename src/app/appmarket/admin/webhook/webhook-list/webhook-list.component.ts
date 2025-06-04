@@ -68,4 +68,12 @@ export class WebhookListComponent implements OnInit {
         webhook.id?.toString().includes(value)
     );
   }
+
+  public removeWebhook(id: number) {
+    this.service.remove(id).subscribe(() => {
+      this.refreshList();
+    }, error => {
+      console.error("Error removing webhook:", error);
+    });
+  }
 }

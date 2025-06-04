@@ -43,7 +43,7 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-instance>
                         <tr [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain()}"
-                            [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : [instance.id]">
+                            [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : ['/instances',instance.instanceId]">
                             <td><img style="width: 40px" [src]="(appImagesService.getAppLogoUrl(instance.appId) | secure) || '../../../assets/images/app-logo-example.png'"/></td>
                             <td>{{instance.applicationName}}</td>
                             <td>{{instance.applicationVersion}}</td>

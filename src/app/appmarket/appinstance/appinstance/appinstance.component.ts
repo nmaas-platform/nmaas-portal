@@ -279,16 +279,18 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         }
         return apps
     }
+
     showHistory() {
         this.updateAppInstanceHistory()
         this.intervalCheckerStateHistory = interval(5000).subscribe(() => {
-           if (this.showAppInstanceHistory) {
-               this.updateAppInstanceHistory()
-           } else {
-               this.intervalCheckerStateHistory.unsubscribe();
-           }
+            if (this.showAppInstanceHistory) {
+                this.updateAppInstanceHistory()
+            } else {
+                this.intervalCheckerStateHistory.unsubscribe();
+            }
         });
     }
+
     private updateAppInstanceHistory() {
         this.appInstanceService.getAppInstanceHistory(this.appInstanceId).subscribe(history => {
             this.appInstanceStateHistory = [...history].reverse();
@@ -607,24 +609,24 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     }
 
     public openVersionUpdateModal() {
-        this.appsService.getApplicationVersions(this.appInstance.application.applicationBase.id).subscribe( versions => {
-            this.appVersions = versions.filter(val => val.state.toString() === 'ACTIVE' && val.version !== this.appInstance.applicationVersion )
+        this.appsService.getApplicationVersions(this.appInstance.application.applicationBase.id).subscribe(versions => {
+            this.appVersions = versions.filter(val => val.state.toString() === 'ACTIVE' && val.version !== this.appInstance.applicationVersion)
             this.appVersions.sort(this.appVersionCompare)
         })
         this.manualUpdateModal.show();
     }
 
     public manualUpdateVersion() {
-            this.appInstanceService.manualUpdateVersion(this.appInstanceId, this.selectedVersion).subscribe( next => {
-                this.manualUpdateModal.hide();
-                this.updateAppInstance()
-            })
+        this.appInstanceService.manualUpdateVersion(this.appInstanceId, this.selectedVersion).subscribe(next => {
+            this.manualUpdateModal.hide();
+            this.updateAppInstance()
+        })
 
     }
 
     public openShowConfigModal() {
-        console.warn("Sumbission", this.submission)
-        this.appInstanceService.getConfiguration(this.appInstanceId).subscribe( config => {
+        console.warn('Sumbission', this.submission)
+        this.appInstanceService.getConfiguration(this.appInstanceId).subscribe(config => {
             this.submission['data']['configuration'] = config;
             this.deployParameters$.subscribe(additionalParams => {
                 this.submission['data']['additionalParameters'] = additionalParams
@@ -632,7 +634,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                     property: 'submission',
                     value: this.submission
                 });
-                console.log("updated", this.submission)
+                console.log('updated', this.submission)
             })
         })
         this.showConfigurationModal.show()
@@ -647,9 +649,35 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         this.appInstanceService.getDeploymentParameters(this.appInstanceId).subscribe(
             deployParams => {
                 this.deployParametersSubject.next(deployParams)
-                this.accessMethodsModal.show()   ;
-    })
-      
+                this.accessMethodsModal.show();
+            })
+
     }
 
+    public scaleDown(): void {
+        this.appInstanceService.scaleDown(this.appInstanceId).subscribe(
+            {
+                next: () => {
+                    console.log('Scaled down');
+                },
+                error: (err) => {
+                    console.error('Failed to scale down', err);
+                }
+            }
+        )
+    }
+
+    public scaleUp(): void {
+        this.appInstanceService.scaleUp(this.appInstanceId).subscribe(
+            {
+                next: () => {
+                    console.log('Scaled up');
+                },
+                error: (err) => {
+                    console.error('Failed to scale up', err);
+                }
+            }
+        )
+
+    }
 }
