@@ -88,7 +88,7 @@
                             </li>
                             <li *ngIf="getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.SCALED_DOWN">
                                 <a role="button" (click)="scaleUp()">
-                                    {{'APP_INSTANCE.SCALED_UP' | translate}}
+                                    {{'APP_INSTANCES.SCALED_UP' | translate}}
                                 </a>
                             </li>
                             <ng-container *ngIf="getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.RUNNING">
