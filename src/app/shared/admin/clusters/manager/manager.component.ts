@@ -13,24 +13,20 @@ export class ClusterManagerComponent {
 
   public clusters: ClusterManager[] = [];
 
-  public addedCluster: ClusterManager = new ClusterManager();
   public updatedFile: File = null;
   public maxItemsOnPage = 15;
   public assignedDomain: boolean = false;
   public searchValue = '';
   filteredClusters: ClusterManager[] = [];
 
-  public domains = [];
 
     @ViewChild(ModalComponent, { static: true })
     public modal: ModalComponent;
 
   constructor(private clusterService: ClusterManagerService,
-              private domainService: DomainService) {
+              ) {
     this.getAllClusters();
-    this.domainService.getAllBase().subscribe(result => {
-      this.domains = result.filter(d => d.id !== this.domainService.getGlobalDomainId());
-    });
+   
   }
 
   public saveFile(event: any) {
@@ -46,35 +42,6 @@ export class ClusterManagerComponent {
          })
   }
 
-  public closeModalAndSaveCluster() {
-    if(this.addedCluster.domainNames !== undefined && this.addedCluster.domainNames !== null) {
-      this.addedCluster.domainNames = [null];
-    }
-    console.log(this.addedCluster);
-       this.clusterService.sendCluster(this.updatedFile, this.addedCluster).subscribe(result => {
-            console.log(result);
-            this.getAllClusters();
-            this.modal.hide();
-            this.updatedFile = null;
-            this.addedCluster = new ClusterManager();
-       }, error => {
-            console.error(error);
-       })
-     }
-
-
-public onDomainSelection(event: any) {
-
-    console.log(event);
-    this.addedCluster.domainNames = [event]
-}
-
-public openModal() {
-  if (this.domains.length > 0) {
-    this.addedCluster.domainNames = [this.domains[0].name];
-  }
-  this.modal.show();
-}
 
 public deleteCluster(cluster: ClusterManager) {
   this.clusterService.deleteCluster(cluster.id).subscribe(() => { 
@@ -86,10 +53,6 @@ public deleteCluster(cluster: ClusterManager) {
   );
 }
 
-public onDomainChange(event: any) {
-  console.log(event);
-  this.addedCluster.domainNames = [this.domains[0].name];
-}
 
     filterClusters() {
         const value = this.searchValue?.toLowerCase() || '';

@@ -2,7 +2,7 @@
 <div style="display: flex; align-items: center;  margin-top:20px">
     <div style=" display:flex; align-items: center;">
         <div style="margin-right:20px;">
-            <button class="btn btn-primary" (click)="modal.show()">New Cluster</button>
+            <button class="btn btn-primary" [routerLink]="['add']"  >New Cluster</button>
         </div>
         <span class="p-input-icon-right">
             <i class="pi pi-search" style="font-size: 13px; top: 16px; margin-right: 5px;"></i>
@@ -62,58 +62,3 @@
 
 </div>
 
-
-<nmaas-modal >
-    <div class="nmaas-modal-header">{{'CLUSTERS.CONNECT_CLUSTER' | translate}}</div>
-    <div class="nmaas-modal-body">
-        <div class="flex flex-column">
-            <div class="mt-4">
-                <label for="name">{{'CLUSTERS.NAME' | translate}}</label>
-                <input id="name" type="text" class="form-control" [(ngModel)]="addedCluster.name" [ngModelOptions]="{standalone: true}">
-            </div>
-
-            <div class="mt-4">
-                <label for="desc">{{'CLUSTERS.DESCRIPTION' | translate}}</label>
-                <input id="desc" type="text" class="form-control" [(ngModel)]="addedCluster.description" [ngModelOptions]="{standalone: true}">
-            </div>
-            <div class="mt-4">
-                <label for="contactEmail">{{'CLUSTERS.CONTACT_MAIL' | translate}}</label>
-                <input id="contactEmail" type="text" class="form-control" [(ngModel)]="addedCluster.contactEmail" [ngModelOptions]="{standalone: true}">
-            </div>
-
-
-            <div class="mt-4">
-
-                <div>
-                    <label for="assignDomain">Assign to domain? </label>
-                    <input type="checkbox" [(ngModel)]="assignedDomain" (change)="onDomainChange($event)" id="assignDomain" />
-                </div>
-               <div class="mt-4" *ngIf="assignedDomain">
-                <label for="name">{{'CLUSTERS.DOMAIN' | translate}}</label>
-                 <select id="domain" #domainSelect class="form-control" (change)="onDomainSelection(domainSelect.value)" plaaceholder="testtesttest" >
-                    <option *ngFor="let domain of domains" [value]="domain.name"
-                        >{{domain.name}}
-                    </option>
-                </select>            
-                </div>
-
-            </div>
-
-
-            <div class="card flex justify-content-center mt-4" >
-                <p-fileUpload name="json" (onUpload)="saveFile($event)" customUpload="true" [draggable]="true"  pTooltip="Upload file is required before save" 
-             (uploadHandler)="saveFile($event)" [multiple]="false" accept=".yaml" maxFileSize="1000000">
-         
-                </p-fileUpload>
-            </div>
-            </div>
-    </div>
-    <div class="nmaas-modal-footer">
-        <button type="button" class="btn btn-secondary"
-                (click)="this.modal.hide()">{{'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
-      <button type="button" class="btn btn-primary" [disabled]="updatedFile === null || addedCluster?.name === null || addedCluster?.description === null"(click)="closeModalAndSaveCluster()"
-      pTooltip="Upload file is required before save" showDelay="2000" >{{'CLUSTERS.SAVE' | translate}}</button>
-
-    
-    </div>
-  </nmaas-modal>
