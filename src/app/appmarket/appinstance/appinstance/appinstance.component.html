@@ -83,7 +83,7 @@
                         <ul class="dropdown-menu">
                             <li *ngIf="getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.SCALED_DOWN">
                                 <a role="button" (click)="scaleDown()">
-                                    {{'APP_INSTANCE.SCALED_DOWN' | translate}}
+                                    {{'APP_INSTANCES.SCALED_DOWN' | translate}}
                                 </a>
                             </li>
                             <li *ngIf="getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.SCALED_DOWN">
