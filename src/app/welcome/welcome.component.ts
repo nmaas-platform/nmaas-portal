@@ -3,6 +3,7 @@ import {AfterContentChecked, AfterViewChecked, Component, OnDestroy, OnInit,} fr
 import {ActivatedRoute, Router} from '@angular/router';
 import {ServiceUnavailableService} from '../service-unavailable/service-unavailable.service';
 import { RecaptchaVisibilityService } from '../service/recaptcha-visibility.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
     selector: 'app-welcome',
@@ -21,7 +22,8 @@ export class WelcomeComponent implements OnInit, AfterViewChecked, AfterContentC
                 public router: Router,
                 private serviceHealth: ServiceUnavailableService,
                 private readonly route: ActivatedRoute,
-                private readonly recaptcha: RecaptchaVisibilityService) {
+                private readonly recaptcha: RecaptchaVisibilityService,
+                private authService: AuthService,) {
         this.route.queryParams.subscribe(params => {
             console.log(params)
             if (params.logout !== undefined) {
@@ -36,7 +38,10 @@ export class WelcomeComponent implements OnInit, AfterViewChecked, AfterContentC
         if (!this.serviceHealth.isServiceAvailable) {
             this.router.navigate(['/service-unavailable']);
         }
-        // this.onResize();
+
+        if( this.authService.isLogged()) {
+            this.router.navigate(['/']);    
+        }
 
         this.landingProfile = this.appConfig.getLandingProfile();
         console.log("Landing profile = ", this.landingProfile)
