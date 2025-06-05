@@ -162,7 +162,7 @@
         <p-menu  #menu [model]="items" [popup]="true" class="test" [ngClass]="{'collapsed-user': isCollapsed}"/>
         <p-button  (onClick)="menu.toggle($event)" class="user-button"><i class="pi pi-user" style="font-size: 18px; margin-right:10px"[ngClass]="{'collapsed': isCollapsed}" title="User"></i>
             <span *ngIf="!isCollapsed">
-                User
+               {{userName}}
             </span>
         </p-button>
         <div *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']" style="margin-top:10px" [routerLink]="['admin/dashboard']">
