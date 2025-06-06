@@ -11,6 +11,7 @@ import {AuthService} from '../../../auth/auth.service';
 import {UntypedFormControl} from '@angular/forms';
 import {ComponentMode} from '../../common/componentmode';
 import {Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
 
 function userMatches(u: User, term: string): boolean {
     const t = term || ''
@@ -75,7 +76,8 @@ export class UsersListComponent extends BaseComponent implements OnInit, OnChang
                 public domainService: DomainService,
                 private userDataService: UserDataService,
                 public authService: AuthService,
-                private router: Router) {
+                private router: Router,
+                private translate: TranslateService) {
         super();
         userDataService.selectedDomainId.subscribe(domain => this.domainId = domain);
     }
@@ -114,7 +116,6 @@ export class UsersListComponent extends BaseComponent implements OnInit, OnChang
                 })
             })
         }
-       
     }
 
     public getDomainName(domainId: number): Observable<string> {
@@ -329,6 +330,27 @@ export class UsersListComponent extends BaseComponent implements OnInit, OnChang
 
     public checkUserIfIsCurrentUser(userName: string) {
         return this.authService.getUsername() === userName
+    }
+    customSort(event: any) {
+        const { order } = event;
+
+        const roleKeys = this.displayUsers.map(user =>
+            this.getGlobalRole(user).toUpperCase()
+        );
+        const uniqueKeys = [...new Set(roleKeys)];
+        const translationKeys = uniqueKeys.map(key => `ENUM.USER_ROLES.${key}`);
+
+        this.translate.get(translationKeys).subscribe(translations => {
+            this.displayUsers.sort((a, b) => {
+                const keyA = `ENUM.USER_ROLES.${this.getGlobalRole(a).toUpperCase()}`;
+                const keyB = `ENUM.USER_ROLES.${this.getGlobalRole(b).toUpperCase()}`;
+
+                const translatedA = translations[keyA] || '';
+                const translatedB = translations[keyB] || '';
+
+                return translatedA.localeCompare(translatedB) * order;
+            });
+        });
     }
 }
 

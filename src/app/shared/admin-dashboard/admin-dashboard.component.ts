@@ -3,6 +3,7 @@ import {DashboardService} from '../../service/dashboard.service';
 import {UserDataService} from '../../service/userdata.service';
 import {AppImagesService, AppsService} from '../../service';
 import {ActivatedRoute} from '@angular/router';
+import {AuthService} from '../../auth/auth.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -29,12 +30,13 @@ export class AdminDashboardComponent {
               private userDataService: UserDataService,
               public appImagesService: AppImagesService,
               private route: ActivatedRoute,
-              private appsService: AppsService) {
+              private appsService: AppsService,
+              public authService: AuthService) {
   }
 
 
   ngOnInit() {
-    this.setDefaultDate()
+    this.setDefaultDate();
     this.getAdmin()
     this.userDataService.selectedDomainId.subscribe((domainId) => {
           this.domainId = domainId
@@ -131,9 +133,10 @@ export class AdminDashboardComponent {
     )
   }
   onDateChange(dates: Date[] | null) {
-    if (!dates || dates.length < 2 || !dates[0] || !dates[1]) {
+    if (!dates || dates.length === 0 ) {
       this.setDefaultDate();
     } else {
+      this.rangeDates = dates;
       this.startDate = dates[0].toISOString();
       this.endDate = dates[1].toISOString();
     }
@@ -145,5 +148,9 @@ export class AdminDashboardComponent {
     start.setDate(start.getDate() - 7);
     this.startDate = start.toISOString();
     this.endDate = end.toISOString();
+    this.rangeDates = [start, end]
+  }
+  public userHasGuestRoleInCurrentDomain(): boolean {
+    return this.authService.hasDomainRole(this.domainId, 'ROLE_GUEST');
   }
 }

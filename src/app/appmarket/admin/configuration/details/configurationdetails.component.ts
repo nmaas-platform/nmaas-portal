@@ -5,6 +5,7 @@ import {ConfigurationService} from '../../../../service';
 import {Configuration} from '../../../../model/configuration';
 import {InternationalizationService} from '../../../../service/internationalization.service';
 import {Language} from '../../../../model/language';
+import {ToastContainerComponent, ToastMode} from '../../../../shared/toast-container/toast-container.component';
 
 
 
@@ -21,7 +22,8 @@ export class ConfigurationDetailsComponent extends BaseComponent implements OnIn
 
     constructor(private router: Router,
                 private configurationService: ConfigurationService,
-                private languageService: InternationalizationService) {
+                private languageService: InternationalizationService,
+                private toast: ToastContainerComponent) {
         super();
     }
 
@@ -35,9 +37,16 @@ export class ConfigurationDetailsComponent extends BaseComponent implements OnIn
     }
 
     public save(): void {
+
         this.configurationService.updateConfiguration(this.configuration).subscribe(
-            () => this.update(),
-                err => this.errorMsg = err.message
+            () => {
+                this.update()
+                this.toast.show('Success', ToastMode.SUCCESS, 'HEADER')
+            },
+            err => {
+                this.errorMsg = err.message
+                this.toast.show('Danger', ToastMode.DANGER, 'HEADER')
+            }
         );
     }
 

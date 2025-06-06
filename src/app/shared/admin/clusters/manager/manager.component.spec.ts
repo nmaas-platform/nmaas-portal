@@ -129,18 +129,5 @@ describe('ClusterManagerComponent', () => {
     expect(component.updatedFile.name).toBe('test.yaml');
   });
 
-  it('should call closeModalAndSaveCluster and reset state after saving', () => {
-    const mockFile = new File(['test content'], 'test.yaml', { type: 'application/x-yaml' });
-    // const mockCluster = { id: 3, name: 'Cluster C', codename: 'CodeC' };
-    component.updatedFile = mockFile;
-    component.addedCluster = mockClusters[0];
 
-    clusterService.sendCluster.and.returnValue(of(mockClusters[0]));
-
-    component.closeModalAndSaveCluster();
-
-    expect(clusterService.sendCluster).toHaveBeenCalledWith(mockFile, mockClusters[0]);
-    // expect(component.updatedFile).toBeNull();
-    // expect(component.addedCluster).toEqual(new ClusterManager());
-  });
 });
