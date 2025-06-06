@@ -28,6 +28,7 @@ import {AuthService} from '../../../auth/auth.service';
 import {SelectPodModalComponent} from '../modals/select-pod-modal/select-pod-modal.component';
 import {ApplicationVersion} from '../../../model/application-version';
 import * as semver from 'semver';
+import {ConfirmationService} from 'primeng/api';
 
 @Component({
     selector: 'nmaas-appinstance',
@@ -146,7 +147,9 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                 private sessionService: SessionService,
                 private shellClientService: ShellClientService,
                 private authService: AuthService,
-                @Inject(LOCAL_STORAGE) public storage: StorageService) {
+                @Inject(LOCAL_STORAGE) public storage: StorageService,
+                private confirmationService: ConfirmationService,
+                private translate: TranslateService) {
     }
 
     ngOnInit() {
@@ -610,7 +613,8 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
 
     public openVersionUpdateModal() {
         this.appsService.getApplicationVersions(this.appInstance.application.applicationBase.id).subscribe(versions => {
-            this.appVersions = versions.filter(val => val.state.toString() === 'ACTIVE' && val.version !== this.appInstance.applicationVersion)
+            this.appVersions = versions
+                .filter(val => val.state.toString() === 'ACTIVE' && val.version !== this.appInstance.applicationVersion)
             this.appVersions.sort(this.appVersionCompare)
         })
         this.manualUpdateModal.show();
@@ -652,6 +656,18 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                 this.accessMethodsModal.show();
             })
 
+    }
+    public confirmScaleDown(): void {
+        this.confirmationService.confirm({
+            message: this.translate.instant('APP_INSTANCES.CONFIRM_SCALEDOWN.MESSAGE'),
+            header: this.translate.instant('APP_INSTANCES.CONFIRM_SCALEDOWN.HEADER'),
+            icon: 'pi pi-exclamation-triangle',
+            acceptLabel: this.translate.instant('APP_INSTANCES.CONFIRM_SCALEDOWN.ACCEPT'),
+            rejectLabel: this.translate.instant('APP_INSTANCES.CONFIRM_SCALEDOWN.REJECT'),
+            accept: () => {
+                this.scaleDown();
+            }
+        });
     }
 
     public scaleDown(): void {
