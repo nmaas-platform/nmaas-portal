@@ -74,7 +74,9 @@ import { RolesExcludedDirective } from '../directive/roles-exluded.directive';
 import { FileUploadModule } from 'primeng/fileupload';
 import { RecaptchaVisibilityService } from '../service/recaptcha-visibility.service';
 import {CalendarModule} from 'primeng/calendar';
-
+import { AddClusterComponent } from './admin/clusters/add-cluster/add-cluster.component';
+import { StepsModule } from 'primeng/steps';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 
 
@@ -104,7 +106,9 @@ import {CalendarModule} from 'primeng/calendar';
         ChartModule,
         FileUploadModule,
         TableModule,
-        CalendarModule
+        CalendarModule,
+        StepsModule,
+        InputTextareaModule
     ],
     declarations: [
         RateComponent,
@@ -153,6 +157,8 @@ import {CalendarModule} from 'primeng/calendar';
         DomainNamespaceAnnotationsComponent,
         AccessTokensComponent,
         AdminDashboardComponent,
+        AddClusterComponent
+
     ],
     providers: [
         PasswordValidator,

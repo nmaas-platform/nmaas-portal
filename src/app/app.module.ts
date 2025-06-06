@@ -63,7 +63,7 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
         AppComponent,
         LeftMenuComponent,
         ToastContainerComponent,
-        AdminLeftMenuComponent
+        AdminLeftMenuComponent,
     ],
     imports: [
         BrowserModule,
