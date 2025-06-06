@@ -39,24 +39,26 @@ import {SelectButtonModule} from 'primeng/selectbutton';
 import {CheckboxModule} from 'primeng/checkbox';
 import {TableModule} from 'primeng/table';
 import {ProgressBarModule} from 'primeng/progressbar';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
 
 @NgModule({
-  declarations: [
-      AppInstanceComponent,
-      AppInstanceListComponent,
-      AppRestartModalComponent,
-      AppAbortModalComponent,
-      AppUpgradeModalComponent,
-      AccessMethodsModalComponent,
-      SshShellComponent,
-      AppInstanceShellViewComponent,
-      AddMembersModalComponent,
-      SelectPodModalComponent,
-      AppinstanceSearchPipe,
-      SelectPodModalComponent,
-      AppdeploymentComponent,
-      AppLogAccessComponent
-  ],
+    declarations: [
+        AppInstanceComponent,
+        AppInstanceListComponent,
+        AppRestartModalComponent,
+        AppAbortModalComponent,
+        AppUpgradeModalComponent,
+        AccessMethodsModalComponent,
+        SshShellComponent,
+        AppInstanceShellViewComponent,
+        AddMembersModalComponent,
+        SelectPodModalComponent,
+        AppinstanceSearchPipe,
+        SelectPodModalComponent,
+        AppdeploymentComponent,
+        AppLogAccessComponent
+    ],
     imports: [
         FormioModule,
         CommonModule,
@@ -80,21 +82,24 @@ import {ProgressBarModule} from 'primeng/progressbar';
         SelectButtonModule,
         TableModule,
         ProgressBarModule,
+        ConfirmDialogModule
     ],
-  exports: [
-    AppInstanceComponent,
-    AppInstanceListComponent,
-      AppinstanceSearchPipe
-  ],
-  providers: [
-    AppsService,
-    AppInstanceService,
-    TagService,
-    {provide: FormioAppConfig, useValue: AppConfig}
-  ],
+    exports: [
+        AppInstanceComponent,
+        AppInstanceListComponent,
+        AppinstanceSearchPipe
+    ],
+    providers: [
+        AppsService,
+        AppInstanceService,
+        TagService,
+        ConfirmationService,
+        {provide: FormioAppConfig, useValue: AppConfig}
+    ],
     schemas: [
         NO_ERRORS_SCHEMA,
         CUSTOM_ELEMENTS_SCHEMA
     ]
 })
-export class AppInstanceModule {}
+export class AppInstanceModule {
+}
