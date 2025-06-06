@@ -32,6 +32,8 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ApplicationBase} from '../../../model/application-base';
 import {Application} from '../../../model/application';
 import {ApplicationDTO} from '../../../model/application-dto';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
 
 @Pipe({
     name: 'secure'
@@ -267,6 +269,7 @@ describe('Component: AppInstance', () => {
                 SshShellMockComponent,
             ],
             imports: [
+                ConfirmDialogModule,
                 FormsModule,
                 HttpClientTestingModule,
                 NgxPaginationModule,
@@ -282,6 +285,7 @@ describe('Component: AppInstance', () => {
                 })
             ],
             providers: [
+                ConfirmationService,
                 {provide: AppConfigService, useValue: mockAppConfigService},
                 {provide: AppsService, useValue: appsServiceStub},
                 {provide: AuthService, useValue: authServiceSpy},
