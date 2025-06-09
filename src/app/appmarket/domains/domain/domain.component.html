@@ -155,7 +155,7 @@
 		<app-domain-namespace-annotations [annotationRead]="annotations" (annotations)="handleAnnotationsChange($event)" (trigerDelete)="handleAnnotationDelete($event)"></app-domain-namespace-annotations>
 		</div>
 
-		<div *ngIf="isInMode(ComponentMode.VIEW)" class="background-section">
+		<div *ngIf="isInMode(ComponentMode.VIEW) || isInMode(ComponentMode.EDIT)" class="background-section">
 			<h4 style="font-size:15px; font-weight: bold">{{ 'DOMAIN_DETAILS.APP_STATUS' | translate }}</h4>
 			<div class="panel-body">
 				<table class="table table-hover table-condensed" aria-describedby="Domain details table">
