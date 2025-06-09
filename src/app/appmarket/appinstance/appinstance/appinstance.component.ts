@@ -657,6 +657,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
             })
 
     }
+
     public confirmScaleDown(): void {
         this.confirmationService.confirm({
             message: this.translate.instant('APP_INSTANCES.CONFIRM_SCALEDOWN.MESSAGE'),
@@ -671,7 +672,9 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     }
 
     public scaleDown(): void {
-        this.appInstanceService.scaleDown(this.appInstanceId).subscribe(
+        this.appInstanceService.scaleDown(
+            this.getDeploymentId()
+        ).subscribe(
             {
                 next: () => {
                     console.log('Scaled down');
@@ -684,7 +687,9 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     }
 
     public scaleUp(): void {
-        this.appInstanceService.scaleUp(this.appInstanceId).subscribe(
+        this.appInstanceService.scaleUp(
+            this.getDeploymentId()
+        ).subscribe(
             {
                 next: () => {
                     console.log('Scaled up');
@@ -695,5 +700,9 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
             }
         )
 
+    }
+
+    private getDeploymentId(): number {
+        return this.appInstance.application.application.appDeploymentSpec.id
     }
 }
