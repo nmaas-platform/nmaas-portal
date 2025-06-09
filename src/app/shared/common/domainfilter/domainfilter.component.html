@@ -17,8 +17,10 @@
 <p-dropdown
 		[options]="domains | async"
 		[(ngModel)]="selectedDomain"
+        [filter]="true"
+        filterBy="name"
 		optionLabel="name"
-		[filter]="false"
+
 		[filterPlaceholder]="'SEARCH' | translate"
 		(onChange)="changeDomain($event.value.id, $event.value.name)"
 		appendTo="body">

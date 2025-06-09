@@ -13,7 +13,7 @@
 				<div *ngIf="!subscribed && isSubscriptionAllowed()" class="pull-right"
 					 pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_SUBSCRIBE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="defaultTooltipDisabled">
 					<button class="btn btn-primary m-1" [disabled]="!active || !isApplicationEnabledInDomain()" (click)="subscribe()">{{'APPLICATIONS.SUBSCRIBE_BUTTON' | translate}}</button>
-					<button class="btn btn-primary m-1"[routerLink]="['/admin/apps/bulks/new/select']" [queryParams]="{id: appId }">Bulk deployments</button>
+					<button class="btn btn-primary m-1"[routerLink]="['/admin/apps/bulks/new/select']" [queryParams]="{id: appId }">Bulk deployment</button>
 				</div>
 
 				<div *ngIf="subscribed" class=" pull-right" >

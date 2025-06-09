@@ -10,10 +10,10 @@
                 <i *ngIf="isCollapsed" style="font-size: 1.8rem" class="pi pi-angle-right"></i>
             </div>
         </div>
-        <div style="margin-top: 30px">
+        <div style="margin-top: 30px; padding-right:5px">
             <nmaas-domain-filter class="drop-domain"></nmaas-domain-filter>
         </div>
-        <ul *ngIf="!toggleAdmin" style="margin-top: 30px" >
+        <ul *ngIf="!toggleAdmin" style="margin-top: 30px;" >
             <li [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
                 <a  style="display: flex; align-items: center;" [routerLink]="['/']">
                     <i class="pi pi-th-large" style="margin-right:10px; font-size: 18px" title="Application"></i>
@@ -31,7 +31,7 @@
                 </a>
             </li>
         </ul>
-        <ul *ngIf="toggleAdmin" style="margin-top: 30px">
+        <ul *ngIf="toggleAdmin" style="margin-top: 30px; max-height: 65vh; overflow: auto; padding-right:5px">
             <li [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
                 <a  style="display: flex; align-items: center;" [routerLink]="['admin/dashboard']">
                     <i class="pi pi-chart-bar" style="margin-right:10px; font-size: 18px" title="Dashboard"></i>
@@ -162,7 +162,7 @@
         <p-menu  #menu [model]="items" [popup]="true" class="test" [ngClass]="{'collapsed-user': isCollapsed}"/>
         <p-button  (onClick)="menu.toggle($event)" class="user-button"><i class="pi pi-user" style="font-size: 18px; margin-right:10px"[ngClass]="{'collapsed': isCollapsed}" title="User"></i>
             <span *ngIf="!isCollapsed">
-                User
+               {{userName}}
             </span>
         </p-button>
         <div *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']" style="margin-top:10px" [routerLink]="['admin/dashboard']">
