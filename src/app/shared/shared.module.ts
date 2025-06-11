@@ -158,7 +158,6 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
         AccessTokensComponent,
         AdminDashboardComponent,
         AddClusterComponent
-
     ],
     providers: [
         PasswordValidator,

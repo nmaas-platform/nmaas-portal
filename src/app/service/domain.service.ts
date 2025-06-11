@@ -11,6 +11,8 @@ import {User} from '../model';
 import {DomainGroup} from '../model/domaingroup';
 import { KeyValue } from '../model/key-value';
 import { DomainAnnotation } from '../model/domain-annotation';
+import { Page, PaginatorEvent } from './page';
+import { PaginationService } from './pagination.service';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +25,7 @@ export class DomainService extends GenericDataService {
 
   private updateRequiredFlag: boolean;
 
-  constructor(http: HttpClient, appConfig: AppConfigService) {
+  constructor(http: HttpClient, appConfig: AppConfigService, private paggination: PaginationService) {
     super(http, appConfig);
     this.updateRequiredFlag = false;
     this.url = this.appConfig.getApiUrl() + '/domains';
@@ -45,6 +47,31 @@ export class DomainService extends GenericDataService {
   public getAllBase(): Observable<Domain[]> {
     return this.get<Domain[]>(this.url + '/base');
   }
+
+  public getAllPageable( paginatorEvent: PaginatorEvent, searchValue: string = ''): Observable<Page<Domain>> {
+    
+    const customFilters = {
+      searchValue: searchValue
+    };
+
+    const params = this.paggination.getPaginationAndFilterParams(paginatorEvent, customFilters);
+
+    return this.http.get<Page<Domain>>(this.url, {params});
+
+    }
+
+     public getAllBasePageable( paginatorEvent: PaginatorEvent, searchValue: string = ''): Observable<Page<Domain>> {
+    
+      const customFilters = {
+      searchValue: searchValue
+    };
+
+    const params = this.paggination.getPaginationAndFilterParams(paginatorEvent, customFilters);
+
+    return this.http.get<Page<Domain>>(this.url + '/base', {params});
+
+    }
+
 
   public getOne(domainId: number): Observable<Domain> {
     return this.get<Domain>(this.url + '/' + domainId);

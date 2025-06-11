@@ -1,79 +1,82 @@
 <h4 class="header">{{ 'DOMAINS.TITLE' | translate }}</h4>
 <div style="display: flex; align-items: center;  margin-top:20px">
     <div style="margin-right:20px">
-		<span class="p-input-icon-right" style="width: 100%">
-     		 <i class="pi pi-search" style="font-size: 13px; top: 16px; margin-right: 5px;"></i>
-			<input  pInputText type="text" name="search" class="form-control" style="width: 100%"
-                    [(ngModel)]="searchValue" placeholder="{{'SEARCH' | translate}}">
-		</span>
+        <span class="p-input-icon-right" style="width: 100%">
+            <i class="pi pi-search" style="font-size: 13px; top: 16px; margin-right: 5px;"></i>
+            <input pInputText type="text" name="search" class="form-control" style="width: 100%"
+                (keyup.enter)="applyFilter()" [(ngModel)]="searchValue" placeholder="{{'SEARCH' | translate}}">
+        </span>
     </div>
     <div class="flex" style="margin-right:20px">
         <button *roles="['ROLE_SYSTEM_ADMIN']" [routerLink]="['add']" class="btn btn-primary"
-           role="button">{{'DOMAINS.ADD_BUTTON' | translate}}</button>
+            role="button">{{'DOMAINS.ADD_BUTTON' | translate}}</button>
     </div>
-    <div *roles="['ROLE_SYSTEM_ADMIN']" class="flex" style="margin-right:20px" >
-        <button class="btn btn-primary" [routerLink]="['annotations']">{{'DOMAINS.ANNOTATIONS.EDIT' | translate}}</button>
+    <div *roles="['ROLE_SYSTEM_ADMIN']" class="flex" style="margin-right:20px">
+        <button class="btn btn-primary" [routerLink]="['annotations']">{{'DOMAINS.ANNOTATIONS.EDIT' |
+            translate}}</button>
     </div>
-    <div *roles="['ROLE_SYSTEM_ADMIN']" class="flex" >
-        <p-checkbox id="showNotActive" [binary]="true" [(ngModel)]=" showNotActive" class="flex" ></p-checkbox>
+    <div *roles="['ROLE_SYSTEM_ADMIN']" class="flex">
+        <p-checkbox id="showNotActive" [binary]="true" [(ngModel)]=" showNotActive" class="flex"></p-checkbox>
         <label for="showNotActive"> {{'DOMAINS.NOTACTIVE' | translate}}</label>
     </div>
 </div>
 
-    <div class="background-section">
-        <p-table [value]="domains | async | searchDomain: searchValue: showNotActive"
-                 [paginator]="true"
-                 [rows]="maxItemsOnPage"
-                 [rowsPerPageOptions]="[15, 20, 25, 30, 50]"
-                 [responsiveLayout]="'scroll'">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th pSortableColumn="codename">
-                        {{ 'DOMAINS.CODE_NAME' | translate }}
-                        <p-sortIcon field="codename"></p-sortIcon>
-                    </th>
-                    <th pSortableColumn="name">
-                        {{ 'DOMAINS.NAME' | translate }}
-                        <p-sortIcon field="name"></p-sortIcon>
-                    </th>
-                    <th pSortableColumn="active">
-                        {{ 'DOMAINS.ACTIVATE' | translate }}
-                        <p-sortIcon field="active"></p-sortIcon>
-                    </th>
-                    <th></th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-domain>
-                <tr *ngIf="!domain.deleted">
-                    <td [routerLink]="['view/', domain.id]">{{domain?.codename}}</td>
-                    <td [routerLink]="['view/', domain.id]">{{domain?.name}}</td>
-                    <td [routerLink]="['view/', domain.id]">
-                        <span class="glyphicon glyphicon-ok" *ngIf="domain?.active"></span>
-                        <span class="glyphicon glyphicon-remove" *ngIf="!(domain?.active)"></span>
-                    </td>
-                    <td class="text-right">
-                        <span class="dropdown">
-                                <a style="display: inline-block" class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
-                                    <em class="pi pi-cog" style="font-size: 1.8rem; color: var(--l-text-color)"></em>
-                                </a>
-                                <ul class="dropdown-menu pull-right-drop" [appendTo]="'body'" >
-                                    <li><a *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']" [routerLink]="['edit/', domain.id]"
-                                           class="">{{ 'DOMAINS.EDIT_BUTTON' | translate }}</a>
-                                    </li>
-                                    <li><a *roles="['ROLE_SYSTEM_ADMIN']" (click)="$event.stopPropagation(); changeState(domain)"
-                                           class="">{{ getStateLabel(domain?.active) }}</a>
-                                    </li>
-                                    <li><a *roles="['ROLE_SYSTEM_ADMIN']" (click)="$event.stopPropagation(); openRemovalModal(domain)"
-                                           class="">{{ 'DOMAINS.DELETE_BUTTON' | translate }}</a>
-                                    </li>
-                                </ul>
-                        </span>
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
+<div class="background-section">
+    <p-table [value]="domains" [lazy]="true" (onLazyLoad)="onTableLazyLoad($event)"
+        [totalRecords]="paginationSettings.totalElements" [rows]="paginationSettings.maxItemsOnPage"
+        [rowsPerPageOptions]="[15,20,25,50]" [paginator]="true" [loading]="loading"
+        [sortField]="paginationSettings.sortField" [sortOrder]="paginationSettings.sortOrder === 'asc' ? 1 : -1">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="codename">
+                    {{ 'DOMAINS.CODE_NAME' | translate }}
+                    <p-sortIcon field="codename"></p-sortIcon>
+                </th>
+                <th pSortableColumn="name">
+                    {{ 'DOMAINS.NAME' | translate }}
+                    <p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="active">
+                    {{ 'DOMAINS.ACTIVATE' | translate }}
+                    <p-sortIcon field="active"></p-sortIcon>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-domain>
+            <tr *ngIf="!domain.deleted">
+                <td [routerLink]="['view/', domain.id]">{{domain?.codename}}</td>
+                <td [routerLink]="['view/', domain.id]">{{domain?.name}}</td>
+                <td [routerLink]="['view/', domain.id]">
+                    <span class="glyphicon glyphicon-ok" *ngIf="domain?.active"></span>
+                    <span class="glyphicon glyphicon-remove" *ngIf="!(domain?.active)"></span>
+                </td>
+                <td class="text-right">
+                    <span class="dropdown">
+                        <a style="display: inline-block" class="dropdown-toggle" aria-expanded="false"
+                            aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
+                            <em class="pi pi-cog" style="font-size: 1.8rem; color: var(--l-text-color)"></em>
+                        </a>
+                        <ul class="dropdown-menu pull-right-drop" [appendTo]="'body'">
+                            <li><a *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']" [routerLink]="['edit/', domain.id]"
+                                    class="">{{ 'DOMAINS.EDIT_BUTTON' | translate }}</a>
+                            </li>
+                            <li><a *roles="['ROLE_SYSTEM_ADMIN']"
+                                    (click)="$event.stopPropagation(); changeState(domain)" class="">{{
+                                    getStateLabel(domain?.active) }}</a>
+                            </li>
+                            <li><a *roles="['ROLE_SYSTEM_ADMIN']"
+                                    (click)="$event.stopPropagation(); openRemovalModal(domain)" class="">{{
+                                    'DOMAINS.DELETE_BUTTON' | translate }}</a>
+                            </li>
+                        </ul>
+                    </span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
 
-<nmaas-removal-confirmation-modal [object]="domainToRemove" [disableButton]="false" (onConfirm)="softRemoveDomain(domainToRemove.id)"
-                                [header]="'DOMAIN_DETAILS.MODAL.HEADER'" [description]="'DOMAIN_DETAILS.MODAL.DESCRIPTION'"></nmaas-removal-confirmation-modal>
-
+<nmaas-removal-confirmation-modal [object]="domainToRemove" [disableButton]="false"
+    (onConfirm)="softRemoveDomain(domainToRemove.id)" [header]="'DOMAIN_DETAILS.MODAL.HEADER'"
+    [description]="'DOMAIN_DETAILS.MODAL.DESCRIPTION'"></nmaas-removal-confirmation-modal>
