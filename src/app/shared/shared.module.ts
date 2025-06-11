@@ -77,6 +77,8 @@ import {CalendarModule} from 'primeng/calendar';
 import { AddClusterComponent } from './admin/clusters/add-cluster/add-cluster.component';
 import { StepsModule } from 'primeng/steps';
 import {InputTextareaModule} from 'primeng/inputtextarea';
+import {DialogModule} from 'primeng/dialog';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 
@@ -108,7 +110,9 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
         TableModule,
         CalendarModule,
         StepsModule,
-        InputTextareaModule
+        InputTextareaModule,
+        DialogModule,
+        BrowserAnimationsModule
     ],
     declarations: [
         RateComponent,

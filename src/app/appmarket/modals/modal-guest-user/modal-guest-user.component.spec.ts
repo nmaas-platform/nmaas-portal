@@ -4,6 +4,8 @@ import { ModalGuestUserComponent } from './modal-guest-user.component';
 import {Component} from '@angular/core';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {ModalComponent} from '../../../shared/modal';
+import {DialogModule} from 'primeng/dialog';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @Component({
   selector: 'nmaas-modal',
@@ -26,6 +28,8 @@ describe('ModalGuestUserComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ModalGuestUserComponent, ModalComponent ],
       imports: [
+        DialogModule,
+        BrowserAnimationsModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
