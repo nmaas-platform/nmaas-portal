@@ -42,12 +42,12 @@ export class ModalComponent implements OnInit {
 
     public show(): void {
         this.visible = true;
-        setTimeout(() => this.visibleAnimate = true);
+        // setTimeout(() => this.visibleAnimate = true);
     }
 
     public hide(): void {
-        this.visibleAnimate = false;
-        setTimeout(() => this.visible = false, 300);
+        this.visible = false;
+        // setTimeout(() => this.visible = false, 300);
     }
 
     public resetModalStyle(): void {

@@ -4,6 +4,8 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { ModalComponent } from './modal.component';
+import {DialogModule} from 'primeng/dialog';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('ModalComponent', () => {
   let component: ModalComponent;
@@ -11,7 +13,8 @@ describe('ModalComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModalComponent ]
+      declarations: [ ModalComponent ],
+      imports: [ DialogModule, BrowserAnimationsModule]
     })
     .compileComponents();
   }));

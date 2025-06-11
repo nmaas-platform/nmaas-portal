@@ -7,6 +7,8 @@ import {ModalComponent} from '../modal.component';
 import {ContentDisplayService} from '../../../service/content-display.service';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
+import {DialogModule} from 'primeng/dialog';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('ModalInfoPolicyComponent', () => {
     let component: ModalInfoPolicyComponent;
@@ -19,6 +21,8 @@ describe('ModalInfoPolicyComponent', () => {
         TestBed.configureTestingModule({
             declarations: [ModalInfoPolicyComponent, ModalComponent],
             imports: [
+                DialogModule,
+                BrowserAnimationsModule,
                 RouterTestingModule,
                 TranslateModule.forRoot({
                     loader: {
