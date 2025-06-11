@@ -162,7 +162,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
         AccessTokensComponent,
         AdminDashboardComponent,
         AddClusterComponent
-
     ],
     providers: [
         PasswordValidator,
