@@ -145,15 +145,15 @@ export class DomainsListComponent implements OnInit, OnDestroy { // Implemented 
                 }
             })
         } else {
-            this.domainService.getMyDomains().subscribe({
+            this.domainService.getMyDomainsFiltered(paginatorEventForService, this.searchValue).subscribe({
                 next: (domains: Domain[]) => {
                     this.domains = domains.filter((domain) => this.authService.hasDomainRole(domain.id, Role[Role.ROLE_DOMAIN_ADMIN]) || this.authService.hasDomainRole(domain.id, Role[Role.ROLE_GROUP_DOMAIN_ADMIN]));
 
                     // Reset pagination settings to reflect non-paginated state if this path is taken
                     // Ensure totalRecords is updated for PrimeNG even in non-paginated scenario
                     this.paginationSettings.totalElements = this.domains.length;
-                    this.paginationSettings.pageNumber = 1; 
-                    this.paginationSettings.totalPages = 1; 
+                    this.paginationSettings.pageNumber = 1;
+                    this.paginationSettings.totalPages = 1;
                     this.loading = false;
                 },
                 error: (err) => {
@@ -179,13 +179,28 @@ export class DomainsListComponent implements OnInit, OnDestroy { // Implemented 
             rows: this.paginationSettings.maxItemsOnPage,
             sortField: this.paginationSettings.sortField,
             sortOrder: this.paginationSettings.sortOrder === 'asc' ? 1 : -1,
-            filters: {searchValue : this.searchValue} // Pass the searchValue as a filter
+            filters: { searchValue: this.searchValue } // Pass the searchValue as a filter
         });
     }
 
     clearFilter(): void {
         this.searchValue = '';
-        this.applyFilter(); // Apply filter to reset and reload
+        this.paginationSettings.pageNumber = 1;
+        this.paginationSettings.totalElements = 0; // Reset total records for a clean fetch
+        this.lazyLoadSubject.next({ // Emit an event to trigger loadDomains via debounce
+            first: (this.paginationSettings.pageNumber - 1) * this.paginationSettings.maxItemsOnPage,
+            rows: this.paginationSettings.maxItemsOnPage,
+            sortField: this.paginationSettings.sortField,
+            sortOrder: this.paginationSettings.sortOrder === 'asc' ? 1 : -1,
+            filters: {}
+        });
+    }
+
+    onSearchValueChange(event: any): void {
+        if ((!this.searchValue || this.searchValue.trim() === '') ){
+            this.clearFilter(); // Call clearFilter if the search field is empty
+        }
+
     }
 
 

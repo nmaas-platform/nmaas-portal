@@ -60,8 +60,7 @@ export class DomainService extends GenericDataService {
 
     }
 
-     public getAllBasePageable( paginatorEvent: PaginatorEvent, searchValue: string = ''): Observable<Page<Domain>> {
-    
+  public getAllBasePageable( paginatorEvent: PaginatorEvent, searchValue: string = ''): Observable<Page<Domain>> {  
       const customFilters = {
       searchValue: searchValue
     };
@@ -107,6 +106,16 @@ export class DomainService extends GenericDataService {
 
   public getMyDomains(): Observable<Domain[]> {
     return this.get<Domain[]>(this.url + '/my');
+  }
+
+  public getMyDomainsFiltered(paginatorEvent: PaginatorEvent, searchValue: string = ''): Observable<Domain[]> {
+    const customFilters = {
+      searchValue: searchValue
+    };
+
+    const params = this.paggination.getPaginationAndFilterParams(paginatorEvent, customFilters);
+
+    return this.http.get<Domain[]>(this.url + '/my', {params});
   }
 
   public getUsers(domainId: number): Observable<User[]> {
