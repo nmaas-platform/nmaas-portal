@@ -1,21 +1,21 @@
-import {AuthService} from '../../../auth/auth.service';
-import {User} from '../../../model';
-import {Role} from '../../../model/userrole';
-import {DomainService, UserService} from '../../../service';
-import {UserDataService} from '../../../service/userdata.service';
-import {Component, OnInit} from '@angular/core';
-import {ComponentMode} from '../../../shared';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Location} from '@angular/common';
-import {Observable, of} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { AuthService } from '../../../auth/auth.service';
+import { User } from '../../../model';
+import { Role } from '../../../model/userrole';
+import { DomainService, UserService } from '../../../service';
+import { UserDataService } from '../../../service/userdata.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ComponentMode } from '../../../shared';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'app-userslist',
     templateUrl: './userslist.component.html',
     styleUrls: []
 })
-export class UsersListComponent implements OnInit {
+export class UsersListComponent implements OnInit, OnDestroy {
 
     public ComponentMode = ComponentMode;
 
@@ -28,19 +28,26 @@ export class UsersListComponent implements OnInit {
 
     public domainMode: boolean;
 
+    public refresh: any;
+
     constructor(protected authService: AuthService,
-                protected userService: UserService,
-                protected domainService: DomainService,
-                protected userDataService: UserDataService,
-                private router: Router,
-                private route: ActivatedRoute,
-                private location: Location) {
+        protected userService: UserService,
+        protected domainService: DomainService,
+        protected userDataService: UserDataService,
+        private router: Router,
+        private route: ActivatedRoute,
+        private location: Location) {
     }
 
 
     ngOnInit() {
         this.domainMode = false;
-        this.userDataService.selectedDomainId.subscribe((domainId) => this.update(domainId));
+        this.refresh = this.userDataService.selectedDomainId.subscribe((domainId) => this.update(domainId));
+    }
+
+    ngOnDestroy(): void {
+        this.refresh.unsubscribe();
+        this.refresh = null;
     }
 
     public update(domainId: number): void {
@@ -92,8 +99,8 @@ export class UsersListComponent implements OnInit {
     public onRemoveRole($event): void {
         this.userService.removeRole(
             $event.id, $event.roles.find(value => value.domainId === this.domainId).role, this.domainId).subscribe(
-            () => this.update(this.domainId)
-        )
+                () => this.update(this.domainId)
+            )
     }
 
     public onUserDelete($event): void {
@@ -122,7 +129,7 @@ export class UsersListComponent implements OnInit {
             this.userService.addRole(event.userId, event.role, event.domainId).subscribe(() => this.update(this.domainId))
         } else {
             const foundUser = this.allUsers.find(user => user.id === event.userId);
-            this.onRemoveRole({id: event.userId, roles: foundUser.roles})
+            this.onRemoveRole({ id: event.userId, roles: foundUser.roles })
         }
     }
 }

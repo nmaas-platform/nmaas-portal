@@ -110,7 +110,7 @@ export class UsersListComponent extends BaseComponent implements OnInit, OnChang
                 }
             ) })
         } else {
-            this.domainService.getAll().subscribe(domains => {
+            this.domainService.getAllBase().subscribe(domains => {
                 domains.forEach(domain => {
                     this.domainCache.setData(domain.id, domain)
                 })
