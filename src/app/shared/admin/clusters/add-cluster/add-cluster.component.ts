@@ -47,7 +47,7 @@ export class AddClusterComponent implements OnInit {
         this.domains = result.filter(d => d.id !== this.domainService.getGlobalDomainId());
       });
     } else {
- this.domainService.getMyDomains().subscribe(result => {
+      this.domainService.getMyDomains().subscribe(result => {
         this.domains = result.filter(d => d.id !== this.domainService.getGlobalDomainId());
       });
     }
