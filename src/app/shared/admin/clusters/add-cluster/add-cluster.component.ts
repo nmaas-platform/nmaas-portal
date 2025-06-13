@@ -7,6 +7,8 @@ import { ClusterManagerService } from '../../../../service/cluster-manager.servi
 import { DomainService } from '../../../../service';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../../auth/auth.service';
+import { UserDataService } from '../../../../service/userdata.service';
 
 @Component({
   selector: 'app-add-cluster',
@@ -36,12 +38,21 @@ export class AddClusterComponent implements OnInit {
     private cluserService: ClusterManagerService,
     private domainService: DomainService,
     private datePipe: DatePipe,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
 
   ) {
-    this.domainService.getAllBase().subscribe(result => {
-      this.domains = result.filter(d => d.id !== this.domainService.getGlobalDomainId());
-    });
+    if (authService.getGlobalRole().includes('ROLE_SYSTEM_ADMIN')) {
+      this.domainService.getAllBase().subscribe(result => {
+        this.domains = result.filter(d => d.id !== this.domainService.getGlobalDomainId());
+      });
+    } else {
+      this.domainService.getMyDomains().subscribe(result => {
+        this.domains = result.filter(d => d.id !== this.domainService.getGlobalDomainId());
+      });
+    }
+
+
 
   }
 
@@ -144,5 +155,9 @@ export class AddClusterComponent implements OnInit {
 
   public formatDate(date: Date) {
     return this.datePipe.transform(date, 'dd-MM-yyyy HH:mm');
+  }
+
+  public step2valid(): boolean {
+    return this.cluster.domainNames.length > 0 && this.cluster.contactEmail !== '' && this.cluster.description !== ''
   }
 }

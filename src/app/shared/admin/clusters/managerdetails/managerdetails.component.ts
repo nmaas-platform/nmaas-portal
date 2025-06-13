@@ -6,6 +6,7 @@ import { BaseComponent } from '../../../common/basecomponent/base.component';
 import { ClusterExtNetwork, IngressCertificateConfigOption, IngressControllerConfigOption, IngressResourceConfigOption, NamespaceConfigOption } from '../../../../model/cluster';
 import { DatePipe } from '@angular/common';
 import { DomainService } from '../../../../service';
+import { UserDataService } from '../../../../service/userdata.service';
 
 @Component({
   selector: 'app-manager-details',
@@ -35,7 +36,8 @@ export class ClusterManagerDetailsComponent extends BaseComponent implements OnI
                     public router: Router,
                     private route: ActivatedRoute,
                     private datePipe: DatePipe,
-                    private domainService: DomainService
+                    private domainService: DomainService,
+                    protected userDataService: UserDataService
                     
   ) {
     super();
@@ -43,7 +45,10 @@ export class ClusterManagerDetailsComponent extends BaseComponent implements OnI
   }
 
   public ngOnInit() {
-    this.domainService.getAllBase().subscribe(result => this.domains = result);
+    //  this.userDataService.selectedDomainId.subscribe((domainId) => {
+     
+    // })
+    // this.domainService.getAllBase().subscribe(result => this.domains = result);
 
     this.route.params.subscribe(params => {
         this.cluterId = +params['id'];
@@ -52,6 +57,7 @@ export class ClusterManagerDetailsComponent extends BaseComponent implements OnI
           console.log(result);
           this.cluster = result;
           if(this.cluster.domainNames !== undefined && this.cluster.domainNames !== null && this.cluster.domainNames.length > 0) {
+            console.log("Domain names: ", this.cluster.domainNames);
             this.selectedDomain = this.cluster.domainNames[0];
           }
         } )
@@ -116,6 +122,8 @@ export class ClusterManagerDetailsComponent extends BaseComponent implements OnI
 
       console.log(event);
       this.cluster.domainNames = [event]
+      this.selectedDomain = event;
+      console.log(this.selectedDomain)
     
   }
 

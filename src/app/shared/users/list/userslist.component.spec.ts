@@ -22,9 +22,9 @@ describe('UserslistComponent', () => {
         authServiceSpy.hasRole.and.returnValue(true)
         authServiceSpy.hasDomainRole.and.returnValue(true)
 
-        const domainServiceSpy = createSpyObj('DomainService', ['getGlobalDomainId', 'getAll', 'getMyDomains'])
+        const domainServiceSpy = createSpyObj('DomainService', ['getGlobalDomainId', 'getAllBase', 'getMyDomains'])
         domainServiceSpy.getGlobalDomainId.and.returnValue(1)
-        domainServiceSpy.getAll.and.returnValue(of([]))
+        domainServiceSpy.getAllBase.and.returnValue(of([]))
         domainServiceSpy.getMyDomains.and.returnValue(of([]))
 
         TestBed.configureTestingModule({

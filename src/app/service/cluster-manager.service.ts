@@ -48,4 +48,8 @@ export class ClusterManagerService {
         return this.http.post<ClusterManager>(this.url + '/read', formParams);
     }
 
+    public getClustersInDomain(domainId: number): Observable<ClusterManager[]> {
+        return this.http.get<ClusterManager[]>(`${this.url}/domain/${domainId}`);
+    }
+
 }
