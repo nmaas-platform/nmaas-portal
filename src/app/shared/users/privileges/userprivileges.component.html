@@ -7,7 +7,6 @@
 					<label style="margin-right:10px" for="domainId" >{{'USER_PRIVILEGES.DOMAIN' | translate}}:</label>
 					<select class="form-control" [formGroup]="newPrivilegeForm"
 						id="domainId" name="domainId" formControlName="domainId" style="min-width: 170px"
-							[attr.disabled]="domainId!==domainService.getGlobalDomainId()? '' : null"
 							(ngModelChange)="clearSelectedRole()">
 						<option *ngFor="let domain of domains" [value]="domain.id">{{domain.name}}</option>
 					</select>

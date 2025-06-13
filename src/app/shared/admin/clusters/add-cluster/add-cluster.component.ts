@@ -126,6 +126,7 @@ export class AddClusterComponent implements OnInit {
   public submit(): void {
     console.log(this.cluster);
     this.deteleDates();
+    this.setInitialValues();
     this.cluserService.sendCluster(new File([this.kubernetesFile], 'kubernetes.yaml'), this.cluster).subscribe(result => {
       console.log(result);
       this.cluster = result;
@@ -160,4 +161,13 @@ export class AddClusterComponent implements OnInit {
   public step2valid(): boolean {
     return this.cluster.domainNames.length > 0 && this.cluster.contactEmail !== '' && this.cluster.description !== ''
   }
+
+  public setInitialValues() {
+    this.cluster.ingress.controllerConfigOption = IngressControllerConfigOption.USE_EXISTING;
+    this.cluster.ingress.controllerChartName = "";
+    this.cluster.ingress.controllerChartArchive = "";
+    this.cluster.ingress.resourceConfigOption = IngressResourceConfigOption.DEPLOY_FROM_CHART;
+
+  }
+
 }
