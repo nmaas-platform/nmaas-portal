@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {DashboardService} from '../../service/dashboard.service';
 import {UserDataService} from '../../service/userdata.service';
 import {AppImagesService, AppsService} from '../../service';
@@ -10,7 +10,7 @@ import {AuthService} from '../../auth/auth.service';
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css'
 })
-export class AdminDashboardComponent {
+export class AdminDashboardComponent implements OnInit, OnDestroy {
   popularAppsChartData: any;
 
   basicOptions: any;
@@ -26,6 +26,8 @@ export class AdminDashboardComponent {
   startDate;
   endDate;
 
+  private refresh : any;
+
   constructor(protected dashboardService: DashboardService,
               private userDataService: UserDataService,
               public appImagesService: AppImagesService,
@@ -35,10 +37,10 @@ export class AdminDashboardComponent {
   }
 
 
-  ngOnInit() {
+  public ngOnInit() {
     this.setDefaultDate();
     this.getAdmin()
-    this.userDataService.selectedDomainId.subscribe((domainId) => {
+    this.refresh = this.userDataService.selectedDomainId.subscribe((domainId) => {
           this.domainId = domainId
           this.getDomainAdmin()
     });
@@ -82,6 +84,11 @@ export class AdminDashboardComponent {
         }
       }
     };
+  }
+
+  public ngOnDestroy(): void {
+    this.refresh.unsubscribe();
+    this.refresh = null;
   }
 
   chartData() {
