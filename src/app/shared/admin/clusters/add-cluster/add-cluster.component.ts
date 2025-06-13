@@ -163,10 +163,12 @@ export class AddClusterComponent implements OnInit {
   }
 
   public setInitialValues() {
-    this.cluster.ingress.controllerConfigOption = IngressControllerConfigOption.USE_EXISTING;
-    this.cluster.ingress.controllerChartName = "";
-    this.cluster.ingress.controllerChartArchive = "";
-    this.cluster.ingress.resourceConfigOption = IngressResourceConfigOption.DEPLOY_FROM_CHART;
+    if (this.cluster.ingress !== undefined) {
+      this.cluster.ingress.controllerConfigOption = IngressControllerConfigOption.USE_EXISTING;
+      this.cluster.ingress.controllerChartName = "";
+      this.cluster.ingress.controllerChartArchive = "";
+      this.cluster.ingress.resourceConfigOption = IngressResourceConfigOption.DEPLOY_FROM_CHART;
+    }
 
   }
 
