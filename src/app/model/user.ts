@@ -31,3 +31,16 @@ export class User {
   }
 
 }
+
+export class UserListEntry {
+  public id: number = undefined;
+  public username: string = undefined;
+  public name: string = undefined;
+  public email: string = undefined;
+  public enabled: boolean = undefined;
+  public globalRole: string = undefined;
+  public domainsName: string[] = [];
+  public lastSuccessfulLoginDate: Date = undefined;
+  public firstLoginDate: Date = undefined;
+  public roles: UserRole[] = [];
+}
