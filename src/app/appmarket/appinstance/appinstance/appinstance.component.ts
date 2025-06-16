@@ -99,6 +99,9 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     @ViewChild('showConfigurationModal')
     public showConfigurationModal: ModalComponent;
 
+    @ViewChild('showConfigurationModal')
+    public scaleDownModal: ModalComponent;
+
     app: ApplicationDTO;
 
 
@@ -656,19 +659,6 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                 this.accessMethodsModal.show();
             })
 
-    }
-
-    public confirmScaleDown(): void {
-        this.confirmationService.confirm({
-            message: this.translate.instant('APP_INSTANCES.CONFIRM_SCALEDOWN.MESSAGE'),
-            header: this.translate.instant('APP_INSTANCES.CONFIRM_SCALEDOWN.HEADER'),
-            icon: 'pi pi-exclamation-triangle',
-            acceptLabel: this.translate.instant('APP_INSTANCES.CONFIRM_SCALEDOWN.ACCEPT'),
-            rejectLabel: this.translate.instant('APP_INSTANCES.CONFIRM_SCALEDOWN.REJECT'),
-            accept: () => {
-                this.scaleDown();
-            }
-        });
     }
 
     public scaleDown(): void {
