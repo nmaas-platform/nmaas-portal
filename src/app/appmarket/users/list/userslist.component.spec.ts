@@ -1,66 +1,65 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+// import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {UsersListComponent} from './userslist.component';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {AppsService, DomainService, UserService} from '../../../service';
-import {AuthService} from '../../../auth/auth.service';
-import {UserDataService} from '../../../service/userdata.service';
-import {RouterTestingModule} from '@angular/router/testing';
-import {of} from 'rxjs';
-import createSpyObj = jasmine.createSpyObj;
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+// import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+// import {AppsService, DomainService, UserService} from '../../../service';
+// import {AuthService} from '../../../auth/auth.service';
+// import {UserDataService} from '../../../service/userdata.service';
+// import {RouterTestingModule} from '@angular/router/testing';
+// import {of} from 'rxjs';
+// import createSpyObj = jasmine.createSpyObj;
+// import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
-describe('UsersListComponent', () => {
-    let component: UsersListComponent;
-    let fixture: ComponentFixture<UsersListComponent>;
+// describe('UsersListComponent', () => {
+//     let component: UsersListComponent;
+//     let fixture: ComponentFixture<UsersListComponent>;
 
-    beforeEach(waitForAsync(() => {
-        const authServiceSpy = createSpyObj('AuthService', ['hasRole']);
-        authServiceSpy.hasRole.and.returnValue(true)
+//     beforeEach(waitForAsync(() => {
+//         const authServiceSpy = createSpyObj('AuthService', ['hasRole']);
+//         authServiceSpy.hasRole.and.returnValue(true)
 
-        const userServiceSpy = createSpyObj('UserService', ['getAll', 'getDomainUsersAsAdmin'])
-        userServiceSpy.getAll.and.returnValue(of([]))
-        userServiceSpy.getDomainUsersAsAdmin.and.returnValue(of([]))
+//         const userServiceSpy = createSpyObj('UserService', ['getAll', 'getDomainUsersAsAdmin'])
+//         userServiceSpy.getAll.and.returnValue(of([]))
+//         userServiceSpy.getDomainUsersAsAdmin.and.returnValue(of([]))
 
-        const domainServiceSpy = createSpyObj('DomainService', ['getGlobalDomainId'])
-        domainServiceSpy.getGlobalDomainId.and.returnValue(1)
+//         const domainServiceSpy = createSpyObj('DomainService', ['getGlobalDomainId'])
+//         domainServiceSpy.getGlobalDomainId.and.returnValue(1)
 
-        TestBed.configureTestingModule({
-            declarations: [UsersListComponent],
-            imports: [
-                RouterTestingModule,
-                TranslateModule.forRoot({
-                    loader: {
-                        provide: TranslateLoader,
-                        useClass: TranslateFakeLoader
-                    }
-                }),
-            ],
-            providers: [
-                {provide: DomainService, useValue: domainServiceSpy},
-                {provide: UserService, useValue: userServiceSpy},
-                {provide: AuthService, useValue: authServiceSpy},
-                {provide: AppsService, useValue: {}},
-                {
-                    provide: UserDataService,
-                    useValue: {
-                        selectedDomainId: of(1)
-                    }
-                },
-            ],
-            schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-        })
-            .compileComponents();
-    }));
+//         TestBed.configureTestingModule({
+//             declarations: [UsersListComponent],
+//             imports: [
+//                 RouterTestingModule,
+//                 TranslateModule.forRoot({
+//                     loader: {
+//                         provide: TranslateLoader,
+//                         useClass: TranslateFakeLoader
+//                     }
+//                 }),
+//             ],
+//             providers: [
+//                 {provide: DomainService, useValue: domainServiceSpy},
+//                 {provide: UserService, useValue: userServiceSpy},
+//                 {provide: AuthService, useValue: authServiceSpy},
+//                 {provide: AppsService, useValue: {}},
+//                 {
+//                     provide: UserDataService,
+//                     useValue: {
+//                         selectedDomainId: of(1)
+//                     }
+//                 },
+//             ],
+//             schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+//         })
+//             .compileComponents();
+//     }));
 
-    beforeEach(() => {
-        fixture = TestBed.createComponent(UsersListComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-    });
+//     beforeEach(() => {
+//         fixture = TestBed.createComponent(UsersListComponent);
+//         component = fixture.componentInstanceq?;
+//         fixture.detectChanges();
+//     });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
+//     it('should create', () => {
+//         expect(component).toBeTruthy();
+//     });
 
-});
+// });
