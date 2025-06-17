@@ -5,22 +5,44 @@ import {GenericDataService} from './genericdata.service';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {AppConfigService} from './appconfig.service';
 
-import {Password, User} from '../model';
+import {Password, User, UserListEntry} from '../model';
 import {Role, UserRole} from '../model/userrole';
 import {DomainService} from './domain.service';
 import {PasswordReset} from '../model/passwordreset';
 import {catchError, debounceTime} from 'rxjs/operators';
+import { Page, PaginatorEvent } from './page';
+import { PaginationService } from './pagination.service';
 
 @Injectable()
 export class UserService extends GenericDataService {
 
-    constructor(http: HttpClient, appConfig: AppConfigService, protected domainService: DomainService) {
+    constructor(http: HttpClient, appConfig: AppConfigService, protected domainService: DomainService, private paggination: PaginationService) {
         super(http, appConfig);
     }
 
     public getAll(domainId?: number): Observable<User[]> {
         return this.get<User[]>(domainId === undefined || domainId === this.domainService.getGlobalDomainId() ?
             this.getUsersUrlWithoutDash() : this.getDomainUsersUrlWithoutDash(domainId));
+    }
+
+    public getAllList(paginatorEvent: PaginatorEvent, searchValue: string = ''):  Observable<Page<UserListEntry>> {
+        const customFilters = {
+      searchValue: searchValue
+    };
+
+    const params = this.paggination.getPaginationAndFilterParams(paginatorEvent, customFilters);
+
+    return this.http.get<Page<UserListEntry>>(this.getUsersUrl() + "list", {params});
+    }
+
+     public getAllListDomain(paginatorEvent: PaginatorEvent, searchValue: string = '', domainId: number ):  Observable<Page<UserListEntry>> {
+        const customFilters = {
+      searchValue: searchValue,
+    };
+
+    const params = this.paggination.getPaginationAndFilterParams(paginatorEvent, customFilters);
+
+    return this.http.get<Page<UserListEntry>>(this.appConfig.getApiUrl() + '/domains/' + domainId + '/users/list', {params});
     }
 
     public getOne(userId: number, domainId?: number): Observable<User> {

@@ -7,5 +7,5 @@ export * from './screenshots/screenshots.component';
 export * from './common/componentmode';
 export * from './common/password/password.component';
 export * from './users/details/userdetails.component';
-export * from './users/list/userslist.component';
+export * from './users/list/adminuserslist.component';
 export * from './shared.module';

@@ -8,7 +8,6 @@ import {PipesModule} from '../../pipe/pipes.module';
 import {AuthModule} from '../../auth/auth.module';
 import {SharedModule} from '../../shared/shared.module';
 
-import {UsersListComponent} from './list/userslist.component';
 import {UserDetailsComponent} from './userdetails/userdetails.component';
 
 import {UserService} from '../../service/user.service';
@@ -17,7 +16,6 @@ import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
     declarations: [
-        UsersListComponent,
         UserDetailsComponent,
     ],
     imports: [
@@ -30,7 +28,7 @@ import {TranslateModule} from '@ngx-translate/core';
         TranslateModule.forChild()
     ],
     exports: [
-        UsersListComponent,
+        
     ],
     providers: [
         UserService,
