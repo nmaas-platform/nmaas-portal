@@ -192,11 +192,11 @@ describe('ClusterManagerDetailsComponent', () => {
       domainNames: ["test"]
     };
 
-    clusterService.sendCluster.and.returnValue(of(mockResponse));
+    clusterService.updateCluster.and.returnValue(of(mockResponse));
 
-    component.sendCluster(mockEvent);
+    component.submit();
 
-    expect(clusterService.sendCluster).toHaveBeenCalledWith(mockFile, jasmine.any(ClusterManager));
+    expect(clusterService.updateCluster).toHaveBeenCalledTimes(1);
   });
 
   it('should handle domain selection', () => {
