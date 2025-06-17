@@ -32,6 +32,8 @@ export class AddClusterComponent implements OnInit {
 
   public error = "";
   public cluster: ClusterManager = new ClusterManager();
+  public showNamespaceCreation: boolean = false;
+  public namespaceCreation = true;
 
 
   constructor(public translate: TranslateService,
@@ -95,7 +97,7 @@ export class AddClusterComponent implements OnInit {
   }
 
   public onDomainSelection(event: any) {
-
+    this.showNamespaceCreation = true;
     console.log(event);
     this.cluster.domainNames = [event]
   }
@@ -127,7 +129,7 @@ export class AddClusterComponent implements OnInit {
     console.log(this.cluster);
     this.deteleDates();
     this.setInitialValues();
-    this.cluserService.sendCluster(new File([this.kubernetesFile], 'kubernetes.yaml'), this.cluster).subscribe(result => {
+    this.cluserService.sendCluster(new File([this.kubernetesFile], 'kubernetes.yaml'), this.cluster, this.namespaceCreation).subscribe(result => {
       console.log(result);
       this.cluster = result;
       this.router.navigate(['/admin/manage/clusters']);
