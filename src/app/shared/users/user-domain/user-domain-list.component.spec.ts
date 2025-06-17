@@ -11,6 +11,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { User, UserListEntry } from '../../../model/user';
+import { Role } from '../../../model/userrole';
 
 describe('UserDomainListComponent', () => {
   let component: UserDomainListComponent;
@@ -100,8 +101,8 @@ describe('UserDomainListComponent', () => {
 
   it('should load users when domainId changes', () => {
     const mockUsers: UserListEntry[] = [
-      { id: 1, username: 'user1', name: 'User One', email: 'user1@example.com', enabled: true, globalRole: 'ROLE_USER', domainsName: [], lastSuccessfulLoginDate: null, firstLoginDate: null, roles: [] },
-      { id: 2, username: 'user2', name: 'User Two', email: 'user2@example.com', enabled: false, globalRole: 'ROLE_ADMIN', domainsName: [], lastSuccessfulLoginDate: null, firstLoginDate: null, roles: [] }
+      { id: 1, username: 'user1', name: 'User One', email: 'user1@example.com', enabled: true, globalRole: 'ROLE_USER', domainsName: [], lastSuccessfulLoginDate: null, firstLoginDate: null, domainRole: Role.ROLE_GUEST },
+      { id: 2, username: 'user2', name: 'User Two', email: 'user2@example.com', enabled: false, globalRole: 'ROLE_ADMIN', domainsName: [], lastSuccessfulLoginDate: null, firstLoginDate: null,domainRole: Role.ROLE_GUEST }
     ];
     userService.getAllListDomain.and.returnValue(of({
       content: mockUsers,
@@ -126,7 +127,7 @@ describe('UserDomainListComponent', () => {
 
   it('should apply filter and reload users', () => {
     const mockUsers: UserListEntry[] = [
-      { id: 1, username: 'user1', name: 'User One', email: 'user1@example.com', enabled: true, globalRole: 'ROLE_USER', domainsName: [], lastSuccessfulLoginDate: null, firstLoginDate: null, roles: [] }
+      { id: 1, username: 'user1', name: 'User One', email: 'user1@example.com', enabled: true, globalRole: 'ROLE_USER', domainsName: [], lastSuccessfulLoginDate: null, firstLoginDate: null, domainRole: Role.ROLE_GUEST}
     ];
     userService.getAllListDomain.and.returnValue(of({
       content: mockUsers,

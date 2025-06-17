@@ -42,6 +42,6 @@ export class UserListEntry {
   public domainsName: string[] = [];
   public lastSuccessfulLoginDate: Date = undefined;
   public firstLoginDate: Date = undefined;
-  protected domainRole: Role = undefined
+  public domainRole: Role = undefined
 
 }
