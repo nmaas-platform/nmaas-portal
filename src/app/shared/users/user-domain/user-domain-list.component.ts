@@ -244,7 +244,6 @@ export class UserDomainListComponent extends BaseComponent implements OnInit, On
   }
 
   public changeUserRole(user: User, domainId: number, event: any) {
-    console.warn(event.value);
     if (event.value !== null) {
       this.userService.addRole(user.id, event.value, domainId).subscribe(() => this.loadUsers())
     } else {
