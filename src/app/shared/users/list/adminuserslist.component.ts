@@ -188,13 +188,6 @@ export class UsersListAdminComponent extends BaseComponent implements OnInit, On
         user.enabled = enabled;
     }
 
-    public isGlobalGuestAndHasNoRoleInThisDomain(user: UserListEntry): boolean {
-        const isGlobalGuest = user.globalRole === Role[Role.ROLE_GUEST];
-        const hasNoRoleInThisDomain = user.roles.filter(r => r.domainId === this.domainId).length === 0;
-        return isGlobalGuest && hasNoRoleInThisDomain;
-    }
-
-
     public canUserBeDeleted(user: User): boolean {
         if (user.enabled) {
             return false;

@@ -1,9 +1,9 @@
-import {Role, UserRole} from './userrole';
-import {SSHKeyView} from './sshkey-view';
+import { Role, UserRole } from './userrole';
+import { SSHKeyView } from './sshkey-view';
 
 export class User {
-  public id: number  = undefined;
-  public username: string  = undefined;
+  public id: number = undefined;
+  public username: string = undefined;
   public enabled: boolean = undefined;
   public firstname: string = undefined;
   public lastname: string = undefined;
@@ -42,5 +42,6 @@ export class UserListEntry {
   public domainsName: string[] = [];
   public lastSuccessfulLoginDate: Date = undefined;
   public firstLoginDate: Date = undefined;
-  public roles: UserRole[] = [];
+  protected domainRole: Role = undefined
+
 }
