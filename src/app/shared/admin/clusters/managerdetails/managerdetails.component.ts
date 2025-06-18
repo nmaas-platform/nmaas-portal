@@ -64,17 +64,7 @@ export class ClusterManagerDetailsComponent extends BaseComponent implements OnI
     })
   }
 
- public sendCluster(event: any) {
-    console.log(event);
-    const file = event.files[0];
-    const view = new ClusterManager();
-    view.name = "test"
-    view.description="testest"
-    this.clusterService.sendCluster(file, view).subscribe(result => { 
-        console.log(result);
-    }
-    )
-    }
+
 
     private initializeMaps() {
         this.resourceConfigOption.set('Do nothing', IngressResourceConfigOption.NOT_USED);
