@@ -82,6 +82,20 @@ label{
     color: #136214;
     font-weight: bold;
 }
+::ng-deep .removed .p-progressbar .p-progressbar-value{
+    background: #929292;
+}
+.removed{
+    color: #929292;
+    font-weight: bold;
+}
+::ng-deep .scaledDown .p-progressbar .p-progressbar-value{
+    background: #2673B6;
+}
+.scaledDown{
+        color: #2673B6;
+        font-weight: bold;
+}
 ::ng-deep .p-progressbar .p-progressbar-label{
     display: none;
 }
