@@ -165,7 +165,7 @@
                {{userName}}
             </span>
         </p-button>
-        <div *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']" style="margin-top:10px" [routerLink]="['admin/dashboard']">
+        <div *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']" style="margin-top:10px" [routerLink]="['admin/dashboard']">
             <p-button *ngIf="!toggleAdmin" (onClick)="adminPanel()" ><i class="pi pi-sign-in" style="margin-right:10px; font-size: 18px"[ngClass]="{'collapsed': isCollapsed}" title=" Go to admin panel"></i>
                 <span *ngIf="!isCollapsed">
                       Admin panel

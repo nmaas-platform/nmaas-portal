@@ -20,7 +20,6 @@ export class AdminDashboardComponent {
   applicationUpgradeStatus: any[] = [];
   domainId;
   public appId: number;
-  appNameToIdMap: { [key: string]: number } = {};
   rangeDates: Date[] = [];
 
   startDate;
@@ -109,15 +108,16 @@ export class AdminDashboardComponent {
   }
   getAdmin() {
     this.appsService.getAllApplicationBase().subscribe(apps => {
+      const appNameToAppIdMap: { [name: string]: number } = {};
       apps.forEach(app => {
-        this.appNameToIdMap[app.name] = app.id;
+        appNameToAppIdMap[app.name] = app.id;
       });
       this.dashboardService.getAdmin(this.startDate, this.endDate).subscribe(
           (response) => {
             this.adminData = response;
             this.instanceCountInPeriodDetails = this.adminData.instanceCountInPeriodDetails.map(instance => ({
               ...instance,
-              appId: this.appNameToIdMap[instance.applicationName] || null
+              appId: appNameToAppIdMap[instance.applicationName] || null
             }));
             this.chartData();
           }
@@ -125,12 +125,21 @@ export class AdminDashboardComponent {
     });
   }
   getDomainAdmin() {
-    this.dashboardService.getDomainAdmin(this.domainId).subscribe(
-        (response) => {
-          this.domainAdminData = response;
-          this.applicationUpgradeStatus  = this.domainAdminData.applicationUpgradeStatus;
-        }
-    )
+    this.appsService.getAllApplicationBase().subscribe(apps => {
+      const appNameToAppIdMap: { [name: string]: number } = {};
+      apps.forEach(app => {
+        appNameToAppIdMap[app.name] = app.id;
+      });
+      this.dashboardService.getDomainAdmin(this.domainId).subscribe(
+          (response) => {
+            this.domainAdminData = response;
+            this.applicationUpgradeStatus = this.domainAdminData.applicationUpgradeStatus.map(inst => ({
+              ...inst,
+              logoId: appNameToAppIdMap[inst.appName] || null
+            }));
+          }
+      )
+    })
   }
   onDateChange(dates: Date[] | null) {
     if (!dates || dates.length === 0 ) {
