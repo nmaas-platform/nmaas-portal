@@ -2,22 +2,22 @@
     <div style="display: flex; flex-direction:column">
         <div style="display: flex; flex-wrap: wrap;">
             <div class="background-section" style="flex: 1 1 30%; margin-right: 20px">
-                <h5 style="font-weight: bold">Current number of user </h5>
+                <h5 style="font-weight: bold">{{ 'DASHBOARD.NUMBERS_OF_USERS' | translate }} </h5>
                 <h1 style="font-weight: bold">{{ adminData?.userCount}}</h1>
             </div>
             <div class="background-section" style="flex: 1 1 30%; margin-right: 20px">
-                <h5 style="font-weight: bold">Current number of domains </h5>
+                <h5 style="font-weight: bold">{{ 'DASHBOARD.NUMBERS_OF_DOMAINS' | translate }}</h5>
                 <h1 style="font-weight: bold">{{ adminData?.domainsCount}}</h1>
             </div>
             <div class="background-section" style="flex: 1 1 30% ;">
-                <h5 style="font-weight: bold">Current number of deployed applications </h5>
+                <h5 style="font-weight: bold">{{ 'DASHBOARD.NUMBERS_OF_DEPLOYED_APP' | translate }} </h5>
                 <h1 style="font-weight: bold">{{ adminData?.instanceCount}}</h1>
             </div>
         </div>
         <div class="grid" style="display: flex; justify-content: space-between;">
             <div class="background-section width-50 " style="margin-right: 20px">
                 <div style="    display: flex; justify-content: space-between;">
-                    <h5 style="font-weight: bold">Application deployments <ng-container *ngIf="rangeDates && rangeDates[0] && rangeDates[1]; else lastWeek">
+                    <h5 style="font-weight: bold">{{ 'DASHBOARD.APP_DEPLOYMENTS' | translate }} <ng-container *ngIf="rangeDates && rangeDates[0] && rangeDates[1]; else lastWeek">
                         from {{ rangeDates[0] | date:'dd.MM.yyyy' }} to {{ rangeDates[1] | date:'dd.MM.yyyy' }}
                     </ng-container>
                         <ng-template #lastWeek>in the last week</ng-template></h5>
@@ -36,9 +36,9 @@
                     <ng-template pTemplate="header">
                         <tr>
                             <th></th>
-                            <th>Name</th>
-                            <th>Version</th>
-                            <th>Domain</th>
+                            <th>{{ 'DASHBOARD.NAME' | translate }}</th>
+                            <th>{{ 'DASHBOARD.VERSION' | translate }}</th>
+                            <th>{{ 'DASHBOARD.DOMAIN' | translate }}</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-instance>
@@ -54,7 +54,7 @@
             </div>
             <div class="width-50" >
                 <div class="background-section" style="">
-                    <h5 style="font-weight: bold">Most popular applications</h5>
+                    <h5 style="font-weight: bold">{{ 'DASHBOARD.MOST_POPULAR' | translate }} </h5>
                     <p-chart type="bar" [data]="popularAppsChartData" [options]="basicOptions" width="100%" height="50vh" />
                 </div>
             </div>
@@ -65,12 +65,12 @@
     <div *ngIf="domainId !== 1">
         <div style="display: flex">
             <div class="background-section" style="flex: 1 1 50%; margin-right: 20px">
-                <h5 style="font-weight: bold">Last login to the domain </h5>
+                <h5 style="font-weight: bold">{{ 'DASHBOARD.LAST_LOGIN' | translate }} </h5>
                 <p-table [value]="domainAdminData?.userLogins | keyvalue">
                     <ng-template pTemplate="header">
                         <tr>
-                            <th>User</th>
-                            <th>Last login</th>
+                            <th>{{ 'DASHBOARD.USER' | translate }}</th>
+                            <th>{{ 'DASHBOARD.LOGIN' | translate }}</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-login>
@@ -82,12 +82,12 @@
                 </p-table>
             </div>
             <div class="background-section" style="flex: 1 1 50%;">
-                <h5 style="font-weight: bold">Number of deployed applications per user </h5>
+                <h5 style="font-weight: bold">{{ 'DASHBOARD.DEPLOYED_APP' | translate }} </h5>
                 <p-table [value]="domainAdminData?.applicationDeployed | keyvalue">
                     <ng-template pTemplate="header">
                         <tr>
-                            <th>User</th>
-                            <th>Deployment</th>
+                            <th>{{ 'DASHBOARD.USER' | translate }}</th>
+                            <th>{{ 'DASHBOARD.DEPLOYMENT' | translate }}</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-deployment>
@@ -100,16 +100,16 @@
             </div>
         </div>
         <div class="background-section" style="">
-            <h5 style="font-weight: bold">Application status</h5>
+            <h5 style="font-weight: bold">{{ 'DASHBOARD.APP_STATUS' | translate }}</h5>
             <p-table [value]="applicationUpgradeStatus"  [paginator]="true" [rows]="4" [scrollable]="true" [style]="{'width': '100%'}">
                 <ng-template pTemplate="header">
                     <tr>
                         <th></th>
-                        <th>Name</th>
-                        <th>Id</th>
-                        <th>Instance name</th>
-                        <th>Version</th>
-                        <th>Need upgrade</th>
+                        <th>{{ 'DASHBOARD.NAME' | translate }}</th>
+                        <th>{{ 'DASHBOARD.ID' | translate }}</th>
+                        <th>{{ 'DASHBOARD.INSTANCE_NAME' | translate }}</th>
+                        <th>{{ 'DASHBOARD.VERSION' | translate }}</th>
+                        <th>{{ 'DASHBOARD.NEED_UPGRADE' | translate }}</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-app>
@@ -129,7 +129,7 @@
 </div>
 <div *roles="['ROLE_OPERATOR']">
     <div class="background-section" style="flex: 1 1 30%; margin-right: 20px">
-        <h5 style="font-weight: bold">Current number of domains </h5>
+        <h5 style="font-weight: bold">{{ 'DASHBOARD.NUMBERS_OF_DOMAINS' | translate }} </h5>
         <h1 style="font-weight: bold">TEST</h1>
     </div>
 </div>

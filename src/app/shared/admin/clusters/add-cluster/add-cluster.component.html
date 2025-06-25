@@ -57,7 +57,7 @@
     <div class="mt-4">
 
                 <div>
-                    <label for="assignDomain">Assign to domain? </label>
+                    <label for="assignDomain">{{ 'CLUSTERS.ASSIGN' | translate }}</label>
                     <input type="checkbox" [(ngModel)]="assignedDomain" (change)="onDomainChange($event)" id="assignDomain" />
                 </div>
                <div class="mt-4" *ngIf="assignedDomain">
