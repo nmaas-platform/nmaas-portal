@@ -6,3 +6,10 @@
     padding-left: 0 !important;
     padding-right: 0 !important;
 }
+
+.panel {
+  margin-bottom: 5px;
+  border: 0px;
+  border-radius: 4px;
+  box-shadow: none;
+}
