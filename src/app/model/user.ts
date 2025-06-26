@@ -1,9 +1,9 @@
-import {Role, UserRole} from './userrole';
-import {SSHKeyView} from './sshkey-view';
+import { Role, UserRole } from './userrole';
+import { SSHKeyView } from './sshkey-view';
 
 export class User {
-  public id: number  = undefined;
-  public username: string  = undefined;
+  public id: number = undefined;
+  public username: string = undefined;
   public enabled: boolean = undefined;
   public firstname: string = undefined;
   public lastname: string = undefined;
@@ -29,5 +29,19 @@ export class User {
   public getRoles(): Role[] {
     return Array.from(new Set(this.roles.map(ur => ur.role)));
   }
+
+}
+
+export class UserListEntry {
+  public id: number = undefined;
+  public username: string = undefined;
+  public name: string = undefined;
+  public email: string = undefined;
+  public enabled: boolean = undefined;
+  public globalRole: string = undefined;
+  public domainsName: string[] = [];
+  public lastSuccessfulLoginDate: Date = undefined;
+  public firstLoginDate: Date = undefined;
+  public domainRole: Role = undefined
 
 }

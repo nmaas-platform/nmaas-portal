@@ -14,7 +14,7 @@ import {ServicesModule} from '../service/services.module';
 import {UserDataService} from '../service/userdata.service';
 import {PasswordComponent, PasswordValidator} from './common/password/password.component';
 import {UserDetailsComponent} from './users/details/userdetails.component';
-import {UsersListComponent} from './users/list/userslist.component';
+import {UsersListAdminComponent} from './users/list/adminuserslist.component';
 import {UserPrivilegesComponent} from './users/privileges/userprivileges.component';
 import {BaseComponent} from './common/basecomponent/base.component';
 import {RouterModule} from '@angular/router';
@@ -79,6 +79,7 @@ import { StepsModule } from 'primeng/steps';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {DialogModule} from 'primeng/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { UserDomainListComponent } from './users/user-domain/user-domain-list.component';
 
 
 
@@ -121,7 +122,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
         ScreenshotsComponent,
         ModalComponent,
         UserDetailsComponent,
-        UsersListComponent,
+        UsersListAdminComponent,
         PasswordComponent,
         UserPrivilegesComponent,
         BaseComponent,
@@ -161,8 +162,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
         DomainNamespaceAnnotationsComponent,
         AccessTokensComponent,
         AdminDashboardComponent,
-        AddClusterComponent
-
+        AddClusterComponent,
+        UserDomainListComponent
     ],
     providers: [
         PasswordValidator,
@@ -186,7 +187,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
         ScreenshotsComponent,
         ModalComponent,
         UserDetailsComponent,
-        UsersListComponent,
+        UsersListAdminComponent,
         PasswordComponent,
         UserPrivilegesComponent,
         NavbarComponent,

@@ -1,0 +1,113 @@
+<h4 class="header"> {{ 'USERS.TITLE' | translate }}</h4>
+<div class="" style="display: flex; margin-top:20px">
+
+    <div  style="margin-right: 15px; padding-top: 5px;"> {{'USERS.SEARCH' |
+        translate}}</div>
+
+    <div  class="flex" style="margin-right:20px">
+        <span class="p-input-icon-right" style="width: 100%">
+            <i class="pi pi-search" style="font-size: 13px; top: 16px; margin-right: 5px;"></i>
+            <input pInputText name="searchText" id="searchText" placeholder="Search" type="text" class="form-control" [(ngModel)]="searchValue"
+                (keyup)="onSearchValueChange($event.target.value)" (keyup.enter)="applyFilter()">
+        </span>
+    </div>
+</div>
+
+
+
+<div class="background-section">
+    <p-table [value]="users" [lazy]="true" (onLazyLoad)="onTableLazyLoad($event)"
+        [totalRecords]="paginationSettings.totalElements" [rows]="paginationSettings.maxItemsOnPage"
+        [rowsPerPageOptions]="[15,20,25,50]" [paginator]="true" [loading]="loading"
+        [sortField]="paginationSettings.sortField" [sortOrder]="paginationSettings.sortOrder === 'asc' ? 1 : -1">
+        <ng-template pTemplate="header">
+            <tr>
+                <th scope="col" class="column-sortable" pSortableColumn="username">
+                    {{ 'USERS.USER_NAME' | translate }}
+                    <p-sortIcon field="username"></p-sortIcon>
+                </th>
+                <th scope="col" class="column-sortable" pSortableColumn="lastname">
+                    {{'USERS.NAME' | translate}}
+                    <p-sortIcon field="lastname"></p-sortIcon>
+                </th>
+                <th scope="col" class="column-sortable" pSortableColumn="email">
+                    {{'USERS.EMAIL' | translate}}
+                    <p-sortIcon field="email"></p-sortIcon>
+                </th>
+                <th scope="col" class="column-sortable">
+                    {{ 'USERS.DOMAINS' | translate }}
+                </th>
+                <th scope="col" >
+                    {{ 'USERS.GLOBAL_ROLE' | translate }}
+                </th>
+
+                <th scope="col" >
+                    {{ 'USERS.FIRST_LOGIN' | translate }}
+                </th>
+                <th scope="col" >
+                    {{ 'USERS.LAST_SUCCESSFUL_LOGIN' | translate }}
+                </th>
+                <th scope="col" class="column-sortable" pSortableColumn="enabled">
+                    {{ 'USERS.ENABLED' | translate }}
+                    <p-sortIcon field="enabled"></p-sortIcon>
+                </th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+            <tr>
+                <td (click)="view(user.id)">{{user?.username}}</td>
+                <td (click)="view(user.id)">{{user?.name}}</td>
+                <td (click)="view(user.id)">{{user?.email}}</td>
+                <td (click)="view(user.id)">{{trincateDomainNames(user?.domainsName)}}</td>
+                <td (click)="view(user.id)">
+                    <span>{{"ENUM.USER_ROLES." + user?.globalRole.toUpperCase() | translate}}</span>
+                </td>
+                <td (click)="view(user.id)"> {{ user.firstLoginDate | date:'dd-MM-yyyy HH:mm' }}</td>
+                <td (click)="view(user.id)"> {{ user.lastSuccessfulLoginDate | date:'dd-MM-yyyy HH:mm' }}</td>
+                <td (click)="view(user.id)"> 
+                    <i class="pi" [ngClass]="{'pi-check': user?.enabled, 'pi-times': !user?.enabled}"></i>
+                </td>
+                <td class="text-right">
+                    <span class="dropdown">
+                        <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false"
+                            aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
+                            <em class="pi pi-cog" style="font-size: 1.8rem; color: var(--l-text-color)"></em>
+                        </a>
+                        <ul class="dropdown-menu pull-right-drop">
+                            <li *ngIf="isModeAllowed(ComponentMode.VIEW)">
+                                <a (click)="view(user.id);$event.stopPropagation()">
+                                    {{ 'USERS.DETAILS_BUTTON' | translate }}
+                                </a>
+                            </li>
+                            <li
+                                *ngIf="user.enabled && authService.hasRole('ROLE_SYSTEM_ADMIN') && user.username!==authService.getUsername()">
+                                <a (click)="changeUserStatus(user, false);$event.stopPropagation()">
+                                    {{ 'USERS.DISABLE_BUTTON' | translate }}
+                                </a>
+                            </li>
+                            <li *ngIf="!user.enabled && authService.hasRole('ROLE_SYSTEM_ADMIN')">
+                                <a (click)="changeUserStatus(user, true);$event.stopPropagation()">
+                                    {{ 'USERS.ENABLE_BUTTON' | translate }}
+                                </a>
+                            </li>
+                        
+                            <li
+                                *ngIf="isModeAllowed(ComponentMode.DELETE) && domainId != domainService.getGlobalDomainId() && user.username!==authService.getUsername()">
+                                <a role="button" (click)="$event.stopPropagation()">
+                                    {{ 'USERS.REMOVE_FROM_DOMAIN_BUTTON' | translate }}
+                                </a>
+                            </li>
+                            <li
+                                *ngIf="isModeAllowed(ComponentMode.DELETE) && authService.hasRole('ROLE_SYSTEM_ADMIN') && user.username!==authService.getUsername() && canUserBeDeleted(user)">
+                                <a role="button" (click)="$event.stopPropagation()">
+                                    {{ 'USERS.DELETE_BUTTON' | translate }}
+                                </a>
+                            </li>
+                        </ul>
+                    </span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

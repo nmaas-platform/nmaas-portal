@@ -1,31 +1,31 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastContainerComponent, ToastMode } from '../toast-container/toast-container.component';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {MenuItem} from 'primeng/api';
-import {ModalNotificationSendComponent} from '../modal/modal-notification-send/modal-notification-send.component';
-import {AuthService} from '../../auth/auth.service';
-import {ProfileService} from '../../service/profile.service';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
+import { ModalNotificationSendComponent } from '../modal/modal-notification-send/modal-notification-send.component';
+import { AuthService } from '../../auth/auth.service';
+import { ProfileService } from '../../service/profile.service';
 
 @Component({
   selector: 'app-left-menu',
   templateUrl: './left-menu.component.html',
   styleUrl: './left-menu.component.css'
 })
-export class LeftMenuComponent  implements OnInit {
-  @ViewChild(ModalNotificationSendComponent, {static: true})
+export class LeftMenuComponent implements OnInit {
+  @ViewChild(ModalNotificationSendComponent, { static: true })
   public notificationModal;
 
   items: MenuItem[];
   toggleAdmin = false;
-  currentUrl: string ;
+  currentUrl: string;
   isCollapsed = false;
   userName;
 
   constructor(private toast: ToastContainerComponent,
-              public router: Router,
-              private readonly activeRoute: ActivatedRoute,
-              public authService: AuthService,
-              protected profileService: ProfileService) {
+    public router: Router,
+    private readonly activeRoute: ActivatedRoute,
+    public authService: AuthService,
+    protected profileService: ProfileService) {
     this.items = [
       {
         label: 'Profile',
@@ -83,4 +83,16 @@ export class LeftMenuComponent  implements OnInit {
     this.notificationModal.show();
   }
 
+  public isAdmin() {
+    return this.authService.hasRole('ROLE_SYSTEM_ADMIN')
+  }
+
+  public isDomainAdmin() {
+    return this.authService.hasRole('ROLE_DOMAIN_ADMIN')
+
+  }
+
+  public showUserDomain(){
+    return !this.isAdmin() && this.isDomainAdmin();
+  }
 }
