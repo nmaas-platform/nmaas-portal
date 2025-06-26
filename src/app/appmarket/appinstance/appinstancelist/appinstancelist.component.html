@@ -77,18 +77,18 @@
 </div>
 
 <div *ngIf="selectedOption === 'cards'" class="grid col-12">
-    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12"  *ngFor="let appInstance of appDeployedInstances | async | searchAppInstance: searchValue">
-        <div class="background-section" [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain()}"
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"  *ngFor="let appInstance of appDeployedInstances | async | searchAppInstance: searchValue">
+        <div class="background-section instance-card" [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain()}"
              [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : [appInstance.id]" >
             <div  style="display:flex; justify-content: space-between; margin-bottom: 30px">
-                <div>
+                <div style="display: flex; flex-direction:column; justify-content:space-between">
                     <p>{{appInstance?.name}}</p>
                     <p>{{ appInstance?.applicationName }}</p>
                 </div>
                 <div>
                     <div class="" *ngIf="appInstance?.appId">
                         <img alt="App logo"
-                             [src]="(appImagesService.getAppLogoUrl(appInstance?.appId) | secure) || 'assets/images/app-logo-example.png'" height="50px"/>
+                             [src]="(appImagesService.getAppLogoUrl(appInstance?.appId) | secure) || 'assets/images/app-logo-example.png'" width="70px"/>
                     </div>
                     <div class="" *ngIf="!appInstance?.appId">
                         <img alt="App logo" src="assets/images/app-logo-example.png" height="50px"/>

@@ -102,3 +102,14 @@ label{
 p-selectbutton{
     width: max-content;
 }
+.instance-card{
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+@media (min-width:1550px){
+    .col-xl-3{
+        width: 25%
+    }
+}

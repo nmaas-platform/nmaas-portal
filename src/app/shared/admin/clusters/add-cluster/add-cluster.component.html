@@ -79,7 +79,7 @@
 
         <div class="mt-4">
             <label for="name">{{'CLUSTERS.DOMAIN' | translate}}*</label>
-          
+
             <div class="col-sm-12 padding-0">
                 <p-dropdown id="domainSelector" [options]="domains" optionLabel="name" optionValue="name"
                     placeholder="Select domain" emptyMessage="No domain available" [disabled]="domains.length === 0"
@@ -433,11 +433,11 @@
                     <button [disabled]="!clusterForm.form.valid" type="submit" class="btn btn-primary" type="submit">{{
                         'PORTAL_CONFIGURATION.SUBMIT_BUTTON' | translate }}</button>
                 </div>
-                <!-- <button 
+                <!-- <button
                     class="btn btn-primary">{{ 'CLUSTERS.SUBMIT_BUTTON' | translate }}</button> -->
             </form>
         </div>
     </div>
-    <!-- <button type="button" class="btn btn-primary pull-right" (click)="nextStep()" 
+    <!-- <button type="button" class="btn btn-primary pull-right" (click)="nextStep()"
     pTooltip="{{'APPS_WIZARD.ACCEPT_RULES_TOOLTIP' | translate}}" tooltipPosition="bottom" [showDelay]="50">{{'APPS_WIZARD.NEXT_BUTTON' | translate}}</button> -->
 </div>

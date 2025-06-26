@@ -17,6 +17,7 @@ import {MinLengthDirective} from '../../../directive/min-length.directive';
 import {MaxLengthDirective} from '../../../directive/max-length.directive';
 import {DomainAnnotation} from '../../../model/domain-annotation';
 import { ClusterManager } from '../../../model/cluster-manager';
+import {ToastContainerComponent, ToastMode} from '../../../shared/toast-container/toast-container.component';
 
 
 @Component({
@@ -59,12 +60,12 @@ export class DomainComponent extends BaseComponent implements OnInit {
                 private route: ActivatedRoute,
                 private location: Location,
                 public authService: AuthService,
-                protected appsService: AppsService) {
+                protected appsService: AppsService,
+                private toast: ToastContainerComponent) {
         super();
     }
 
     ngOnInit() {
-        console.warn('WWWWWWWWWWWWWWWWwwww', this.domainUsers)
         console.log(this.getCurrentMode());
         this.modal.setModalType('warning');
         this.modal.setStatusOfIcons(true);
@@ -111,15 +112,20 @@ export class DomainComponent extends BaseComponent implements OnInit {
     public submit(): void {
         if (this.domainId !== undefined) {
             this.updateExistingDomain();
+            this.toast.show('Success', ToastMode.SUCCESS, 'HEADER')
         } else {
+            this.toast.show('Success', ToastMode.SUCCESS, 'HEADER')
             this.domainService.add(this.domain).subscribe(() => {
                 this.router.navigate(['admin/domains/'])
-        }, err => {
-            console.error(err);
-            if(err.statusCode !== 409 && err?.message !== undefined) this.errorMessage = err.message;
-            else this.errorMessage = err;
-    
-        });
+            }, err => {
+                console.error(err);
+                if (err.statusCode !== 409 && err?.message !== undefined) {
+                    this.errorMessage = err.message;
+                } else {
+                    this.errorMessage = err;
+                }
+                this.toast.show('Danger', ToastMode.DANGER, 'HEADER')
+            });
         }
         this.domainService.setUpdateRequiredFlag(true);
     }

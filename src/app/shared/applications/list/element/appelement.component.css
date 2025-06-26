@@ -3,6 +3,7 @@ body{
 }
 
 .app-card{
+	min-height:250px;
 	background: var(--app-background-color);
 	border-radius: 10px;
 	margin:10px 0;
