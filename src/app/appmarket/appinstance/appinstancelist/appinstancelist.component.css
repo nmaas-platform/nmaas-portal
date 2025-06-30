@@ -103,6 +103,7 @@ p-selectbutton{
     width: max-content;
 }
 .instance-card{
+    margin: 10px 0;
     min-height: 250px;
     display: flex;
     flex-direction: column;
