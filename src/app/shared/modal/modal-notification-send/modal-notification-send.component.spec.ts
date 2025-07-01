@@ -6,12 +6,15 @@ import {ModalComponent} from '../modal.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import {ToastContainerComponent} from '../../toast-container/toast-container.component';
 
 describe('ModalNotificationSendComponent', () => {
   let component: ModalNotificationSendComponent;
   let fixture: ComponentFixture<ModalNotificationSendComponent>;
+  let mockToast: jasmine.SpyObj<ToastContainerComponent>;
 
   beforeEach(waitForAsync(() => {
+    mockToast = jasmine.createSpyObj('ToastContainerComponent', ['show']);
     TestBed.configureTestingModule({
       declarations: [ ModalNotificationSendComponent ],
       imports: [
@@ -22,6 +25,9 @@ describe('ModalNotificationSendComponent', () => {
             useClass: TranslateFakeLoader
           }
         }),
+      ],
+      providers: [
+        { provide: ToastContainerComponent, useValue: mockToast }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     })

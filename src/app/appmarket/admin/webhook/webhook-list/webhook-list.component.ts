@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Webhook, WebhookType } from '../../../../model/webhook';
 import { ModalComponent } from '../../../../shared';
 import { WebhookService } from '../../../../service/webhook.service';
+import {ToastContainerComponent, ToastMode} from '../../../../shared/toast-container/toast-container.component';
 
 @Component({
   selector: 'app-webhook-list',
@@ -30,7 +31,8 @@ export class WebhookListComponent implements OnInit {
   public modal: ModalComponent;
 
 
-  constructor(private service: WebhookService) {
+  constructor(private service: WebhookService,
+              private toast: ToastContainerComponent) {
     }
 
   ngOnInit() {
@@ -56,6 +58,7 @@ export class WebhookListComponent implements OnInit {
 
   public closeModalAndSaveWebhook() {
     this.service.create(this.addedWebhook).subscribe(result => {
+      this.toast.show('TOAST.SUCCESS.CLUSTER', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER')
        this.modal.hide();
        this.refreshList();
     });

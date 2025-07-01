@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ModalComponent} from "../modal.component";
 import {NotificationService} from "../../../service/notification.service";
 import {UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
+import {ToastContainerComponent, ToastMode} from '../../toast-container/toast-container.component';
 
 @Component({
   selector: 'app-modal-notification-send',
@@ -20,7 +21,8 @@ export class ModalNotificationSendComponent implements OnInit {
 
   public form: UntypedFormGroup = this.f;
 
-  constructor(private notificationService: NotificationService) { }
+  constructor(private notificationService: NotificationService,
+              private toast: ToastContainerComponent) { }
 
   ngOnInit() {
     if (this.modal !== undefined) {
@@ -37,7 +39,9 @@ export class ModalNotificationSendComponent implements OnInit {
     }).subscribe(
         done => {
           console.debug("Notification sent successfully");
+          this.toast.show('TOAST.SUCCESS.NOTIFICATION', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER' )
         }, error => {
+          this.toast.show('TOAST.ERROR.NOTIFICATION', ToastMode.DANGER, 'TOAST.ERROR_HEADER' )
           console.debug(error)
         });
     this.form.reset(this.f);

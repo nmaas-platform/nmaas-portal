@@ -12,6 +12,7 @@ import { of, BehaviorSubject } from 'rxjs';
 import { ClusterManager } from '../../../../model/cluster-manager';
 import { DatePipe } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import {ToastContainerComponent} from '../../../toast-container/toast-container.component';
 
 describe('AddClusterComponent', () => {
   let component: AddClusterComponent;
@@ -21,6 +22,7 @@ describe('AddClusterComponent', () => {
   let userDataService: jasmine.SpyObj<UserDataService>;
   let authService: jasmine.SpyObj<AuthService>;
   let mockRouter: jasmine.SpyObj<Router>;
+  let mockToast: jasmine.SpyObj<ToastContainerComponent>;
 
   beforeEach(waitForAsync(() => {
     const clusterServiceSpy = jasmine.createSpyObj('ClusterManagerService', ['sendCluster', 'readClusterFile']);
@@ -33,6 +35,7 @@ describe('AddClusterComponent', () => {
     const authServiceSpy = jasmine.createSpyObj('AuthService', ['getGlobalRole']);
     authServiceSpy.getGlobalRole.and.returnValue(['ROLE_SYSTEM_ADMIN']);
     const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+    mockToast = jasmine.createSpyObj('ToastContainerComponent', ['show']);
 
     TestBed.configureTestingModule({
       declarations: [AddClusterComponent],
@@ -52,6 +55,7 @@ describe('AddClusterComponent', () => {
         { provide: UserDataService, useValue: userDataServiceSpy },
         { provide: AuthService, useValue: authServiceSpy },
         { provide: Router, useValue: routerSpy },
+        { provide: ToastContainerComponent, useValue: mockToast },
         DatePipe
       ],
        schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
