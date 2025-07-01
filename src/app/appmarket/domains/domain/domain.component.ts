@@ -112,10 +112,10 @@ export class DomainComponent extends BaseComponent implements OnInit {
     public submit(): void {
         if (this.domainId !== undefined) {
             this.updateExistingDomain();
-            this.toast.show('Success', ToastMode.SUCCESS, 'HEADER')
+            this.toast.show('TOAST.SUCCESS.NEW_DOMAIN', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER' )
         } else {
-            this.toast.show('Success', ToastMode.SUCCESS, 'HEADER')
             this.domainService.add(this.domain).subscribe(() => {
+                this.toast.show('TOAST.SUCCESS.NEW_DOMAIN', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER')
                 this.router.navigate(['admin/domains/'])
             }, err => {
                 console.error(err);
@@ -124,7 +124,7 @@ export class DomainComponent extends BaseComponent implements OnInit {
                 } else {
                     this.errorMessage = err;
                 }
-                this.toast.show('Danger', ToastMode.DANGER, 'HEADER')
+                this.toast.show('TOAST.ERROR.NEW_DOMAIN', ToastMode.DANGER, 'TOAST.ERROR_HEADER')
             });
         }
         this.domainService.setUpdateRequiredFlag(true);

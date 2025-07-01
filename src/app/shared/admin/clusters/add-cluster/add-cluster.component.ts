@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../auth/auth.service';
 import { UserDataService } from '../../../../service/userdata.service';
+import {ToastContainerComponent, ToastMode} from '../../../toast-container/toast-container.component';
 
 @Component({
   selector: 'app-add-cluster',
@@ -42,6 +43,7 @@ export class AddClusterComponent implements OnInit {
     private datePipe: DatePipe,
     private router: Router,
     private authService: AuthService,
+    private toast: ToastContainerComponent
 
   ) {
     if (authService.getGlobalRole().includes('ROLE_SYSTEM_ADMIN')) {
@@ -133,6 +135,7 @@ export class AddClusterComponent implements OnInit {
       console.log(result);
       this.cluster = result;
       this.router.navigate(['/admin/manage/clusters']);
+      this.toast.show('TOAST.SUCCESS.NEW_DOMAIN', ToastMode.SUCCESS ,'TOAST.SUCCESS_HEADER' )
     });
   }
 
