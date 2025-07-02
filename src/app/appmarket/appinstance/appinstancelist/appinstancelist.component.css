@@ -101,6 +101,7 @@ label{
 }
 p-selectbutton{
     width: max-content;
+    text-wrap-mode: nowrap;
 }
 .instance-card{
     margin: 10px 0;
@@ -112,5 +113,13 @@ p-selectbutton{
 @media (min-width:1550px){
     .col-xl-3{
         width: 25%
+    }
+}
+.wrap{
+    flex-wrap:wrap;
+}
+@media (min-width: 768px){
+    .wrap{
+        flex-wrap:nowrap;
     }
 }
