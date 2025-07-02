@@ -135,7 +135,7 @@ export class AddClusterComponent implements OnInit {
       console.log(result);
       this.cluster = result;
       this.router.navigate(['/admin/manage/clusters']);
-      this.toast.show('TOAST.SUCCESS.NEW_DOMAIN', ToastMode.SUCCESS ,'TOAST.SUCCESS_HEADER' )
+      this.toast.show('TOAST.SUCCESS.CLUSTER', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER' )
     });
   }
 

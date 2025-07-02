@@ -58,7 +58,7 @@ export class WebhookListComponent implements OnInit {
 
   public closeModalAndSaveWebhook() {
     this.service.create(this.addedWebhook).subscribe(result => {
-      this.toast.show('TOAST.SUCCESS.CLUSTER', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER')
+      this.toast.show('TOAST.SUCCESS.NEW_WEBHOOK', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER')
        this.modal.hide();
        this.refreshList();
        this.addedWebhook = new Webhook(); 
