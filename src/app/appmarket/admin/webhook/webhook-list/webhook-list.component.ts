@@ -61,8 +61,10 @@ export class WebhookListComponent implements OnInit {
       this.toast.show('TOAST.SUCCESS.NEW_WEBHOOK', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER')
        this.modal.hide();
        this.refreshList();
+       this.addedWebhook = new Webhook(); 
     });
   }
+  
 
   filterWebhooks() {
     const value = this.searchValue?.toLowerCase() || '';

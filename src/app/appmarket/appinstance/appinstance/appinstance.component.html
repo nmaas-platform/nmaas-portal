@@ -185,16 +185,6 @@
                                         {{'APP_INSTANCE.VIEW_LOGS' | translate}}
                                     </a>
                                 </li>
-                                <li *ngIf="getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.SCALED_DOWN">
-                                    <a role="button" (click)="scaleDownModal.show()">
-                                        {{'APP_INSTANCES.SCALED_DOWN' | translate}}
-                                    </a>
-                                </li>
-                                <li *ngIf="getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.SCALED_DOWN">
-                                    <a role="button" (click)="scaleUp()">
-                                        {{'APP_INSTANCES.SCALED_UP' | translate}}
-                                    </a>
-                                </li>
                                 <li>
                                     <a role="button" style="color: var(--danger-button-color)"
                                        *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
