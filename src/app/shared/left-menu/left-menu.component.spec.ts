@@ -6,6 +6,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { of, Subject } from 'rxjs';
 import {ProfileService} from '../../service/profile.service';
 import {AuthService} from '../../auth/auth.service';
+import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 
 describe('LeftMenuComponent', () => {
   let component: LeftMenuComponent;
@@ -33,6 +34,14 @@ describe('LeftMenuComponent', () => {
 
     await TestBed.configureTestingModule({
       declarations: [LeftMenuComponent],
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateFakeLoader
+          }
+        }),
+      ],
       providers: [
         { provide: Router, useValue: mockRouter },
         { provide: ToastContainerComponent, useValue: mockToast },

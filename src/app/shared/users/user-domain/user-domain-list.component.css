@@ -1,0 +1,32 @@
+.icon-black{
+    color: black;
+    cursor: pointer;
+}
+
+.icon-bigger{
+    font-size: x-large;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+tr.clickable {
+    cursor: pointer;
+}
+
+
+.align-vertically {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+li::marker {
+    content: '';
+    font-size: 0em;
+}
+

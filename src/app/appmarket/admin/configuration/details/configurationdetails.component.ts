@@ -41,11 +41,11 @@ export class ConfigurationDetailsComponent extends BaseComponent implements OnIn
         this.configurationService.updateConfiguration(this.configuration).subscribe(
             () => {
                 this.update()
-                this.toast.show('Success', ToastMode.SUCCESS, 'HEADER')
+                this.toast.show('TOAST.SUCCESS.SETTINGS', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER')
             },
             err => {
                 this.errorMsg = err.message
-                this.toast.show('Danger', ToastMode.DANGER, 'HEADER')
+                this.toast.show('TOAST.ERROR.SETTINGS', ToastMode.DANGER, 'TOAST.ERROR_HEADER')
             }
         );
     }

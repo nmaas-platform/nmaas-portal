@@ -1,10 +1,10 @@
 <div class="">
     <div class="background-section">  
-    <h4 style="font-size:15px; font-weight: bold">{{ 'WEBHOOKS.TITLE' | translate }}</h4>
+    <h4 style="font-size:15px; font-weight: bold">{{ 'WEBHOOKS.TITLE_SHORT' | translate }}</h4>
 
     <div class="panel-body">
         <form *ngIf="webhook" (submit)="submit()" class="form-horizontal" #webhookForm="ngForm">
-            <div class="panel-default panel-heading">{{ 'CLUSTERS.GENERAL' | translate }} </div>
+<!--            <div class="panel-default panel-heading">{{ 'CLUSTERS.GENERAL' | translate }} </div>-->
             <div class="panel-body">
                
                 <div class="form-group">
@@ -47,7 +47,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="assignDomain" class="col-sm-2 control-label">Auth required</label>
+                    <label for="assignDomain" class="col-sm-2 control-label">{{ 'WEBHOOKS.AUTH_REQUIRED' | translate }}</label>
                      <div class="col-sm-10">
                     <input class="ml-5 mt-2" type="checkbox" [(ngModel)]="authRequired" [ngModelOptions]="{standalone: true}"  id="authRequired" (change)="onCheckboxChange()" />
                      </div>

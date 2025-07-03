@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 import {AppInstance, AppInstanceState, parseAppInstanceState} from '../../../model';
-import {AppConfigService, AppImagesService, AppInstanceService, CustomerSearchCriteria, DomainService} from '../../../service';
+import {AppConfigService, AppImagesService, AppInstanceService, AppsService, CustomerSearchCriteria, DomainService} from '../../../service';
 import {AuthService} from '../../../auth/auth.service';
 import {UserDataService} from '../../../service/userdata.service';
 import {forkJoin, Observable, of} from 'rxjs';
@@ -58,7 +58,7 @@ export class AppInstanceListComponent implements OnInit {
         {icon: 'pi pi-list', value: 'list'},
         {icon: 'pi pi-th-large', value: 'cards'}
     ];
-    public selectedOption = 'list';
+    public selectedOption = 'cards';
 
     public searchValue = '';
 
@@ -70,7 +70,8 @@ export class AppInstanceListComponent implements OnInit {
                 private appConfig: AppConfigService,
                 private translateService: TranslateService,
                 private sessionService: SessionService,
-                public appImagesService: AppImagesService) {
+                public appImagesService: AppImagesService,
+                private appsService: AppsService) {
 
     }
 
@@ -161,31 +162,37 @@ export class AppInstanceListComponent implements OnInit {
             default:
                 break;
         }
-        this.appInstances = this.appInstances
-            .pipe(
-                map(app => app.filter(
-                        (appInst) => (this.domainId === this.appConfig.getNmaasGlobalDomainId() || this.domainId === appInst.domainId)
-                    )
-                )
+
+        this.appsService.getAllApplicationBase().subscribe(apps => {
+            const appNameToIdMap: { [name: string]: number } = {};
+            apps.forEach(app => {
+                appNameToIdMap[app.name] = app.id;
+            });
+
+            this.appInstances = this.appInstances.pipe(
+                map(apps => apps.map(appInst => ({
+                    ...appInst,
+                    appId: appNameToIdMap[appInst.applicationName] || null
+                }))),
+                map(apps => apps.filter(appInst =>
+                    this.domainId === this.appConfig.getNmaasGlobalDomainId() || this.domainId === appInst.domainId
+                ))
             );
-        // sort and filter deployed instances
-        this.appDeployedInstances = this.appInstances
-            .pipe(
+            // sort and filter deployed instances
+            this.appDeployedInstances = this.appInstances.pipe(
                 map(instances => instances.filter(
-                        app => parseAppInstanceState(app.state) !== AppInstanceState.REMOVED
-                            && parseAppInstanceState(app.state) !== AppInstanceState.DONE
-                    )
-                )
+                    app => parseAppInstanceState(app.state) !== AppInstanceState.REMOVED
+                        && parseAppInstanceState(app.state) !== AppInstanceState.DONE
+                ))
             );
-        // sort and filter undeployed instances
-        this.appUndeployedInstances = this.appInstances
-            .pipe(
+            // sort and filter undeployed instances
+            this.appUndeployedInstances = this.appInstances.pipe(
                 map(instances => instances.filter(
-                        app => parseAppInstanceState(app.state) === AppInstanceState.REMOVED
-                            || parseAppInstanceState(app.state) === AppInstanceState.DONE
-                    )
-                )
+                    app => parseAppInstanceState(app.state) === AppInstanceState.REMOVED
+                        || parseAppInstanceState(app.state) === AppInstanceState.DONE
+                ))
             );
+        });
     }
 
 

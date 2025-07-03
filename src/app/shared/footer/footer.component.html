@@ -15,8 +15,8 @@
 			<div class="" style="display: flex; width: 50%; justify-content: end; margin-right: 50px">
                 <div style="margin-right: 30px">
                     <p>
-                        <a *ngIf="landingProfile === 'VNOC'" href="https://docs.nmaas.eu/use-cases/virtual-noc/vnoc-introduction/">Documentation</a>
-                        <a *ngIf="landingProfile !== 'VNOC'" href="https://docs.nmaas.eu/use-cases/virtual-lab/vlab-introduction/">Documentation</a>
+                        <a *ngIf="landingProfile === 'VNOC'" href="https://docs.nmaas.eu/use-cases/virtual-noc/vnoc-introduction/">{{ 'FOOTER.DOCUMENTATION' | translate }}</a>
+                        <a *ngIf="landingProfile !== 'VNOC'" href="https://docs.nmaas.eu/use-cases/virtual-lab/vlab-introduction/">{{ 'FOOTER.DOCUMENTATION' | translate }}</a>
                     </p>
                     <p><a routerLink="/about">{{ 'FOOTER.CONTACT' | translate }}</a></p>
                 </div>

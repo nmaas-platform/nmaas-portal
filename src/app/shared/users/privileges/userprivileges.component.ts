@@ -15,6 +15,7 @@ import {UserDataService} from '../../../service/userdata.service';
     styleUrls: ['./userprivileges.component.css']
 })
 @RoleAware
+//TODO: remove domainId dependencies on selector -> allways set to globaldomain at init, only SYSTEM_ADMIN can access this view 
 export class UserPrivilegesComponent extends BaseComponent implements OnInit {
 
     public Role = Role;
@@ -43,9 +44,13 @@ export class UserPrivilegesComponent extends BaseComponent implements OnInit {
 
         this.roles = this.getAllowedRoles();
         userData.selectedDomainId.subscribe(value => {
-            this.domainId = value;
+            // this.domainId = value;
+            this.domainId = this.domainService.getGlobalDomainId();
+            if(this.authService.hasRole(Role[Role.ROLE_SYSTEM_ADMIN])) {
+            this.newPrivilegeForm.get('domainId').setValue(this.domainService.getGlobalDomainId());
+
+            }
             // after the domain is retrieved, set selected domain as current
-            this.newPrivilegeForm.get('domainId').setValue(this.domainId);
         });
     }
 
@@ -90,7 +95,7 @@ export class UserPrivilegesComponent extends BaseComponent implements OnInit {
 
     ngOnInit() {
         if (this.authService.hasRole(Role[Role.ROLE_SYSTEM_ADMIN])) {
-            this.domainService.getAll().subscribe((domains) => {
+            this.domainService.getAllBase().subscribe((domains) => {
                 this.domains = domains
             });
         } else if (this.authService.hasRole(Role[Role.ROLE_DOMAIN_ADMIN])) {

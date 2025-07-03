@@ -18,7 +18,7 @@
                 <a  style="display: flex; align-items: center;" [routerLink]="['/']">
                     <i class="pi pi-th-large" style="margin-right:10px; font-size: 18px" title="Application"></i>
                     <span *ngIf="!isCollapsed">
-                      Applications
+                      {{ 'NAVBAR.MARKET' | translate }}
                   </span>
                 </a>
             </li>
@@ -26,7 +26,7 @@
                 <a href="#" style="display: flex; align-items: center;" [routerLink]="['/instances']">
                     <i class="pi pi-server" style="margin-right:10px; font-size: 18px" title=" Instances"></i>
                     <span *ngIf="!isCollapsed">
-                      Instances
+                        {{ 'NAVBAR.INSTANCES' | translate }}
                   </span>
                 </a>
             </li>
@@ -36,7 +36,7 @@
                 <a  style="display: flex; align-items: center;" [routerLink]="['admin/dashboard']">
                     <i class="pi pi-chart-bar" style="margin-right:10px; font-size: 18px" title="Dashboard"></i>
                     <span *ngIf="!isCollapsed">
-                        Dashboard
+                         {{ 'NAVBAR.DASHBOARD' | translate }}
                     </span>
                 </a>
             </li>
@@ -55,7 +55,7 @@
                         <a  style="display: flex; align-items: center;" [routerLink]="['/admin/domains']">
                             <i class="pi pi-list" style="margin-right:10px; font-size: 18px" title="List"></i>
                             <span *ngIf="!isCollapsed">
-                                List
+                                {{ 'NAVBAR.LIST' | translate }}
                             </span>
                         </a>
                     </li>
@@ -64,7 +64,7 @@
                         <a  style="display: flex; align-items: center;" [routerLink]="['/admin/domains/groups']">
                             <i class="pi pi-table" style="margin-right:10px; font-size: 18px" title="Group"></i>
                             <span *ngIf="!isCollapsed">
-                                Group
+                                {{ 'NAVBAR.GROUP' | translate }}
                             </span>
                         </a>
                     </li>
@@ -73,7 +73,7 @@
                         <a  style="display: flex; align-items: center;" [routerLink]="['/admin/domains/bulks']">
                             <i class="pi pi-sitemap" style="margin-right:10px; font-size: 18px" title="Bulk deployments"></i>
                             <span *ngIf="!isCollapsed">
-                                 Bulk deployments
+                                {{ 'NAVBAR.BULK_DEPLOYMENT_DOMAIN' | translate }}
                             </span>
                         </a>
                     </li>
@@ -95,7 +95,7 @@
                     </span>
                 </a>
             </li>
-            <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_GROUP_DOMAIN_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
+            <li *ngIf="showUserDomain()" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
                 <a  style="display: flex; align-items: center;" [routerLink]="['/admin/domain/users']">
                     <i class="pi pi-users" style="margin-right:10px; font-size: 18px" title="{{ 'NAVBAR.DOMAIN_USERS' | translate }}"></i>
                     <span *ngIf="!isCollapsed">
@@ -107,7 +107,7 @@
                 <a  style="display: flex; align-items: center;" [routerLink]="['/admin/apps']">
                     <i class="pi pi-th-large" style="margin-right:10px; font-size: 18px" title="Catalog"></i>
                     <span *ngIf="!isCollapsed">
-                        Catalog
+                        {{ 'NAVBAR.CATALOG' | translate  }}
                     </span>
                 </a>
             </li>
@@ -115,7 +115,7 @@
                 <a  style="display: flex; align-items: center;" [routerLink]="['/admin/configuration']">
                     <i class="pi pi-cog" style="margin-right:10px; font-size: 18px" title="Settings"></i>
                     <span *ngIf="!isCollapsed">
-                       Settings
+                        {{ 'NAVBAR.SETTINGS' | translate  }}
                     </span>
                 </a>
             </li>
@@ -123,11 +123,11 @@
                 <a  style="display: flex; align-items: center;" [routerLink]="['/admin/webhooks']">
                     <i class="pi pi-share-alt" style="margin-right:10px; font-size: 18px" title="Settings"></i>
                     <span *ngIf="!isCollapsed">
-                        {{ 'WEBHOOKS.TITLE_SHORT' | translate }}
+                        {{ 'WEBHOOKS.TITLE' | translate }}
                     </span>
                 </a>
             </li>
-            <li *roles="['ROLE_SYSTEM_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
+            <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
                 <a  style="display: flex; align-items: center;" [routerLink]="['/admin/manage/clusters']">
                     <i class="pi pi-cloud" style="margin-right:10px; font-size: 18px"></i>
                     <span *ngIf="!isCollapsed">
@@ -165,17 +165,17 @@
                {{userName}}
             </span>
         </p-button>
-        <div *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']" style="margin-top:10px" [routerLink]="['admin/dashboard']">
+        <div *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']" style="margin-top:10px" [routerLink]="['admin/dashboard']">
             <p-button *ngIf="!toggleAdmin" (onClick)="adminPanel()" ><i class="pi pi-sign-in" style="margin-right:10px; font-size: 18px"[ngClass]="{'collapsed': isCollapsed}" title=" Go to admin panel"></i>
                 <span *ngIf="!isCollapsed">
-                      Admin panel
+                    {{ 'NAVBAR.ADMIN_PANEL' | translate }}
                 </span>
             </p-button>
         </div>
         <div [routerLink]="['/']"  >
             <p-button *ngIf="toggleAdmin" (onClick)="adminPanel()" ><i class="pi pi-sign-in" style="margin-right:10px; font-size: 18px"[ngClass]="{'collapsed': isCollapsed}" title="Go to user panel"></i>
                 <span *ngIf="!isCollapsed">
-                        User panel
+                    {{ 'NAVBAR.USER_PANEL' | translate }}
                 </span>
             </p-button>
         </div>

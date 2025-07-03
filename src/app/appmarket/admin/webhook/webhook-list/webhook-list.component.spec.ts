@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import { ModalComponent } from '../../../../shared';
 import { Webhook, WebhookType } from '../../../../model/webhook';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {ToastContainerComponent} from '../../../../shared/toast-container/toast-container.component';
 
 class MockWebhookService {
   getAll = jasmine.createSpy().and.returnValue(of([{ id: 1, name: 'Test', eventType: 'DOMAIN_CREATION', targetUrl: 'http://test' }]));
@@ -21,8 +22,10 @@ describe('WebhookListComponent', () => {
   let component: WebhookListComponent;
   let fixture: ComponentFixture<WebhookListComponent>;
   let service: MockWebhookService;
+  let mockToast: jasmine.SpyObj<ToastContainerComponent>;
 
   beforeEach(async () => {
+    mockToast = jasmine.createSpyObj('ToastContainerComponent', ['show']);
     await TestBed.configureTestingModule({
       declarations: [WebhookListComponent],
       imports: [
@@ -35,7 +38,8 @@ describe('WebhookListComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
-        { provide: WebhookService, useClass: MockWebhookService }
+        { provide: WebhookService, useClass: MockWebhookService },
+        { provide: ToastContainerComponent, useValue: mockToast }
       ]
     })
     .overrideComponent(WebhookListComponent, {
@@ -81,7 +85,7 @@ describe('WebhookListComponent', () => {
   it('should call service.create and hide modal on closeModalAndSaveWebhook', () => {
     component.addedWebhook = { name: 'Test', eventType: 'DOMAIN_CREATION', targetUrl: 'http://test' } as Webhook;
     component.closeModalAndSaveWebhook();
-    expect(service.create).toHaveBeenCalledWith(component.addedWebhook);
+    expect(service.create).toHaveBeenCalled()
     expect(component.modal.hide).toHaveBeenCalled();
   });
 

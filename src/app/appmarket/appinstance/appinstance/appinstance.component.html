@@ -5,7 +5,7 @@
             <div style="display: flex; align-items: center;">
                 <div class="" *ngIf="app">
                     <img alt="App logo"
-                         [src]="(appImagesService.getAppLogoUrl(app?.applicationBase.id) | secure) || 'assets/images/app-logo-example.png'" height="90px"/>
+                         [src]="(appImagesService.getAppLogoUrl(app?.applicationBase.id) | secure) || 'assets/images/app-logo-example.png'" width="90px"/>
                 </div>
                 <div class="" *ngIf="!app">
                     <img alt="App logo" src="assets/images/app-logo-example.png" height="90px"/>
@@ -152,7 +152,7 @@
                                     </a>
                                 </li>
                                 <li *ngIf="getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.SCALED_DOWN">
-                                    <a role="button" (click)="confirmScaleDown()">
+                                    <a role="button" (click)="scaleDownModal.show()">
                                         {{'APP_INSTANCES.SCALED_DOWN' | translate}}
                                     </a>
                                 </li>
@@ -275,6 +275,22 @@
                                  screenReaderCurrentLabel="{{ 'PAGINATION.SCREEN_READER.CURRENT' | translate }}"></pagination-controls>
         </div>
     </div>
+    <!-- Scale down Modal -->
+    <nmaas-modal styleModal="warning" #scaleDownModal>
+        <div class="nmaas-modal-header">
+            <h4 style="text-align: center">{{'APP_INSTANCES.CONFIRM_SCALEDOWN.HEADER' | translate}}</h4>
+        </div>
+        <div class="nmaas-modal-body">
+            <div class="form-group">
+                <p>{{'APP_INSTANCES.CONFIRM_SCALEDOWN.MESSAGE' | translate}}</p>
+            </div>
+        </div>
+        <div class="nmaas-modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="this.scaleDownModal.hide()">{{'APP_INSTANCES.CONFIRM_SCALEDOWN.REJECT' | translate}}</button>
+            <button type="button" class="btn btn-danger" (click)="this.scaleDown(); this.scaleDownModal.hide()">{{'APP_INSTANCES.CONFIRM_SCALEDOWN.ACCEPT' | translate}}</button>
+        </div>
+
+    </nmaas-modal>
 
     <!-- Undeploy modal-->
     <nmaas-modal styleModal="warning" #undeployModal>

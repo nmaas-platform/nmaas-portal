@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {DashboardService} from '../../service/dashboard.service';
 import {UserDataService} from '../../service/userdata.service';
 import {AppImagesService, AppsService} from '../../service';
@@ -10,7 +10,7 @@ import {AuthService} from '../../auth/auth.service';
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css'
 })
-export class AdminDashboardComponent {
+export class AdminDashboardComponent implements OnInit, OnDestroy {
   popularAppsChartData: any;
 
   basicOptions: any;
@@ -20,11 +20,12 @@ export class AdminDashboardComponent {
   applicationUpgradeStatus: any[] = [];
   domainId;
   public appId: number;
-  appNameToIdMap: { [key: string]: number } = {};
   rangeDates: Date[] = [];
 
   startDate;
   endDate;
+
+  private refresh : any;
 
   constructor(protected dashboardService: DashboardService,
               private userDataService: UserDataService,
@@ -35,10 +36,10 @@ export class AdminDashboardComponent {
   }
 
 
-  ngOnInit() {
+  public ngOnInit() {
     this.setDefaultDate();
     this.getAdmin()
-    this.userDataService.selectedDomainId.subscribe((domainId) => {
+    this.refresh = this.userDataService.selectedDomainId.subscribe((domainId) => {
           this.domainId = domainId
           this.getDomainAdmin()
     });
@@ -84,6 +85,11 @@ export class AdminDashboardComponent {
     };
   }
 
+  public ngOnDestroy(): void {
+    this.refresh.unsubscribe();
+    this.refresh = null;
+  }
+
   chartData() {
     const entries = Object.entries(this.adminData.popularApps);
     const sortedEntries = entries.sort((a, b) =>  Number(b[1]) -  Number(a[1]));
@@ -109,15 +115,16 @@ export class AdminDashboardComponent {
   }
   getAdmin() {
     this.appsService.getAllApplicationBase().subscribe(apps => {
+      const appNameToAppIdMap: { [name: string]: number } = {};
       apps.forEach(app => {
-        this.appNameToIdMap[app.name] = app.id;
+        appNameToAppIdMap[app.name] = app.id;
       });
       this.dashboardService.getAdmin(this.startDate, this.endDate).subscribe(
           (response) => {
             this.adminData = response;
             this.instanceCountInPeriodDetails = this.adminData.instanceCountInPeriodDetails.map(instance => ({
               ...instance,
-              appId: this.appNameToIdMap[instance.applicationName] || null
+              appId: appNameToAppIdMap[instance.applicationName] || null
             }));
             this.chartData();
           }
@@ -125,12 +132,21 @@ export class AdminDashboardComponent {
     });
   }
   getDomainAdmin() {
-    this.dashboardService.getDomainAdmin(this.domainId).subscribe(
-        (response) => {
-          this.domainAdminData = response;
-          this.applicationUpgradeStatus  = this.domainAdminData.applicationUpgradeStatus;
-        }
-    )
+    this.appsService.getAllApplicationBase().subscribe(apps => {
+      const appNameToAppIdMap: { [name: string]: number } = {};
+      apps.forEach(app => {
+        appNameToAppIdMap[app.name] = app.id;
+      });
+      this.dashboardService.getDomainAdmin(this.domainId).subscribe(
+          (response) => {
+            this.domainAdminData = response;
+            this.applicationUpgradeStatus = this.domainAdminData.applicationUpgradeStatus.map(inst => ({
+              ...inst,
+              logoId: appNameToAppIdMap[inst.appName] || null
+            }));
+          }
+      )
+    })
   }
   onDateChange(dates: Date[] | null) {
     if (!dates || dates.length === 0 ) {

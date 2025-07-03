@@ -1,12 +1,12 @@
-import {AuthService} from '../../../auth/auth.service';
-import {Domain} from '../../../model/domain';
-import {DomainService} from '../../../service';
-import {UserDataService} from '../../../service/userdata.service';
-import {Component, OnInit} from '@angular/core';
-import {BehaviorSubject, interval, Observable, of, Subscription} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {ProfileService} from '../../../service/profile.service';
-import {User} from '../../../model';
+import { AuthService } from '../../../auth/auth.service';
+import { Domain } from '../../../model/domain';
+import { DomainService } from '../../../service';
+import { UserDataService } from '../../../service/userdata.service';
+import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject, interval, Observable, of, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { ProfileService } from '../../../service/profile.service';
+import { User } from '../../../model';
 
 @Component({
     selector: 'nmaas-domain-filter',
@@ -36,9 +36,9 @@ export class DomainFilterComponent implements OnInit {
     public filteredDomains = this.filteredDomainsSub.asObservable();
 
     constructor(private authService: AuthService,
-                private domainService: DomainService,
-                private userData: UserDataService,
-                private profileService: ProfileService) {
+        private domainService: DomainService,
+        private userData: UserDataService,
+        private profileService: ProfileService) {
     }
 
     ngOnInit() {
@@ -76,8 +76,8 @@ export class DomainFilterComponent implements OnInit {
     }
 
     public updateFilter() {
-                   this.filteredDomainsSub.next(this.domainsLocal.filter(obj => obj.name.toLowerCase().includes(this.searchTerm.toLowerCase())));
-        
+        this.filteredDomainsSub.next(this.domainsLocal.filter(obj => obj.name.toLowerCase().includes(this.searchTerm.toLowerCase())));
+
     }
 
     public updateDomains(): void {
@@ -141,7 +141,7 @@ export class DomainFilterComponent implements OnInit {
             )
         )
         console.log(this.domainsLocal);
-        
+
     }
 
     public changeDomain(domainId: number, domainName: string) {

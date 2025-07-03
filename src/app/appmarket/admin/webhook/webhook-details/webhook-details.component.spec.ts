@@ -7,6 +7,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Webhook } from '../../../../model/webhook';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
+import {ToastContainerComponent} from '../../../../shared/toast-container/toast-container.component';
 
 class MockWebhookService {
   getOne = jasmine.createSpy().and.returnValue(of({ id: 1, name: 'Test', eventType: 'DOMAIN_CREATION', targetUrl: 'http://test' }));
@@ -23,8 +24,10 @@ describe('WebhookDetailsComponent', () => {
   let component: WebhookDetailsComponent;
   let fixture: ComponentFixture<WebhookDetailsComponent>;
   let service: MockWebhookService;
+  let mockToast: jasmine.SpyObj<ToastContainerComponent>;
 
   beforeEach(async () => {
+    mockToast = jasmine.createSpyObj('ToastContainerComponent', ['show']);
     await TestBed.configureTestingModule({
       declarations: [WebhookDetailsComponent],
       imports: [
@@ -39,7 +42,8 @@ describe('WebhookDetailsComponent', () => {
       providers: [
         { provide: WebhookService, useClass: MockWebhookService },
         { provide: ActivatedRoute, useClass: MockActivatedRoute },
-        { provide: Router, useClass: MockRouter }
+        { provide: Router, useClass: MockRouter },
+        { provide: ToastContainerComponent, useValue: mockToast }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

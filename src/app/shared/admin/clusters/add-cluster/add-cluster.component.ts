@@ -7,6 +7,9 @@ import { ClusterManagerService } from '../../../../service/cluster-manager.servi
 import { DomainService } from '../../../../service';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../../auth/auth.service';
+import { UserDataService } from '../../../../service/userdata.service';
+import {ToastContainerComponent, ToastMode} from '../../../toast-container/toast-container.component';
 
 @Component({
   selector: 'app-add-cluster',
@@ -30,18 +33,30 @@ export class AddClusterComponent implements OnInit {
 
   public error = "";
   public cluster: ClusterManager = new ClusterManager();
+  public showNamespaceCreation: boolean = false;
+  public namespaceCreation = true;
 
 
   constructor(public translate: TranslateService,
     private cluserService: ClusterManagerService,
     private domainService: DomainService,
     private datePipe: DatePipe,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
+    private toast: ToastContainerComponent
 
   ) {
-    this.domainService.getAllBase().subscribe(result => {
-      this.domains = result.filter(d => d.id !== this.domainService.getGlobalDomainId());
-    });
+    if (authService.getGlobalRole().includes('ROLE_SYSTEM_ADMIN')) {
+      this.domainService.getAllBase().subscribe(result => {
+        this.domains = result.filter(d => d.id !== this.domainService.getGlobalDomainId());
+      });
+    } else {
+      this.domainService.getMyDomains().subscribe(result => {
+        this.domains = result.filter(d => d.id !== this.domainService.getGlobalDomainId());
+      });
+    }
+
+
 
   }
 
@@ -84,7 +99,7 @@ export class AddClusterComponent implements OnInit {
   }
 
   public onDomainSelection(event: any) {
-
+    this.showNamespaceCreation = true;
     console.log(event);
     this.cluster.domainNames = [event]
   }
@@ -115,10 +130,12 @@ export class AddClusterComponent implements OnInit {
   public submit(): void {
     console.log(this.cluster);
     this.deteleDates();
-    this.cluserService.sendCluster(new File([this.kubernetesFile], 'kubernetes.yaml'), this.cluster).subscribe(result => {
+    this.setInitialValues();
+    this.cluserService.sendCluster(new File([this.kubernetesFile], 'kubernetes.yaml'), this.cluster, this.namespaceCreation).subscribe(result => {
       console.log(result);
       this.cluster = result;
       this.router.navigate(['/admin/manage/clusters']);
+      this.toast.show('TOAST.SUCCESS.CLUSTER', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER' )
     });
   }
 
@@ -145,4 +162,19 @@ export class AddClusterComponent implements OnInit {
   public formatDate(date: Date) {
     return this.datePipe.transform(date, 'dd-MM-yyyy HH:mm');
   }
+
+  public step2valid(): boolean {
+    return this.cluster.domainNames.length > 0 && this.cluster.contactEmail !== '' && this.cluster.description !== ''
+  }
+
+  public setInitialValues() {
+    if (this.cluster.ingress !== undefined) {
+      this.cluster.ingress.controllerConfigOption = IngressControllerConfigOption.USE_EXISTING;
+      this.cluster.ingress.controllerChartName = "";
+      this.cluster.ingress.controllerChartArchive = "";
+      this.cluster.ingress.resourceConfigOption = IngressResourceConfigOption.DEPLOY_FROM_CHART;
+    }
+
+  }
+
 }
