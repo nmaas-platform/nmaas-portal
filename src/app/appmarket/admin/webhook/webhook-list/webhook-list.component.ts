@@ -21,10 +21,10 @@ export class WebhookListComponent implements OnInit {
   public authRequired: boolean = false;
 
   public type = [
-    { name: "DOMAIN_CREATION", value: "DOMAIN_CREATION" },
+    { name: "DOMAIN_ACTION", value: "DOMAIN_ACTION" },
+    { name: "DOMAIN_GROUP_ACTION", value: "DOMAIN_GROUP_ACTION" },
     { name: "APPLICATION_DEPLOYMENT", value: "APPLICATION_DEPLOYMENT" },
-    { name: "USER_ASSIGNMENT", value: "USER_ASSIGNMENT" },
-    { name: "DOMAIN_GROUP_CHANGE", value: "DOMAIN_GROUP_CHANGE" }
+    { name: "USER_ASSIGNMENT", value: "USER_ASSIGNMENT" }
   ]
 
   @ViewChild(ModalComponent, { static: true })
@@ -52,7 +52,7 @@ export class WebhookListComponent implements OnInit {
   }
 
   public openModal() {
-    this.addedWebhook.eventType = WebhookType.DOMAIN_CREATION
+    this.addedWebhook.eventType = WebhookType.DOMAIN_ACTION
       this.modal.show();
   }
 

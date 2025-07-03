@@ -9,7 +9,7 @@ import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-tran
 import {ToastContainerComponent} from '../../../../shared/toast-container/toast-container.component';
 
 class MockWebhookService {
-  getAll = jasmine.createSpy().and.returnValue(of([{ id: 1, name: 'Test', eventType: 'DOMAIN_CREATION', targetUrl: 'http://test' }]));
+  getAll = jasmine.createSpy().and.returnValue(of([{ id: 1, name: 'Test', eventType: 'DOMAIN_ACTION', targetUrl: 'http://test' }]));
   create = jasmine.createSpy().and.returnValue(of({}));
 }
 
@@ -78,12 +78,12 @@ describe('WebhookListComponent', () => {
 
   it('should open modal and set default event type', () => {
     component.openModal();
-    expect(component.addedWebhook.eventType).toBe(WebhookType.DOMAIN_CREATION);
+    expect(component.addedWebhook.eventType).toBe(WebhookType.DOMAIN_ACTION);
     expect(component.modal.show).toHaveBeenCalled();
   });
 
   it('should call service.create and hide modal on closeModalAndSaveWebhook', () => {
-    component.addedWebhook = { name: 'Test', eventType: 'DOMAIN_CREATION', targetUrl: 'http://test' } as Webhook;
+    component.addedWebhook = { name: 'Test', eventType: 'DOMAIN_ACTION', targetUrl: 'http://test' } as Webhook;
     component.closeModalAndSaveWebhook();
     expect(service.create).toHaveBeenCalledWith(component.addedWebhook);
     expect(component.modal.hide).toHaveBeenCalled();
