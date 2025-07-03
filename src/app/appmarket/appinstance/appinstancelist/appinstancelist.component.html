@@ -1,5 +1,5 @@
 <!--<h4 style="margin-top:40px; font-weight: bold" *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']">{{ 'APP_INSTANCES.DEPLOYED' | translate }}</h4>-->
-<div  style="display: flex; align-items: flex-start; justify-content: space-between; margin-top:40px; padding:15px 0">
+<div  style="display: flex; align-items: flex-start; justify-content: space-between; margin-top:40px; padding:15px 0 5px 0">
     <div class="col-sm-12 col-sm-12 col-md-12"  style="display:flex; align-items: center; padding:0; flex-wrap:wrap">
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3" style="padding-top:10px; padding-bottom:10px">
             <span class="p-input-icon-right " style="width:100%">
@@ -81,7 +81,7 @@
 </div>
 
 <div *ngIf="selectedOption === 'cards'" style="height: 70vh; overflow: auto;">
-    <div *ngIf="selectedOption === 'cards'" class="grid col-12" >
+    <div *ngIf="selectedOption === 'cards'" class="grid col-12"  >
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"  *ngFor="let appInstance of appDeployedInstances | async | searchAppInstance: searchValue">
             <div class="background-section instance-card" [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain()}"
                  [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : [appInstance.id]" >
