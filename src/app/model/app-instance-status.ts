@@ -11,7 +11,7 @@ export enum AppInstanceState {
   FAILURE,
   UNKNOWN,
   REMOVED,
-  SCALED_DOWN
+  PAUSED
 }
 
 export class AppInstanceStatus {

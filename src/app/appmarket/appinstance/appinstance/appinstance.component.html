@@ -151,14 +151,14 @@
                                         {{'APP_INSTANCE.VIEW_LOGS' | translate}}
                                     </a>
                                 </li>
-                                <li *ngIf="getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.SCALED_DOWN">
+                                <li *ngIf="getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.PAUSED">
                                     <a role="button" (click)="scaleDownModal.show()">
-                                        {{'APP_INSTANCES.SCALED_DOWN' | translate}}
+                                        {{'APP_INSTANCES.PAUSE' | translate}}
                                     </a>
                                 </li>
-                                <li *ngIf="getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.SCALED_DOWN">
+                                <li *ngIf="getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.PAUSED">
                                     <a role="button" (click)="scaleUp()">
-                                        {{'APP_INSTANCES.SCALED_UP' | translate}}
+                                        {{'APP_INSTANCES.RESUME' | translate}}
                                     </a>
                                 </li>
                                 <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']">
@@ -278,16 +278,16 @@
     <!-- Scale down Modal -->
     <nmaas-modal styleModal="warning" #scaleDownModal>
         <div class="nmaas-modal-header">
-            <h4 style="text-align: center">{{'APP_INSTANCES.CONFIRM_SCALEDOWN.HEADER' | translate}}</h4>
+            <h4 style="text-align: center">{{'APP_INSTANCES.CONFIRM_PAUSE.HEADER' | translate}}</h4>
         </div>
         <div class="nmaas-modal-body">
             <div class="form-group">
-                <p>{{'APP_INSTANCES.CONFIRM_SCALEDOWN.MESSAGE' | translate}}</p>
+                <p>{{'APP_INSTANCES.CONFIRM_PAUSE.MESSAGE' | translate}}</p>
             </div>
         </div>
         <div class="nmaas-modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="this.scaleDownModal.hide()">{{'APP_INSTANCES.CONFIRM_SCALEDOWN.REJECT' | translate}}</button>
-            <button type="button" class="btn btn-danger" (click)="this.scaleDown(); this.scaleDownModal.hide()">{{'APP_INSTANCES.CONFIRM_SCALEDOWN.ACCEPT' | translate}}</button>
+            <button type="button" class="btn btn-secondary" (click)="this.scaleDownModal.hide()">{{'APP_INSTANCES.CONFIRM_PAUSE.REJECT' | translate}}</button>
+            <button type="button" class="btn btn-danger" (click)="this.scaleDown(); this.scaleDownModal.hide()">{{'APP_INSTANCES.CONFIRM_PAUSE.ACCEPT' | translate}}</button>
         </div>
 
     </nmaas-modal>
