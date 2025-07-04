@@ -22,7 +22,7 @@ import {ClusterService} from '../service/cluster.service';
 import {ConfigurationModule} from './admin/configuration/configuration.module';
 import {MonitorModule} from './admin/monitor/monitor.module';
 import {TranslateModule} from '@ngx-translate/core';
-import {HttpClientModule} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {SortService} from '../service/sort.service';
 import {AppManagementModule} from './appmanagement/app-management.module';
@@ -57,8 +57,7 @@ import { WebhookService } from '../service/webhook.service';
 
 
 
-@NgModule({
-    declarations: [
+@NgModule({ declarations: [
         AppMarketComponent,
         AppDetailsComponent,
         ModalGuestUserComponent,
@@ -74,8 +73,14 @@ import { WebhookService } from '../service/webhook.service';
         WebhookDetailsComponent,
         WebhookListComponent
     ],
-    imports: [
-        FormsModule,
+    exports: [
+        AppMarketComponent,
+        BulkSearchPipe
+    ],
+    schemas: [
+        NO_ERRORS_SCHEMA,
+        CUSTOM_ELEMENTS_SCHEMA
+    ], imports: [FormsModule,
         CommonModule,
         RouterModule,
         SharedModule,
@@ -91,7 +96,6 @@ import { WebhookService } from '../service/webhook.service';
         MonitorModule,
         ConfigurationModule,
         BrowserModule,
-        HttpClientModule,
         TranslateModule.forChild(),
         TooltipModule,
         AvatarModule,
@@ -106,13 +110,7 @@ import { WebhookService } from '../service/webhook.service';
         InputSwitchModule,
         OverlayPanelModule,
         SidebarModule,
-        ProgressBarModule,
-    ],
-    exports: [
-        AppMarketComponent,
-        BulkSearchPipe
-    ],
-    providers: [
+        ProgressBarModule], providers: [
         AppsService,
         DomainService,
         UserService,
@@ -121,12 +119,8 @@ import { WebhookService } from '../service/webhook.service';
         ClusterService,
         SortService,
         SessionService,
-        WebhookService
-    ],
-    schemas: [
-        NO_ERRORS_SCHEMA,
-        CUSTOM_ELEMENTS_SCHEMA
-    ]
-})
+        WebhookService,
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppMarketModule {
 }

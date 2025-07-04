@@ -17,7 +17,8 @@ import {Configuration} from '../model/configuration';
 import {Language} from '../model/language';
 import {Component} from '@angular/core';
 import {AuthService, DomainRoles} from '../auth/auth.service';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 export class MockAuthService {
 
@@ -199,35 +200,34 @@ describe('Component: AppMarket', () => {
     authUserSpy.hasRole.and.returnValue(false);
 
     TestBed.configureTestingModule({
-      declarations: [
+    declarations: [
         AppMarketComponent,
-          MockAppNavbar,
-          MockTestInstanceModal,
-          MockGuestUserModal,
-          MockProvideSshKeyModal,
-      ],
-      imports: [
-        RouterTestingModule,
-          HttpClientTestingModule,
+        MockAppNavbar,
+        MockTestInstanceModal,
+        MockGuestUserModal,
+        MockProvideSshKeyModal,
+    ],
+    imports: [RouterTestingModule,
         TranslateModule.forRoot({
-          missingTranslationHandler: {
-            provide: MissingTranslationHandler,
-            useClass: CustomMissingTranslationService
-          },
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateFakeLoader
-          }
-        }),
-      ],
-      providers: [
-        {provide: ServiceUnavailableService, useClass: MockServiceUnavailableService},
-        {provide: AppConfigService, useClass: MockAppConfigService},
-        {provide: AuthService, useValue: authUserSpy},
-        {provide: ConfigurationService, useClass: MockConfigurationService},
-        {provide: InternationalizationService, useClass: MockInternationalizationService}
-      ]
-    })
+            missingTranslationHandler: {
+                provide: MissingTranslationHandler,
+                useClass: CustomMissingTranslationService
+            },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        })],
+    providers: [
+        { provide: ServiceUnavailableService, useClass: MockServiceUnavailableService },
+        { provide: AppConfigService, useClass: MockAppConfigService },
+        { provide: AuthService, useValue: authUserSpy },
+        { provide: ConfigurationService, useClass: MockConfigurationService },
+        { provide: InternationalizationService, useClass: MockInternationalizationService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+})
       .compileComponents();
   }));
 

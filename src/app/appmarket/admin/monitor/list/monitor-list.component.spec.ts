@@ -4,7 +4,7 @@ import {MonitorListComponent} from './monitor-list.component';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {MonitorService} from '../../../../service/monitor.service';
 import {RouterTestingModule} from '@angular/router/testing';
-import {HttpClientModule} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {AppConfigService} from '../../../../service';
 import {Observable, of} from 'rxjs';
 import {TimeFormat} from '../../../../model/monitorentry';
@@ -17,19 +17,16 @@ describe('MonitorListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ MonitorListComponent ],
-      imports: [
-          RouterTestingModule,
-          HttpClientModule,
-          TranslateModule.forRoot({
-              loader: {
-                  provide: TranslateLoader,
-                  useClass: TranslateFakeLoader
-              }
-          })
-      ],
-      providers: [MonitorService, AppConfigService]
-    })
+    declarations: [MonitorListComponent],
+    imports: [RouterTestingModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        })],
+    providers: [MonitorService, AppConfigService, provideHttpClient(withInterceptorsFromDi())]
+})
     .compileComponents();
   }));
 

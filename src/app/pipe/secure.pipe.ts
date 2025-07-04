@@ -1,7 +1,7 @@
 import {BehaviorSubject, Observable, Subscriber, Subscription, throwError as observableThrowError} from 'rxjs';
 import {ChangeDetectorRef, Injectable, OnDestroy, Pipe, PipeTransform} from '@angular/core';
 
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {DomSanitizer} from '@angular/platform-browser';
 import {catchError} from 'rxjs/operators';
 

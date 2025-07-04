@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BulkAppListComponent } from './bulk-app-list.component';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import createSpyObj = jasmine.createSpyObj;
 import {AuthService} from '../../../auth/auth.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('BulkAppListComponent', () => {
   let component: BulkAppListComponent;
@@ -18,15 +19,15 @@ describe('BulkAppListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BulkAppListComponent ],
-      imports: [
-          HttpClientTestingModule
-      ],
-      providers: [
-        {provide: AuthService, useValue: authServiceSpy},
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
+    declarations: [BulkAppListComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    imports: [],
+    providers: [
+        { provide: AuthService, useValue: authServiceSpy },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+})
     .compileComponents();
   });
 

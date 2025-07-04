@@ -17,8 +17,9 @@ import {TranslateStateModule} from '../../../shared/translate-state/translate-st
 import {RolesDirective} from '../../../directive/roles.directive';
 import {JwtModule} from '@auth0/angular-jwt';
 import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Pipe, PipeTransform} from '@angular/core';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {AppinstanceSearchPipe} from '../appinstance-search.pipe';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 @Pipe({ name: 'keys'})
 class KeysPipe implements PipeTransform {
@@ -57,40 +58,39 @@ describe('AppInstanceListComponent', () => {
         const sessionServiceSpy = createSpyObj('SessionService', ['registerCulture'])
 
         TestBed.configureTestingModule({
-            declarations: [
-                AppInstanceListComponent,
-                KeysPipe,
-                AppinstanceSearchPipe
-            ],
-            imports: [
-                FormsModule,
-                RouterTestingModule,
-                NgxPaginationModule,
-                HttpClientTestingModule,
-                JwtModule.forRoot({}),
-                TranslateModule.forRoot({
-                    loader: {
-                        provide: TranslateLoader,
-                        useClass: TranslateFakeLoader
-                    }
-                }),
-            ],
-            providers: [
-                {provide: AppInstanceService, useValue: {}},
-                {provide: DomainService, useValue: domainServiceSpy},
-                {provide: AppConfigService, useValue: appConfigSpy},
-                {provide: AuthService, useValue: authServiceSpy},
-                {
-                    provide: UserDataService,
-                    useValue: {
-                        selectedDomainId: of(1)
-                    }
-                },
-                {provide: SessionService, useValue: sessionServiceSpy},
-                {provide: SortService, useValue: {}},
-            ],
-            schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-        }).compileComponents();
+    declarations: [
+        AppInstanceListComponent,
+        KeysPipe,
+        AppinstanceSearchPipe
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+    imports: [FormsModule,
+        RouterTestingModule,
+        NgxPaginationModule,
+        JwtModule.forRoot({}),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        })],
+    providers: [
+        { provide: AppInstanceService, useValue: {} },
+        { provide: DomainService, useValue: domainServiceSpy },
+        { provide: AppConfigService, useValue: appConfigSpy },
+        { provide: AuthService, useValue: authServiceSpy },
+        {
+            provide: UserDataService,
+            useValue: {
+                selectedDomainId: of(1)
+            }
+        },
+        { provide: SessionService, useValue: sessionServiceSpy },
+        { provide: SortService, useValue: {} },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+}).compileComponents();
     }));
 
     beforeEach(() => {

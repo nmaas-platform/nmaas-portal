@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {SshShellComponent} from './ssh-shell.component';
 import {NgTerminalModule} from 'ng-terminal';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {Component} from '@angular/core';
 import {ModalComponent} from '../../../shared/modal';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
@@ -10,6 +10,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import createSpyObj = jasmine.createSpyObj;
 import {ShellClientService} from '../../../service/shell-client.service';
 import {concat, of, throwError} from 'rxjs';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 @Component({
     selector: 'nmaas-modal',
@@ -27,25 +28,24 @@ describe('SshShellComponent', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [
-                SshShellComponent,
-                NmaasModalMockComponent,
-            ],
-            imports: [
-                NgTerminalModule,
-                HttpClientTestingModule,
-                RouterTestingModule,
-                TranslateModule.forRoot({
-                    loader: {
-                        provide: TranslateLoader,
-                        useClass: TranslateFakeLoader
-                    }
-                })
-            ],
-            providers: [
-                {provide: ShellClientService, useValue: shellClientServiceSpy}
-            ]
-        })
+    declarations: [
+        SshShellComponent,
+        NmaasModalMockComponent,
+    ],
+    imports: [NgTerminalModule,
+        RouterTestingModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        })],
+    providers: [
+        { provide: ShellClientService, useValue: shellClientServiceSpy },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+})
             .compileComponents();
     }));
 

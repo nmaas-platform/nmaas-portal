@@ -6,9 +6,10 @@ import {InputSwitchModule} from 'primeng/inputswitch';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {InternationalizationService} from '../../../../service/internationalization.service';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {AppConfigService} from '../../../../service';
 import {RouterTestingModule} from '@angular/router/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('LanguageDetailsComponent', () => {
   let component: LanguageDetailsComponent;
@@ -16,10 +17,10 @@ describe('LanguageDetailsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), InputSwitchModule, FormsModule, CommonModule, HttpClientTestingModule, RouterTestingModule],
-      declarations: [ LanguageDetailsComponent ],
-      providers: [InternationalizationService, AppConfigService]
-    })
+    declarations: [LanguageDetailsComponent],
+    imports: [TranslateModule.forRoot(), InputSwitchModule, FormsModule, CommonModule, RouterTestingModule],
+    providers: [InternationalizationService, AppConfigService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   }));
 

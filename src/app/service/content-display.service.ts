@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {GenericDataService} from './genericdata.service';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {AppConfigService} from './appconfig.service';
 import {Content} from '../model/content';
 import {Observable} from 'rxjs/internal/Observable';

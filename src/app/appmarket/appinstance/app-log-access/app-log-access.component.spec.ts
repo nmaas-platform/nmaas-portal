@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {AppLogAccessComponent} from './app-log-access.component';
 import {AppLogsService} from '../../../service/app-logs.service';
-import {HttpClient, HttpHandler} from '@angular/common/http';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';

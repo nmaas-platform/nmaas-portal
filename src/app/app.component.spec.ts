@@ -16,7 +16,8 @@ import { LeftMenuComponent } from './shared/left-menu/left-menu.component';
 import { ToastContainerComponent } from './shared/toast-container/toast-container.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 class MockConfigurationService {
     protected uri: string;
@@ -78,44 +79,43 @@ class MockServiceUnavailableService {
 describe('App: NmaasPortal', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [
-                AppComponent,
-                LeftMenuComponent,
-                ToastContainerComponent
-            ],
-            imports: [
-                HttpClientTestingModule,
-                RouterTestingModule,
-                TranslateModule.forRoot({
-                    missingTranslationHandler: {provide: MissingTranslationHandler, useClass: CustomMissingTranslationService},
-                    loader: {
-                        provide: TranslateLoader,
-                        useClass: TranslateFakeLoader
-                    }
-                }),
-                JwtModule.forRoot({
-                    config: {
-                        tokenGetter: () => {
-                            return '';
-                        }
-                    }
-                }),
-                SharedModule
-            ],
-            providers: [
-                {provide: AppConfigService, useClass: MockAppConfigService},
-                {provide: ConfigurationService, useClass: MockConfigurationService},
-                TranslateService,
-                AuthService,
-                JwtHelperService,
-            MessageService,
-                {provide: ServiceUnavailableService, useClass: MockServiceUnavailableService}
-        ],
-        schemas: [
-                      CUSTOM_ELEMENTS_SCHEMA,
-                      NO_ERRORS_SCHEMA
-                      ]
-        });
+    declarations: [
+        AppComponent,
+        LeftMenuComponent,
+        ToastContainerComponent
+    ],
+    schemas: [
+        CUSTOM_ELEMENTS_SCHEMA,
+        NO_ERRORS_SCHEMA
+    ],
+    imports: [RouterTestingModule,
+        TranslateModule.forRoot({
+            missingTranslationHandler: { provide: MissingTranslationHandler, useClass: CustomMissingTranslationService },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        }),
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: () => {
+                    return '';
+                }
+            }
+        }),
+        SharedModule],
+    providers: [
+        { provide: AppConfigService, useClass: MockAppConfigService },
+        { provide: ConfigurationService, useClass: MockConfigurationService },
+        TranslateService,
+        AuthService,
+        JwtHelperService,
+        MessageService,
+        { provide: ServiceUnavailableService, useClass: MockServiceUnavailableService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+});
     });
 
     it('should create the app', waitForAsync(() => {

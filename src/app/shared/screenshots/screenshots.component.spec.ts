@@ -4,10 +4,11 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {ScreenshotsComponent} from './screenshots.component';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {AppsService} from '../../service';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {PipesModule} from '../../pipe/pipes.module';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 // TODO mock secure pipe
 
@@ -20,24 +21,23 @@ describe('ScreenshotsComponent', () => {
         appsServiceSpy.getAppScreenshotsByUrl.and.returnValue(of([]))
 
         TestBed.configureTestingModule({
-            declarations: [
-                ScreenshotsComponent,
-            ],
-            imports: [
-                RouterTestingModule,
-                HttpClientTestingModule,
-                PipesModule,
-                TranslateModule.forRoot({
-                    loader: {
-                        provide: TranslateLoader,
-                        useClass: TranslateFakeLoader
-                    }
-                }),
-            ],
-        providers: [
-            {provide: AppsService, useValue: appsServiceSpy}
-        ]
-        }).compileComponents();
+    declarations: [
+        ScreenshotsComponent,
+    ],
+    imports: [RouterTestingModule,
+        PipesModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        })],
+    providers: [
+        { provide: AppsService, useValue: appsServiceSpy },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+}).compileComponents();
     }));
 
     beforeEach(() => {

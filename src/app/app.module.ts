@@ -18,7 +18,7 @@ import {AuthGuard} from './auth/auth.guard';
 import {AuthService} from './auth/auth.service';
 
 import {MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {CustomMissingTranslationService} from './i18n/custommissingtranslation.service';
 import {TranslateLoaderImpl} from './i18n/translate-loader-impl.service';
 import {ServiceUnavailableModule} from './service-unavailable/service-unavailable.module';
@@ -58,17 +58,21 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
     allowedDomains: appConfig.jwtAllowedDomains
 });
 
-@NgModule({
-    declarations: [
+@NgModule({ declarations: [
         AppComponent,
         LeftMenuComponent,
         ToastContainerComponent,
         AdminLeftMenuComponent,
     ],
-    imports: [
-        BrowserModule,
+    exports: [
+        TranslateModule
+    ],
+    bootstrap: [AppComponent],
+    schemas: [
+        CUSTOM_ELEMENTS_SCHEMA,
+        NO_ERRORS_SCHEMA
+    ], imports: [BrowserModule,
         FormsModule,
-        HttpClientModule,
         JwtModule.forRoot({
             jwtOptionsProvider: {
                 provide: JWT_OPTIONS,
@@ -82,7 +86,7 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
         ServiceUnavailableModule,
         routing,
         TranslateModule.forRoot({
-            missingTranslationHandler: {provide: MissingTranslationHandler, useClass: CustomMissingTranslationService},
+            missingTranslationHandler: { provide: MissingTranslationHandler, useClass: CustomMissingTranslationService },
             loader: {
                 provide: TranslateLoader,
                 useFactory: HttpLoaderFactory,
@@ -94,9 +98,7 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
         ToastModule,
         SplitButtonModule,
         MenuModule,
-        AccordionModule,
-    ],
-    providers: [
+        AccordionModule], providers: [
         AuthGuard,
         AuthService,
         RecaptchaVisibilityService,
@@ -116,17 +118,9 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
             deps: [AppConfigService, HttpClient, ServiceUnavailableService],
             multi: true,
         },
-        MessageService
-    ],
-    exports: [
-        TranslateModule
-    ],
-    bootstrap: [AppComponent],
-    schemas: [
-        CUSTOM_ELEMENTS_SCHEMA,
-        NO_ERRORS_SCHEMA
-    ]
-})
+        MessageService,
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule {
 }
 
