@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageListComponent } from './languagelist/languagelist.component';
 import { LanguageDetailsComponent } from './languagedetails/languagedetails.component';
@@ -9,7 +9,7 @@ import {SharedModule} from '../../../shared';
 import {FormsModule} from '@angular/forms';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import {TableModule} from 'primeng/table';
-import {InputTextareaModule} from 'primeng/inputtextarea';
+import { TextareaModule } from 'primeng/textarea';
 
 @NgModule({
   declarations: [LanguageListComponent, LanguageDetailsComponent],
@@ -21,8 +21,10 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
         SharedModule,
         TranslateModule.forChild(),
         TableModule,
-        InputTextareaModule
+        TextareaModule
     ],
-  providers: [InternationalizationService]
+  providers: [InternationalizationService],
+       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
+
 })
 export class LanguageManagementModule { }

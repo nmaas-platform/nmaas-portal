@@ -5,6 +5,7 @@ import {AuthService} from './auth/auth.service';
 import {Router} from '@angular/router';
 import {ServiceUnavailableService} from './service-unavailable/service-unavailable.service';
 import {IdleTimer} from './auth/idle-timer';
+import { PrimeNG } from 'primeng/config';
 
 @Component({
     selector: 'nmaas-root',
@@ -21,10 +22,12 @@ export class AppComponent {
 
     constructor(private appConfigService: AppConfigService, private configService: ConfigurationService,
                 private authService: AuthService, private translate: TranslateService,
-                private router: Router, private serviceHealth: ServiceUnavailableService) {
+                private router: Router, private serviceHealth: ServiceUnavailableService,
+                private primeNg: PrimeNG) {
     }
 
     async ngOnInit() {
+        this.primeNg.ripple.set(true);
         this.isLoggedIn = this.authService.isLogged() ;
         if (this.serviceHealth.isServiceAvailable === false) {
             this.router.navigate(['/service-unavailable']);

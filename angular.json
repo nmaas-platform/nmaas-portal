@@ -12,7 +12,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "lodash", "formiojs", "xterm", "xterm-addon-fit", "semver"
+              "lodash", "formiojs", "xterm", "xterm-addon-fit", "semver"  
             ],
              "outputPath": "build/app",
 
@@ -30,8 +30,6 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/bootstrap/dist/css/bootstrap-theme.min.css",
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-              "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",
               "src/styles.css"
             ],

@@ -34,15 +34,15 @@ import {ConfirmationService} from 'primeng/api';
     selector: 'nmaas-appinstance',
     templateUrl: './appinstance.component.html',
     styleUrls: ['./appinstance.component.css', '../../appdetails/appdetails.component.css'],
-    providers: [
-        AppsService,
-        AppImagesService,
-        AppInstanceService,
-        SecurePipe,
-        AppRestartModalComponent,
-        AppAbortModalComponent,
-        LocalDatePipe
-    ],
+    // providers: [
+    //     AppsService,
+    //     AppImagesService,
+    //     AppInstanceService,
+    //     SecurePipe,
+    //     AppRestartModalComponent,
+    //     AppAbortModalComponent,
+    //     LocalDatePipe
+    // ],
     standalone: false
 })
 export class AppInstanceComponent implements OnInit, OnDestroy {

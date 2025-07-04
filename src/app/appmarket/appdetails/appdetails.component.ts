@@ -25,7 +25,6 @@ import {ApplicationBase} from '../../model/application-base';
     selector: 'nmaas-appdetails',
     templateUrl: './appdetails.component.html',
     styleUrls: ['../../../assets/css/main.css', './appdetails.component.css'],
-    providers: [],
     standalone: false
 })
 export class AppDetailsComponent implements OnInit {
