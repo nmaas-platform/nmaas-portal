@@ -106,8 +106,7 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/bootstrap/dist/css/bootstrap-theme.min.css",
-              "node_modules/primeng/resources/themes/nova/theme.css",
-              "node_modules/primeng/resources/primeng.min.css",
+             
               "node_modules/primeflex/primeflex.css",
               "src/styles.css"
             ],
