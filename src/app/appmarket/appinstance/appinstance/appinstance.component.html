@@ -167,6 +167,18 @@
                                     </a>
                                 </li>
                             </ng-container>
+                            <ng-container *ngIf="getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.PAUSED">
+                                <li *ngIf="getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.PAUSED">
+                                    <a role="button" (click)="scaleUp()">
+                                        {{'APP_INSTANCES.RESUME' | translate}}
+                                    </a>
+                                </li>
+                                <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']">
+                                    <a role="button" (click)="this.undeployModal.show()" style="color: var(--danger-button-color)">
+                                        {{'APP_INSTANCE.UNDEPLOY_BUTTON' | translate}}
+                                    </a>
+                                </li>
+                            </ng-container>
 
                             <ng-container *ngIf="getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.FAILURE">
                                 <li>
