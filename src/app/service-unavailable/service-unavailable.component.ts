@@ -8,7 +8,8 @@ import {ServiceUnavailableService} from './service-unavailable.service';
 @Component({
     selector: 'app-service-unavailable',
     templateUrl: './service-unavailable.component.html',
-    styleUrls: ['./service-unavailable.component.css']
+    styleUrls: ['./service-unavailable.component.css'],
+    standalone: false
 })
 export class ServiceUnavailableComponent implements OnInit, OnDestroy {
     private interval;

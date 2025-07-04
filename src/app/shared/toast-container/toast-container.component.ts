@@ -16,9 +16,10 @@ export interface Toast {
 }
 
 @Component({
-  selector: 'app-toast-container',
-  templateUrl: './toast-container.component.html',
-  styleUrls: ['./toast-container.component.scss'],
+    selector: 'app-toast-container',
+    templateUrl: './toast-container.component.html',
+    styleUrls: ['./toast-container.component.scss'],
+    standalone: false
 })
 @Injectable( {providedIn: 'root'})
 export class ToastContainerComponent{

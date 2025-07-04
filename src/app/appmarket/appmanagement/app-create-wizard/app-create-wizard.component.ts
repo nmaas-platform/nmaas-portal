@@ -26,7 +26,8 @@ import {ApplicationBase} from '../../../model/application-base';
     encapsulation: ViewEncapsulation.None,
     selector: 'app-appcreatewizard',
     templateUrl: './app-create-wizard.component.html',
-    styleUrls: ['./app-create-wizard.component.css']
+    styleUrls: ['./app-create-wizard.component.css'],
+    standalone: false
 })
 
 export class AppCreateWizardComponent extends BaseComponent implements OnInit, OnDestroy {

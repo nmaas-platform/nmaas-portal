@@ -15,7 +15,8 @@ import {Router} from '@angular/router';
 @Component({
     selector: 'nmaas-clusterdetails',
     templateUrl: './clusterdetails.component.html',
-    styleUrls: ['./clusterdetails.component.css']
+    styleUrls: ['./clusterdetails.component.css'],
+    standalone: false
 })
 export class ClusterDetailsComponent extends BaseComponent {
 

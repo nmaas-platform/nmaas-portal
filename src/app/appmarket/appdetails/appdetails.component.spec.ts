@@ -17,7 +17,8 @@ import {ApplicationState} from '../../model/application-state';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 @Pipe({
-    name: 'secure'
+    name: 'secure',
+    standalone: false
 })
 class SecurePipeMock implements PipeTransform {
     public name = 'secure';
@@ -29,7 +30,8 @@ class SecurePipeMock implements PipeTransform {
 
 @Component({
     selector: 'rate',
-    template: '<p>Rate Mock</p>'
+    template: '<p>Rate Mock</p>',
+    standalone: false
 })
 class MockRateComponent {
     @Input()
@@ -44,7 +46,8 @@ class MockRateComponent {
 
 @Component({
     selector: 'rating-extended',
-    template: '<p>Rate Extended mock</p>'
+    template: '<p>Rate Extended mock</p>',
+    standalone: false
 })
 class MockRateExtendedComponent {
     @Input()
@@ -59,7 +62,8 @@ class MockRateExtendedComponent {
 
 @Component({
     selector: 'comments',
-    template: '<p>Mock comments component</p>'
+    template: '<p>Mock comments component</p>',
+    standalone: false
 })
 class MockCommentsComponent {
     @Input()
@@ -68,7 +72,8 @@ class MockCommentsComponent {
 
 @Component({
     selector: 'nmaas-modal-app-install',
-    template: '<p>Nmaas modal app install mock</p>'
+    template: '<p>Nmaas modal app install mock</p>',
+    standalone: false
 })
 class MockNmassModalAppInstallComponent {
     @Input()
@@ -80,7 +85,8 @@ class MockNmassModalAppInstallComponent {
 
 @Component({
     selector: 'screenshots',
-    template: '<p>Screenchots Mock</p>'
+    template: '<p>Screenchots Mock</p>',
+    standalone: false
 })
 class MockScreenshotsComponent {
     @Input()

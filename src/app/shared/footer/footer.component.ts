@@ -6,9 +6,10 @@ import {TranslateService} from '@ngx-translate/core';
 import {AuthService} from '../../auth/auth.service';
 
 @Component({
-  selector: 'nmaas-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: [ './footer.component.css' ]
+    selector: 'nmaas-footer',
+    templateUrl: './footer.component.html',
+    styleUrls: ['./footer.component.css'],
+    standalone: false
 })
 
 export class FooterComponent implements OnInit {

@@ -7,9 +7,10 @@ import { AuthService } from '../../auth/auth.service';
 import { ProfileService } from '../../service/profile.service';
 
 @Component({
-  selector: 'app-left-menu',
-  templateUrl: './left-menu.component.html',
-  styleUrl: './left-menu.component.css'
+    selector: 'app-left-menu',
+    templateUrl: './left-menu.component.html',
+    styleUrl: './left-menu.component.css',
+    standalone: false
 })
 export class LeftMenuComponent implements OnInit {
   @ViewChild(ModalNotificationSendComponent, { static: true })

@@ -18,7 +18,7 @@ export enum AppInstanceListSelection {
     selector: 'nmaas-appinstancelist',
     templateUrl: './appinstancelist.component.html',
     styleUrls: ['./appinstancelist.component.css'],
-
+    standalone: false
 })
 export class AppInstanceListComponent implements OnInit {
 

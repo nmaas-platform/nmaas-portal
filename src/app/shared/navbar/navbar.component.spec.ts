@@ -15,21 +15,24 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 @Component({
     selector: 'nmaas-domain-filter',
-    template: '<p>Mock nmaas-domain-filter Component</p>'
+    template: '<p>Mock nmaas-domain-filter Component</p>',
+    standalone: false
 })
 class MockDomainFilter {
 }
 
 @Component({
     selector: 'app-modal-notification-send',
-    template: '<p>Mock modal</p>'
+    template: '<p>Mock modal</p>',
+    standalone: false
 })
 class MockNotificationSendModalComponent {
 }
 
 @Directive({
     selector: '[roles]',
-    inputs: ['roles']
+    inputs: ['roles'],
+    standalone: false
 })
 class MockRolesDirective {
    @Input() set roles(allowedRoles: Array<string>) {}

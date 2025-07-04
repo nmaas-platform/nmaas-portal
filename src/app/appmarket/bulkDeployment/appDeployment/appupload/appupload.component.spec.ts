@@ -9,7 +9,8 @@ import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Pipe, PipeTransform} from '@an
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 @Pipe({
-  name: 'secure'
+    name: 'secure',
+    standalone: false
 })
 class SecurePipeMock implements PipeTransform {
   public name = 'secure';

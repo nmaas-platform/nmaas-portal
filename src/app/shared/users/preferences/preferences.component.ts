@@ -12,9 +12,10 @@ function toEnum(role: string | Role): Role {
 }
 
 @Component({
-  selector: 'nmaas-preferences',
-  templateUrl: './preferences.component.html',
-  styleUrls: ['./preferences.component.css']
+    selector: 'nmaas-preferences',
+    templateUrl: './preferences.component.html',
+    styleUrls: ['./preferences.component.css'],
+    standalone: false
 })
 export class PreferencesComponent extends BaseComponent implements OnInit {
 

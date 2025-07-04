@@ -44,7 +44,8 @@ export class AuthHttpWrapper {
 
 @Pipe({
     name: 'secure',
-    pure: false
+    pure: false,
+    standalone: false
 })
 export class SecurePipe implements PipeTransform, OnDestroy {
 

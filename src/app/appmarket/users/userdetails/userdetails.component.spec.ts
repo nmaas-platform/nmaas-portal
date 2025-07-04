@@ -10,13 +10,15 @@ import {CUSTOM_ELEMENTS_SCHEMA, Component} from '@angular/core';
 
 @Component({
     selector: 'nmaas-userdetails',
-    template: '<p>Nmaas Userdetails Mock</p>'
+    template: '<p>Nmaas Userdetails Mock</p>',
+    standalone: false
 })
 class MockNmaasUserDetailsComponent {}
 
 @Component({
     selector: 'nmaas-userprivileges',
-    template: '<p>Nmaas User Privileges Mock</p>'
+    template: '<p>Nmaas User Privileges Mock</p>',
+    standalone: false
 })
 class MockNmaasUserPrivilegesComponent {}
 

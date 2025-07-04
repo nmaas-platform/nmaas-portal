@@ -3,8 +3,9 @@ import {Component, Input} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'nmaas-base',
-  template: ''
+    selector: 'nmaas-base',
+    template: '',
+    standalone: false
 })
 export class BaseComponent {
 

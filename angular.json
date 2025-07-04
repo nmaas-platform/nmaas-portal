@@ -14,11 +14,14 @@
             "allowedCommonJsDependencies": [
               "lodash", "formiojs", "xterm", "xterm-addon-fit", "semver"
             ],
-            "outputPath": "build/app",
+             "outputPath": "build/app",
+
             "index": "src/index.html",
             "main": "src/main.ts",
+
             "tsConfig": "tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
+
             "assets": [
               "src/assets",
               "src/favicon.ico",
@@ -37,6 +40,7 @@
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ],
             "vendorChunk": true,
+
             "extractLicenses": false,
             "buildOptimizer": false,
             "sourceMap": true,
@@ -56,8 +60,6 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",

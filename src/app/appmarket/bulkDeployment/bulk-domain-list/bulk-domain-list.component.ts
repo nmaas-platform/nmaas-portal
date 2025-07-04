@@ -7,7 +7,8 @@ import {AuthService} from '../../../auth/auth.service';
 @Component({
     selector: 'app-bulk-domain-list',
     templateUrl: './bulk-domain-list.component.html',
-    styleUrls: []
+    styleUrls: [],
+    standalone: false
 })
 export class BulkDomainListComponent implements OnInit {
 

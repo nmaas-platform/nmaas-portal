@@ -12,8 +12,9 @@ import {Component} from '@angular/core';
 import {SingleCommentComponent} from './single-comment/single-comment.component';
 
 @Component({
-  selector: 'app-single-comment',
-  template: '<p> Mock of single comment</p>'
+    selector: 'app-single-comment',
+    template: '<p> Mock of single comment</p>',
+    standalone: false
 })
 class MockSingleCommentComponent {}
 

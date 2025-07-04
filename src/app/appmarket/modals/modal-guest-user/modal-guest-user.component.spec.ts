@@ -8,8 +8,9 @@ import {DialogModule} from 'primeng/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @Component({
-  selector: 'nmaas-modal',
-  template: '<p>Modal Mock</p>'
+    selector: 'nmaas-modal',
+    template: '<p>Modal Mock</p>',
+    standalone: false
 })
 class ModalMock {
   setModalType(arg: string) {

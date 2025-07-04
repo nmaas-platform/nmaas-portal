@@ -12,7 +12,8 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 @Component({
     selector: 'nmaas-applications-view',
-    template: '<p>Mock application view</p>'
+    template: '<p>Mock application view</p>',
+    standalone: false
 })
 class AppViewMock {
     @Input()

@@ -1,7 +1,8 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
-    name: 'searchAppInstance'
+    name: 'searchAppInstance',
+    standalone: false
 })
 export class AppinstanceSearchPipe implements PipeTransform {
 

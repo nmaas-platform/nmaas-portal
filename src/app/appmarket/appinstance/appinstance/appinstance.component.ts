@@ -42,7 +42,8 @@ import {ConfirmationService} from 'primeng/api';
         AppRestartModalComponent,
         AppAbortModalComponent,
         LocalDatePipe
-    ]
+    ],
+    standalone: false
 })
 export class AppInstanceComponent implements OnInit, OnDestroy {
 

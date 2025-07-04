@@ -5,9 +5,10 @@ import { WebhookService } from '../../../../service/webhook.service';
 import {ToastContainerComponent, ToastMode} from '../../../../shared/toast-container/toast-container.component';
 
 @Component({
-  selector: 'app-webhook-list',
-  templateUrl: './webhook-list.component.html',
-  styleUrl: './webhook-list.component.css'
+    selector: 'app-webhook-list',
+    templateUrl: './webhook-list.component.html',
+    styleUrl: './webhook-list.component.css',
+    standalone: false
 })
 export class WebhookListComponent implements OnInit {
 

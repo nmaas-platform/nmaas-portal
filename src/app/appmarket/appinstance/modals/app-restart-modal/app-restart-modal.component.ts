@@ -6,7 +6,8 @@ import {AppInstanceService} from '../../../../service';
     selector: 'nmaas-modal-app-restart',
     templateUrl: './app-restart-modal.component.html',
     styleUrls: [],
-    providers: [ModalComponent]
+    providers: [ModalComponent],
+    standalone: false
 })
 export class AppRestartModalComponent {
 

@@ -14,9 +14,10 @@ import { PaginationSettings, PrimeNgLazyLoadEvent } from '../../../service/page'
 
 
 @Component({
-  selector: 'user-domain-list',
-  templateUrl: './user-domain-list.component.html',
-  styleUrl: './user-domain-list.component.css'
+    selector: 'user-domain-list',
+    templateUrl: './user-domain-list.component.html',
+    styleUrl: './user-domain-list.component.css',
+    standalone: false
 })
 export class UserDomainListComponent extends BaseComponent implements OnInit, OnDestroy {
   public users_item_number_key = 'NUMBER_OF_USERS_ITEM_KEY';

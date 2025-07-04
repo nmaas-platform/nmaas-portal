@@ -13,7 +13,8 @@ import {SSHKeyService} from '../service/sshkey.service';
     selector: 'app-appmarket',
     templateUrl: './appmarket.component.html',
     styleUrls: ['../../assets/css/main.css', './appmarket.component.css'],
-    providers: [ModalTestInstanceComponent]
+    providers: [ModalTestInstanceComponent],
+    standalone: false
 })
 export class AppMarketComponent implements OnInit {
 

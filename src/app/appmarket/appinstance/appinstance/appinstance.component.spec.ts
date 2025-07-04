@@ -37,7 +37,8 @@ import {ConfirmationService} from 'primeng/api';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 @Pipe({
-    name: 'secure'
+    name: 'secure',
+    standalone: false
 })
 class SecurePipeMock implements PipeTransform {
     public name = 'secure';
@@ -49,7 +50,8 @@ class SecurePipeMock implements PipeTransform {
 
 @Component({
     selector: 'rate',
-    template: '<p>Rate Mock</p>'
+    template: '<p>Rate Mock</p>',
+    standalone: false
 })
 class RateComponentMockComponent {
     @Input()
@@ -64,7 +66,8 @@ class RateComponentMockComponent {
 
 @Component({
     selector: 'nmaas-appinstanceprogress',
-    template: '<p>App Instance progress Mock</p>'
+    template: '<p>App Instance progress Mock</p>',
+    standalone: false
 })
 class AppInstanceProgressMockComponent {
     @Input()
@@ -84,13 +87,15 @@ class AppInstanceProgressMockComponent {
 
 @Component({
     selector: 'nmaas-modal',
-    template: '<p>Nmaas Modal Mock</p>'
+    template: '<p>Nmaas Modal Mock</p>',
+    standalone: false
 })
 class MockNmaasModalComponent extends ModalComponent {
 }
 
 @Directive({
-    selector: '[roles]'
+    selector: '[roles]',
+    standalone: false
 })
 class MockRolesDirective {
     @Input()
@@ -99,7 +104,8 @@ class MockRolesDirective {
 
 @Component({
     selector: 'app-ssh-shell',
-    template: '<p>SSH shell mock</p>'
+    template: '<p>SSH shell mock</p>',
+    standalone: false
 })
 class SshShellMockComponent {
 }

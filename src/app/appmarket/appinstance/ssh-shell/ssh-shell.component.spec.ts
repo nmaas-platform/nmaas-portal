@@ -14,7 +14,8 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 @Component({
     selector: 'nmaas-modal',
-    template: '<p>Nmaas Modal Mock</p>'
+    template: '<p>Nmaas Modal Mock</p>',
+    standalone: false
 })
 class NmaasModalMockComponent extends ModalComponent {
 }

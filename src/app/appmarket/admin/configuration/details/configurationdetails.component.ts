@@ -12,7 +12,8 @@ import {ToastContainerComponent, ToastMode} from '../../../../shared/toast-conta
 @Component({
     selector: 'app-configurationdetails',
     templateUrl: './configurationdetails.component.html',
-    styleUrls: ['./configurationdetails.component.css']
+    styleUrls: ['./configurationdetails.component.css'],
+    standalone: false
 })
 export class ConfigurationDetailsComponent extends BaseComponent implements OnInit {
 

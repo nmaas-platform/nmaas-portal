@@ -7,7 +7,8 @@ import {BaseComponent} from '../../../../shared/common/basecomponent/base.compon
 @Component({
     selector: 'nmaas-monitordetails',
     templateUrl: './monitor-details.component.html',
-    styleUrls: ['./monitor-details.component.css']
+    styleUrls: ['./monitor-details.component.css'],
+    standalone: false
 })
 export class MonitorDetailsComponent extends BaseComponent implements OnInit {
 

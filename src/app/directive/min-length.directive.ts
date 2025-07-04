@@ -2,8 +2,9 @@ import {Directive, Input} from '@angular/core';
 import {UntypedFormControl, NG_VALIDATORS, Validator} from "@angular/forms";
 
 @Directive({
-  selector: '[minNumLength]',
-  providers: [{provide: NG_VALIDATORS, useExisting: MinLengthDirective, multi: true}]
+    selector: '[minNumLength]',
+    providers: [{ provide: NG_VALIDATORS, useExisting: MinLengthDirective, multi: true }],
+    standalone: false
 })
 export class MinLengthDirective implements Validator{
 

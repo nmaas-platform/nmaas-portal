@@ -12,7 +12,8 @@ import {UserDataService} from '../../../service/userdata.service';
 @Component({
     selector: 'nmaas-userprivileges',
     templateUrl: './userprivileges.component.html',
-    styleUrls: ['./userprivileges.component.css']
+    styleUrls: ['./userprivileges.component.css'],
+    standalone: false
 })
 @RoleAware
 //TODO: remove domainId dependencies on selector -> allways set to globaldomain at init, only SYSTEM_ADMIN can access this view 

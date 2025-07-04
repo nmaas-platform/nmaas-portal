@@ -6,9 +6,10 @@ import {AppStateChange} from '../../../model/appstatechange';
 import {ApplicationVersion} from '../../../model/application-version';
 
 @Component({
-  selector: 'app-appchangestatemodal',
-  templateUrl: './appchangestatemodal.component.html',
-  styleUrls: ['./appchangestatemodal.component.css']
+    selector: 'app-appchangestatemodal',
+    templateUrl: './appchangestatemodal.component.html',
+    styleUrls: ['./appchangestatemodal.component.css'],
+    standalone: false
 })
 export class AppChangeStateModalComponent implements OnInit, OnChanges {
 

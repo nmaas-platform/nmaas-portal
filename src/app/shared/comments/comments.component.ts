@@ -10,7 +10,8 @@ import {TranslateService} from '@ngx-translate/core';
     templateUrl: './comments.component.html',
     styleUrls: ['./comments.component.css'],
     encapsulation: ViewEncapsulation.None,
-    providers: [AppsService]
+    providers: [AppsService],
+    standalone: false
 })
 export class CommentsComponent implements OnInit, OnChanges {
 

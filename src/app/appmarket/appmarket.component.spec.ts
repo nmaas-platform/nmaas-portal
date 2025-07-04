@@ -167,26 +167,30 @@ class MockAppConfigService {
 }
 
 @Component({
-  selector: 'app-navbar',
-  template: '<p>Mock app-navbar Component</p>'
+    selector: 'app-navbar',
+    template: '<p>Mock app-navbar Component</p>',
+    standalone: false
 })
 class MockAppNavbar {}
 
 @Component({
-  selector: 'modal-test-instance',
-  template: '<p>Mock test instance modal</p>'
+    selector: 'modal-test-instance',
+    template: '<p>Mock test instance modal</p>',
+    standalone: false
 })
 class MockTestInstanceModal {}
 
 @Component({
-  selector: 'modal-guest-user',
-  template: '<p>Mock guest user modal</p>'
+    selector: 'modal-guest-user',
+    template: '<p>Mock guest user modal</p>',
+    standalone: false
 })
 class MockGuestUserModal {}
 
 @Component({
-  selector: 'modal-provide-ssh-key',
-  template: '<p>Mock guest user modal</p>'
+    selector: 'modal-provide-ssh-key',
+    template: '<p>Mock guest user modal</p>',
+    standalone: false
 })
 class MockProvideSshKeyModal {}
 

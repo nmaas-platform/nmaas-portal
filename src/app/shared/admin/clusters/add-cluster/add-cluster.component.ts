@@ -12,9 +12,10 @@ import { UserDataService } from '../../../../service/userdata.service';
 import {ToastContainerComponent, ToastMode} from '../../../toast-container/toast-container.component';
 
 @Component({
-  selector: 'app-add-cluster',
-  templateUrl: './add-cluster.component.html',
-  styleUrl: './add-cluster.component.css'
+    selector: 'app-add-cluster',
+    templateUrl: './add-cluster.component.html',
+    styleUrl: './add-cluster.component.css',
+    standalone: false
 })
 export class AddClusterComponent implements OnInit {
 

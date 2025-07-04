@@ -4,9 +4,10 @@ import { ToastContainerComponent } from '../toast-container/toast-container.comp
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-admin-left-menu',
-  templateUrl: './admin-left-menu.component.html',
-  styleUrl: './admin-left-menu.component.css'
+    selector: 'app-admin-left-menu',
+    templateUrl: './admin-left-menu.component.html',
+    styleUrl: './admin-left-menu.component.css',
+    standalone: false
 })
 export class AdminLeftMenuComponent {
 

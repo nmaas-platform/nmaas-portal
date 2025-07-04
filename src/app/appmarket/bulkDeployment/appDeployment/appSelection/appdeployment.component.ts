@@ -6,9 +6,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-appselection',
-  templateUrl: './appdeployment.component.html',
-  styleUrls: ['./appdeployment.component.css']
+    selector: 'app-appselection',
+    templateUrl: './appdeployment.component.html',
+    styleUrls: ['./appdeployment.component.css'],
+    standalone: false
 })
 export class AppdeploymentComponent implements OnInit {
 

@@ -3,7 +3,8 @@ import {UntypedFormControl, NG_VALIDATORS, Validator} from "@angular/forms";
 
 @Directive({
     selector: '[maxNumLength]',
-    providers: [{provide: NG_VALIDATORS, useExisting: MaxLengthDirective, multi: true}]
+    providers: [{ provide: NG_VALIDATORS, useExisting: MaxLengthDirective, multi: true }],
+    standalone: false
 })
 export class MaxLengthDirective implements Validator{
 

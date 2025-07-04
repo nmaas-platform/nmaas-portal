@@ -15,6 +15,7 @@ import {ApplicationBase} from '../../../model/application-base';
     templateUrl: './applist.component.html',
     styleUrls: ['./applist.component.css'],
     encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 
 export class AppListComponent implements OnInit, OnChanges {

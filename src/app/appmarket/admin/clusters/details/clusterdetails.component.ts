@@ -8,7 +8,8 @@ import {ComponentMode} from '../../../../shared';
 @Component({
     selector: 'app-clusterdetails',
     templateUrl: './clusterdetails.component.html',
-    styleUrls: []
+    styleUrls: [],
+    standalone: false
 })
 export class ClusterDetailsComponent extends BaseComponent implements OnInit {
     public cluster: Cluster;

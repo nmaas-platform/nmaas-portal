@@ -17,7 +17,8 @@ import { PaginationSettings, PrimeNgLazyLoadEvent } from '../../../service/page'
 @Component({
     selector: 'nmaas-userslist',
     templateUrl: './adminuserslist.component.html',
-    styleUrls: ['./adminuserslist.component.css']
+    styleUrls: ['./adminuserslist.component.css'],
+    standalone: false
 })
 export class UsersListAdminComponent extends BaseComponent implements OnInit, OnDestroy {
     public users_item_number_key = 'NUMBER_OF_USERS_ITEM_KEY';

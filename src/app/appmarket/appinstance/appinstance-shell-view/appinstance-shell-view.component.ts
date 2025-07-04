@@ -6,7 +6,8 @@ import {TranslateService} from '@ngx-translate/core';
 @Component({
     selector: 'app-appinstance-shell-view',
     templateUrl: './appinstance-shell-view.component.html',
-    styleUrls: []
+    styleUrls: [],
+    standalone: false
 })
 export class AppInstanceShellViewComponent implements OnInit {
 

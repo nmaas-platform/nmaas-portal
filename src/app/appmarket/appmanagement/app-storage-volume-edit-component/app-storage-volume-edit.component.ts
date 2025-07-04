@@ -5,7 +5,8 @@ import {parseServiceStorageVolumeType, ServiceStorageVolumeType} from '../../../
 @Component({
     selector: 'app-storage-volume-edit',
     templateUrl: './app-storage-volume-edit.component.html',
-    styleUrls: ['./app-storage-volume-edit.component.css']
+    styleUrls: ['./app-storage-volume-edit.component.css'],
+    standalone: false
 })
 export class AppStorageVolumeEditComponent {
 

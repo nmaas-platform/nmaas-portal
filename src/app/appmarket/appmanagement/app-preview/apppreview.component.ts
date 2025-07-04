@@ -9,7 +9,8 @@ import {ApplicationDTO} from '../../../model/application-dto';
 @Component({
     selector: 'app-apppreview',
     templateUrl: './apppreview.component.html',
-    styleUrls: ['./apppreview.component.css']
+    styleUrls: ['./apppreview.component.css'],
+    standalone: false
 })
 export class AppPreviewComponent implements OnInit {
 
