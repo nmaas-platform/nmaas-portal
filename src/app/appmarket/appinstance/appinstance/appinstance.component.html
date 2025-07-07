@@ -61,7 +61,8 @@
                      *ngIf="getStateAsEnum(appInstanceStatus?.state) != AppInstanceState.FAILURE
                          && getStateAsEnum(appInstanceStatus?.state) != AppInstanceState.RUNNING
                          && getStateAsEnum(appInstanceStatus?.state) != AppInstanceState.REMOVED
-                         && getStateAsEnum(appInstanceStatus?.state) != AppInstanceState.DONE">
+                         && getStateAsEnum(appInstanceStatus?.state) != AppInstanceState.DONE
+                         && getStateAsEnum(appInstanceStatus?.state) != AppInstanceState.PAUSED">
                     <button *ngIf="getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.CONFIGURATION_AWAITING"
                             role="button" class="btn btn-primary m-1" (click)="applyConfig.show()">
                         {{'APP_INSTANCE.CONFIGURE' | translate}}

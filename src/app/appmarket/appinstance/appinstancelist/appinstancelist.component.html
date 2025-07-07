@@ -117,6 +117,10 @@
                     <p class="done">{{ translateState(appInstance?.state) }}</p>
                     <p-progressBar class="done" [value]="100" [style]="{'height': '6px'}"></p-progressBar>
                 </div>
+                <div  *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.PAUSED ">
+                    <p class="scaledDown">{{ translateState(appInstance?.state) }}</p>
+                    <p-progressBar class="scaledDown" [value]="100" [style]="{'height': '6px'}"></p-progressBar>
+                </div>
                 <div  *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.DONE ||
                     getStateAsEnum(appInstance?.state) == AppInstanceState.REMOVED ">
                     <p class="done">{{ translateState(appInstance?.state) }}</p>
