@@ -74,7 +74,8 @@
                 <!-- if application is already running -->
                 <div *ngIf="appInstance && (
                      getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.RUNNING ||
-                     getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.FAILURE)"
+                     getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.FAILURE ||
+                     getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.PAUSED)"
                      class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="btn-group pull-right">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
@@ -168,7 +169,7 @@
                                 </li>
                             </ng-container>
                             <ng-container *ngIf="getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.PAUSED">
-                                <li *ngIf="getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.PAUSED">
+                                <li>
                                     <a role="button" (click)="scaleUp()">
                                         {{'APP_INSTANCES.RESUME' | translate}}
                                     </a>
