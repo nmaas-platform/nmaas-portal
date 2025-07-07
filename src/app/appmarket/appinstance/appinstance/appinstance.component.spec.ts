@@ -252,10 +252,24 @@ describe('Component: AppInstance', () => {
 
         // https://v7.angular.io/guide/testing#component-with-a-dependency
         const appsServiceStub: Partial<AppsService> = {};
-        // const authServiceStub: Partial<AuthService> = {};
-        const appInstanceServiceStub: Partial<AppInstanceService> = {};
+
+        const appInstanceServiceStub: Partial<AppInstanceService> = {
+            getAppInstance: () => of(appInstance),
+            getAppInstanceHistory: () => of(appInstanceHistory),
+            getProgressStages: () => [],
+            getAppInstanceState: () => of({
+                appInstanceId: 48,
+                state: AppInstanceState.RUNNING,
+                previousState: AppInstanceState.DEPLOYING,
+                details: 'Important details',
+                userFriendlyDetails: 'User friendly details',
+                userFriendlyState: 'User friendly state'
+            })
+        };
         const domainServiceStub: Partial<DomainService> = {};
-        const appImagesServiceStub: Partial<AppImagesService> = {};
+        const appImagesServiceStub: Partial<AppImagesService> = {
+            getAppLogoUrl: () => ''
+        };
 
         const authServiceSpy = jasmine.createSpyObj('AuthService', ['getUsername', 'hasRole', 'hasDomainRole']);
         authServiceSpy.getUsername.and.returnValue('username');
@@ -323,23 +337,6 @@ describe('Component: AppInstance', () => {
         appImageService = fixture.debugElement.injector.get(AppImagesService);
         domainService = fixture.debugElement.injector.get(DomainService);
 
-        spyOn(appsService, 'getApplicationDTO').and.returnValue(of({application, applicationBase: undefined}));
-        spyOn(appsService, 'getAppCommentsByUrl').and.returnValue(of([]));
-        spyOn(appInstanceService, 'getAppInstance').and.returnValue(of(appInstance));
-        spyOn(appInstanceService, 'getAppInstanceHistory').and.returnValue(of(appInstanceHistory));
-        spyOn(appInstanceService, 'getAppInstanceState').and.returnValue(of(
-            {
-                appInstanceId: 48,
-                state: AppInstanceState.RUNNING,
-                previousState: AppInstanceState.DEPLOYING,
-                details: 'Important details',
-                userFriendlyDetails: 'User friendly details',
-                userFriendlyState: 'User friendly state'
-            }
-        ));
-        spyOn(appImageService, 'getAppLogoUrl').and.returnValue('');
-        // spyOn(authService, 'getUsername').and.returnValue('username');
-
         fixture.detectChanges();
     });
 
@@ -370,3 +367,6 @@ describe('Component: AppInstance', () => {
     });
 
 });
+       
+
+
