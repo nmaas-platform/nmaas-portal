@@ -7,9 +7,10 @@ import { UserDataService } from '../../../../service/userdata.service';
 import { debounceTime } from 'rxjs';
 
 @Component({
-  selector: 'app-manager',
-  templateUrl: './manager.component.html',
-  styleUrl: './manager.component.css'
+    selector: 'app-manager',
+    templateUrl: './manager.component.html',
+    styleUrl: './manager.component.css',
+    standalone: false
 })
 export class ClusterManagerComponent implements OnDestroy {
 

@@ -8,7 +8,8 @@ import {AppInstanceUpgradeInfo} from '../../../../model';
     selector: 'nmaas-modal-app-upgrade',
     templateUrl: './app-upgrade-modal.component.html',
     styleUrls: [],
-    providers: [ModalComponent]
+    providers: [ModalComponent],
+    standalone: false
 })
 export class AppUpgradeModalComponent {
 

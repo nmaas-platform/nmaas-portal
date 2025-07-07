@@ -12,6 +12,7 @@ import { User } from '../../../model';
     selector: 'nmaas-domain-filter',
     templateUrl: './domainfilter.component.html',
     styleUrls: ['./domainfilter.component.css'],
+    standalone: false
 })
 export class DomainFilterComponent implements OnInit {
 

@@ -4,7 +4,8 @@ import {ModalComponent} from '../../../../shared';
 @Component({
     selector: 'nmaas-removal-confirmation-modal',
     templateUrl: './removal-confirmation-modal.component.html',
-    styleUrls: []
+    styleUrls: [],
+    standalone: false
 })
 export class RemovalConfirmationModalComponent {
 

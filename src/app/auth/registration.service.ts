@@ -4,7 +4,7 @@ import { Domain } from '../model/domain';
 import { Registration } from '../model/registration';
 import { AppConfigService } from '../service/appconfig.service';
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {catchError, debounceTime} from 'rxjs/operators';
 
 @Injectable()

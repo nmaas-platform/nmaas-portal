@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DomainGroupsComponent } from './domain-groups.component';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {SearchDomainGroupPipe} from '../domain-group-search.pipe';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('DomainGroupsComponent', () => {
   let component: DomainGroupsComponent;
@@ -12,18 +13,16 @@ describe('DomainGroupsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DomainGroupsComponent, SearchDomainGroupPipe],
-      schemas: [NO_ERRORS_SCHEMA],
-      imports: [
-          HttpClientTestingModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateFakeLoader
-          }
-        }),
-      ]
-    })
+    declarations: [DomainGroupsComponent, SearchDomainGroupPipe],
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        })],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   });
 

@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AppChangeStateModalComponent } from './appchangestatemodal.component';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('AppchangestatemodalComponent', () => {
   let component: AppChangeStateModalComponent;
@@ -10,17 +11,15 @@ describe('AppchangestatemodalComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AppChangeStateModalComponent ],
-      imports: [
-          HttpClientTestingModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateFakeLoader
-          }
-        }),
-      ]
-    })
+    declarations: [AppChangeStateModalComponent],
+    imports: [TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        })],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   }));
 

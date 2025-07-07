@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { AppManagementListComponent } from './appmanagementlist.component';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {AppConfigService, AppsService} from '../../../service';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AuthService} from '../../../auth/auth.service';
 import {AppChangeStateModalComponent} from '../app-change-state-modal/appchangestatemodal.component';
@@ -16,6 +16,7 @@ import { ApplicationBase } from '../../../model/application-base';
 import { ApplicationState } from '../../../model/application-state';
 import { Rate } from '../../../model';
 import { RemovalConfirmationModalComponent } from '../../domains/modals/removal-confirmation-modal/removal-confirmation-modal.component';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('AppManagementListComponent', () => {
   let component: AppManagementListComponent;
@@ -45,31 +46,30 @@ describe('AppManagementListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
-          AppManagementListComponent,
-          AppChangeStateModalComponent,
-          ModalComponent,
-          RemovalConfirmationModalComponent
-      ],
-      providers: [
-          AppsService,
-          AppConfigService,
-          {provide: AuthService, useClass: MockAuthService}
-        ],
-      imports: [
-        BrowserModule,
+    declarations: [
+        AppManagementListComponent,
+        AppChangeStateModalComponent,
+        ModalComponent,
+        RemovalConfirmationModalComponent
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    imports: [BrowserModule,
         FormsModule,
-        HttpClientTestingModule,
         RouterTestingModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateFakeLoader
-          }
-        })
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        })],
+    providers: [
+        AppsService,
+        AppConfigService,
+        { provide: AuthService, useClass: MockAuthService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+})
     .compileComponents();
   }));
 

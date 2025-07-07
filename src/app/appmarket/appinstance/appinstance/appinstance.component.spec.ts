@@ -28,15 +28,17 @@ import {AppInstanceExtended} from '../../../model/app-instance-extended';
 import {AppInstanceUpgradeInfo} from '../../../model/app-instance';
 import {ActivatedRoute} from '@angular/router';
 import {ShellClientService} from '../../../service/shell-client.service';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {ApplicationBase} from '../../../model/application-base';
 import {Application} from '../../../model/application';
 import {ApplicationDTO} from '../../../model/application-dto';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 @Pipe({
-    name: 'secure'
+    name: 'secure',
+    standalone: false
 })
 class SecurePipeMock implements PipeTransform {
     public name = 'secure';
@@ -48,7 +50,8 @@ class SecurePipeMock implements PipeTransform {
 
 @Component({
     selector: 'rate',
-    template: '<p>Rate Mock</p>'
+    template: '<p>Rate Mock</p>',
+    standalone: false
 })
 class RateComponentMockComponent {
     @Input()
@@ -63,7 +66,8 @@ class RateComponentMockComponent {
 
 @Component({
     selector: 'nmaas-appinstanceprogress',
-    template: '<p>App Instance progress Mock</p>'
+    template: '<p>App Instance progress Mock</p>',
+    standalone: false
 })
 class AppInstanceProgressMockComponent {
     @Input()
@@ -83,13 +87,15 @@ class AppInstanceProgressMockComponent {
 
 @Component({
     selector: 'nmaas-modal',
-    template: '<p>Nmaas Modal Mock</p>'
+    template: '<p>Nmaas Modal Mock</p>',
+    standalone: false
 })
 class MockNmaasModalComponent extends ModalComponent {
 }
 
 @Directive({
-    selector: '[roles]'
+    selector: '[roles]',
+    standalone: false
 })
 class MockRolesDirective {
     @Input()
@@ -98,7 +104,8 @@ class MockRolesDirective {
 
 @Component({
     selector: 'app-ssh-shell',
-    template: '<p>SSH shell mock</p>'
+    template: '<p>SSH shell mock</p>',
+    standalone: false
 })
 class SshShellMockComponent {
 }
@@ -245,10 +252,24 @@ describe('Component: AppInstance', () => {
 
         // https://v7.angular.io/guide/testing#component-with-a-dependency
         const appsServiceStub: Partial<AppsService> = {};
-        // const authServiceStub: Partial<AuthService> = {};
-        const appInstanceServiceStub: Partial<AppInstanceService> = {};
+
+        const appInstanceServiceStub: Partial<AppInstanceService> = {
+            getAppInstance: () => of(appInstance),
+            getAppInstanceHistory: () => of(appInstanceHistory),
+            getProgressStages: () => [],
+            getAppInstanceState: () => of({
+                appInstanceId: 48,
+                state: AppInstanceState.RUNNING,
+                previousState: AppInstanceState.DEPLOYING,
+                details: 'Important details',
+                userFriendlyDetails: 'User friendly details',
+                userFriendlyState: 'User friendly state'
+            })
+        };
         const domainServiceStub: Partial<DomainService> = {};
-        const appImagesServiceStub: Partial<AppImagesService> = {};
+        const appImagesServiceStub: Partial<AppImagesService> = {
+            getAppLogoUrl: () => ''
+        };
 
         const authServiceSpy = jasmine.createSpyObj('AuthService', ['getUsername', 'hasRole', 'hasDomainRole']);
         authServiceSpy.getUsername.and.returnValue('username');
@@ -256,47 +277,46 @@ describe('Component: AppInstance', () => {
         authServiceSpy.hasDomainRole.and.returnValue(false);
 
         await TestBed.configureTestingModule({
-            declarations: [
-                AppInstanceComponent,
-                AppRestartModalComponent,
-                AppAbortModalComponent,
-                SecurePipeMock,
-                RateComponentMockComponent,
-                AppInstanceProgressMockComponent,
-                MockNmaasModalComponent,
-                AccessMethodsModalComponent,
-                MockRolesDirective,
-                SshShellMockComponent,
-            ],
-            imports: [
-                ConfirmDialogModule,
-                FormsModule,
-                HttpClientTestingModule,
-                NgxPaginationModule,
-                PipesModule,
-                FormioModule,
-                RouterTestingModule,
-                JwtModule.forRoot({}),
-                TranslateModule.forRoot({
-                    loader: {
-                        provide: TranslateLoader,
-                        useClass: TranslateFakeLoader
-                    }
-                })
-            ],
-            providers: [
-                ConfirmationService,
-                {provide: AppConfigService, useValue: mockAppConfigService},
-                {provide: AppsService, useValue: appsServiceStub},
-                {provide: AuthService, useValue: authServiceSpy},
-                {provide: AppInstanceService, useValue: appInstanceServiceStub},
-                {provide: DomainService, useValue: domainServiceStub},
-                {provide: AppImagesService, useValue: appImagesServiceStub},
-                {provide: ShellClientService, useValue: mockShellClientService},
-                {provide: ActivatedRoute, useValue: {params: of({id: 1})}}
-            ],
-            schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-        }).compileComponents().then((result) => {
+    declarations: [
+        AppInstanceComponent,
+        AppRestartModalComponent,
+        AppAbortModalComponent,
+        SecurePipeMock,
+        RateComponentMockComponent,
+        AppInstanceProgressMockComponent,
+        MockNmaasModalComponent,
+        AccessMethodsModalComponent,
+        MockRolesDirective,
+        SshShellMockComponent,
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+    imports: [ConfirmDialogModule,
+        FormsModule,
+        NgxPaginationModule,
+        PipesModule,
+        FormioModule,
+        RouterTestingModule,
+        JwtModule.forRoot({}),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        })],
+    providers: [
+        ConfirmationService,
+        { provide: AppConfigService, useValue: mockAppConfigService },
+        { provide: AppsService, useValue: appsServiceStub },
+        { provide: AuthService, useValue: authServiceSpy },
+        { provide: AppInstanceService, useValue: appInstanceServiceStub },
+        { provide: DomainService, useValue: domainServiceStub },
+        { provide: AppImagesService, useValue: appImagesServiceStub },
+        { provide: ShellClientService, useValue: mockShellClientService },
+        { provide: ActivatedRoute, useValue: { params: of({ id: 1 }) } },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+}).compileComponents().then((result) => {
             console.log(result);
         });
     });
@@ -316,23 +336,6 @@ describe('Component: AppInstance', () => {
         appInstanceService = fixture.debugElement.injector.get(AppInstanceService);
         appImageService = fixture.debugElement.injector.get(AppImagesService);
         domainService = fixture.debugElement.injector.get(DomainService);
-
-        spyOn(appsService, 'getApplicationDTO').and.returnValue(of({application, applicationBase: undefined}));
-        spyOn(appsService, 'getAppCommentsByUrl').and.returnValue(of([]));
-        spyOn(appInstanceService, 'getAppInstance').and.returnValue(of(appInstance));
-        spyOn(appInstanceService, 'getAppInstanceHistory').and.returnValue(of(appInstanceHistory));
-        spyOn(appInstanceService, 'getAppInstanceState').and.returnValue(of(
-            {
-                appInstanceId: 48,
-                state: AppInstanceState.RUNNING,
-                previousState: AppInstanceState.DEPLOYING,
-                details: 'Important details',
-                userFriendlyDetails: 'User friendly details',
-                userFriendlyState: 'User friendly state'
-            }
-        ));
-        spyOn(appImageService, 'getAppLogoUrl').and.returnValue('');
-        // spyOn(authService, 'getUsername').and.returnValue('username');
 
         fixture.detectChanges();
     });
@@ -364,3 +367,6 @@ describe('Component: AppInstance', () => {
     });
 
 });
+       
+
+

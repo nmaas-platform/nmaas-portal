@@ -1,40 +1,45 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
-import {JWT_OPTIONS, JwtModule} from '@auth0/angular-jwt';
+import { JWT_OPTIONS, JwtModule } from '@auth0/angular-jwt';
 
-import {routing} from './app.routes';
+import { routing } from './app.routes';
 
-import {AppComponent} from './app.component';
+import { AppComponent } from './app.component';
 
-import {AppConfigService} from './service';
+import { AppConfigService } from './service';
 
-import {WelcomeModule} from './welcome/welcome.module';
-import {AppMarketModule} from './appmarket';
-import {SharedModule} from './shared';
+import { WelcomeModule } from './welcome/welcome.module';
+import { AppMarketModule } from './appmarket';
+import { SharedModule } from './shared';
 
-import {AuthGuard} from './auth/auth.guard';
-import {AuthService} from './auth/auth.service';
+import { AuthGuard } from './auth/auth.guard';
+import { AuthService } from './auth/auth.service';
 
-import {MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {CustomMissingTranslationService} from './i18n/custommissingtranslation.service';
-import {TranslateLoaderImpl} from './i18n/translate-loader-impl.service';
-import {ServiceUnavailableModule} from './service-unavailable/service-unavailable.module';
-import {ServiceUnavailableService} from './service-unavailable/service-unavailable.service';
-import {NgTerminalModule} from 'ng-terminal';
+import { MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { CustomMissingTranslationService } from './i18n/custommissingtranslation.service';
+import { TranslateLoaderImpl } from './i18n/translate-loader-impl.service';
+import { ServiceUnavailableModule } from './service-unavailable/service-unavailable.module';
+import { ServiceUnavailableService } from './service-unavailable/service-unavailable.service';
+import { NgTerminalModule } from 'ng-terminal';
 import { provideZxvbnServiceForPSM } from 'angular-password-strength-meter/zxcvbn';
 import { FormioModule } from '@formio/angular';
 import { LeftMenuComponent } from './shared/left-menu/left-menu.component';
 import { ToastContainerComponent, ToastMode } from './shared/toast-container/toast-container.component';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import {SplitButtonModule} from 'primeng/splitbutton';
-import {MenuModule} from 'primeng/menu';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { MenuModule } from 'primeng/menu';
 import { AdminLeftMenuComponent } from './shared/admin-left-menu/admin-left-menu.component';
-import {AccordionModule} from 'primeng/accordion';
+import { AccordionModule } from 'primeng/accordion';
 import { RecaptchaVisibilityService } from './service/recaptcha-visibility.service';
+import { providePrimeNG } from 'primeng/config';
+import { CommonModule } from '@angular/common';
+import Nora from '@primeng/themes/nora';
+
+
 
 export function appConfigFactory(config: AppConfigService) {
     return function create() {
@@ -65,10 +70,17 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
         ToastContainerComponent,
         AdminLeftMenuComponent,
     ],
+    exports: [
+        TranslateModule
+    ],
+    bootstrap: [AppComponent],
+    schemas: [
+        CUSTOM_ELEMENTS_SCHEMA,
+        NO_ERRORS_SCHEMA
+    ], 
     imports: [
-        BrowserModule,
         FormsModule,
-        HttpClientModule,
+        CommonModule,
         JwtModule.forRoot({
             jwtOptionsProvider: {
                 provide: JWT_OPTIONS,
@@ -82,7 +94,7 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
         ServiceUnavailableModule,
         routing,
         TranslateModule.forRoot({
-            missingTranslationHandler: {provide: MissingTranslationHandler, useClass: CustomMissingTranslationService},
+            missingTranslationHandler: { provide: MissingTranslationHandler, useClass: CustomMissingTranslationService },
             loader: {
                 provide: TranslateLoader,
                 useFactory: HttpLoaderFactory,
@@ -94,9 +106,14 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
         ToastModule,
         SplitButtonModule,
         MenuModule,
-        AccordionModule,
+        AccordionModule
     ],
     providers: [
+        providePrimeNG({
+            theme: {
+                preset: Nora
+            }
+        }),
         AuthGuard,
         AuthService,
         RecaptchaVisibilityService,
@@ -116,15 +133,13 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
             deps: [AppConfigService, HttpClient, ServiceUnavailableService],
             multi: true,
         },
-        MessageService
-    ],
-    exports: [
-        TranslateModule
-    ],
-    bootstrap: [AppComponent],
-    schemas: [
-        CUSTOM_ELEMENTS_SCHEMA,
-        NO_ERRORS_SCHEMA
+        MessageService,
+        providePrimeNG({
+            theme: {
+                preset: Nora
+            }
+        }),
+        provideHttpClient(withInterceptorsFromDi())
     ]
 })
 export class AppModule {

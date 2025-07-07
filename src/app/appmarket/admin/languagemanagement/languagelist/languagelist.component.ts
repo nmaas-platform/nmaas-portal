@@ -5,9 +5,10 @@ import {TranslateService} from '@ngx-translate/core';
 import {ModalComponent} from '../../../../shared/modal';
 
 @Component({
-  selector: 'app-languagelist',
-  templateUrl: './languagelist.component.html',
-  styleUrls: ['./languagelist.component.css']
+    selector: 'app-languagelist',
+    templateUrl: './languagelist.component.html',
+    styleUrls: ['./languagelist.component.css'],
+    standalone: false
 })
 export class LanguageListComponent implements OnInit {
 

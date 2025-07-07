@@ -3,7 +3,7 @@ import {GenericDataService} from './genericdata.service';
 import {AppConfigService} from './appconfig.service';
 import {Observable} from 'rxjs';
 import {User} from '../model';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { UserRole } from '../model/userrole';
 
 

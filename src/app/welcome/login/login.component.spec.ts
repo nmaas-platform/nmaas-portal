@@ -9,9 +9,10 @@ import {AuthService} from '../../auth/auth.service';
 import {ConfigurationService, UserService} from '../../service';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {DialogModule} from 'primeng/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 
 describe('Component: Login', () => {
@@ -25,27 +26,26 @@ describe('Component: Login', () => {
         }))
 
         TestBed.configureTestingModule({
-            declarations: [LoginComponent, ModalComponent],
-            imports: [
-                DialogModule,
-                BrowserAnimationsModule,
-                FormsModule,
-                ReactiveFormsModule,
-                RouterTestingModule,
-                HttpClientTestingModule,
-                TranslateModule.forRoot({
-                    loader: {
-                        provide: TranslateLoader,
-                        useClass: TranslateFakeLoader
-                    }
-                })
-            ],
-            providers: [
-                {provide: AuthService, useValue: {}},
-                {provide: ConfigurationService, useValue: configServiceSpy},
-                {provide: UserService, useValue: {}},
-            ],
-        }).compileComponents();
+    declarations: [LoginComponent, ModalComponent],
+    imports: [DialogModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterTestingModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        })],
+    providers: [
+        { provide: AuthService, useValue: {} },
+        { provide: ConfigurationService, useValue: configServiceSpy },
+        { provide: UserService, useValue: {} },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+}).compileComponents();
     }));
 
     beforeEach(() => {

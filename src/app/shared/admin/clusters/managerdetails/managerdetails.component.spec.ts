@@ -9,8 +9,9 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { IngressCertificateConfigOption, IngressControllerConfigOption, IngressResourceConfigOption, NamespaceConfigOption } from '../../../../model/cluster';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { UserDataService } from '../../../../service/userdata.service';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ClusterManagerDetailsComponent', () => {
   let component: ClusterManagerDetailsComponent;
@@ -73,27 +74,26 @@ describe('ClusterManagerDetailsComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [ClusterManagerDetailsComponent],
-      imports: [
-        FormsModule,
+    declarations: [ClusterManagerDetailsComponent],
+    schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
+    imports: [FormsModule,
         CommonModule,
-        HttpClientTestingModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateFakeLoader
-          }
-        }),
-      ],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        })],
+    providers: [
         { provide: ClusterManagerService, useValue: clusterServiceSpy },
         { provide: Router, useValue: routerSpy },
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
         { provide: UserDataService, useValue: userDataServiceSpy },
-        DatePipe
-      ],
-      schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+        DatePipe,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+}).compileComponents();
 
     clusterService = TestBed.inject(ClusterManagerService) as jasmine.SpyObj<ClusterManagerService>;
     mockRouter = TestBed.inject(Router) as jasmine.SpyObj<Router>;

@@ -6,9 +6,10 @@ import { BaseComponent } from '../../../../shared/common/basecomponent/base.comp
 import {ToastContainerComponent, ToastMode} from '../../../../shared/toast-container/toast-container.component';
 
 @Component({
-  selector: 'app-webhook-details',
-  templateUrl: './webhook-details.component.html',
-  styleUrl: './webhook-details.component.css'
+    selector: 'app-webhook-details',
+    templateUrl: './webhook-details.component.html',
+    styleUrl: './webhook-details.component.css',
+    standalone: false
 })
 export class WebhookDetailsComponent extends BaseComponent implements OnInit {
 

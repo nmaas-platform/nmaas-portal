@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { InternationalizationService } from './internationalization.service';
-import {HttpClient, HttpHandler} from "@angular/common/http";
+import { HttpClient, HttpHandler } from "@angular/common/http";
 import {AppConfigService} from "./appconfig.service";
 import {Observable, of} from "rxjs";
 import {Configuration} from "../model/configuration";

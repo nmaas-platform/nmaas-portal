@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DomainuploadComponent } from './domainupload.component';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('DomainuploadComponent', () => {
   let component: DomainuploadComponent;
@@ -12,19 +13,17 @@ describe('DomainuploadComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DomainuploadComponent ],
-      imports: [
-          HttpClientTestingModule,
-          RouterTestingModule,
+    declarations: [DomainuploadComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+    imports: [RouterTestingModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateFakeLoader
-          }
-        }),
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-    })
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        })],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   });
 

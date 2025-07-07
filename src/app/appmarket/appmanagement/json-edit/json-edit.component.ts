@@ -13,9 +13,10 @@ export function jsonValidator(control: AbstractControl): ValidationErrors | null
 }
 
 @Component({
-  selector: 'app-json-edit',
-  templateUrl: './json-edit.component.html',
-  styleUrls: []
+    selector: 'app-json-edit',
+    templateUrl: './json-edit.component.html',
+    styleUrls: [],
+    standalone: false
 })
 export class JsonEditComponent {
 

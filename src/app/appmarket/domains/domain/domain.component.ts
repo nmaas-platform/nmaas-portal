@@ -25,10 +25,11 @@ import {ToastContainerComponent, ToastMode} from '../../../shared/toast-containe
     templateUrl: './domain.component.html',
     styleUrls: ['./domain.component.css'],
     providers: [
-        {provide: NG_VALIDATORS, useExisting: PatternValidator, multi: true},
-        {provide: NG_VALIDATORS, useExisting: MinLengthDirective, multi: true},
-        {provide: NG_VALIDATORS, useExisting: MaxLengthDirective, multi: true}
-    ]
+        { provide: NG_VALIDATORS, useExisting: PatternValidator, multi: true },
+        { provide: NG_VALIDATORS, useExisting: MinLengthDirective, multi: true },
+        { provide: NG_VALIDATORS, useExisting: MaxLengthDirective, multi: true }
+    ],
+    standalone: false
 })
 
 

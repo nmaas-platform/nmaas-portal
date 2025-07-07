@@ -27,6 +27,7 @@ export interface SortEvent {
         '[class.desc]': 'direction === "desc"',
         '(click)': 'rotate()',
     },
+    standalone: false
 })
 export class SortableHeaderDirective {
     @Input() sortable: SortColumn = '';

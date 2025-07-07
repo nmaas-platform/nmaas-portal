@@ -13,9 +13,10 @@ import {TranslateService} from '@ngx-translate/core';
 import {Observable} from 'rxjs/internal/Observable';
 
 @Component({
-  selector: 'app-terms-acceptance',
-  templateUrl: './terms-acceptance.component.html',
-  styleUrls: [],
+    selector: 'app-terms-acceptance',
+    templateUrl: './terms-acceptance.component.html',
+    styleUrls: [],
+    standalone: false
 })
 export class TermsAcceptanceComponent extends BaseComponent implements OnInit {
 

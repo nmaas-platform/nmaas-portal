@@ -7,11 +7,12 @@ import { AuthService } from '../../../auth/auth.service';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { of, BehaviorSubject } from 'rxjs';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { User, UserListEntry } from '../../../model/user';
 import { Role } from '../../../model/userrole';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('UserDomainListComponent', () => {
   let component: UserDomainListComponent;
@@ -55,31 +56,30 @@ describe('UserDomainListComponent', () => {
     const cdrSpy = jasmine.createSpyObj('ChangeDetectorRef', ['detectChanges']);
 
     TestBed.configureTestingModule({
-      declarations: [UserDomainListComponent],
-      imports: [
-        FormsModule,
-        HttpClientTestingModule,
+    declarations: [UserDomainListComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+    imports: [FormsModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateFakeLoader
-          }
-        }),
-      ],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        })],
+    providers: [
         { provide: UserService, useValue: userServiceSpy },
         { provide: DomainService, useValue: domainServiceSpy },
         {
-          provide: UserDataService,
-          useValue: {
-            selectedDomainId: of(1)
-          }
+            provide: UserDataService,
+            useValue: {
+                selectedDomainId: of(1)
+            }
         }, { provide: AuthService, useValue: authServiceSpy },
         { provide: Router, useValue: routerSpy },
-        { provide: ChangeDetectorRef, useValue: cdrSpy }
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
-    }).compileComponents();
+        { provide: ChangeDetectorRef, useValue: cdrSpy },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+}).compileComponents();
 
     userService = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
     domainService = TestBed.inject(DomainService) as jasmine.SpyObj<DomainService>;

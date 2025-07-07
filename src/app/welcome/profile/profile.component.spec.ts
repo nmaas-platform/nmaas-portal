@@ -14,21 +14,24 @@ import {of} from 'rxjs';
 
 @Component({
     selector: 'nmaas-userdetails',
-    template: '<p>Nmaas Userdetails Mock</p>'
+    template: '<p>Nmaas Userdetails Mock</p>',
+    standalone: false
 })
 class MockNmaasUserDetailsComponent {
 }
 
 @Component({
     selector: 'nmaas-userprivileges',
-    template: '<p>Nmaas User Privileges Mock</p>'
+    template: '<p>Nmaas User Privileges Mock</p>',
+    standalone: false
 })
 class MockNmaasUserPrivilegesComponent {
 }
 
 @Component({
     selector: 'nmaas-ssh-keys',
-    template: '<p>Nmaas ssh keys component</p>'
+    template: '<p>Nmaas ssh keys component</p>',
+    standalone: false
 })
 class MockNmaasSshKeysComponent {
 }

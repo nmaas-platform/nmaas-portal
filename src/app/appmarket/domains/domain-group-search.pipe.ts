@@ -2,7 +2,8 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {DomainGroup} from '../../model/domaingroup';
 
 @Pipe({
-    name: 'searchDomainGroup'
+    name: 'searchDomainGroup',
+    standalone: false
 })
 export class SearchDomainGroupPipe implements PipeTransform {
 

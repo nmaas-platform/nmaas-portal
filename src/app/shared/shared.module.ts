@@ -76,7 +76,7 @@ import { RecaptchaVisibilityService } from '../service/recaptcha-visibility.serv
 import {CalendarModule} from 'primeng/calendar';
 import { AddClusterComponent } from './admin/clusters/add-cluster/add-cluster.component';
 import { StepsModule } from 'primeng/steps';
-import {InputTextareaModule} from 'primeng/inputtextarea';
+import { TextareaModule } from 'primeng/textarea';
 import {DialogModule} from 'primeng/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { UserDomainListComponent } from './users/user-domain/user-domain-list.component';
@@ -84,15 +84,15 @@ import { UserDomainListComponent } from './users/user-domain/user-domain-list.co
 
 
 @NgModule({
-    imports: [
-        CommonModule,
+    imports: 
+    [CommonModule,
         PipesModule,
         FormsModule,
         ServicesModule,
         RouterModule,
         ReactiveFormsModule,
         PasswordStrengthMeterComponent,
-        TranslateModule.forChild(),
+        TranslateModule,
         NgxPaginationModule,
         FormioModule,
         TooltipModule,
@@ -111,7 +111,7 @@ import { UserDomainListComponent } from './users/user-domain/user-domain-list.co
         TableModule,
         CalendarModule,
         StepsModule,
-        InputTextareaModule,
+        TextareaModule,
         DialogModule,
         BrowserAnimationsModule
     ],

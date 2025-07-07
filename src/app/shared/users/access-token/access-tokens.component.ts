@@ -9,7 +9,8 @@ import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 @Component({
     selector: 'app-access-tokens',
     templateUrl: './access-tokens.component.html',
-    styleUrls: []
+    styleUrls: [],
+    standalone: false
 })
 export class AccessTokensComponent implements OnInit {
 

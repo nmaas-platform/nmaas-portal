@@ -8,27 +8,31 @@ import {AuthService} from '../../auth/auth.service';
 import {DomainService} from '../../service';
 import {Component, Directive, Input} from '@angular/core';
 import {InternationalizationService} from '../../service/internationalization.service';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {DatePipe} from '@angular/common';
 import {UserDataService} from '../../service/userdata.service';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 @Component({
     selector: 'nmaas-domain-filter',
-    template: '<p>Mock nmaas-domain-filter Component</p>'
+    template: '<p>Mock nmaas-domain-filter Component</p>',
+    standalone: false
 })
 class MockDomainFilter {
 }
 
 @Component({
     selector: 'app-modal-notification-send',
-    template: '<p>Mock modal</p>'
+    template: '<p>Mock modal</p>',
+    standalone: false
 })
 class MockNotificationSendModalComponent {
 }
 
 @Directive({
     selector: '[roles]',
-    inputs: ['roles']
+    inputs: ['roles'],
+    standalone: false
 })
 class MockRolesDirective {
    @Input() set roles(allowedRoles: Array<string>) {}
@@ -59,30 +63,29 @@ describe('NavbarComponent_Shared', () => {
         mockUserDataService.selectedDomainId.and.returnValue(1)
 
         TestBed.configureTestingModule({
-            declarations: [
-                NavbarComponent,
-                MockRolesDirective,
-                MockDomainFilter,
-                MockNotificationSendModalComponent,
-            ],
-            imports: [
-                HttpClientTestingModule,
-                TranslateModule.forRoot({
-                    loader: {
-                        provide: TranslateLoader,
-                        useClass: TranslateFakeLoader
-                    }
-                }),
-                RouterTestingModule,
-            ],
-            providers: [
-                {provide: DomainService, useValue: mockDomainService},
-                {provide: InternationalizationService, useValue: mockLanguageService},
-                {provide: AuthService, useValue: mockAuthService},
-                {provide: UserDataService, useValue: userDataService},
-                DatePipe
-            ]
-        }).compileComponents().then((result) => {
+    declarations: [
+        NavbarComponent,
+        MockRolesDirective,
+        MockDomainFilter,
+        MockNotificationSendModalComponent,
+    ],
+    imports: [TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        }),
+        RouterTestingModule],
+    providers: [
+        { provide: DomainService, useValue: mockDomainService },
+        { provide: InternationalizationService, useValue: mockLanguageService },
+        { provide: AuthService, useValue: mockAuthService },
+        { provide: UserDataService, useValue: userDataService },
+        DatePipe,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+}).compileComponents().then((result) => {
           console.log(result);
         });
     }));

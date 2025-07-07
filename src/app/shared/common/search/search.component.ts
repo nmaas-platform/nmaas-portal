@@ -3,7 +3,8 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 @Component({
     selector: 'nmaas-inline-search',
     templateUrl: './search.component.html',
-    styleUrls: []
+    styleUrls: [],
+    standalone: false
 })
 export class SearchComponent {
 

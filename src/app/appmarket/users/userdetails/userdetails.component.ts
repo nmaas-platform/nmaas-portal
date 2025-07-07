@@ -9,7 +9,8 @@ import {ComponentMode} from '../../../shared';
 @Component({
     selector: 'app-userdetails',
     templateUrl: './userdetails.component.html',
-    styleUrls: []
+    styleUrls: [],
+    standalone: false
 })
 export class UserDetailsComponent extends BaseComponent implements OnInit {
 

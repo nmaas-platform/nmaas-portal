@@ -2,7 +2,8 @@ import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 
 @Directive({
-  selector: '[rolesExcluded]'
+    selector: '[rolesExcluded]',
+    standalone: false
 })
 export class RolesExcludedDirective {
   private _excluded: Array<string> = [];

@@ -9,9 +9,10 @@ import { DomainService } from '../../../../service';
 import { UserDataService } from '../../../../service/userdata.service';
 
 @Component({
-  selector: 'app-manager-details',
-  templateUrl: './managerdetails.component.html',
-  styleUrl: './managerdetails.component.css'
+    selector: 'app-manager-details',
+    templateUrl: './managerdetails.component.html',
+    styleUrl: './managerdetails.component.css',
+    standalone: false
 })
 export class ClusterManagerDetailsComponent extends BaseComponent implements OnInit  {
 

@@ -5,9 +5,10 @@ import {formatDate} from '@angular/common';
 import {AppsService} from '../../../service';
 
 @Component({
-  selector: 'app-single-comment',
-  templateUrl: './single-comment.component.html',
-  styleUrls: ['./single-comment.component.css']
+    selector: 'app-single-comment',
+    templateUrl: './single-comment.component.html',
+    styleUrls: ['./single-comment.component.css'],
+    standalone: false
 })
 export class SingleCommentComponent implements OnInit {
 

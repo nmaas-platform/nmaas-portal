@@ -2,7 +2,8 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {BulkDeployment} from '../../../model/bulk-deployment';
 
 @Pipe({
-    name: 'searchBulk'
+    name: 'searchBulk',
+    standalone: false
 })
 export class BulkSearchPipe implements PipeTransform {
 

@@ -5,7 +5,8 @@ import {AppsService} from '../../../service';
 @Component({
     selector: 'app-app-add-json-version-app',
     templateUrl: './app-add-json-version-app.component.html',
-    styleUrls: ['app-add-json-version-app.component.css']
+    styleUrls: ['app-add-json-version-app.component.css'],
+    standalone: false
 })
 export class AppAddJsonVersionAppComponent {
 

@@ -3,9 +3,10 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 
 
 @Component({
-  selector: 'app-appnavigator',
-  templateUrl: './appnavigator.component.html',
-  styleUrls: ['./appnavigator.component.css']
+    selector: 'app-appnavigator',
+    templateUrl: './appnavigator.component.html',
+    styleUrls: ['./appnavigator.component.css'],
+    standalone: false
 })
 export class AppnavigatorComponent implements OnInit {
 

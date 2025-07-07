@@ -10,14 +10,16 @@ import {Component} from '@angular/core';
 
 @Component({
     selector: 'app-contact',
-    template: '<p>App Contact Component Mock</p>'
+    template: '<p>App Contact Component Mock</p>',
+    standalone: false
 })
 class MockAppContactComponent {
 }
 
 @Component({
     selector: 'app-changelog',
-    template: '<p>App Changelog Component Mock</p>'
+    template: '<p>App Changelog Component Mock</p>',
+    standalone: false
 })
 class MockChangelogComponent {
 }

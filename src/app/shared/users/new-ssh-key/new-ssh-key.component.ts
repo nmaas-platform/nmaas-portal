@@ -5,9 +5,10 @@ import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {ModalComponent} from '../../modal';
 
 @Component({
-  selector: 'app-new-ssh-key',
-  templateUrl: './new-ssh-key.component.html',
-  styleUrls: ['./new-ssh-key.component.css']
+    selector: 'app-new-ssh-key',
+    templateUrl: './new-ssh-key.component.html',
+    styleUrls: ['./new-ssh-key.component.css'],
+    standalone: false
 })
 export class NewSshKeyComponent implements OnInit {
 

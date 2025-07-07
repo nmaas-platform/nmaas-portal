@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { ClusterService } from './cluster.service';
-import {HttpClient, HttpHandler} from "@angular/common/http";
+import { HttpClient, HttpHandler } from "@angular/common/http";
 import {Observable, of} from "rxjs";
 import {Configuration} from "../model/configuration";
 import {AppConfigService} from "./appconfig.service";

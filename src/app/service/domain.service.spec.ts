@@ -1,11 +1,11 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { DomainService } from './domain.service';
-import {HttpClient, HttpHandler} from "@angular/common/http";
+import { HttpClient, HttpHandler, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import {AppConfigService} from "./appconfig.service";
 import {Observable, of} from "rxjs";
 import {Configuration} from "../model/configuration";
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { Domain } from '../model/domain';
 
 class MockConfigurationService{
@@ -63,11 +63,14 @@ describe('DomainService', () => {
     appConfigSpy.getHttpTimeout.and.returnValue(30000); // Dodano mock dla getHttpTimeout
 
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [
-        DomainService, 
-        {provide: AppConfigService, useValue: appConfigSpy}]
-    });
+    imports: [],
+    providers: [
+        DomainService,
+        { provide: AppConfigService, useValue: appConfigSpy },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+});
 
     service = TestBed.inject(DomainService);
   httpMock = TestBed.inject(HttpTestingController);

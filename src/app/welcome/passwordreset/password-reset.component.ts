@@ -14,6 +14,7 @@ import {of} from 'rxjs';
     selector: 'app-passwordreset',
     templateUrl: './password-reset.component.html',
     styleUrls: ['./password-reset.component.css'],
+    standalone: false
 })
 export class PasswordResetComponent implements OnInit {
 

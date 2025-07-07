@@ -21,7 +21,8 @@ export interface SortEvent {
 @Component({
     selector: 'app-domains-list',
     templateUrl: './domainslist.component.html',
-    styleUrls: ['./domainslist.component.css']
+    styleUrls: ['./domainslist.component.css'],
+    standalone: false
 })
 export class DomainsListComponent implements OnInit, OnDestroy { // Implemented OnDestroy
 

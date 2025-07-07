@@ -4,7 +4,8 @@ import {ProfileService} from './profile.service';
 import {Observable, of} from 'rxjs';
 import {Configuration} from '../model/configuration';
 import {AppConfigService} from './appconfig.service';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 class MockConfigurationService {
     protected uri: string;
@@ -29,14 +30,14 @@ class MockConfigurationService {
 describe('ProfileService', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                HttpClientTestingModule
-            ],
-            providers: [
-                ProfileService,
-                {provide: AppConfigService, useClass: MockConfigurationService}
-            ]
-        });
+    imports: [],
+    providers: [
+        ProfileService,
+        { provide: AppConfigService, useClass: MockConfigurationService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+});
     });
 
     it('should be created', inject([ProfileService], (service: ProfileService) => {
