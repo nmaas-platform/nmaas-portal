@@ -9,7 +9,8 @@ import {TranslateService} from '@ngx-translate/core';
 @Component({
     selector: 'app-link-account',
     templateUrl: './link-account.component.html',
-    styleUrl: './link-account.component.css'
+    styleUrl: './link-account.component.css',
+    standalone: false
 })
 export class LinkAccountComponent implements OnInit, OnDestroy {
     public user: User;

@@ -5,9 +5,10 @@ import {TranslateService} from '@ngx-translate/core';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
-  selector: 'app-policy-subpage',
-  templateUrl: './policy-subpage.component.html',
-  styleUrls: ['./policy-subpage.component.css']
+    selector: 'app-policy-subpage',
+    templateUrl: './policy-subpage.component.html',
+    styleUrls: ['./policy-subpage.component.css'],
+    standalone: false
 })
 export class PolicySubpageComponent implements OnInit, AfterViewChecked, AfterContentChecked {
 

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DomainGroupViewComponent } from './domain-group-view.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { of } from 'rxjs';
@@ -16,6 +16,7 @@ import { User } from '../../../model/user';
 import { Role } from '../../../model/userrole';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomainApplicationStatePerDomain } from '../../../model/domainapplicationstateperdomain';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('DomainGroupViewComponent', () => {
   let component: DomainGroupViewComponent;
@@ -62,29 +63,29 @@ describe('DomainGroupViewComponent', () => {
     };
 
     await TestBed.configureTestingModule({
-      declarations: [DomainGroupViewComponent, ModalComponent],
-      imports: [
-        RouterTestingModule,
-        HttpClientTestingModule,
+    declarations: [DomainGroupViewComponent, ModalComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+    imports: [RouterTestingModule,
         FormsModule,
         ReactiveFormsModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateFakeLoader,
-          },
-        }),
-      ],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader,
+            },
+        })],
+    providers: [
         { provide: DomainService, useValue: mockDomainService },
         { provide: UserService, useValue: mockUserService },
         { provide: AuthService, useValue: mockAuthService },
         { provide: Router, useValue: mockRouter },
         { provide: ProfileService, useValue: mockProfileService },
         { provide: ActivatedRoute, useValue: mockActivatedRoute } // Provide mocked ActivatedRoute
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-    }).compileComponents();
+        ,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+}).compileComponents();
   });
 
   beforeEach(() => {

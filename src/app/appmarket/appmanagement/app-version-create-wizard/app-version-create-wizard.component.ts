@@ -41,7 +41,8 @@ export function noParameterTypeInControlValueValidator(): ValidatorFn {
 @Component({
     selector: 'app-appversioncreatewizard',
     templateUrl: './app-version-create-wizard.component.html',
-    styleUrls: ['./app-version-create-wizard.component.css']
+    styleUrls: ['./app-version-create-wizard.component.css'],
+    standalone: false
 })
 export class AppVersionCreateWizardComponent extends BaseComponent implements OnInit, OnDestroy {
 

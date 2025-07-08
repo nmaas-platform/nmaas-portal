@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ClusterManagerComponent } from './manager.component';
 import { ClusterManagerService } from '../../../../service/cluster-manager.service';
 import { BehaviorSubject, of } from 'rxjs';
@@ -8,6 +8,7 @@ import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-tran
 import { ClusterManager } from '../../../../model/cluster-manager';
 import { ModalComponent } from '../../../modal';
 import { UserDataService } from '../../../../service/userdata.service';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ClusterManagerComponent', () => {
   let component: ClusterManagerComponent;
@@ -93,22 +94,21 @@ describe('ClusterManagerComponent', () => {
     clusterServiceSpy.getAllClusters.and.returnValue(of(mockClusters));
 
     await TestBed.configureTestingModule({
-      declarations: [ClusterManagerComponent],
-      imports: [HttpClientTestingModule,
-        TranslateModule.forRoot({
-                            loader: {
-                                provide: TranslateLoader,
-                                useClass: TranslateFakeLoader
-                            }
-                        }),
-      ],
-      providers: [
+    declarations: [ClusterManagerComponent],
+    schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
+    imports: [TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        })],
+    providers: [
         { provide: ClusterManagerService, useValue: clusterServiceSpy },
-                { provide: UserDataService, useValue: userDataServiceSpy },
-
-      ],
-       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+        { provide: UserDataService, useValue: userDataServiceSpy },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+}).compileComponents();
 
     fixture = TestBed.createComponent(ClusterManagerComponent);
     component = fixture.componentInstance;

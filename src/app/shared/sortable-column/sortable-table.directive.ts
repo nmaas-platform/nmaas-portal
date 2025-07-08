@@ -4,7 +4,8 @@ import { Subscription } from 'rxjs';
 import { SortService } from '../../service/sort.service';
 
 @Directive({
-    selector: '[sortable-table]'
+    selector: '[sortable-table]',
+    standalone: false
 })
 export class SortableTableDirective implements OnInit, OnDestroy {
 

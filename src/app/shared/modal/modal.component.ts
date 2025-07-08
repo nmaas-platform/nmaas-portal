@@ -3,7 +3,8 @@ import {Component, Input, OnInit} from '@angular/core';
 @Component({
     selector: 'nmaas-modal',
     templateUrl: './modal.component.html',
-    styleUrls: ['./modal.component.css']
+    styleUrls: ['./modal.component.css'],
+    standalone: false
 })
 export class ModalComponent implements OnInit {
 

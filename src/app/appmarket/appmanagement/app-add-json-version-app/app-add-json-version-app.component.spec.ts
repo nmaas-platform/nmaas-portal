@@ -2,12 +2,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppAddJsonVersionAppComponent } from './app-add-json-version-app.component';
 import { AppsService } from '../../../service';
 import { Router } from '@angular/router';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of, throwError } from 'rxjs';
 import { ModalComponent } from '../../../shared';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('AppAddJsonVersionAppComponent', () => {
   let component: AppAddJsonVersionAppComponent;
@@ -20,23 +21,22 @@ describe('AppAddJsonVersionAppComponent', () => {
     mockRouter = jasmine.createSpyObj('Router', ['navigate']);
 
     await TestBed.configureTestingModule({
-      declarations: [AppAddJsonVersionAppComponent, ModalComponent],
-      imports: [
-        HttpClientTestingModule,
-        RouterTestingModule,
+    declarations: [AppAddJsonVersionAppComponent, ModalComponent],
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [RouterTestingModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateFakeLoader
-          }
-        }),
-      ],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        })],
+    providers: [
         { provide: AppsService, useValue: mockAppsService },
-        { provide: Router, useValue: mockRouter }
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+        { provide: Router, useValue: mockRouter },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+}).compileComponents();
   });
 
   beforeEach(() => {

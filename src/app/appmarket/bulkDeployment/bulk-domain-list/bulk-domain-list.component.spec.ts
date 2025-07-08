@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BulkDomainListComponent } from './bulk-domain-list.component';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import createSpyObj = jasmine.createSpyObj;
 import {AuthService} from '../../../auth/auth.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('BulkDomainListComponent', () => {
   let component: BulkDomainListComponent;
@@ -17,15 +18,15 @@ describe('BulkDomainListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BulkDomainListComponent ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-      imports: [
-          HttpClientTestingModule
-      ],
-      providers: [
-        {provide: AuthService, useValue: authServiceSpy},
-      ],
-    })
+    declarations: [BulkDomainListComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+    imports: [],
+    providers: [
+        { provide: AuthService, useValue: authServiceSpy },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+})
     .compileComponents();
   });
 

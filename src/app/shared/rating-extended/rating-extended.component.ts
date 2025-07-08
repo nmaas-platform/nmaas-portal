@@ -4,9 +4,10 @@ import {AppsService} from '../../service';
 
 
 @Component({
-  selector: 'rating-extended',
-  templateUrl: './rating-extended.component.html',
-  styleUrls: ['./rating-extended.component.css']
+    selector: 'rating-extended',
+    templateUrl: './rating-extended.component.html',
+    styleUrls: ['./rating-extended.component.css'],
+    standalone: false
 })
 export class RatingExtendedComponent implements OnInit, OnChanges {
 

@@ -5,7 +5,8 @@ import {parseServiceAccessMethodType, ServiceAccessMethodType} from '../../../mo
 @Component({
     selector: 'app-access-method-edit',
     templateUrl: './app-access-method-edit.component.html',
-    styleUrls: ['./app-access-method-edit.component.css']
+    styleUrls: ['./app-access-method-edit.component.css'],
+    standalone: false
 })
 export class AppAccessMethodEditComponent implements OnInit {
 

@@ -6,9 +6,10 @@ import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../../auth/auth.service';
 
 @Component({
-  selector: 'app-admin-dashboard',
-  templateUrl: './admin-dashboard.component.html',
-  styleUrl: './admin-dashboard.component.css'
+    selector: 'app-admin-dashboard',
+    templateUrl: './admin-dashboard.component.html',
+    styleUrl: './admin-dashboard.component.css',
+    standalone: false
 })
 export class AdminDashboardComponent implements OnInit, OnDestroy {
   popularAppsChartData: any;

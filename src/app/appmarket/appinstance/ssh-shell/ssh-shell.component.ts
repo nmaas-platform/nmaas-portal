@@ -6,7 +6,8 @@ import {ModalComponent} from '../../../shared/modal';
 @Component({
     selector: 'app-ssh-shell',
     templateUrl: './ssh-shell.component.html',
-    styleUrls: ['./ssh-shell.component.css']
+    styleUrls: ['./ssh-shell.component.css'],
+    standalone: false
 })
 export class SshShellComponent implements OnInit, AfterViewInit, OnDestroy {
 

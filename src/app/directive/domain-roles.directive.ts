@@ -11,7 +11,8 @@ class InnerState {
 }
 
 @Directive({
-    selector: '[domainRoles]'
+    selector: '[domainRoles]',
+    standalone: false
 })
 export class DomainRolesDirective {
 

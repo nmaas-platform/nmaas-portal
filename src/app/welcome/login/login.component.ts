@@ -13,7 +13,8 @@ import {TranslateService} from '@ngx-translate/core';
     selector: 'nmaas-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
-    encapsulation: ViewEncapsulation.Emulated
+    encapsulation: ViewEncapsulation.Emulated,
+    standalone: false
 })
 export class LoginComponent implements OnInit {
     model: any = {};

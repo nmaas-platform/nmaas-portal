@@ -10,7 +10,8 @@ import {TranslateService} from '@ngx-translate/core';
 @Component({
     selector: 'app-languagedetails',
     templateUrl: './languagedetails.component.html',
-    styleUrls: ['./languagedetails.component.css']
+    styleUrls: ['./languagedetails.component.css'],
+    standalone: false
 })
 export class LanguageDetailsComponent implements OnInit {
 

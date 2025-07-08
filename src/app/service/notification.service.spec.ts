@@ -1,15 +1,16 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { NotificationService } from './notification.service';
-import {HttpClientTestingModule} from "@angular/common/http/testing";
+import { provideHttpClientTesting } from "@angular/common/http/testing";
 import {AppConfigService} from "./appconfig.service";
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('NotificationService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [NotificationService, AppConfigService],
-      imports: [HttpClientTestingModule]
-    });
+    imports: [],
+    providers: [NotificationService, AppConfigService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
   });
 
   it('should be created', inject([NotificationService], (service: NotificationService) => {

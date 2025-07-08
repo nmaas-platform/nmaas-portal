@@ -5,7 +5,8 @@ import {PodInfo} from '../../../../model/podinfo';
 @Component({
     selector: 'app-select-pod-modal',
     templateUrl: './select-pod-modal.component.html',
-    styleUrls: []
+    styleUrls: [],
+    standalone: false
 })
 export class SelectPodModalComponent {
 

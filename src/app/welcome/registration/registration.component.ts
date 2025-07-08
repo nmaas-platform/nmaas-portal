@@ -17,10 +17,11 @@ import {ReCaptchaV3Service} from 'ng-recaptcha';
 import {ConfigurationService} from '../../service';
 
 @Component({
-  selector: 'nmaas-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.css'],
-    providers: [ModalComponent, ModalInfoTermsComponent, ModalInfoPolicyComponent]
+    selector: 'nmaas-registration',
+    templateUrl: './registration.component.html',
+    styleUrls: ['./registration.component.css'],
+    providers: [ModalComponent, ModalInfoTermsComponent, ModalInfoPolicyComponent],
+    standalone: false
 })
 export class RegistrationComponent implements OnInit {
 

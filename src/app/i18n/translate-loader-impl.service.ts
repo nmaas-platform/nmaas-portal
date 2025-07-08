@@ -1,5 +1,5 @@
 import {TranslateLoader} from '@ngx-translate/core';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {AppConfigService} from '../service';
 import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';

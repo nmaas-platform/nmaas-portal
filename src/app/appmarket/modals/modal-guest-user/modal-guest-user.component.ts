@@ -4,7 +4,8 @@ import {ModalComponent} from '../../../shared';
 @Component({
     selector: 'modal-guest-user',
     templateUrl: './modal-guest-user.component.html',
-    styleUrls: []
+    styleUrls: [],
+    standalone: false
 })
 export class ModalGuestUserComponent implements OnInit {
 

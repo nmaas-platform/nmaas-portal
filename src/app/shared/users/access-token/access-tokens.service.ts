@@ -2,7 +2,7 @@ import {Observable} from 'rxjs';
 import {AccessToken} from './access-token';
 import {Injectable} from '@angular/core';
 import {GenericDataService} from '../../../service/genericdata.service';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {AppConfigService} from '../../../service';
 
 @Injectable({

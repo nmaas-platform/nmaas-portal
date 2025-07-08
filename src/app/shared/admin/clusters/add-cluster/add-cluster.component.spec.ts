@@ -5,7 +5,7 @@ import { DomainService } from '../../../../service/domain.service';
 import { UserDataService } from '../../../../service/userdata.service';
 import { AuthService } from '../../../../auth/auth.service';
 import { Router } from '@angular/router';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of, BehaviorSubject } from 'rxjs';
@@ -13,6 +13,7 @@ import { ClusterManager } from '../../../../model/cluster-manager';
 import { DatePipe } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import {ToastContainerComponent} from '../../../toast-container/toast-container.component';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('AddClusterComponent', () => {
   let component: AddClusterComponent;
@@ -38,28 +39,27 @@ describe('AddClusterComponent', () => {
     mockToast = jasmine.createSpyObj('ToastContainerComponent', ['show']);
 
     TestBed.configureTestingModule({
-      declarations: [AddClusterComponent],
-      imports: [
-        FormsModule,
-        HttpClientTestingModule,
+    declarations: [AddClusterComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+    imports: [FormsModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateFakeLoader
-          }
-        }),
-      ],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        })],
+    providers: [
         { provide: ClusterManagerService, useValue: clusterServiceSpy },
         { provide: DomainService, useValue: domainServiceSpy },
         { provide: UserDataService, useValue: userDataServiceSpy },
         { provide: AuthService, useValue: authServiceSpy },
         { provide: Router, useValue: routerSpy },
         { provide: ToastContainerComponent, useValue: mockToast },
-        DatePipe
-      ],
-       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-    }).compileComponents();
+        DatePipe,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+}).compileComponents();
 
     clusterService = TestBed.inject(ClusterManagerService) as jasmine.SpyObj<ClusterManagerService>;
     domainService = TestBed.inject(DomainService) as jasmine.SpyObj<DomainService>;

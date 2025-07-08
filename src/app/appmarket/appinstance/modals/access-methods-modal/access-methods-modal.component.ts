@@ -4,9 +4,10 @@ import {ModalComponent} from '../../../../shared';
 import {Observable} from 'rxjs';
 
 @Component({
-  selector: 'app-access-methods-modal',
-  templateUrl: './access-methods-modal.component.html',
-  styleUrls: ['./access-methods-modal.component.css']
+    selector: 'app-access-methods-modal',
+    templateUrl: './access-methods-modal.component.html',
+    styleUrls: ['./access-methods-modal.component.css'],
+    standalone: false
 })
 export class AccessMethodsModalComponent implements OnInit {
 

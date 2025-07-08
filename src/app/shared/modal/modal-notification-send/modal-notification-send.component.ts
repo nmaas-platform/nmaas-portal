@@ -5,9 +5,10 @@ import {UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {ToastContainerComponent, ToastMode} from '../../toast-container/toast-container.component';
 
 @Component({
-  selector: 'app-modal-notification-send',
-  templateUrl: './modal-notification-send.component.html',
-  styleUrls: ['./modal-notification-send.component.css']
+    selector: 'app-modal-notification-send',
+    templateUrl: './modal-notification-send.component.html',
+    styleUrls: ['./modal-notification-send.component.css'],
+    standalone: false
 })
 export class ModalNotificationSendComponent implements OnInit {
 

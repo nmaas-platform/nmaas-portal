@@ -2,7 +2,7 @@ import {inject, TestBed} from '@angular/core/testing';
 
 import {ConfigurationService} from './configuration.service';
 import {AppConfigService} from "./appconfig.service";
-import {HttpClient, HttpHandler} from "@angular/common/http";
+import { HttpClient, HttpHandler } from "@angular/common/http";
 import {Observable, of} from "rxjs";
 import {Configuration} from "../model/configuration";
 

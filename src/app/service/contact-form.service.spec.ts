@@ -1,18 +1,18 @@
 import {TestBed} from '@angular/core/testing';
 
 import {ContactFormService} from './contact-form.service';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {AccessModifier} from '../model/contact-form-type';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ContactFormService', () => {
     let service: ContactFormService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                HttpClientTestingModule
-            ]
-        });
+    imports: [],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
         service = TestBed.inject(ContactFormService);
     });
 

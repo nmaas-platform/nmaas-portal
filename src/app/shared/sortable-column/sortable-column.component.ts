@@ -3,9 +3,10 @@ import { Subscription } from 'rxjs';
 
 import { SortService } from '../../service/sort.service';
 @Component({
-  selector: '[sortable-column]',
-  templateUrl: './sortable-column.component.html',
-  styleUrls: ['./sortable-column.component.css']
+    selector: '[sortable-column]',
+    templateUrl: './sortable-column.component.html',
+    styleUrls: ['./sortable-column.component.css'],
+    standalone: false
 })
 export class SortableColumnComponent implements OnInit, OnDestroy {
 

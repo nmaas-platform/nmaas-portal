@@ -4,9 +4,10 @@ import { KeyValue } from '../../../model/key-value';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-domain-annotations',
-  templateUrl: './domain-annotations.component.html',
-  styleUrls: []
+    selector: 'app-domain-annotations',
+    templateUrl: './domain-annotations.component.html',
+    styleUrls: [],
+    standalone: false
 })
 export class DomainAnnotationsComponent implements OnInit {
 

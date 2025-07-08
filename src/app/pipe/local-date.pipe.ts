@@ -3,7 +3,8 @@ import { formatDate } from '@angular/common';
 import { SessionService } from '../service/session.service';
 
 @Pipe({
-  name: 'localDate'
+    name: 'localDate',
+    standalone: false
 })
 export class LocalDatePipe implements PipeTransform {
 

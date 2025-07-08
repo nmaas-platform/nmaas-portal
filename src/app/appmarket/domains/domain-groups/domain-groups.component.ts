@@ -5,7 +5,8 @@ import {DomainGroup} from '../../../model/domaingroup';
 @Component({
     selector: 'app-domain-groups',
     templateUrl: './domain-groups.component.html',
-    styleUrls: ['./domain-groups.component.css']
+    styleUrls: ['./domain-groups.component.css'],
+    standalone: false
 })
 export class DomainGroupsComponent implements OnInit {
 

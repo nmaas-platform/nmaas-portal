@@ -3,11 +3,12 @@ import {fakeAsync, TestBed, waitForAsync} from '@angular/core/testing';
 import {AuthService} from './auth.service';
 import {AppConfigService, ConfigurationService} from '../service';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import {Role, UserRole} from '../model/userrole';
 import {ProfileService} from '../service/profile.service';
 import {Observable, of} from 'rxjs';
 import {Configuration} from '../model/configuration';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('Service: Auth', () => {
     let authService: AuthService;
@@ -73,17 +74,17 @@ describe('Service: Auth', () => {
         profileServiceStub.getRoles.and.returnValue(of([userRole, userRole2]))
 
         TestBed.configureTestingModule({
-            imports: [
-                HttpClientTestingModule,
-            ],
-            providers: [
-                AuthService,
-                {provide: AppConfigService, useValue: appConfigServiceStub},
-                {provide: JwtHelperService, useValue: jwtSpy},
-                {provide: ProfileService, useValue: profileServiceStub},
-                {provide: ConfigurationService, useClass: MockConfigurationService}
-            ],
-        });
+    imports: [],
+    providers: [
+        AuthService,
+        { provide: AppConfigService, useValue: appConfigServiceStub },
+        { provide: JwtHelperService, useValue: jwtSpy },
+        { provide: ProfileService, useValue: profileServiceStub },
+        { provide: ConfigurationService, useClass: MockConfigurationService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+});
 
         httpMock = TestBed.inject(HttpTestingController)
         authService = TestBed.get(AuthService);

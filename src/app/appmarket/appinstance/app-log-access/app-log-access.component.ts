@@ -7,7 +7,8 @@ import {ActivatedRoute} from '@angular/router';
 @Component({
     selector: 'app-log-access',
     templateUrl: './app-log-access.component.html',
-    styleUrls: ['./app-log-access.component.css']
+    styleUrls: ['./app-log-access.component.css'],
+    standalone: false
 })
 export class AppLogAccessComponent implements OnInit, AfterViewChecked {
     public appInstanceId: number;

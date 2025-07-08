@@ -8,6 +8,7 @@ import {Rate} from '../../model';
     templateUrl: './rate.component.html',
     styleUrls: ['../rating-extended/rating-extended.component.css'],
     encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class RateComponent implements OnInit, OnChanges {
 

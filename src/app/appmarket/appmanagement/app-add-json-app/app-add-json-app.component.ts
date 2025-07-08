@@ -6,7 +6,8 @@ import {Router} from '@angular/router';
 @Component({
     selector: 'app-app-add-json-app',
     templateUrl: './app-add-json-app.component.html',
-    styleUrls: ['./app-add-json-app.component.css']
+    styleUrls: ['./app-add-json-app.component.css'],
+    standalone: false
 })
 export class AppAddJsonAppComponent {
 

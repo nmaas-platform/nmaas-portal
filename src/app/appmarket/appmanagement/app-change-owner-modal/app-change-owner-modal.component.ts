@@ -21,9 +21,10 @@ function userHasRequiredRoles(user: User, roles: Role[]): boolean {
 }
 
 @Component({
-  selector: 'app-app-change-owner-modal',
-  templateUrl: './app-change-owner-modal.component.html',
-  styleUrls: []
+    selector: 'app-app-change-owner-modal',
+    templateUrl: './app-change-owner-modal.component.html',
+    styleUrls: [],
+    standalone: false
 })
 export class AppChangeOwnerModalComponent {
 

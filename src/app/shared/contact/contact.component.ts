@@ -16,7 +16,8 @@ import {ActivatedRoute} from '@angular/router';
 @Component({
     selector: 'app-contact',
     templateUrl: './contact.component.html',
-    styleUrls: []
+    styleUrls: [],
+    standalone: false
 })
 export class ContactComponent implements OnInit {
 

@@ -12,6 +12,7 @@ import {ApplicationState} from '../../../model/application-state';
     selector: 'nmaas-modal-app-install',
     templateUrl: './appinstallmodal.component.html',
     styleUrls: [],
+    standalone: false
 })
 export class AppInstallModalComponent implements OnInit {
 

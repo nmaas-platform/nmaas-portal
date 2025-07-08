@@ -2,10 +2,11 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ModalComponent} from '../modal.component';
 
 @Component({
-  selector: 'modal-test-instance',
-  templateUrl: './modal-test-instance.component.html',
-  styleUrls: [],
-  providers: [ModalComponent]
+    selector: 'modal-test-instance',
+    templateUrl: './modal-test-instance.component.html',
+    styleUrls: [],
+    providers: [ModalComponent],
+    standalone: false
 })
 export class ModalTestInstanceComponent implements OnInit {
 

@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ModalProvideSshKeyComponent } from './modal-provide-ssh-key.component';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {ModalComponent} from '../modal.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ModalProvideSshKeyComponent', () => {
   let component: ModalProvideSshKeyComponent;
@@ -12,19 +13,16 @@ describe('ModalProvideSshKeyComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModalProvideSshKeyComponent ],
-      imports: [
-        HttpClientTestingModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateFakeLoader
-          }
-        }),
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-
-    })
+    declarations: [ModalProvideSshKeyComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    imports: [TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        })],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   }));
 

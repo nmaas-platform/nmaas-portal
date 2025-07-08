@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ApplicationsViewComponent } from './applications.component';
-import {HttpClientModule} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {AppConfigService, AppInstanceService, AppsService, DomainService, TagService} from '../../service';
@@ -31,31 +31,28 @@ describe('ApplicationsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
-          AppInstallModalComponent,
-          ModalComponent,
-          SearchComponent,
-          AppListComponent,
-          AppElementComponent,
-          ApplicationsViewComponent,
-          RateComponent,
-          SecurePipe,
-          TagFilterComponent
-      ],
-      imports: [
-          FormsModule,
-          RouterTestingModule,
-          HttpClientModule,
-          TranslateModule.forRoot({
-              loader: {
-                  provide: TranslateLoader,
-                  useClass: TranslateFakeLoader
-              }
-          }),
-      ],
-      providers: [AppsService, AppSubscriptionsService, UserDataService, AppConfigService, TagService, DomainService, AppInstanceService],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
-    })
+    declarations: [
+        AppInstallModalComponent,
+        ModalComponent,
+        SearchComponent,
+        AppListComponent,
+        AppElementComponent,
+        ApplicationsViewComponent,
+        RateComponent,
+        SecurePipe,
+        TagFilterComponent
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+    imports: [FormsModule,
+        RouterTestingModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        })],
+    providers: [AppsService, AppSubscriptionsService, UserDataService, AppConfigService, TagService, DomainService, AppInstanceService, provideHttpClient(withInterceptorsFromDi())]
+})
     .compileComponents();
   }));
 

@@ -15,7 +15,8 @@ import {ApplicationDTO} from '../../../model/application-dto';
 @Component({
     selector: 'nmaas-appmanagementlist',
     templateUrl: './appmanagementlist.component.html',
-    styleUrls: ['./appmanagementlist.component.css']
+    styleUrls: ['./appmanagementlist.component.css'],
+    standalone: false
 })
 export class AppManagementListComponent implements OnInit {
 
