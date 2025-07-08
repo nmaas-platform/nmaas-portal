@@ -1,3 +1,28 @@
+
+:host ::ng-deep .p-button-label{
+    font-weight: normal;
+}
+:host ::ng-deep .p-fileupload .p-fileupload-buttonbar{
+    border: none;
+    background: transparent;
+    margin-bottom: 10px;
+    padding: 0;
+}
+:host ::ng-deep .p-fileupload .p-fileupload-content{
+    border: none;
+    padding: 0;
+    border-radius: 3px;
+
+}
+
+:host ::ng-deep .p-inputtext:enabled:focus{
+    box-shadow: none;
+    border-color: var(--l-text-color);
+}
+:host ::ng-deep input[type=file]{
+    display:none;
+}
+
 .ui-steps .ui-steps-item {
     width: 14%;
 }
@@ -31,6 +56,9 @@
 
 .form-group{
     padding-bottom: 10px;
+}
+.form-horizontal .form-group{
+    margin:0;
 }
 
 .ui-widget {
@@ -117,4 +145,31 @@
 
 .formio-editor-read-only-content {
     white-space: pre-wrap;
+}
+p-fileUpload .p-fileupload .p-fileupload-buttonbar{
+    background: transparent;
+    border:none;
+}
+p-fileUpload .p-fileupload-buttonbar .p-button{
+    width: unset;
+    background: var(--primary-button-color);
+}
+p-fileUpload .p-fileupload-buttonbar .p-button:hover {
+    background: var(--primary-button-hover);
+    border: none;
+}
+p-fileUpload input[type=file]{
+    display:none;
+}
+p-fileUpload .p-fileupload-content .p-progressbar{
+    display: none;
+}
+p-fileupload .p-fileupload-content {
+    border: none;
+    border-radius: 6px;
+    margin: 15px 0;
+}
+.thumbnail{
+    border: none;
+    box-shadow: none;
 }
