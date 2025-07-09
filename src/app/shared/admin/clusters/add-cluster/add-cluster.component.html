@@ -15,12 +15,12 @@
         </div>
         <div>
             <div class="mt-4">
-                <label for="name">{{'CLUSTERS.NAME' | translate}}</label>
+                <label for="name">{{'CLUSTERS.NAME' | translate}}*</label>
                 <input id="name" type="text" class="form-control" [(ngModel)]="cluster.name"
                     [ngModelOptions]="{standalone: true}">
             </div>
             <div class="mt-4">
-                <label for="name">{{'CLUSTERS.FILE' | translate}}</label>
+                <label for="name">{{'CLUSTERS.FILE' | translate}}*</label>
                 <textarea style="width:100%; overflow: auto; max-height: 500px;" pInputTextarea [autoResize]="true"
                     class="form-control" [rows]="50" [(ngModel)]="kubernetesFile" name="content-textarea"></textarea>
             </div>
@@ -106,9 +106,8 @@
 
 
     </div>
-    <button type="button" class="btn btn-primary pull-right" (click)="nextStep()" [disabled]="!step2valid()"
-        pTooltip="{{'CLUSTERS.WIZARD.TOOLTIP_2' | translate}}" tooltipPosition="bottom"
-        [showDelay]="50">{{'APPS_WIZARD.NEXT_BUTTON' | translate}}</button>
+    <button type="button" class="btn btn-primary pull-right" (click)="nextStep()"
+        [disabled]="!step2valid()">{{'APPS_WIZARD.NEXT_BUTTON' | translate}}</button>
 </div>
 
 
