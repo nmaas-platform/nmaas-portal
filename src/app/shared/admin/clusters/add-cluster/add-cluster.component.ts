@@ -91,9 +91,11 @@ export class AddClusterComponent implements OnInit {
     this.cluserService.readClusterFile(new File([this.kubernetesFile], 'kubernetes.yaml'), this.cluster).subscribe(result => {
       console.log(result);
       this.cluster = result;
+      this.error  = null;
       this.nextStep();
     }, error => {
       console.error('Error reading Kubernetes file:', error);
+      this.error = error.error.message || 'Error reading Kubernetes file';
     });
 
 
@@ -166,6 +168,10 @@ export class AddClusterComponent implements OnInit {
 
   public step2valid(): boolean {
     return this.cluster.domainNames.length > 0 && this.cluster.contactEmail !== '' && this.cluster.description !== ''
+  }
+
+  public step1valid(): boolean {
+    return this.cluster.name !== '' && this.kubernetesFile !== undefined && this.kubernetesFile !== '';
   }
 
   public setInitialValues() {
