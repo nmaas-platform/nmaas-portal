@@ -15,12 +15,12 @@
         </div>
         <div>
             <div class="mt-4">
-                <label for="name">{{'CLUSTERS.NAME' | translate}}</label>
+                <label for="name">{{'CLUSTERS.NAME' | translate}}*</label>
                 <input id="name" type="text" class="form-control" [(ngModel)]="cluster.name"
                     [ngModelOptions]="{standalone: true}">
             </div>
             <div class="mt-4">
-                <label for="name">{{'CLUSTERS.FILE' | translate}}</label>
+                <label for="name">{{'CLUSTERS.FILE' | translate}}*</label>
                 <textarea style="width:100%; overflow: auto; max-height: 500px;" pInputTextarea [autoResize]="true"
                     class="form-control" [rows]="50" [(ngModel)]="kubernetesFile" name="content-textarea"></textarea>
             </div>
@@ -29,13 +29,12 @@
     <div class="panel">
 
     </div>
-    <button type="button" class="btn btn-primary pull-right" (click)="uploadKubernetesFile()" [disabled]="!step1valid()"
-        pTooltip="{{'CLUSTERS.WIZARD.TOOLTIP_1' | translate}}" tooltipPosition="bottom"
-        [showDelay]="50">{{'APPS_WIZARD.NEXT_BUTTON' | translate}}</button>
+    <button type="button" class="btn btn-primary pull-right" (click)="uploadKubernetesFile()"
+        [disabled]="!step1valid()">{{'APPS_WIZARD.NEXT_BUTTON' | translate}}</button>
 
-        <div class="error" *ngIf="error">
-            {{error}}
-        </div>
+    <div class="error" *ngIf="error">
+        {{error}}
+    </div>
 </div>
 
 
@@ -87,8 +86,8 @@
             <div class="col-sm-12 padding-0">
                 <p-dropdown id="domainSelector" [options]="domains" optionLabel="name" optionValue="name"
                     placeholder="Select domain" emptyMessage="No domain available" [disabled]="domains.length === 0"
-                    name="domainSelector" (onChange)="onDomainSelection($event.value)" [required]="true" (onClear)="this.cluster.domainNames = []"
-                    [showClear]="true" ngDefaultControl></p-dropdown>
+                    name="domainSelector" (onChange)="onDomainSelection($event.value)" [required]="true"
+                    (onClear)="this.cluster.domainNames = []" [showClear]="true" ngDefaultControl></p-dropdown>
             </div>
 
 
@@ -97,7 +96,7 @@
 
         <div class="mt-8 padding-0">
             <div *ngIf="showNamespaceCreation === true">
-                <label for="ingresstlssupported" class="col-sm-2 padding-0">{{"Create namespace if  missing " }}</label>
+                <label for="ingresstlssupported" class="col-sm-2 padding-0">{{"Create namespace if missing " }}</label>
                 <div class="col-sm-10">
                     <input type="checkbox" id="ingresstlssupported" name="ingresstlssupported"
                         [(ngModel)]="namespaceCreation" [checked]="namespaceCreation == true" [disabled]="">
@@ -107,9 +106,8 @@
 
 
     </div>
-    <button type="button" class="btn btn-primary pull-right" (click)="nextStep()" [disabled]="!step2valid()"
-        pTooltip="{{'CLUSTERS.WIZARD.TOOLTIP_2' | translate}}" tooltipPosition="bottom"
-        [showDelay]="50">{{'APPS_WIZARD.NEXT_BUTTON' | translate}}</button>
+    <button type="button" class="btn btn-primary pull-right" (click)="nextStep()"
+        [disabled]="!step2valid()">{{'APPS_WIZARD.NEXT_BUTTON' | translate}}</button>
 </div>
 
 
