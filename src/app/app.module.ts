@@ -39,6 +39,7 @@ import { providePrimeNG } from 'primeng/config';
 import { CommonModule } from '@angular/common';
 import Nora from '@primeng/themes/nora';
 import { MyPreset } from '../style';
+import {Button} from 'primeng/button';
 
 
 export function appConfigFactory(config: AppConfigService) {
@@ -106,7 +107,8 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
         ToastModule,
         SplitButtonModule,
         MenuModule,
-        AccordionModule
+        AccordionModule,
+        Button
     ],
     providers: [
         providePrimeNG({

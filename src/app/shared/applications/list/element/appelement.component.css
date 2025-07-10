@@ -3,6 +3,7 @@ body{
 }
 
 .app-card{
+	color: var(--p-text-50);
 	min-height:250px;
 	background: var(--p-background-50);
 	border-radius: 10px;

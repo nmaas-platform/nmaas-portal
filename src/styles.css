@@ -74,7 +74,8 @@
     box-shadow: none;
 }
 .background-section{
-    background: var(--p-background-50);
+    color: var(--p-text-0);
+    background: var(--p-background-100);
     border-radius: 10px;
     margin:20px 0;
     padding:30px;
@@ -131,10 +132,12 @@
     font-size: 14px;
 }
 .btn-primary{
+    color: var(--p-text-100);
     background:var(--p-primary-100);
     border:none;
 }
 .btn-primary:hover{
+    color: var(--p-text-100);
     background: var(--p-primary-200);
     border:none;
 }
@@ -151,17 +154,19 @@
     border:none
 }
 .btn-secondary{
+    color: var(--p-text-100);
     background: var(--p-primary-500);
-    color: #ffffff;
 }
 .btn-secondary:hover{
+    color: var(--p-text-100);
     background: var(--p-primary-600);
-    color: #ffffff
 }
 .btn-danger{
-    background: var(--p-primary-900);
+    color: var(--p-text-100);
+    background: var(--p-danger-500);
 }
-.btn-danger{
+.btn-danger:hover {
+    color: var(--p-text-100);
     background: var(--p-danger-600);
 }
 .btn-danger-text{

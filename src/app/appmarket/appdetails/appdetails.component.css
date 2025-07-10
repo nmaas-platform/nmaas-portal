@@ -1,6 +1,6 @@
 .tag-button{
     background-color: var(--tag-color);
-    color: var(--text-color);
+    color: var(--p-text-300);
     padding: 4px 8px;
     text-align: center;
     text-decoration: none;

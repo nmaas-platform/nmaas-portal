@@ -26,7 +26,10 @@ export const MyPreset = definePreset(Nora, {
                 },
                 text: {
                     0: '#233354',                          // --l-text-color
-                    50: '#233354'                          // --app-text-color
+                    50: '#233354',                          // --app-text-color
+                    100: '#ffffff',                          // button text color
+                    200: '#32559B',                           // app details links
+                    300: '#142548'                          // tag text color
                 },
                 neutral: {
                     500: '#64748B',                        // --secondary-button-color
@@ -43,7 +46,8 @@ export const MyPreset = definePreset(Nora, {
                 },
                 background: {
                     0: '#ffffff',                         // --background
-                    50: '#F6F6F7'                         // --app-background-color
+                    50: '#F6F6F7',                         // --app-background card -color
+                    100: '#F6F6F7'                               // background card
                 }
             },
             dark: {
@@ -68,7 +72,10 @@ export const MyPreset = definePreset(Nora, {
                 },
                 text: {
                     0: '#ffffff',                        // --d-text-color
-                    50: '#233354'                        // --d-app-text-color
+                    50: '#233354',                        // --d-app-text-color
+                    100: '#233354',                         // button text color
+                    200: '#ffffff',                         // app details links
+                    300: '#1C1F27'                          // tag text color
                 },
                 neutral: {
                     500: '#DFDFDF',                      // --d-secondary-button-color
@@ -85,7 +92,8 @@ export const MyPreset = definePreset(Nora, {
                 },
                 background: {
                     0: '#1C1F27',                       // --d-background
-                    50: '#E4E7F1'                       // --d-app-background-color
+                    50: '#E4E7F1',                       // --d-app-background card-color
+                    100: '#4D5059'                      // background card
                 }
             }
         }
@@ -105,6 +113,22 @@ export const MyPreset = definePreset(Nora, {
                     focus: {
                         color: '{text.0}',
                         background: '{primary.50}'
+                    }
+                }
+            }
+        },
+        checkbox: {
+            width: '20px',
+            height: '20px',
+            checked: {
+                background: '{primary.100}',
+                border: {
+                    color: '{primary.100}',
+                },
+                hover: {
+                    background: '{primary.200}',
+                    border: {
+                        color: '{primary.200}',
                     }
                 }
             }

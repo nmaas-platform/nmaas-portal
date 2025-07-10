@@ -81,6 +81,8 @@ import {DialogModule} from 'primeng/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { UserDomainListComponent } from './users/user-domain/user-domain-list.component';
 import {Select} from 'primeng/select';
+import {IconField} from 'primeng/iconfield';
+import {InputIcon} from 'primeng/inputicon';
 
 
 
@@ -114,7 +116,7 @@ import {Select} from 'primeng/select';
             StepsModule,
             TextareaModule,
             DialogModule,
-            BrowserAnimationsModule, Select
+            BrowserAnimationsModule, Select, IconField, InputIcon
         ],
     declarations: [
         RateComponent,
