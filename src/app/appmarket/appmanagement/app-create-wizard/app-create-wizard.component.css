@@ -17,7 +17,7 @@
 
 :host ::ng-deep .p-inputtext:enabled:focus{
     box-shadow: none;
-    border-color: var(--l-text-color);
+    border-color: var(--p-text-0);
 }
 :host ::ng-deep input[type=file]{
     display:none;
@@ -152,10 +152,10 @@ p-fileUpload .p-fileupload .p-fileupload-buttonbar{
 }
 p-fileUpload .p-fileupload-buttonbar .p-button{
     width: unset;
-    background: var(--primary-button-color);
+    background: var(--p-primary-100);
 }
 p-fileUpload .p-fileupload-buttonbar .p-button:hover {
-    background: var(--primary-button-hover);
+    background: var(--p-primary-200);
     border: none;
 }
 p-fileUpload input[type=file]{

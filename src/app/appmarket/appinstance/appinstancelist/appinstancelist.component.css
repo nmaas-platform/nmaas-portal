@@ -41,8 +41,8 @@ label{
 }
 
 ::ng-deep.p-selectbutton .p-button.p-highlight{
-    background: var(--primary-button-color) !important;
-    border-color: var(--primary-button-color);
+    background: var(--p-primary-100) !important;
+    border-color: var(--p-primary-100);
 }
 :host ::ng-deep .p-selectbutton .p-button{
     background: #fff;
@@ -51,9 +51,9 @@ label{
     font-weight: normal;
 }
 :host ::ng-deep .p-selectbutton .p-button:not(.p-disabled):not(.p-highlight):hover{
-    background: var(--primary-button-color);
-    border-color: var(--primary-button-color);
-    color: var(--background);
+    background: var(--p-primary-100);
+    border-color: var(--p-primary-100);
+    color: var(--p-surface-50);
 }
 :host ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page.p-highlight{
     background: var(--user-button-background-hover);

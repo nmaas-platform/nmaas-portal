@@ -38,7 +38,7 @@ import { RecaptchaVisibilityService } from './service/recaptcha-visibility.servi
 import { providePrimeNG } from 'primeng/config';
 import { CommonModule } from '@angular/common';
 import Nora from '@primeng/themes/nora';
-
+import { MyPreset } from '../style';
 
 
 export function appConfigFactory(config: AppConfigService) {
@@ -77,7 +77,7 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
         NO_ERRORS_SCHEMA
-    ], 
+    ],
     imports: [
         FormsModule,
         CommonModule,
@@ -94,7 +94,7 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
         ServiceUnavailableModule,
         routing,
         TranslateModule.forRoot({
-            missingTranslationHandler: { provide: MissingTranslationHandler, useClass: CustomMissingTranslationService },
+            missingTranslationHandler: {provide: MissingTranslationHandler, useClass: CustomMissingTranslationService},
             loader: {
                 provide: TranslateLoader,
                 useFactory: HttpLoaderFactory,
@@ -136,7 +136,10 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
         MessageService,
         providePrimeNG({
             theme: {
-                preset: Nora
+                preset: MyPreset,
+                options: {
+                    darkModeSelector: '.dark-mode'
+                }
             }
         }),
         provideHttpClient(withInterceptorsFromDi())

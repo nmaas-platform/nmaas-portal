@@ -17,11 +17,11 @@ label{
 :host ::ng-deep  .p-button{
     width: unset;
     margin-right: 5px;
-    background: var(--primary-button-color);
+    background: var(--p-primary-100);
     color: var(--button-text-color);
 }
 :host ::ng-deep .p-button:hover{
-    background: var(--primary-button-hover);
+    background: var(--p-primary-200);
     border:none;
 }
 :host ::ng-deep .p-button-label{

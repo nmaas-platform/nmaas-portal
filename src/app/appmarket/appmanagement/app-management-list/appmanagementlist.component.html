@@ -55,7 +55,7 @@
           <td class="text-right">
             <span class="dropdown">
               <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
-                <em class="pi pi-cog" style="font-size: 1.8rem; color: var(--l-text-color)"></em>
+                <em class="pi pi-cog" style="font-size: 1.8rem; color: var(--p-text-0)"></em>
               </a>
               <ul class="dropdown-menu pull-right-drop">
                 <li *roles="['ROLE_SYSTEM_ADMIN']">
@@ -89,11 +89,11 @@
             <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]">{{"ENUM.STATE." + getStateAsString(version.state).toUpperCase() | translate }}</td>
             <td class="text-right">
               <a [routerLink]="['/admin/apps/view', version?.appVersionId]">
-                <em class="pi pi-eye" style="font-size: 1.8rem; color: var(--l-text-color); margin-right:10px"></em>
+                <em class="pi pi-eye" style="font-size: 1.8rem; color: var(--p-text-0); margin-right:10px"></em>
               </a>
               <span class="dropdown">
             <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
-              <em class="pi pi-cog" style="font-size: 1.8rem; color: var(--l-text-color)"></em>
+              <em class="pi pi-cog" style="font-size: 1.8rem; color: var(--p-text-0)"></em>
             </a>
             <ul class="dropdown-menu pull-right-drop">
               <li *roles="['ROLE_SYSTEM_ADMIN']">

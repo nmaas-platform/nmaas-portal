@@ -96,4 +96,10 @@ export class LeftMenuComponent implements OnInit {
   public showUserDomain(){
     return !this.isAdmin() && this.isDomainAdmin();
   }
+  toggleDarkMode(){
+    const element = document.querySelector('html');
+    if (element !== null) {
+      element.classList.toggle('dark-mode');
+    }
+  }
 }
