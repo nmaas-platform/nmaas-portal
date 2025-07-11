@@ -99,11 +99,16 @@ label{
 ::ng-deep .p-progressbar .p-progressbar-label{
     display: none;
 }
+:host ::ng-deep .p-progressbar-determinate .p-progressbar-label {
+    display: none;
+}
 p-selectbutton{
     width: max-content;
     text-wrap-mode: nowrap;
 }
 .instance-card{
+    color: var(--p-text-50);
+    background: var(--p-background-50);
     margin: 10px 0;
     min-height: 250px;
     display: flex;
@@ -122,4 +127,7 @@ p-selectbutton{
     .wrap{
         flex-wrap:nowrap;
     }
+}
+h4{
+    color: var(--p-text-0);
 }

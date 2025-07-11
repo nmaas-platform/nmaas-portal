@@ -132,6 +132,21 @@ export const MyPreset = definePreset(Nora, {
                     }
                 }
             }
+        },
+        selectbutton: {
+            borderRadius: '3px',
+        },
+        togglebutton: {
+            background: '{background.100}',
+            checked: {
+                background: '{primary.100}',
+                border: {
+                    color: '{accent.600}',
+                }
+            },
+            border: {
+                color: '{accent.600}',
+            }
         }
     }
 });
