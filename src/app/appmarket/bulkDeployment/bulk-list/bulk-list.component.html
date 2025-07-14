@@ -2,11 +2,11 @@
 <div class="">
     <div style="display:flex; margin-top:20px">
         <div style="margin-right:20px">
-          <span class="p-input-icon-right" style="width: 100%">
-               <i class="pi pi-search" style="font-size: 13px; top: 16px; margin-right: 5px;"></i>
+          <p-iconfield class="p-input-icon-right" style="width: 100%">
               <input pInputText class="flex form-control" name="search" id="search" placeholder="Search" type="text"
                      style="height: 34px" [(ngModel)]="searchValue">
-          </span>
+              <p-inputicon class="pi pi-search" style="font-size: 13px;"></p-inputicon>
+          </p-iconfield>
         </div>
         <div *ngIf="mode=== bulkTypeDomain" style="margin-right: 10px">
             <button class="btn btn-primary" [routerLink]="['/admin/domains/bulks/new']">{{'BULK.LIST.NEW_DEPLOYMENT' | translate}}</button>

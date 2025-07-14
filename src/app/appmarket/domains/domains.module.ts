@@ -25,6 +25,8 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import {RemovalConfirmationModalComponent} from './modals/removal-confirmation-modal/removal-confirmation-modal.component';
 import {SearchDomainGroupPipe} from './domain-group-search.pipe';
 import { DomainAnnotationsComponent } from './domain-annotations/domain-annotations.component';
+import {IconField} from 'primeng/iconfield';
+import {InputIcon} from 'primeng/inputicon';
 
 
 @NgModule({
@@ -50,8 +52,10 @@ import { DomainAnnotationsComponent } from './domain-annotations/domain-annotati
         NgxPaginationModule,
         TableModule,
         CheckboxModule,
-      DropdownModule,
-      MultiSelectModule
+        DropdownModule,
+        MultiSelectModule,
+        IconField,
+        InputIcon
     ],
     exports: [
         DomainsListComponent,
