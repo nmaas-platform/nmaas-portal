@@ -33,7 +33,8 @@ export const MyPreset = definePreset(Nora, {
                 },
                 neutral: {
                     500: '#64748B',                        // --secondary-button-color
-                    600: '#475569'                         // --secondary-button-hover
+                    600: '#475569',                         // --secondary-button-hover'
+                    700: 'transparent'
                 },
                 danger: {
                     500: '#CB433F',                        // --danger-button-color
@@ -79,7 +80,8 @@ export const MyPreset = definePreset(Nora, {
                 },
                 neutral: {
                     500: '#DFDFDF',                      // --d-secondary-button-color
-                    600: '#B6B6B6'                       // --d-secondary-button-hover
+                    600: '#B6B6B6',                       // --d-secondary-button-hover
+                    700: 'transparent'
                 },
                 danger: {
                     500: '#E2625F',                      // --d-danger-button-color
@@ -146,6 +148,16 @@ export const MyPreset = definePreset(Nora, {
             },
             border: {
                 color: '{accent.600}',
+            }
+        },
+        paginator: {
+            background: '{neutral.700}',
+        },
+        datatable: {
+            header: {
+                cell: {
+                    background: '{neutral.700}',
+                }
             }
         }
     }
