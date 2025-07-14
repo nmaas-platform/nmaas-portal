@@ -181,10 +181,12 @@
 .btn-text{
     color: var(--p-primary-300);
     background: transparent;
+    border-radius: 4px;
 }
 .btn-text:hover{
     background: var(--p-primary-50);
-    color: var(--p-primary-400)
+    color: var(--p-primary-400);
+    border-radius: 4px;
 }
 
 .dropdown-menu{

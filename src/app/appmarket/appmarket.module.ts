@@ -56,6 +56,8 @@ import { WebhookListComponent } from './admin/webhook/webhook-list/webhook-list.
 import { WebhookService } from '../service/webhook.service';
 import {IconField} from 'primeng/iconfield';
 import {InputIcon} from 'primeng/inputicon';
+import {Button} from 'primeng/button';
+import {Drawer} from 'primeng/drawer';
 
 
 
@@ -117,7 +119,9 @@ import {InputIcon} from 'primeng/inputicon';
         SidebarModule,
         ProgressBarModule,
         IconField,
-        InputIcon
+        InputIcon,
+        Button,
+        Drawer
     ],
          providers: [
             AppsService,

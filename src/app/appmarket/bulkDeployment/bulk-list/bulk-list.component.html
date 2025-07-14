@@ -16,13 +16,12 @@
         </div>
         <div  *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']"  class="flex align-items-center mr-6">
             <p-button
-                    type="button"
-                    class=""
+                    class="btn-text"
                     (onClick)="sidebarVisible4 = true"
                     label="Deployments Queue"
                     severity="secondary"
             ></p-button>
-            <p-sidebar [(visible)]="sidebarVisible4" position="right" styleClass="w-30rem">
+            <p-drawer [(visible)]="sidebarVisible4" position="right" styleClass="w-30rem">
                 <h3>Deployments Queue</h3>
                 <div class="flex flex-column">
                     <div class="flex grid">
@@ -38,11 +37,11 @@
                         <span class="col-2" id="jobInProcessId">{{queueDetails?.jobInProcessId}}</span>
                     </div>
                 </div>
-            </p-sidebar>
+            </p-drawer>
 
         </div>
         <div  *roles="['ROLE_SYSTEM_ADMIN']"  class="flex align-items-center mr-6 pt-2">
-            <label  *ngIf="mode=== bulkTypeApp" class="mr-2" for="showDeleted">{{'BULK.LIST.SHOW_ALL' | translate}}</label>
+            <label  *ngIf="mode=== bulkTypeApp" class="mr-2" style="color:var(--p-text-0)" for="showDeleted">{{'BULK.LIST.SHOW_ALL' | translate}}</label>
             <p-inputSwitch  *ngIf="mode=== bulkTypeApp"  id="showDeleted" (onChange)="refreshBulks()" [(ngModel)]="showDeleted" ngDefaultControl/>
         </div>
     </div>
