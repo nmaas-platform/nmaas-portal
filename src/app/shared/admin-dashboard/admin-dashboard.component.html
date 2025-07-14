@@ -21,7 +21,7 @@
                         from {{ rangeDates[0] | date:'dd.MM.yyyy' }} to {{ rangeDates[1] | date:'dd.MM.yyyy' }}
                     </ng-container>
                         <ng-template #lastWeek>in the last week</ng-template></h5>
-                    <p-calendar
+                    <p-datePicker
                             [(ngModel)]="rangeDates"
                             selectionMode="range"
                             [readonlyInput]="true"

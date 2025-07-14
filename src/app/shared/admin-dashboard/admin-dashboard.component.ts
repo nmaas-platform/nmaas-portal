@@ -46,8 +46,8 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     });
 
     const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-    const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
+    const textColor = documentStyle.getPropertyValue('--p-text-0');
+    const textColorSecondary = documentStyle.getPropertyValue('--p-text-0');
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
 
@@ -105,7 +105,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
           label: 'Count of deployments',
           data: appValues,
           borderColor: '#42A5F5',
-          backgroundColor: ['rgba(66, 165, 245, 0.2)', 'rgba(255, 208, 208, 0.7)', 'rgba(115, 104, 193, 0.7)', 'rgba(255, 193, 130, 0.7)', 'rgba(140, 193, 104, 0.7)'],
+          backgroundColor: ['rgba(210, 230, 247, 1)', 'rgba(252, 219, 220, 1)', 'rgba(154, 146, 209, 1)', 'rgba(252, 208, 165, 1)', 'rgba(171, 208, 147, 1)'],
           fill: true
         }
       ]

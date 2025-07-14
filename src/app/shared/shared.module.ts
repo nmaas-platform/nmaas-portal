@@ -83,6 +83,7 @@ import { UserDomainListComponent } from './users/user-domain/user-domain-list.co
 import {Select} from 'primeng/select';
 import {IconField} from 'primeng/iconfield';
 import {InputIcon} from 'primeng/inputicon';
+import {DatePicker} from 'primeng/datepicker';
 
 
 
@@ -116,7 +117,7 @@ import {InputIcon} from 'primeng/inputicon';
             StepsModule,
             TextareaModule,
             DialogModule,
-            BrowserAnimationsModule, Select, IconField, InputIcon
+            BrowserAnimationsModule, Select, IconField, InputIcon, DatePicker
         ],
     declarations: [
         RateComponent,

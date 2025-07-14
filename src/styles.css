@@ -280,3 +280,6 @@ body .p-inputtext{
     border: 1px solid var(--p-accent-600);
     border-radius: 4px;
 }
+body .p-datatable-scrollable > .p-datatable-table-container > .p-datatable-table > .p-datatable-thead, .p-datatable-scrollable > .p-datatable-table-container > .p-virtualscroller > .p-datatable-table > .p-datatable-thead{
+    background: var(--p-neutral-700);
+}

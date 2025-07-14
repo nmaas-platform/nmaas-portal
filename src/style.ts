@@ -152,13 +152,6 @@ export const MyPreset = definePreset(Nora, {
         },
         paginator: {
             background: '{neutral.700}',
-        },
-        datatable: {
-            header: {
-                cell: {
-                    background: '{neutral.700}',
-                }
-            }
         }
     }
 });
