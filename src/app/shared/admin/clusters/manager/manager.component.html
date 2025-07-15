@@ -1,14 +1,14 @@
 <h4 class="header">{{ 'CLUSTERS.CONFIGURATION' | translate }}</h4>
 <div style="display: flex; align-items: center;  margin-top:20px">
     <div style=" display:flex; align-items: center;">
-        <div style="margin-right:20px;">
-            <button class="btn btn-primary" [routerLink]="['add']"  >New Cluster</button>
-        </div>
-        <span class="p-input-icon-right">
-            <i class="pi pi-search" style="font-size: 13px; top: 16px; margin-right: 5px;"></i>
+        <p-iconfield class="p-input-icon-right" style="margin-right:20px;">
              <input pInputText class="form-control" name="search" id="search"
                     placeholder="Search" type="text" [(ngModel)]="searchValue"  (ngModelChange)="filterClusters()">
-        </span>
+            <p-inputicon class="pi pi-search" style="font-size: 13px;"></p-inputicon>
+        </p-iconfield>
+        <div >
+            <button class="btn btn-primary" [routerLink]="['add']"  >New Cluster</button>
+        </div>
     </div>
 </div>
 
