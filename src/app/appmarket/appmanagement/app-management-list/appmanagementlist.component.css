@@ -12,8 +12,6 @@
     margin-left: 5px;
     margin-right: 5px;
 }
-
-/*.dropdown:hover .dropdown-menu {*/
-/*    display: block;*/
-/*}*/
-
+:host ::ng-deep .p-datatable-table-container{
+    overflow: unset !important;
+}

@@ -28,3 +28,6 @@ label{
     font-weight: unset;
 }
 
+:host ::ng-deep .p-datatable-table-container{
+    overflow: unset !important;
+}
