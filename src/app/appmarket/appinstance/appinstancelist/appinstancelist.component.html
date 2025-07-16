@@ -91,11 +91,11 @@
                         <p>{{ appInstance?.applicationName }}</p>
                     </div>
                     <div>
-                        <div class="" *ngIf="appInstance?.appId">
+                        <div class="img-container" *ngIf="appInstance?.appId">
                             <img alt="App logo"
                                  [src]="(appImagesService.getAppLogoUrl(appInstance?.appId) | secure) || 'assets/images/app-logo-example.png'" width="70px"/>
                         </div>
-                        <div class="" *ngIf="!appInstance?.appId">
+                        <div class="img-container" *ngIf="!appInstance?.appId">
                             <img alt="App logo" src="assets/images/app-logo-example.png" width="70px"/>
                         </div>
                     </div>
@@ -142,11 +142,11 @@
                             <p>{{ appInstance?.applicationName }}</p>
                         </div>
                         <div>
-                            <div class="" *ngIf="appInstance?.appId">
+                            <div class="img-container" *ngIf="appInstance?.appId">
                                 <img alt="App logo"
                                      [src]="(appImagesService.getAppLogoUrl(appInstance?.appId) | secure) || 'assets/images/app-logo-example.png'" width="70px"/>
                             </div>
-                            <div class="" *ngIf="!appInstance?.appId">
+                            <div class="img-container" *ngIf="!appInstance?.appId">
                                 <img alt="App logo" src="assets/images/app-logo-example.png" width="70px"/>
                             </div>
                         </div>

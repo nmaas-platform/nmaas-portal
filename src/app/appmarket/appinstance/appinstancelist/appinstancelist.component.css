@@ -107,13 +107,22 @@ p-selectbutton{
     text-wrap-mode: nowrap;
 }
 .instance-card{
-    color: var(--p-text-50);
-    background: var(--p-background-50);
+    color: var(--p-text-0);
+    background: var(--p-background-100);
     margin: 10px 0;
     min-height: 250px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+.img-container {
+    background: var(--p-background-50);
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 @media (min-width:1550px){
     .col-xl-3{

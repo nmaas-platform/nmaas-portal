@@ -1,10 +1,10 @@
 	<div class="background-section"  style=" display: flex; flex-direction: column">
 		<div style=" display: flex; flex-direction: row; justify-content: space-between; padding-bottom: 50px">
 			<div style="display: flex; align-items: center;">
-				<div  *ngIf="app">
+				<div  *ngIf="app" class="img-container">
 					<img alt="App logo" [src]="(appImagesService.getAppLogoUrl(appId) | secure) || 'assets/images/app-logo-example.png'"  width="90px"/>
 				</div>
-				<div *ngIf="!app" style="height:90px; align-content:center;">
+				<div *ngIf="!app" class="img-container">
 					<img alt="App logo" src="assets/images/app-logo-example.png" width="90px"/>
 				</div>
 				<h3 style="margin:0 20px;">{{app?.name}}</h3>

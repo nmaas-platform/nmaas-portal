@@ -286,3 +286,4 @@ body .p-inputtext{
 body .p-datatable-scrollable > .p-datatable-table-container > .p-datatable-table > .p-datatable-thead, .p-datatable-scrollable > .p-datatable-table-container > .p-virtualscroller > .p-datatable-table > .p-datatable-thead{
     background: var(--p-neutral-700);
 }
+

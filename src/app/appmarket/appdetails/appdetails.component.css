@@ -13,6 +13,15 @@
 .background-section{
     padding:30px;
 }
+.img-container {
+    background: var(--p-background-50);
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .block-light-gray{
     background-image: linear-gradient(rgba(211, 211, 211, 0.1),rgba(211, 211, 211, 0.1));

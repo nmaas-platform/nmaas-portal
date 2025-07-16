@@ -44,7 +44,11 @@
                     <ng-template pTemplate="body" let-instance>
                         <tr [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain()}"
                             [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : ['/instances',instance.instanceId]">
-                            <td><img style="width: 40px" [src]="(appImagesService.getAppLogoUrl(instance.appId) | secure) || '../../../assets/images/app-logo-example.png'"/></td>
+                            <td>
+                                <div class="img-container">
+                                    <img style="width: 40px" [src]="(appImagesService.getAppLogoUrl(instance.appId) | secure) || '../../../assets/images/app-logo-example.png'"/>
+                                </div>
+                            </td>
                             <td>{{instance.applicationName}}</td>
                             <td>{{instance.applicationVersion}}</td>
                             <td>{{instance.domainName}}</td>
@@ -115,7 +119,11 @@
                 <ng-template pTemplate="body" let-app>
                     <tr  [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain()}"
                          [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : ['/instances',app.appId]">
-                        <td><img style="width: 40px" [src]="(appImagesService.getAppLogoUrl(app.logoId) | secure) || '../../../assets/images/app-logo-example.png'"/></td>
+                        <td>
+                            <div class="img-container">
+                                <img style="width: 40px" [src]="(appImagesService.getAppLogoUrl(app.logoId) | secure) || '../../../assets/images/app-logo-example.png'"/>
+                            </div>
+                        </td>
                         <td>{{app.appName}}</td>
                         <td>{{app.appId}}</td>
                         <td>{{app.instanceName}}</td>

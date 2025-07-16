@@ -88,3 +88,12 @@
 :host ::ng-deep .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{
     background: var(--user-button-background-hover)
 }
+.img-container{
+    background: var(--p-background-50);
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -69,3 +69,12 @@ th{
 :host ::ng-deep .p-datatable>.p-datatable-wrapper {
     overflow: auto;
 }
+.img-container {
+    width: 50px;
+    height: 50px;
+    background: var(--p-background-50);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
