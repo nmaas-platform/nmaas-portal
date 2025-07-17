@@ -83,4 +83,6 @@ input.ng-dirty.ng-invalid {
 td{
     vertical-align: middle;
 }
-
+.table-hover>tbody>tr:hover{
+    background: transparent;
+}

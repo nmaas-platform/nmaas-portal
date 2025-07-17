@@ -1,4 +1,4 @@
-<div class="">
+<div style="color: var(--p-text-0)">
 	<h3>{{ 'DOMAIN_DETAILS.TITLE' | translate }}</h3>
 
 	<form *ngIf="domain" (submit)="submit()" class="form-horizontal" #domainForm="ngForm">
@@ -177,7 +177,7 @@
 							</div>
 							<div class="row-sub collapse" id="collapse-{{i}}">
 								<div class="card ui-card-body">
-									<div class="form-group" *ngIf="domain.id !== domainService.getGlobalDomainId()">
+									<div class="" style="color: var(--p-text-50)" *ngIf="domain.id !== domainService.getGlobalDomainId()">
 										<div class="row-container">
 											<label for="domain-state-enabled-{{i}}" class="col-sm-4 control-label no-padding-top">
 												{{ 'DOMAIN_DETAILS.APP_ENABLED' | translate }}
