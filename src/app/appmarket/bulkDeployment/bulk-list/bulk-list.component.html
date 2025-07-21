@@ -2,11 +2,11 @@
 <div class="">
     <div style="display:flex; margin-top:20px">
         <div style="margin-right:20px">
-          <span class="p-input-icon-right" style="width: 100%">
-               <i class="pi pi-search" style="font-size: 13px; top: 16px; margin-right: 5px;"></i>
+          <p-iconfield class="p-input-icon-right" style="width: 100%">
               <input pInputText class="flex form-control" name="search" id="search" placeholder="Search" type="text"
                      style="height: 34px" [(ngModel)]="searchValue">
-          </span>
+              <p-inputicon class="pi pi-search" style="font-size: 13px;"></p-inputicon>
+          </p-iconfield>
         </div>
         <div *ngIf="mode=== bulkTypeDomain" style="margin-right: 10px">
             <button class="btn btn-primary" [routerLink]="['/admin/domains/bulks/new']">{{'BULK.LIST.NEW_DEPLOYMENT' | translate}}</button>
@@ -16,13 +16,12 @@
         </div>
         <div  *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']"  class="flex align-items-center mr-6">
             <p-button
-                    type="button"
-                    class=""
+                    class="btn-text"
                     (onClick)="sidebarVisible4 = true"
                     label="Deployments Queue"
                     severity="secondary"
             ></p-button>
-            <p-sidebar [(visible)]="sidebarVisible4" position="right" styleClass="w-30rem">
+            <p-drawer [(visible)]="sidebarVisible4" position="right" styleClass="w-30rem">
                 <h3>Deployments Queue</h3>
                 <div class="flex flex-column">
                     <div class="flex grid">
@@ -38,11 +37,11 @@
                         <span class="col-2" id="jobInProcessId">{{queueDetails?.jobInProcessId}}</span>
                     </div>
                 </div>
-            </p-sidebar>
+            </p-drawer>
 
         </div>
         <div  *roles="['ROLE_SYSTEM_ADMIN']"  class="flex align-items-center mr-6 pt-2">
-            <label  *ngIf="mode=== bulkTypeApp" class="mr-2" for="showDeleted">{{'BULK.LIST.SHOW_ALL' | translate}}</label>
+            <label  *ngIf="mode=== bulkTypeApp" class="mr-2" style="color:var(--p-text-0)" for="showDeleted">{{'BULK.LIST.SHOW_ALL' | translate}}</label>
             <p-inputSwitch  *ngIf="mode=== bulkTypeApp"  id="showDeleted" (onChange)="refreshBulks()" [(ngModel)]="showDeleted" ngDefaultControl/>
         </div>
     </div>

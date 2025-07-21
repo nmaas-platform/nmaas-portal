@@ -1,10 +1,10 @@
 <h4 class="header">{{'DOMAINS.LIST.GROUPS' | translate}}</h4>
 <div style="display: flex; align-items: center;  margin-top:20px">
     <div style="margin-right:20px">
-        <span class="p-input-icon-right" style="width: 100%">
-     		 <i class="pi pi-search" style="font-size: 13px; top: 16px; margin-right: 5px;"></i>
+        <p-iconfield  class="p-input-icon-right" style="width: 100%">
             <input pInputText class="flex form-control" name="search" id="search" placeholder="Search" type="text" style="height: 34px" [(ngModel)]="searchValue">
-        </span>
+            <p-inputicon  class="pi pi-search" style="font-size: 13px;"/>
+        </p-iconfield>
     </div>
     <div class="flex" style="margin-right:20px">
         <button *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_VL_MANAGER']" [routerLink]="['/admin/domains/groups/add']" class="btn btn-primary"
@@ -50,7 +50,7 @@
                 <td style="width: 20%" class="text-right">
                     <span class="dropdown">
                         <a style="display: inline-block" class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
-                            <em class="pi pi-cog" style="font-size: 1.8rem; color: var(--l-text-color)"></em>
+                            <em class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></em>
                         </a>
                         <ul class="dropdown-menu pull-right-drop">
                             <li>

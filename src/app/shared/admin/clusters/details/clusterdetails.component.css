@@ -3,3 +3,8 @@
     margin: 0;
     -moz-appearance:textfield;
 }
+.form-control {
+    background: var(--p-surface-300);
+    border: 1px solid var(--p-accent-600);
+    color: var(--p-text-0);
+}

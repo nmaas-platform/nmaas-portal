@@ -2,20 +2,20 @@
 <div  style="display: flex; align-items: flex-start; justify-content: space-between; margin-top:40px; padding:15px 0 5px 0">
     <div class="col-sm-12 col-sm-12 col-md-12"  style="display:flex; align-items: center; padding:0; flex-wrap:wrap">
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3" style="padding-top:10px; padding-bottom:10px">
-            <span class="p-input-icon-right " style="width:100%">
-            <i class="pi pi-search" style="font-size: 13px; top: 16px; margin-right: 5px;"></i>
-             <input pInputText class="form-control" name="search" id="search" placeholder="Search" type="text" [(ngModel)]="searchValue">
-        </span>
+            <p-iconfield class="p-input-icon-right " style="width:100%">
+                <input pInputText class="form-control" name="search" id="search" placeholder="Search" type="text" [(ngModel)]="searchValue">
+                <p-inputicon class="pi pi-search" style="font-size: 13px;"></p-inputicon>
+            </p-iconfield>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 wrap" style="display:flex;">
             <div class="" style="display: flex; padding:10px 15px 10px 0">
                 <p-checkbox id="show_my" inputId="show_my" binary="true" [(ngModel)]="showMy" (onChange)="onSelectionChange()"  [ngModelOptions]="{standalone: true}" ngDefaultControl></p-checkbox>
-                <label for="show_my" style="text-wrap: nowrap">{{'APP_INSTANCES.SHOW_MY' | translate}} </label>
+                <label for="show_my" style="text-wrap: nowrap; color: var(--p-text-0)">{{'APP_INSTANCES.SHOW_MY' | translate}} </label>
             </div>
             <div class="" style="display: flex; padding:10px 15px">
                 <p-checkbox *domainRoles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR'];domainId:domainId"
                             id="show_visible" inputId="show_visible" binary="true" [(ngModel)]="undeployedVisible" [ngModelOptions]="{standalone: true}"></p-checkbox>
-                <label for="show_visible" style="text-wrap: nowrap" *domainRoles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR'];domainId:domainId">{{'APP_INSTANCES.UNDEPLOYED_VISIBLE' | translate}}</label>
+                <label for="show_visible" style="text-wrap: nowrap; color: var(--p-text-0)" *domainRoles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR'];domainId:domainId">{{'APP_INSTANCES.UNDEPLOYED_VISIBLE' | translate}}</label>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-1" style="display: inline-flex; align-items: center; padding:10px 0; justify-content: flex-end;">
@@ -27,8 +27,8 @@
                     optionLabel="label"
                     optionValue="value"
                     ngDefaultControl>
-                <ng-template let-item pTemplate>
-                    <i style="font-size: 14px; padding: 0 10px" [class]="item.icon"></i>
+                <ng-template #item let-item pTemplate>
+                    <i style="font-size: 14px;" [class]="item.icon"></i>
                 </ng-template>
             </p-selectButton>
         </div>
@@ -91,18 +91,18 @@
                         <p>{{ appInstance?.applicationName }}</p>
                     </div>
                     <div>
-                        <div class="" *ngIf="appInstance?.appId">
+                        <div class="img-container" *ngIf="appInstance?.appId">
                             <img alt="App logo"
                                  [src]="(appImagesService.getAppLogoUrl(appInstance?.appId) | secure) || 'assets/images/app-logo-example.png'" width="70px"/>
                         </div>
-                        <div class="" *ngIf="!appInstance?.appId">
+                        <div class="img-container" *ngIf="!appInstance?.appId">
                             <img alt="App logo" src="assets/images/app-logo-example.png" width="70px"/>
                         </div>
                     </div>
                 </div>
                 <div  *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.FAILURE">
                     <p class="failure">{{ translateState(appInstance?.state) }}</p>
-                    <p-progressBar class="failure" [value]="100" [style]="{'height': '6px'}"></p-progressBar>
+                    <p-progressBar class="failure" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
                 </div>
                 <div  *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.DEPLOYING ||
                     getStateAsEnum(appInstance?.state) == AppInstanceState.CONFIGURATION_AWAITING ||
@@ -111,11 +111,11 @@
                     getStateAsEnum(appInstance?.state) == AppInstanceState.VALIDATION ||
                     getStateAsEnum(appInstance?.state) == AppInstanceState.PREPARATION">
                     <p class="running">{{ translateState(appInstance?.state) }}</p>
-                    <p-progressBar class="running" mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+                    <p-progressBar class="running" mode="indeterminate" [style]="{'height': '8px'}"></p-progressBar>
                 </div>
                 <div  *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.RUNNING ">
                     <p class="done">{{ translateState(appInstance?.state) }}</p>
-                    <p-progressBar class="done" [value]="100" [style]="{'height': '6px'}"></p-progressBar>
+                    <p-progressBar class="done" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
                 </div>
                 <div  *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.PAUSED ">
                     <p class="scaledDown">{{ translateState(appInstance?.state) }}</p>
@@ -124,7 +124,7 @@
                 <div  *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.DONE ||
                     getStateAsEnum(appInstance?.state) == AppInstanceState.REMOVED ">
                     <p class="done">{{ translateState(appInstance?.state) }}</p>
-                    <p-progressBar class="removed" [value]="100" [style]="{'height': '6px'}"></p-progressBar>
+                    <p-progressBar class="removed" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
                 </div>
             </div>
         </div>
@@ -142,11 +142,11 @@
                             <p>{{ appInstance?.applicationName }}</p>
                         </div>
                         <div>
-                            <div class="" *ngIf="appInstance?.appId">
+                            <div class="img-container" *ngIf="appInstance?.appId">
                                 <img alt="App logo"
                                      [src]="(appImagesService.getAppLogoUrl(appInstance?.appId) | secure) || 'assets/images/app-logo-example.png'" width="70px"/>
                             </div>
-                            <div class="" *ngIf="!appInstance?.appId">
+                            <div class="img-container" *ngIf="!appInstance?.appId">
                                 <img alt="App logo" src="assets/images/app-logo-example.png" width="70px"/>
                             </div>
                         </div>
@@ -162,20 +162,20 @@
                     getStateAsEnum(appInstance?.state) == AppInstanceState.VALIDATION ||
                     getStateAsEnum(appInstance?.state) == AppInstanceState.PREPARATION">
                         <p class="running">{{ translateState(appInstance?.state) }}</p>
-                        <p-progressBar class="running" mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+                        <p-progressBar class="running" mode="indeterminate" [style]="{'height': '8px'}"></p-progressBar>
                     </div>
                     <div  *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.RUNNING ">
                         <p class="done">{{ translateState(appInstance?.state) }}</p>
-                        <p-progressBar class="done" [value]="100" [style]="{'height': '6px'}"></p-progressBar>
+                        <p-progressBar class="done" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
                     </div>
                     <div  *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.PAUSED ">
                         <p class="scaledDown">{{ translateState(appInstance?.state) }}</p>
-                        <p-progressBar class="scaledDown" [value]="100" [style]="{'height': '6px'}"></p-progressBar>
+                        <p-progressBar class="scaledDown" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
                     </div>
                     <div  *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.DONE ||
                     getStateAsEnum(appInstance?.state) == AppInstanceState.REMOVED ">
                         <p class="removed">{{ translateState(appInstance?.state) }}</p>
-                        <p-progressBar class="removed" [value]="100" [style]="{'height': '6px'}"></p-progressBar>
+                        <p-progressBar class="removed" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
                     </div>
                 </div>
             </div>

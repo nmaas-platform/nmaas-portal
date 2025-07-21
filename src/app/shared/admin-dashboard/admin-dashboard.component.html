@@ -16,12 +16,12 @@
         </div>
         <div class="grid" style="display: flex; justify-content: space-between;">
             <div class="background-section width-50 " style="margin-right: 20px">
-                <div style="    display: flex; justify-content: space-between;">
+                <div style=" margin-bottom: 20px;   display: flex; justify-content: space-between;">
                     <h5 style="font-weight: bold">{{ 'DASHBOARD.APP_DEPLOYMENTS' | translate }} <ng-container *ngIf="rangeDates && rangeDates[0] && rangeDates[1]; else lastWeek">
                         from {{ rangeDates[0] | date:'dd.MM.yyyy' }} to {{ rangeDates[1] | date:'dd.MM.yyyy' }}
                     </ng-container>
                         <ng-template #lastWeek>in the last week</ng-template></h5>
-                    <p-calendar
+                    <p-datePicker
                             [(ngModel)]="rangeDates"
                             selectionMode="range"
                             [readonlyInput]="true"
@@ -32,7 +32,7 @@
                     />
                 </div>
 
-                <p-table [value]="instanceCountInPeriodDetails"   [scrollable]="true" [style]="{'width': '100%', 'max-height': '50vh'}">
+                <p-table [value]="instanceCountInPeriodDetails"   [scrollable]="true" [style]="{'width': '100%', 'max-height': '47vh', 'overflow':'auto'}">
                     <ng-template pTemplate="header">
                         <tr>
                             <th></th>
@@ -44,7 +44,11 @@
                     <ng-template pTemplate="body" let-instance>
                         <tr [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain()}"
                             [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : ['/instances',instance.instanceId]">
-                            <td><img style="width: 40px" [src]="(appImagesService.getAppLogoUrl(instance.appId) | secure) || '../../../assets/images/app-logo-example.png'"/></td>
+                            <td>
+                                <div class="img-container">
+                                    <img style="width: 40px" [src]="(appImagesService.getAppLogoUrl(instance.appId) | secure) || '../../../assets/images/app-logo-example.png'"/>
+                                </div>
+                            </td>
                             <td>{{instance.applicationName}}</td>
                             <td>{{instance.applicationVersion}}</td>
                             <td>{{instance.domainName}}</td>
@@ -54,7 +58,7 @@
             </div>
             <div class="width-50" >
                 <div class="background-section" style="">
-                    <h5 style="font-weight: bold">{{ 'DASHBOARD.MOST_POPULAR' | translate }} </h5>
+                    <h5 style="margin-bottom: 20px; font-weight: bold">{{ 'DASHBOARD.MOST_POPULAR' | translate }} </h5>
                     <p-chart type="bar" [data]="popularAppsChartData" [options]="basicOptions" width="100%" height="50vh" />
                 </div>
             </div>
@@ -115,7 +119,11 @@
                 <ng-template pTemplate="body" let-app>
                     <tr  [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain()}"
                          [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : ['/instances',app.appId]">
-                        <td><img style="width: 40px" [src]="(appImagesService.getAppLogoUrl(app.logoId) | secure) || '../../../assets/images/app-logo-example.png'"/></td>
+                        <td>
+                            <div class="img-container">
+                                <img style="width: 40px" [src]="(appImagesService.getAppLogoUrl(app.logoId) | secure) || '../../../assets/images/app-logo-example.png'"/>
+                            </div>
+                        </td>
                         <td>{{app.appName}}</td>
                         <td>{{app.appId}}</td>
                         <td>{{app.instanceName}}</td>

@@ -1,4 +1,4 @@
-<div class="">
+<div style="color: var(--p-text-0)">
 	<h3>{{ 'DOMAIN_DETAILS.TITLE' | translate }}</h3>
 
 	<form *ngIf="domain" (submit)="submit()" class="form-horizontal" #domainForm="ngForm">
@@ -6,7 +6,7 @@
 			<div class="form-group">
 				<label for="name" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.NAME' | translate }}</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW) || authService.hasRole('ROLE_OPERATOR')" id="name" name="name"
+					<input pInputText type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW) || authService.hasRole('ROLE_OPERATOR')" id="name" name="name"
 						   [(ngModel)]="domain.name" #name="ngModel" required>
 					<div *ngIf="name.invalid && (name.dirty || name.touched)"
 						 class="alert alert-danger">
@@ -19,7 +19,7 @@
 			<div class="form-group" *ngIf="!isInMode(ComponentMode.EDIT)">
 				<label for="codename" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.CODE_NAME' | translate }}</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="codename"
+					<input pInputText type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="codename"
 						   name="codename" pattern="[a-z0-9-]*"
 						   [(ngModel)]="domain.codename" #codename="ngModel" minlength="2" maxlength="12" required>
 					<div *ngIf="codename.invalid && (codename.dirty || codename.touched)"
@@ -44,7 +44,7 @@
 			<div class="form-group">
 				<label for="kubernetesNamespace" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.KUBERNETES_NAMESPACE' | translate }}</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="kubernetesNamespace" pattern="[a-z0-9-]*" maxlength="64" #namespace="ngModel"
+					<input pInputText type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="kubernetesNamespace" pattern="[a-z0-9-]*" maxlength="64" #namespace="ngModel"
 						   name="kubernetesNamespace" [(ngModel)]="domain.domainTechDetails.kubernetesNamespace" placeholder="{{'DOMAIN_DETAILS.KUBERNETES_NAMESPACE_PLACEHOLDER' | translate}}">
 					<div *ngIf="namespace.invalid && (namespace.dirty || namespace.touched)" class="alert alert-danger">
 						<div *ngIf="namespace.errors.pattern">{{ 'DOMAIN_DETAILS.NAMESPACE_PATTERN_VALIDATION_MESSAGE' | translate }}</div>
@@ -56,7 +56,7 @@
 			<div class="form-group" *ngIf="domain.id !== domainService.getGlobalDomainId()">
 				<label for="kubernetesStorageClass" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.KUBERNETES_STORAGE_CLASS' | translate }}</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="kubernetesStorageClass"
+					<input pInputText type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="kubernetesStorageClass"
 						   name="kubernetesStorageClass" [(ngModel)]="domain.domainTechDetails.kubernetesStorageClass">
 				</div>
 			</div>
@@ -64,7 +64,7 @@
 			<div class="form-group" *ngIf="domain.id !== domainService.getGlobalDomainId()">
 				<label for="kubernetesIngressClass" class="col-sm-2 control-label">{{'DOMAIN_DETAILS.KUBERNETES_INGRESS_CLASS' | translate }}</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="kubernetesIngressClass"
+					<input pInputText type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="kubernetesIngressClass"
 						   name="kubernetesIngressClass" [(ngModel)]="domain.domainTechDetails.kubernetesIngressClass">
 				</div>
 			</div>
@@ -72,7 +72,7 @@
 			<div class="form-group" *ngIf="domain.id !== domainService.getGlobalDomainId()">
 				<label for="externalServiceDomain " class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.EXTERNAL_SERVICE_DOMAIN' | translate }}</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="externalServiceDomain "
+					<input pInputText type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="externalServiceDomain "
 						   name="externalServiceDomain " [(ngModel)]="domain.domainTechDetails.externalServiceDomain">
 				</div>
 			</div>
@@ -80,7 +80,7 @@
 			<div class="form-group" *ngIf="domain?.id !== domainService.getGlobalDomainId()">
 				<label class="col-sm-2 control-label text-right" for="dcnDeploymentType">{{'DOMAIN_DETAILS.DCN_DEPLOYMENT_TYPE' | translate }}</label>
 				<div class="col-sm-10">
-					<select class="form-control" id="dcnDeploymentType" name="dcnDeploymentType" [(ngModel)]="domain.domainDcnDetails.dcnDeploymentType" [disabled]="isInMode(ComponentMode.VIEW)" required>
+					<select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" id="dcnDeploymentType" name="dcnDeploymentType" [(ngModel)]="domain.domainDcnDetails.dcnDeploymentType" [disabled]="isInMode(ComponentMode.VIEW)" required>
 						<option *ngFor="let type of keys" [value]="type">{{type | titlecase}}</option>
 					</select>
 				</div>
@@ -177,7 +177,7 @@
 							</div>
 							<div class="row-sub collapse" id="collapse-{{i}}">
 								<div class="card ui-card-body">
-									<div class="form-group" *ngIf="domain.id !== domainService.getGlobalDomainId()">
+									<div class="" style="color: var(--p-text-50)" *ngIf="domain.id !== domainService.getGlobalDomainId()">
 										<div class="row-container">
 											<label for="domain-state-enabled-{{i}}" class="col-sm-4 control-label no-padding-top">
 												{{ 'DOMAIN_DETAILS.APP_ENABLED' | translate }}
@@ -226,7 +226,7 @@
 						<label for="network-{{i}}" class="col-sm-2 control-label">{{'DOMAIN_DETAILS.IP_ADDRESS' | translate}}</label>
 						<input type="text" class="col-sm-5 form-control" pattern="^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$" required [disabled]="isInMode(ComponentMode.VIEW)" id="network-{{i}}" name="network-{{i}}" [(ngModel)]="network.customerIp">
 						<label for="mask-{{i}}" class="col-sm-2 control-label">{{'DOMAIN_DETAILS.MASK_LENGTH' | translate}}</label>
-						<input type="number" class="form-control col-sm-1 no-spin" [minNumLength]="0" [maxNumLength]="32" required [disabled]="isInMode(ComponentMode.VIEW)" id="mask-{{i}}" name="mask-{{i}}" [(ngModel)]="network.maskLength">
+						<input pInputText type="number" class="form-control col-sm-1 no-spin" [minNumLength]="0" [maxNumLength]="32" required [disabled]="isInMode(ComponentMode.VIEW)" id="mask-{{i}}" name="mask-{{i}}" [(ngModel)]="network.maskLength">
 						<div class="col-sm-2">
 							<button type="button" class="btn btn-danger btn-sm" (click)="removeNetwork(i)" *ngIf="!isInMode(ComponentMode.VIEW)"><span class="glyphicon glyphicon-remove"></span></button>
 						</div>

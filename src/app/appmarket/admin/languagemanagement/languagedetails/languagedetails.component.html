@@ -1,9 +1,9 @@
-<h2 *ngIf="language"><img alt="language" src="assets/images/country/{{language.language}}_circle.png" style="height: 32px;"> {{'LANGUAGE.' + language.language.toUpperCase() + '_LABEL' | translate}}</h2>
-<label for="advanced-switch">{{switchLabel}}</label>
+<h2 *ngIf="language" style="color: var(--p-text-0)"><img alt="language" src="assets/images/country/{{language.language}}_circle.png" style="height: 32px;"> {{'LANGUAGE.' + language.language.toUpperCase() + '_LABEL' | translate}}</h2>
+<label style="color: var(--p-text-0)" for="advanced-switch">{{switchLabel}}</label>
 <br>
 <p-inputSwitch [(ngModel)]="advanced" id="advanced-switch" name="advanced-switch" (onChange)="handleLabel()"></p-inputSwitch>
 <div *ngIf="language && !advanced">
-  <h3>{{ 'LANGUAGE_MANAGEMENT.LABELS_TRANSLATION' | translate }}</h3>
+  <h3 style="color: var(--p-text-0)">{{ 'LANGUAGE_MANAGEMENT.LABELS_TRANSLATION' | translate }}</h3>
   <div *ngFor="let key of keys; let ix=index">
     <div class=" background-section" style="padding: 10px">
       <div class="panel-heading" (click)="hide[ix]=!hide[ix]">{{key.toString()}}</div>

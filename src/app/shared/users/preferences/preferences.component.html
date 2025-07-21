@@ -12,7 +12,7 @@
  			    		 	'has-success': defaultDomain.valid && (defaultDomain.dirty || defaultDomain.touched)}">
                 <label for="defaultDomain" class="col-sm-2 control-label">{{'USER_DETAILS.DEFAULT_DOMAIN' | translate}}:</label>
                 <div class="col-sm-10">
-                    <select class="form-control" id="defaultDomain" name="defaultDomain" #defaultDomain="ngModel"
+                    <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" id="defaultDomain" name="defaultDomain" #defaultDomain="ngModel"
                             [(ngModel)]="user.defaultDomain" [disabled]="isInMode(ComponentMode.VIEW)">
                         <option [ngValue]="null">None</option>
                         <option *ngFor="let role of getFilteredUserRoles()" [ngValue]="role.domainId">{{getNameForDomain(role.domainId)}}</option>

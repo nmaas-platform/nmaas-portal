@@ -82,3 +82,6 @@ label{
 :host ::ng-deep .p-datatable>.p-datatable-wrapper {
     overflow: visible;
 }
+:host ::ng-deep .p-datatable-table-container{
+    overflow: unset !important;
+}

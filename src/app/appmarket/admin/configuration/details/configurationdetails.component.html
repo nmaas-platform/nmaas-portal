@@ -7,7 +7,7 @@
                     <label for="setMaintenance"
                            class="col-sm-3 control-label">{{ 'PORTAL_CONFIGURATION.MAINTENANCE' | translate }}</label>
                     <div class="col-sm-9 pd-top-7">
-                        <input type="checkbox" id="setMaintenance" name="setMaintenance"
+                        <input pInputText type="checkbox" id="setMaintenance" name="setMaintenance"
                                [(ngModel)]="this.configuration.maintenance"
                                [checked]="this.configuration.maintenance === true">
                     </div>
@@ -25,7 +25,7 @@
                     <label for="defaultLang"
                            class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.DEFAULT_LANGUAGE' | translate}}</label>
                     <div class="col-sm-3">
-                        <select id="defaultLang" #langSelect class="form-control"
+                        <select style=" background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" id="defaultLang" #langSelect class="form-control"
                                 (change)="this.configuration.defaultLanguage = langSelect.value">
                             <option *ngFor="let lang of languages" [value]="lang.language"
                                     [selected]="lang.language === configuration.defaultLanguage">{{'LANGUAGE.' + lang.language.toUpperCase() + '_LABEL' | translate}}</option>
@@ -62,7 +62,7 @@
                         <div *ngFor="let email of configuration.appInstanceFailureEmailList; let i=index; trackBy:trackByFn"
                              class="col-lg-6 col-md-10 col-sm-12 pd-bottom-5 row email-row">
                             <div class="email-input">
-                                <input class="form-control" type="text"
+                                <input pInputText class="form-control" type="text"
                                        id="appInstanceFailureEmailList.{{i}}"
                                        name="appInstanceFailureEmailList.{{i}}"
                                        [(ngModel)]="configuration.appInstanceFailureEmailList[i]"/>
@@ -92,7 +92,7 @@
                            class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.DEPLOYMENT_PREFIX' | translate}}</label>
                     <div class="col-sm-9 pd-top-7">
                         <div class="input-width">
-                            <input class="form-control" type="text" id="deploymentPrefix" name="deploymentPrefix"
+                            <input pInputText class="form-control" type="text" id="deploymentPrefix" name="deploymentPrefix"
                                    [(ngModel)]="this.configuration.deploymentPrefix">
                         </div>
 
@@ -127,7 +127,7 @@
                                class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.BULK_DEPLOYMENT_CRON' | translate}}</label>
                         <div class="col-sm-9 pd-top-7 ">
                             <div class="input-width">
-                                <input class="form-control" type="text" id="bulkDeploymentJobCron" name="bulkDeploymentJobCron"
+                                <input pInputText class="form-control" type="text" id="bulkDeploymentJobCron" name="bulkDeploymentJobCron"
                                 [(ngModel)]="this.configuration.bulkDeploymentJobCron">
                             </div>
 
@@ -139,7 +139,7 @@
                                class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.BULK_DEPLOYMENT_LIMIT' | translate}}</label>
                         <div class="col-sm-9 pd-top-7">
                             <div class="input-width">
-                                <input class="form-control" type="number" id="parallelDeploymentsLimit" name="parallelDeploymentsLimit"
+                                <input pInputText class="form-control" type="number" id="parallelDeploymentsLimit" name="parallelDeploymentsLimit"
                                 [(ngModel)]="this.configuration.parallelDeploymentsLimit">
                             </div>
 
@@ -150,7 +150,7 @@
                                class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.BULK_DEPLOYMENT_QUEUE_REFRESH' | translate}}</label>
                         <div class="col-sm-9 pd-top-7">
                             <div class="input-width">
-                                <input class="form-control" type="number" id="bulkDeploymentQueueRefresh" name="bulkDeploymentQueueRefresh"
+                                <input pInputText class="form-control" type="number" id="bulkDeploymentQueueRefresh" name="bulkDeploymentQueueRefresh"
                                 [(ngModel)]="this.configuration.bulkDeploymentQueueRefresh">
                             </div>
 
@@ -161,7 +161,7 @@
                                class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.BULK_DEPLOYMENT_THRESHOLD' | translate}}</label>
                         <div class="col-sm-9 pd-top-7">
                             <div class="input-width">
-                                <input class="form-control" type="number" id="bulkDeploymentTimeThreshold" name="bulkDeploymentTimeThreshold"
+                                <input pInputText class="form-control" type="number" id="bulkDeploymentTimeThreshold" name="bulkDeploymentTimeThreshold"
                                 [(ngModel)]="this.configuration.bulkDeploymentTimeThreshold">
                             </div>
 

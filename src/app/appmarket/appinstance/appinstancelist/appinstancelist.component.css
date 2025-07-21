@@ -41,8 +41,8 @@ label{
 }
 
 ::ng-deep.p-selectbutton .p-button.p-highlight{
-    background: var(--primary-button-color) !important;
-    border-color: var(--primary-button-color);
+    background: var(--p-primary-100) !important;
+    border-color: var(--p-primary-100);
 }
 :host ::ng-deep .p-selectbutton .p-button{
     background: #fff;
@@ -51,9 +51,9 @@ label{
     font-weight: normal;
 }
 :host ::ng-deep .p-selectbutton .p-button:not(.p-disabled):not(.p-highlight):hover{
-    background: var(--primary-button-color);
-    border-color: var(--primary-button-color);
-    color: var(--background);
+    background: var(--p-primary-100);
+    border-color: var(--p-primary-100);
+    color: var(--p-surface-50);
 }
 :host ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page.p-highlight{
     background: var(--user-button-background-hover);
@@ -99,16 +99,30 @@ label{
 ::ng-deep .p-progressbar .p-progressbar-label{
     display: none;
 }
+:host ::ng-deep .p-progressbar-determinate .p-progressbar-label {
+    display: none;
+}
 p-selectbutton{
     width: max-content;
     text-wrap-mode: nowrap;
 }
 .instance-card{
+    color: var(--p-text-0);
+    background: var(--p-background-100);
     margin: 10px 0;
     min-height: 250px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+.img-container {
+    background: var(--p-background-50);
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 @media (min-width:1550px){
     .col-xl-3{
@@ -122,4 +136,7 @@ p-selectbutton{
     .wrap{
         flex-wrap:nowrap;
     }
+}
+h4{
+    color: var(--p-text-0);
 }

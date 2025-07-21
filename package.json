@@ -79,7 +79,7 @@
     "sonarqube-scanner": "^3.4.0",
     "ts-node": "^4.1.0",
     "tslint": "~6.1.0",
-    "typescript": "5.8.3",
+    "typescript": "5.7.3",
     "webpack": "^5.97.1"
   }
 }

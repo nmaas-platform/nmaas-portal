@@ -80,41 +80,45 @@ import { TextareaModule } from 'primeng/textarea';
 import {DialogModule} from 'primeng/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { UserDomainListComponent } from './users/user-domain/user-domain-list.component';
+import {Select} from 'primeng/select';
+import {IconField} from 'primeng/iconfield';
+import {InputIcon} from 'primeng/inputicon';
+import {DatePicker} from 'primeng/datepicker';
 
 
 
 @NgModule({
-    imports: 
-    [CommonModule,
-        PipesModule,
-        FormsModule,
-        ServicesModule,
-        RouterModule,
-        ReactiveFormsModule,
-        PasswordStrengthMeterComponent,
-        TranslateModule,
-        NgxPaginationModule,
-        FormioModule,
-        TooltipModule,
-        DropdownModule,
-        InputTextModule,
-        FormioModule,
-        TableModule,
-        CheckboxModule,
-        InputGroupModule,
-        InputGroupAddonModule,
-        ButtonModule,
-        RecaptchaV3Module,
-        ButtonModule,
-        ChartModule,
-        FileUploadModule,
-        TableModule,
-        CalendarModule,
-        StepsModule,
-        TextareaModule,
-        DialogModule,
-        BrowserAnimationsModule
-    ],
+    imports:
+        [CommonModule,
+            PipesModule,
+            FormsModule,
+            ServicesModule,
+            RouterModule,
+            ReactiveFormsModule,
+            PasswordStrengthMeterComponent,
+            TranslateModule,
+            NgxPaginationModule,
+            FormioModule,
+            TooltipModule,
+            DropdownModule,
+            InputTextModule,
+            FormioModule,
+            TableModule,
+            CheckboxModule,
+            InputGroupModule,
+            InputGroupAddonModule,
+            ButtonModule,
+            RecaptchaV3Module,
+            ButtonModule,
+            ChartModule,
+            FileUploadModule,
+            TableModule,
+            CalendarModule,
+            StepsModule,
+            TextareaModule,
+            DialogModule,
+            BrowserAnimationsModule, Select, IconField, InputIcon, DatePicker
+        ],
     declarations: [
         RateComponent,
         FooterComponent,

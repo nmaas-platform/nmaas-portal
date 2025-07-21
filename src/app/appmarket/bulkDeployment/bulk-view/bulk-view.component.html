@@ -5,7 +5,7 @@
             <div class="" style="padding-bottom: 5rem; margin-top: 3rem">
                 <label for="id" class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.ID' | translate }}</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="id" name="id" [disabled]="true"
+                    <input pInputText type="text" class="form-control" id="id" name="id" [disabled]="true"
                            [(ngModel)]="bulk.id" #name="ngModel">
                 </div>
             </div>
@@ -14,7 +14,7 @@
                 <label for="creator"
                        class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.CREATOR' | translate }}</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="creator" name="creator" [disabled]="true"
+                    <input pInputText type="text" class="form-control" id="creator" name="creator" [disabled]="true"
                            placeholder="{{bulk.creator.username}} ({{bulk.creator.firstname}} {{bulk.creator.lastname}})">
                 </div>
             </div>
@@ -23,7 +23,7 @@
                 <label for="date"
                        class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.CREATION_DATE' | translate }}</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="date" name="date" [disabled]="true"
+                    <input pInputText type="text" class="form-control" id="date" name="date" [disabled]="true"
                            placeholder="{{bulk.creationDate | date: 'dd-MM-yyyy HH:mm'}}">
                 </div>
             </div>
@@ -32,7 +32,7 @@
                 <label for="state"
                        class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.STATE' | translate }}</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="state" name="state" [disabled]="true"
+                    <input pInputText type="text" class="form-control" id="state" name="state" [disabled]="true"
                            placeholder="{{'BULK.STATE.' + bulk.state | translate}}">
                 </div>
             </div>

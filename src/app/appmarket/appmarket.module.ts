@@ -54,6 +54,10 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { WebhookDetailsComponent } from './admin/webhook/webhook-details/webhook-details.component';
 import { WebhookListComponent } from './admin/webhook/webhook-list/webhook-list.component';
 import { WebhookService } from '../service/webhook.service';
+import {IconField} from 'primeng/iconfield';
+import {InputIcon} from 'primeng/inputicon';
+import {Button} from 'primeng/button';
+import {Drawer} from 'primeng/drawer';
 
 
 
@@ -113,7 +117,11 @@ import { WebhookService } from '../service/webhook.service';
         InputSwitchModule,
         OverlayPanelModule,
         SidebarModule,
-        ProgressBarModule
+        ProgressBarModule,
+        IconField,
+        InputIcon,
+        Button,
+        Drawer
     ],
          providers: [
             AppsService,

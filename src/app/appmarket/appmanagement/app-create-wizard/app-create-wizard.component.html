@@ -6,27 +6,29 @@
 <hr/>
 
 <div *ngIf="activeStepIndex === 0">
-    <div class="panel">
-        <div class="bs-callout bs-callout-primary">
+    <div class="panel background-section">
+        <div style="margin-bottom:20px">
             <h4>{{'APPS_WIZARD.FIRST_PAGE_HEADER' | translate }}</h4>
             {{'APPS_WIZARD.FIRST_PAGE_MESSAGE' | translate }}
         </div>
+        <input type="checkbox" [checked]="rulesAccepted"
+               (click)="changeRulesAcceptedFlag()"> {{'APPS_WIZARD.ACCEPT_RULES_CHECKBOX' | translate}}
     </div>
-    <input type="checkbox" [checked]="rulesAccepted"
-           (click)="changeRulesAcceptedFlag()"> {{'APPS_WIZARD.ACCEPT_RULES_CHECKBOX' | translate}}
+
     <button type="button" class="btn btn-primary pull-right" (click)="nextStep()" [disabled]="!rulesAccepted"
             [tooltipDisabled]="rulesAccepted" pTooltip="{{'APPS_WIZARD.ACCEPT_RULES_TOOLTIP' | translate}}"
             tooltipPosition="bottom" [showDelay]="50">{{'APPS_WIZARD.NEXT_BUTTON' | translate}}</button>
 </div>
 
 <div *ngIf="activeStepIndex === 1">
-    <div class="bs-callout bs-callout-primary">
-        {{'APPS_WIZARD.BASIC_APP_INFO_STEP_INFO' | translate }}
-    </div>
+
     <div *ngIf="applicationDTO">
-        <div class="panel">
+        <div class="panel background-section">
+            <div style="margin-bottom:20px">
+                {{'APPS_WIZARD.BASIC_APP_INFO_STEP_INFO' | translate }}
+            </div>
             <form class="form-horizontal" #basicInfoForm="ngForm">
-                <div class="form-group form-group-sm"
+                <div class="form-group form-group-sm" style="margin:0"
                      [ngClass]="{'has-error':  appName.invalid && (appName.dirty || appName.touched),
  			    		 	'has-success': appName.valid && (appName.dirty || appName.touched)}">
                     <label for="appName" class="control-label">{{'APPS_WIZARD.NAME_LABEL' | translate}} *</label>
@@ -138,15 +140,15 @@
 </div>
 
 <div *ngIf="activeStepIndex === 2">
-    <div class="bs-callout bs-callout-primary">
-        {{'APPS_WIZARD.LOGO_AND_SCREENSHOTS_STEP_INFO' | translate }}
-    </div>
-    <div class="panel">
+    <div class="panel background-section">
+        <div style="margin-bottom:20px">
+            {{'APPS_WIZARD.LOGO_AND_SCREENSHOTS_STEP_INFO' | translate }}
+        </div>
         <div class="panel-heading">
             {{'APPS_WIZARD.UPLOAD_LOGO_LABEL' | translate}}
         </div>
         <div class="panel-body">
-            <p-fileUpload name="logo" [disabled]="canAddLogo()" [files]="logo" customUpload="true" [multiple]="true"
+            <p-fileUpload name="logo" [disabled]="canAddLogo()" [files]="logo" customUpload="false" [multiple]="true"
                           (onRemove)="clearLogo($event)" (onClear)="clearLogo($event)" accept="image/*"
                           maxFileSize="1000000" [showUploadButton]=false [showCancelButton]="false"
                           (onSelect)="onSelectLogo($event)"
@@ -157,20 +159,20 @@
                      [width]="200" [height]="200">
             </div>
         </div>
-    </div>
-    <div class="panel">
-        <div class="panel-heading">
-            {{'APPS_WIZARD.UPLOAD_SCREENSHOTS_LABEL' | translate}}
-        </div>
-        <div class="panel-body">
-            <p-fileUpload name="screenshots" customUpload="true"
-                          [multiple]="true" [files]="screenshots"
-                          accept="image/*" maxFileSize="2000000"
-                          [showUploadButton]="false" [showCancelButton]="false"
-                          [chooseLabel]="translate.instant('APPS_WIZARD.CHOOSE_LABEL')"
-                          (onSelect)="onSelectScreenshots($event)"
-                          (onRemove)="onRemoveScreenshot($event)">
-            </p-fileUpload>
+        <div class="">
+            <div class="panel-heading">
+                {{'APPS_WIZARD.UPLOAD_SCREENSHOTS_LABEL' | translate}}
+            </div>
+            <div class="panel-body">
+                <p-fileUpload name="screenshots" customUpload="true"
+                              [multiple]="true" [files]="screenshots"
+                              accept="image/*" maxFileSize="2000000"
+                              [showUploadButton]="false" [showCancelButton]="false"
+                              [chooseLabel]="translate.instant('APPS_WIZARD.CHOOSE_LABEL')"
+                              (onSelect)="onSelectScreenshots($event)"
+                              (onRemove)="onRemoveScreenshot($event)">
+                </p-fileUpload>
+            </div>
         </div>
     </div>
     <button type="button" class="btn btn-primary pull-right"
@@ -178,12 +180,13 @@
 </div>
 
 <div *ngIf="activeStepIndex === 3">
-    <div class="bs-callout bs-callout-primary">
-        {{'APPS_WIZARD.APP_DESCRIPTIONS_STEP_INFO' | translate }}
-    </div>
+
     <div *ngIf="applicationDTO">
         <form class="form-horizontal" #descriptionForm="ngForm">
-            <div class="panel">
+            <div class="panel background-section">
+                <div style="margin-bottom: 20px">
+                    {{'APPS_WIZARD.APP_DESCRIPTIONS_STEP_INFO' | translate }}
+                </div>
                 <div class="panel-heading">{{'APPS_WIZARD.APP_REQUIRED_DESCRIPTIONS_HEADER' | translate }}</div>
                 <div class="panel-body">
                     <div><img alt="language" src="assets/images/country/en_circle.png"
@@ -220,8 +223,7 @@
                     </div>
                 </div>
             </div>
-            <hr>
-            <div class="panel">
+            <div class="panel background-section">
                 <div class="panel-heading">{{'APPS_WIZARD.APP_OPTIONAL_DESCRIPTIONS_HEADER' | translate }}</div>
                 <div class="panel-body">
                     <div class="form-group form-group-sm">
@@ -273,10 +275,10 @@
 </div>
 
 <div *ngIf="isInMode(ComponentMode.CREATE) && activeStepIndex === 4">
-    <div class="bs-callout bs-callout-primary">
-        {{'APPS_WIZARD.APP_DEPLOYMENT_SPEC_STEP_INFO' | translate }}
-    </div>
-    <div class="panel">
+    <div class="panel background-section">
+        <div style="margin-bottom:20px">
+            {{'APPS_WIZARD.APP_DEPLOYMENT_SPEC_STEP_INFO' | translate }}
+        </div>
         <div class="panel-heading">{{'APPS_WIZARD.APP_DEPLOYMENT_HEADER' | translate }}</div>
         <form class="form-horizontal" #appDeploymentForm="ngForm">
             <div class="panel-body">
@@ -408,11 +410,11 @@
 </div>
 
 <div *ngIf="isInMode(ComponentMode.CREATE) && activeStepIndex === 5">
-    <div class="bs-callout bs-callout-primary">
-        {{'APPS_WIZARD.CONFIG_TEMPLATES_STEP_INFO' | translate }}
-    </div>
     <div *ngIf="applicationDTO">
-        <div class="panel">
+        <div class="panel background-section">
+            <div style="margin-bottom:20px">
+                {{'APPS_WIZARD.CONFIG_TEMPLATES_STEP_INFO' | translate }}
+            </div>
             <div class="panel-heading">{{'APPS_WIZARD.APP_CONFIG_TEMPLATES_HEADER' | translate}}</div>
             <form class="form-horizontal" #appConfigForm="ngForm">
                 <div class="panel-body">
@@ -527,7 +529,6 @@
 
                 </div>
             </form>
-            <hr>
             <div class="panel">
                 <div class="panel-heading">{{'APPS_WIZARD.CONFIG_WIZARD_TEMPLATE_LABEL' | translate}}</div>
                 <div class="panel-body">

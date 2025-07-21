@@ -13,6 +13,9 @@ import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TranslateModule } from "@ngx-translate/core";
 import { TooltipModule } from 'primeng/tooltip';
+import {IconField} from 'primeng/iconfield';
+import {InputIcon} from 'primeng/inputicon';
+import {InputTextModule} from 'primeng/inputtext';
 
 
 
@@ -31,8 +34,11 @@ import { TooltipModule } from 'primeng/tooltip';
         PipesModule,
         TableModule,
         FileUploadModule,
-         TranslateModule.forChild(),
-         TooltipModule
+        TranslateModule.forChild(),
+        TooltipModule,
+        IconField,
+        InputIcon,
+        InputTextModule
     ],
     exports: [
         ClusterDetailsComponent,

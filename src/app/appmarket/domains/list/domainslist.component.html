@@ -1,12 +1,12 @@
 <h4 class="header">{{ 'DOMAINS.TITLE' | translate }}</h4>
 <div style="display: flex; align-items: center;  margin-top:20px">
     <div style="margin-right:20px">
-        <span class="p-input-icon-right" style="width: 100%">
-            <i class="pi pi-search" style="font-size: 13px; top: 16px; margin-right: 5px;"></i>
+        <p-iconfield  class="p-input-icon-right" style="width: 100%">
             <input pInputText type="text" name="search" class="form-control" style="width: 100%"
                 (keyup)="onSearchValueChange($event.target.value)" (keyup.enter)="applyFilter()" [(ngModel)]="searchValue"
                 placeholder="{{'SEARCH' | translate}}">
-        </span>
+            <p-inputicon class="pi pi-search" style="font-size: 13px;"></p-inputicon>
+        </p-iconfield>
     </div>
     <div class="flex" style="margin-right:20px">
         <button *roles="['ROLE_SYSTEM_ADMIN']" [routerLink]="['add']" class="btn btn-primary"
@@ -18,7 +18,7 @@
     </div>
     <div *roles="['ROLE_SYSTEM_ADMIN']" class="flex">
         <p-checkbox id="showNotActive" [binary]="true" [(ngModel)]=" showNotActive" class="flex"></p-checkbox>
-        <label for="showNotActive"> {{'DOMAINS.NOTACTIVE' | translate}}</label>
+        <label for="showNotActive" style="color: var(--p-text-0)"> {{'DOMAINS.NOTACTIVE' | translate}}</label>
     </div>
 </div>
 
@@ -56,7 +56,7 @@
                     <span class="dropdown">
                         <a style="display: inline-block" class="dropdown-toggle" aria-expanded="false"
                             aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
-                            <em class="pi pi-cog" style="font-size: 1.8rem; color: var(--l-text-color)"></em>
+                            <em class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></em>
                         </a>
                         <ul class="dropdown-menu pull-right-drop" [appendTo]="'body'">
                             <li><a *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']" [routerLink]="['edit/', domain.id]"

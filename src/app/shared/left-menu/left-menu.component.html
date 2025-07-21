@@ -1,4 +1,4 @@
-<div class="flex flex-column justify-content-between menu-tr" [ngStyle]="{'width': isCollapsed ? '100px' : '300px'}" style="background: var(--menu-color); height: 100%; position: fixed;">
+<div class="flex flex-column justify-content-between menu-tr" [ngStyle]="{'width': isCollapsed ? '100px' : '300px'}" style="background: var(--p-surface-200); height: 100%; position: fixed;">
     <div class="menu flex">
         <div style="display: flex; align-items: center">
             <div class="logo-container">
@@ -6,11 +6,11 @@
                 <img *ngIf="isCollapsed"  class="logo" src="../../../assets/images/nmaas-cloud.png" width="50px">
             </div>
             <div class="toggle-button" (click)="toggleMenu()" [ngStyle]="{'left': isCollapsed ? '85px' : '284px'}">
-                <i *ngIf="!isCollapsed" style="font-size: 1.8rem" class="pi pi-angle-left"></i>
-                <i *ngIf="isCollapsed" style="font-size: 1.8rem" class="pi pi-angle-right"></i>
+                <i *ngIf="!isCollapsed" style="font-size: 1.3rem" class="pi pi-angle-left"></i>
+                <i *ngIf="isCollapsed" style="font-size: 1.3rem" class="pi pi-angle-right"></i>
             </div>
         </div>
-        <div style="margin-top: 30px; padding-right:5px">
+        <div style="margin-top: 30px">
             <nmaas-domain-filter class="drop-domain"></nmaas-domain-filter>
         </div>
         <ul *ngIf="!toggleAdmin" style="margin-top: 30px;" >
@@ -30,6 +30,7 @@
                   </span>
                 </a>
             </li>
+            <p-button (onClick)="toggleDarkMode()">dark</p-button>
         </ul>
         <ul *ngIf="toggleAdmin" style="margin-top: 30px; max-height: 65vh; overflow: auto; padding-right:5px">
             <li [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">

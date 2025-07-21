@@ -12,7 +12,6 @@
 tr.clickable {
     cursor: pointer;
 }
-
-/*.dropdown:hover .dropdown-menu {*/
-/*    display: block;*/
-/*}*/
+:host ::ng-deep .p-datatable-table-container{
+    overflow: unset !important;
+}

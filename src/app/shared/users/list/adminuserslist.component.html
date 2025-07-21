@@ -1,15 +1,15 @@
 <h4 class="header"> {{ 'USERS.TITLE' | translate }}</h4>
 <div class="" style="display: flex; margin-top:20px">
 
-    <div  style="margin-right: 15px; padding-top: 5px;"> {{'USERS.SEARCH' |
-        translate}}</div>
+<!--    <div  style="margin-right: 15px; padding-top: 5px;"> {{'USERS.SEARCH' |-->
+<!--        translate}}</div>-->
 
     <div  class="flex" style="margin-right:20px">
-        <span class="p-input-icon-right" style="width: 100%">
-            <i class="pi pi-search" style="font-size: 13px; top: 16px; margin-right: 5px;"></i>
+        <p-iconfield class="p-input-icon-right" style="width: 100%">
             <input pInputText name="searchText" id="searchText" placeholder="Search" type="text" class="form-control" [(ngModel)]="searchValue"
                 (keyup)="onSearchValueChange($event.target.value)" (keyup.enter)="applyFilter()">
-        </span>
+            <p-inputicon class="pi pi-search" style="font-size: 13px;"></p-inputicon>
+        </p-iconfield>
     </div>
 </div>
 
@@ -72,7 +72,7 @@
                     <span class="dropdown">
                         <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false"
                             aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
-                            <em class="pi pi-cog" style="font-size: 1.8rem; color: var(--l-text-color)"></em>
+                            <em class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></em>
                         </a>
                         <ul class="dropdown-menu pull-right-drop">
                             <li *ngIf="isModeAllowed(ComponentMode.VIEW)">
