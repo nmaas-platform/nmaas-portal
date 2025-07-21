@@ -5,7 +5,7 @@
             <div class="form-group">
                 <label for="name" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.NAME' | translate }}</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control"  id="name" name="name"
+                    <input pInputText type="text" class="form-control"  id="name" name="name"
                            [(ngModel)]="domainGroup.name" #name="ngModel" required>
                     <div *ngIf="name.invalid && (name.dirty || name.touched)"
                          class="alert alert-danger">
@@ -17,7 +17,7 @@
             <div class="form-group" *ngIf="!isInMode(ComponentMode.EDIT)">
                 <label for="codename" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.CODE_NAME' | translate }}</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control"  id="codename"
+                    <input pInputText type="text" class="form-control"  id="codename"
                            name="codename" pattern="[a-zA-Z0-9-]*"
                            [(ngModel)]="domainGroup.codename" #codename="ngModel" minlength="2" maxlength="20" required>
                     <div *ngIf="codename.invalid && (codename.dirty || codename.touched)"
@@ -174,7 +174,7 @@
                                                 {{ 'DOMAIN_DETAILS.PV_STORAGE_SIZE_LIMIT' | translate }}
                                             </label>
                                             <div class="col-sm-8">
-                                                <input type="number" step="1" min="1" max="100" class="form-control"
+                                                <input pInputText type="number" step="1" min="1" max="100" class="form-control"
                                                        id="domain-state-storage-limit-size-{{i}}"
                                                        name="domain-state-storage-limit-size-{{i}} "
                                                        [(ngModel)]="domainGroup.applicationStatePerDomain[i].pvStorageSizeLimit">

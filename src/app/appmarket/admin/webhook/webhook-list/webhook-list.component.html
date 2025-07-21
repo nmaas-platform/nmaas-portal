@@ -50,7 +50,7 @@
                <td class="text-right">
                    <span class="dropdown">
                            <a style="display: inline-block" class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
-                               <em class="pi pi-cog" style="font-size: 1.4rem; color: var(&#45;&#45;l-text-color)"></em>
+                               <em class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></em>
                            </a>
                            <ul class="dropdown-menu pull-right-drop" >
 
@@ -73,16 +73,16 @@
         <div class="flex flex-column">
             <div class="mt-4">
                 <label for="name">{{'WEBHOOKS.NAME' | translate}}</label>
-                <input id="name" type="text" class="form-control" [(ngModel)]="addedWebhook.name" [ngModelOptions]="{standalone: true}">
+                <input pInputText id="name" type="text" class="form-control" [(ngModel)]="addedWebhook.name" [ngModelOptions]="{standalone: true}">
             </div>
 
             <div class="mt-4">
                 <label for="desc">{{'WEBHOOKS.TARGET_URL' | translate}}</label>
-                <input id="desc" type="text" class="form-control" [(ngModel)]="addedWebhook.targetUrl" [ngModelOptions]="{standalone: true}">
+                <input pInputText id="desc" type="text" class="form-control" [(ngModel)]="addedWebhook.targetUrl" [ngModelOptions]="{standalone: true}">
             </div>
             <div class="mt-4">
                 <label for="contactEmail">{{'WEBHOOKS.TYPE' | translate}}</label>
-              <select id="domain" #typeSelect class="form-control" (change)="onTypeSelect(typeSelect.value)" >
+              <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" id="domain" #typeSelect class="form-control" (change)="onTypeSelect(typeSelect.value)" >
                     <option *ngFor="let t of type" [value]="t.name"
                         >{{('WEBHOOKS.' + t.name ) | translate}}</option>
                 </select>       
@@ -91,17 +91,17 @@
 
             <div class="mt-4">
                     <label for="assignDomain">Auth required</label>
-                    <input class="ml-2" type="checkbox" [(ngModel)]="authRequired"  id="authRequired"/>
+                    <input pInputText class="ml-2" type="checkbox" [(ngModel)]="authRequired"  id="authRequired"/>
                 </div>
 
             <div *ngIf="authRequired" class="mt-4">
                 <label for="desc">{{'WEBHOOKS.TOKEN' | translate}}</label>
-                <input id="desc" type="text" class="form-control" [(ngModel)]="addedWebhook.tokenValue" [ngModelOptions]="{standalone: true}">
+                <input pInputText id="desc" type="text" class="form-control" [(ngModel)]="addedWebhook.tokenValue" [ngModelOptions]="{standalone: true}">
             </div>
 
             <div *ngIf="authRequired" class="mt-4">
                 <label for="desc">{{'WEBHOOKS.AUTH' | translate}}</label>
-                <input id="desc" type="text" class="form-control" [(ngModel)]="addedWebhook.authorizationHeader" [ngModelOptions]="{standalone: true}">
+                <input pInputText id="desc" type="text" class="form-control" [(ngModel)]="addedWebhook.authorizationHeader" [ngModelOptions]="{standalone: true}">
             </div>
 
             

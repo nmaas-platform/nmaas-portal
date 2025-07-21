@@ -45,7 +45,7 @@
                 <label class="control-label" for="new-token-name">
                     {{'TOKENS.MODAL.NAME' | translate}}:
                 </label>
-                <input id="new-token-name" type="text" class="form-control" formControlName="name">
+                <input pInputText id="new-token-name" type="text" class="form-control" formControlName="name">
             </div>
             <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
                 <div *ngIf="name.errors.required">{{'SSH_KEYS.MODAL.ERROR.NAME_REQUIRED' | translate}}</div>
@@ -57,7 +57,7 @@
             <div style="display: flex; justify-content: flex-end">
                 <button type="button" class="btn btn-secondary mr-2"
                         (click)="modal.hide()">{{'SSH_KEYS.MODAL.BUTTON_CANCEL' | translate}}</button>
-                <input type="submit" class="btn btn-primary" value="{{'SSH_KEYS.MODAL.BUTTON_ADD' | translate}}"
+                <input pInputText type="submit" class="btn btn-primary" value="{{'SSH_KEYS.MODAL.BUTTON_ADD' | translate}}"
                        [disabled]="!requestForm.valid">
             </div>
 

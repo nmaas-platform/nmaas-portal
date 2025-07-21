@@ -10,6 +10,7 @@ import {FormsModule} from '@angular/forms';
 import {TranslateModule} from '@ngx-translate/core';
 import {InternationalizationService} from "../../../service/internationalization.service";
 import {ClustersModule} from '../clusters/clusters.module';
+import {InputTextModule} from 'primeng/inputtext';
 
 @NgModule({
     declarations: [
@@ -23,7 +24,8 @@ import {ClustersModule} from '../clusters/clusters.module';
         FormsModule,
         PipesModule,
         TranslateModule.forChild(),
-        ClustersModule
+        ClustersModule,
+        InputTextModule
     ],
   providers: [
       ConfigurationService,

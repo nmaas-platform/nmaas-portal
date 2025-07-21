@@ -106,6 +106,13 @@ export const MyPreset = definePreset(Nora, {
         inputtext: {
             background: '{surface.300}'
         },
+        textarea: {
+          background: '{surface.300}',
+          border: {
+              radius: '4px',
+              color: '{accent.600}'
+          }
+        },
         select: {
             overlay: {
                 background: '{surface.50}'
@@ -154,6 +161,20 @@ export const MyPreset = definePreset(Nora, {
         },
         paginator: {
             background: '{neutral.700}',
+        },
+        multiselect: {
+            border: {
+                radius: '4px',
+                color: '{accent.600}',
+            },
+            background: '{surface.300}'
+        },
+        fileupload: {
+            background: '{surface.300}',
+            border: {
+                radius: '4px',
+                color: '{accent.600}'
+            }
         }
     }
 });
