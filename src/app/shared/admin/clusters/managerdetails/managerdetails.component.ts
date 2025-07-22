@@ -7,6 +7,7 @@ import { ClusterExtNetwork, IngressCertificateConfigOption, IngressControllerCon
 import { DatePipe } from '@angular/common';
 import { DomainService } from '../../../../service';
 import { UserDataService } from '../../../../service/userdata.service';
+import {ToastContainerComponent, ToastMode} from '../../../toast-container/toast-container.component';
 
 @Component({
     selector: 'app-manager-details',
@@ -38,7 +39,8 @@ export class ClusterManagerDetailsComponent extends BaseComponent implements OnI
                     private route: ActivatedRoute,
                     private datePipe: DatePipe,
                     private domainService: DomainService,
-                    protected userDataService: UserDataService
+                    protected userDataService: UserDataService,
+                    private toast: ToastContainerComponent
                     
   ) {
     super();
@@ -106,6 +108,8 @@ export class ClusterManagerDetailsComponent extends BaseComponent implements OnI
         this.clusterService.updateCluster(this.cluster).subscribe(result => {
             console.log(result);
             this.cluster = result;
+            this.router.navigate(['/admin/manage/clusters']);
+            this.toast.show('TOAST.SUCCESS.CLUSTER', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER' )
         });
     }
 
