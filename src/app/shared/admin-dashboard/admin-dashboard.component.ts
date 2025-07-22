@@ -17,6 +17,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   basicOptions: any;
   adminData: any;
   domainAdminData: any;
+  operatorData: any;
   instanceCountInPeriodDetails: any[] = [];
   applicationUpgradeStatus: any[] = [];
   domainId;
@@ -39,7 +40,10 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     this.setDefaultDate();
-    this.getAdmin()
+    this.getAdmin();
+    if (this.authService.hasRole('ROLE_OPERATOR')) {
+      this.getOperator();
+    }
     this.refresh = this.userDataService.selectedDomainId.subscribe((domainId) => {
           this.domainId = domainId
           this.getDomainAdmin()
@@ -113,6 +117,14 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
   formatDate(date: any): string {
     return new Date(date).toLocaleString();
+  }
+  getOperator() {
+    this.dashboardService.getOperator().subscribe(
+        res => {
+          this.operatorData = res;
+          console.log("WWWWWWWWWWWWWWWWWWWWW", this.operatorData);
+        }
+    )
   }
   getAdmin() {
     this.appsService.getAllApplicationBase().subscribe(apps => {
