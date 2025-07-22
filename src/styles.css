@@ -86,6 +86,7 @@
     color: var(--p-text-0);
 }
 .card {
+    color: var(--p-text-300);
     position: relative;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -286,4 +287,6 @@ body .p-inputtext{
 body .p-datatable-scrollable > .p-datatable-table-container > .p-datatable-table > .p-datatable-thead, .p-datatable-scrollable > .p-datatable-table-container > .p-virtualscroller > .p-datatable-table > .p-datatable-thead{
     background: var(--p-neutral-700);
 }
-
+body .p-datatable-thead > tr > th.p-datatable-column-sorted {
+    color: var(--p-primary-100);
+}

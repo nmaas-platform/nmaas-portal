@@ -20,8 +20,9 @@ describe('AdminDashboardComponent', () => {
   ];
 
   beforeEach(async () => {
-    const authServiceSpy = jasmine.createSpyObj('AuthService', ['hasDomainRole']);
-    authServiceSpy.hasDomainRole.and.returnValue(true)
+    const authServiceSpy = jasmine.createSpyObj('AuthService', ['hasDomainRole', 'hasRole']);
+    authServiceSpy.hasDomainRole.and.returnValue(true);
+    authServiceSpy.hasRole.and.returnValue(false);
     mockDashboardService = jasmine.createSpyObj('DashboardService', ['getAdmin', 'getDomainAdmin']);
     mockUserDataService = jasmine.createSpyObj('UserDataService', ['selectedDomainId']);
     const appImagesServiceSpy = jasmine.createSpyObj('AppImagesService', ['getAppLogoUrl']);
@@ -35,6 +36,7 @@ describe('AdminDashboardComponent', () => {
     mockDashboardService.getDomainAdmin.and.returnValue(of({
       applicationUpgradeStatus: []
     }));
+    mockDashboardService.getOperator = jasmine.createSpy().and.returnValue(of({}));
 
     await TestBed.configureTestingModule({
       declarations: [AdminDashboardComponent],

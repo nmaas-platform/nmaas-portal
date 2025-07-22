@@ -113,7 +113,7 @@ export class DomainComponent extends BaseComponent implements OnInit {
     public submit(): void {
         if (this.domainId !== undefined) {
             this.updateExistingDomain();
-            this.toast.show('TOAST.SUCCESS.NEW_DOMAIN', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER' )
+            this.toast.show('TOAST.SUCCESS.UPDATE_DOMAIN', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER' )
         } else {
             this.domainService.add(this.domain).subscribe(() => {
                 this.toast.show('TOAST.SUCCESS.NEW_DOMAIN', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER')

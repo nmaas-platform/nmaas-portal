@@ -12,6 +12,7 @@ import { IngressCertificateConfigOption, IngressControllerConfigOption, IngressR
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { UserDataService } from '../../../../service/userdata.service';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {ToastContainerComponent} from '../../../toast-container/toast-container.component';
 
 describe('ClusterManagerDetailsComponent', () => {
   let component: ClusterManagerDetailsComponent;
@@ -20,6 +21,7 @@ describe('ClusterManagerDetailsComponent', () => {
   let mockRouter: jasmine.SpyObj<Router>;
   let mockActivatedRoute: any;
   let userDataService: jasmine.SpyObj<UserDataService>;
+  let mockToast: jasmine.SpyObj<ToastContainerComponent>;
 
   const mockCluster: ClusterManager = {
     id: 1,
@@ -72,6 +74,7 @@ describe('ClusterManagerDetailsComponent', () => {
     mockActivatedRoute = {
       params: of({ id: 1 })
     };
+    mockToast = jasmine.createSpyObj('ToastContainerComponent', ['show']);
 
     TestBed.configureTestingModule({
     declarations: [ClusterManagerDetailsComponent],
@@ -89,6 +92,7 @@ describe('ClusterManagerDetailsComponent', () => {
         { provide: Router, useValue: routerSpy },
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
         { provide: UserDataService, useValue: userDataServiceSpy },
+        { provide: ToastContainerComponent, useValue: mockToast },
         DatePipe,
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()

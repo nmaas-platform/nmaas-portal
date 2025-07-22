@@ -24,4 +24,8 @@ export class DashboardService extends GenericDataService {
   public getDomainAdmin(domainId?: number) {
     return this.get(this.appConfig.getApiUrl() + '/dashboard/domain/' + domainId)
   }
+
+  public getOperator() {
+    return this.get(this.appConfig.getApiUrl() + '/dashboard/operator');
+  }
 }

@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-default" style="background: var(--p-surface-200);  border-color: var(--p-accent-600)">
   <div class="panel-body panel-container">
 
     <div class="col-sm-4">
@@ -7,14 +7,14 @@
       </div>
       <div class="form-group">
         <label class="control-label" for="{{id}}-type-{{storageVolume.type}}">{{'APP_STORAGE_VOLUME_EDIT.TYPE' | translate}}: </label>
-        <select class="form-control" id="{{id}}-type-{{storageVolume.type}}" [(ngModel)]="storageVolume.type">
+        <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" id="{{id}}-type-{{storageVolume.type}}" [(ngModel)]="storageVolume.type">
           <option *ngIf="isMain()" value="{{ServiceStorageVolumeType.MAIN}}">MAIN</option>
           <option *ngFor="let s of storageVolumeTypes" value="{{ServiceStorageVolumeType[s]}}">{{s}}</option>
         </select>
       </div>
       <div class="form-group">
         <label class="control-label" for="{{id}}-defaultStorageSpace-{{storageVolume.type}}">{{'APP_STORAGE_VOLUME_EDIT.DEFAULT_STORAGE_SPACE' | translate}}: </label>
-        <input class="form-control" type="text" id="{{id}}-defaultStorageSpace-{{storageVolume.type}}" [(ngModel)]="storageVolume.defaultStorageSpace">
+        <input pInputText class="form-control" type="text" id="{{id}}-defaultStorageSpace-{{storageVolume.type}}" [(ngModel)]="storageVolume.defaultStorageSpace">
       </div>
     </div>
 
@@ -25,7 +25,7 @@
       <li *ngFor="let k of getDeploymentParamsKeys(); let i=index" class="deploy-param-row">
         <div class="form-group col-sm-11">
           <label class="control-label" for="{{id}}-{{i}}-param">{{'APP_STORAGE_VOLUME_EDIT.PARAM' | translate}}: {{k}}</label>
-          <input class="form-control" type="text" id="{{id}}-{{i}}-param" [(ngModel)]="storageVolume.deployParameters[k]">
+          <input pInputText class="form-control" type="text" id="{{id}}-{{i}}-param" [(ngModel)]="storageVolume.deployParameters[k]">
         </div>
         <div class="col-sm-1">
           <button class="btn btn-danger" role="button" (click)="removeDeployParam(k)">{{'APP_STORAGE_VOLUME_EDIT.REMOVE_PARAM' | translate}}</button>
@@ -38,11 +38,11 @@
         <div class="form-group col-sm-11">
           <div class="double-form col-sm-6">
             <label class="control-label" for="new-key">{{'APP_STORAGE_VOLUME_EDIT.NEW_KEY' | translate}}</label>
-            <input type="text" id="new-key" class="form-control" [(ngModel)]="newKey">
+            <input pInputText type="text" id="new-key" class="form-control" [(ngModel)]="newKey">
           </div>
           <div class="double-form col-sm-6">
             <label class="control-label" for="new-value">{{'APP_STORAGE_VOLUME_EDIT.NEW_VALUE' | translate}}</label>
-            <input type="text" id="new-value" class="form-control" [(ngModel)]="newValue">
+            <input pInputText type="text" id="new-value" class="form-control" [(ngModel)]="newValue">
           </div>
         </div>
         <div class="col-sm-1">

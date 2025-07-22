@@ -67,7 +67,7 @@
     position: absolute;
     border-radius: 4px;
     width:91%;
-    margin-bottom:5px;
+    margin-bottom:10px;
     border:none;
 }
 :host ::ng-deep .p-menu .p-menuitem > .p-menuitem-content .p-menuitem-link  {
