@@ -287,4 +287,6 @@ body .p-inputtext{
 body .p-datatable-scrollable > .p-datatable-table-container > .p-datatable-table > .p-datatable-thead, .p-datatable-scrollable > .p-datatable-table-container > .p-virtualscroller > .p-datatable-table > .p-datatable-thead{
     background: var(--p-neutral-700);
 }
-
+body .p-datatable-thead > tr > th.p-datatable-column-sorted {
+    color: var(--p-primary-100);
+}

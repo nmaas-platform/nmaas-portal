@@ -176,6 +176,15 @@ export const MyPreset = definePreset(Nora, {
                 radius: '4px',
                 color: '{accent.600}'
             }
+        },
+        datatable: {
+            header: {
+                cell: {
+                    selected: {
+                        color: '{primary.100}',
+                    }
+                }
+            }
         }
     }
 });

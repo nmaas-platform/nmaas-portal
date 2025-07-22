@@ -122,7 +122,6 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     this.dashboardService.getOperator().subscribe(
         res => {
           this.operatorData = res;
-          console.log("WWWWWWWWWWWWWWWWWWWWW", this.operatorData);
         }
     )
   }
