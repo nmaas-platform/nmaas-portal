@@ -16,7 +16,7 @@
         </div>
         <div class="grid" style="display: flex; justify-content: space-between;">
             <div class="background-section width-50 " style="margin-right: 20px">
-                <div style=" margin-bottom: 20px;   display: flex; justify-content: space-between;">
+                <div style=" margin-bottom: 20px;   display: flex; justify-content: space-between; flex-wrap: wrap">
                     <h5 style="font-weight: bold">{{ 'DASHBOARD.APP_DEPLOYMENTS' | translate }} <ng-container *ngIf="rangeDates && rangeDates[0] && rangeDates[1]; else lastWeek">
                         from {{ rangeDates[0] | date:'dd.MM.yyyy' }} to {{ rangeDates[1] | date:'dd.MM.yyyy' }}
                     </ng-container>

@@ -177,13 +177,9 @@ export const MyPreset = definePreset(Nora, {
                 color: '{accent.600}'
             }
         },
-        datatable: {
-            header: {
-                cell: {
-                    selected: {
-                        color: '{primary.100}',
-                    }
-                }
+        menu: {
+            item: {
+                padding: '0.7rem 0.75rem',
             }
         }
     }
