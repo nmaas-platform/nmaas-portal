@@ -114,6 +114,7 @@ export const MyPreset = definePreset(Nora, {
           }
         },
         select: {
+            background: '{surface.300}',
             overlay: {
                 background: '{surface.50}'
             },

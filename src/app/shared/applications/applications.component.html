@@ -10,7 +10,7 @@
 	</div>
 	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 form-inline">
 		<div class="form-group" style="width: 100%">
-			<label for="sortMode" style="margin-right: 6px;" >{{'APP_INSTANCES.SORT' | translate}}</label>
+			<label for="sortMode" style="margin-right: 6px; color: var(--p-text-0)" >{{'APP_INSTANCES.SORT' | translate}}</label>
 			<select id="sortMode" name="sortMode" class="form-control" [(ngModel)]="sortMode" (ngModelChange)="onSort()"
                     style="width: 100%; background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color:var(--p-text-0)">
 				<option *ngFor="let opt of sortModeList" [value]="opt">{{('APP_INSTANCES.SORT_MODE.' + opt) | translate}}</option>
@@ -25,7 +25,7 @@
 				[ngModelOptions]="{standalone: true}"
 				id="subscribed"
 				ngDefaultControl/>
-		<label style="margin: 0; padding-left: 5px; font-weight: unset; text-wrap: nowrap" for="subscribed">Show subscribed only</label>
+		<label style="margin: 0; padding-left: 5px; font-weight: unset; text-wrap: nowrap; color: var(--p-text-0)" for="subscribed">Show subscribed only</label>
 	</div>
 <!--	<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">-->
 <!--		<div class="btn-toolbar" role="toolbar">-->

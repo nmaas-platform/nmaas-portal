@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-default" style="background: var(--p-surface-200);  border-color: var(--p-accent-600)">
   <div class="panel-body panel-container">
 
     <div class="col-sm-4">
@@ -7,28 +7,28 @@
       </div>
       <div class="form-group">
         <label class="control-label" for="{{id}}-type-{{accessMethod.type}}">{{'APP_ACCESS_METHOD_EDIT.TYPE' | translate}}: </label>
-        <select class="form-control" id="{{id}}-type-{{accessMethod.type}}" [(ngModel)]="accessMethod.type">
+        <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" id="{{id}}-type-{{accessMethod.type}}" [(ngModel)]="accessMethod.type">
           <option *ngIf="isDefault()" value="{{ServiceAccessMethodType.DEFAULT}}">DEFAULT</option>
           <option *ngFor="let s of accessMethodTypes" value="{{ServiceAccessMethodType[s]}}">{{s}}</option>
         </select>
       </div>
       <div class="form-group">
         <label class="control-label" for="{{id}}-name-{{accessMethod.type}}">{{'APP_ACCESS_METHOD_EDIT.NAME' | translate}}: </label>
-        <input class="form-control" type="text" id="{{id}}-name-{{accessMethod.type}}" ngDefaultControl [(ngModel)]="accessMethod.name">
+        <input pInputText class="form-control" type="text" id="{{id}}-name-{{accessMethod.type}}" ngDefaultControl [(ngModel)]="accessMethod.name">
       </div>
       <div class="form-group">
         <label class="control-label" for="{{id}}-tag-{{accessMethod.type}}">{{'APP_ACCESS_METHOD_EDIT.TAG' | translate}}: </label>
-        <input class="form-control" type="text" id="{{id}}-tag-{{accessMethod.type}}" ngDefaultControl [(ngModel)]="accessMethod.tag">
+        <input pInputText class="form-control" type="text" id="{{id}}-tag-{{accessMethod.type}}" ngDefaultControl [(ngModel)]="accessMethod.tag">
       </div>
       <div class="form-group">
         <label class="control-label" for="{{id}}-conditionType-{{accessMethod.conditionType}}">{{'APP_ACCESS_METHOD_EDIT.CONDITION_TYPE' | translate}}: </label>
-        <select class="form-control" id="{{id}}-conditionType-{{accessMethod.conditionType}}" [(ngModel)]="accessMethod.conditionType" (change)="onSelectConditionType($event)">
+        <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" id="{{id}}-conditionType-{{accessMethod.conditionType}}" [(ngModel)]="accessMethod.conditionType" (change)="onSelectConditionType($event)">
           <option *ngFor="let s of conditionType; let i=index" value="{{s}}">{{s}}</option>
         </select>
       </div>
       <div *ngIf="accessMethod.conditionType === 'DEPLOYMENT_PARAMETER'" class="form-group">
         <label class="control-label" for="{{id}}-condition-{{accessMethod.type}}">{{'APP_ACCESS_METHOD_EDIT.CONDITION' | translate}}: </label>
-        <input class="form-control" type="text" id="{{id}}-condition-{{accessMethod.type}}" ngDefaultControl [(ngModel)]="accessMethod.condition">
+        <input pInputText class="form-control" type="text" id="{{id}}-condition-{{accessMethod.type}}" ngDefaultControl [(ngModel)]="accessMethod.condition">
       </div>
     </div>
 
@@ -39,7 +39,7 @@
       <li *ngFor="let k of getDeploymentParamsKeys(); let i=index" class="deploy-param-row">
         <div class="form-group col-sm-11">
           <label class="control-label" for="{{id}}-{{i}}-param">{{'APP_ACCESS_METHOD_EDIT.PARAM' | translate}}: {{k}}</label>
-          <input class="form-control" type="text" id="{{id}}-{{i}}-param" name="keyValue" ngDefaultControl (change)="setKeyValueToDeployParam()" [(ngModel)]="keyValue[i].value">
+          <input pInputText class="form-control" type="text" id="{{id}}-{{i}}-param" name="keyValue" ngDefaultControl (change)="setKeyValueToDeployParam()" [(ngModel)]="keyValue[i].value">
         </div>
         <div class="col-sm-1">
           <button class="btn btn-danger" role="button" (click)="removeDeployParam(k,keyValue[i])">{{'APP_ACCESS_METHOD_EDIT.REMOVE_PARAM' | translate}}</button>
@@ -57,7 +57,7 @@
           </div>
           <div class="double-form col-sm-6">
             <label class="control-label" for="new-value">{{'APP_ACCESS_METHOD_EDIT.NEW_VALUE' | translate}}</label>
-            <input type="text" id="new-value" class="form-control" [(ngModel)]="newValue">
+            <input pInputText type="text" id="new-value" class="form-control" [(ngModel)]="newValue">
           </div>
         </div>
         <div class="col-sm-1">
