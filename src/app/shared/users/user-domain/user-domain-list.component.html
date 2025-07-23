@@ -3,23 +3,23 @@
 <h4 class="header"> {{ 'USERS.TITLE' | translate }}</h4>
 <div class="" style="display: flex; margin-top:20px">
 
-    <div *ngIf="isInAddToDomainMode" style="margin-right: 15px; padding-top: 5px;"> {{'USERS.SEARCH' |
-        translate}}</div>
+<!--    <div *ngIf="isInAddToDomainMode" style="margin-right: 15px; padding-top: 5px;"> {{'USERS.SEARCH' |-->
+<!--        translate}}</div>-->
 
     <div class="flex" style="margin-right:20px">
-        <span class="p-input-icon-right" style="width: 100%">
-            <i class="pi pi-search" style="font-size: 13px; top: 16px; margin-right: 5px;"></i>
+        <p-iconfield class="p-input-icon-right" style="width: 100%">
             <input pInputText name="searchText" id="searchText" placeholder="Search" type="text" class="form-control"
                 [(ngModel)]="searchValue" (keyup)="onSearchValueChange($event.target.value)"
                 (keyup.enter)="applyFilter()">
-        </span>
+            <p-inputicon class="pi pi-search" style="font-size: 13px;"></p-inputicon>
+        </p-iconfield>
     </div>
 
     <button
         *ngIf="authService.hasDomainRole(domainId, 'ROLE_DOMAIN_ADMIN') || authService.hasDomainRole(domainId, 'ROLE_GROUP_DOMAIN_ADMIN')"
         class="btn btn-primary" (click)="changeMode()">
-        <span *ngIf="isModeAllowed(ComponentMode.DELETE)">{{'USERS.ADD_TO_DOMAIN_BUTTON' | translate}}</span>
-        <span *ngIf="isModeAllowed(ComponentMode.EDIT)">{{'USERS.GO_BACK_BUTTON' | translate}}</span>
+        <span *ngIf="isInMode(ComponentMode.DELETE)">{{'USERS.ADD_TO_DOMAIN_BUTTON' | translate}}</span>
+        <span *ngIf="isInMode(ComponentMode.EDIT)">{{'USERS.GO_BACK_BUTTON' | translate}}</span>
     </button>
 </div>
 
