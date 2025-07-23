@@ -55,6 +55,12 @@ export class UserDomainListComponent extends BaseComponent implements OnInit, On
   }
 
   ngOnInit() {
+    this.allowedModes = [
+      this.ComponentMode.VIEW,
+      this.ComponentMode.EDIT,
+      this.ComponentMode.DELETE
+    ];
+    this.mode = this.ComponentMode.DELETE;
     // set stored value of maxElementsPerPage
     const i = sessionStorage.getItem(this.users_item_number_key);
     if (i) {
@@ -262,6 +268,7 @@ export class UserDomainListComponent extends BaseComponent implements OnInit, On
 
   public changeMode() {
     this.isInAddToDomainMode = !this.isInAddToDomainMode;
+    this.mode = this.isInAddToDomainMode ? this.ComponentMode.EDIT : this.ComponentMode.DELETE;
   }
 
   public searchUsers(search: string) {
