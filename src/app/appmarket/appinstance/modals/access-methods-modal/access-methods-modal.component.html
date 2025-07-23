@@ -13,8 +13,11 @@
                 <tbody>
                 <tr *ngFor="let am of externalAccessMethods">
                     <td><strong>{{am.name}}</strong></td>
-                    <td class="text-right"><a type="button" class="btn btn-primary"
+                    <td *ngIf="accessMethodTypeAsEnum(am.type) !== 'INTERNAL'" class="text-right"><a type="button" class="btn btn-primary"
                            href="{{validateURL(am.url)}}" target="_blank" rel="noopener noreferrer">{{'APP_ACCESS_METHODS_MODAL.EXTERNAL_ACCESS' | translate}}</a>
+                    </td>
+                    <td *ngIf="accessMethodTypeAsEnum(am.type) === 'INTERNAL'">
+                        <div class="well well-sm">{{am.protocol}}: {{!!am.url ? am.url : "Not available"}}</div>
                     </td>
                 </tr>
                 </tbody>
