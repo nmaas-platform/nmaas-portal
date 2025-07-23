@@ -28,7 +28,8 @@ export class AccessMethodsModalComponent implements OnInit {
   ngOnInit() {
     if (this.accessMethods) {
       this.externalAccessMethods = this.accessMethods.filter(s => this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.EXTERNAL
-          || this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.DEFAULT);
+          || this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.DEFAULT
+          || this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.INTERNAL);
       this.internalAccessMethods = this.accessMethods.filter(s => this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.INTERNAL);
       this.publicAccessMethods = this.accessMethods.filter(s => this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.PUBLIC);
       this.localAccessMethods = this.accessMethods.filter(s => this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.LOCAL);
