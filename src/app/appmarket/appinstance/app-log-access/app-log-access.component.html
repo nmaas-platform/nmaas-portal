@@ -2,13 +2,13 @@
 
 <div *ngIf="podInfos.length > 0">
 
-    <div class="grid mt-2 mb-2">
+    <div class="flex mt-2 mb-2">
         <div>
-            <p class="font-bold pl-2">{{ 'APP_INSTANCE.LOG_ACCESS.POD' | translate}}</p>
+            <p class="font-bold pl-2" style="color: var(--p-text-0)">{{ 'APP_INSTANCE.LOG_ACCESS.POD' | translate}}</p>
             <p-select [options]="podInfos" [(ngModel)]="selectedPodInfo"
                         (onChange)="selectPod($event)"
                         placeholder="{{ 'APP_INSTANCE.LOG_ACCESS.DROPDOWN_PLACEHOLDER' | translate}}"
-                        class="col-2 bottom">
+                        class="flex bottom">
                 <ng-template let-option pTemplate="items">
                     {{ option.displayName }}
                 </ng-template>
@@ -18,11 +18,11 @@
             </p-select>
         </div>
         <div *ngIf="!isLoading" class="ml-5">
-            <p class="font-bold pl-2">{{ 'APP_INSTANCE.LOG_ACCESS.CONTAINER' | translate}}</p>
+            <p class="font-bold pl-2" style="color: var(--p-text-0)">{{ 'APP_INSTANCE.LOG_ACCESS.CONTAINER' | translate}}</p>
             <p-select [options]="selectedPodInfo.containers" [(ngModel)]="selectedContainer"
                         (onChange)="selectContainer()"
                         placeholder="{{ 'APP_INSTANCE.LOG_ACCESS.DROPDOWN_PLACEHOLDER' | translate}}"
-                        class="col-2 bottom">
+                        class="bottom">
                 <ng-template let-option pTemplate="items">
                     {{ option }}
                 </ng-template>
