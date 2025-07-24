@@ -1,7 +1,18 @@
 import { User, UserListEntry } from '../../../model';
 import { CacheService, CustomerSearchCriteria, DomainService, UserService } from '../../../service';
 import { BaseComponent } from '../../common/basecomponent/base.component';
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import { debounceTime, distinctUntilChanged, Observable, of, Subject } from 'rxjs';
 
 import { Role, UserRole } from '../../../model/userrole';
@@ -11,6 +22,7 @@ import { AuthService } from '../../../auth/auth.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { PaginationSettings, PrimeNgLazyLoadEvent } from '../../../service/page';
+import {ModalComponent} from '../../modal';
 
 
 @Component({
@@ -22,6 +34,11 @@ import { PaginationSettings, PrimeNgLazyLoadEvent } from '../../../service/page'
 export class UserDomainListComponent extends BaseComponent implements OnInit, OnDestroy {
   public users_item_number_key = 'NUMBER_OF_USERS_ITEM_KEY';
 
+  @ViewChild(ModalComponent, {static: true})
+  public readonly modal: ModalComponent;
+
+  @ViewChild('addUser')
+  public userAccessModal: ModalComponent;
 
   public pageNumber = 1;
   public paginatorName = 'paginator-identifier';
@@ -31,6 +48,7 @@ export class UserDomainListComponent extends BaseComponent implements OnInit, On
   public domainId: number;
   public paginationSettings: PaginationSettings = new PaginationSettings(0, 15, 1, 'id', 'asc', {}, 0);
   public searchValue = '';
+  public searchInModalValue = '';
 
   public users: UserListEntry[] = [];
   public loading: boolean = false;
@@ -55,12 +73,6 @@ export class UserDomainListComponent extends BaseComponent implements OnInit, On
   }
 
   ngOnInit() {
-    this.allowedModes = [
-      this.ComponentMode.VIEW,
-      this.ComponentMode.EDIT,
-      this.ComponentMode.DELETE
-    ];
-    this.mode = this.ComponentMode.DELETE;
     // set stored value of maxElementsPerPage
     const i = sessionStorage.getItem(this.users_item_number_key);
     if (i) {
@@ -266,11 +278,6 @@ export class UserDomainListComponent extends BaseComponent implements OnInit, On
       )
   }
 
-  public changeMode() {
-    this.isInAddToDomainMode = !this.isInAddToDomainMode;
-    this.mode = this.isInAddToDomainMode ? this.ComponentMode.EDIT : this.ComponentMode.DELETE;
-  }
-
   public searchUsers(search: string) {
     if (search === '') {
       this.usersToAdd = [];
@@ -289,7 +296,14 @@ export class UserDomainListComponent extends BaseComponent implements OnInit, On
       this.isInAddToDomainMode = false;
     });
   }
-
+  public showModal(): void {
+    this.modal.show();
+  }
+  public closeModal() {
+    this.modal.hide()
+    this.searchInModalValue = '';
+    this.usersToAdd = [];
+  }
 
 }
 
@@ -299,4 +313,5 @@ function roleConvert(role: string | Role): Role {
   }
   return role;
 }
+
 
