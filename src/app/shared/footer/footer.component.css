@@ -2,7 +2,7 @@ footer {
   flex-shrink: 0;
   padding-bottom: 0px;
   padding-top: 15px;
-  background-color: var(--menu-color);
+  background-color: var(--p-surface-200);
   display:flex;
   /* margin-left: -1rem; */
 }

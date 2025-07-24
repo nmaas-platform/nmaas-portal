@@ -16,7 +16,8 @@ import {AuthService} from '../../auth/auth.service';
     templateUrl: './applist.component.html',
     styleUrls: [],
     encapsulation: ViewEncapsulation.None,
-    providers: [AppsService, AppSubscriptionsService, SortService, SortableTableDirective, SortableColumnComponent]
+    providers: [AppsService, AppSubscriptionsService, SortService, SortableTableDirective, SortableColumnComponent],
+    standalone: false
 })
 export class AppListComponent implements OnInit, OnDestroy {
 

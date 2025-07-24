@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {JWT_OPTIONS, JwtModule} from '@auth0/angular-jwt';
 import {AppConfigService} from '../service/appconfig.service';
 import {AuthService} from './auth.service'
@@ -15,24 +15,18 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
     whitelistedDomains: [new RegExp("[\s\S]*")]
 });
 
-@NgModule({
-    declarations: [
+@NgModule({ declarations: [
         LoginSuccessComponent
-    ],
-  providers: [
-    AuthGuard,
-    RoleGuard,
-    AuthService
-  ],
-  imports: [
-      HttpClientModule,
-      JwtModule.forRoot({
-          jwtOptionsProvider: {
-              provide: JWT_OPTIONS,
-              deps: [AppConfigService],
-              useFactory: jwtOptionsFactory
-          }
-      })
-  ]
-})
+    ], imports: [JwtModule.forRoot({
+            jwtOptionsProvider: {
+                provide: JWT_OPTIONS,
+                deps: [AppConfigService],
+                useFactory: jwtOptionsFactory
+            }
+        })], providers: [
+        AuthGuard,
+        RoleGuard,
+        AuthService,
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AuthModule {}

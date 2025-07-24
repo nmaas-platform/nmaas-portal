@@ -8,10 +8,12 @@ import {AuthService} from '../../../auth/auth.service';
 import {SharedModule} from '../../../shared';
 import {FormsModule} from '@angular/forms';
 import createSpyObj = jasmine.createSpyObj;
+import {ToastContainerComponent} from '../../../shared/toast-container/toast-container.component';
 
 describe('DomainComponent', () => {
     let component: DomainComponent;
     let fixture: ComponentFixture<DomainComponent>;
+    let mockToast: jasmine.SpyObj<ToastContainerComponent>;
 
     beforeEach(waitForAsync(() => {
         const authServiceSpy = createSpyObj('AuthService', ['hasRole']);
@@ -19,6 +21,7 @@ describe('DomainComponent', () => {
 
         const domainServiceSpy = createSpyObj('DomainService', ['getGlobalDomainId'])
         domainServiceSpy.getGlobalDomainId.and.returnValue(1)
+        mockToast = jasmine.createSpyObj('ToastContainerComponent', ['show']);
 
         TestBed.configureTestingModule({
             declarations: [DomainComponent],
@@ -38,6 +41,7 @@ describe('DomainComponent', () => {
                 {provide: UserService, useValue: {}},
                 {provide: AuthService, useValue: authServiceSpy},
                 {provide: AppsService, useValue: {}},
+                { provide: ToastContainerComponent, useValue: mockToast }
             ]
         })
             .compileComponents();

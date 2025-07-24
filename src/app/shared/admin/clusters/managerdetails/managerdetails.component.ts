@@ -6,17 +6,21 @@ import { BaseComponent } from '../../../common/basecomponent/base.component';
 import { ClusterExtNetwork, IngressCertificateConfigOption, IngressControllerConfigOption, IngressResourceConfigOption, NamespaceConfigOption } from '../../../../model/cluster';
 import { DatePipe } from '@angular/common';
 import { DomainService } from '../../../../service';
+import { UserDataService } from '../../../../service/userdata.service';
+import {ToastContainerComponent, ToastMode} from '../../../toast-container/toast-container.component';
 
 @Component({
-  selector: 'app-manager-details',
-  templateUrl: './managerdetails.component.html',
-  styleUrl: './managerdetails.component.css'
+    selector: 'app-manager-details',
+    templateUrl: './managerdetails.component.html',
+    styleUrl: './managerdetails.component.css',
+    standalone: false
 })
 export class ClusterManagerDetailsComponent extends BaseComponent implements OnInit  {
 
   public cluster: ClusterManager ;
   public cluterId;
   public error = "";
+  public selectedDomain: string = ""
 
   public domains = [];
 
@@ -34,7 +38,9 @@ export class ClusterManagerDetailsComponent extends BaseComponent implements OnI
                     public router: Router,
                     private route: ActivatedRoute,
                     private datePipe: DatePipe,
-                    private domainService: DomainService
+                    private domainService: DomainService,
+                    protected userDataService: UserDataService,
+                    private toast: ToastContainerComponent
                     
   ) {
     super();
@@ -42,7 +48,10 @@ export class ClusterManagerDetailsComponent extends BaseComponent implements OnI
   }
 
   public ngOnInit() {
-    this.domainService.getAllBase().subscribe(result => this.domains = result);
+    //  this.userDataService.selectedDomainId.subscribe((domainId) => {
+     
+    // })
+    // this.domainService.getAllBase().subscribe(result => this.domains = result);
 
     this.route.params.subscribe(params => {
         this.cluterId = +params['id'];
@@ -50,21 +59,15 @@ export class ClusterManagerDetailsComponent extends BaseComponent implements OnI
         this.clusterService.getClusterDetails(this.cluterId).subscribe(result => {
           console.log(result);
           this.cluster = result;
+          if(this.cluster.domainNames !== undefined && this.cluster.domainNames !== null && this.cluster.domainNames.length > 0) {
+            console.log("Domain names: ", this.cluster.domainNames);
+            this.selectedDomain = this.cluster.domainNames[0];
+          }
         } )
     })
   }
 
- public sendCluster(event: any) {
-    console.log(event);
-    const file = event.files[0];
-    const view = new ClusterManager();
-    view.name = "test"
-    view.description="testest"
-    this.clusterService.sendCluster(file, view).subscribe(result => { 
-        console.log(result);
-    }
-    )
-    }
+
 
     private initializeMaps() {
         this.resourceConfigOption.set('Do nothing', IngressResourceConfigOption.NOT_USED);
@@ -105,6 +108,8 @@ export class ClusterManagerDetailsComponent extends BaseComponent implements OnI
         this.clusterService.updateCluster(this.cluster).subscribe(result => {
             console.log(result);
             this.cluster = result;
+            this.router.navigate(['/admin/manage/clusters']);
+            this.toast.show('TOAST.SUCCESS.CLUSTER', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER' )
         });
     }
 
@@ -112,6 +117,8 @@ export class ClusterManagerDetailsComponent extends BaseComponent implements OnI
 
       console.log(event);
       this.cluster.domainNames = [event]
+      this.selectedDomain = event;
+      console.log(this.selectedDomain)
     
   }
 

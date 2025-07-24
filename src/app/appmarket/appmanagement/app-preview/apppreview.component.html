@@ -1,126 +1,105 @@
 <div class="row">
-  <p class="bs-callout bs-callout-success">
-    {{'APPS_PREVIEW.PREVIEW_MESSAGE' | translate}}
-  </p>
-  <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2">
-    <div class="thumbnail" *ngIf="logo">
-      <img alt="App logo" [src]="logo.objectURL || 'assets/images/app-logo-example.png'"/>
-    </div>
-    <div class="thumbnail" *ngIf="!logo">
-      <img alt="App logo" src="assets/images/app-logo-example.png"/>
-    </div>
-  </div>
-
-  <div class="col-xs-8 col-sm-9 col-md-9 col-lg-10" *ngIf="app">
-    <div class="row">
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-        <h2 style="margin: 4px 0;">{{app?.applicationBase.name}}</h2>
-        <rate *ngIf="app?.applicationBase.id" [showVotes]="true" [short]="true" [pathUrl]="getPathUrl(app?.applicationBase.id)"></rate>
-        <rate *ngIf="!app?.applicationBase.id" [showVotes]="true" [short]="true" [pathUrl]="getPathUrl(1)"></rate>
-        <div class="text-muted mt-2" style="font-size: small;">
-          <span *ngIf="isVersionView()">v.{{app?.application.version}}</span>
-          <a *ngIf="!isVersionView()" style="cursor: pointer;" (click)="showVersions()">{{'APP_INSTANCE.SHOW_VERSIONS_LABEL' | translate }}</a>
-          | <a [href]="getValidLink(app?.applicationBase.licenseUrl)" target="_blank">{{app?.applicationBase.license}}</a>
-          | <a [href]="getValidLink(app?.applicationBase.wwwUrl)">WWW</a>
-          | <a [href]="getValidLink(app?.applicationBase.sourceUrl)" target="_blank">{{'APP_INSTANCE.SOURCE' | translate}}</a>
-          | <a [href]="getValidLink(app?.applicationBase.issuesUrl)" target="_blank">{{'APP_INSTANCE.ISSUES' | translate}}</a>
+    <p class="bs-callout bs-callout-success" style="color: var(--p-text-0)">
+        {{'APPS_PREVIEW.PREVIEW_MESSAGE' | translate}}
+    </p>
+    <div *ngIf="app" class="background-section" style="display:flex; flex-direction:column;">
+        <div style="display: flex; flex-direction:row; justify-content: space-between; padding-bottom:50px">
+            <div style="display: flex; align-items: center">
+                <div class="" *ngIf="logo">
+                    <img alt="App logo" [src]="logo.objectURL || 'assets/images/app-logo-example.png'"  width="90px"/>
+                </div>
+                <div class="" *ngIf="!logo" style="display: flex; align-items: center">
+                    <img alt="App logo" src="assets/images/app-logo-example.png" width="90px" />
+                </div>
+                <h3 style="margin:0 20px;">{{app?.applicationBase.name}}</h3>
+            </div>
+            <div style="display:flex; align-items: center">
+                <div class=" pull-right">
+                    <button class="btn btn-primary m-1">{{'APPLICATIONS.DEPLOY_BUTTON' | translate}}</button>
+                    <button class="btn btn-danger m-1">{{'APPLICATIONS.UNSUBSCRIBE_BUTTON' | translate}}</button>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-        <div class="text-right">
+        <div style="display: flex;flex-direction: column;">
+            <div class="">
+                <div class="text-muted mt-2" style="font-size: small;">
+                    <span *ngIf="isVersionView()">v.{{app?.application.version}}</span>
+                    <a *ngIf="!isVersionView()" style="cursor: pointer;" (click)="showVersions()">{{'APP_INSTANCE.SHOW_VERSIONS_LABEL' | translate }}</a>
+                    | <a [href]="getValidLink(app?.applicationBase.licenseUrl)" target="_blank">{{app?.applicationBase.license}}</a>
+                    | <a [href]="getValidLink(app?.applicationBase.wwwUrl)">WWW</a>
+                    | <a [href]="getValidLink(app?.applicationBase.sourceUrl)" target="_blank">{{'APP_INSTANCE.SOURCE' | translate}}</a>
+                    | <a [href]="getValidLink(app?.applicationBase.issuesUrl)" target="_blank">{{'APP_INSTANCE.ISSUES' | translate}}</a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="text-right">
 
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="row" *ngIf="versionVisible">
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" *ngIf="app?.applicationBase.versions">
-        <a *ngFor="let version of app?.applicationBase.versions" class="tag-button">
-          v.{{version.version}}
-        </a>
-      </div>
-    </div>
-    <div class="row mt-2">
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" *ngIf="app?.applicationBase.tags">
-        <a *ngFor="let tag of app?.applicationBase.tags" class="tag-button">
-          {{tag.name | titlecase}}
-        </a>
-      </div>
-    </div>
-    <div class="row">
-      <div class=" pull-right">
-        <button class="btn btn-primary m-1">{{'APPLICATIONS.DEPLOY_BUTTON' | translate}}</button>
-        <button class="btn btn-danger m-1">{{'APPLICATIONS.UNSUBSCRIBE_BUTTON' | translate}}</button>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<div class='row' *ngIf="app?.applicationBase.id && !screenshots">
-  <h3>{{'SCREENSHOTS.HEADER' | translate}}</h3>
-  <screenshots [pathUrl]="'/apps/' + app?.applicationBase.id + '/screenshots'"></screenshots>
-</div>
-
-<div class='row' *ngIf="!app?.applicationBase.id || screenshots">
-  <h3>{{'SCREENSHOTS.HEADER' | translate}}</h3>
-  <div class="carousel slide media-carousel col-md-12" id="app-preview-carousel" *ngIf="screenshots">
-    <div class="carousel-inner">
-      <div class="item" *ngFor="let row of screenshots | group:4; let firstRow = last" [ngClass]="{'active': firstRow}">
-        <div class="row">
-          <div class="col-md-3" *ngFor="let screenshot of row">
-            <a class="thumbnail">
-              <img alt="Screenshot" [src]="screenshot.objectURL || 'assets/images/app-screenshot-example.png'">
-            </a>
-          </div>
+        <div class="" *ngIf="versionVisible">
+            <div class="" *ngIf="app?.applicationBase.versions">
+                <a *ngFor="let version of app?.applicationBase.versions" class="tag-button">
+                    v.{{version.version}}
+                </a>
+            </div>
         </div>
-      </div>
+        <div class="">
+            <div class="" *ngIf="app?.applicationBase.tags">
+                <a *ngFor="let tag of app?.applicationBase.tags" class="tag-button">
+                    {{tag.name | titlecase}}
+                </a>
+            </div>
+        </div>
     </div>
-    <a data-slide="prev" href="#app-preview-carousel" class="left flex justify-content-center align-items-center carousel-control" *ngIf="screenshots.length > 3"><span class="fa fa-angle-left" style="width: 20px; height: 20px"></span></a>
-    <a data-slide="next" href="#app-preview-carousel" class="right flex justify-content-center align-items-center carousel-control" *ngIf="screenshots.length > 3"><span class="fa fa-angle-right" style="width: 20px; height: 20px"></span></a>
-  </div>
+    <div class="background-section">
+        <div>
+            <p style="font-weight: bold">{{'APPLICATIONS.DESCRIPTION' | translate}}</p>
+            <div [innerHTML]="getDescription()?.fullDescription"></div>
+        </div>
+        <div style="padding-top:50px" *ngIf="app?.applicationBase.id && !screenshots">
+            <p style="font-weight: bold">{{'SCREENSHOTS.HEADER' | translate}}</p>
+            <screenshots style="display: flex" [pathUrl]="'/apps/' + app?.applicationBase.id + '/screenshots'"></screenshots>
+        </div>
+        <div style="padding-top:50px; display: flex; flex-direction: column;" *ngIf="!app?.applicationBase.id || screenshots">
+            <p style="font-weight: bold">{{'SCREENSHOTS.HEADER' | translate}}</p>
+            <div class="carousel slide media-carousel col-md-12" id="app-preview-carousel" *ngIf="screenshots">
+                <div class="carousel-inner">
+                    <div class="item" *ngFor="let row of screenshots | group:4; let firstRow = last" [ngClass]="{'active': firstRow}">
+                        <div class="row">
+                            <div class="col-md-3" *ngFor="let screenshot of row">
+                                <a class="thumbnail">
+                                    <img alt="Screenshot" [src]="screenshot.objectURL || 'assets/images/app-screenshot-example.png'">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a data-slide="prev" href="#app-preview-carousel" class="left flex justify-content-center align-items-center carousel-control" *ngIf="screenshots.length > 3"><span class="fa fa-angle-left" style="width: 20px; height: 20px"></span></a>
+                <a data-slide="next" href="#app-preview-carousel" class="right flex justify-content-center align-items-center carousel-control" *ngIf="screenshots.length > 3"><span class="fa fa-angle-right" style="width: 20px; height: 20px"></span></a>
+            </div>
+        </div>
+    </div>
 </div>
-
-<div class="row mt-5 mb-8">
-  <h3>{{'APPLICATIONS.DESCRIPTION' | translate}}</h3>
-  <div [innerHTML]="getDescription()?.fullDescription">
-
-  </div>
-</div>
-
-<hr>
-
-<div *ngIf="app?.applicationBase.id" class="row mb-6 mt-6">
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 block-border">
-    <rating-extended name="appRateUpdate" [editable]="false" [pathUrl]="getPathUrl(app?.applicationBase.id)"></rating-extended>
-  </div>
-</div>
-<div *ngIf="!app?.applicationBase.id" class="row mb-6 mt-6">
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 block-border">
-    <rating-extended name="appRateUpdate" [editable]="false" [pathUrl]="getPathUrl(1)"></rating-extended>
-  </div>
-</div>
-<hr>
-
 <div class="row" *ngIf="app?.application.configWizardTemplate">
-  <div class="col-xs-12">
-    <h3>{{'APPS_PREVIEW.CONFIG_WIZARD_PREVIEW_HEADER' | translate}}</h3>
-    <hr>
-    <formio *ngIf="app !== undefined && app.application.configWizardTemplate.template !== undefined"
-            [form]="app.application.configWizardTemplate.template"
-            [options]='{"alerts": {"submitMessage": "Configuration applied"}, "errors": {"message": "Invalid configuration"}}'>
-    </formio>
-  </div>
+    <div class="col-xs-12">
+        <h3>{{'APPS_PREVIEW.CONFIG_WIZARD_PREVIEW_HEADER' | translate}}</h3>
+        <hr>
+        <formio *ngIf="app !== undefined && app.application.configWizardTemplate.template !== undefined"
+                [form]="app.application.configWizardTemplate.template"
+                [options]='{"alerts": {"submitMessage": "Configuration applied"}, "errors": {"message": "Invalid configuration"}}'>
+        </formio>
+    </div>
 </div>
 
-  <div class="row" *ngIf="app?.application.configUpdateWizardTemplate">
+<div class="row" *ngIf="app?.application.configUpdateWizardTemplate">
     <hr>
     <div class="col-xs-12">
-      <h3>{{'APPS_PREVIEW.UPDATE_CONFIG_WIZARD_PREVIEW_HEADER' | translate}}</h3>
-      <hr>
-      <formio *ngIf="app !== undefined && app.application.configUpdateWizardTemplate.template !== undefined"
-              [form]="app.application.configUpdateWizardTemplate.template"
-              [options]='{"alerts": {"submitMessage": "Configuration applied"}, "errors": {"message": "Invalid configuration"}}'>
-      </formio>
+        <h3>{{'APPS_PREVIEW.UPDATE_CONFIG_WIZARD_PREVIEW_HEADER' | translate}}</h3>
+        <hr>
+        <formio *ngIf="app !== undefined && app.application.configUpdateWizardTemplate.template !== undefined"
+                [form]="app.application.configUpdateWizardTemplate.template"
+                [options]='{"alerts": {"submitMessage": "Configuration applied"}, "errors": {"message": "Invalid configuration"}}'>
+        </formio>
     </div>
-
 </div>

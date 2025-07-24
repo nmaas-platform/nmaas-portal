@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {GenericDataService} from './genericdata.service';
 import {AppConfigService} from './appconfig.service';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {MonitorEntry} from '../model/monitorentry';
 import {Observable} from 'rxjs';
 

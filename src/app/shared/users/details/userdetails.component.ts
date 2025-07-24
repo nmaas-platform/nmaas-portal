@@ -15,7 +15,8 @@ import {Role} from '../../../model/userrole';
 @Component({
     selector: 'nmaas-userdetails',
     templateUrl: './userdetails.component.html',
-    styleUrls: ['./userdetails.component.css']
+    styleUrls: ['./userdetails.component.css'],
+    standalone: false
 })
 export class UserDetailsComponent extends BaseComponent implements OnInit {
 

@@ -6,7 +6,8 @@ class RoleState {
 }
 @Directive({
     selector: '[roles]',
-    inputs: ['roles']
+    inputs: ['roles'],
+    standalone: false
 })
 export class RolesDirective {
 

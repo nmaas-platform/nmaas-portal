@@ -12,7 +12,8 @@ import { ConfigurationService } from '../../../service';
 @Component({
     selector: 'app-bulk-list',
     templateUrl: './bulk-list.component.html',
-    styleUrls: ['./bulk-list.component.css']
+    styleUrls: ['./bulk-list.component.css'],
+    standalone: false
 })
 export class BulkListComponent implements OnDestroy, OnInit {
 

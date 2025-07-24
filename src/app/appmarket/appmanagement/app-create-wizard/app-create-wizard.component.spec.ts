@@ -10,6 +10,7 @@ import {StepsModule} from 'primeng/steps';
 import {SharedModule} from '../../../shared';
 import {of} from 'rxjs';
 import createSpyObj = jasmine.createSpyObj;
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AppCreateWizardComponent', () => {
     let component: AppCreateWizardComponent;
@@ -49,7 +50,8 @@ describe('AppCreateWizardComponent', () => {
                 {provide: InternationalizationService, useValue: internationalizationSpy},
                 {provide: ConfigTemplateService, useValue: configTemplateServiceSpy},
                 {provide: AppImagesService, useValue: {}}
-            ]
+            ],
+            schemas: [NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA ]
         }).compileComponents();
     }));
 

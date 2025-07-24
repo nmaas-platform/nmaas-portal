@@ -1,0 +1,21 @@
+:host ::ng-deep .p-dropdown {
+    width: 100%;
+}
+
+.padding-0 {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.panel {
+  margin-bottom: 5px;
+  border: 0px;
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;  
+}

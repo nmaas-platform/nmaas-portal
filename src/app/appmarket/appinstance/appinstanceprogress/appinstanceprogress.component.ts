@@ -6,7 +6,8 @@ import {TranslateService} from '@ngx-translate/core';
 @Component({
     selector: 'nmaas-appinstanceprogress',
     templateUrl: './appinstanceprogress.component.html',
-    styleUrls: ['./appinstanceprogress.component.css']
+    styleUrls: ['./appinstanceprogress.component.css'],
+    standalone: false
 })
 export class AppInstanceProgressComponent {
 

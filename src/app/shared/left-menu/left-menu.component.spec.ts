@@ -4,6 +4,9 @@ import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { ToastContainerComponent } from '../toast-container/toast-container.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { of, Subject } from 'rxjs';
+import {ProfileService} from '../../service/profile.service';
+import {AuthService} from '../../auth/auth.service';
+import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 
 describe('LeftMenuComponent', () => {
   let component: LeftMenuComponent;
@@ -23,13 +26,28 @@ describe('LeftMenuComponent', () => {
     mockActivatedRoute = {
       snapshot: { params: {}, queryParams: {} }
     };
+    const profileServiceSpy = jasmine.createSpyObj('ProfileService', ['getOne'])
+    profileServiceSpy.getOne.and.returnValue(of())
+
+    const authServiceSpy = jasmine.createSpyObj('AuthService', ['getPreferredUsername']);
+    authServiceSpy.getPreferredUsername.and.returnValue(true)
 
     await TestBed.configureTestingModule({
       declarations: [LeftMenuComponent],
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateFakeLoader
+          }
+        }),
+      ],
       providers: [
         { provide: Router, useValue: mockRouter },
         { provide: ToastContainerComponent, useValue: mockToast },
-        { provide: ActivatedRoute, useValue: mockActivatedRoute }
+        { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        { provide: ProfileService, useValue: profileServiceSpy },
+        { provide: AuthService, useValue: authServiceSpy }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();

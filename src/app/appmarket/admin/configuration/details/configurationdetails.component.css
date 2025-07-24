@@ -19,7 +19,7 @@
 .email-row {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+
 }
 
 .pd-top-7 {

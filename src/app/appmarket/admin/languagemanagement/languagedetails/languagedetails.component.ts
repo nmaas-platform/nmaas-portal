@@ -10,7 +10,8 @@ import {TranslateService} from '@ngx-translate/core';
 @Component({
     selector: 'app-languagedetails',
     templateUrl: './languagedetails.component.html',
-    styleUrls: ['./languagedetails.component.css']
+    styleUrls: ['./languagedetails.component.css'],
+    standalone: false
 })
 export class LanguageDetailsComponent implements OnInit {
 
@@ -43,7 +44,12 @@ export class LanguageDetailsComponent implements OnInit {
                 this.languageService.getLanguage(param['id']).subscribe(
                     lang => {
                         this.language = lang;
-                        this.languageContent = JSON.parse(lang.content);
+                        try {
+                            this.languageContent = JSON.parse(lang.content);
+                            this.language.content = JSON.stringify(this.languageContent, null, 2);
+                        } catch (e) {
+                            this.language.content = lang.content;
+                        }
                         this.keys = this.getKeys(this.languageContent);
                         this.keys.forEach(key => {
                             this.hide.push(true);
@@ -103,7 +109,13 @@ export class LanguageDetailsComponent implements OnInit {
     }
 
     public prepareData() {
-        this.language.content = this.languageContent;
+        try {
+            this.languageContent = JSON.parse(this.language.content);
+            this.language.content = JSON.stringify(this.languageContent);
+            this.formErrorMsg = undefined;
+        } catch (e) {
+            this.formErrorMsg = 'Błędny format JSON!';
+        }
     }
 
     public handleAddingNewElements(element: any, index: number, nestedIndex: number) {

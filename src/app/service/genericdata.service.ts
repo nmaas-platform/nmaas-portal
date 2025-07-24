@@ -1,7 +1,7 @@
 
 import {throwError as observableThrowError, Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import {AppConfigService} from './appconfig.service';
 import {catchError, debounceTime} from 'rxjs/operators';

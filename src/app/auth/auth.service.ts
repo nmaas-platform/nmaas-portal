@@ -3,7 +3,7 @@ import {catchError, debounceTime, map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {AppConfigService, ConfigurationService} from '../service';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {ProfileService} from '../service/profile.service';
 import {Role, UserRole} from '../model/userrole';
 

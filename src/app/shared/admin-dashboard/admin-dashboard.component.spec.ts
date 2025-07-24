@@ -4,6 +4,9 @@ import { AdminDashboardComponent } from './admin-dashboard.component';
 import { DashboardService } from '../../service/dashboard.service';
 import { UserDataService } from '../../service/userdata.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import {AppImagesService, AppsService} from '../../service';
+import {ActivatedRoute} from '@angular/router';
+import {AuthService} from '../../auth/auth.service';
 
 describe('AdminDashboardComponent', () => {
   let component: AdminDashboardComponent;
@@ -11,9 +14,20 @@ describe('AdminDashboardComponent', () => {
   let mockDashboardService: jasmine.SpyObj<DashboardService>;
   let mockUserDataService: jasmine.SpyObj<UserDataService>;
 
+  const applications = [
+    { id: 1, name: 'App1' },
+    { id: 2, name: 'App2' }
+  ];
+
   beforeEach(async () => {
+    const authServiceSpy = jasmine.createSpyObj('AuthService', ['hasDomainRole', 'hasRole']);
+    authServiceSpy.hasDomainRole.and.returnValue(true);
+    authServiceSpy.hasRole.and.returnValue(false);
     mockDashboardService = jasmine.createSpyObj('DashboardService', ['getAdmin', 'getDomainAdmin']);
     mockUserDataService = jasmine.createSpyObj('UserDataService', ['selectedDomainId']);
+    const appImagesServiceSpy = jasmine.createSpyObj('AppImagesService', ['getAppLogoUrl']);
+    const appsServiceSpy = jasmine.createSpyObj('AppsService', ['getAllApplicationBase']);
+    appsServiceSpy.getAllApplicationBase.and.returnValue(of(applications));
     mockUserDataService.selectedDomainId = of(123); // Replace 'test-domain-id' with a numeric value
     mockDashboardService.getAdmin.and.returnValue(of({ 
       popularApps: { App1: 10, App2: 20 },
@@ -22,12 +36,17 @@ describe('AdminDashboardComponent', () => {
     mockDashboardService.getDomainAdmin.and.returnValue(of({
       applicationUpgradeStatus: []
     }));
+    mockDashboardService.getOperator = jasmine.createSpy().and.returnValue(of({}));
 
     await TestBed.configureTestingModule({
       declarations: [AdminDashboardComponent],
       providers: [
         { provide: DashboardService, useValue: mockDashboardService },
-        { provide: UserDataService, useValue: mockUserDataService }
+        {provide: AppImagesService, useValue: appImagesServiceSpy},
+        { provide: UserDataService, useValue: mockUserDataService },
+        {provide: ActivatedRoute, useValue: {params: of({id: 1})}},
+        { provide: AppsService, useValue: appsServiceSpy },
+        {provide: AuthService, useValue: authServiceSpy}
       ],
       schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA] // Add this to allow unknown properties
     }).compileComponents();
@@ -61,7 +80,7 @@ describe('AdminDashboardComponent', () => {
 
   it('should call chartData method and populate chart data', () => {
     component.chartData();
-    expect(component.popularAppsChartData.labels).toEqual(['App1', 'App2']);
-    expect(component.popularAppsChartData.datasets[0].data).toEqual([10, 20]);
+    expect(component.popularAppsChartData.labels).toEqual(['App2', 'App1']);
+    expect(component.popularAppsChartData.datasets[0].data).toEqual([20, 10]);
   });
 });

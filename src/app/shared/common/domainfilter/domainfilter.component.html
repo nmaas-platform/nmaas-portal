@@ -14,17 +14,19 @@
 <!--		</ul>-->
 <!--</span>-->
 
-<p-dropdown
+<p-select
 		[options]="domains | async"
 		[(ngModel)]="selectedDomain"
+        [filter]="true"
+        filterBy="name"
 		optionLabel="name"
-		[filter]="false"
+
 		[filterPlaceholder]="'SEARCH' | translate"
 		(onChange)="changeDomain($event.value.id, $event.value.name)"
 		appendTo="body">
 
 	<ng-template pTemplate="selectedItem" let-item>
-    <span style="color: #414F6B;">
+    <span>
 <!--      {{ "FILTER.DOMAIN" | translate }}: -->
 		{{ item?.name }}
     </span>
@@ -33,6 +35,6 @@
 	<ng-template pTemplate="item" let-item>
 		<span>{{ item?.name }}</span>
 	</ng-template>
-</p-dropdown>
+</p-select>
 
 

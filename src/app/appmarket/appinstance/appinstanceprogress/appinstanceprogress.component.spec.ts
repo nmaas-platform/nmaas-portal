@@ -7,7 +7,8 @@ import {TranslateService} from '@ngx-translate/core';
 import {AppInstanceProgressStage, AppInstanceState} from '../../../model';
 
 @Pipe({
-  name: 'translate'
+    name: 'translate',
+    standalone: false
 })
 class TranslatePipeMock implements PipeTransform {
   public name = 'translate';

@@ -12,13 +12,16 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "lodash", "formiojs", "xterm", "xterm-addon-fit", "semver"
+              "lodash", "formiojs", "xterm", "xterm-addon-fit", "semver"  
             ],
-            "outputPath": "build/app",
+             "outputPath": "build/app",
+
             "index": "src/index.html",
             "main": "src/main.ts",
+
             "tsConfig": "tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
+
             "assets": [
               "src/assets",
               "src/favicon.ico",
@@ -27,8 +30,6 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/bootstrap/dist/css/bootstrap-theme.min.css",
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-              "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",
               "src/styles.css"
             ],
@@ -37,6 +38,7 @@
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ],
             "vendorChunk": true,
+
             "extractLicenses": false,
             "buildOptimizer": false,
             "sourceMap": true,
@@ -56,8 +58,6 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -106,8 +106,7 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/bootstrap/dist/css/bootstrap-theme.min.css",
-              "node_modules/primeng/resources/themes/nova/theme.css",
-              "node_modules/primeng/resources/primeng.min.css",
+             
               "node_modules/primeflex/primeflex.css",
               "src/styles.css"
             ],

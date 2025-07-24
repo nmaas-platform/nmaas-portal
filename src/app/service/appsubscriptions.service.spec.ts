@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { AppSubscriptionsService } from './appsubscriptions.service';
-import {HttpClient, HttpHandler} from "@angular/common/http";
+import { HttpClient, HttpHandler } from "@angular/common/http";
 import {AppConfigService} from "./appconfig.service";
 
 describe('AppSubscriptionsService', () => {

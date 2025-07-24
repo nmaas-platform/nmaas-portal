@@ -7,7 +7,8 @@ import {SelectItem} from 'primeng/api';
 @Component({
     selector: 'app-add-members-modal',
     templateUrl: './add-members-modal.component.html',
-    styleUrls: ['./add-members-modal.component.css']
+    styleUrls: ['./add-members-modal.component.css'],
+    standalone: false
 })
 export class AddMembersModalComponent implements OnInit {
 

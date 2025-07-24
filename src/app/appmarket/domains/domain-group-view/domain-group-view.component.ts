@@ -12,7 +12,8 @@ import { ProfileService } from '../../../service/profile.service';
 @Component({
     selector: 'app-domain-group-view',
     templateUrl: './domain-group-view.component.html',
-    styleUrls: ['./domain-group-view.component.css']
+    styleUrls: ['./domain-group-view.component.css'],
+    standalone: false
 })
 export class DomainGroupViewComponent extends BaseComponent implements OnInit {
 

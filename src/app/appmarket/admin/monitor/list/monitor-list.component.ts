@@ -4,9 +4,10 @@ import {MonitorEntry, ServiceType, TimeFormat} from '../../../../model/monitoren
 import {TranslateService} from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-montiorlist',
-  templateUrl: './monitor-list.component.html',
-  styleUrls: ['./monitor-list.component.css']
+    selector: 'app-montiorlist',
+    templateUrl: './monitor-list.component.html',
+    styleUrls: ['./monitor-list.component.css'],
+    standalone: false
 })
 export class MonitorListComponent implements OnInit {
 

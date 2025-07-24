@@ -24,17 +24,20 @@ import {
 } from './app-static-global-deploy-parameters-edit/app-static-global-deploy-parameters-edit.component';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {FileUploadModule} from 'primeng/fileupload';
-import {ChipsModule} from 'primeng/chips';
+import { ChipModule } from 'primeng/chip';
 import {JsonEditComponent} from './json-edit/json-edit.component';
 import {TabViewModule} from 'primeng/tabview';
 import {AppChangeOwnerModalComponent} from './app-change-owner-modal/app-change-owner-modal.component';
 import {TooltipModule} from 'primeng/tooltip';
 import {DropdownModule} from 'primeng/dropdown';
 import {AppAddJsonAppComponent} from './app-add-json-app/app-add-json-app.component';
-import {InputTextareaModule} from 'primeng/inputtextarea';
+import { TextareaModule } from 'primeng/textarea';
 import {AppAddJsonVersionAppComponent} from './app-add-json-version-app/app-add-json-version-app.component';
 import {DomainsModule} from '../domains/domains.module';
 import {TableModule} from 'primeng/table';
+import {IconField} from 'primeng/iconfield';
+import {InputIcon} from 'primeng/inputicon';
+import {InputTextModule} from 'primeng/inputtext';
 
 
 export function getJsonTemplates(config: ConfigTemplateService) {
@@ -65,7 +68,6 @@ export function formioAppConfigFactory(appConfig: AppConfigService) {
         AppAddJsonVersionAppComponent
     ],
     imports: [
-        CommonModule,
         FormsModule,
         RouterModule,
         SharedModule,
@@ -78,14 +80,18 @@ export function formioAppConfigFactory(appConfig: AppConfigService) {
         MultiSelectModule,
         FileUploadModule,
         BrowserAnimationsModule,
-        ChipsModule,
+        ChipModule,
         ReactiveFormsModule,
         TabViewModule,
         TooltipModule,
         DropdownModule,
-        InputTextareaModule,
+        TextareaModule,
         DomainsModule,
-        TableModule
+        TableModule,
+        CommonModule,
+        IconField,
+        InputIcon,
+        InputTextModule
     ],
     exports: [],
     providers: [

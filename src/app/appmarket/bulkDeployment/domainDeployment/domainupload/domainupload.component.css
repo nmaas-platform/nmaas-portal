@@ -4,12 +4,13 @@
 :host ::ng-deep  .p-button{
     width: unset;
     margin-right: 5px;
-    background: var(--primary-button-color);
-    color: var(--button-text-color);
+    background: var(--p-primary-100);
+    color: var(--p-text-100);
 }
 :host ::ng-deep .p-button:hover{
-    background: var(--primary-button-hover);
+    background: var(--p-primary-200);
     border:none;
+    color: var(--p-text-100);
 }
 :host ::ng-deep .p-button-label{
     font-weight: normal;
@@ -28,9 +29,6 @@
 }
 :host ::ng-deep .p-fileupload-content .p-progressbar{
     display: none;
-}
-textarea{
-    border-color: #ccc;
 }
 :host ::ng-deep .p-inputtext:enabled:focus{
     box-shadow: none;

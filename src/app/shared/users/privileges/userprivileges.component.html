@@ -1,20 +1,19 @@
 <div  style="padding-bottom: 15px;" class="background-section">
 	<h4 style="font-size:15px; font-weight: bold" >{{'USER_PRIVILEGES.HEADER' | translate}}</h4>
 	<div class="panel-body">
-		<div *ngIf="isModeAllowed(ComponentMode.CREATE) && user != null && user.username !== authService.getUsername()"> <!-- user should not be able to change his roles -->
+		<div style="margin-bottom: 3rem" *ngIf="isModeAllowed(ComponentMode.CREATE) && user != null && user.username !== authService.getUsername()"> <!-- user should not be able to change his roles -->
 			<form *ngIf="user" [formGroup]="newPrivilegeForm" (submit)="add()" class="form-inline row">
-				<div *ngIf="domainId" class="form-group col-lg-3">
-					<label for="domainId">{{'USER_PRIVILEGES.DOMAIN' | translate}}:</label>
+				<div *ngIf="domainId" class="form-group col-lg-3" >
+					<label style="margin-right:10px" for="domainId" >{{'USER_PRIVILEGES.DOMAIN' | translate}}:</label>
 					<select class="form-control" [formGroup]="newPrivilegeForm"
 						id="domainId" name="domainId" formControlName="domainId" style="min-width: 170px"
-							[attr.disabled]="domainId!==domainService.getGlobalDomainId()? '' : null"
 							(ngModelChange)="clearSelectedRole()">
 						<option *ngFor="let domain of domains" [value]="domain.id">{{domain.name}}</option>
 					</select>
 				</div>
 
 				<div class="form-group col-lg-3">
-					<label for="role" >{{'USER_PRIVILEGES.ROLE' | translate}}:</label>
+					<label style="margin-right:10px" for="role" >{{'USER_PRIVILEGES.ROLE' | translate}}:</label>
 					<select
 						class="form-control" [formGroup]="newPrivilegeForm" id="role"
 						name="role" formControlName="role" style="min-width: 170px">
@@ -27,7 +26,7 @@
 					<button type="submit" class="btn btn-primary">{{'USER_PRIVILEGES.ADD_BUTTON' | translate}}</button>
 				</div>
 			</form>
-			<hr>
+
 		</div>
 
 		<div *ngIf="isOnlyGuestInGlobalDomain()">
@@ -51,8 +50,11 @@
 						<td>{{userrole.domainName}}</td>
 						<td>{{"ENUM.USER_ROLES." + userrole.role.toUpperCase() | translate}}</td>
 						<td *ngIf="!isInMode(ComponentMode.PROFILVIEW) && authService.hasRole('ROLE_SYSTEM_ADMIN') && user?.username !== authService.getUsername()" class="text-right">
-							<button type="button" class="btn btn-danger"
-								(click)="remove(user.id, userrole.role, userrole.domainId)">{{'USER_PRIVILEGES.REMOVE_BUTTON' | translate}}</button>
+							<button type="button" class="btn btn-danger-text"
+								(click)="remove(user.id, userrole.role, userrole.domainId)">
+								<i class="pi pi-trash" style="font-size: 15px;"></i>
+<!--								{{'USER_PRIVILEGES.REMOVE_BUTTON' | translate}}-->
+							</button>
 						</td>
 					</tr>
 					</ng-template>

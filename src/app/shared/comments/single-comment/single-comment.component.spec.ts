@@ -3,7 +3,7 @@ import { SingleCommentComponent } from './single-comment.component';
 import {AppConfigService, AppsService} from '../../../service';
 import {AuthService} from '../../../auth/auth.service';
 import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {JwtModule} from '@auth0/angular-jwt';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {of} from 'rxjs';
@@ -18,20 +18,17 @@ describe('SingleCommentComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SingleCommentComponent ],
-      imports: [
-        FormsModule,
-        HttpClientModule,
+    declarations: [SingleCommentComponent],
+    imports: [FormsModule,
         JwtModule.forRoot({}),
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateFakeLoader
-          }
-        })
-      ],
-      providers: [AppsService, AuthService, AppConfigService]
-    })
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        })],
+    providers: [AppsService, AuthService, AppConfigService, provideHttpClient(withInterceptorsFromDi())]
+})
     .compileComponents();
   }));
 

@@ -9,14 +9,16 @@ import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-transl
 import {AppSubscriptionsService} from '../../service/appsubscriptions.service';
 import {UserDataService} from '../../service/userdata.service';
 import {AuthService} from '../../auth/auth.service';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
 import {ApplicationBase} from '../../model/application-base';
 import {ApplicationState} from '../../model/application-state';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 @Pipe({
-    name: 'secure'
+    name: 'secure',
+    standalone: false
 })
 class SecurePipeMock implements PipeTransform {
     public name = 'secure';
@@ -28,7 +30,8 @@ class SecurePipeMock implements PipeTransform {
 
 @Component({
     selector: 'rate',
-    template: '<p>Rate Mock</p>'
+    template: '<p>Rate Mock</p>',
+    standalone: false
 })
 class MockRateComponent {
     @Input()
@@ -43,7 +46,8 @@ class MockRateComponent {
 
 @Component({
     selector: 'rating-extended',
-    template: '<p>Rate Extended mock</p>'
+    template: '<p>Rate Extended mock</p>',
+    standalone: false
 })
 class MockRateExtendedComponent {
     @Input()
@@ -58,7 +62,8 @@ class MockRateExtendedComponent {
 
 @Component({
     selector: 'comments',
-    template: '<p>Mock comments component</p>'
+    template: '<p>Mock comments component</p>',
+    standalone: false
 })
 class MockCommentsComponent {
     @Input()
@@ -67,7 +72,8 @@ class MockCommentsComponent {
 
 @Component({
     selector: 'nmaas-modal-app-install',
-    template: '<p>Nmaas modal app install mock</p>'
+    template: '<p>Nmaas modal app install mock</p>',
+    standalone: false
 })
 class MockNmassModalAppInstallComponent {
     @Input()
@@ -79,7 +85,8 @@ class MockNmassModalAppInstallComponent {
 
 @Component({
     selector: 'screenshots',
-    template: '<p>Screenchots Mock</p>'
+    template: '<p>Screenchots Mock</p>',
+    standalone: false
 })
 class MockScreenshotsComponent {
     @Input()
@@ -126,37 +133,36 @@ describe('Component: AppDetails', () => {
         const domainServiceSpy = jasmine.createSpyObj('DomainService', ['getOne']);
 
         TestBed.configureTestingModule({
-            declarations: [
-                AppDetailsComponent,
-                SecurePipeMock,
-                MockRateComponent,
-                MockCommentsComponent,
-                MockNmassModalAppInstallComponent,
-                MockRateExtendedComponent,
-                MockScreenshotsComponent
-            ],
-            imports: [
-                RouterTestingModule,
-                HttpClientTestingModule,
-                TranslateModule.forRoot({
-                    loader: {
-                        provide: TranslateLoader,
-                        useClass: TranslateFakeLoader
-                    }
-                }),
-            ],
-            providers: [
-                {provide: AppConfigService, useValue: appConfigSpy},
-                UserDataService,
-                {provide: AppsService, useValue: appsServiceSpy},
-                {provide: AppSubscriptionsService, useValue: appSubsServiceSpy},
-                {provide: AppImagesService, useValue: appImagesServiceSpy},
-                {provide: AuthService, useValue: authServiceSpy},
-                {provide: DomainService, useValue: domainServiceSpy},
-                {provide: ActivatedRoute, useValue: {params: of({id: 1})}}
-            ],
-            schemas: [NO_ERRORS_SCHEMA],
-        }).compileComponents();
+    declarations: [
+        AppDetailsComponent,
+        SecurePipeMock,
+        MockRateComponent,
+        MockCommentsComponent,
+        MockNmassModalAppInstallComponent,
+        MockRateExtendedComponent,
+        MockScreenshotsComponent
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [RouterTestingModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        })],
+    providers: [
+        { provide: AppConfigService, useValue: appConfigSpy },
+        UserDataService,
+        { provide: AppsService, useValue: appsServiceSpy },
+        { provide: AppSubscriptionsService, useValue: appSubsServiceSpy },
+        { provide: AppImagesService, useValue: appImagesServiceSpy },
+        { provide: AuthService, useValue: authServiceSpy },
+        { provide: DomainService, useValue: domainServiceSpy },
+        { provide: ActivatedRoute, useValue: { params: of({ id: 1 }) } },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+}).compileComponents();
     }));
 
     beforeEach(() => {

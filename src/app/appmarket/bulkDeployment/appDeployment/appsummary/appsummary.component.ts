@@ -4,7 +4,8 @@ import {AppdeploymentService} from '../../appdeployment.service';
 @Component({
     selector: 'app-appsummary',
     templateUrl: './appsummary.component.html',
-    styleUrls: []
+    styleUrls: [],
+    standalone: false
 })
 export class AppsummaryComponent {
 

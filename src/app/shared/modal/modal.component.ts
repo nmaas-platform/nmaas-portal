@@ -3,7 +3,8 @@ import {Component, Input, OnInit} from '@angular/core';
 @Component({
     selector: 'nmaas-modal',
     templateUrl: './modal.component.html',
-    styleUrls: ['./modal.component.css']
+    styleUrls: ['./modal.component.css'],
+    standalone: false
 })
 export class ModalComponent implements OnInit {
 
@@ -42,12 +43,12 @@ export class ModalComponent implements OnInit {
 
     public show(): void {
         this.visible = true;
-        setTimeout(() => this.visibleAnimate = true);
+        // setTimeout(() => this.visibleAnimate = true);
     }
 
     public hide(): void {
-        this.visibleAnimate = false;
-        setTimeout(() => this.visible = false, 300);
+        this.visible = false;
+        // setTimeout(() => this.visible = false, 300);
     }
 
     public resetModalStyle(): void {

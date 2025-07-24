@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {UsersListComponent} from './userslist.component';
+import {UsersListAdminComponent} from './adminuserslist.component';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {DomainService, UserService} from '../../../service';
 import {UserDataService} from '../../../service/userdata.service';
@@ -14,21 +14,21 @@ import createSpyObj = jasmine.createSpyObj;
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('UserslistComponent', () => {
-    let component: UsersListComponent;
-    let fixture: ComponentFixture<UsersListComponent>;
+    let component: UsersListAdminComponent;
+    let fixture: ComponentFixture<UsersListAdminComponent>;
 
     beforeEach(waitForAsync(() => {
         const authServiceSpy = createSpyObj('AuthService', ['hasRole', 'hasDomainRole']);
         authServiceSpy.hasRole.and.returnValue(true)
         authServiceSpy.hasDomainRole.and.returnValue(true)
 
-        const domainServiceSpy = createSpyObj('DomainService', ['getGlobalDomainId', 'getAll', 'getMyDomains'])
+        const domainServiceSpy = createSpyObj('DomainService', ['getGlobalDomainId', 'getAllBase', 'getMyDomains'])
         domainServiceSpy.getGlobalDomainId.and.returnValue(1)
-        domainServiceSpy.getAll.and.returnValue(of([]))
+        domainServiceSpy.getAllBase.and.returnValue(of([]))
         domainServiceSpy.getMyDomains.and.returnValue(of([]))
 
         TestBed.configureTestingModule({
-            declarations: [UsersListComponent],
+            declarations: [UsersListAdminComponent],
             imports: [
                 TranslateModule.forRoot({
                     loader: {
@@ -65,7 +65,7 @@ describe('UserslistComponent', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(UsersListComponent);
+        fixture = TestBed.createComponent(UsersListAdminComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 import {AppInstance, AppInstanceState, parseAppInstanceState} from '../../../model';
-import {AppConfigService, AppImagesService, AppInstanceService, CustomerSearchCriteria, DomainService} from '../../../service';
+import {AppConfigService, AppImagesService, AppInstanceService, AppsService, CustomerSearchCriteria, DomainService} from '../../../service';
 import {AuthService} from '../../../auth/auth.service';
 import {UserDataService} from '../../../service/userdata.service';
 import {forkJoin, Observable, of} from 'rxjs';
@@ -18,12 +18,12 @@ export enum AppInstanceListSelection {
     selector: 'nmaas-appinstancelist',
     templateUrl: './appinstancelist.component.html',
     styleUrls: ['./appinstancelist.component.css'],
-
+    standalone: false
 })
 export class AppInstanceListComponent implements OnInit {
 
     public undeployedVisible = false;
-    public showAll = false;
+    public showMy = false;
 
     private readonly item_number_key: string = 'item_number_per_page';
     private readonly list_selection_key: string = 'list_selection';
@@ -58,7 +58,7 @@ export class AppInstanceListComponent implements OnInit {
         {icon: 'pi pi-list', value: 'list'},
         {icon: 'pi pi-th-large', value: 'cards'}
     ];
-    public selectedOption = 'list';
+    public selectedOption = 'cards';
 
     public searchValue = '';
 
@@ -70,7 +70,8 @@ export class AppInstanceListComponent implements OnInit {
                 private appConfig: AppConfigService,
                 private translateService: TranslateService,
                 private sessionService: SessionService,
-                public appImagesService: AppImagesService) {
+                public appImagesService: AppImagesService,
+                private appsService: AppsService) {
 
     }
 
@@ -85,7 +86,10 @@ export class AppInstanceListComponent implements OnInit {
         const ls = AppInstanceListSelection[sessionStorage.getItem(this.list_selection_key)];
         if (ls !== undefined) {
             this.listSelection = ls;
-            this.showAll = ls === AppInstanceListSelection.ALL;
+            this.showMy = ls === AppInstanceListSelection.MY;
+        } else {
+            this.listSelection = AppInstanceListSelection.ALL;
+            sessionStorage.setItem(this.list_selection_key, AppInstanceListSelection[this.listSelection]);
         }
         console.log(this.listSelection);
         this.userDataService.selectedDomainId.subscribe(domainId => {
@@ -124,9 +128,9 @@ export class AppInstanceListComponent implements OnInit {
     }
 
     public onSelectionChange() {
-        this.listSelection = this.showAll
-            ? AppInstanceListSelection.ALL
-            : AppInstanceListSelection.MY;
+        this.listSelection = this.showMy
+            ? AppInstanceListSelection.MY
+            : AppInstanceListSelection.ALL;
 
         sessionStorage.setItem(this.list_selection_key, AppInstanceListSelection[this.listSelection]);
         this.update(this.domainId);
@@ -158,31 +162,32 @@ export class AppInstanceListComponent implements OnInit {
             default:
                 break;
         }
-        this.appInstances = this.appInstances
-            .pipe(
-                map(app => app.filter(
-                        (appInst) => (this.domainId === this.appConfig.getNmaasGlobalDomainId() || this.domainId === appInst.domainId)
-                    )
-                )
-            );
+
+
+        this.appInstances = this.appInstances.pipe(
+            map(apps => apps.map(appInst => ({
+                ...appInst,
+                appId: appInst.applicationId || null
+            }))),
+            map(apps => apps.filter(appInst =>
+                this.domainId === this.appConfig.getNmaasGlobalDomainId() || this.domainId === appInst.domainId
+            ))
+        );
         // sort and filter deployed instances
-        this.appDeployedInstances = this.appInstances
-            .pipe(
-                map(instances => instances.filter(
-                        app => parseAppInstanceState(app.state) !== AppInstanceState.REMOVED
-                            && parseAppInstanceState(app.state) !== AppInstanceState.DONE
-                    )
-                )
-            );
+        this.appDeployedInstances = this.appInstances.pipe(
+            map(instances => instances.filter(
+                app => parseAppInstanceState(app.state) !== AppInstanceState.REMOVED
+                    && parseAppInstanceState(app.state) !== AppInstanceState.DONE
+            ))
+        );
         // sort and filter undeployed instances
-        this.appUndeployedInstances = this.appInstances
-            .pipe(
-                map(instances => instances.filter(
-                        app => parseAppInstanceState(app.state) === AppInstanceState.REMOVED
-                            || parseAppInstanceState(app.state) === AppInstanceState.DONE
-                    )
-                )
-            );
+        this.appUndeployedInstances = this.appInstances.pipe(
+            map(instances => instances.filter(
+                app => parseAppInstanceState(app.state) === AppInstanceState.REMOVED
+                    || parseAppInstanceState(app.state) === AppInstanceState.DONE
+            ))
+        );
+
     }
 
 

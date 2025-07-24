@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {AppConfigService, AppsService} from '../../service';
 import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {of} from 'rxjs';
 import {Id} from '../../model';
 import {AuthService} from '../../auth/auth.service';
@@ -12,8 +12,9 @@ import {Component} from '@angular/core';
 import {SingleCommentComponent} from './single-comment/single-comment.component';
 
 @Component({
-  selector: 'app-single-comment',
-  template: '<p> Mock of single comment</p>'
+    selector: 'app-single-comment',
+    template: '<p> Mock of single comment</p>',
+    standalone: false
 })
 class MockSingleCommentComponent {}
 
@@ -26,20 +27,17 @@ describe('CommentComponent', () => {
 
    beforeEach(waitForAsync (() => {
        TestBed.configureTestingModule({
-          declarations: [CommentsComponent, SingleCommentComponent],
-          imports: [
-              FormsModule,
-              HttpClientModule,
-              JwtModule.forRoot({}),
-              TranslateModule.forRoot({
-                  loader: {
-                      provide: TranslateLoader,
-                      useClass: TranslateFakeLoader
-                  }
-              })
-          ],
-          providers: [AppsService, AuthService, AppConfigService]
-       }).compileComponents();
+    declarations: [CommentsComponent, SingleCommentComponent],
+    imports: [FormsModule,
+        JwtModule.forRoot({}),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateFakeLoader
+            }
+        })],
+    providers: [AppsService, AuthService, AppConfigService, provideHttpClient(withInterceptorsFromDi())]
+}).compileComponents();
    }));
 
    beforeEach(() => {

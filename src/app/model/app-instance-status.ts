@@ -10,7 +10,8 @@ export enum AppInstanceState {
   DONE,
   FAILURE,
   UNKNOWN,
-  REMOVED
+  REMOVED,
+  PAUSED
 }
 
 export class AppInstanceStatus {

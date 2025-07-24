@@ -4,9 +4,10 @@ import {Observable} from 'rxjs';
 import {SSHKeyView} from '../../../model/sshkey-view';
 
 @Component({
-  selector: 'nmaas-ssh-keys',
-  templateUrl: './ssh-keys.component.html',
-  styleUrls: ['./ssh-keys.component.css']
+    selector: 'nmaas-ssh-keys',
+    templateUrl: './ssh-keys.component.html',
+    styleUrls: ['./ssh-keys.component.css'],
+    standalone: false
 })
 export class SshKeysComponent implements OnInit, OnChanges {
 

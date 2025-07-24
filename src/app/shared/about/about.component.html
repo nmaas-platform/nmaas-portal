@@ -1,7 +1,7 @@
-<div class=" row position" style="margin:40px">
+<div class=" row position" style="margin:40px; color: var(--p-text-0)">
     <div class="col-md-6">
         <div class="" style="padding-bottom: 15px;">
-            <h2>{{ 'ABOUT.CHANGELOG_TITLE' | translate }}</h2>
+            <h2 class="">{{ 'ABOUT.CHANGELOG_TITLE' | translate }}</h2>
             <span>{{ 'ABOUT.CHANGELOG_DESC' | translate }}</span>
         </div>
         <div class="panel panel-default" *ngIf="gitInfo">
@@ -41,13 +41,13 @@
     <div class="col-md-6">
         <div class="" style="padding-bottom: 15px;">
             <h2>{{ 'ABOUT.CONTACT_TITLE' | translate }}</h2>
-            <p>Join the mailing list of your interest: </p>
+            <p>{{ 'ABOUT.CONTACT_P' | translate }}</p>
             <ul>
                 <li>
-                    <p><a href="https://lists.geant.org/sympa/info/nmaas-announce">nmaas-announce</a> - for nmaas-related announcements sent out by the nmaas Team members,</p>
+                    <p><a href="https://lists.geant.org/sympa/info/nmaas-announce">{{ 'ABOUT.ANNOUNCE' | translate }}</a>{{ 'ABOUT.ANNOUNCE_DESC' | translate }}</p>
                 </li>
                 <li>
-                    <p><a href="https://lists.geant.org/sympa/info/nmaas-users">nmaas-users</a> - for discussions and message exchange between nmaas users and the nmaas Team.</p>
+                    <p><a href="https://lists.geant.org/sympa/info/nmaas-users">{{ 'ABOUT.USERS' | translate }}</a>{{ 'ABOUT.USERS_DESC' | translate }}</p>
                 </li>
             </ul>
             <span>{{ 'ABOUT.CONTACT_DESC' | translate}}</span>

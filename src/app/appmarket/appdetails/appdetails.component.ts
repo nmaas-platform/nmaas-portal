@@ -25,7 +25,7 @@ import {ApplicationBase} from '../../model/application-base';
     selector: 'nmaas-appdetails',
     templateUrl: './appdetails.component.html',
     styleUrls: ['../../../assets/css/main.css', './appdetails.component.css'],
-    providers: []
+    standalone: false
 })
 export class AppDetailsComponent implements OnInit {
 
@@ -148,6 +148,15 @@ export class AppDetailsComponent implements OnInit {
         return this.authService.hasRole(Role[Role.ROLE_SYSTEM_ADMIN])
             || this.authService.hasDomainRole(this.domainId, Role[Role.ROLE_DOMAIN_ADMIN])
             || this.authService.hasDomainRole(this.domainId, Role[Role.ROLE_GROUP_DOMAIN_ADMIN]);
+    }
+
+     public isBulkDeploymentAllowed(): boolean {
+        if (this.domainId === this.appConfig.getNmaasGlobalDomainId()) {
+           return this.authService.hasRole(Role[Role.ROLE_SYSTEM_ADMIN])
+            || this.authService.hasRole(Role[Role.ROLE_GROUP_MANAGER]);
+        }
+        else return false
+       
     }
 
     public isApplicationEnabledInDomain(): boolean {

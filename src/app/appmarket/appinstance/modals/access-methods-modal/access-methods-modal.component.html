@@ -13,8 +13,11 @@
                 <tbody>
                 <tr *ngFor="let am of externalAccessMethods">
                     <td><strong>{{am.name}}</strong></td>
-                    <td class="text-right"><a type="button" class="btn btn-primary"
+                    <td *ngIf="accessMethodTypeAsEnum(am.type) !== 'INTERNAL'" class="text-right"><a type="button" class="btn btn-primary"
                            href="{{validateURL(am.url)}}" target="_blank" rel="noopener noreferrer">{{'APP_ACCESS_METHODS_MODAL.EXTERNAL_ACCESS' | translate}}</a>
+                    </td>
+                    <td *ngIf="accessMethodTypeAsEnum(am.type) === 'INTERNAL'">
+                        <div class="well well-sm">{{am.protocol}}: {{!!am.url ? am.url : "Not available"}}</div>
                     </td>
                 </tr>
                 </tbody>
@@ -39,25 +42,25 @@
                 </tbody>
             </table>
         </div>
-        <div *ngIf="internalAccessMethods.length > 0" class="">
-            <h4>{{'APP_ACCESS_METHODS_MODAL.INTERNAL_HEADER' | translate}}</h4>
-            <table class="table table-hover table-condensed" aria-describedby="Table with internal access details">
-                <thead>
-                <tr>
-                    <th scope="col" class="width-half">{{'APP_ACCESS_METHODS_MODAL.SERVICE_NAME' | translate}}</th>
-                    <th scope="col" class="width-half">{{'APP_ACCESS_METHODS_MODAL.ACCESS_METHOD' | translate}}</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let am of internalAccessMethods">
-                    <td><strong>{{am.name}}</strong></td>
-                    <td>
-                        <div class="well well-sm">{{am.protocol}}: {{!!am.url ? am.url : "Not available"}}</div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+<!--        <div *ngIf="internalAccessMethods.length > 0" class="">-->
+<!--            <h4>{{'APP_ACCESS_METHODS_MODAL.INTERNAL_HEADER' | translate}}</h4>-->
+<!--            <table class="table table-hover table-condensed" aria-describedby="Table with internal access details">-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <th scope="col" class="width-half">{{'APP_ACCESS_METHODS_MODAL.SERVICE_NAME' | translate}}</th>-->
+<!--                    <th scope="col" class="width-half">{{'APP_ACCESS_METHODS_MODAL.ACCESS_METHOD' | translate}}</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                <tr *ngFor="let am of internalAccessMethods">-->
+<!--                    <td><strong>{{am.name}}</strong></td>-->
+<!--                    <td>-->
+<!--                        <div class="well well-sm">{{am.protocol}}: {{!!am.url ? am.url : "Not available"}}</div>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--        </div>-->
         <div *ngIf="localAccessMethods.length > 0" class="">
             <h4>{{'APP_ACCESS_METHODS_MODAL.LOCAL_HEADER' | translate}}</h4>
             <table class="table table-hover table-condensed" aria-describedby="Table with local access details">

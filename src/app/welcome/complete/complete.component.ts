@@ -18,6 +18,7 @@ import {InternationalizationService} from '../../service/internationalization.se
     selector: 'app-complete',
     templateUrl: './complete.component.html',
     styleUrls: ['./complete.component.css'],
+    standalone: false
 })
 
 export class CompleteComponent extends BaseComponent implements OnInit {

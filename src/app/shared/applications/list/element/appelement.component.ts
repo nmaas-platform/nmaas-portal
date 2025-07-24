@@ -17,7 +17,8 @@ import {ApplicationBase} from '../../../../model/application-base';
     providers: [DefaultLogo, RateComponent, AppImagesService, SecurePipe, AppInstallModalComponent],
     templateUrl: './appelement.component.html',
     styleUrls: ['./appelement.component.css'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class AppElementComponent implements OnInit, OnChanges {
 

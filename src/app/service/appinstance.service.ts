@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import {AppConfigService} from './appconfig.service';
 
@@ -61,6 +61,11 @@ export class AppInstanceService extends GenericDataService {
 
     public createAppInstance(domainId: number, appId: number, name: string, autoUpgradesEnabled: boolean): Observable<Id> {
         return this.post<AppInstanceRequest, Id>(this.getUrl() + 'domain/' + domainId, new AppInstanceRequest(appId, name, autoUpgradesEnabled));
+    }
+
+    public createAppInstanceInCluster(domainId: number, appId: number, name: string, autoUpgradesEnabled: boolean, clusterId: number):  Observable<Id> {
+        const params = new HttpParams().set('clusterId', clusterId.toString());
+        return this.http.post<Id>(this.getUrl() + 'domain/' + domainId, new AppInstanceRequest(appId, name, autoUpgradesEnabled), { params });
     }
 
     public removeAppInstance(appInstanceId: number): Observable<any> {
@@ -147,6 +152,12 @@ export class AppInstanceService extends GenericDataService {
     public getDeploymentParameters(appInstanceId: number): Observable<Map<string, string>> {
         return this.http.get<Map<string, string>>(this.getUrl() + `${appInstanceId}/parameters`);
 
+    }
+    public scaleDown(appInstanceId: string): Observable<any> {
+        return this.http.put(this.getUrl() + `${appInstanceId}/scale-down`, null)
+    }
+    public scaleUp(appInstanceId: string): Observable<any> {
+        return this.http.put(this.getUrl() + `${appInstanceId}/scale-up`, null)
     }
 }
 

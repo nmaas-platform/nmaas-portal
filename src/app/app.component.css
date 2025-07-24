@@ -37,6 +37,7 @@ body{
     min-height: 100vh;
 }
 .content-area {
+    background: var(--p-background-0);
     flex: 1;
     padding: 1rem;
     display: flex;

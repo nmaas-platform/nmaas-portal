@@ -27,7 +27,7 @@
 			<div class="form-group">
 				<label for="firstname" class="col-sm-2 control-label">{{'USER_DETAILS.FIRST_NAME' | translate}}</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="firstname"
+					<input pInputText type="text" class="form-control" id="firstname"
 						name="firstname" [(ngModel)]="user.firstname"
 						[disabled]="isInMode(ComponentMode.VIEW)">
 				</div>
@@ -36,7 +36,7 @@
 			<div class="form-group">
 				<label for="lastname" class="col-sm-2 control-label">{{'USER_DETAILS.LAST_NAME' | translate}}</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="lastname"
+					<input pInputText type="text" class="form-control" id="lastname"
 						name="lastname" [(ngModel)]="user.lastname"
 						[disabled]="isInMode(ComponentMode.VIEW)">
 				</div>
@@ -46,7 +46,7 @@
  			    		 	'has-success': emailField.valid && (emailField.dirty || emailField.touched)}">
 				<label for="email" class="col-sm-2 control-label">{{'USER_DETAILS.EMAIL' | translate}}</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="email" name="email" required #emailField="ngModel"
+					<input pInputText type="text" class="form-control" id="email" name="email" required #emailField="ngModel"
 						[(ngModel)]="user.email" [disabled]="isInMode(ComponentMode.VIEW)">
 				</div>
 			</div>
@@ -57,7 +57,7 @@
 					<p style="padding-left:12px" class="form-control-static">{{user?.id}}</p>
 				</div>
 			</div>
-			<div class="form-group">
+			<div *ngIf="!user.ssoUser" class="form-group">
 				<label class="col-sm-2 control-label">Password</label>
 				<div class="col-sm-10">
 					<button (click)="passwordModal.show()" class="btn btn-text" *ngIf="canChangePassword() && !user.ssoUser"

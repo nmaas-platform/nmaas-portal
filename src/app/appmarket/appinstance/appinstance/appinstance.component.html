@@ -1,27 +1,28 @@
+<p-confirmDialog></p-confirmDialog>
 <div class="" *ngIf="appInstance">
     <div class="background-section">
         <div style=" display: flex; flex-direction: row; justify-content: space-between; padding-bottom: 50px">
             <div style="display: flex; align-items: center;">
-                <div class="" *ngIf="app">
+                <div class="img-container" *ngIf="app">
                     <img alt="App logo"
-                         [src]="(appImagesService.getAppLogoUrl(app?.applicationBase.id) | secure) || 'assets/images/app-logo-example.png'" height="90px"/>
+                         [src]="(appImagesService.getAppLogoUrl(app?.applicationBase.id) | secure) || 'assets/images/app-logo-example.png'" width="90px"/>
                 </div>
-                <div class="" *ngIf="!app">
+                <div class="img-container" *ngIf="!app">
                     <img alt="App logo" src="assets/images/app-logo-example.png" height="90px"/>
                 </div>
                 <h2 style="margin:0 20px;">{{appInstance?.name}} ({{app?.applicationBase.name}})</h2>
             </div>
-            <h3><em style="color: #337ab7;">{{ translateState(appInstanceStatus?.state) }}</em></h3>
+            <h3><em style="color: var(--p-primary-100);">{{ translateState(appInstanceStatus?.state) }}</em></h3>
         </div>
         <div style=" display: flex; flex-direction: row; justify-content: space-between;">
             <div class="" style="display: flex;flex-direction: column;">
-                <div class="text-muted mt-2" style="font-size: small;">
+                <div class="text-muted mt-2" style="font-size: small; color: var(--p-text-200)">
                     {{app?.application.version ? 'v.' + app?.application.version : 'None'}}
                     |
                     <span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
                           tooltipPosition="bottom" [showDelay]="50"
                           [tooltipDisabled]="!!app?.applicationBase.licenseUrl">
-				    <a class="{{app?.applicationBase.licenseUrl ? '' : 'disabled-url'}}"
+				    <a class="{{app?.applicationBase.licenseUrl ? '' : 'disabled-url'}}" style="color: var(--p-text-200)"
                        [href]="app?.applicationBase.licenseUrl"
                        target="_blank">{{app?.applicationBase.license || 'License'}}</a>
 				</span>
@@ -29,14 +30,14 @@
                     <span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
                           tooltipPosition="bottom" [showDelay]="50"
                           [tooltipDisabled]="!!app?.applicationBase.wwwUrl">
-				    <a class="{{app?.applicationBase.wwwUrl ? '' : 'disabled-url'}}"
+				    <a class="{{app?.applicationBase.wwwUrl ? '' : 'disabled-url'}}" style="color: var(--p-text-200)"
                        [href]="app?.applicationBase.wwwUrl">WWW</a>
 				</span>
                     |
                     <span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
                           tooltipPosition="bottom" [showDelay]="50"
                           [tooltipDisabled]="!!app?.applicationBase.sourceUrl">
-				    <a class="{{app?.applicationBase.sourceUrl ? '' : 'disabled-url'}}"
+				    <a class="{{app?.applicationBase.sourceUrl ? '' : 'disabled-url'}}" style="color: var(--p-text-200)"
                        [href]="app?.applicationBase.sourceUrl"
                        target="_blank">{{'APP_INSTANCE.SOURCE' | translate}}</a>
 				</span>
@@ -44,7 +45,7 @@
                     <span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
                           tooltipPosition="bottom" [showDelay]="50"
                           [tooltipDisabled]="!!app?.applicationBase.issuesUrl">
-				    <a class="{{app?.applicationBase.issuesUrl ? '' : 'disabled-url'}}"
+				    <a class="{{app?.applicationBase.issuesUrl ? '' : 'disabled-url'}}" style="color: var(--p-text-200)"
                        [href]="app?.applicationBase.issuesUrl"
                        target="_blank">{{'APP_INSTANCE.ISSUES' | translate}}</a>
 				</span>
@@ -60,7 +61,8 @@
                      *ngIf="getStateAsEnum(appInstanceStatus?.state) != AppInstanceState.FAILURE
                          && getStateAsEnum(appInstanceStatus?.state) != AppInstanceState.RUNNING
                          && getStateAsEnum(appInstanceStatus?.state) != AppInstanceState.REMOVED
-                         && getStateAsEnum(appInstanceStatus?.state) != AppInstanceState.DONE">
+                         && getStateAsEnum(appInstanceStatus?.state) != AppInstanceState.DONE
+                         && getStateAsEnum(appInstanceStatus?.state) != AppInstanceState.PAUSED">
                     <button *ngIf="getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.CONFIGURATION_AWAITING"
                             role="button" class="btn btn-primary m-1" (click)="applyConfig.show()">
                         {{'APP_INSTANCE.CONFIGURE' | translate}}
@@ -73,7 +75,8 @@
                 <!-- if application is already running -->
                 <div *ngIf="appInstance && (
                      getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.RUNNING ||
-                     getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.FAILURE)"
+                     getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.FAILURE ||
+                     getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.PAUSED)"
                      class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="btn-group pull-right">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
@@ -150,12 +153,35 @@
                                         {{'APP_INSTANCE.VIEW_LOGS' | translate}}
                                     </a>
                                 </li>
+                                <li *ngIf="getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.PAUSED">
+                                    <a role="button" (click)="scaleDownModal.show()">
+                                        {{'APP_INSTANCES.PAUSE' | translate}}
+                                    </a>
+                                </li>
+                                <li *ngIf="getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.PAUSED">
+                                    <a role="button" (click)="scaleUp()">
+                                        {{'APP_INSTANCES.RESUME' | translate}}
+                                    </a>
+                                </li>
                                 <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']">
-                                    <a role="button" (click)="this.undeployModal.show()" style="color: var(--danger-button-color)">
+                                    <a role="button" (click)="this.undeployModal.show()" style="color: var(--p-primary-900)">
                                         {{'APP_INSTANCE.UNDEPLOY_BUTTON' | translate}}
                                     </a>
                                 </li>
                             </ng-container>
+                            <ng-container *ngIf="getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.PAUSED">
+                                <li>
+                                    <a role="button" (click)="scaleUp()">
+                                        {{'APP_INSTANCES.RESUME' | translate}}
+                                    </a>
+                                </li>
+                                <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']">
+                                    <a role="button" (click)="this.undeployModal.show()" style="color: var(--p-primary-900)">
+                                        {{'APP_INSTANCE.UNDEPLOY_BUTTON' | translate}}
+                                    </a>
+                                </li>
+                            </ng-container>
+
                             <ng-container *ngIf="getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.FAILURE">
                                 <li>
                                     <a role="button"
@@ -174,7 +200,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a role="button" style="color: var(--danger-button-color)"
+                                    <a role="button" style="color: var(--p-primary-900)"
                                        *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
                                        (click)="removeConfirm.show()">{{'APP_INSTANCE.REMOVE_BUTTON' | translate}}
                                     </a>
@@ -263,6 +289,22 @@
                                  screenReaderCurrentLabel="{{ 'PAGINATION.SCREEN_READER.CURRENT' | translate }}"></pagination-controls>
         </div>
     </div>
+    <!-- Scale down Modal -->
+    <nmaas-modal styleModal="warning" #scaleDownModal>
+        <div class="nmaas-modal-header">
+            <h4 style="text-align: center">{{'APP_INSTANCES.CONFIRM_PAUSE.HEADER' | translate}}</h4>
+        </div>
+        <div class="nmaas-modal-body">
+            <div class="form-group">
+                <p>{{'APP_INSTANCES.CONFIRM_PAUSE.MESSAGE' | translate}}</p>
+            </div>
+        </div>
+        <div class="nmaas-modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="this.scaleDownModal.hide()">{{'APP_INSTANCES.CONFIRM_PAUSE.REJECT' | translate}}</button>
+            <button type="button" class="btn btn-danger" (click)="this.scaleDown(); this.scaleDownModal.hide()">{{'APP_INSTANCES.CONFIRM_PAUSE.ACCEPT' | translate}}</button>
+        </div>
+
+    </nmaas-modal>
 
     <!-- Undeploy modal-->
     <nmaas-modal styleModal="warning" #undeployModal>

@@ -1,6 +1,6 @@
 .menu {
-    background-color: var(--menu-color);
-    color: var(--l-text-color);
+    background-color: var(--p-surface-200);
+    color: var(--p-text-0);
     /*height: calc(100vh - 2rem);*/
     /*position: static;*/
     /*top: 0;*/
@@ -20,8 +20,8 @@
   }
 .menu li:hover {
     padding: 10px 5px;
-    background: var(--background);
-    border-left: 5px solid var(--menu-pink)
+    background: var(--p-surface-50);
+    border-left: 5px solid var(--p-accent-500)
 }
 .menu li.active{
     padding: 10px 5px;
@@ -32,10 +32,10 @@
 .active{
     padding: 10px 5px;
     background: white;
-    border-left: 5px solid var(--menu-pink)
+    border-left: 5px solid var(--p-accent-500)
 }
   .menu a {
-    color: var(--l-text-color);
+    color: var(--p-text-0);
     text-decoration: none;
   }
 :host ::ng-deep .p-button{

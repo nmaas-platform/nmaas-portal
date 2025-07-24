@@ -17,9 +17,10 @@ export class ClusterManagerService {
             this.url = this.appConfig.getApiUrl() + '/management/cluster';
     }
 
-    public sendCluster(file: File, view: ClusterManager): Observable<ClusterManager> {
+    public sendCluster(file: File, view: ClusterManager, createNamespace: boolean = false): Observable<ClusterManager> {
         const formParams = new FormData();
         formParams.append('file', file);
+        formParams.append('createNamespace', createNamespace.toString());
         formParams.append('data', new Blob([JSON.stringify(view)], { type: 'application/json' }));
         return this.http.post<ClusterManager>(this.url, formParams);
     }
@@ -34,6 +35,22 @@ export class ClusterManagerService {
 
     public updateCluster(cluster: ClusterManager): Observable<ClusterManager> {
         return this.http.put<ClusterManager>(`${this.url}/${cluster.id}`, cluster);
+    }
+
+     public deleteCluster(id: number): Observable<void> {
+        return this.http.delete<void>(this.url + '/' + id);
+    }
+
+    public readClusterFile(file: File, view: ClusterManager): Observable<ClusterManager> {
+        const formParams = new FormData();
+        formParams.append('file', file);
+        formParams.append('data', new Blob([JSON.stringify(view)], { type: 'application/json' }));
+
+        return this.http.post<ClusterManager>(this.url + '/read', formParams);
+    }
+
+    public getClustersInDomain(domainId: number): Observable<ClusterManager[]> {
+        return this.http.get<ClusterManager[]>(`${this.url}/domain/${domainId}`);
     }
 
 }

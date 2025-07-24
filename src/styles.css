@@ -1,15 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
-@import '../node_modules/primeng/resources/themes/nova/theme.css';
 @import '../node_modules/primeicons/primeicons.css';
-@import '../node_modules/primeng/resources/primeng.min.css';
-/* @import '../node_modules/@formio/core/dist/formio.ful.min.css'; */
 
 /* These classes are copy pasted from bootstrap 4 to work with formio panel display */
 /* remove when applying actual bootstrap 4 */
 :root{
+    font-size: 14px;
     --left-panel-width: 300px;
     /*light-mode*/
-
     --button-text-color: #ffffff;
     --primary-button-color: #3767BE;
     --primary-button-hover: #32559B;
@@ -20,7 +17,7 @@
     --secondary-button-hover: #475569;
     --secondary-text-button-color: #64748B;
     --secondary-text-button-text-hover: #475569;
-    --secondary-text-button-background-hover: #E1E9F2;
+    --secondary-text-button-background-hover: #FEF2F2;
     --danger-button-color: #CB433F;
     --danger-button-hover: #A40400;
     --danger-text-button-color: #CB433F;
@@ -37,7 +34,6 @@
     --app-background-color: #F6F6F7;
     --tag-color: #F0D7DD;
     --background: #ffffff;
-
 
     /*dark-mode*/
     --d-button-text-color: #1C1F27;
@@ -67,23 +63,30 @@
     --d-app-background-color: #E4E7F1;
     --d-tag-color: #F0D7DD;
     --d-background: #1C1F27;
+
+    /*--p-primary-700:var(--primary-color);*/
+    /*--p-emerald-700: var(--primary-color);*/
+
 }
 .form-control:focus {
-    border-color: var(--l-text-color);
+    border-color: var(--p-text-0);
     outline: 0;
     box-shadow: none;
 }
 .background-section{
-    background: var(--app-background-color);
+    color: var(--p-text-0);
+    background: var(--p-background-100);
     border-radius: 10px;
     margin:20px 0;
     padding:30px;
 }
 .header{
     margin-top:40px;
-    font-weight: bold
+    font-weight: bold;
+    color: var(--p-text-0);
 }
 .card {
+    color: var(--p-text-300);
     position: relative;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -131,43 +134,60 @@
     font-size: 14px;
 }
 .btn-primary{
-    background:var(--primary-button-color);
+    color: var(--p-text-100);
+    background:var(--p-primary-100);
     border:none;
 }
 .btn-primary:hover{
-    background: var(--primary-button-hover);
+    color: var(--p-text-100);
+    background: var(--p-primary-200);
     border:none;
 }
 .btn-primary[disabled]{
     text-shadow:none;
-    background:var(--primary-button-color);
+    background:var(--p-primary-100);
     cursor: not-allowed;
     /*color: #61b4f9;*/
 }
 .btn-primary[disabled]:hover{
-    background: var(--primary-button-color);
+    background: var(--p-primary-100);
 }
 .btn{
     border:none
 }
 .btn-secondary{
-    background: var(--secondary-button-color);
-    color: #ffffff;
+    color: var(--p-text-100);
+    background: var(--p-primary-500);
 }
 .btn-secondary:hover{
-    background: var(--secondary-button-hover);
-    color: #ffffff
+    color: var(--p-text-100);
+    background: var(--p-primary-600);
 }
 .btn-danger{
-    background: var(--danger-button-color);
+    color: var(--p-text-100);
+    background: var(--p-danger-500);
 }
-.btn-text{
-    color: var(--primary-text-button-color);
+.btn-danger:hover {
+    color: var(--p-text-100);
+    background: var(--p-danger-600);
+}
+.btn-danger-text{
+    color: var(--danger-text-button-color);
     background: transparent;
 }
+.btn-danger-text:hover{
+    color: var(--p-danger-600);
+    background: var(--p-danger-700);
+}
+.btn-text{
+    color: var(--p-primary-300);
+    background: transparent;
+    border-radius: 4px;
+}
 .btn-text:hover{
-    background: var(--primary-text-button-background-hover);
-    color: var(--primary-text-button-text-hover)
+    background: var(--p-primary-50);
+    color: var(--p-primary-400);
+    border-radius: 4px;
 }
 
 .dropdown-menu{
@@ -190,6 +210,7 @@ body .p-datatable .p-datatable-tbody > tr > td {
     border: 1px solid #E0E2E5;
     border-width: 0 0 1px 0;
     padding: 1rem 1rem;
+    cursor: pointer;
 }
 body .p-datatable .p-paginator-bottom{
     height: 40px;
@@ -204,8 +225,8 @@ body .p-datatable .p-datatable-tbody > tr{
 body .p-paginator .p-paginator-pages .p-paginator-page{
     transition: unset;
     border-radius: 50%;
-    min-width:3.5rem;
-    height:3.5rem;
+    min-width:2.5rem;
+    height:2.5rem;
     margin:0 5px;
     font-size: 14px;
 }
@@ -213,8 +234,8 @@ body .p-paginator .p-paginator-pages .p-paginator-page{
 body .p-paginator-element{
     border-radius:50%;
     margin:0 5px;
-    min-width:3.5rem;
-    height:3.5rem;
+    min-width:2.5rem;
+    height:2.5rem;
     font-size: 14px;
 }
 body .p-paginator .p-dropdown{
@@ -235,8 +256,37 @@ body .p-datatable>.p-datatable-wrapper {
     overflow: visible;
 }
 body .p-datatable .p-sortable-column.p-highlight{
-    color: var(--primary-button-color);
+    color: var(--p-primary-100);
 }
 body .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon{
-    color:var(--primary-button-color);
+    color:var(--p-primary-100);
+}
+
+.grecaptcha-badge { 
+    visibility: hidden; 
+    bottom: 45px !important;
+}
+body .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+    vertical-align: middle;
+}
+.nmaas-modal-footer{
+    display: flex;
+    justify-content: end;
+    gap:10px;
+}
+body .p-inputtext:enabled:focus{
+    outline-offset: unset;
+    border: 1px solid var(--p-primary-800);
+    outline: none;
+    border-radius: 4px;
+}
+body .p-inputtext{
+    border: 1px solid var(--p-accent-600);
+    border-radius: 4px;
+}
+body .p-datatable-scrollable > .p-datatable-table-container > .p-datatable-table > .p-datatable-thead, .p-datatable-scrollable > .p-datatable-table-container > .p-virtualscroller > .p-datatable-table > .p-datatable-thead{
+    background: var(--p-neutral-700);
+}
+body .p-datatable-thead > tr > th.p-datatable-column-sorted {
+    color: var(--p-primary-100);
 }

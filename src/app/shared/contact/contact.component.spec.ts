@@ -15,6 +15,8 @@ import {AccessModifier} from '../../model/contact-form-type';
 import createSpyObj = jasmine.createSpyObj;
 import {InternationalizationService} from '../../service/internationalization.service';
 import {ActivatedRoute, convertToParamMap, ParamMap, Params} from '@angular/router';
+import {DialogModule} from 'primeng/dialog';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 /**
  * stub for activated route
@@ -95,6 +97,8 @@ describe('ContactComponent', () => {
         await TestBed.configureTestingModule({
             declarations: [ContactComponent, ModalComponent],
             imports: [
+                DialogModule,
+                BrowserAnimationsModule,
                 FormioModule,
                 FormsModule,
                 ReactiveFormsModule,

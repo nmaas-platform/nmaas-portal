@@ -39,19 +39,20 @@
         background-color: #233354;
         background-image: unset;
 }
-:host ::ng-deep .p-dropdown{
+:host ::ng-deep .p-select{
+        background: var(--p-background-0);
         width:100%;
         padding:3px;
         border-radius: 4px;
         border: none;
 }
-:host ::ng-deep .p-dropdown:hover{
-        background: var(--user-button-background-hover);
+:host ::ng-deep .p-select:hover{
+        background: var(--p-primary-50);
 
 }
 :host ::ng-deep .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight.p-focus{
         background: var(--user-button-background-hover);
-        color: var(--l-text-color);
+        color: var(--p-text-0);
 
 }
 :host ::ng-deep .p-dropdown-panel .p-dropdown-items .p-dropdown-item{
@@ -60,4 +61,11 @@
 :host ::ng-deep .p-dropdown-panel{
         margin-top:5px;
         border: none;
+}
+:host ::ng-deep .p-select-overlay{
+        width: 100%;
+        background: red;
+}
+:host ::ng-deep .p-select-label{
+        color: var(--p-text-0);
 }

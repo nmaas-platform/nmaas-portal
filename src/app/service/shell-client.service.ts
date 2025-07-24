@@ -1,7 +1,7 @@
 import {Injectable, NgZone} from '@angular/core';
 import {SSEService} from './sse.service';
 import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {AppConfigService} from './appconfig.service';
 import {EventSourcePolyfill, OnMessageEvent} from 'ng-event-source';
 import {PodInfo} from '../model/podinfo';

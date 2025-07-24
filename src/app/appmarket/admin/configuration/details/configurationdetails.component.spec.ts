@@ -9,10 +9,13 @@ import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-transl
 import {InternationalizationService} from '../../../../service/internationalization.service';
 import createSpyObj = jasmine.createSpyObj;
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {ToastContainerComponent} from '../../../../shared/toast-container/toast-container.component';
+
 
 describe('ConfigurationDetailsComponent', () => {
     let component: ConfigurationDetailsComponent;
     let fixture: ComponentFixture<ConfigurationDetailsComponent>;
+    let mockToast: jasmine.SpyObj<ToastContainerComponent>;
 
     beforeEach(waitForAsync(() => {
         const internationalizationSpy = createSpyObj('InternationalizationService', ['getEnabledLanguages', 'getAllSupportedLanguages'])
@@ -22,6 +25,7 @@ describe('ConfigurationDetailsComponent', () => {
         const configurationServiceSpy = createSpyObj('ConfigurationService', ['getConfiguration', 'updateConfiguration'])
         configurationServiceSpy.getConfiguration.and.returnValue(of())
         configurationServiceSpy.updateConfiguration.and.returnValue(of())
+        mockToast = jasmine.createSpyObj('ToastContainerComponent', ['show']);
 
         TestBed.configureTestingModule({
             declarations: [ConfigurationDetailsComponent],
@@ -37,7 +41,8 @@ describe('ConfigurationDetailsComponent', () => {
             ],
             providers: [
                 {provide: ConfigurationService, useValue: configurationServiceSpy},
-                {provide: InternationalizationService, useValue: internationalizationSpy}
+                {provide: InternationalizationService, useValue: internationalizationSpy},
+                { provide: ToastContainerComponent, useValue: mockToast }
             ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })

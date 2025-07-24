@@ -1,28 +1,28 @@
 	<div class="background-section"  style=" display: flex; flex-direction: column">
 		<div style=" display: flex; flex-direction: row; justify-content: space-between; padding-bottom: 50px">
 			<div style="display: flex; align-items: center;">
-				<div  *ngIf="app">
-					<img alt="App logo" [src]="(appImagesService.getAppLogoUrl(appId) | secure) || 'assets/images/app-logo-example.png'" height="90px"/>
+				<div  *ngIf="app" class="img-container">
+					<img alt="App logo" [src]="(appImagesService.getAppLogoUrl(appId) | secure) || 'assets/images/app-logo-example.png'"  width="90px"/>
 				</div>
-				<div *ngIf="!app">
-					<img alt="App logo" src="assets/images/app-logo-example.png" height="90px"/>
+				<div *ngIf="!app" class="img-container">
+					<img alt="App logo" src="assets/images/app-logo-example.png" width="90px"/>
 				</div>
 				<h3 style="margin:0 20px;">{{app?.name}}</h3>
 			</div>
-			<div class="" *ngIf="app && domain" style="display:flex; align-items: center">
-				<div *ngIf="!subscribed && isSubscriptionAllowed()" class="pull-right"
-					 pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_SUBSCRIBE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="defaultTooltipDisabled">
-					<button class="btn btn-primary m-1" [disabled]="!active || !isApplicationEnabledInDomain()" (click)="subscribe()">{{'APPLICATIONS.SUBSCRIBE_BUTTON' | translate}}</button>
-					<button class="btn btn-primary m-1"[routerLink]="['/admin/apps/bulks']">Bulk deployments</button>
+			<div class="" *ngIf="app" style="display:flex; align-items: center">
+				<div class="pull-right">
+                    <div class="btn no-padding" pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_SUBSCRIBE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="defaultTooltipDisabled">
+                        <button  *ngIf="!subscribed && isSubscriptionAllowed() && domain" class="btn btn-primary m-1" [disabled]="!active || !isApplicationEnabledInDomain()" (click)="subscribe()">{{'APPLICATIONS.SUBSCRIBE_BUTTON' | translate}}</button>
+                    </div>
+					<button *ngIf="isBulkDeploymentAllowed()" class="btn btn-primary m-1" [routerLink]="['/admin/apps/bulks/new/select']" [queryParams]="{id: appId }">Bulk deployment</button>
 				</div>
 
 				<div *ngIf="subscribed" class=" pull-right" >
-					<div class="btn no-padding" pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_DEPLOY' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="defaultTooltipDisabled">
-						<button *ngIf="isSubscriptionAllowed()" class="btn btn-danger m-1" (click)="unsubscribe()">{{'APPLICATIONS.UNSUBSCRIBE_BUTTON' | translate}}</button>
-					</div>
-					<button class="btn btn-primary m-1" [routerLink]="['/admin/apps/bulks']">Bulk deployments</button>
-					<button *ngIf="isSubscriptionAllowed()" class="btn btn-primary m-1" [disabled]="!isApplicationEnabledInDomain()" (click)="appInstallModal.show()">{{'APPLICATIONS.DEPLOY_BUTTON' | translate}}</button>
-				</div>
+					<button *ngIf="isSubscriptionAllowed()" class="btn btn-danger m-1" (click)="unsubscribe()">{{'APPLICATIONS.UNSUBSCRIBE_BUTTON' | translate}}</button>
+                    <div class="btn no-padding" pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_DEPLOY' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="defaultTooltipDisabled">
+                        <button *ngIf="isSubscriptionAllowed()" class="btn btn-primary m-1" [disabled]="!isApplicationEnabledInDomain()" (click)="appInstallModal.show()">{{'APPLICATIONS.DEPLOY_BUTTON' | translate}}</button>
+                    </div>
+                </div>
 
 			</div>
 		</div>
@@ -30,25 +30,25 @@
 			<div class="">
 				<div class="" *ngIf="app">
 <!--					<rate [showVotes]="true" [short]="true" [pathUrl]="getPathUrl(appId)"></rate>-->
-					<div class="text-muted mt-2" style="font-size: small;">
+					<div class="text-muted mt-2" style="font-size: small; color: var(--p-text-200)">
 							<span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="activeVersions.length !== 0">
-								<a class="{{activeVersions.length > 0 ? '' : 'disabled-url'}}" style="cursor: pointer;" (click)="showVersions()">{{'APP_INSTANCE.SHOW_VERSIONS_LABEL' | translate }}</a>
+								<a class="{{activeVersions.length > 0 ? '' : 'disabled-url'}}" style="cursor: pointer;color: var(--p-text-200)" (click)="showVersions()">{{'APP_INSTANCE.SHOW_VERSIONS_LABEL' | translate }}</a>
 							</span>
 						|
 						<span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="!!app?.licenseUrl">
-								<a class="{{app?.licenseUrl ? '' : 'disabled-url'}}" [href]="getValidLink(app?.licenseUrl)" target="_blank">{{app?.license || 'License'}}</a>
+								<a class="{{app?.licenseUrl ? '' : 'disabled-url'}}" [href]="getValidLink(app?.licenseUrl)" style="cursor: pointer;color: var(--p-text-200)" target="_blank">{{app?.license || 'License'}}</a>
 							</span>
 						|
 						<span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="!!app?.wwwUrl">
-								<a class="{{app?.wwwUrl ? '' : 'disabled-url'}}" [href]="getValidLink(app?.wwwUrl)">WWW</a>
+								<a class="{{app?.wwwUrl ? '' : 'disabled-url'}}" [href]="getValidLink(app?.wwwUrl)" style="cursor: pointer;color: var(--p-text-200)">WWW</a>
 							</span>
 						|
 						<span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="!!app?.sourceUrl">
-								<a class="{{app?.sourceUrl ? '' : 'disabled-url'}}" [href]="getValidLink(app?.sourceUrl)" target="_blank">{{'APP_INSTANCE.SOURCE' | translate}}</a>
+								<a class="{{app?.sourceUrl ? '' : 'disabled-url'}}" [href]="getValidLink(app?.sourceUrl)" target="_blank" style="cursor: pointer;color: var(--p-text-200)">{{'APP_INSTANCE.SOURCE' | translate}}</a>
 							</span>
 						|
 						<span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}" tooltipPosition="bottom" [showDelay]="50" [tooltipDisabled]="!!app?.issuesUrl">
-								<a class="{{app?.issuesUrl ? '' : 'disabled-url'}}" [href]="getValidLink(app?.issuesUrl)" target="_blank">{{'APP_INSTANCE.ISSUES' | translate}}</a>
+								<a class="{{app?.issuesUrl ? '' : 'disabled-url'}}" [href]="getValidLink(app?.issuesUrl)" target="_blank" style="cursor: pointer;color: var(--p-text-200)">{{'APP_INSTANCE.ISSUES' | translate}}</a>
 							</span>
 					</div>
 				</div>

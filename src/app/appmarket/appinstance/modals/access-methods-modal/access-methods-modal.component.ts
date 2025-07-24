@@ -4,9 +4,10 @@ import {ModalComponent} from '../../../../shared';
 import {Observable} from 'rxjs';
 
 @Component({
-  selector: 'app-access-methods-modal',
-  templateUrl: './access-methods-modal.component.html',
-  styleUrls: ['./access-methods-modal.component.css']
+    selector: 'app-access-methods-modal',
+    templateUrl: './access-methods-modal.component.html',
+    styleUrls: ['./access-methods-modal.component.css'],
+    standalone: false
 })
 export class AccessMethodsModalComponent implements OnInit {
 
@@ -27,7 +28,8 @@ export class AccessMethodsModalComponent implements OnInit {
   ngOnInit() {
     if (this.accessMethods) {
       this.externalAccessMethods = this.accessMethods.filter(s => this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.EXTERNAL
-          || this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.DEFAULT);
+          || this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.DEFAULT
+          || this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.INTERNAL);
       this.internalAccessMethods = this.accessMethods.filter(s => this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.INTERNAL);
       this.publicAccessMethods = this.accessMethods.filter(s => this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.PUBLIC);
       this.localAccessMethods = this.accessMethods.filter(s => this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.LOCAL);

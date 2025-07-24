@@ -5,7 +5,8 @@ import {map} from 'rxjs/operators';
 @Component({
     selector: 'nmaas-tag-filter',
     templateUrl: './tagfilter.component.html',
-    styleUrls: []
+    styleUrls: [],
+    standalone: false
 })
 export class TagFilterComponent implements OnInit {
 

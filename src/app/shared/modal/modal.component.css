@@ -21,16 +21,51 @@
     background: rgba(255,204,0,30);
     color: white;
 }
+.modal-header{
+    border: none;
+}
 
 .modal-header-none-display{
   display: none;
 }
 
 .modal-img{
+    margin-right: 15px;
     display: inline-block;
     height: auto;
     width: auto;
-    max-width: 18px;
-    max-height: 18px;
+    max-width: 35px;
+    max-height: 35px;
     vertical-align: text-bottom;
+}
+:host ::ng-deep .p-dialog .p-dialog-header{
+    background: var(--p-surface-100);
+    border:none;
+    padding:0 15px
+}
+:host ::ng-deep .p-dialog .p-dialog-content{
+    background: var(--p-surface-100);
+}
+:host ::ng-deep .p-dialog .p-dialog-footer{
+    background: var(--p-surface-100);
+    border:none;
+    padding:1.5rem;
+}
+:host ::ng-deep .p-dialog .p-dialog-header-icons .p-button{
+    padding: 10px 10px;
+    width: 100%;
+    height: 100%;
+    background: var(--user-button-background);
+    color: var(--p-text-0);
+
+}
+.alert-info, .alert-warning, .alert-danger, .alert-success{
+    display: flex;
+    background-image: none;
+    background-color: transparent;
+    color: var(--p-text-0);
+
+}
+.modal-title{
+    align-content: center;
 }

@@ -1,26 +1,32 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastContainerComponent, ToastMode } from '../toast-container/toast-container.component';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {MenuItem} from 'primeng/api';
-import {ModalNotificationSendComponent} from '../modal/modal-notification-send/modal-notification-send.component';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
+import { ModalNotificationSendComponent } from '../modal/modal-notification-send/modal-notification-send.component';
+import { AuthService } from '../../auth/auth.service';
+import { ProfileService } from '../../service/profile.service';
 
 @Component({
-  selector: 'app-left-menu',
-  templateUrl: './left-menu.component.html',
-  styleUrl: './left-menu.component.css'
+    selector: 'app-left-menu',
+    templateUrl: './left-menu.component.html',
+    styleUrl: './left-menu.component.css',
+    standalone: false
 })
-export class LeftMenuComponent  implements OnInit {
-  @ViewChild(ModalNotificationSendComponent, {static: true})
+export class LeftMenuComponent implements OnInit {
+  @ViewChild(ModalNotificationSendComponent, { static: true })
   public notificationModal;
 
   items: MenuItem[];
   toggleAdmin = false;
-  currentUrl : string ;
+  currentUrl: string;
   isCollapsed = false;
+  userName;
 
   constructor(private toast: ToastContainerComponent,
-              public router: Router,
-              private readonly activeRoute: ActivatedRoute,) {
+    public router: Router,
+    private readonly activeRoute: ActivatedRoute,
+    public authService: AuthService,
+    protected profileService: ProfileService) {
     this.items = [
       {
         label: 'Profile',
@@ -40,11 +46,19 @@ export class LeftMenuComponent  implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.profileService.getOne().subscribe((user) => {
+      if (user.firstname && user.lastname) {
+        this.userName = user.firstname + ' ' + user.lastname;
+      } else {
+        this.userName = this.authService.getPreferredUsername()
+      }
+    });
+
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.currentUrl = event.urlAfterRedirects;
         console.log('Aktualny URL:', this.currentUrl);
-        if(this.currentUrl.includes('admin')) {
+        if (this.currentUrl.includes('admin')) {
           this.toggleAdmin = true;
         }
       }
@@ -70,4 +84,22 @@ export class LeftMenuComponent  implements OnInit {
     this.notificationModal.show();
   }
 
+  public isAdmin() {
+    return this.authService.hasRole('ROLE_SYSTEM_ADMIN')
+  }
+
+  public isDomainAdmin() {
+    return this.authService.hasRole('ROLE_DOMAIN_ADMIN')
+
+  }
+
+  public showUserDomain(){
+    return !this.isAdmin() && this.isDomainAdmin();
+  }
+  toggleDarkMode(){
+    const element = document.querySelector('html');
+    if (element !== null) {
+      element.classList.toggle('dark-mode');
+    }
+  }
 }

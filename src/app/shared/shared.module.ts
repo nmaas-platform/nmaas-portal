@@ -14,7 +14,7 @@ import {ServicesModule} from '../service/services.module';
 import {UserDataService} from '../service/userdata.service';
 import {PasswordComponent, PasswordValidator} from './common/password/password.component';
 import {UserDetailsComponent} from './users/details/userdetails.component';
-import {UsersListComponent} from './users/list/userslist.component';
+import {UsersListAdminComponent} from './users/list/adminuserslist.component';
 import {UserPrivilegesComponent} from './users/privileges/userprivileges.component';
 import {BaseComponent} from './common/basecomponent/base.component';
 import {RouterModule} from '@angular/router';
@@ -72,37 +72,53 @@ import { BrowserModule } from '@angular/platform-browser';
 import {ChartModule} from 'primeng/chart';
 import { RolesExcludedDirective } from '../directive/roles-exluded.directive';
 import { FileUploadModule } from 'primeng/fileupload';
-
+import { RecaptchaVisibilityService } from '../service/recaptcha-visibility.service';
+import {CalendarModule} from 'primeng/calendar';
+import { AddClusterComponent } from './admin/clusters/add-cluster/add-cluster.component';
+import { StepsModule } from 'primeng/steps';
+import { TextareaModule } from 'primeng/textarea';
+import {DialogModule} from 'primeng/dialog';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { UserDomainListComponent } from './users/user-domain/user-domain-list.component';
+import {Select} from 'primeng/select';
+import {IconField} from 'primeng/iconfield';
+import {InputIcon} from 'primeng/inputicon';
+import {DatePicker} from 'primeng/datepicker';
 
 
 
 @NgModule({
-    imports: [
-        CommonModule,
-        PipesModule,
-        FormsModule,
-        ServicesModule,
-        RouterModule,
-        ReactiveFormsModule,
-        PasswordStrengthMeterComponent,
-        TranslateModule.forChild(),
-        NgxPaginationModule,
-        FormioModule,
-        TooltipModule,
-        DropdownModule,
-        InputTextModule,
-        FormioModule,
-        TableModule,
-        CheckboxModule,
-        InputGroupModule,
-        InputGroupAddonModule,
-        ButtonModule,
-        RecaptchaV3Module,
-        ButtonModule,
-        ChartModule,
-        FileUploadModule,
-        TableModule
-    ],
+    imports:
+        [CommonModule,
+            PipesModule,
+            FormsModule,
+            ServicesModule,
+            RouterModule,
+            ReactiveFormsModule,
+            PasswordStrengthMeterComponent,
+            TranslateModule,
+            NgxPaginationModule,
+            FormioModule,
+            TooltipModule,
+            DropdownModule,
+            InputTextModule,
+            FormioModule,
+            TableModule,
+            CheckboxModule,
+            InputGroupModule,
+            InputGroupAddonModule,
+            ButtonModule,
+            RecaptchaV3Module,
+            ButtonModule,
+            ChartModule,
+            FileUploadModule,
+            TableModule,
+            CalendarModule,
+            StepsModule,
+            TextareaModule,
+            DialogModule,
+            BrowserAnimationsModule, Select, IconField, InputIcon, DatePicker
+        ],
     declarations: [
         RateComponent,
         FooterComponent,
@@ -110,7 +126,7 @@ import { FileUploadModule } from 'primeng/fileupload';
         ScreenshotsComponent,
         ModalComponent,
         UserDetailsComponent,
-        UsersListComponent,
+        UsersListAdminComponent,
         PasswordComponent,
         UserPrivilegesComponent,
         BaseComponent,
@@ -150,11 +166,14 @@ import { FileUploadModule } from 'primeng/fileupload';
         DomainNamespaceAnnotationsComponent,
         AccessTokensComponent,
         AdminDashboardComponent,
+        AddClusterComponent,
+        UserDomainListComponent
     ],
     providers: [
         PasswordValidator,
         UserDataService,
         NotificationService,
+        RecaptchaVisibilityService,
         AppConfigService,
         DatePipe,
         {
@@ -172,7 +191,7 @@ import { FileUploadModule } from 'primeng/fileupload';
         ScreenshotsComponent,
         ModalComponent,
         UserDetailsComponent,
-        UsersListComponent,
+        UsersListAdminComponent,
         PasswordComponent,
         UserPrivilegesComponent,
         NavbarComponent,

@@ -31,7 +31,8 @@ function compareAppsId(a: ApplicationBase, b: ApplicationBase): number {
 @Component({
     selector: 'nmaas-applications-view',
     templateUrl: './applications.component.html',
-    styleUrls: []
+    styleUrls: [],
+    standalone: false
 })
 
 export class ApplicationsViewComponent implements OnInit, OnChanges {

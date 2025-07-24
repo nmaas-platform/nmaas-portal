@@ -11,9 +11,10 @@ import {UntypedFormControl, ValidatorFn} from '@angular/forms';
  * - `(key|value)ValidatorMessage` - message for errors during custom validation
  */
 @Component({
-  selector: 'app-static-global-deploy-parameters-edit',
-  templateUrl: './app-static-global-deploy-parameters-edit.component.html',
-  styleUrls: ['./app-static-global-deploy-parameters-edit.component.css']
+    selector: 'app-static-global-deploy-parameters-edit',
+    templateUrl: './app-static-global-deploy-parameters-edit.component.html',
+    styleUrls: ['./app-static-global-deploy-parameters-edit.component.css'],
+    standalone: false
 })
 export class AppStaticGlobalDeployParametersEditComponent implements OnInit {
 

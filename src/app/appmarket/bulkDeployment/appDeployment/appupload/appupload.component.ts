@@ -6,7 +6,8 @@ import {AppImagesService} from '../../../../service';
 @Component({
     selector: 'app-appupload',
     templateUrl: './appupload.component.html',
-    styleUrls: ['./appupload.component.css']
+    styleUrls: ['./appupload.component.css'],
+    standalone: false
 })
 export class AppuploadComponent implements OnInit {
 

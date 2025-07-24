@@ -1,9 +1,6 @@
-<div style="display: flex; justify-content: center;">
-    <div style="
-margin-top: 50px;
- width: 60%
-" class="panel panel-default">
-        <div class="panel-heading">{{ 'ACCOUNT_LINKING.HEADER' | translate }}</div>
+<div style="margin: auto; width: 70%;">
+    <div class="background-section">
+        <h4 style="font-size: 15px; font-weight: bold;">{{ 'ACCOUNT_LINKING.HEADER' | translate }}</h4>
         <div class="panel-body">
             <form *ngIf="user"
                   class="form-horizontal" #userDetailsForm="ngForm">
@@ -40,12 +37,14 @@ margin-top: 50px;
                                name="password" [(ngModel)]="password">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary"
-                        (click)="submit()">{{ 'ACCOUNT_LINKING.CONFIRM' | translate }}
-                </button>
+                <div class="flex justify-content-end" style="margin-top:25px">
+                    <button type="submit" class="btn btn-primary"
+                            (click)="submit()">{{ 'ACCOUNT_LINKING.CONFIRM' | translate }}
+                    </button>
+                </div>
+
                 <div *ngIf="error" class="alert alert-danger" style="margin-top: 20px">{{error}}</div>
             </form>
-            <br>
         </div>
     </div>
 </div>

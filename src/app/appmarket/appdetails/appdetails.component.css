@@ -1,6 +1,6 @@
 .tag-button{
     background-color: var(--tag-color);
-    color: var(--text-color);
+    color: var(--p-text-300);
     padding: 4px 8px;
     text-align: center;
     text-decoration: none;
@@ -12,6 +12,15 @@
 }
 .background-section{
     padding:30px;
+}
+.img-container {
+    background: var(--p-background-50);
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .block-light-gray{

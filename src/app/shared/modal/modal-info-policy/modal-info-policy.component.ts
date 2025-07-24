@@ -4,9 +4,10 @@ import {Content} from '../../../model/content';
 import {ContentDisplayService} from '../../../service/content-display.service';
 
 @Component({
-  selector: 'modal-info-policy',
-  templateUrl: './modal-info-policy.component.html',
-  styleUrls: [],
+    selector: 'modal-info-policy',
+    templateUrl: './modal-info-policy.component.html',
+    styleUrls: [],
+    standalone: false
 })
 export class ModalInfoPolicyComponent implements OnInit {
 

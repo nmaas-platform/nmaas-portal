@@ -7,6 +7,8 @@ import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-transl
 import {ContentDisplayService} from '../../../service/content-display.service';
 import {of} from 'rxjs';
 import createSpyObj = jasmine.createSpyObj;
+import {DialogModule} from 'primeng/dialog';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('ModalInfoTermsComponent', () => {
     let component: ModalInfoTermsComponent;
@@ -19,6 +21,8 @@ describe('ModalInfoTermsComponent', () => {
         TestBed.configureTestingModule({
             declarations: [ModalInfoTermsComponent, ModalComponent],
             imports: [
+                DialogModule,
+                BrowserAnimationsModule,
                 RouterTestingModule,
                 TranslateModule.forRoot({
                     loader: {

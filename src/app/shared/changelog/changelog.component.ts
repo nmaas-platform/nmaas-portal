@@ -6,7 +6,8 @@ import {ChangelogService} from '../../service';
 @Component({
     selector: 'app-changelog',
     templateUrl: './changelog.component.html',
-    styleUrls: ['./changelog.component.css']
+    styleUrls: ['./changelog.component.css'],
+    standalone: false
 })
 export class ChangelogComponent implements OnInit {
 

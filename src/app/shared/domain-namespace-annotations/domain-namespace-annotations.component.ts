@@ -8,7 +8,8 @@ import { DomainService } from '../../service';
 @Component({
     selector: 'app-domain-namespace-annotations',
     templateUrl: './domain-namespace-annotations.component.html',
-    styleUrls: ['./domain-namespace-annotations.component.css']
+    styleUrls: ['./domain-namespace-annotations.component.css'],
+    standalone: false
 })
 export class DomainNamespaceAnnotationsComponent implements OnInit {
 

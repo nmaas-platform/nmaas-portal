@@ -10,6 +10,7 @@ import { FileInfo } from '../../model';
     templateUrl: './screenshots.component.html',
     styleUrls: ['./screenshots.component.css'],
     encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class ScreenshotsComponent implements OnInit {
 

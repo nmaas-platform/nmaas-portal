@@ -13,6 +13,7 @@ import {of} from 'rxjs';
 @Component({
     selector: 'nmaas-password',
     template: '<p>Mock Password Component</p>',
+    standalone: false
 })
 export class MockPasswordComponent {}
 

@@ -17,6 +17,7 @@ import {MinLengthDirective} from '../../../directive/min-length.directive';
 import {MaxLengthDirective} from '../../../directive/max-length.directive';
 import {DomainAnnotation} from '../../../model/domain-annotation';
 import { ClusterManager } from '../../../model/cluster-manager';
+import {ToastContainerComponent, ToastMode} from '../../../shared/toast-container/toast-container.component';
 
 
 @Component({
@@ -24,10 +25,11 @@ import { ClusterManager } from '../../../model/cluster-manager';
     templateUrl: './domain.component.html',
     styleUrls: ['./domain.component.css'],
     providers: [
-        {provide: NG_VALIDATORS, useExisting: PatternValidator, multi: true},
-        {provide: NG_VALIDATORS, useExisting: MinLengthDirective, multi: true},
-        {provide: NG_VALIDATORS, useExisting: MaxLengthDirective, multi: true}
-    ]
+        { provide: NG_VALIDATORS, useExisting: PatternValidator, multi: true },
+        { provide: NG_VALIDATORS, useExisting: MinLengthDirective, multi: true },
+        { provide: NG_VALIDATORS, useExisting: MaxLengthDirective, multi: true }
+    ],
+    standalone: false
 })
 
 
@@ -36,7 +38,7 @@ export class DomainComponent extends BaseComponent implements OnInit {
     public domainId: number;
     public domain: Domain;
     public dcnUpdated = false;
-    public domainUsers: User[];
+    public domainUsers: User[] = [];
     protected domainCache: CacheService<number, Domain> = new CacheService<number, Domain>();
     public keys: any = Object.keys(DcnDeploymentType).filter((type) => {
         return isNaN(Number(type));
@@ -59,7 +61,8 @@ export class DomainComponent extends BaseComponent implements OnInit {
                 private route: ActivatedRoute,
                 private location: Location,
                 public authService: AuthService,
-                protected appsService: AppsService) {
+                protected appsService: AppsService,
+                private toast: ToastContainerComponent) {
         super();
     }
 
@@ -110,15 +113,20 @@ export class DomainComponent extends BaseComponent implements OnInit {
     public submit(): void {
         if (this.domainId !== undefined) {
             this.updateExistingDomain();
+            this.toast.show('TOAST.SUCCESS.UPDATE_DOMAIN', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER' )
         } else {
             this.domainService.add(this.domain).subscribe(() => {
+                this.toast.show('TOAST.SUCCESS.NEW_DOMAIN', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER')
                 this.router.navigate(['admin/domains/'])
-        }, err => {
-            console.error(err);
-            if(err.statusCode !== 409 && err?.message !== undefined) this.errorMessage = err.message;
-            else this.errorMessage = err;
-    
-        });
+            }, err => {
+                console.error(err);
+                if (err.statusCode !== 409 && err?.message !== undefined) {
+                    this.errorMessage = err.message;
+                } else {
+                    this.errorMessage = err;
+                }
+                this.toast.show('TOAST.ERROR.NEW_DOMAIN', ToastMode.DANGER, 'TOAST.ERROR_HEADER')
+            });
         }
         this.domainService.setUpdateRequiredFlag(true);
     }

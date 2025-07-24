@@ -1,17 +1,18 @@
-import {AuthService} from '../../../auth/auth.service';
-import {Domain} from '../../../model/domain';
-import {DomainService} from '../../../service';
-import {UserDataService} from '../../../service/userdata.service';
-import {Component, OnInit} from '@angular/core';
-import {BehaviorSubject, interval, Observable, of, Subscription} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {ProfileService} from '../../../service/profile.service';
-import {User} from '../../../model';
+import { AuthService } from '../../../auth/auth.service';
+import { Domain } from '../../../model/domain';
+import { DomainService } from '../../../service';
+import { UserDataService } from '../../../service/userdata.service';
+import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject, interval, Observable, of, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { ProfileService } from '../../../service/profile.service';
+import { User } from '../../../model';
 
 @Component({
     selector: 'nmaas-domain-filter',
     templateUrl: './domainfilter.component.html',
     styleUrls: ['./domainfilter.component.css'],
+    standalone: false
 })
 export class DomainFilterComponent implements OnInit {
 
@@ -36,9 +37,9 @@ export class DomainFilterComponent implements OnInit {
     public filteredDomains = this.filteredDomainsSub.asObservable();
 
     constructor(private authService: AuthService,
-                private domainService: DomainService,
-                private userData: UserDataService,
-                private profileService: ProfileService) {
+        private domainService: DomainService,
+        private userData: UserDataService,
+        private profileService: ProfileService) {
     }
 
     ngOnInit() {
@@ -56,9 +57,17 @@ export class DomainFilterComponent implements OnInit {
 
                 this.updateDomains();
                 this.domains.subscribe(domain => {
-                    this.selectedDomain = domain[0];
-                    this.domainName = domain[0].name;
-                    this.userData.selectDomainId(domain[0].id)
+                    const savedDomainId = sessionStorage.getItem('selectedDomainId');
+                    const savedDomain = domain.find(d => d.id === Number(savedDomainId));
+                    if (savedDomain) {
+                        this.selectedDomain = savedDomain;
+                        this.domainName = savedDomain.name;
+                        this.userData.selectDomainId(savedDomain.id);
+                    } else {
+                        this.selectedDomain = domain[0];
+                        this.domainName = domain[0].name;
+                        this.userData.selectDomainId(domain[0].id)
+                    }
                     this.filteredDomainsSub.next(domain);
                 });
             }
@@ -68,8 +77,8 @@ export class DomainFilterComponent implements OnInit {
     }
 
     public updateFilter() {
-                   this.filteredDomainsSub.next(this.domainsLocal.filter(obj => obj.name.toLowerCase().includes(this.searchTerm.toLowerCase())));
-        
+        this.filteredDomainsSub.next(this.domainsLocal.filter(obj => obj.name.toLowerCase().includes(this.searchTerm.toLowerCase())));
+
     }
 
     public updateDomains(): void {
@@ -133,7 +142,7 @@ export class DomainFilterComponent implements OnInit {
             )
         )
         console.log(this.domainsLocal);
-        
+
     }
 
     public changeDomain(domainId: number, domainName: string) {
@@ -141,6 +150,9 @@ export class DomainFilterComponent implements OnInit {
         this.domainId = domainId;
         this.domainName = domainName;
         this.userData.selectDomainId(Number(domainId));
+
+        sessionStorage.setItem('selectedDomainId', domainId.toString());
+        sessionStorage.setItem('selectedDomainName', domainName);
     }
 
     public getCurrent() {

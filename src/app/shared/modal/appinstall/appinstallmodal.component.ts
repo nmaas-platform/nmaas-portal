@@ -12,6 +12,7 @@ import {ApplicationState} from '../../../model/application-state';
     selector: 'nmaas-modal-app-install',
     templateUrl: './appinstallmodal.component.html',
     styleUrls: [],
+    standalone: false
 })
 export class AppInstallModalComponent implements OnInit {
 
@@ -32,6 +33,11 @@ export class AppInstallModalComponent implements OnInit {
     selectedAppVersion: number;
     autoUpgradesEnabled: boolean;
     error: string;
+
+    public selectedCluster: number;
+
+    isRemoteClusterAvailable: boolean = false;
+    showClusterOptions: boolean = false;
 
     public clicked = false;
 
@@ -54,7 +60,18 @@ export class AppInstallModalComponent implements OnInit {
     public create(): void {
         if (this.domainId && this.app && this.app.id && !this.clicked) {
             this.clicked = true // block another method invocation
-            this.appInstanceService.createAppInstance(this.domainId, this.selectedAppVersion, this.name, this.autoUpgradesEnabled).subscribe(
+            if(this.showClusterOptions && this.selectedCluster) {
+                this.appInstanceService.createAppInstanceInCluster(this.domainId, this.app.id, this.name, this.autoUpgradesEnabled, this.selectedCluster).subscribe(
+                    instanceId => {
+                        this.modal.hide();
+                        this.router.navigate(['/instances', instanceId.id]);
+                    },
+                    err => {
+                        this.error = err.message;
+                        this.clicked = false; // in case of error unlock the button
+                    });
+            } else {
+                this.appInstanceService.createAppInstance(this.domainId, this.selectedAppVersion, this.name, this.autoUpgradesEnabled).subscribe(
                 instanceId => {
                     this.modal.hide();
                     this.router.navigate(['/instances', instanceId.id]);
@@ -64,10 +81,18 @@ export class AppInstallModalComponent implements OnInit {
                     this.clicked = false; // in case of error unlock the button
                 });
         }
+            }
+           
     }
 
     public show(): void {
+        this.showClusterOptions = false;
+        this.selectedCluster = null;
         this.modal.show();
+        console.log(this.domain);
+        if(this.domain.clusters.length >0 ) {
+            this.isRemoteClusterAvailable = true;
+        }
     }
 
     public applicationState(state: ApplicationState | string): ApplicationState {
@@ -81,4 +106,7 @@ export class AppInstallModalComponent implements OnInit {
         return typeof state === 'string' && isNaN(Number(state.toString())) ? state : ApplicationState[state];
     }
 
+    public onClusterOptionChange(event: any) {
+        console.log(event);
+    }
 }

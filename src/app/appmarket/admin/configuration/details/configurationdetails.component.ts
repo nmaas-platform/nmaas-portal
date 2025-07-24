@@ -5,13 +5,15 @@ import {ConfigurationService} from '../../../../service';
 import {Configuration} from '../../../../model/configuration';
 import {InternationalizationService} from '../../../../service/internationalization.service';
 import {Language} from '../../../../model/language';
+import {ToastContainerComponent, ToastMode} from '../../../../shared/toast-container/toast-container.component';
 
 
 
 @Component({
     selector: 'app-configurationdetails',
     templateUrl: './configurationdetails.component.html',
-    styleUrls: ['./configurationdetails.component.css']
+    styleUrls: ['./configurationdetails.component.css'],
+    standalone: false
 })
 export class ConfigurationDetailsComponent extends BaseComponent implements OnInit {
 
@@ -21,7 +23,8 @@ export class ConfigurationDetailsComponent extends BaseComponent implements OnIn
 
     constructor(private router: Router,
                 private configurationService: ConfigurationService,
-                private languageService: InternationalizationService) {
+                private languageService: InternationalizationService,
+                private toast: ToastContainerComponent) {
         super();
     }
 
@@ -35,9 +38,16 @@ export class ConfigurationDetailsComponent extends BaseComponent implements OnIn
     }
 
     public save(): void {
+
         this.configurationService.updateConfiguration(this.configuration).subscribe(
-            () => this.update(),
-                err => this.errorMsg = err.message
+            () => {
+                this.update()
+                this.toast.show('TOAST.SUCCESS.SETTINGS', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER')
+            },
+            err => {
+                this.errorMsg = err.message
+                this.toast.show('TOAST.ERROR.SETTINGS', ToastMode.DANGER, 'TOAST.ERROR_HEADER')
+            }
         );
     }
 

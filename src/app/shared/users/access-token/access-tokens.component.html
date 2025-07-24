@@ -11,15 +11,15 @@
                 <th scope="col">{{'TOKENS.TABLE.ID' | translate}}</th>
                 <th scope="col">{{'TOKENS.TABLE.NAME' | translate}}</th>
                 <th scope="col">{{'TOKENS.TABLE.VALID' | translate}}</th>
-                <th scope="col">{{'TOKENS.TABLE.ACTIONS' | translate}}</th>
+                <th scope="col" class="col-2">{{'TOKENS.TABLE.ACTIONS' | translate}}</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let token of tokensList">
                 <td style="width: 25%;">{{token.id}}</td>
-                <td style="width: 25%;">{{token.name}}</td>
-                <td style="width: 25%;">{{token.valid}}</td>
-                <td style="width: 25%;" *ngIf="token.valid">
+                <td style="width: 30%;">{{token.name}}</td>
+                <td style="width: 30%;">{{token.valid}}</td>
+                <td style="width: 15%;" *ngIf="token.valid">
                     <button type="button" class="btn btn-danger"
                             (click)="invalidate(token.id)">{{'TOKENS.BUTTON_INVALIDATE' | translate}}</button>
                 </td>
@@ -45,7 +45,7 @@
                 <label class="control-label" for="new-token-name">
                     {{'TOKENS.MODAL.NAME' | translate}}:
                 </label>
-                <input id="new-token-name" type="text" class="form-control" formControlName="name">
+                <input pInputText id="new-token-name" type="text" class="form-control" formControlName="name">
             </div>
             <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
                 <div *ngIf="name.errors.required">{{'SSH_KEYS.MODAL.ERROR.NAME_REQUIRED' | translate}}</div>
@@ -57,7 +57,7 @@
             <div style="display: flex; justify-content: flex-end">
                 <button type="button" class="btn btn-secondary mr-2"
                         (click)="modal.hide()">{{'SSH_KEYS.MODAL.BUTTON_CANCEL' | translate}}</button>
-                <input type="submit" class="btn btn-primary" value="{{'SSH_KEYS.MODAL.BUTTON_ADD' | translate}}"
+                <input pInputText type="submit" class="btn btn-primary" value="{{'SSH_KEYS.MODAL.BUTTON_ADD' | translate}}"
                        [disabled]="!requestForm.valid">
             </div>
 
@@ -68,13 +68,13 @@
                 <span class="text-bold">
                     {{"TOKENS.MODAL.TOKEN_COPY" | translate}}
                 </span>
-                <div>
+                <div style="margin-top:20px">
                     <p-inputGroup>
-                        <input pInputText [(ngModel)]="newToken.tokenValue"  readonly="true"  placeholder="Token to copy" />
-                        <button class="btn btn-secondary" type="button" (click)="copyToClipboard()">{{"TOKENS.MODAL.COPY" | translate}}</button>
+                        <input style="border-radius:3px" pInputText [(ngModel)]="newToken.tokenValue"  readonly="true"  placeholder="Token to copy" />
+                        <button class="btn btn-secondary" style="margin-left:10px" type="button" (click)="copyToClipboard()">{{"TOKENS.MODAL.COPY" | translate}}</button>
                     </p-inputGroup>
                 </div>
-                <div class="mt-6 flex ">
+                <div class="mt-6 flex justify-content-end">
                     <button class="btn btn-primary" type="button"  (click)="ConfirmAndClose()"  >{{"TOKENS.MODAL.TOKEN_SAVED" | translate}}</button>
                 </div>
         </div>

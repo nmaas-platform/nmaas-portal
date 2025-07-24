@@ -1,27 +1,27 @@
+<h4 class="header">{{header | translate}}</h4>
 <div class="">
-    <div style="display:flex; ">
+    <div style="display:flex; margin-top:20px">
         <div style="margin-right:20px">
-          <span class="p-input-icon-right" style="width: 100%">
-               <i class="pi pi-search" style="font-size: 13px; top: 16px; margin-right: 5px;"></i>
+          <p-iconfield class="p-input-icon-right" style="width: 100%">
               <input pInputText class="flex form-control" name="search" id="search" placeholder="Search" type="text"
                      style="height: 34px" [(ngModel)]="searchValue">
-          </span>
+              <p-inputicon class="pi pi-search" style="font-size: 13px;"></p-inputicon>
+          </p-iconfield>
         </div>
         <div *ngIf="mode=== bulkTypeDomain" style="margin-right: 10px">
-            <button class="btn btn-primary" [routerLink]="['/admin/domains/bulks/new']">New deployment</button>
+            <button class="btn btn-primary" [routerLink]="['/admin/domains/bulks/new']">{{'BULK.LIST.NEW_DEPLOYMENT' | translate}}</button>
         </div>
         <div *ngIf="mode=== bulkTypeApp" style="margin-right: 10px">
-            <button class="btn btn-primary" [routerLink]="['/admin/apps/bulks/new']">New deployment</button>
+            <button class="btn btn-primary" [routerLink]="['/admin/apps/bulks/new']">{{'BULK.LIST.NEW_DEPLOYMENT' | translate}}</button>
         </div>
         <div  *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']"  class="flex align-items-center mr-6">
             <p-button
-                    type="button"
-                    class=""
+                    class="btn-text"
                     (onClick)="sidebarVisible4 = true"
                     label="Deployments Queue"
                     severity="secondary"
             ></p-button>
-            <p-sidebar [(visible)]="sidebarVisible4" position="right" styleClass="w-30rem">
+            <p-drawer [(visible)]="sidebarVisible4" position="right" styleClass="w-30rem">
                 <h3>Deployments Queue</h3>
                 <div class="flex flex-column">
                     <div class="flex grid">
@@ -37,15 +37,15 @@
                         <span class="col-2" id="jobInProcessId">{{queueDetails?.jobInProcessId}}</span>
                     </div>
                 </div>
-            </p-sidebar>
+            </p-drawer>
 
         </div>
         <div  *roles="['ROLE_SYSTEM_ADMIN']"  class="flex align-items-center mr-6 pt-2">
-            <label  *ngIf="mode=== bulkTypeApp" class="mr-2" for="showDeleted">Show all</label>
+            <label  *ngIf="mode=== bulkTypeApp" class="mr-2" style="color:var(--p-text-0)" for="showDeleted">{{'BULK.LIST.SHOW_ALL' | translate}}</label>
             <p-inputSwitch  *ngIf="mode=== bulkTypeApp"  id="showDeleted" (onChange)="refreshBulks()" [(ngModel)]="showDeleted" ngDefaultControl/>
         </div>
     </div>
-    <h4 class="header">{{header | translate}}</h4>
+
 <!--    <div class="" style="display: flex; justify-content: space-between; margin-top: 10px;">-->
 <!--        <div class="flex">-->
 <!--            <div class="flex align-items-center mr-1">{{ 'BULK.LIST.PER_PAGE' | translate }}:</div>-->
@@ -81,28 +81,28 @@
                     <th pSortableColumn="state">{{'BULK.LIST.STATE' | translate}}
                         <p-sortIcon field="state"></p-sortIcon>
                     </th>
-                    <th></th>
+<!--                    <th></th>-->
                 </tr>
             </ng-template>
 
             <ng-template pTemplate="body" let-bulk>
                 <tr class="table-row">
-                    <td>{{bulk?.id}}</td>
-                    <td>{{bulk?.creator.username}}</td>
-                    <td>{{bulk?.creationDate | date: 'dd-MM-yyyy HH:mm'}}</td>
-                    <td>{{'BULK.STATE.' + bulk?.state | translate}}</td>
-                    <td class="text-right">
-                        <span class="dropdown">
-                          <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
-                            <em class="fas fa-cog icon-black icon-bigger"></em>
-                          </a>
-                          <ul class="dropdown-menu pull-right-drop">
-                            <li *ngIf="mode === bulkTypeDomain">
-                              <a [routerLink]="['/admin/domains/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>
-                            </li>
-                          </ul>
-                        </span>
-                    </td>
+                    <td [routerLink]="['/admin/domains/bulks/', bulk?.id]">{{bulk?.id}}</td>
+                    <td [routerLink]="['/admin/domains/bulks/', bulk?.id]">{{bulk?.creator.username}}</td>
+                    <td [routerLink]="['/admin/domains/bulks/', bulk?.id]">{{bulk?.creationDate | date: 'dd-MM-yyyy HH:mm'}}</td>
+                    <td [routerLink]="['/admin/domains/bulks/', bulk?.id]">{{'BULK.STATE.' + bulk?.state | translate}}</td>
+<!--                    <td class="text-right">-->
+<!--                        <span class="dropdown">-->
+<!--                          <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">-->
+<!--                            <em class="fas fa-cog icon-black icon-bigger"></em>-->
+<!--                          </a>-->
+<!--                          <ul class="dropdown-menu pull-right-drop">-->
+<!--                            <li *ngIf="mode === bulkTypeDomain">-->
+<!--                              <a [routerLink]="['/admin/domains/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>-->
+<!--                            </li>-->
+<!--                          </ul>-->
+<!--                        </span>-->
+<!--                    </td>-->
                 </tr>
             </ng-template>
         </p-table>
@@ -180,21 +180,21 @@
 
             <ng-template pTemplate="body" let-bulk>
                 <tr class="table-row">
-                    <td>{{bulk?.id}}</td>
-                    <td>{{bulk?.creator.username}}</td>
-                    <td>{{getApplicationName(bulk?.details)}}</td>
-                    <td>{{getInstancesNumber(bulk?.details)}}</td>
-                    <td>{{bulk?.creationDate | date: 'dd-MM-yyyy HH:mm'}}</td>
-                    <td>{{'BULK.STATE.' + bulk?.state | translate}}</td>
+                    <td [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{bulk?.id}}</td>
+                    <td [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{bulk?.creator.username}}</td>
+                    <td [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{getApplicationName(bulk?.details)}}</td>
+                    <td [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{getInstancesNumber(bulk?.details)}}</td>
+                    <td [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{bulk?.creationDate | date: 'dd-MM-yyyy HH:mm'}}</td>
+                    <td [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{'BULK.STATE.' + bulk?.state | translate}}</td>
                     <td class="text-right">
                         <span class="dropdown">
                           <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
                             <em class="fas fa-cog icon-black icon-bigger"></em>
                           </a>
                           <ul class="dropdown-menu pull-right-drop">
-                            <li *ngIf="mode === bulkTypeApp">
-                              <a [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>
-                            </li>
+<!--                            <li *ngIf="mode === bulkTypeApp">-->
+<!--                              <a [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>-->
+<!--                            </li>-->
                             <li *ngIf="mode === bulkTypeApp && bulk?.state !== 'REMOVED'">
                               <a (click)="getAppBulkDetails(bulk?.id)"> {{"BULK.APP.DOWNLOAD_CSV" | translate}}</a>
                             </li>

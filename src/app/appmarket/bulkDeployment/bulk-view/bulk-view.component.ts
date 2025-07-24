@@ -12,7 +12,8 @@ import { DatePipe } from '@angular/common';
 @Component({
     selector: 'app-bulk-view',
     templateUrl: './bulk-view.component.html',
-    styleUrls: ['./bulk-view.component.css']
+    styleUrls: ['./bulk-view.component.css'],
+    standalone: false
 })
 export class BulkViewComponent implements OnInit, OnDestroy {
 
