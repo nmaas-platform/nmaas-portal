@@ -289,20 +289,21 @@ export class UserDomainListComponent extends BaseComponent implements OnInit, On
 
     }
   }
+  public closeModal() {
+    this.modal.hide()
+    this.searchInModalValue = '';
+    this.usersToAdd = [];
+  }
 
   public addToCurrentDomain(user: User) {
     this.userService.addRole(user.id, Role.ROLE_USER, this.domainId).subscribe(() => {
       this.loadUsers();
       this.isInAddToDomainMode = false;
     });
+  this.closeModal()
   }
   public showModal(): void {
     this.modal.show();
-  }
-  public closeModal() {
-    this.modal.hide()
-    this.searchInModalValue = '';
-    this.usersToAdd = [];
   }
 
 }
