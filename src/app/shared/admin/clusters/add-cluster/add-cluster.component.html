@@ -21,7 +21,7 @@
             </div>
             <div class="mt-4">
                 <label for="name">{{'CLUSTERS.FILE' | translate}}*</label>
-                <textarea style="width:100%; overflow: auto; max-height: 500px;" pInputTextarea [autoResize]="true"
+                <textarea style="width:100%; overflow: auto; max-height: 500px;" pTextarea [autoResize]="false"
                     class="form-control" [rows]="50" [(ngModel)]="kubernetesFile" name="content-textarea"></textarea>
             </div>
         </div>

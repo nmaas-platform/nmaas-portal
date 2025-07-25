@@ -199,7 +199,7 @@
                                class="col-sm-2 control-label">{{'APPS_WIZARD.BRIEF_DESCRIPTION_LABEL' | translate }}
                             *</label>
                         <div class="col-sm-10">
-                                <textarea pInputTextarea class="form-control" id="defaultLangBriefDescription"
+                                <textarea pTextarea class="form-control" id="defaultLangBriefDescription"
                                           name="defaultLangBriefDescription" [maxLength]="200"
                                           #defaultLangBriefDescription="ngModel" required
                                           [(ngModel)]="getDescriptionsInSelectedLanguage('en').briefDescription"
@@ -213,7 +213,7 @@
                                class="col-sm-2 control-label">{{'APPS_WIZARD.FULL_DESCRIPTION_LABEL' | translate}}
                             *</label>
                         <div class="col-sm-10">
-                                <textarea pInputTextarea class="form-control" id="defaultLangFullDescription"
+                                <textarea pTextarea class="form-control" id="defaultLangFullDescription"
                                           name="defaultLangFullDescription" rows="10"
                                           #defaultLangFullDescription="ngModel" required
                                           [(ngModel)]="getDescriptionsInSelectedLanguage('en').fullDescription"
@@ -245,7 +245,7 @@
                             <label for="briefDescription-{{i}}"
                                    class="col-sm-2 control-label">{{'APPS_WIZARD.BRIEF_DESCRIPTION_LABEL' | translate}}</label>
                             <div class="col-sm-10">
-                                <textarea pInputTextarea class="form-control" id="briefDescription-{{i}}" name="briefDescription-{{i}}"
+                                <textarea pTextarea class="form-control" id="briefDescription-{{i}}" name="briefDescription-{{i}}"
                                           [maxLength]="200"
                                           [(ngModel)]="getDescriptionsInSelectedLanguage(lang).briefDescription"
                                           pTooltip="{{'APPS_WIZARD.BRIEF_DESCRIPTION_TOOLTIP' | translate}}"
@@ -256,7 +256,7 @@
                             <label for="fullDescription-{{i}}"
                                    class="col-sm-2 control-label">{{'APPS_WIZARD.FULL_DESCRIPTION_LABEL' | translate}}</label>
                             <div class="col-sm-10">
-                                <textarea pInputTextarea class="form-control" id="fullDescription-{{i}}" name="fullDescription-{{i}}"
+                                <textarea pTextarea class="form-control" id="fullDescription-{{i}}" name="fullDescription-{{i}}"
                                           rows="10"
                                           [(ngModel)]="getDescriptionsInSelectedLanguage(lang).fullDescription"
                                           pTooltip="{{'APPS_WIZARD.FULL_DESCRIPTION_TOOLTIP' | translate}}"
@@ -466,7 +466,7 @@
                         <label for="termsContent" style="text-align: left; padding-left: 0;"
                                class="col-sm-2 control-label">{{'APPS_WIZARD.TERMS_CONTENT_LABEL' | translate}}</label>
                         <div class="col-sm-10">
-                            <textarea pInputTextarea id="termsContent" name="termsContent" class="form-control" rows="7"
+                            <textarea pTextarea id="termsContent" name="termsContent" class="form-control" rows="7"
                                       [(ngModel)]="termsContent"
                                       pTooltip="{{'APPS_WIZARD.TERMS_CONTENT_TOOLTIP' | translate}}" 
                                       tooltipPosition="bottom" [showDelay]="50"></textarea>
@@ -514,7 +514,7 @@
                                        class="control-label">{{'APPS_WIZARD.CONFIG_CONTENT_LABEL' | translate}}
                                     *</label>
                                 <br>
-                                <textarea pInputTextarea class="form-control" id="configFileTemplateContent-{{i}}"
+                                <textarea pTextarea class="form-control" id="configFileTemplateContent-{{i}}"
                                           name="configFileTemplateContent-{{i}}" #configFileTemplateContent="ngModel"
                                           rows="6"
                                           [(ngModel)]="configTemplate.configFileTemplateContent"

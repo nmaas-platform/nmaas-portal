@@ -20,7 +20,7 @@
           <label class="control-label" for="new-ssh-key-value">
             {{'SSH_KEYS.MODAL.LABEL.KEY' | translate}}:
           </label>
-          <textarea pInputTextarea [autoResize]="true" [rows]="10" style="min-height: 252px; max-height: 300px" id="new-ssh-key-value" class="form-control" formControlName="key" rows="12"></textarea>
+          <textarea pTextarea [autoResize]="false" [rows]="10" style="min-height: 252px; max-height: 300px" id="new-ssh-key-value" class="form-control" formControlName="key" rows="12"></textarea>
         </div>
         <div *ngIf="key.invalid && (key.dirty || key.touched)" class="alert alert-danger">
           <div *ngIf="key.errors.required">{{'SSH_KEYS.MODAL.ERROR.KEY_REQUIRED' | translate}}</div>
