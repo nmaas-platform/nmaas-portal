@@ -14,6 +14,7 @@
   right: 10px;
   width: 20vw;
   border-radius: 12px;
+  border:none;
 }
 
 :host ::ng-deep  .p-toast .p-toast-message .p-toast-message-content .p-toast-message-text {
@@ -24,6 +25,9 @@
   padding: 0;
   border-width: 0;
   text-align: left;
+  width:100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 :host ::ng-deep .p-toast .p-toast-message .p-toast-icon-close {
@@ -35,3 +39,11 @@
   right: 3px;
   transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
 }
+ :host ::ng-deep .p-toast-close-button{
+   margin:5px;
+   right: unset;
+ }
+ :host ::ng-deep .p-toast-message-success{
+   //background: #ABD0B2;
+   //color: var(--p-text-0);
+ }

@@ -30,21 +30,21 @@ export class WebhookDetailsComponent extends BaseComponent implements OnInit {
       }
 
       ngOnInit(): void {
-              this.route.params.subscribe(params => {
-        this.webhooksId = +params['id'];
+        this.route.params.subscribe(params => {
+            this.webhooksId = +params['id'];
 
-        this.service.getOne(this.webhooksId).subscribe(result => {
-          console.log(result);
-          this.webhook = result;
-          this.token = this.webhook.tokenValue;
-          this.authorizationHeader = this.webhook.authorizationHeader;
-                    console.log("Doing copy", this.token, this.authorizationHeader)
+            this.service.getOne(this.webhooksId).subscribe(result => {
+              console.log(result);
+              this.webhook = result;
+              this.token = this.webhook.tokenValue;
+              this.authorizationHeader = this.webhook.authorizationHeader;
+                        console.log("Doing copy", this.token, this.authorizationHeader)
 
-          if (this.webhook.tokenValue !== null ) {
-            this.authRequired = true;
-          }
-        } )
-    })
+              if (this.webhook.tokenValue !== null ) {
+                this.authRequired = true;
+              }
+            })
+         })
       }
 
 
@@ -56,6 +56,7 @@ export class WebhookDetailsComponent extends BaseComponent implements OnInit {
             this.token = result.tokenValue;
             this.authorizationHeader = result.authorizationHeader;
             this.toast.show('TOAST.SUCCESS.WEBHOOK', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER')
+            this.router.navigate(['admin/webhooks/'])
         }, error => {
             console.error(error);
             this.toast.show('TOAST.ERROR.WEBHOOK', ToastMode.DANGER, 'TOAST.ERROR_HEADER')
