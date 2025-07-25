@@ -1,6 +1,6 @@
 
 
-<h4 class="header"> {{ 'USERS.TITLE' | translate }}</h4>
+<h4 class="header"> {{ 'NAVBAR.DOMAIN_USERS' | translate }}</h4>
 <div class="" style="display: flex; margin-top:20px">
 
 <!--    <div *ngIf="isInAddToDomainMode" style="margin-right: 15px; padding-top: 5px;"> {{'USERS.SEARCH' |-->
@@ -17,16 +17,16 @@
 
     <button
         *ngIf="authService.hasDomainRole(domainId, 'ROLE_DOMAIN_ADMIN') || authService.hasDomainRole(domainId, 'ROLE_GROUP_DOMAIN_ADMIN')"
-        class="btn btn-primary" (click)="changeMode()">
-        <span *ngIf="isInMode(ComponentMode.DELETE)">{{'USERS.ADD_TO_DOMAIN_BUTTON' | translate}}</span>
-        <span *ngIf="isInMode(ComponentMode.EDIT)">{{'USERS.GO_BACK_BUTTON' | translate}}</span>
+        class="btn btn-primary" (click)="showModal()">
+        {{'USERS.ADD_TO_DOMAIN_BUTTON' | translate}}
+<!--        <span *ngIf="isInMode(ComponentMode.EDIT)">{{'USERS.GO_BACK_BUTTON' | translate}}</span>-->
     </button>
 </div>
 
 
 
 <div class="background-section">
-    <p-table *ngIf="!isInAddToDomainMode" [value]="users" [lazy]="true" (onLazyLoad)="onTableLazyLoad($event)"
+    <p-table [value]="users" [lazy]="true" (onLazyLoad)="onTableLazyLoad($event)"
         [totalRecords]="paginationSettings.totalElements" [rows]="paginationSettings.maxItemsOnPage"
         [rowsPerPageOptions]="[15,20,25,50]" [paginator]="true" [loading]="loading"
         [sortField]="paginationSettings.sortField" [sortOrder]="paginationSettings.sortOrder === 'asc' ? 1 : -1">
@@ -83,7 +83,6 @@
                             </span>
                         </div>
                     </div>
-                
                 </td>
 
                 <td>
@@ -101,48 +100,55 @@
         </ng-template>
     </p-table>
 
-    <p-table *ngIf="isInAddToDomainMode" [value]="usersToAdd" [lazy]="false"
-        [sortOrder]="paginationSettings.sortOrder === 'asc' ? 1 : -1">
-        <ng-template pTemplate="header">
-            <tr>
-                <th scope="col" class="column-sortable" pSortableColumn="username">
-                    {{ 'USERS.USER_NAME' | translate }}
-                    <p-sortIcon field="username"></p-sortIcon>
-                </th>
-                <th scope="col" class="column-sortable" pSortableColumn="lastname">
-                    {{'USERS.NAME' | translate}}
-                    <p-sortIcon field="lastname"></p-sortIcon>
-                </th>
-
-                <th scope="col" class="column-sortable" pSortableColumn="email">
-                    {{'USERS.EMAIL' | translate}}
-                    <p-sortIcon field="email"></p-sortIcon>
-                </th>
-
-
-                <th scope="col" class="column-sortable" pSortableColumn="enabled">
-                    {{ 'USERS.ENABLED' | translate }}
-                    <p-sortIcon field="enabled"></p-sortIcon>
-                </th>
-                <th scope="col">&nbsp;</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-user>
-            <tr>
-                <td>{{user?.username}}</td>
-                <td>{{user?.name}}</td>
-                <td>{{user?.email}}</td>
-                <td>
-                    <i class="pi" [ngClass]="{'pi-check': user?.enabled, 'pi-times': !user?.enabled}"></i>
-                </td>
-                <td>
-                    <span >
+</div>
+<nmaas-modal styleModal="info" #addUser>
+        <div class="nmaas-modal-header">{{ 'USERS.ADD_TO_DOMAIN_BUTTON' | translate }}</div>
+    <div class="nmaas-modal-body">
+        <div style="display: flex; margin-bottom: 30px">
+            <input type="text" class="form-control" placeholder="{{ 'USERS.SEARCH' | translate }}" [(ngModel)]="searchInModalValue">
+            <button class="btn btn-primary ml-2" (click)="searchUsers(searchInModalValue)">
+                {{ 'SEARCH' | translate }}
+            </button>
+        </div>
+        <p-table [value]="usersToAdd" [lazy]="false"
+                 [sortOrder]="paginationSettings.sortOrder === 'asc' ? 1 : -1">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th scope="col" class="column-sortable" pSortableColumn="username">
+                        {{ 'USERS.USER_NAME' | translate }}
+                    </th>
+                    <th scope="col" class="column-sortable" pSortableColumn="lastname">
+                        {{'USERS.NAME' | translate}}
+                    </th>
+                    <th scope="col" class="column-sortable" pSortableColumn="email">
+                        {{'USERS.EMAIL' | translate}}
+                    </th>
+                    <th scope="col" class="column-sortable" pSortableColumn="enabled">
+                        {{ 'USERS.ENABLED' | translate }}
+                    </th>
+                    <th scope="col">&nbsp;</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-user>
+                <tr>
+                    <td>{{user?.username}}</td>
+                    <td>{{user?.name}}</td>
+                    <td>{{user?.email}}</td>
+                    <td>
+                        <i class="pi" [ngClass]="{'pi-check': user?.enabled, 'pi-times': !user?.enabled}"></i>
+                    </td>
+                    <td>
+                    <span>
                         <a (click)="addToCurrentDomain(user);$event.stopPropagation()">
                                         {{'USERS.GRANT_USER_ROLE_IN_CURRENT_DOMAIN_BUTTON' | translate}}
-                                    </a>
+                        </a>
                     </span>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-</div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="nmaas-modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">{{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}</button>
+    </div>
+</nmaas-modal>
