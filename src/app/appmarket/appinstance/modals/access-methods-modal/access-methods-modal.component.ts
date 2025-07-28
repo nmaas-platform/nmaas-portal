@@ -31,8 +31,8 @@ export class AccessMethodsModalComponent implements OnInit {
           || this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.DEFAULT
           || this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.INTERNAL).sort((a, b) => {
             const order = {
-              [ServiceAccessMethodType.INTERNAL]: 0,
-              [ServiceAccessMethodType.EXTERNAL]: 1,
+              [ServiceAccessMethodType.EXTERNAL]: 0,
+              [ServiceAccessMethodType.INTERNAL]: 1,
               [ServiceAccessMethodType.DEFAULT]: 2
             }
             const aType = this.accessMethodTypeAsEnum(a.type);
