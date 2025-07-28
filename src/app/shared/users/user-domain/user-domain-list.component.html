@@ -120,9 +120,6 @@
                     <th scope="col" class="column-sortable" pSortableColumn="lastname">
                         {{'USERS.NAME' | translate}}
                     </th>
-                    <th scope="col" class="column-sortable" pSortableColumn="email">
-                        {{'USERS.EMAIL' | translate}}
-                    </th>
                     <th scope="col" class="column-sortable" pSortableColumn="enabled">
                         {{ 'USERS.ENABLED' | translate }}
                     </th>
@@ -132,8 +129,7 @@
             <ng-template pTemplate="body" let-user>
                 <tr>
                     <td>{{user?.username}}</td>
-                    <td>{{user?.name}}</td>
-                    <td>{{user?.email}}</td>
+                    <td>{{user?.firstname}} {{user?.lastname}}</td>
                     <td>
                         <i class="pi" [ngClass]="{'pi-check': user?.enabled, 'pi-times': !user?.enabled}"></i>
                     </td>
