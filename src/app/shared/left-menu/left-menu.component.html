@@ -30,7 +30,6 @@
                   </span>
                 </a>
             </li>
-            <p-button (onClick)="toggleDarkMode()">dark</p-button>
         </ul>
         <ul *ngIf="toggleAdmin" style="margin-top: 30px; max-height: 65vh; overflow: auto; padding-right:5px">
             <li [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">

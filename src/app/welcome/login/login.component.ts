@@ -8,6 +8,7 @@ import {SSOConfig} from '../../model/sso';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {ModalComponent} from '../../shared/modal';
 import {TranslateService} from '@ngx-translate/core';
+import {ThemeModeService} from '../../service/theme-mode.service';
 
 @Component({
     selector: 'nmaas-login',
@@ -37,7 +38,8 @@ export class LoginComponent implements OnInit {
                 private fb: UntypedFormBuilder,
                 private userService: UserService,
                 private translate: TranslateService,
-                private appConfig: AppConfigService) {
+                private appConfig: AppConfigService,
+                private themeModeService: ThemeModeService) {
         this.resetPasswordForm = fb.group({
             email: ['', [Validators.required, Validators.email]]
         });
@@ -57,6 +59,7 @@ export class LoginComponent implements OnInit {
                 this.loading = false;
                 this.translate.setDefaultLang(this.auth.getSelectedLanguage());
                 this.translate.use(this.auth.getSelectedLanguage());
+                this.themeModeService.handleDefaultThemeMode()
                 this.router.navigate(['/']);
             }, err => {
                 this.error = this.translate.instant(this.getMessage(err));
