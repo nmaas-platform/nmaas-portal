@@ -1,8 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {User} from '../../../model';
 import {BaseComponent} from '../../common/basecomponent/base.component';
-import {DomainService} from '../../../service';
+import {DomainService, UserService} from '../../../service';
 import {Role, UserRole} from '../../../model/userrole';
+import {TranslateService} from '@ngx-translate/core';
+import {InternationalizationService} from '../../../service/internationalization.service';
 
 function toEnum(role: string | Role): Role {
   if (typeof role === 'string') {
@@ -20,6 +22,12 @@ function toEnum(role: string | Role): Role {
 export class PreferencesComponent extends BaseComponent implements OnInit {
 
   public myDomainNames: Map<number, string> = new Map<number, string>();
+  public languages: string[];
+  themeOptions = [
+    { label: 'Light', value: 'light' },
+    { label: 'Dark', value: 'dark' }
+  ];
+  selectedTheme: string = 'light';
 
   @Input()
   public user: User = new User();
@@ -57,11 +65,33 @@ export class PreferencesComponent extends BaseComponent implements OnInit {
     this.userDetailsModeChange.emit(this.mode);
   }
 
-  constructor( public domainService: DomainService) {
+  constructor( public domainService: DomainService,
+               public userService: UserService,
+               private translate: TranslateService,
+               private languageService: InternationalizationService) {
     super();
   }
 
+  setLanguage(language: string) {
+    this.userService.setUserLanguage(this.user.id, language).subscribe(() => {
+      this.user.selectedLanguage = language;
+      localStorage.setItem('lang', language);
+      this.translate.use(language);
+    });
+  }
+
+  public getSupportedLanguages() {
+    this.languageService.getEnabledLanguages().subscribe(langs => {
+      this.translate.addLangs(langs);
+      this.languages = langs;
+    });
+  }
+  getPathToCurrent() {
+    return 'assets/images/country/' + this.user.selectedLanguage + '_circle.png';
+  }
+
   ngOnInit(): void {
+    this.getSupportedLanguages()
     this.domainService.getMyDomains().subscribe(
         domains => domains.forEach(d => this.myDomainNames.set(d.id, d.name))
     )
@@ -82,6 +112,17 @@ export class PreferencesComponent extends BaseComponent implements OnInit {
   public getFilteredUserRoles(): UserRole[] {
     const globalDomainId = this.domainService.getGlobalDomainId();
     return this.user.roles.filter(ur => ur.domainId !== globalDomainId || toEnum(ur.role) === Role.ROLE_SYSTEM_ADMIN)
+  }
+
+  onThemeChange(event: any): void {
+    const htmlElement = document.querySelector('html');
+    if (htmlElement) {
+      if (event.value === 'dark') {
+        htmlElement.classList.add('dark-mode');
+      } else {
+        htmlElement.classList.remove('dark-mode');
+      }
+    }
   }
 
 }

@@ -84,6 +84,7 @@ import {Select} from 'primeng/select';
 import {IconField} from 'primeng/iconfield';
 import {InputIcon} from 'primeng/inputicon';
 import {DatePicker} from 'primeng/datepicker';
+import {SelectButton} from 'primeng/selectbutton';
 
 
 
@@ -117,7 +118,7 @@ import {DatePicker} from 'primeng/datepicker';
             StepsModule,
             TextareaModule,
             DialogModule,
-            BrowserAnimationsModule, Select, IconField, InputIcon, DatePicker
+            BrowserAnimationsModule, Select, IconField, InputIcon, DatePicker, SelectButton
         ],
     declarations: [
         RateComponent,

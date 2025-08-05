@@ -5,7 +5,11 @@
                 class="btn btn-text" (click)="onModeChange()">{{'USER_DETAILS.EDIT_BUTTON' | translate}}</button>
     </div>
 
-    <div class="panel-body">
+    <div class="panel-body" style="display: flex; flex-direction: column">
+        <div class="form-group">
+
+        </div>
+
         <form *ngIf="user" (submit)="submit()" class="form-horizontal" #userPreferencesForm="ngForm">
 
             <div class="form-group" [ngClass]="{'has-error':  defaultDomain.invalid && (defaultDomain.dirty || defaultDomain.touched),
@@ -19,6 +23,35 @@
                     </select>
                 </div>
             </div>
+            <div  class="form-group">
+                <label class="col-sm-2 control-label" style="text-align: end" for="language">{{ 'LANGUAGE_MANAGEMENT.LANGUAGE' | translate }}: </label>
+                <div class="col-sm-3" name="language" class="dropdown">
+                    <a style="display: inline-block" class="dropdown-toggle dropdown-lang" aria-expanded="false" aria-haspopup="true"
+                       data-toggle="dropdown" href="#" role="button">
+                        <img alt="language" class="lang-circle-icon" style="width:60px" src="{{[getPathToCurrent()]}}"/>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li *ngFor="let lang of languages" [ngClass]="{'active': lang === user?.selectedLanguage}">
+                            <a (click)="setLanguage(lang)">
+                                <img alt="lang flag" class="lang-circle-icon" style="width: 60px"
+                                     src="assets/images/country/{{lang}}_circle.png"/>
+                                <span>{{lang.toUpperCase()}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+           <div class="form-group">
+               <label class="col-sm-2 control-label" style="text-align: end" for="mode">Mode: </label>
+               <p-selectButton
+                       [options]="themeOptions"
+                       [(ngModel)]="selectedTheme"
+                       optionLabel="label"
+                       optionValue="value"
+                       (onChange)="onThemeChange($event)"
+                       aria-labelledby="theme-selector">
+               </p-selectButton>
+           </div>
             <div class="flex justify-content-end mb-4">
                 <button *ngIf="!isInMode(ComponentMode.VIEW)" type="button" style="margin-right:10px"
                         class="btn btn-secondary" (click)="onModeChange()">{{'USER_DETAILS.VIEW_BUTTON' | translate}}</button>
