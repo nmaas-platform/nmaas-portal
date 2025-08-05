@@ -152,6 +152,10 @@ export class AuthService {
         localStorage.removeItem(AuthService.OIDC_TOKEN);
     }
 
+    public getSelectedThemeMode(): string {
+        return this.getToken() != null ? this.jwtHelper.decodeToken(this.getToken()).thememode : undefined;
+    }
+
     public getSelectedLanguage(): string {
         if (localStorage.getItem('lang') != null) {
             return localStorage.getItem('lang')

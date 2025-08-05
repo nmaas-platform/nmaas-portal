@@ -5,6 +5,7 @@ import {DomainService, UserService} from '../../../service';
 import {Role, UserRole} from '../../../model/userrole';
 import {TranslateService} from '@ngx-translate/core';
 import {InternationalizationService} from '../../../service/internationalization.service';
+import {AuthService} from '../../../auth/auth.service';
 
 function toEnum(role: string | Role): Role {
   if (typeof role === 'string') {
@@ -27,7 +28,7 @@ export class PreferencesComponent extends BaseComponent implements OnInit {
     { label: 'Light', value: 'light' },
     { label: 'Dark', value: 'dark' }
   ];
-  selectedTheme: string = 'light';
+  selectedTheme: string = localStorage.getItem('theme-mode')
 
   @Input()
   public user: User = new User();
@@ -68,7 +69,8 @@ export class PreferencesComponent extends BaseComponent implements OnInit {
   constructor( public domainService: DomainService,
                public userService: UserService,
                private translate: TranslateService,
-               private languageService: InternationalizationService) {
+               private languageService: InternationalizationService,
+               private authService: AuthService) {
     super();
   }
 
@@ -114,15 +116,24 @@ export class PreferencesComponent extends BaseComponent implements OnInit {
     return this.user.roles.filter(ur => ur.domainId !== globalDomainId || toEnum(ur.role) === Role.ROLE_SYSTEM_ADMIN)
   }
 
-  onThemeChange(event: any): void {
+  protected onThemeChange(event: any): void {
     const htmlElement = document.querySelector('html');
     if (htmlElement) {
       if (event.value === 'dark') {
-        htmlElement.classList.add('dark-mode');
+        this.userService.setUserThemeMode(this.user.id, 'dark').subscribe(() => {
+          this.authService.refreshToken()
+          localStorage.setItem('theme-mode', 'dark')
+          htmlElement.classList.add('dark-mode');
+        })
       } else {
-        htmlElement.classList.remove('dark-mode');
+        this.userService.setUserThemeMode(this.user.id, 'light').subscribe(() => {
+          this.authService.refreshToken()
+          localStorage.setItem('theme-mode', 'light')
+          htmlElement.classList.remove('dark-mode');
+        })
       }
     }
+
   }
 
 }

@@ -44,8 +44,10 @@
            <div class="form-group">
                <label class="col-sm-2 control-label" style="text-align: end" for="mode">Mode: </label>
                <p-selectButton
+                       ngDefaultControl
                        [options]="themeOptions"
                        [(ngModel)]="selectedTheme"
+                       [ngModelOptions]="{standalone: true}"
                        optionLabel="label"
                        optionValue="value"
                        (onChange)="onThemeChange($event)"
