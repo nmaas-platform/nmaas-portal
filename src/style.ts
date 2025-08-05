@@ -114,6 +114,14 @@ export const MyPreset = definePreset(Nora, {
           }
         },
         select: {
+            border: {
+              radius: '4px',
+              color: '{accent.600}'
+            },
+            padding: {
+                y: '6px',
+                x: '12px',
+            },
             background: '{surface.300}',
             overlay: {
                 background: '{surface.50}'

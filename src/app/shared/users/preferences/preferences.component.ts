@@ -28,7 +28,8 @@ export class PreferencesComponent extends BaseComponent implements OnInit {
     { label: 'Light', value: 'light' },
     { label: 'Dark', value: 'dark' }
   ];
-  selectedTheme: string = localStorage.getItem('theme-mode')
+  selectedTheme: string = localStorage.getItem('theme-mode');
+  selectedLanguage = localStorage.getItem('language');
 
   @Input()
   public user: User = new User();

@@ -25,34 +25,61 @@
             </div>
             <div  class="form-group">
                 <label class="col-sm-2 control-label" style="text-align: end" for="language">{{ 'LANGUAGE_MANAGEMENT.LANGUAGE' | translate }}: </label>
-                <div class="col-sm-3" name="language" class="dropdown">
-                    <a style="display: inline-block" class="dropdown-toggle dropdown-lang" aria-expanded="false" aria-haspopup="true"
-                       data-toggle="dropdown" href="#" role="button">
-                        <img alt="language" class="lang-circle-icon" style="width:60px" src="{{[getPathToCurrent()]}}"/>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li *ngFor="let lang of languages" [ngClass]="{'active': lang === user?.selectedLanguage}">
-                            <a (click)="setLanguage(lang)">
-                                <img alt="lang flag" class="lang-circle-icon" style="width: 60px"
-                                     src="assets/images/country/{{lang}}_circle.png"/>
-                                <span>{{lang.toUpperCase()}}</span>
-                            </a>
-                        </li>
-                    </ul>
+                <div class="col-sm-10">
+                    <p-select
+                              [options]="languages"
+                              [(ngModel)]="user.selectedLanguage"
+                              (ngModelChange)="setLanguage($event)"
+                              optionLabel="name"
+                              placeholder="Select a Country"
+                              [ngModelOptions]="{standalone: true}"
+                              ngDefaultControl>
+                        <ng-template #selectedItem let-selectedOption>
+                            <div class="flex items-center gap-2">
+                                <img src="assets/images/country/{{selectedOption}}_circle.png"  style="width: 40px" />
+                                <div>{{ selectedOption.toUpperCase() }}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-lang #item>
+                            <div class="flex items-center gap-2">
+                                <img src="assets/images/country/{{lang}}_circle.png" style="width: 40px" />
+                                <div>{{ lang.toUpperCase() }}</div>
+                            </div>
+                        </ng-template>
+                    </p-select>
                 </div>
+
+<!--                <div class="col-sm-3" name="language" class="dropdown">-->
+<!--                    <a style="display: inline-block" class="dropdown-toggle dropdown-lang" aria-expanded="false" aria-haspopup="true"-->
+<!--                       data-toggle="dropdown" href="#" role="button">-->
+<!--                        <img alt="language" class="lang-circle-icon" style="width:60px" src="{{[getPathToCurrent()]}}"/>-->
+<!--                    </a>-->
+<!--                    <ul class="dropdown-menu">-->
+<!--                        <li *ngFor="let lang of languages" [ngClass]="{'active': lang === user?.selectedLanguage}">-->
+<!--                            <a (click)="setLanguage(lang)">-->
+<!--                                <img alt="lang flag" class="lang-circle-icon" style="width: 60px"-->
+<!--                                     src="assets/images/country/{{lang}}_circle.png"/>-->
+<!--                                <span>{{lang.toUpperCase()}}</span>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
             </div>
            <div class="form-group">
                <label class="col-sm-2 control-label" style="text-align: end" for="mode">Mode: </label>
-               <p-selectButton
-                       ngDefaultControl
-                       [options]="themeOptions"
-                       [(ngModel)]="selectedTheme"
-                       [ngModelOptions]="{standalone: true}"
-                       optionLabel="label"
-                       optionValue="value"
-                       (onChange)="onThemeChange($event)"
-                       aria-labelledby="theme-selector">
-               </p-selectButton>
+               <div class="col-sm-10">
+                   <p-selectButton
+                           ngDefaultControl
+                           [options]="themeOptions"
+                           [(ngModel)]="selectedTheme"
+                           [ngModelOptions]="{standalone: true}"
+                           optionLabel="label"
+                           optionValue="value"
+                           (onChange)="onThemeChange($event)"
+                           aria-labelledby="theme-selector">
+                   </p-selectButton>
+               </div>
+
            </div>
             <div class="flex justify-content-end mb-4">
                 <button *ngIf="!isInMode(ComponentMode.VIEW)" type="button" style="margin-right:10px"
