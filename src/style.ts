@@ -189,6 +189,11 @@ export const MyPreset = definePreset(Nora, {
             item: {
                 padding: '0.7rem 0.75rem',
             }
+        },
+        accordion: {
+            content: {
+                padding: '0.8rem'
+            }
         }
     }
 });
