@@ -21,6 +21,7 @@ describe('AddMembersModalComponent', () => {
 
     const appInstance: AppInstance = {
         applicationId: 2,
+        applicationBaseId: 2,
         applicationName: 'Oxidized',
         applicationVersion: '1.0.0',
         configWizardTemplate: {
