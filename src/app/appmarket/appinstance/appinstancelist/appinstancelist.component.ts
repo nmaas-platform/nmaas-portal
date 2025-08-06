@@ -167,7 +167,7 @@ export class AppInstanceListComponent implements OnInit {
         this.appInstances = this.appInstances.pipe(
             map(apps => apps.map(appInst => ({
                 ...appInst,
-                appId: appInst.applicationId || null
+                appId: appInst.applicationBaseId || null
             }))),
             map(apps => apps.filter(appInst =>
                 this.domainId === this.appConfig.getNmaasGlobalDomainId() || this.domainId === appInst.domainId
