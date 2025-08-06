@@ -163,3 +163,9 @@
 :host ::ng-deep p-accordiontab button div{
     display: flex;
 }
+:host ::ng-deep chevrondownicon {
+    transform: rotate(180deg);
+}
+:host ::ng-deep chevronupicon {
+    transform: rotate(180deg);
+}
