@@ -10,6 +10,8 @@ export class ModalComponent implements OnInit {
 
     @Input() styleModal: string;
 
+    @Input() width: string = '40vw';
+
     public visible = false;
     public isInfo = false;
     public isError = false;
