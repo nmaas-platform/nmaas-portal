@@ -3,7 +3,7 @@ import {catchError, debounceTime, map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {AppConfigService, ConfigurationService} from '../service';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ProfileService} from '../service/profile.service';
 import {Role, UserRole} from '../model/userrole';
 
@@ -402,9 +402,13 @@ export class AuthService {
         if (token == null) {
             return false;
         }
-        return (token ? !this.jwtHelper.isTokenExpired(token) : false);
-    }
+        if (this.jwtHelper.isTokenExpired(token)) {
+            this.logout()
+            return false;
+        }
+        return true;
 
+    }
 
     public getDomainIds(): number[] {
         return Array.from(new Set(this.profile.map(ur => ur.domainId)));

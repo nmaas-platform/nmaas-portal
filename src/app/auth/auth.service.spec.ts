@@ -201,6 +201,7 @@ describe('Service: Auth', () => {
         expect(r).toEqual(true);
         store = {token: 'expired'};
         r = authService.isLogged();
+        httpMock.match(() => true).forEach(req => req.flush({}));
         expect(r).toEqual(false);
         store = {token: null};
         r = authService.isLogged();
