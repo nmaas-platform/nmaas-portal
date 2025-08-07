@@ -362,7 +362,7 @@
                 <p>{{'UPDATE_CONFIG_MODAL.CLONE_LABEL' | translate}}</p>
                 <label style="min-width: 100%;">
                     <input type="text" style="min-width: 100%;" disabled
-                           value="git clone ssh://{{appInstance.appConfigRepositoryAccessDetails?.cloneUrl}}"/>
+                           value="git clone {{appInstance.appConfigRepositoryAccessDetails?.cloneUrl}}"/>
                 </label>
             </div>
             <div style="padding-top: 30px" *ngIf="appInstance && configurationUpdateTemplate">
