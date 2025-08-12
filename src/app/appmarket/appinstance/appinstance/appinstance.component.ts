@@ -91,7 +91,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     @ViewChild('showConfigurationModal')
     public showConfigurationModal: ModalComponent;
 
-    @ViewChild('showConfigurationModal')
+    @ViewChild('scaleDownModal')
     public scaleDownModal: ModalComponent;
 
     app: ApplicationDTO;
