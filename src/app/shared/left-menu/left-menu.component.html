@@ -2,8 +2,10 @@
     <div class="menu flex">
         <div style="display: flex; align-items: center">
             <div class="logo-container">
-                <img *ngIf="!isCollapsed" class="logo" src="../../../assets/images/logo-small.png" width="250px">
-                <img *ngIf="isCollapsed"  class="logo" src="../../../assets/images/nmaas-cloud.png" width="50px">
+                <img *ngIf="!isCollapsed && !darkMode" class="logo" src="../../../assets/images/logo-small.png" width="250px">
+                <img *ngIf="!isCollapsed && darkMode" class="logo" src="../../../assets/images/nmaas_white_with_cloud.png" width="250px">
+                <img *ngIf="isCollapsed && !darkMode"  class="logo" src="../../../assets/images/nmaas-cloud.png" width="50px">
+                <img *ngIf="isCollapsed && darkMode"  class="logo" src="../../../assets/images/nmaas_white_only_cloud.png" width="50px">
             </div>
             <div class="toggle-button" (click)="toggleMenu()" [ngStyle]="{'left': isCollapsed ? '85px' : '284px'}">
                 <i *ngIf="!isCollapsed" style="font-size: 1.3rem" class="pi pi-angle-left"></i>

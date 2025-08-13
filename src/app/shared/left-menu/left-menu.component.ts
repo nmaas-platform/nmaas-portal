@@ -21,6 +21,7 @@ export class LeftMenuComponent implements OnInit {
   currentUrl: string;
   isCollapsed = false;
   userName;
+  darkMode;
 
   constructor(private toast: ToastContainerComponent,
     public router: Router,
@@ -46,6 +47,13 @@ export class LeftMenuComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.updateDarkMode()
+    const observer = new MutationObserver(() => this.updateDarkMode());
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
     this.profileService.getOne().subscribe((user) => {
       if (user.firstname && user.lastname) {
         this.userName = user.firstname + ' ' + user.lastname;
@@ -95,5 +103,9 @@ export class LeftMenuComponent implements OnInit {
 
   public showUserDomain() {
     return !this.isAdmin() && this.isDomainAdmin();
+  }
+
+  updateDarkMode() {
+    this.darkMode = document.querySelector('html').classList.contains('dark-mode');
   }
 }
