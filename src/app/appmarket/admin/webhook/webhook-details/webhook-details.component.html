@@ -11,7 +11,7 @@
                     <label for="clusterId" class="col-sm-2 control-label">{{ 'WEBHOOKS.ID' | translate }}</label>
                     <div class="col-sm-10">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="clusterId" name="clusterId"
+                            <input pInputText type="text" class="form-control" id="clusterId" name="clusterId"
                                    [(ngModel)]="webhook.id" [disabled]="true">
                         </div>
                     </div>
@@ -21,7 +21,7 @@
                     <label for="clusterName" class="col-sm-2 control-label">{{ 'WEBHOOKS.NAME' | translate }}</label>
                     <div class="col-sm-10">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="clusterName" name="clusterName"
+                            <input pInputText type="text" class="form-control" id="clusterName" name="clusterName"
                                    [(ngModel)]="webhook.name" [disabled]="false">
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                     <label for="targetUrl" class="col-sm-2 control-label">{{ 'WEBHOOKS.TARGET_URL' | translate }}</label>
                     <div class="col-sm-10">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="targetUrl" name="targetUrl"
+                            <input pInputText type="text" class="form-control" id="targetUrl" name="targetUrl"
                                    [(ngModel)]="webhook.targetUrl" [disabled]="false">
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                     <label for="clusterDescription" class="col-sm-2 control-label">{{ 'WEBHOOKS.TYPE' | translate }}</label>
                     <div class="col-sm-10">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="clusterDescription" name="clusterDescription"
+                            <input pInputText type="text" class="form-control" id="clusterDescription" name="clusterDescription"
                                    placeholder="{{'WEBHOOKS.' +webhook.eventType | translate}}" [disabled]="true">
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                 <div class="form-group">
                     <label for="assignDomain" class="col-sm-2 control-label">{{ 'WEBHOOKS.AUTH_REQUIRED' | translate }}</label>
                      <div class="col-sm-10">
-                    <input class="ml-5 mt-2" type="checkbox" [(ngModel)]="authRequired" [ngModelOptions]="{standalone: true}"  id="authRequired" (change)="onCheckboxChange()" />
+                    <input pInputText class="ml-5 mt-2" type="checkbox" [(ngModel)]="authRequired" [ngModelOptions]="{standalone: true}"  id="authRequired" (change)="onCheckboxChange()" />
                      </div>
                 </div>
 
@@ -57,7 +57,7 @@
                     <label for="token" class="col-sm-2 control-label">{{ 'WEBHOOKS.TOKEN' | translate }}</label>
                     <div class="col-sm-10">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="token" name="token" [ngModelOptions]="{standalone: true}"
+                            <input pInputText type="text" class="form-control" id="token" name="token" [ngModelOptions]="{standalone: true}"
                                    [(ngModel)]="webhook.tokenValue" [disabled]="false" [required]="authRequired" >
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                     <label for="auth" class="col-sm-2 control-label">{{ 'WEBHOOKS.AUTH' | translate }}</label>
                     <div class="col-sm-10">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="auth" name="auth" [ngModelOptions]="{standalone: true}"
+                            <input pInputText type="text" class="form-control" id="auth" name="auth" [ngModelOptions]="{standalone: true}"
                                    [(ngModel)]="webhook.authorizationHeader" [disabled]="false" [required]="authRequired">
                         </div>
                     </div>
