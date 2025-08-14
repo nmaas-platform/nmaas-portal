@@ -106,7 +106,10 @@ export const MyPreset = definePreset(Nora, {
     },
     components: {
         inputtext: {
-            background: '{surface.300}'
+            background: '{surface.300}',
+            disabled: {
+                color: '{text.0}'
+            }
         },
         textarea: {
           background: '{surface.300}',
