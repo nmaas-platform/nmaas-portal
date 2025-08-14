@@ -49,7 +49,8 @@ export const MyPreset = definePreset(Nora, {
                     0: '#ffffff',                         // --background
                     50: '#F6F6F7',                         // --app-background card -color
                     100: '#F6F6F7',                               // background card
-                    200: '#EAF0FF'                          // primary button text hover background
+                    200: '#EAF0FF',                          // primary button text hover background
+                    300: '#ffffff'                          //card bg
                 }
             },
             dark: {
@@ -97,7 +98,8 @@ export const MyPreset = definePreset(Nora, {
                     0: '#1C1F27',                       // --d-background
                     50: '#E4E7F1',                       // --d-app-background card-color
                     100: '#4D5059',                      // background card
-                    200: '#EAF0FF'                          // primary button text hover background
+                    200: '#EAF0FF',                          // primary button text hover background
+                    300: '#5d616c'                          //card bg
                 }
             }
         }
