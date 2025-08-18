@@ -18,7 +18,7 @@
           <ng-template ngFor let-innerKey [ngForOf]="getKeys(languageContent[key])" let-i="index">
             <tr *ngIf="!isObject(languageContent[key][innerKey])">
               <td>{{innerKey}}</td>
-              <td><input style="width:100%" [(ngModel)]="languageContent[key][innerKey]" name="input-{{innerKey}}-{{i}}"/></td>
+              <td><input pInputText style="width:100%" [(ngModel)]="languageContent[key][innerKey]" name="input-{{innerKey}}-{{i}}"/></td>
             </tr>
             <tr *ngIf="isObject(languageContent[key][innerKey])">
               <td>{{innerKey}}</td>
@@ -33,12 +33,12 @@
                 <ng-template ngFor let-nestedKey [ngForOf]="getKeys(languageContent[key][innerKey])">
                   <tr>
                     <td>{{nestedKey}}</td>
-                    <td><input [(ngModel)]="languageContent[key][innerKey][nestedKey]" name="input-{{innerKey}}-{{nestedKey}}-{{i}}" /></td>
+                    <td><input pInputText [(ngModel)]="languageContent[key][innerKey][nestedKey]" name="input-{{innerKey}}-{{nestedKey}}-{{i}}" /></td>
                   </tr>
                 </ng-template>
                 <tr>
-                  <td><input [(ngModel)]="newNestedKeys[ix][i]" name="newNestedElementKey" /></td>
-                  <td><input [(ngModel)]="newNestedValues[ix][i]" name="newNestedElementValue" />
+                  <td><input pInputText [(ngModel)]="newNestedKeys[ix][i]" name="newNestedElementKey" /></td>
+                  <td><input pInputText [(ngModel)]="newNestedValues[ix][i]" name="newNestedElementValue" />
                     <button class="btn btn-primary ml-4" (click)="handleAddingNewElements(languageContent[key][innerKey], ix, i)">{{'LANGUAGE_MANAGEMENT.ADD_NEW_ITEM_BUTTON' | translate }}</button>
                   </td>
                 </tr>
@@ -48,8 +48,8 @@
             </tr>
           </ng-template>
           <tr>
-            <td><input [(ngModel)]="newKeys[ix]" name="newElementKey" /></td>
-            <td><input [(ngModel)]="newValues[ix]" name="newElementValue" />
+            <td><input pInputText [(ngModel)]="newKeys[ix]" name="newElementKey" /></td>
+            <td><input pInputText [(ngModel)]="newValues[ix]" name="newElementValue" />
               <button class="btn btn-primary ml-4" (click)="handleAddingNewElements(languageContent[key], ix, undefined)">{{'LANGUAGE_MANAGEMENT.ADD_NEW_ITEM_BUTTON' | translate }}</button>
             </td>
            </tr>
@@ -61,13 +61,13 @@
       </div>
     </div>
   </div>
-  <h3>{{ 'LANGUAGE_MANAGEMENT.MAILS_TRANSLATION' | translate }}</h3>
+  <h3 style="color: var(--p-text-0)">{{ 'LANGUAGE_MANAGEMENT.MAILS_TRANSLATION' | translate }}</h3>
   <div *ngFor="let template of mailTemplates; let ix=index">
     <div class=" background-section" style="padding: 10px">
       <div class="panel-heading" (click)="hideMails[ix]=!hideMails[ix]">{{template.mailType}}</div>
       <div class="panel-body" *ngIf="!hideMails[ix]">
         <label for="subject-textarea">{{'LANGUAGE_MANAGEMENT.SUBJECT_LABEL' | translate}}</label>
-        <input style="width:100%;" class="form-control"  [(ngModel)]="getTemplateInSelectedLang(template.templates).subject" name="subject-textarea" id="subject-textarea" />
+        <input pInputText style="width:100%;" class=""  [(ngModel)]="getTemplateInSelectedLang(template.templates).subject" name="subject-textarea" id="subject-textarea" />
         <hr>
         <table class="table table-striped" aria-describedby="Mail template language settings">
           <thead>
@@ -79,7 +79,7 @@
           <tbody>
           <tr *ngFor="let key of getKeys(getTemplateInSelectedLang(template.templates).template); let i=index">
             <td>{{key}}</td>
-            <td><input style="width: 100%;" class="form-control" [(ngModel)]="getTemplateInSelectedLang(template.templates).template[key]" name="content-{{i}}-input"></td>
+            <td><input pInputText style="width: 100%;" class="" [(ngModel)]="getTemplateInSelectedLang(template.templates).template[key]" name="content-{{i}}-input"></td>
           </tr>
           </tbody>
         </table>
@@ -92,17 +92,17 @@
   <div class=" background-section" style="padding: 10px">
     <div class="panel-heading">{{'LANGUAGE_MANAGEMENT.LABELS_TRANSLATION' | translate }}</div>
     <div class="panel-body">
-      <textarea style="width:100%; overflow: auto; max-height: 500px;" pTextarea [autoResize]="false" class="form-control" [rows]="50" [(ngModel)]="language.content" name="content-textarea"></textarea>
+      <textarea style="width:100%; overflow: auto; max-height: 500px;" pTextarea [autoResize]="false" class="" [rows]="50" [(ngModel)]="language.content" name="content-textarea"></textarea>
     </div>
   </div>
-  <h3>{{'LANGUAGE_MANAGEMENT.MAILS_TRANSLATION' | translate }}</h3>
+  <h3 style="color: var(--p-text-0)">{{'LANGUAGE_MANAGEMENT.MAILS_TRANSLATION' | translate }}</h3>
   <hr>
   <ng-template ngFor let-template [ngForOf]="mailTemplates">
     <div class="background-section">
       <div class="panel-heading">{{template.mailType}}</div>
       <div class="panel-body">
         <label for="raw-subject-textarea">{{'LANGUAGE_MANAGEMENT.SUBJECT_LABEL' | translate}}</label>
-        <input style="width:100%;" class="form-control"  [(ngModel)]="getTemplateInSelectedLang(template.templates).subject" name="subject-textarea" id="raw-subject-textarea" />
+        <input pInputText style="width:100%;" class=""  [(ngModel)]="getTemplateInSelectedLang(template.templates).subject" name="subject-textarea" id="raw-subject-textarea" />
         <hr>
         <table class="table" aria-describedby="Email language management subject labels">
           <thead>
@@ -114,7 +114,7 @@
           <tbody>
             <tr *ngFor="let key of getKeys(getTemplateInSelectedLang(template.templates).template); let i=index">
               <td>{{key}}</td>
-              <td><input style="width: 100%;" class="form-control" [(ngModel)]="getTemplateInSelectedLang(template.templates).template[key]" name="raw-content-{{i}}-input"></td>
+              <td><input pInputText style="width: 100%;" class="" [(ngModel)]="getTemplateInSelectedLang(template.templates).template[key]" name="raw-content-{{i}}-input"></td>
             </tr>
           </tbody>
         </table>
