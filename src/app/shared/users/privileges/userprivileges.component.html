@@ -5,8 +5,8 @@
 			<form *ngIf="user" [formGroup]="newPrivilegeForm" (submit)="add()" class="form-inline row">
 				<div *ngIf="domainId" class="form-group col-lg-3" >
 					<label style="margin-right:10px" for="domainId" >{{'USER_PRIVILEGES.DOMAIN' | translate}}:</label>
-					<select class="form-control" [formGroup]="newPrivilegeForm"
-						id="domainId" name="domainId" formControlName="domainId" style="min-width: 170px"
+					<select style=" min-width: 170px; background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" [formGroup]="newPrivilegeForm"
+						id="domainId" name="domainId" formControlName="domainId"
 							(ngModelChange)="clearSelectedRole()">
 						<option *ngFor="let domain of domains" [value]="domain.id">{{domain.name}}</option>
 					</select>
@@ -16,7 +16,7 @@
 					<label style="margin-right:10px" for="role" >{{'USER_PRIVILEGES.ROLE' | translate}}:</label>
 					<select
 						class="form-control" [formGroup]="newPrivilegeForm" id="role"
-						name="role" formControlName="role" style="min-width: 170px">
+						name="role" formControlName="role" style=" min-width: 170px; background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control">
 						<option *ngFor="let r of getAllowedRoles()" [value]="r">
 							{{"ENUM.USER_ROLES." + Role[r].toUpperCase() | translate}}
 						</option>

@@ -5,3 +5,6 @@
 :host ::ng-deep .p-inputtext {
     width: 300px;
 }
+*{
+    color: var(--p-text-0);
+}

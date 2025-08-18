@@ -86,7 +86,7 @@
     color: var(--p-text-0);
 }
 .card {
-    color: var(--p-text-300);
+    color: var(--p-text-0);
     position: relative;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -97,7 +97,7 @@
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    background-color: #fff;
+    background-color: var(--p-background-300);
     background-clip: border-box;
     border: 1px solid rgba(0,0,0,.125);
     border-radius: .25rem;

@@ -5,7 +5,8 @@
     width: unset;
     margin-right: 5px;
     background: var(--p-primary-100);
-    color: var(--button-text-color);
+    color: var(--p-text-100);
+    border-radius: 4px;
 }
 :host ::ng-deep .p-button:hover{
     background: var(--p-primary-200);

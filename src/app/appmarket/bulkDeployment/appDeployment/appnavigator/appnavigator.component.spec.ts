@@ -5,6 +5,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {RouterModule} from '@angular/router';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 
 describe('AppnavigatorComponent', () => {
   let component: AppnavigatorComponent;
@@ -14,7 +15,13 @@ describe('AppnavigatorComponent', () => {
     await TestBed.configureTestingModule({
     declarations: [AppnavigatorComponent],
     schemas: [NO_ERRORS_SCHEMA],
-    imports: [RouterModule.forRoot([])],
+    imports: [RouterModule.forRoot([]),
+      TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateFakeLoader
+        }
+      })],
     providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 })
     .compileComponents();

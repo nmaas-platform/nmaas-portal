@@ -149,59 +149,62 @@
         <div *ngIf="bulk && bulkType === 'APPLICATION' ">
             <div class="flex justify-content-between">
                 <h3>{{'BULK.APP.VIEW_HEADER' | translate}}</h3>
-                <img alt="App logo" style="width: 50px"
-                     [src]="(appImagesService.getAppLogoUrl(bulk.details['appId']) | secure) || 'assets/images/app-logo-example.png'"/>
+                <div class="img-container">
+                    <img alt="App logo" style="width: 60px"
+                         [src]="(appImagesService.getAppLogoUrl(bulk.details['appId']) | secure) || 'assets/images/app-logo-example.png'"/>
+                </div>
+
             </div>
 
-            <div class="" style="padding-bottom: 5rem; margin-top: 3rem">
+            <div class="" style="padding-bottom: 3rem; margin-top: 3rem">
                 <label for="id" class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.ID' | translate }}</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="id" name="id" [disabled]="true"
+                    <input pInputText  type="text" class="form-control" id="id" name="id" [disabled]="true"
                            [(ngModel)]="bulk.id" #name="ngModel">
                 </div>
             </div>
 
-            <div class="" style="padding-bottom: 5rem;">
+            <div class="" style="padding-bottom: 3rem;">
                 <label for="id" class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.APP_NAME' | translate }}</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="id" name="id" [disabled]="true"
+                    <input pInputText  type="text" class="form-control" id="id" name="id" [disabled]="true"
                            [(ngModel)]="bulk.details['appName']" #name="ngModel">
                 </div>
 
             </div>
 
-            <div class="" style="padding-bottom: 5rem">
+            <div class="" style="padding-bottom: 3rem">
                 <label for="creator"
                        class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.CREATOR' | translate }}</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="creator" name="creator" [disabled]="true"
+                    <input pInputText  type="text" class="form-control" id="creator" name="creator" [disabled]="true"
                            placeholder="{{bulk.creator.username}} ({{bulk.creator.firstname}} {{bulk.creator.lastname}})">
                 </div>
             </div>
 
-            <div class="" style="padding-bottom: 5rem">
+            <div class="" style="padding-bottom: 3rem">
                 <label for="date"
                        class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.CREATION_DATE' | translate }}</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="date" name="date" [disabled]="true"
+                    <input pInputText  type="text" class="form-control" id="date" name="date" [disabled]="true"
                            placeholder="{{bulk.creationDate | date: 'dd-MM-yyyy HH:mm'}}">
                 </div>
             </div>
 
-            <div class="" style="padding-bottom: 5rem">
+            <div class="" style="padding-bottom: 3rem">
                 <label for="state"
                        class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.STATE' | translate }}</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="state" name="state" [disabled]="true"
+                    <input pInputText  type="text" class="form-control" id="state" name="state" [disabled]="true"
                            placeholder="{{'BULK.STATE.' + bulk.state | translate}}">
                 </div>
             </div>
 
-            <div class="" style="padding-bottom: 5rem">
+            <div class="" style="padding-bottom: 3rem">
                 <label for="completionDate"
                        class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.COMPLETION_DATE' | translate }}</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="completionDate" name="completionDate" [disabled]="true"
+                    <input pInputText  type="text" class="form-control" id="completionDate" name="completionDate" [disabled]="true"
                            placeholder="{{completionDate}}">
                 </div>
             </div>
@@ -221,13 +224,13 @@
                 </p-progressBar>
 
             </div>
-            <div class="panel panel-default" style="margin-top: 1rem">
+            <div class="card" style="margin-top: 1rem">
                 <div class="panel-heading">
 
                     <div style="display: flex; justify-content: start; align-items: center">
-                        <div>
+                        <h4>
                             {{ 'BULK.APP.DEPLOYMENTS' | translate }}
-                        </div>
+                        </h4>
                     </div>
                 </div>
                 <div class="panel-body">

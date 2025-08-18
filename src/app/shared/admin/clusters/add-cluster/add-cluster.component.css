@@ -19,3 +19,19 @@
   font-size: 12px;
   margin-top: 5px;  
 }
+
+:host ::ng-deep .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{
+    background: transparent;
+    border:none;
+    box-shadow: none;
+    color: var(--p-text-0);
+}
+.p-inputtext:enabled:focus{
+    border: none;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    box-shadow: 0 0 0px 1000px var(--p-surface-300) inset !important;
+    /*background: var(--p-surface-300) !important;*/
+}
