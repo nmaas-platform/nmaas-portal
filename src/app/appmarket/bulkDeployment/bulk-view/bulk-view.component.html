@@ -2,7 +2,7 @@
     <div class="background-section">
         <div *ngIf="bulk && bulkType === 'DOMAIN' ">
             <h3>{{'BULK.DOMAIN.HEADER_VIEW' | translate}}</h3>
-            <div class="" style="padding-bottom: 5rem; margin-top: 3rem">
+            <div class="" style="padding-bottom: 1rem; margin-top: 1rem">
                 <label for="id" class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.ID' | translate }}</label>
                 <div class="col-sm-10">
                     <input pInputText type="text" class="form-control" id="id" name="id" [disabled]="true"
@@ -10,7 +10,7 @@
                 </div>
             </div>
 
-            <div class="" style="padding-bottom: 5rem">
+            <div class="" style="padding-bottom: 1rem">
                 <label for="creator"
                        class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.CREATOR' | translate }}</label>
                 <div class="col-sm-10">
@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <div class="" style="padding-bottom: 5rem">
+            <div class="" style="padding-bottom: 3rem">
                 <label for="date"
                        class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.CREATION_DATE' | translate }}</label>
                 <div class="col-sm-10">
@@ -28,7 +28,7 @@
                 </div>
             </div>
 
-            <div class="form-group" style="padding-bottom: 5rem">
+            <div class="form-group" style="padding-bottom: 3rem">
                 <label for="state"
                        class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.STATE' | translate }}</label>
                 <div class="col-sm-10">
@@ -36,7 +36,7 @@
                            placeholder="{{'BULK.STATE.' + bulk.state | translate}}">
                 </div>
             </div>
-            <div class="panel panel-default" style="margin-top: 3rem">
+            <div class="card" style="margin-top: 3rem">
                 <div class="panel-heading">
 
                     <div style="display: flex; justify-content: start; align-items: center">
@@ -64,8 +64,8 @@
                                 <td>{{getDomainName(response)}}</td>
                                 <td>{{getDomainCodeName(response)}}</td>
                                 <td style="width: 5%" class="text-right" *ngIf="bulk.state !== 'REMOVED'">
-                                    <i *ngIf="response.type === 'DOMAIN'" class="pi pi-search" style="font-size: 1.8rem; cursor: pointer" [routerLink]="['/admin/domains/view/', response?.details['domainId']]"></i>
-                                    <i *ngIf="response.type === 'USER'" class="pi pi-search" style="font-size: 1.8rem; cursor: pointer" [routerLink]="['/admin/users/view', response?.details['userId']]"></i>
+                                    <i *ngIf="response.type === 'DOMAIN'" class="pi pi-search" style="font-size: 1rem; cursor: pointer" [routerLink]="['/admin/domains/view/', response?.details['domainId']]"></i>
+                                    <i *ngIf="response.type === 'USER'" class="pi pi-search" style="font-size: 1rem; cursor: pointer" [routerLink]="['/admin/users/view', response?.details['userId']]"></i>
                                     <!-- <span class="dropdown">
                             <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
                                data-toggle="dropdown" href="#" role="button">
@@ -89,7 +89,7 @@
                 </div>
             </div>
 
-            <div class="panel panel-default" style="margin-top: 3rem">
+            <div class="card" style="margin-top: 3rem">
                 <div class="panel-heading">
 
                     <div style="display: flex; justify-content: start; align-items: center">
@@ -117,8 +117,8 @@
                                 <td>{{getUsername(response)}}</td>
                                 <td>{{getEmail(response)}}</td>
                                 <td style="width: 5%" class="text-right">
-                                    <i *ngIf="response.type === 'DOMAIN'" class="pi pi-search" style="font-size: 1.8rem; cursor: pointer" [routerLink]="['/admin/domains/view/', response?.details['domainId']]"></i>
-                                    <i *ngIf="response.type === 'USER'" class="pi pi-search" style="font-size: 1.8rem; cursor: pointer" [routerLink]="['/admin/users/view', response?.details['userId']]"></i>
+                                    <i *ngIf="response.type === 'DOMAIN'" class="pi pi-search" style="font-size: 1rem; cursor: pointer" [routerLink]="['/admin/domains/view/', response?.details['domainId']]"></i>
+                                    <i *ngIf="response.type === 'USER'" class="pi pi-search" style="font-size: 1rem; cursor: pointer" [routerLink]="['/admin/users/view', response?.details['userId']]"></i>
 
                                     <!-- <span class="dropdown">
                             <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
@@ -156,7 +156,7 @@
 
             </div>
 
-            <div class="" style="padding-bottom: 3rem; margin-top: 3rem">
+            <div class="" style="padding-bottom: 1rem; margin-top: 1rem">
                 <label for="id" class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.ID' | translate }}</label>
                 <div class="col-sm-10">
                     <input pInputText  type="text" class="form-control" id="id" name="id" [disabled]="true"
@@ -164,7 +164,7 @@
                 </div>
             </div>
 
-            <div class="" style="padding-bottom: 3rem;">
+            <div class="" style="padding-bottom: 1rem;">
                 <label for="id" class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.APP_NAME' | translate }}</label>
                 <div class="col-sm-10">
                     <input pInputText  type="text" class="form-control" id="id" name="id" [disabled]="true"
@@ -173,7 +173,7 @@
 
             </div>
 
-            <div class="" style="padding-bottom: 3rem">
+            <div class="" style="padding-bottom: 1rem">
                 <label for="creator"
                        class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.CREATOR' | translate }}</label>
                 <div class="col-sm-10">
@@ -182,7 +182,7 @@
                 </div>
             </div>
 
-            <div class="" style="padding-bottom: 3rem">
+            <div class="" style="padding-bottom: 1rem">
                 <label for="date"
                        class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.CREATION_DATE' | translate }}</label>
                 <div class="col-sm-10">
@@ -191,7 +191,7 @@
                 </div>
             </div>
 
-            <div class="" style="padding-bottom: 3rem">
+            <div class="" style="padding-bottom: 1rem">
                 <label for="state"
                        class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.STATE' | translate }}</label>
                 <div class="col-sm-10">
@@ -200,7 +200,7 @@
                 </div>
             </div>
 
-            <div class="" style="padding-bottom: 3rem">
+            <div class="" style="padding-bottom: 1rem">
                 <label for="completionDate"
                        class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.COMPLETION_DATE' | translate }}</label>
                 <div class="col-sm-10">
@@ -224,13 +224,13 @@
                 </p-progressBar>
 
             </div>
-            <div class="card" style="margin-top: 1rem">
+            <div class="card" style="margin-top: 3rem">
                 <div class="panel-heading">
 
                     <div style="display: flex; justify-content: start; align-items: center">
-                        <h4>
+                        <div>
                             {{ 'BULK.APP.DEPLOYMENTS' | translate }}
-                        </h4>
+                        </div>
                     </div>
                 </div>
                 <div class="panel-body">

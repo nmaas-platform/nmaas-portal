@@ -164,7 +164,7 @@
                                     </a>
                                 </li>
                                 <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']">
-                                    <a role="button" (click)="this.undeployModal.show()" style="color: var(--p-primary-900)">
+                                    <a role="button" (click)="this.undeployModal.show()" >
                                         {{'APP_INSTANCE.UNDEPLOY_BUTTON' | translate}}
                                     </a>
                                 </li>
@@ -176,7 +176,7 @@
                                     </a>
                                 </li>
                                 <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']">
-                                    <a role="button" (click)="this.undeployModal.show()" style="color: var(--p-primary-900)">
+                                    <a role="button" (click)="this.undeployModal.show()">
                                         {{'APP_INSTANCE.UNDEPLOY_BUTTON' | translate}}
                                     </a>
                                 </li>
@@ -200,7 +200,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a role="button" style="color: var(--p-primary-900)"
+                                    <a role="button"
                                        *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
                                        (click)="removeConfirm.show()">{{'APP_INSTANCE.REMOVE_BUTTON' | translate}}
                                     </a>

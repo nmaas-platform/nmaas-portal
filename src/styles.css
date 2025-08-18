@@ -193,6 +193,14 @@
 .dropdown-menu{
     right: 0;
     left:unset;
+    background-color: var(--p-background-300);
+}
+.dropdown-menu>li>a{
+    color: var(--p-text-0);
+}
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{
+    background: var(--p-primary-50);
+    color: var(--p-text-0);
 }
 
 .text-bold {

@@ -50,7 +50,7 @@ export const MyPreset = definePreset(Nora, {
                     50: '#F6F6F7',                         // --app-background card -color
                     100: '#F6F6F7',                               // background card
                     200: '#EAF0FF',                          // primary button text hover background
-                    300: '#ffffff'                          //card bg
+                    300: '#ffffff'                          // card bg
                 }
             },
             dark: {
@@ -143,8 +143,9 @@ export const MyPreset = definePreset(Nora, {
             }
         },
         checkbox: {
-            width: '20px',
-            height: '20px',
+            background: '{surface.300}',
+            width: '18px',
+            height: '18px',
             checked: {
                 background: '{primary.100}',
                 border: {
