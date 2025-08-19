@@ -42,7 +42,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
         if (this.authService.hasRole('ROLE_OPERATOR')) {
             this.getOperator();
         }
-        if(this.authService.hasRole('ROLE_SYSTEM_ADMIN')) {
+        if (this.authService.hasRole('ROLE_SYSTEM_ADMIN')) {
             this.getAdmin()
         }
         this.refresh = this.userDataService.selectedDomainId.subscribe((domainId) => {
@@ -169,6 +169,9 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
             this.rangeDates = dates;
             this.startDate = dates[0].toISOString();
             this.endDate = dates[1].toISOString();
+        }
+        if (this.authService.hasRole('ROLE_SYSTEM_ADMIN')) {
+            this.getAdmin()
         }
     }
 
