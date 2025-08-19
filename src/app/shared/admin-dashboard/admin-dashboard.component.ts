@@ -32,6 +32,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     constructor(protected dashboardService: DashboardService,
                 private userDataService: UserDataService,
                 public appImagesService: AppImagesService,
+                private appsService: AppsService,
                 public authService: AuthService) {
     }
 
@@ -40,6 +41,9 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
         this.setDefaultDate();
         if (this.authService.hasRole('ROLE_OPERATOR')) {
             this.getOperator();
+        }
+        if(this.authService.hasRole('ROLE_SYSTEM_ADMIN')) {
+            this.getAdmin()
         }
         this.refresh = this.userDataService.selectedDomainId.subscribe((domainId) => {
             this.domainId = domainId
@@ -124,6 +128,25 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
                 this.operatorData = res;
             }
         )
+    }
+
+    getAdmin() {
+        this.appsService.getAllApplicationBase().subscribe(apps => {
+            const appNameToAppIdMap: { [name: string]: number } = {};
+            apps.forEach(app => {
+                appNameToAppIdMap[app.name] = app.id;
+            });
+            this.dashboardService.getAdmin(this.startDate, this.endDate).subscribe(
+                (response) => {
+                    this.adminData = response;
+                    this.instanceCountInPeriodDetails = this.adminData.instanceCountInPeriodDetails.map(instance => ({
+                        ...instance,
+                        appId: appNameToAppIdMap[instance.applicationName] || null
+                    }));
+                    this.chartData();
+                }
+            );
+        });
     }
 
     getDomainAdmin() {
