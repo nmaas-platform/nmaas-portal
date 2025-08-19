@@ -36,7 +36,7 @@
 						   [(ngModel)]="showClusterOptions" binary="true" (onchange)="onClusterOptionChange($event)"/>
 				</div>
 			</div>
-			<div *ngIf="showClusterOptions" style="">
+			<div *ngIf="showClusterOptions" style="padding-top:15px;">
 				<label for="selectCluster" class="control-label">{{'INSTALL_MODAL.SELECT_CLUSTER' | translate}}</label>
 				<select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" name="selectCluster" id="selectCluster" [(ngModel)]="selectedCluster" required>
 					<option *ngFor="let cluster of domain?.clusters" [value]="cluster.id" >{{cluster.name}}</option>

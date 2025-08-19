@@ -91,7 +91,7 @@
 
             <div class="mt-4">
                     <label for="assignDomain">Auth required</label>
-                    <input pInputText class="ml-2" type="checkbox" [(ngModel)]="authRequired"  id="authRequired"/>
+                    <input class="ml-2" type="checkbox" [(ngModel)]="authRequired"  id="authRequired"/>
                 </div>
 
             <div *ngIf="authRequired" class="mt-4">
@@ -105,12 +105,12 @@
             </div>
 
             
-            </div>
+        </div>
     </div>
     <div class="nmaas-modal-footer">
       <button type="button" class="btn btn-secondary"
                     (click)="this.modal.hide()">{{'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
-      <button type="button" class="btn btn-primary" [disabled]=" addedWebhook?.name === null "(click)="closeModalAndSaveWebhook()"
+      <button type="button" class="btn btn-primary" [disabled]="!newWebhookValid()" (click)="closeModalAndSaveWebhook()"
               pTooltip="Upload file is required before save" showDelay="2000" >{{'WEBHOOKS.SAVE' | translate}}</button>
     </div>
   </nmaas-modal>
