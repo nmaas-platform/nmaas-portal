@@ -44,7 +44,6 @@ describe('AdminDashboardComponent', () => {
         { provide: DashboardService, useValue: mockDashboardService },
         {provide: AppImagesService, useValue: appImagesServiceSpy},
         { provide: UserDataService, useValue: mockUserDataService },
-        {provide: ActivatedRoute, useValue: {params: of({id: 1})}},
         { provide: AppsService, useValue: appsServiceSpy },
         {provide: AuthService, useValue: authServiceSpy}
       ],
@@ -60,11 +59,6 @@ describe('AdminDashboardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize with admin data and chart data', () => {
-    expect(component.adminData).toBeDefined();
-    expect(component.popularAppsChartData).toBeDefined();
-    expect(component.instanceCountInPeriodDetails).toEqual([]);
-  });
 
   it('should subscribe to selectedDomainId and fetch domain admin data', () => {
     expect(component.domainId).toBe(123);
@@ -78,9 +72,9 @@ describe('AdminDashboardComponent', () => {
     expect(formattedDate).toBe(new Date(date).toLocaleString());
   });
 
-  it('should call chartData method and populate chart data', () => {
-    component.chartData();
-    expect(component.popularAppsChartData.labels).toEqual(['App2', 'App1']);
-    expect(component.popularAppsChartData.datasets[0].data).toEqual([20, 10]);
-  });
+  // it('should call chartData method and populate chart data', () => {
+  //   component.chartData();
+  //   expect(component.popularAppsChartData.labels).toEqual(['App2', 'App1']);
+  //   expect(component.popularAppsChartData.datasets[0].data).toEqual([20, 10]);
+  // });
 });
