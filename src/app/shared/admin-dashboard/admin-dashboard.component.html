@@ -121,7 +121,7 @@
                          [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : ['/instances',app.appId]">
                         <td>
                             <div class="img-container">
-                                <img style="width: 40px" [src]="(appImagesService.getAppLogoUrl(app.logoId) | secure) || '../../../assets/images/app-logo-example.png'"/>
+                                <img style="width: 40px" [src]="(appImagesService.getAppLogoUrl(app.baseAppId) | secure) || '../../../assets/images/app-logo-example.png'"/>
                             </div>
                         </td>
                         <td>{{app.appName}}</td>
