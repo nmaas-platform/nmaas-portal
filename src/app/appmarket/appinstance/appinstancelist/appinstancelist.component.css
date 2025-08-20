@@ -69,17 +69,17 @@ label{
     font-weight: bold;
 }
 ::ng-deep .failure .p-progressbar .p-progressbar-value{
-    background: #AA0404;
+    background: var(--p-accent-400);
 }
 .failure{
-    color: #AA0404;
+    color: var(--p-accent-400);
     font-weight: bold;
 }
 ::ng-deep .done .p-progressbar .p-progressbar-value{
-    background: #136214;
+    background: var(--p-accent-300);
 }
 .done{
-    color: #136214;
+    color: var(--p-accent-300);
     font-weight: bold;
 }
 ::ng-deep .removed .p-progressbar .p-progressbar-value{
@@ -90,10 +90,10 @@ label{
     font-weight: bold;
 }
 ::ng-deep .scaledDown .p-progressbar .p-progressbar-value{
-    background: #2673B6;
+    background: var(--p-accent-200);
 }
 .scaledDown{
-        color: #2673B6;
+        color: var(--p-accent-200);
         font-weight: bold;
 }
 ::ng-deep .p-progressbar .p-progressbar-label{
