@@ -11,7 +11,7 @@
                 <div class="" *ngIf="!logo" style="display: flex; align-items: center">
                     <img alt="App logo" src="assets/images/app-logo-example.png" width="90px" />
                 </div>
-                <h3 style="margin:0 20px;">{{app?.applicationBase.name}}</h3>
+                <h3 style="margin:0 20px; color: var(--p-text-0)">{{app?.applicationBase.name}}</h3>
             </div>
             <div style="display:flex; align-items: center">
                 <div class=" pull-right">
@@ -83,7 +83,7 @@
 </div>
 <div class="row" *ngIf="app?.application.configWizardTemplate">
     <div class="col-xs-12">
-        <h3>{{'APPS_PREVIEW.CONFIG_WIZARD_PREVIEW_HEADER' | translate}}</h3>
+        <h3 style="color: var(--p-text-0)">{{'APPS_PREVIEW.CONFIG_WIZARD_PREVIEW_HEADER' | translate}}</h3>
         <hr>
         <formio *ngIf="app !== undefined && app.application.configWizardTemplate.template !== undefined"
                 [form]="app.application.configWizardTemplate.template"

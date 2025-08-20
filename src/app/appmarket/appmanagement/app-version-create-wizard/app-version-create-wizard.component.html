@@ -1,7 +1,7 @@
-<h3 *ngIf="isInMode(ComponentMode.CREATE)" xmlns="http://www.w3.org/1999/html">
+<h3 style="color: var(--p-text-0)" *ngIf="isInMode(ComponentMode.CREATE)" xmlns="http://www.w3.org/1999/html">
   {{ 'APPS_WIZARD.NEW_APP_VERSION_WIZARD_HEADER' | translate: {'app_name': appName} }}
 </h3>
-<h3 *ngIf="isInMode(ComponentMode.EDIT) && applicationDTO">
+<h3 style="color: var(--p-text-0)" *ngIf="isInMode(ComponentMode.EDIT) && applicationDTO">
   {{ 'APPS_WIZARD.EDIT_APP_VERSION_WIZARD_HEADER' | translate: {'app_name': appName, 'app_version': applicationDTO?.application.version} }}
 </h3>
 
@@ -9,13 +9,13 @@
 <hr/>
 
 <div *ngIf="activeStepIndex === 0">
-  <div class="panel">
-    <div class="bs-callout bs-callout-primary">
+  <div class="panel background-section">
+    <div class="">
       <h4>{{'APPS_WIZARD.FIRST_PAGE_HEADER' | translate }}</h4>
       {{'APPS_WIZARD.FIRST_PAGE_MESSAGE' | translate }}
     </div>
   </div>
-  <div class="panel">
+  <div class="panel background-section">
     <input type="checkbox" [checked]="rulesAccepted" (click)="changeRulesAcceptedFlag()"> {{'APPS_WIZARD.ACCEPT_RULES_CHECKBOX' | translate}}
   <h4 class="mt-6 mb-3">{{'APPS_MANAGEMENT.SELECT_VERSION' | translate}}</h4>  
   <p-dropdown ngDefaultControl id="version_select" [ngModel]="selectedVersion" [options]="applicationDTO?.applicationBase?.versions" 
@@ -29,23 +29,23 @@
   </div>
 
 <div *ngIf="activeStepIndex === 1">
-  <div class="bs-callout bs-callout-primary">
+  <div class="background-section">
     {{'APPS_WIZARD.BASIC_APP_INFO_STEP_INFO' | translate }}
   </div>
   <div *ngIf="applicationDTO">
-    <div class="panel">
+    <div class="panel background-section">
       <form class="form-horizontal" #basicInfoForm="ngForm">
-        <div class="form-group form-group-sm">
+        <div style="padding-bottom:10px">
           <label for="appName" class="control-label">{{'APPS_WIZARD.NAME_LABEL' | translate}} *</label>
-          <br>
-          <input type="text" id="appName" class="form-control" required [disabled]="true" [(ngModel)]="applicationDTO.applicationBase.name" name="appName" pTooltip="{{'APPS_WIZARD.NAME_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50">
+
+          <input pInputText type="text" id="appName" class="form-control" required [disabled]="true" [(ngModel)]="applicationDTO.applicationBase.name" name="appName" pTooltip="{{'APPS_WIZARD.NAME_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50">
         </div>
-        <div class="form-group form-group-sm"
+        <div class=""
              [ngClass]="{'has-error':  version.invalid && (version.dirty || version.touched),
  			    		 	'has-success': version.valid && (version.dirty || version.touched)}">
           <label for="appVersion" class="control-label">{{'APPS_WIZARD.VERSION_LABEL' | translate}} *</label>
-          <br>
-          <input type="text" id="appVersion" class="form-control" required [disabled]="isInMode(ComponentMode.EDIT)" [(ngModel)]="applicationDTO.application.version" name="version" #version="ngModel" pTooltip="{{'APPS_WIZARD.VERSION_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50">
+
+          <input pInputText type="text" id="appVersion" class="form-control" required [disabled]="isInMode(ComponentMode.EDIT)" [(ngModel)]="applicationDTO.application.version" name="version" #version="ngModel" pTooltip="{{'APPS_WIZARD.VERSION_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50">
         </div>
       </form>
     </div>
@@ -54,68 +54,63 @@
 </div>
 
 <div *ngIf="activeStepIndex === 2">
-  <div class="bs-callout bs-callout-primary">
+  <div class="background-section">
     {{'APPS_WIZARD.APP_DEPLOYMENT_SPEC_STEP_INFO' | translate }}
   </div>
-  <div class="panel">
+  <div class="panel background-section">
     <div class="panel-heading">{{'APPS_WIZARD.APP_DEPLOYMENT_HEADER' | translate }}</div>
     <form class="form-horizontal" #appDeploymentForm="ngForm">
-      <div class="panel-body">
-        <div class="form-group form-group-sm" [ngClass]="{'has-error':  kubernetesTemplateChartName.invalid && (kubernetesTemplateChartName.dirty || kubernetesTemplateChartName.touched),
+      <div class="panel-body" style="display: flex; gap:15px; flex-direction: column">
+        <div class="" [ngClass]="{'has-error':  kubernetesTemplateChartName.invalid && (kubernetesTemplateChartName.dirty || kubernetesTemplateChartName.touched),
  			    		 	'has-success': kubernetesTemplateChartName.valid && (kubernetesTemplateChartName.dirty || kubernetesTemplateChartName.touched)}">
           <label *ngIf="!isInMode(ComponentMode.EDIT)" for="kubernetesTemplateChartName" class="control-label">{{'APPS_WIZARD.CHART_NAME_LABEL' | translate}}</label>
           <label *ngIf="isInMode(ComponentMode.EDIT)" for="kubernetesTemplateChartName" class="control-label">{{'APPS_WIZARD.CHART_NAME_LABEL' | translate}} *</label>
-          <br>
-          <input type="text" class="form-control" id="kubernetesTemplateChartName" name="kubernetesTemplateChartName" #kubernetesTemplateChartName="ngModel"
+          <input pInputText type="text" class="form-control" id="kubernetesTemplateChartName" name="kubernetesTemplateChartName" #kubernetesTemplateChartName="ngModel"
                  [(ngModel)]="applicationDTO.application.appDeploymentSpec.kubernetesTemplate.chart.name" [required]="isInMode(ComponentMode.EDIT)" pTooltip="{{'APPS_WIZARD.CHART_NAME_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50">
         </div>
-        <div class="form-group form-group-sm">
+        <div class="">
           <label *ngIf="!isInMode(ComponentMode.EDIT)" for="kubernetesTemplateChartVersion" class="control-label">{{'APPS_WIZARD.CHART_VERSION_LABEL' | translate}}</label>
           <label *ngIf="isInMode(ComponentMode.EDIT)" for="kubernetesTemplateChartVersion" class="control-label">{{'APPS_WIZARD.CHART_VERSION_LABEL' | translate}} *</label>
-          <br>
-          <input type="text" class="form-control" id="kubernetesTemplateChartVersion" name="kubernetesTemplateChartVersion"
+          <input pInputText type="text" class="form-control" id="kubernetesTemplateChartVersion" name="kubernetesTemplateChartVersion"
                  [(ngModel)]="applicationDTO.application.appDeploymentSpec.kubernetesTemplate.chart.version" [required]="isInMode(ComponentMode.EDIT)" pTooltip="{{'APPS_WIZARD.CHART_VERSION_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50">
         </div>
-        <div class="form-group form-group-sm">
+        <div class="">
           <label for="kubernetesTemplateHelmChartRepositoryName" class="control-label">{{'APPS_WIZARD.HELM_CHART_REPOSITORY_NAME_LABEL' | translate}}</label>
-          <br>
-          <input type="text" class="form-control" id="kubernetesTemplateHelmChartRepositoryName" name="kubernetesTemplateHelmChartRepositoryName" pattern="[A-Za-z-]{1,14}"
+          <input pInputText type="text" class="form-control" id="kubernetesTemplateHelmChartRepositoryName" name="kubernetesTemplateHelmChartRepositoryName" pattern="[A-Za-z-]{1,14}"
                  [disabled]="true" [value]="applicationDTO.application.appDeploymentSpec.kubernetesTemplate.helmChartRepository.name  || ''"
                  pTooltip="{{'APPS_WIZARD.HELM_CHART_REPOSITORY_NAME_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50">
         </div>
-        <div class="form-group form-group-sm">
+        <div class="">
           <label for="kubernetesTemplateHelmChartRepositoryUrl" class="control-label">{{'APPS_WIZARD.HELM_CHART_REPOSITORY_URL_LABEL' | translate}}</label>
-          <br>
-          <input type="url" class="form-control" id="kubernetesTemplateHelmChartRepositoryUrl" name="kubernetesTemplateHelmChartRepositoryUrl"
+          <input pInputText type="url" class="form-control" id="kubernetesTemplateHelmChartRepositoryUrl" name="kubernetesTemplateHelmChartRepositoryUrl"
                  [(ngModel)]="applicationDTO.application.appDeploymentSpec.kubernetesTemplate.helmChartRepository.url"
                  (ngModelChange)="handleHelmChartRepositoryUrlInput($event)"
                  pTooltip="{{'APPS_WIZARD.HELM_CHART_REPOSITORY_URL_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50">
         </div>
-        <div class="form-group form-group-sm">
+        <div class="">
           <label for="kubernetesTemplateMainDeploymentName" class="control-label">{{'APPS_WIZARD.MAIN_DEPLOYMENT_NAME_LABEL' | translate}}</label>
-          <br>
-          <input type="text" class="form-control" id="kubernetesTemplateMainDeploymentName" name="kubernetesTemplateMainDeploymentName"
+          <input pInputText type="text" class="form-control" id="kubernetesTemplateMainDeploymentName" name="kubernetesTemplateMainDeploymentName"
                  [(ngModel)]="applicationDTO.application.appDeploymentSpec.kubernetesTemplate.mainDeploymentName" pTooltip="{{'APPS_WIZARD.MAIN_DEPLOYMENT_NAME_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50">
         </div>
-        <div class="form-group form-group-sm">
-          <label for="exposesWebUI" style="text-align: left; padding-left: 0;" class="col-sm-2 control-label">{{'APPS_WIZARD.EXPOSE_WEB_UI' | translate }}</label>
-          <div class="col-sm-10">
+        <div  style="display: flex; gap:10px">
+          <label for="exposesWebUI" style="text-align: left; padding-left: 0;" class="">{{'APPS_WIZARD.EXPOSE_WEB_UI' | translate }}</label>
+          <div class="">
             <input type="checkbox" id="exposesWebUI" name="exposesWebUI" [defaultChecked]="false" [(ngModel)]="applicationDTO.application.appDeploymentSpec.exposesWebUI" pTooltip="{{'APPS_WIZARD.EXPOSE_WEB_UI_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50">
           </div>
         </div>
 
-        <div class="form-group form-group-sm">
-          <label for="allowSshAccess" style="text-align: left; padding-left: 0;" class="col-sm-2 control-label">{{'APPS_WIZARD.ALLOW_SSH_ACCESS' | translate }}</label>
-          <div class="col-sm-10">
+        <div style="display: flex; gap:10px">
+          <label for="allowSshAccess" style="text-align: left; padding-left: 0;" class="">{{'APPS_WIZARD.ALLOW_SSH_ACCESS' | translate }}</label>
+          <div class="">
             <input type="checkbox" id="allowSshAccess" name="allowSshAccess" [defaultChecked]="false" [(ngModel)]="applicationDTO.application.appDeploymentSpec.allowSshAccess" pTooltip="{{'APPS_WIZARD.ALLOW_SSH_ACCESS_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50">
           </div>
         </div>
 
-        <div class="form-group form-group-sm">
-        <label for="allowLogAccess" style="text-align: left; padding-left: 0;" class="col-sm-2 control-label">{{'APPS_WIZARD.ALLOW_LOG_ACCESS' | translate }}</label>
-        <div class="col-sm-10">
-          <input type="checkbox" id="allowLogAccess" name="allowLogAccess" [defaultChecked]="false" [(ngModel)]="applicationDTO.application.appDeploymentSpec.allowLogAccess" pTooltip="{{'APPS_WIZARD.ALLOW_LOG_ACCESS_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50">
-        </div>
+        <div style="display: flex; gap:10px">
+            <label for="allowLogAccess" style="text-align: left; padding-left: 0;" class="">{{'APPS_WIZARD.ALLOW_LOG_ACCESS' | translate }}</label>
+            <div class="">
+              <input type="checkbox" id="allowLogAccess" name="allowLogAccess" [defaultChecked]="false" [(ngModel)]="applicationDTO.application.appDeploymentSpec.allowLogAccess" pTooltip="{{'APPS_WIZARD.ALLOW_LOG_ACCESS_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50">
+            </div>
         </div>
 
         <div class="form-group form-group-sm">
@@ -166,31 +161,31 @@
 </div>
 
 <div *ngIf="activeStepIndex === 3">
-  <div class="bs-callout bs-callout-primary">
+  <div class="background-section">
     {{'APPS_WIZARD.CONFIG_TEMPLATES_STEP_INFO' | translate }}
   </div>
   <div *ngIf="applicationDTO">
-    <div class="panel">
+    <div class="panel background-section">
       <div class="panel-heading">{{'APPS_WIZARD.APP_CONFIG_TEMPLATES_HEADER' | translate}}</div>
       <form class="form-horizontal" #appConfigForm="ngForm">
-        <div class="panel-body">
-          <div class="form-group form-group-sm">
-            <label for="configFileRepositoryRequired" style="text-align: left; padding-left: 0;" class="col-sm-2 control-label">{{'APPS_WIZARD.REPOSITORY_REQUIRED_LABEL' | translate}}</label>
-            <div class="col-sm-10">
+        <div class="panel-body" style="display: flex; flex-direction: column; gap: 15px">
+          <div style="display: flex; gap:10px">
+            <label for="configFileRepositoryRequired" style="text-align: left; padding-left: 0;" class="">{{'APPS_WIZARD.REPOSITORY_REQUIRED_LABEL' | translate}}</label>
+            <div class="">
               <input type="checkbox" id="configFileRepositoryRequired" name="configFileRepositoryRequired" (change)="changeDefaultElementInForms()"
                      [defaultChecked]="false" [(ngModel)]="applicationDTO.application.appConfigurationSpec.configFileRepositoryRequired" pTooltip="{{'APPS_WIZARD.REPOSITORY_REQUIRED_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50">
             </div>
           </div>
-          <div class="form-group form-group-sm">
-            <label for="configUpdateEnabled" style="text-align: left; padding-left: 0;" class="col-sm-2 control-label">{{'APPS_WIZARD.CONFIG_UPDATE_ENABLED' | translate}}</label>
-            <div class="col-sm-10">
+          <div style="display: flex; gap:10px">
+            <label for="configUpdateEnabled" style="text-align: left; padding-left: 0;" class="">{{'APPS_WIZARD.CONFIG_UPDATE_ENABLED' | translate}}</label>
+            <div class="">
               <input type="checkbox" id="configUpdateEnabled" name="configUpdateEnabled"
                      [(ngModel)]="applicationDTO.application.appConfigurationSpec.configUpdateEnabled">
             </div>
           </div>
-          <div class="form-group form-group-sm">
-            <label for="basicAuth" style="text-align: left; padding-left: 0;" class="col-sm-2 control-label">{{'APPS_WIZARD.BASIC_AUTH_LABEL' | translate}}</label>
-            <div class="col-sm-10">
+          <div style="display: flex; gap:10px">
+            <label for="basicAuth" style="text-align: left; padding-left: 0;" class="">{{'APPS_WIZARD.BASIC_AUTH_LABEL' | translate}}</label>
+            <div class="">
               <input type="checkbox" id="basicAuth" name="basicAuth"
                      (change)="changeBasicAuthInForms()"
                      [defaultChecked]="hasAlreadyBasicAuth()"
@@ -200,10 +195,10 @@
                      tooltipPosition="bottom" [showDelay]="50">
             </div>
           </div>
-          <div class="form-group form-group-sm">
+          <div style="display: flex; gap:10px">
             <label for="termsAcceptance" style="text-align: left; padding-left: 0;"
-                   class="col-sm-2 control-label">{{'APPS_WIZARD.TERMS_ACCEPTANCE_LABEL' | translate}}</label>
-            <div class="col-sm-10">
+                   class="">{{'APPS_WIZARD.TERMS_ACCEPTANCE_LABEL' | translate}}</label>
+            <div class="">
               <input type="checkbox" id="termsAcceptance" name="termsAcceptance"
                      [(ngModel)]="applicationDTO.application.appConfigurationSpec.termsAcceptanceRequired"
                      pTooltip="{{'APPS_WIZARD.TERMS_ACCEPTANCE_TOOLTIP' | translate}}"
@@ -211,11 +206,11 @@
                      tooltipPosition="bottom" [showDelay]="50">
             </div>
           </div>
-          <div class="form-group form-group-sm" *ngIf="termsAcceptance">
+          <div class="" *ngIf="termsAcceptance">
             <label for="termsContent" style="text-align: left; padding-left: 0;"
-                   class="col-sm-2 control-label">{{'APPS_WIZARD.TERMS_CONTENT_LABEL' | translate}}</label>
-            <div class="col-sm-10">
-                            <textarea id="termsContent" name="termsContent" class="form-control" rows="7"
+                   class="">{{'APPS_WIZARD.TERMS_CONTENT_LABEL' | translate}}</label>
+            <div class="">
+                            <textarea  pTextarea id="termsContent" name="termsContent" class="form-control" rows="7"
                                       [(ngModel)]="termsContent"
                                       pTooltip="{{'APPS_WIZARD.TERMS_CONTENT_TOOLTIP' | translate}}"
                                       
@@ -225,41 +220,38 @@
             </div>
           </div>
           <div *ngIf="applicationDTO.application.appConfigurationSpec.configFileRepositoryRequired">
-            <div *ngFor="let configTemplate of configFileTemplates; let i=index">
-              <div class="form-group form-group-sm" [ngClass]="{'has-error':  configFileName.invalid && (configFileName.dirty || configFileName.touched),
+            <div *ngFor="let configTemplate of configFileTemplates; let i=index" style="display: flex; flex-direction: column; gap: 15px">
+              <div class="" [ngClass]="{'has-error':  configFileName.invalid && (configFileName.dirty || configFileName.touched),
  			    		 	        'has-success': configFileName.valid && (configFileName.dirty || configFileName.touched)}">
                 <label *ngIf="isInMode(ComponentMode.CREATE)" for="configFileName-{{i}}" class="control-label">{{'APPS_WIZARD.CONFIG_FILENAME_LABEL' | translate}}</label>
                 <label *ngIf="isInMode(ComponentMode.EDIT)" for="configFileName-{{i}}" class="control-label">{{'APPS_WIZARD.CONFIG_FILENAME_LABEL' | translate}} *</label>
                 <button type="button" class="btn btn-xs btn-danger" style="float: right;" (click)="removeConfig(i)" [disabled]="configFileTemplates.length <= 1"><span class="glyphicon glyphicon-remove"></span></button>
-                <br>
-                <input type="text" class="form-control" id="configFileName-{{i}}" name="configFileName-{{i}}" #configFileName="ngModel"
+                <input pInputText type="text" class="form-control" id="configFileName-{{i}}" name="configFileName-{{i}}" #configFileName="ngModel"
                        [(ngModel)]="configTemplate.configFileName" [required]="isInMode(ComponentMode.EDIT)" pTooltip="{{'APPS_WIZARD.CONFIG_FILENAME_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50">
               </div>
 
-              <div class="form-group form-group-sm" [ngClass]="{'has-error':  configFileDirectory.invalid && (configFileDirectory.dirty || configFileDirectory.touched),
+              <div class="" [ngClass]="{'has-error':  configFileDirectory.invalid && (configFileDirectory.dirty || configFileDirectory.touched),
  			    		 	        'has-success': configFileDirectory.valid && (configFileDirectory.dirty || configFileDirectory.touched)}">
-                <label for="configFileDirectory-{{i}}" class="control-label">{{'APPS_WIZARD.CONFIG_FILEDIRECTORY_LABEL' | translate}}</label>
-                <br>
-                <input type="text" class="form-control" id="configFileDirectory-{{i}}" name="configFileDirectory-{{i}}" #configFileDirectory="ngModel"
+                <label for="configFileDirectory-{{i}}" class="">{{'APPS_WIZARD.CONFIG_FILEDIRECTORY_LABEL' | translate}}</label>
+                <input pInputText type="text" class="" id="configFileDirectory-{{i}}" name="configFileDirectory-{{i}}" #configFileDirectory="ngModel"
                        [(ngModel)]="configTemplate.configFileDirectory" pTooltip="{{'APPS_WIZARD.CONFIG_FILEDIRECTORY_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50">
               </div>
 
-              <div class="form-group form-group-sm" [ngClass]="{'has-error':  configFileTemplateContent.invalid && (configFileTemplateContent.dirty || configFileTemplateContent.touched),
+              <div style="display: flex; flex-direction: column" [ngClass]="{'has-error':  configFileTemplateContent.invalid && (configFileTemplateContent.dirty || configFileTemplateContent.touched),
  			    		 	        'has-success': configFileTemplateContent.valid && (configFileTemplateContent.dirty || configFileTemplateContent.touched)}">
-                <label *ngIf="isInMode(ComponentMode.CREATE)" for="configFileTemplateContent-{{i}}" class="control-label">{{'APPS_WIZARD.CONFIG_CONTENT_LABEL' | translate}}</label>
-                <label *ngIf="isInMode(ComponentMode.EDIT)" for="configFileTemplateContent-{{i}}" class="control-label">{{'APPS_WIZARD.CONFIG_CONTENT_LABEL' | translate}} *</label>
-                <br>
-                <textarea class="form-control" id="configFileTemplateContent-{{i}}" name="configFileTemplateContent-{{i}}" #configFileTemplateContent="ngModel" rows="6"
+                <label *ngIf="isInMode(ComponentMode.CREATE)" for="configFileTemplateContent-{{i}}" class="">{{'APPS_WIZARD.CONFIG_CONTENT_LABEL' | translate}}</label>
+                <label *ngIf="isInMode(ComponentMode.EDIT)" for="configFileTemplateContent-{{i}}" class="">{{'APPS_WIZARD.CONFIG_CONTENT_LABEL' | translate}} *</label>
+                <textarea  pTextarea class="" id="configFileTemplateContent-{{i}}" name="configFileTemplateContent-{{i}}" #configFileTemplateContent="ngModel" rows="6"
                           [(ngModel)]="configTemplate.configFileTemplateContent" [required]="isInMode(ComponentMode.EDIT)" pTooltip="{{'APPS_WIZARD.CONFIG_CONTENT_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50"></textarea>
               </div>
             </div>
-            <button type="button" class="btn btn-primary" style="margin-left: -15px;" (click)="addConfig()">{{'APPS_WIZARD.ADD_CONFIG_BUTTON' | translate }}</button>
+            <button type="button" class="btn btn-primary" style=" margin-top: 15px" (click)="addConfig()">{{'APPS_WIZARD.ADD_CONFIG_BUTTON' | translate }}</button>
           </div>
 
         </div>
       </form>
       <hr>
-      <div class="panel">
+      <div class="card">
         <div class="panel-heading">{{'APPS_WIZARD.CONFIG_WIZARD_TEMPLATE_LABEL' | translate}}</div>
         <div class="panel-body">
           <p-tabView>
@@ -270,10 +262,10 @@
             </p-tabPanel>
 
             <p-tabPanel header="{{'APPS_WIZARD.RAW_JSON' | translate}}">
-              <h4>{{'APPS_WIZARD.FORM_DEFINITION' | translate}}</h4>
+              <h4 style="color: var(--p-text-0)">{{'APPS_WIZARD.FORM_DEFINITION' | translate}}</h4>
               <app-json-edit *ngIf="formDisplayChange && applicationDTO.application.configWizardTemplate?.template"
                              [(object)]="applicationDTO.application.configWizardTemplate.template"></app-json-edit>
-              <h4>{{'APPS_WIZARD.FORM_PREVIEW' | translate}}</h4>
+              <h4 style="color: var(--p-text-0)">{{'APPS_WIZARD.FORM_PREVIEW' | translate}}</h4>
               <formio *ngIf="formDisplayChange && applicationDTO.application.configWizardTemplate?.template"
                       [form]="applicationDTO.application.configWizardTemplate.template"
                       [options]='{"alerts": {"submitMessage": "Configuration applied"}, "errors": {"message": "Invalid configuration"}}'>
@@ -307,10 +299,10 @@
                 </form-builder>
               </p-tabPanel>
               <p-tabPanel header="{{'APPS_WIZARD.RAW_JSON' | translate}}">
-                <h4>{{'APPS_WIZARD.FORM_DEFINITION' | translate}}</h4>
+                <h4 style="color: var(--p-text-0)">{{'APPS_WIZARD.FORM_DEFINITION' | translate}}</h4>
                 <app-json-edit *ngIf="formDisplayChange && applicationDTO.application.configUpdateWizardTemplate?.template"
                                [(object)]="applicationDTO.application.configUpdateWizardTemplate.template"></app-json-edit>
-                <h4>{{'APPS_WIZARD.FORM_PREVIEW' | translate}}</h4>
+                <h4 style="color: var(--p-text-0)">{{'APPS_WIZARD.FORM_PREVIEW' | translate}}</h4>
                 <formio *ngIf="formDisplayChange && applicationDTO.application.configUpdateWizardTemplate?.template"
                         [form]="applicationDTO.application.configUpdateWizardTemplate.template"
                         [options]='{"alerts": {"submitMessage": "Configuration applied"}, "errors": {"message": "Invalid configuration"}}'>
@@ -321,7 +313,7 @@
         </div>
       </div>
     </div>
-    <button type="button" class="btn btn-primary pull-right" [disabled]="appConfigForm.invalid"  (click)="nextStep()"
+    <button style="margin-top: 15px" type="button" class="btn btn-primary pull-right" [disabled]="appConfigForm.invalid"  (click)="nextStep()"
             [tooltipDisabled]="!appConfigForm.invalid" pTooltip="{{'APPS_WIZARD.DISABLED_NEXT_BUTTON_TOOLTIP' | translate}}"
             tooltipPosition="bottom" [showDelay]="50">{{'APPS_WIZARD.NEXT_BUTTON' | translate}} </button>
   </div>
@@ -335,12 +327,12 @@
   <button type="button" class="btn btn-primary pull-right" (click)="addApplication()" *ngIf="activeStepIndex === 4 && isInMode(ComponentMode.CREATE)">{{'APPS_WIZARD.SUBMIT_BUTTON' | translate}}</button>
   <button type="button" class="btn btn-primary pull-right" (click)="updateApplication()" *ngIf="activeStepIndex === 4 && isInMode(ComponentMode.EDIT)">{{'APPS_WIZARD.SUBMIT_BUTTON' | translate}}</button>
 </div>
-<button type="button" class="btn btn-secondary pull-left" (click)="previousStep()" *ngIf="activeStepIndex != 0">{{'APPS_WIZARD.PREVIOUS_BUTTON' | translate}}</button>
+<button  type="button" class="btn btn-secondary pull-left" (click)="previousStep()" *ngIf="activeStepIndex != 0">{{'APPS_WIZARD.PREVIOUS_BUTTON' | translate}}</button>
 
 <nmaas-modal>
   <div class="nmaas-modal-header">
-    <h4 style="text-align: center" *ngIf="isInMode(ComponentMode.CREATE)">{{'APPS_WIZARD.NEW_APP_MODAL.HEADER' | translate}}</h4>
-    <h4 style="text-align: center" *ngIf="isInMode(ComponentMode.EDIT)">{{'APPS_WIZARD.EDIT_APP_MODAL.HEADER' | translate}}</h4>
+    <h4 style="color: var(--p-text-0); text-align: center" *ngIf="isInMode(ComponentMode.CREATE)">{{'APPS_WIZARD.NEW_APP_MODAL.HEADER' | translate}}</h4>
+    <h4 style="color: var(--p-text-0);  text-align: center" *ngIf="isInMode(ComponentMode.EDIT)">{{'APPS_WIZARD.EDIT_APP_MODAL.HEADER' | translate}}</h4>
   </div>
   <div class="nmaas-modal-body">
     <div class="form-group text-center">
@@ -349,6 +341,6 @@
     </div>
   </div>
   <div class="nmaas-modal-footer">
-    <button type="submit" class="btn btn-primary center-block" [routerLink]="['/admin/apps']">{{'APPS_WIZARD.NEW_APP_MODAL.BACK_TO_APP_MANAGEMENT_BUTTON' | translate}}</button>
+    <button  type="submit" class="btn btn-primary center-block" [routerLink]="['/admin/apps']">{{'APPS_WIZARD.NEW_APP_MODAL.BACK_TO_APP_MANAGEMENT_BUTTON' | translate}}</button>
   </div>
 </nmaas-modal>
