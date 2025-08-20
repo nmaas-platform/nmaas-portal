@@ -1,8 +1,10 @@
 <nav class="navbar navbar-default" id="navbar" role="navigation" style="margin:0">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a routerLink="/"><img alt="GÉANT" src="assets/images/logo-small.png"
-                                   style="margin: 8px; padding:4px; height:35px"></a>
+            <a routerLink="/">
+                <img *ngIf="!darkMode" alt="GÉANT" src="assets/images/logo-small.png" style="margin: 8px; padding:4px; height:35px">
+                <img *ngIf="darkMode" alt="GÉANT" src="assets/images/nmaas_white_with_cloud.png" style="margin: 8px; padding:4px; height:35px">
+            </a>
             <button class="navbar-toggle" data-target="#navbarCollapse" data-toggle="collapse" type="button">
                 <span class="sr-only">Toggle Navigation</span>
                 <em class="fas fa-bars"></em>

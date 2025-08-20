@@ -3,14 +3,14 @@
         <legend>Login</legend>
         <div class="form-group form-group-sm" [ngClass]="{ 'has-error': loginForm.submitted && !username.valid }">
             <label for="username">{{ 'LOGIN.USERNAME' | translate }}</label>
-            <input id="username" type="text" name="username" class="form-control"
+            <input pInputText id="username" type="text" name="username" class="form-control"
                    placeholder="{{ 'LOGIN.USERNAME' | translate }}" [(ngModel)]="model.username" #username="ngModel"
                    required>
             <div *ngIf="loginForm.submitted && !username.valid">{{ 'LOGIN.USERNAME_REQUIRED_MESSAGE' | translate }}</div>
         </div>
         <div class="form-group form-group-sm" [ngClass]="{ 'has-error': loginForm.submitted && !password.valid }">
             <label for="password">{{ 'LOGIN.PASSWORD' | translate }}</label>
-            <input id="password" type="password" name="password" class="form-control"
+            <input pInputText id="password" type="password" name="password" class="form-control"
                    placeholder="{{ 'LOGIN.PASSWORD' | translate }}" [(ngModel)]="model.password" #password="ngModel"
                    required>
             <div *ngIf="loginForm.submitted && !password.valid">{{ 'LOGIN.PASSWORD_REQUIRED_MESSAGE' | translate }}</div>
@@ -42,7 +42,7 @@
         <div class="form-group form-group-sm" [ngClass]="{'has-error':  resetPasswordForm.controls.email.invalid && resetPasswordForm.controls.email.dirty,
  					 				'has-success': resetPasswordForm.controls.email.valid && resetPasswordForm.controls.email.dirty}">
             <label for="email" class="control-label">{{ 'RESET_PASSWORD.EMAIL' | translate }} *</label>
-            <input id="email" class="form-control" placeholder="{{ 'RESET_PASSWORD.EMAIL' | translate }}"
+            <input pInputText id="email" class="form-control" placeholder="{{ 'RESET_PASSWORD.EMAIL' | translate }}"
                    formControlName="email">
         </div>
         <button type="submit" class="btn btn-primary"

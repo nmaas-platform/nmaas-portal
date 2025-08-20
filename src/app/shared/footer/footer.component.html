@@ -5,14 +5,16 @@
                 <div *ngIf="!isLoggedIn" class="" style="margin-right: 20px">
                     <!-- nmaas Logo optionally -->
                     <a href="https://www.geant.org/">
-                        <img alt="GÉANT Logo" src="/assets/images/geant-logo.png"  width="100" class="image-link"/>
+                        <img *ngIf="!darkMode" alt="GÉANT Logo" src="/assets/images/geant-logo.png"  width="100" class="image-link"/>
+                        <img *ngIf="darkMode" alt="GÉANT Logo" src="/assets/images/Geant_logo_white.png"  width="100" class="image-link"/>
                     </a>
                 </div>
                 <div *ngIf="!isLoggedIn" class="">
-                    <img alt="EU flag" src="/assets/images/cofunded.png" width="180" style="padding-top: 5px; "/>
+                    <img  *ngIf="!darkMode" alt="EU flag" src="/assets/images/cofunded.png" width="180" style="padding-top: 5px; "/>
+                    <img  *ngIf="darkMode" alt="EU flag" src="/assets/images/EN_Co-fundedbytheEU_RGB_WHITE.png" width="180" style="padding-top: 5px; "/>
                 </div>
             </div>
-			<div class="" style="display: flex; width: 50%; justify-content: end; margin-right: 50px">
+			<div class="" style="display: flex; width: 50%; justify-content: end; margin-right: 50px; color: var(--p-text-0)">
                 <div style="margin-right: 30px">
                     <p>
                         <a *ngIf="landingProfile === 'VNOC'" href="https://docs.nmaas.eu/use-cases/virtual-noc/vnoc-introduction/">{{ 'FOOTER.DOCUMENTATION' | translate }}</a>

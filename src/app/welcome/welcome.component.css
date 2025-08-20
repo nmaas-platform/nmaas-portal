@@ -28,6 +28,7 @@ html, body {
 	width: 80%;
 	font-size: 15px;
 	padding:15px 0;
+	color: var(--p-text-0);
 }
 .vnoc-position{
 	display: flex;
@@ -100,7 +101,7 @@ html, body {
 	align-items: flex-end;
 	height: 100%;
 	width: 65%;
-	background-color: #ffffff;
+	/*background-color: #ffffff;*/
 }
 .map {
 	height: 80%;

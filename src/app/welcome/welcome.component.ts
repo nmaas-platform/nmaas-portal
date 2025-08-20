@@ -19,6 +19,8 @@ export class WelcomeComponent implements OnInit, AfterViewChecked, AfterContentC
 
     public landingProfile = '';
 
+    darkMode;
+
     constructor(private appConfig: AppConfigService,
                 public router: Router,
                 private serviceHealth: ServiceUnavailableService,
@@ -34,6 +36,14 @@ export class WelcomeComponent implements OnInit, AfterViewChecked, AfterContentC
     }
 
     async ngOnInit() {
+        this.updateDarkMode()
+        const observer = new MutationObserver(() => this.updateDarkMode());
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+
+
         document.getElementById('global-footer').style.display = 'block';
         await this.serviceHealth.validateServicesAvailability();
         if (!this.serviceHealth.isServiceAvailable) {
@@ -61,6 +71,10 @@ export class WelcomeComponent implements OnInit, AfterViewChecked, AfterContentC
 
     ngOnDestroy(): void {
         this.recaptcha.hideBadge();
+    }
+
+    updateDarkMode() {
+        this.darkMode = document.querySelector('html').classList.contains('dark-mode');
     }
 
     public onCloseBanner() {

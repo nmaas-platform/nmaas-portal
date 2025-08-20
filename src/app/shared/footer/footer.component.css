@@ -13,10 +13,13 @@ footer p {
 }
 
 a:link{
-  color: inherit;
+  color: var(--p-text-0);
   font-size: inherit;
   letter-spacing: inherit;
   text-decoration: underline;
+}
+a{
+  color: var(--p-text-0);
 }
 
 /*a:hover {*/

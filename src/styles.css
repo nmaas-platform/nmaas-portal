@@ -68,6 +68,9 @@
     /*--p-emerald-700: var(--primary-color);*/
 
 }
+body{
+    background-color: var(--p-background-0);
+}
 .form-control:focus {
     border-color: var(--p-text-0);
     outline: 0;

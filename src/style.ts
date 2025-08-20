@@ -23,6 +23,7 @@ export const MyPreset = definePreset(Nora, {
                     100: '#F6F6F7',                        // --card-color
                     200: '#F2F4F7',                         // --menu-color
                     300: '#FFFFFF',
+                    400: '#D1D1D1'
                 },
                 text: {
                     0: '#233354',                          // --l-text-color
@@ -42,6 +43,8 @@ export const MyPreset = definePreset(Nora, {
                     700: '#FEF2F2'                         // --danger-text-button-background-hover
                 },
                 accent: {
+                    300: '#3c763d',                         // green
+                    400: '#a94442',                         // red
                     500: '#C80071',                         // --menu-pink
                     600: '#CBD5E1',
                 },
@@ -72,6 +75,7 @@ export const MyPreset = definePreset(Nora, {
                     100: '#4D5059',                      // --d-card-color
                     200: '#3C3F47',                       // --d-menu-color
                     300: '#3C3F47',
+                    400: '#D1D1D1'
                 },
                 text: {
                     0: '#ffffff',                        // --d-text-color
@@ -91,6 +95,8 @@ export const MyPreset = definePreset(Nora, {
                     700: '#FEF2F2'                       // --d-danger-text-button-background-hover
                 },
                 accent: {
+                    300: '#68E664',                         //green
+                    400: '#ff8482',                         //red
                     500: '#C80071',                       // --d-menu-pink
                     600: '#4E535F',
                 },
