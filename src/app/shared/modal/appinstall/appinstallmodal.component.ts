@@ -61,7 +61,7 @@ export class AppInstallModalComponent implements OnInit {
         if (this.domainId && this.app && this.app.id && !this.clicked) {
             this.clicked = true // block another method invocation
             if(this.showClusterOptions && this.selectedCluster) {
-                this.appInstanceService.createAppInstanceInCluster(this.domainId, this.app.id, this.name, this.autoUpgradesEnabled, this.selectedCluster).subscribe(
+                this.appInstanceService.createAppInstanceInCluster(this.domainId, this.selectedAppVersion, this.name, this.autoUpgradesEnabled, this.selectedCluster).subscribe(
                     instanceId => {
                         this.modal.hide();
                         this.router.navigate(['/instances', instanceId.id]);
