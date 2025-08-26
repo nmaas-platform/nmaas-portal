@@ -332,3 +332,6 @@ body a {
 body a:hover {
     color: var(--p-primary-200);
 }
+body .table-hover>tbody>tr:hover{
+    background-color: transparent;
+}
