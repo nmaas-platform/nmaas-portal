@@ -326,3 +326,9 @@ body .formio-button-remove-row i.fa::before {
 .btn-primary[disabled]{
     color: var(--p-text-100);
 }
+body a {
+    color: var(--p-primary-100);
+}
+body a:hover {
+    color: var(--p-primary-200);
+}
