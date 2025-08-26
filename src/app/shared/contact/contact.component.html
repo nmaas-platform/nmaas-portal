@@ -1,7 +1,7 @@
 <form [formGroup]="selectForm">
     <div class="form-group">
         <label for="selectedFormKey">{{'CONTACT_FORM.SELECT_CATEGORY' | translate}}:</label>
-        <select id="selectedFormKey" [formControlName]="'formKey'" name="selectedFormKey" class="form-control">
+        <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" id="selectedFormKey" [formControlName]="'formKey'" name="selectedFormKey" class="form-control">
             <option *ngFor="let k of getFormOptions()" [value]="k">{{'CONTACT_FORM.TYPES.' + k | translate}}</option>
         </select>
     </div>
