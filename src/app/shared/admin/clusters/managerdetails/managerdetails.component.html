@@ -11,7 +11,7 @@
                     <label for="clusterId" class="col-sm-2 control-label">{{ 'CLUSTERS.ID' | translate }}</label>
                     <div class="col-sm-10">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="clusterId" name="clusterId"
+                            <input pInputText type="text" class="form-control" id="clusterId" name="clusterId"
                                    [(ngModel)]="cluster.id" [disabled]="true">
                         </div>
                     </div>
@@ -21,7 +21,7 @@
                     <label for="clusterName" class="col-sm-2 control-label">{{ 'CLUSTERS.NAME' | translate }}</label>
                     <div class="col-sm-10">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="clusterName" name="clusterName"
+                            <input pInputText type="text" class="form-control" id="clusterName" name="clusterName"
                                    [(ngModel)]="cluster.name" [disabled]="false">
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                     <label for="ClusterCodeName" class="col-sm-2 control-label">{{ 'CLUSTERS.CODENAME' | translate }}</label>
                     <div class="col-sm-10">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="ClusterCodeName" name="ClusterCodeName"
+                            <input pInputText type="text" class="form-control" id="ClusterCodeName" name="ClusterCodeName"
                                    [(ngModel)]="cluster.codename" [disabled]="false">
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                     <label for="clusterDescription" class="col-sm-2 control-label">{{ 'CLUSTERS.DESCRIPTION' | translate }}</label>
                     <div class="col-sm-10">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="clusterDescription" name="clusterDescription"
+                            <input pInputText type="text" class="form-control" id="clusterDescription" name="clusterDescription"
                                    [(ngModel)]="cluster.description" [disabled]="false">
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                     <label for="clusterCreationDate" class="col-sm-2 control-label">{{ 'CLUSTERS.DOMAIN' | translate }}</label>
                     <div class="col-sm-10">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="clusterDomain" name="clusterDomain"
+                            <input pInputText type="text" class="form-control" id="clusterDomain" name="clusterDomain"
                                    [(ngModel)]="cluster?.domainNames[0]" [disabled]="true">
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                     <label for="state" class="col-sm-2 control-label">{{ 'CLUSTERS.STATE' | translate }}</label>
                     <div class="col-sm-10">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="state" name="state"
+                            <input pInputText type="text" class="form-control" id="state" name="state"
                                    placeholder="{{'CLUSTERS.' + cluster.state.toString().toUpperCase()| translate}}" [disabled]="true">
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                     <label for="state" class="col-sm-2 control-label">{{ 'CLUSTERS.STATE_SINCE' | translate }}</label>
                     <div class="col-sm-10">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="state" name="state"
+                            <input pInputText type="text" class="form-control" id="state" name="state"
                                    [ngModel]="formatDate(cluster.currentStateSince)" [disabled]="true">
                         </div>
                     </div>
@@ -84,7 +84,7 @@
                     <label for="clusterCreationDate" class="col-sm-2 control-label">{{ 'CLUSTERS.CREATION_DATE' | translate }}</label>
                     <div class="col-sm-10">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="clusterCreationDate" name="clusterCreationDate"
+                            <input pInputText type="text" class="form-control" id="clusterCreationDate" name="clusterCreationDate"
                                    [ngModel]="formatDate(cluster.creationDate)" [disabled]="true">
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                     <label for="clusterModificationnDate" class="col-sm-2 control-label">{{ 'CLUSTERS.MODIFICATION_DATE' | translate }}</label>
                     <div class="col-sm-10">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="clusterModificationnDate" name="clusterModificationnDate"
+                            <input pInputText type="text" class="form-control" id="clusterModificationnDate" name="clusterModificationnDate"
                                    [ngModel]="formatDate(cluster.modificationDate) " [disabled]="true">
                         </div>
                     </div>
@@ -104,7 +104,7 @@
                     <label for="clusterPathConfigFile" class="col-sm-2 control-label">{{ 'CLUSTERS.PATH_TO_CONFIG' | translate }}</label>
                     <div class="col-sm-10">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="clusterPathConfigFile" name="clusterPathConfigFile"
+                            <input pInputText type="text" class="form-control" id="clusterPathConfigFile" name="clusterPathConfigFile"
                                    [(ngModel)]="cluster.pathConfigFile" [disabled]="true">
                         </div>
                     </div>
@@ -127,7 +127,7 @@
                 <div class="form-group">
                     <label for="ingresscontrollerconfigoption" class="col-sm-2 control-label">{{ 'CLUSTERS.CONTROLLER_CONFIG_OPTION' | translate }}</label>
                     <div class="col-sm-10" *ngIf="controllerConfigOption">
-                        <select class="form-control" id="ingresscontrollerconfigoption" name="ingresscontrollerconfigoption"
+                        <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" id="ingresscontrollerconfigoption" name="ingresscontrollerconfigoption"
                                 [(ngModel)]="cluster.ingress.controllerConfigOption" [disabled]="" required>
                             <option *ngFor="let configOption of getKeys(controllerConfigOption)" [value]="controllerConfigOption.get(configOption)">{{configOption}}</option>
                         </select>
@@ -136,35 +136,35 @@
                 <div class="form-group">
                     <label for="suportedingressclass" class="col-sm-2 control-label">{{ 'CLUSTERS.SUPPORTED_INGRESS_CLASS' | translate }}</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="suportedingressclass" name="suportedingressclass"
+                        <input pInputText type="text" class="form-control" id="suportedingressclass" name="suportedingressclass"
                                [(ngModel)]="cluster.ingress.supportedIngressClass" [disabled]="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="publicingressclass" class="col-sm-2 control-label">{{ 'CLUSTERS.PUBLIC_INGRESS_CLASS' | translate }}</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="publicingressclass" name="publicingressclass"
+                        <input pInputText type="text" class="form-control" id="publicingressclass" name="publicingressclass"
                                [(ngModel)]="cluster.ingress.publicIngressClass" [disabled]="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="ingresscontrollerchartname" class="col-sm-2 control-label">{{ 'CLUSTERS.CONTROLLER_CHART_NAME' | translate }}</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="ingresscontrollerchartname" name="ingresscontrollerchartname"
+                        <input pInputText type="text" class="form-control" id="ingresscontrollerchartname" name="ingresscontrollerchartname"
                                [(ngModel)]="cluster.ingress.controllerChartName" [disabled]="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="ingresscontrollerchartarchive" class="col-sm-2 control-label">{{ 'CLUSTERS.CONTROLLER_CHART_ARCHIVE' | translate }}</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="ingresscontrollerchartarchive" name="ingresscontrollerchartarchive"
+                        <input pInputText type="text" class="form-control" id="ingresscontrollerchartarchive" name="ingresscontrollerchartarchive"
                                [(ngModel)]="cluster.ingress.controllerChartArchive" [disabled]="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="ingressresourceconfigoption" class="col-sm-2 control-label">{{ 'CLUSTERS.RESOURCE_CONFIG_OPTION' | translate }}</label>
                     <div class="col-sm-10">
-                        <select class="form-control" id="ingressresourceconfigoption" name="ingressresourceconfigoption"
+                        <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" id="ingressresourceconfigoption" name="ingressresourceconfigoption"
                                 [(ngModel)]="cluster.ingress.resourceConfigOption" [disabled]="" required>
                             <option *ngFor="let configOption of getKeys(resourceConfigOption)" [value]="resourceConfigOption.get(configOption)">{{configOption}}</option>
                         </select>
@@ -173,14 +173,14 @@
                 <div class="form-group">
                     <label for="ingressexternalservicedomain" class="col-sm-2 control-label">{{ 'CLUSTERS.EXTERNAL_SERVICE_DOMAIN' | translate }}</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="ingressexternalservicedomain" name="ingressexternalservicedomain"
+                        <input pInputText type="text" class="form-control" id="ingressexternalservicedomain" name="ingressexternalservicedomain"
                                [(ngModel)]="cluster.ingress.externalServiceDomain" [disabled]="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="ingresspublicservicedomain" class="col-sm-2 control-label">{{ 'CLUSTERS.PUBLIC_SERVICE_DOMAIN' | translate }}</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="ingresspublicservicedomain" name="ingresspublicservicedomain"
+                        <input pInputText type="text" class="form-control" id="ingresspublicservicedomain" name="ingresspublicservicedomain"
                                [(ngModel)]="cluster.ingress.publicServiceDomain" [disabled]="">
                     </div>
                 </div>
@@ -194,7 +194,7 @@
                 <div class="form-group" *ngIf="cluster.ingress.tlsSupported">
                     <label for="ingresscertificateconfigoption" class="col-sm-2 control-label">{{ 'CLUSTERS.INGRESS_CERTIFICATE_CONFIG_OPTION' | translate }}</label>
                     <div class="col-sm-10">
-                        <select class="form-control" id="ingresscertificateconfigoption" name="ingresscertificateconfigoption"
+                        <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" id="ingresscertificateconfigoption" name="ingresscertificateconfigoption"
                         [(ngModel)]="cluster.ingress.certificateConfigOption" [disabled]="" required>
                         <option *ngFor="let configOption of getKeys(certificateConfigOption)" [value]="certificateConfigOption.get(configOption)">{{configOption}}</option>
                         </select>
@@ -203,7 +203,7 @@
                 <div class="form-group" *ngIf="cluster.ingress.tlsSupported">
                     <label for="ingressissuerorwildcardname" class="col-sm-2 control-label">{{ 'CLUSTERS.INGRESS_ISSUER_OR_WILDCARD_NAME' | translate }}</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="ingressissuerorwildcardname" name="ingressissuerorwildcardname"
+                        <input pInputText type="text" class="form-control" id="ingressissuerorwildcardname" name="ingressissuerorwildcardname"
                                [(ngModel)]="cluster.ingress.issuerOrWildcardName" [disabled]="">
                     </div>
                 </div>
@@ -221,7 +221,7 @@
                 <div class="form-group">
                     <label for="deploymentnamespaceconfigoption" class="col-sm-2 control-label">{{ 'CLUSTERS.NAMESPACE_CONFIG_OPTION' | translate }}</label>
                     <div class="col-sm-10" *ngIf="controllerConfigOption">
-                        <select class="form-control" id="deploymentnamespaceconfigoption" name="deploymentnamespaceconfigoption"
+                        <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" id="deploymentnamespaceconfigoption" name="deploymentnamespaceconfigoption"
                                 [(ngModel)]="cluster.deployment.namespaceConfigOption" [disabled]="" required>
                             <option *ngFor="let configOption of getKeys(namespaceConfigOption)" [value]="namespaceConfigOption.get(configOption)">{{configOption}}</option>
                         </select>
@@ -230,7 +230,7 @@
                 <div class="form-group">
                     <label for="deploymentdefaultnamespace" class="col-sm-2 control-label">{{ 'CLUSTERS.DEFAULT_NAMESPACE' | translate }}</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="deploymentdefaultnamespace" name="deploymentdefaultnamespace" #namespace="ngModel" pattern="[a-z-]*" maxlength="64"
+                        <input pInputText type="text" class="form-control" id="deploymentdefaultnamespace" name="deploymentdefaultnamespace" #namespace="ngModel" pattern="[a-z-]*" maxlength="64"
                                [(ngModel)]="cluster.deployment.defaultNamespace" [disabled]="">
                         <div *ngIf="namespace.invalid && (namespace.dirty || namespace.touched)" class="alert alert-danger">
                             <div *ngIf="namespace.errors.pattern">{{ 'CLUSTERS.NAMESPACE_PATTERN_VALIDATION_MESSAGE' | translate }}</div>
@@ -241,7 +241,7 @@
                 <div class="form-group">
                     <label for="deploymentdefaultstorageclass" class="col-sm-2 control-label">{{ 'CLUSTERS.DEFAULT_STORAGE_CLASS' | translate }}</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="deploymentdefaultstorageclass" name="deploymentdefaultstorageclass"
+                        <input pInputText type="text" class="form-control" id="deploymentdefaultstorageclass" name="deploymentdefaultstorageclass"
                                [(ngModel)]="cluster.deployment.defaultStorageClass" [disabled]="">
                     </div>
                 </div>
@@ -255,7 +255,7 @@
                 <div class="form-group">
                     <label for="smtpServerHostname" class="col-sm-2 control-label">{{ 'CLUSTERS.SMTP_SERVER_HOSTNAME' | translate }}: </label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="smtpServerHostname" name="smtpServerHostname"
+                        <input pInputText type="text" class="form-control" id="smtpServerHostname" name="smtpServerHostname"
                                [(ngModel)]="cluster.deployment.smtpServerHostname" [disabled]="" required #smtpServerHostname="ngModel">
                         <div class="alert alert-danger" *ngIf="smtpServerHostname.invalid && (smtpServerHostname.dirty || smtpServerHostname.touched)">
                             <div *ngIf="smtpServerHostname.errors.required">SMTP server hostname is required</div>
@@ -265,7 +265,7 @@
                 <div class="form-group">
                     <label for="smtpServerPort" class="col-sm-2 control-label">{{ 'CLUSTERS.SMTP_SERVER_PORT' | translate }}: </label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control no-spin" id="smtpServerPort" name="smtpServerPort"
+                        <input pInputText type="number" class="form-control no-spin" id="smtpServerPort" name="smtpServerPort"
                                [(ngModel)]="cluster.deployment.smtpServerPort" [disabled]="" required #smtpServerPort="ngModel">
                         <div class="alert alert-danger" *ngIf="smtpServerPort.invalid && (smtpServerPort.dirty || smtpServerPort.touched)">
                             <div *ngIf="smtpServerPort.errors.required">SMTP server port is required</div>
@@ -275,14 +275,14 @@
                 <div class="form-group">
                     <label for="smtpServerUsername" class="col-sm-2 control-label">{{ 'CLUSTERS.SMTP_SERVER_USERNAME' | translate }}: </label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="smtpServerUsername" name="smtpServerUsername"
+                        <input pInputText type="text" class="form-control" id="smtpServerUsername" name="smtpServerUsername"
                                [(ngModel)]="cluster.deployment.smtpServerUsername" [disabled]="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="smtpServerPass" class="col-sm-2 control-label">{{ 'CLUSTERS.SMTP_SERVER_PASSWORD' | translate }}: </label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" id="smtpServerPass" name="smtpServerPass"
+                        <input pInputText type="password" class="form-control" id="smtpServerPass" name="smtpServerPass"
                                [(ngModel)]="cluster.deployment.smtpServerPassword" [disabled]="">
                     </div>
                 </div>
@@ -307,7 +307,7 @@
                     <ng-template ngFor let-extnetwork [ngForOf]="cluster.externalNetworks" let-i="index" [ngForTrackBy]="">
                         <tr>
                             <td>
-                                <input type="text" class="form-control" [name]="'extnetextip'+i"
+                                <input pInputText type="text" class="form-control" [name]="'extnetextip'+i"
                                        [(ngModel)]="extnetwork.externalIp" [disabled]="" required pattern="[0-9.]*" #ip="ngModel">
                                 <div class="alert alert-danger" *ngIf="ip.invalid && (ip.dirty || ip.touched)">
                                     <div *ngIf="ip.errors.required">{{ 'CLUSTERS.IP_REQUIRED_MESSAGE' | translate }}</div>
@@ -315,7 +315,7 @@
                                 </div>
                             </td>
                             <td>
-                                <input type="text" class="form-control" [name]="'extnetextnet'+i"
+                                <input pInputText type="text" class="form-control" [name]="'extnetextnet'+i"
                                        [(ngModel)]="extnetwork.externalNetwork" [disabled]="" required pattern="[0-9.]*" #network="ngModel">
                                 <div class="alert alert-danger" *ngIf="network.invalid && (network.dirty || network.touched)">
                                     <div *ngIf="network.errors.required">{{ 'CLUSTERS.NETWORK_REQUIRED_MESSAGE' | translate }}</div>
@@ -323,7 +323,7 @@
                                 </div>
                             </td>
                             <td>
-                                <input type="text" class="form-control" [name]="'extnetmask'+i"
+                                <input pInputText type="text" class="form-control" [name]="'extnetmask'+i"
                                        [(ngModel)]="extnetwork.externalNetworkMaskLength" [disabled]="" min="0" max="32" #mask="ngModel">
                                 <div class="alert alert-danger" *ngIf="mask.invalid && (mask.dirty || mask.touched)">
                                     <div *ngIf="mask.errors.min || mask.errors.max">{{ 'CLUSTERS.MASK_VALIDATION_MESSAGE' | translate }}</div>
@@ -334,11 +334,11 @@
                                        [(ngModel)]="extnetwork.assigned" [checked]="extnetwork.assigned == true" [disabled]="">
                             </td>
                             <td>
-                                <input type="text" class="form-control" [name]="'extnetassince'+i"
+                                <input pInputText type="text" class="form-control" [name]="'extnetassince'+i"
                                        [(ngModel)]="extnetwork.assignedSince" [disabled]=" !extnetwork.assigned">
                             </td>
                             <td>
-                                <input type="text" class="form-control" [name]="'extnetassto'+i"
+                                <input pInputText type="text" class="form-control" [name]="'extnetassto'+i"
                                        [(ngModel)]="extnetwork.assignedTo" [disabled]=" !extnetwork.assigned">
                             </td>
                             <td class="text-right">
