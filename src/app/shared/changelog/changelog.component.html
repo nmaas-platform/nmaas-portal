@@ -1,7 +1,7 @@
 <div *ngFor="let version of changelog?.versions; let i = index">
 	<div class="card panel panel-default">
 		<h3 class="panel-title text-center">
-			<button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapse'+i.toString()">
+			<button class="btn btn-link" style="color: var(--p-primary-100)" data-toggle="collapse" [attr.data-target]="'#collapse'+i.toString()">
 				<span *ngIf="i ==0"><strong>{{ 'CHANGELOG.CHANGELOG_LAST' | translate }}</strong>: </span>{{version?.verNo}} {{version?.date}}
 			</button>
 		</h3>
