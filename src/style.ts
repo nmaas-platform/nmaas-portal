@@ -48,6 +48,9 @@ export const MyPreset = definePreset(Nora, {
                     400: '#a94442',                         // red
                     500: '#C80071',                         // --menu-pink
                     600: '#CBD5E1',
+                    700: '#9f9',
+                    800: '#FF6651',
+                    900: '#7f7f7f'
                 },
                 background: {
                     0: '#ffffff',                         // --background
@@ -101,6 +104,9 @@ export const MyPreset = definePreset(Nora, {
                     400: '#ff8482',                         //red
                     500: '#C80071',                       // --d-menu-pink
                     600: '#4E535F',
+                    700: '#237623',
+                    800: '#a62513',
+                    900: '#7f7f7f'
                 },
                 background: {
                     0: '#1C1F27',                       // --d-background
