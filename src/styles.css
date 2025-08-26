@@ -323,3 +323,12 @@ body .formio-button-remove-row i.fa {
 body .formio-button-remove-row i.fa::before {
     content: "\e90b";
 }
+.btn-primary[disabled]{
+    color: var(--p-text-100);
+}
+body a {
+    color: var(--p-primary-100);
+}
+body a:hover {
+    color: var(--p-primary-200);
+}
