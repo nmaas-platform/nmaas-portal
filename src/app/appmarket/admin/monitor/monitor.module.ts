@@ -9,6 +9,7 @@ import {PipesModule} from "../../../pipe/pipes.module";
 import {FormsModule} from "@angular/forms";
 import {SharedModule} from "../../../shared";
 import {TranslateModule} from '@ngx-translate/core';
+import {InputTextModule} from 'primeng/inputtext';
 
 @NgModule({
     imports: [
@@ -18,7 +19,8 @@ import {TranslateModule} from '@ngx-translate/core';
         PipesModule,
         FormsModule,
         SharedModule,
-        TranslateModule.forChild()
+        TranslateModule.forChild(),
+        InputTextModule
     ],
     providers: [
         MonitorService
