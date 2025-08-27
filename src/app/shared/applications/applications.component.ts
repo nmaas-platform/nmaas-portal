@@ -57,7 +57,7 @@ export class ApplicationsViewComponent implements OnInit, OnChanges {
     public searchedAppName = '';
     protected searchedTag = 'all';
 
-    public sortModeList = [ 'NAME', 'RATING', 'POPULAR', 'DATE'];
+    public sortModeList = [ 'NAME', 'POPULAR', 'DATE'];
     public sortMode = 'NAME';
 
     private popStats: any = {};
