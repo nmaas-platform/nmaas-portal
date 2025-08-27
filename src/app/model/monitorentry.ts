@@ -13,8 +13,8 @@ export enum MonitorStatus{
 }
 
 export enum TimeFormat {
-    MIN,
-    H
+    MIN= 'MIN',
+    H= 'H'
 }
 
 
