@@ -48,8 +48,7 @@ export class AppInstanceService extends GenericDataService {
     }
 
     public getSortedMyAppInstances(domainId: number, criteria?: CustomerSearchCriteria): Observable<AppInstance[]> {
-        const options = {
-            params: new HttpParams()
+        const options = {params: new HttpParams()
                 .set('sort', criteria.sortColumn + ',' + criteria.sortDirection)
                 .set('status', criteria.status)
         }
@@ -65,31 +64,25 @@ export class AppInstanceService extends GenericDataService {
     }
 
     public getPagedAppInstances(domainId: number, criteria: CustomPageCriteria): Observable<Page<AppInstance>> {
-        let params = new HttpParams()
-            .set('sort', criteria.sortColumn + ',' + criteria.sortDirection)
-            .set('page', criteria.pageNumber)
-            .set('size', criteria.pageSize)
-            .set('status', criteria.status)
-
-        if (criteria.search !== null && criteria.search !== undefined) {
-            params = params.set('search', criteria.search);
+        const options = {
+            params: new HttpParams()
+                .set('sort', criteria.sortColumn + ',' + criteria.sortDirection)
+                .set('page', criteria.pageNumber)
+                .set('size', criteria.pageSize)
+                .set('status', criteria.status)
         }
-        const options = {params};
 
         return this.http.get<Page<AppInstance>>(this.getUrl() + 'domain/' + domainId, options)
     }
 
     public getPagedMyAppInstances(domainId: number, criteria: CustomPageCriteria): Observable<Page<AppInstance>> {
-        let params = new HttpParams()
-            .set('sort', criteria.sortColumn + ',' + criteria.sortDirection)
-            .set('page', criteria.pageNumber)
-            .set('size', criteria.pageSize)
-            .set('status', criteria.status)
-
-        if (criteria.search !== null && criteria.search !== undefined) {
-            params = params.set('search', criteria.search);
+        const options = {
+            params: new HttpParams()
+                .set('sort', criteria.sortColumn + ',' + criteria.sortDirection)
+                .set('page', criteria.pageNumber)
+                .set('size', criteria.pageSize)
+                .set('status', criteria.status)
         }
-        const options = {params};
 
         return this.http.get<Page<AppInstance>>(this.getUrl() + 'domain/' + domainId + '/my', options)
     }
@@ -216,8 +209,7 @@ export class CustomPageCriteria {
     pageSize: number;
     sortColumn: string;
     sortDirection: string;
-    status: string;
-    search: string;
+    status: string
 
     constructor(pageNumber: number,
                 pageSize: number,
