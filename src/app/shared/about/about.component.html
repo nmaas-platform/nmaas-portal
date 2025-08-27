@@ -4,7 +4,7 @@
             <h2 class="">{{ 'ABOUT.CHANGELOG_TITLE' | translate }}</h2>
             <span>{{ 'ABOUT.CHANGELOG_DESC' | translate }}</span>
         </div>
-        <div class="panel panel-default" *ngIf="gitInfo">
+        <div class="background-section" *ngIf="gitInfo">
             <div class="panel-body">
                 <form class="form-horizontal">
                     <div class="form-group version-row-padding">
@@ -52,7 +52,7 @@
             </ul>
             <span>{{ 'ABOUT.CONTACT_DESC' | translate}}</span>
         </div>
-        <div class="panel panel-default">
+        <div class="background-section">
             <div class="panel-body">
                 <app-contact></app-contact>
             </div>

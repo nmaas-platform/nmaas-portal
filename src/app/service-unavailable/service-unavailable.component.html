@@ -3,10 +3,10 @@
     <div id="service-denied" style="display: flex; justify-content: center">
       <div class="position" style=" height: 100%; display: flex; justify-content: center">
         <div class="size">
-          <img src="assets/images/error/500.gif" width="60%">
+          <img src="assets/images/error/500_transparent.gif" width="60%">
         </div>
         <div class="size">
-          <div class="col-xs-9"><h1 class="text-danger">Ooops!</h1></div>
+          <div class="col-xs-9"><h1 style="color: var(--p-primary-900)">Ooops!</h1></div>
           <div class="col-xs-3">
             <div class="dropdown">
               <a style="display: inline-block" class="dropdown-toggle dropdown-lang" aria-expanded="false" aria-haspopup="true"
@@ -24,8 +24,8 @@
               </ul>
             </div>
           </div>
-          <div class="col-xs-12">
-            <h2>{{ "SERVICE_UNAVAILABLE.HEADER" | translate }}</h2>
+          <div class="col-xs-12" style="color: var(--p-text-0)">
+            <h2 >{{ "SERVICE_UNAVAILABLE.HEADER" | translate }}</h2>
             <p>
               {{ "SERVICE_UNAVAILABLE.TEXT_FIRST_PART" | translate }}
               <br>

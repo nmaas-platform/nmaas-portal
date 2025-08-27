@@ -176,7 +176,7 @@
 :host ::ng-deep p-accordiontab button div{
     display: flex;
 }
-:host ::ng-deep chevrondownicon {
+:host ::ng-deep .p-accordion chevrondownicon {
     transform: rotate(180deg);
 }
 :host ::ng-deep chevronupicon {

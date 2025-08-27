@@ -323,3 +323,33 @@ body .formio-button-remove-row i.fa {
 body .formio-button-remove-row i.fa::before {
     content: "\e90b";
 }
+.btn-primary[disabled]{
+    color: var(--p-text-100);
+}
+body a {
+    color: var(--p-primary-100);
+}
+body a:hover {
+    color: var(--p-primary-200);
+}
+body .table-hover>tbody>tr:hover{
+    background-color: transparent;
+}
+.form-control{
+    border: 1px solid var(--p-accent-600);
+    background: var(--p-surface-300);
+    color: var(--p-text-0);
+}
+
+.form-control:enabled:focus{
+    border: 1px solid var(--p-primary-800);
+}
+.text-muted{
+    color: var(--p-text-0);
+}
+body .formio-component-datetime .control-label--hidden.field-required{
+    right: 5%;
+}
+.fa-calendar{
+    display: none;
+}

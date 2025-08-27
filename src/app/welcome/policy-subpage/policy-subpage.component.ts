@@ -15,6 +15,7 @@ export class PolicySubpageComponent implements OnInit, AfterViewChecked, AfterCo
   private height = 0;
 
   public content: Content;
+  darkMode;
 
   constructor(private contentDisplayService: ContentDisplayService,
               private translate: TranslateService,
@@ -22,6 +23,12 @@ export class PolicySubpageComponent implements OnInit, AfterViewChecked, AfterCo
   }
 
   ngOnInit() {
+    this.updateDarkMode()
+    const observer = new MutationObserver(() => this.updateDarkMode());
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
     this.activeRoute.url.subscribe(urlElements => {
       const contentName = urlElements[urlElements.length - 1].path;
       this.onResize();
@@ -45,6 +52,9 @@ export class PolicySubpageComponent implements OnInit, AfterViewChecked, AfterCo
     // TODO rewrite this component not to use 'document' - use css instead
     this.height = document.getElementById('global-footer').offsetHeight;
     document.getElementById('welcome-container').style.marginBottom = `${this.height * 9 / 10 + 5}px`;
+  }
+  updateDarkMode() {
+    this.darkMode = document.querySelector('html').classList.contains('dark-mode');
   }
 
 }

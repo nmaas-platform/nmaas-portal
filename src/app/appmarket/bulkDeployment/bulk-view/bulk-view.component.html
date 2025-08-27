@@ -2,40 +2,43 @@
     <div class="background-section">
         <div *ngIf="bulk && bulkType === 'DOMAIN' ">
             <h3>{{'BULK.DOMAIN.HEADER_VIEW' | translate}}</h3>
-            <div class="" style="padding-bottom: 1rem; margin-top: 1rem">
-                <label for="id" class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.ID' | translate }}</label>
-                <div class="col-sm-10">
-                    <input pInputText type="text" class="form-control" id="id" name="id" [disabled]="true"
-                           [(ngModel)]="bulk.id" #name="ngModel">
+            <div>
+                <div class="flex" style="padding-bottom: 1rem; margin-top: 1rem">
+                    <label for="id" class="col-sm-2 control-label text-right mt-2 pl-0">{{ 'BULK.LIST.ID' | translate }}</label>
+                    <div class="col-sm-10 pl-0">
+                        <input pInputText type="text" class="form-control" id="id" name="id" [disabled]="true"
+                               [(ngModel)]="bulk.id" #name="ngModel">
+                    </div>
+                </div>
+
+                <div class="flex" style="padding-bottom: 1rem">
+                    <label for="creator"
+                           class="col-sm-2 control-label text-right mt-2 pl-0">{{ 'BULK.LIST.CREATOR' | translate }}</label>
+                    <div class="col-sm-10 pl-0">
+                        <input pInputText type="text" class="form-control" id="creator" name="creator" [disabled]="true"
+                               placeholder="{{bulk.creator.username}} ({{bulk.creator.firstname}} {{bulk.creator.lastname}})">
+                    </div>
+                </div>
+
+                <div class="flex" style="padding-bottom: 1rem">
+                    <label for="date"
+                           class="col-sm-2  text-right mt-2 pl-0">{{ 'BULK.LIST.CREATION_DATE' | translate }}</label>
+                    <div class="col-sm-10 pl-0">
+                        <input pInputText type="text" class="form-control" id="date" name="date" [disabled]="true"
+                               placeholder="{{bulk.creationDate | date: 'dd-MM-yyyy HH:mm'}}">
+                    </div>
+                </div>
+
+                <div class="flex" style="padding-bottom: 1rem">
+                    <label for="state"
+                           class="col-sm-2 control-label text-right mt-2 pl-0">{{ 'BULK.LIST.STATE' | translate }}</label>
+                    <div class="col-sm-10 pl-0">
+                        <input pInputText type="text" class="form-control" id="state" name="state" [disabled]="true"
+                               placeholder="{{'BULK.STATE.' + bulk.state | translate}}">
+                    </div>
                 </div>
             </div>
 
-            <div class="" style="padding-bottom: 1rem">
-                <label for="creator"
-                       class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.CREATOR' | translate }}</label>
-                <div class="col-sm-10">
-                    <input pInputText type="text" class="form-control" id="creator" name="creator" [disabled]="true"
-                           placeholder="{{bulk.creator.username}} ({{bulk.creator.firstname}} {{bulk.creator.lastname}})">
-                </div>
-            </div>
-
-            <div class="" style="padding-bottom: 3rem">
-                <label for="date"
-                       class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.CREATION_DATE' | translate }}</label>
-                <div class="col-sm-10">
-                    <input pInputText type="text" class="form-control" id="date" name="date" [disabled]="true"
-                           placeholder="{{bulk.creationDate | date: 'dd-MM-yyyy HH:mm'}}">
-                </div>
-            </div>
-
-            <div class="form-group" style="padding-bottom: 3rem">
-                <label for="state"
-                       class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.STATE' | translate }}</label>
-                <div class="col-sm-10">
-                    <input pInputText type="text" class="form-control" id="state" name="state" [disabled]="true"
-                           placeholder="{{'BULK.STATE.' + bulk.state | translate}}">
-                </div>
-            </div>
             <div class="card" style="margin-top: 3rem">
                 <div class="panel-heading">
 
@@ -156,7 +159,7 @@
 
             </div>
 
-            <div class="" style="padding-bottom: 1rem; margin-top: 1rem">
+            <div class="flex" style="padding-bottom: 1rem; margin-top: 1rem">
                 <label for="id" class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.ID' | translate }}</label>
                 <div class="col-sm-10">
                     <input pInputText  type="text" class="form-control" id="id" name="id" [disabled]="true"
@@ -164,7 +167,7 @@
                 </div>
             </div>
 
-            <div class="" style="padding-bottom: 1rem;">
+            <div class="flex" style="padding-bottom: 1rem;">
                 <label for="id" class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.APP_NAME' | translate }}</label>
                 <div class="col-sm-10">
                     <input pInputText  type="text" class="form-control" id="id" name="id" [disabled]="true"
@@ -173,7 +176,7 @@
 
             </div>
 
-            <div class="" style="padding-bottom: 1rem">
+            <div class="flex" style="padding-bottom: 1rem">
                 <label for="creator"
                        class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.CREATOR' | translate }}</label>
                 <div class="col-sm-10">
@@ -182,7 +185,7 @@
                 </div>
             </div>
 
-            <div class="" style="padding-bottom: 1rem">
+            <div class="flex" style="padding-bottom: 1rem">
                 <label for="date"
                        class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.CREATION_DATE' | translate }}</label>
                 <div class="col-sm-10">
@@ -191,7 +194,7 @@
                 </div>
             </div>
 
-            <div class="" style="padding-bottom: 1rem">
+            <div class="flex" style="padding-bottom: 1rem">
                 <label for="state"
                        class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.STATE' | translate }}</label>
                 <div class="col-sm-10">
@@ -200,7 +203,7 @@
                 </div>
             </div>
 
-            <div class="" style="padding-bottom: 1rem">
+            <div class="flex" style="padding-bottom: 1rem">
                 <label for="completionDate"
                        class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.COMPLETION_DATE' | translate }}</label>
                 <div class="col-sm-10">
