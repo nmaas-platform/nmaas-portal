@@ -22,7 +22,7 @@ export class MonitorService extends GenericDataService {
   }
 
   public updateMonitorEntryAndJob(monitorEntry: MonitorEntry): Observable<any> {
-    return this.put(this.createProperUrl(), monitorEntry);
+    return this.put(this.createProperUrl().slice(0, -1), monitorEntry);
   }
 
   public getAllMonitorEntries(): Observable<MonitorEntry[]> {
