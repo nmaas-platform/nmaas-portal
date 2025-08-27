@@ -66,17 +66,14 @@ export class AppInstanceListComponent implements OnInit {
                 protected readonly domainService: DomainService,
                 private readonly userDataService: UserDataService,
                 private readonly authService: AuthService,
-                private readonly appConfig: AppConfigService,
                 private readonly translateService: TranslateService,
                 private readonly sessionService: SessionService,
-                protected readonly appImagesService: AppImagesService,
-                private readonly appsService: AppsService) {
+                protected readonly appImagesService: AppImagesService) {
 
     }
 
     ngOnInit() {
         this.userDataService.selectedDomainId.subscribe(domainId => {
-            // adjust display for GUESTS and USERS (they cannot own any instance)
             if (this.authService.hasDomainRole(domainId, 'ROLE_USER') ||
                 this.authService.hasDomainRole(domainId, 'ROLE_GUEST') ||
                 domainId == null) {
@@ -105,6 +102,13 @@ export class AppInstanceListComponent implements OnInit {
             || this.authService.hasDomainRole(app.domainId, 'ROLE_USER');
     }
 
+    public onSearch() {
+        this.reloadDeployedInstances();
+        if (this.isUndeployedVisible) {
+            this.reloadUndeployedInstances();
+        }
+    }
+
     public onOnlyMyVisibleChange() {
         this.selectedListRange = this.isOnlyMyVisible
             ? AppInstanceListSelection.MY
@@ -112,6 +116,9 @@ export class AppInstanceListComponent implements OnInit {
 
         sessionStorage.setItem(this.list_selection_key, AppInstanceListSelection[this.selectedListRange]);
         this.reloadDeployedInstances();
+        if (this.isUndeployedVisible) {
+            this.reloadUndeployedInstances();
+        }
     }
 
     public onUndeployVisibleChange() {
@@ -139,17 +146,12 @@ export class AppInstanceListComponent implements OnInit {
 
     protected loadInstancesLazy(event: any) {
         this.loadingInstances = true;
-
         const page = event.first / event.rows;  // np. first=0, rows=10 → page=0
         const size = event.rows;
-
-        const criteria = new CustomPageCriteria(page,
-            size,
-            'id',
-            'desc',
-            'deployed'
-        )
-
+        const criteria = new CustomPageCriteria(page, size, 'id', 'desc', 'deployed')
+        if (this.searchValue !== '') {
+            criteria.search = this.searchValue
+        }
         if (this.selectedListRange === AppInstanceListSelection.MY) {
             this.appInstanceService.getPagedMyAppInstances(this.domainId, criteria).subscribe(response => {
                 this.appDeployedInstances = response.content;
@@ -169,16 +171,12 @@ export class AppInstanceListComponent implements OnInit {
 
     protected loadUndeployedInstancesLazy(event: any) {
         this.loadingUndeployedInstances = true;
-
         const page = event.first / event.rows;  // np. first=0, rows=10 → page=0
         const size = event.rows;
-
-        const criteria = new CustomPageCriteria(page,
-            size,
-            'id',
-            'desc',
-            `undeployed`
-        )
+        const criteria = new CustomPageCriteria(page, size, 'id', 'desc', `undeployed`)
+        if (this.searchValue !== '') {
+            criteria.search = this.searchValue
+        }
         this.appInstanceService.getPagedAppInstances(this.domainId, criteria).subscribe(response => {
             this.appUndeployedInstances = response.content;
             this.totalElements = response.totalElements;
@@ -188,16 +186,9 @@ export class AppInstanceListComponent implements OnInit {
 
     private reloadDeployedInstances() {
         if (this.selectedViewType === 'cards') {
-            if (this.isOnlyMyVisible) {
-                this.allAppDeployedInstances = this.appInstanceService.getSortedMyAppInstances(
-                    this.domainId,
-                    new CustomerSearchCriteria('id', 'desc', 'deployed'))
-            } else {
-                this.allAppDeployedInstances = this.appInstanceService.getSortedAppInstances(
-                    this.domainId,
-                    new CustomerSearchCriteria('id', 'desc', 'deployed'))
-            }
-
+            this.allAppDeployedInstances = this.isOnlyMyVisible ?
+                this.getSortedMyInstances('deployed')
+                : this.getSortedInstances('deployed');
         } else if (this.selectedViewType === 'list') {
             this.loadInstancesLazy({first: 0, rows: 10})
         }
@@ -205,18 +196,23 @@ export class AppInstanceListComponent implements OnInit {
 
     private reloadUndeployedInstances() {
         if (this.selectedViewType === 'cards') {
-            if (this.isOnlyMyVisible) {
-                this.allAppUndeployedInstances = this.appInstanceService.getSortedMyAppInstances(
-                    this.domainId,
-                    new CustomerSearchCriteria('id', 'desc', 'undeployed'))
-            } else {
-                this.allAppUndeployedInstances = this.appInstanceService.getSortedAppInstances(
-                    this.domainId,
-                    new CustomerSearchCriteria('id', 'desc', 'undeployed'))
-            }
-
+            this.allAppUndeployedInstances = this.isOnlyMyVisible ?
+                this.getSortedMyInstances('undeployed')
+                : this.getSortedInstances('undeployed');
         } else if (this.selectedViewType === 'list') {
             this.loadUndeployedInstancesLazy({first: 0, rows: 10})
         }
+    }
+
+    private getSortedMyInstances(status: string) {
+        return this.appInstanceService.getSortedMyAppInstances(
+            this.domainId,
+            new CustomerSearchCriteria('id', 'desc', status))
+    }
+
+    private getSortedInstances(status: string) {
+        return this.appInstanceService.getSortedAppInstances(
+            this.domainId,
+            new CustomerSearchCriteria('id', 'desc', status))
     }
 }
