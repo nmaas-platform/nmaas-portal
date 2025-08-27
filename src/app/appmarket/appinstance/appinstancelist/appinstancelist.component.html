@@ -144,29 +144,29 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.FAILURE">
+                <div *ngIf="getStateAsEnum(appInstance?.state) == appInstanceState.FAILURE">
                     <p class="failure">{{ translateState(appInstance?.state) }}</p>
                     <p-progressBar class="failure" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
                 </div>
-                <div *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.DEPLOYING ||
-                    getStateAsEnum(appInstance?.state) == AppInstanceState.CONFIGURATION_AWAITING ||
-                    getStateAsEnum(appInstance?.state) == AppInstanceState.CONNECTING ||
-                    getStateAsEnum(appInstance?.state) == AppInstanceState.REQUESTED ||
-                    getStateAsEnum(appInstance?.state) == AppInstanceState.VALIDATION ||
-                    getStateAsEnum(appInstance?.state) == AppInstanceState.PREPARATION">
+                <div *ngIf="getStateAsEnum(appInstance?.state) == appInstanceState.DEPLOYING ||
+                    getStateAsEnum(appInstance?.state) == appInstanceState.CONFIGURATION_AWAITING ||
+                    getStateAsEnum(appInstance?.state) == appInstanceState.CONNECTING ||
+                    getStateAsEnum(appInstance?.state) == appInstanceState.REQUESTED ||
+                    getStateAsEnum(appInstance?.state) == appInstanceState.VALIDATION ||
+                    getStateAsEnum(appInstance?.state) == appInstanceState.PREPARATION">
                     <p class="running">{{ translateState(appInstance?.state) }}</p>
                     <p-progressBar class="running" mode="indeterminate" [style]="{'height': '8px'}"></p-progressBar>
                 </div>
-                <div *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.RUNNING ">
+                <div *ngIf="getStateAsEnum(appInstance?.state) == appInstanceState.RUNNING ">
                     <p class="done">{{ translateState(appInstance?.state) }}</p>
                     <p-progressBar class="done" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
                 </div>
-                <div *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.PAUSED ">
+                <div *ngIf="getStateAsEnum(appInstance?.state) == appInstanceState.PAUSED ">
                     <p class="scaledDown">{{ translateState(appInstance?.state) }}</p>
                     <p-progressBar class="scaledDown" [value]="100" [style]="{'height': '6px'}"></p-progressBar>
                 </div>
-                <div *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.DONE ||
-                    getStateAsEnum(appInstance?.state) == AppInstanceState.REMOVED ">
+                <div *ngIf="getStateAsEnum(appInstance?.state) == appInstanceState.DONE ||
+                    getStateAsEnum(appInstance?.state) == appInstanceState.REMOVED ">
                     <p class="done">{{ translateState(appInstance?.state) }}</p>
                     <p-progressBar class="removed" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
                 </div>
@@ -198,29 +198,29 @@
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.FAILURE">
+                    <div *ngIf="getStateAsEnum(appInstance?.state) == appInstanceState.FAILURE">
                         <p class="failure">{{ translateState(appInstance?.state) }}</p>
                         <p-progressBar class="failure" [value]="100" [style]="{'height': '6px'}"></p-progressBar>
                     </div>
-                    <div *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.DEPLOYING ||
-                    getStateAsEnum(appInstance?.state) == AppInstanceState.CONFIGURATION_AWAITING ||
-                    getStateAsEnum(appInstance?.state) == AppInstanceState.CONNECTING ||
-                    getStateAsEnum(appInstance?.state) == AppInstanceState.REQUESTED ||
-                    getStateAsEnum(appInstance?.state) == AppInstanceState.VALIDATION ||
-                    getStateAsEnum(appInstance?.state) == AppInstanceState.PREPARATION">
+                    <div *ngIf="getStateAsEnum(appInstance?.state) == appInstanceState.DEPLOYING ||
+                    getStateAsEnum(appInstance?.state) == appInstanceState.CONFIGURATION_AWAITING ||
+                    getStateAsEnum(appInstance?.state) == appInstanceState.CONNECTING ||
+                    getStateAsEnum(appInstance?.state) == appInstanceState.REQUESTED ||
+                    getStateAsEnum(appInstance?.state) == appInstanceState.VALIDATION ||
+                    getStateAsEnum(appInstance?.state) == appInstanceState.PREPARATION">
                         <p class="running">{{ translateState(appInstance?.state) }}</p>
                         <p-progressBar class="running" mode="indeterminate" [style]="{'height': '8px'}"></p-progressBar>
                     </div>
-                    <div *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.RUNNING ">
+                    <div *ngIf="getStateAsEnum(appInstance?.state) == appInstanceState.RUNNING ">
                         <p class="done">{{ translateState(appInstance?.state) }}</p>
                         <p-progressBar class="done" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
                     </div>
-                    <div *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.PAUSED ">
+                    <div *ngIf="getStateAsEnum(appInstance?.state) == appInstanceState.PAUSED ">
                         <p class="scaledDown">{{ translateState(appInstance?.state) }}</p>
                         <p-progressBar class="scaledDown" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
                     </div>
-                    <div *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.DONE ||
-                    getStateAsEnum(appInstance?.state) == AppInstanceState.REMOVED ">
+                    <div *ngIf="getStateAsEnum(appInstance?.state) == appInstanceState.DONE ||
+                    getStateAsEnum(appInstance?.state) == appInstanceState.REMOVED ">
                         <p class="removed">{{ translateState(appInstance?.state) }}</p>
                         <p-progressBar class="removed" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
                     </div>
