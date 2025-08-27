@@ -48,7 +48,7 @@ export class AppInstanceListComponent implements OnInit {
     public pageNumber = 1;
     public secondPageNumber = 1;
 
-    public appInstanceState: typeof AppInstanceState = AppInstanceState;
+    public AppInstanceState: typeof AppInstanceState = AppInstanceState;
 
     public domainId = 2;
     public viewOptions = [
