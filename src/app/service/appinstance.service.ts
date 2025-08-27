@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import {AppConfigService} from './appconfig.service';
 
@@ -12,7 +12,6 @@ import {AppInstanceStateHistory} from '../model/app-instance-state-history';
 import {AppConfiguration} from '../model/app-configuration';
 import {map} from 'rxjs/operators';
 import {AppInstanceExtended} from '../model/app-instance-extended';
-import {Page} from './page';
 
 function appInstanceSort(data: AppInstance[], sortColumn: string, sortDirection: string): AppInstance[] {
     data.sort((a, b) => {
@@ -34,57 +33,22 @@ export class AppInstanceService extends GenericDataService {
         super(http, appConfig);
     }
 
-    public getSortedAppInstances(domainId: number, criteria: CustomerSearchCriteria): Observable<AppInstance[]> {
-        const options = {params: new HttpParams().set('status', criteria.status)}
+    public getSortedAllAppInstances(domainId: number, criteria?: CustomerSearchCriteria): Observable<AppInstance[]> {
+        const options = {params: new HttpParams().set('sort', criteria.sortColumn + ',' + criteria.sortDirection)}
         return this.http.get<AppInstance[]>(this.getUrl() + 'domain/' + domainId, options).pipe(
             map(
-                (data) => appInstanceSort(
-                    data,
-                    criteria.sortColumn,
-                    criteria.sortDirection
-                )
+                (data) => appInstanceSort(data, criteria.sortColumn, criteria.sortDirection)
             )
         )
     }
 
     public getSortedMyAppInstances(domainId: number, criteria?: CustomerSearchCriteria): Observable<AppInstance[]> {
-        const options = {params: new HttpParams()
-                .set('sort', criteria.sortColumn + ',' + criteria.sortDirection)
-                .set('status', criteria.status)
-        }
+        const options = {params: new HttpParams().set('sort', criteria.sortColumn + ',' + criteria.sortDirection)}
         return this.http.get<AppInstance[]>(this.getUrl() + 'domain/' + domainId + '/my', options).pipe(
             map(
-                (data) => appInstanceSort(
-                    data,
-                    criteria.sortColumn,
-                    criteria.sortDirection
-                )
+                (data) => appInstanceSort(data, criteria.sortColumn, criteria.sortDirection)
             )
         )
-    }
-
-    public getPagedAppInstances(domainId: number, criteria: CustomPageCriteria): Observable<Page<AppInstance>> {
-        const options = {
-            params: new HttpParams()
-                .set('sort', criteria.sortColumn + ',' + criteria.sortDirection)
-                .set('page', criteria.pageNumber)
-                .set('size', criteria.pageSize)
-                .set('status', criteria.status)
-        }
-
-        return this.http.get<Page<AppInstance>>(this.getUrl() + 'domain/' + domainId, options)
-    }
-
-    public getPagedMyAppInstances(domainId: number, criteria: CustomPageCriteria): Observable<Page<AppInstance>> {
-        const options = {
-            params: new HttpParams()
-                .set('sort', criteria.sortColumn + ',' + criteria.sortDirection)
-                .set('page', criteria.pageNumber)
-                .set('size', criteria.pageSize)
-                .set('status', criteria.status)
-        }
-
-        return this.http.get<Page<AppInstance>>(this.getUrl() + 'domain/' + domainId + '/my', options)
     }
 
     public getAppInstanceState(id: number): Observable<AppInstanceStatus> {
@@ -96,17 +60,12 @@ export class AppInstanceService extends GenericDataService {
     }
 
     public createAppInstance(domainId: number, appId: number, name: string, autoUpgradesEnabled: boolean): Observable<Id> {
-        return this.post<AppInstanceRequest, Id>(this.getUrl() + 'domain/' + domainId,
-            new AppInstanceRequest(appId, name, autoUpgradesEnabled));
+        return this.post<AppInstanceRequest, Id>(this.getUrl() + 'domain/' + domainId, new AppInstanceRequest(appId, name, autoUpgradesEnabled));
     }
 
-    public createAppInstanceInCluster(domainId: number,
-                                      appId: number,
-                                      name: string,
-                                      autoUpgradesEnabled: boolean,
-                                      clusterId: number): Observable<Id> {
+    public createAppInstanceInCluster(domainId: number, appId: number, name: string, autoUpgradesEnabled: boolean, clusterId: number):  Observable<Id> {
         const params = new HttpParams().set('clusterId', clusterId.toString());
-        return this.http.post<Id>(this.getUrl() + 'domain/' + domainId, new AppInstanceRequest(appId, name, autoUpgradesEnabled), {params});
+        return this.http.post<Id>(this.getUrl() + 'domain/' + domainId, new AppInstanceRequest(appId, name, autoUpgradesEnabled), { params });
     }
 
     public removeAppInstance(appInstanceId: number): Observable<any> {
@@ -194,44 +153,15 @@ export class AppInstanceService extends GenericDataService {
         return this.http.get<Map<string, string>>(this.getUrl() + `${appInstanceId}/parameters`);
 
     }
-
     public scaleDown(appInstanceId: string): Observable<any> {
         return this.http.put(this.getUrl() + `${appInstanceId}/scale-down`, null)
     }
-
     public scaleUp(appInstanceId: string): Observable<any> {
         return this.http.put(this.getUrl() + `${appInstanceId}/scale-up`, null)
-    }
-}
-
-export class CustomPageCriteria {
-    pageNumber: number;
-    pageSize: number;
-    sortColumn: string;
-    sortDirection: string;
-    status: string
-
-    constructor(pageNumber: number,
-                pageSize: number,
-                sortColumn: string,
-                sortDirection: string,
-                status: string) {
-        this.pageNumber = pageNumber;
-        this.pageSize = pageSize;
-        this.sortColumn = sortColumn;
-        this.sortDirection = sortDirection;
-        this.status = status;
     }
 }
 
 export class CustomerSearchCriteria {
     sortColumn: string;
     sortDirection: string;
-    status: string;
-
-    constructor(sortColumn: string, sortDirection: string, status: string) {
-        this.sortColumn = sortColumn;
-        this.sortDirection = sortDirection;
-        this.status = status;
-    }
 }
