@@ -82,7 +82,7 @@
                 </p-accordionTab>
             </p-accordion>
             <p-accordion>
-                <p-accordionTab *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER']">
+                <p-accordionTab *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER', 'ROLE_GROUP_MANAGER']">
                     <ng-template pTemplate="header">
                         <div>
                             <i class="pi pi-th-large" style="margin-right:10px; font-size: 18px" title=" {{ 'NAVBAR.MARKET' | translate }}"></i>
@@ -99,7 +99,7 @@
                             </span>
                         </a>
                     </li>
-                    <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
+                    <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER', 'ROLE_GROUP_MANAGER']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
                         <a  style="display: flex; align-items: center;" [routerLink]="['/admin/apps/bulks']">
                             <i class="pi pi-box" style="margin-right:10px; font-size: 18px" title="{{ 'BULK.APP.HEADER' | translate }}"></i>
                             <span *ngIf="!isCollapsed">
@@ -180,7 +180,7 @@
                {{userName}}
             </span>
         </p-button>
-        <div *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']" style="margin-top:10px" [routerLink]="['admin/dashboard']">
+        <div *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR','ROLE_GROUP_MANAGER']" style="margin-top:10px" [routerLink]="['admin/dashboard']">
             <p-button *ngIf="!toggleAdmin" (onClick)="adminPanel()" ><i class="pi pi-sign-in" style="margin-right:10px; font-size: 18px"[ngClass]="{'collapsed': isCollapsed}" title=" Go to admin panel"></i>
                 <span *ngIf="!isCollapsed">
                     {{ 'NAVBAR.ADMIN_PANEL' | translate }}
