@@ -102,6 +102,9 @@ export class AppInstanceListComponent implements OnInit {
 
             this.update(domainId)
         });
+        if (this.authService.hasRole('ROLE_SYSTEM_ADMIN')) {
+            this.selectedOption = 'list'
+        }
     }
 
     public update(domainId: number): void {
