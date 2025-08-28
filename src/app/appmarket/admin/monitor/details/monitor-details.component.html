@@ -17,9 +17,13 @@
                                name="checkInterval" [(ngModel)]="monitorEntry.checkInterval" #interval="ngModel" required/>
                     </div>
                     <div class="col-sm-6">
-                        <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" id="timeFormat" name="timeFormat" [(ngModel)]="monitorEntry.timeFormat"
-                                [disabled]="isInMode(ComponentMode.VIEW)" required [selectedIndex]="monitorEntry.timeFormat" [ngModelOptions]="{standalone: true}" #timeFormat="ngModel">
-                            <option *ngFor="let format of formats | keys" [value]="format.key">{{format.value.toLocaleLowerCase()}}</option>
+                        <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" id="timeFormat" name="timeFormat"
+                                [(ngModel)]="monitorEntry.timeFormat"
+                                [disabled]="isInMode(ComponentMode.VIEW)"
+                                required [ngModelOptions]="{standalone: true}"
+                                #timeFormat="ngModel">
+                            <option *ngFor="let format of formats | keys" [ngValue]="format.value">
+                                {{format.value.toLocaleLowerCase()}}</option>
                         </select>
                     </div>
                 </div>
