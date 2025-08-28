@@ -16,7 +16,7 @@ export class MonitorDetailsComponent extends BaseComponent implements OnInit {
 
     public services: typeof ServiceType = ServiceType;
 
-    public formats: typeof TimeFormat = TimeFormat;
+    public formats = Object.values(TimeFormat);
 
     public monitorEntry: MonitorEntry;
 
