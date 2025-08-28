@@ -90,8 +90,7 @@ export class DomainFilterComponent implements OnInit {
             if (this.domains === undefined) {
                 this.domains = of([]);
             }
-            if (!this.authService.hasDomainRole(globalDomainId, 'ROLE_TOOL_MANAGER')
-                && !this.authService.hasDomainRole(globalDomainId, 'ROLE_OPERATOR')) {
+            if (this.authService.hasDomainRole(globalDomainId, 'ROLE_GUEST')) {
                 this.filterOutGlobalDomain();
                 this.filterOutNotActiveDomains();
             }
