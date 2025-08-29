@@ -76,6 +76,7 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
                 this.domainGroup.managers.push(owner)
                 this.domainService.createDomainGroup(this.domainGroup).subscribe(data => {
                     console.warn('crated', data);
+                    this.authService.loadUser()
                     this.router.navigate(['/admin/domains/groups/', data.id]);
                 })
             })
@@ -83,8 +84,10 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
         } else {
             this.domainService.updateDomainGroup(this.domainGroup, this.domainGroupId).subscribe(_ => {
                 if (refresh) {
+                    this.authService.loadUser()
                     this.refresh();
                 } else {
+                    this.authService.loadUser()
                     this.router.navigate(['/admin/domains/groups'])
                 }
             });
