@@ -85,6 +85,9 @@ export class AppInstanceListComponent implements OnInit {
             this.maxItemsOnPage = +i;
             this.maxItemsOnPageSec = +i;
         }
+        if (this.authService.hasRole('ROLE_SYSTEM_ADMIN')) {
+            this.selectedViewType = 'list'
+        }
     }
 
     public checkPrivileges(app) {
