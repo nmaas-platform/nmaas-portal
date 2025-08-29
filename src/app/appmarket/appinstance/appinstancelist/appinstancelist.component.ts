@@ -1,14 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 
-import {AppInstance, AppInstanceState, parseAppInstanceState} from '../../../model';
-import {AppConfigService, AppImagesService, AppInstanceService, AppsService, CustomerSearchCriteria, DomainService} from '../../../service';
+import {AppInstance, AppInstanceState} from '../../../model';
+import {AppImagesService, AppInstanceService, CustomerSearchCriteria, CustomPageCriteria, DomainService} from '../../../service';
 import {AuthService} from '../../../auth/auth.service';
 import {UserDataService} from '../../../service/userdata.service';
-import {forkJoin, Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
-import {map} from 'rxjs/operators';
 import {SessionService} from '../../../service/session.service';
-import {Domain} from '../../../model/domain';
 
 export enum AppInstanceListSelection {
     ALL, MY,
@@ -22,14 +20,19 @@ export enum AppInstanceListSelection {
 })
 export class AppInstanceListComponent implements OnInit {
 
-    public undeployedVisible = false;
-    public showMy = false;
+    appDeployedInstances: AppInstance[] = [];
+    appUndeployedInstances: AppInstance[] = [];
+    allAppUndeployedInstances: Observable<AppInstance[]>;
+    allAppDeployedInstances: Observable<AppInstance[]>;
+    totalElements = 0;
+    loadingInstances = false;
+    loadingUndeployedInstances = false;
+
+    public isUndeployedVisible = false;
+    public isOnlyMyVisible = false;
 
     private readonly item_number_key: string = 'item_number_per_page';
     private readonly list_selection_key: string = 'list_selection';
-
-    public p_first = 'p_first';
-    public p_second = 'p_second';
 
     public maxItemsOnPage = 10;
     public maxItemsOnPageSec = 10;
@@ -37,89 +40,53 @@ export class AppInstanceListComponent implements OnInit {
     public pageNumber = 1;
     public secondPageNumber = 1;
 
-    public showFailed = true;
-
-    public itemsPerPage: number[] = [10, 15, 20, 25, 30, 50];
-
     public AppInstanceState: typeof AppInstanceState = AppInstanceState;
-    public AppInstanceListSelection: typeof AppInstanceListSelection = AppInstanceListSelection;
 
-    public appInstances: Observable<AppInstance[]>;
-    public appDeployedInstances: Observable<AppInstance[]>;
-    public appUndeployedInstances: Observable<AppInstance[]>;
-
-    public listSelection: AppInstanceListSelection = AppInstanceListSelection.MY;
-
-    public selectedUsername: string;
-    public domainId = 0;
-
-    public domains: Domain[] = [];
+    public domainId = 2;
     public viewOptions = [
         {icon: 'pi pi-list', value: 'list'},
         {icon: 'pi pi-th-large', value: 'cards'}
     ];
-    public selectedOption = 'cards';
+    public selectedViewType = 'cards';
+    public selectedListRange: AppInstanceListSelection = AppInstanceListSelection.ALL;
+
 
     public searchValue = '';
 
 
-    constructor(private appInstanceService: AppInstanceService,
-                public domainService: DomainService,
-                private userDataService: UserDataService,
-                public authService: AuthService,
-                private appConfig: AppConfigService,
-                private translateService: TranslateService,
-                private sessionService: SessionService,
-                public appImagesService: AppImagesService,
-                private appsService: AppsService) {
+    constructor(private readonly appInstanceService: AppInstanceService,
+                protected readonly domainService: DomainService,
+                private readonly userDataService: UserDataService,
+                private readonly authService: AuthService,
+                private readonly translateService: TranslateService,
+                private readonly sessionService: SessionService,
+                protected readonly appImagesService: AppImagesService) {
 
     }
 
     ngOnInit() {
+        this.userDataService.selectedDomainId.subscribe(domainId => {
+            if (this.authService.hasDomainRole(domainId, 'ROLE_USER') ||
+                this.authService.hasDomainRole(domainId, 'ROLE_GUEST') ||
+                domainId == null) {
+                this.selectedListRange = AppInstanceListSelection.ALL;
+            }
+            this.allAppDeployedInstances = this.appInstanceService.getSortedAppInstances(
+                this.domainId,
+                new CustomerSearchCriteria('id', 'desc', 'deployed'))
+            this.domainId = domainId
+            this.reloadDeployedInstances()
+            this.reloadUndeployedInstances()
+        });
+
         this.sessionService.registerCulture(this.translateService.currentLang);
         const i = sessionStorage.getItem(this.item_number_key);
         if (i) {
             this.maxItemsOnPage = +i;
             this.maxItemsOnPageSec = +i;
         }
-
-        const ls = AppInstanceListSelection[sessionStorage.getItem(this.list_selection_key)];
-        if (ls !== undefined) {
-            this.listSelection = ls;
-            this.showMy = ls === AppInstanceListSelection.MY;
-        } else {
-            this.listSelection = AppInstanceListSelection.ALL;
-            sessionStorage.setItem(this.list_selection_key, AppInstanceListSelection[this.listSelection]);
-        }
-        console.log(this.listSelection);
-        this.userDataService.selectedDomainId.subscribe(domainId => {
-            // adjust display for GUESTS and USERS (they cannot own any instance)
-            if (this.authService.hasDomainRole(domainId, 'ROLE_USER') ||
-                this.authService.hasDomainRole(domainId, 'ROLE_GUEST') ||
-                domainId == null) {
-                this.listSelection = AppInstanceListSelection.ALL;
-            }
-
-            this.update(domainId)
-        });
         if (this.authService.hasRole('ROLE_SYSTEM_ADMIN')) {
-            this.selectedOption = 'list'
-        }
-    }
-
-    public update(domainId: number): void {
-        if (domainId !== this.domainId) {
-            this.undeployedVisible = false; // hide undeployed instances when domain is changed
-        }
-        if (domainId === undefined || domainId === 0 || domainId === this.appConfig.getNmaasGlobalDomainId()) {
-            this.domainId = this.appConfig.getNmaasGlobalDomainId();
-            // get instances in global domain only for users who are not guests in global domain
-            if (!this.authService.hasDomainRole(this.domainId, 'ROLE_GUEST')) {
-                this.getInstances({sortColumn: 'createdAt', sortDirection: 'asc'});
-            }
-        } else {
-            this.domainId = domainId;
-            this.getInstances({sortColumn: 'createdAt', sortDirection: 'asc'});
+            this.selectedViewType = 'list'
         }
     }
 
@@ -130,88 +97,117 @@ export class AppInstanceListComponent implements OnInit {
             || this.authService.hasDomainRole(app.domainId, 'ROLE_USER');
     }
 
-    public onSelectionChange() {
-        this.listSelection = this.showMy
+    public onSearch() {
+        this.reloadDeployedInstances();
+        if (this.isUndeployedVisible) {
+            this.reloadUndeployedInstances();
+        }
+    }
+
+    public onOnlyMyVisibleChange() {
+        this.selectedListRange = this.isOnlyMyVisible
             ? AppInstanceListSelection.MY
             : AppInstanceListSelection.ALL;
 
-        sessionStorage.setItem(this.list_selection_key, AppInstanceListSelection[this.listSelection]);
-        this.update(this.domainId);
+        sessionStorage.setItem(this.list_selection_key, AppInstanceListSelection[this.selectedListRange]);
+        this.reloadDeployedInstances();
+        if (this.isUndeployedVisible) {
+            this.reloadUndeployedInstances();
+        }
     }
 
-    public setItems(item) {
-        sessionStorage.setItem(this.item_number_key, item);
-        this.maxItemsOnPage = item;
-        this.maxItemsOnPageSec = item;
-    }
-
-    onSorted($event) {
-        this.getInstances($event)
-    }
-
-    getInstances(criteria: CustomerSearchCriteria) {
-        this.appInstances = of<AppInstance[]>([]);
-        switch (+this.listSelection) {
-            case AppInstanceListSelection.ALL:
-                if (this.domainId) {
-                    this.appInstances = this.appInstanceService.getSortedAllAppInstances(this.domainId, criteria);
-                }
-                break;
-            case AppInstanceListSelection.MY:
-                if (this.domainId) {
-                    this.appInstances = this.appInstanceService.getSortedMyAppInstances(this.domainId, criteria);
-                }
-                break;
-            default:
-                break;
+    public onUndeployVisibleChange() {
+        if (this.isUndeployedVisible) {
+            this.reloadUndeployedInstances()
         }
 
-
-        this.appInstances = this.appInstances.pipe(
-            map(apps => apps.map(appInst => ({
-                ...appInst,
-                appId: appInst.applicationBaseId || null
-            }))),
-            map(apps => apps.filter(appInst =>
-                this.domainId === this.appConfig.getNmaasGlobalDomainId() || this.domainId === appInst.domainId
-            ))
-        );
-        // sort and filter deployed instances
-        this.appDeployedInstances = this.appInstances.pipe(
-            map(instances => instances.filter(
-                app => parseAppInstanceState(app.state) !== AppInstanceState.REMOVED
-                    && parseAppInstanceState(app.state) !== AppInstanceState.DONE
-            ))
-        );
-        // sort and filter undeployed instances
-        this.appUndeployedInstances = this.appInstances.pipe(
-            map(instances => instances.filter(
-                app => parseAppInstanceState(app.state) === AppInstanceState.REMOVED
-                    || parseAppInstanceState(app.state) === AppInstanceState.DONE
-            ))
-        );
-
-    }
-
-
-    public setShowFailedField(status: boolean) {
-        this.showFailed = status;
     }
 
     public translateState(appState): string {
         let outputString = '';
-        console.debug('CHECKING ENUM: ' + 'ENUM.' + appState.toString());
         this.translateService.get('ENUM.' + appState.toString()).subscribe((res: string) => {
             outputString = res;
         });
         return outputString;
     }
 
-    public userHasGuestRoleInCurrentDomain(): boolean {
+    protected userHasGuestRoleInCurrentDomain(): boolean {
         return this.authService.hasDomainRole(this.domainId, 'ROLE_GUEST');
     }
 
-    public getStateAsEnum(state: string | AppInstanceState): AppInstanceState {
+    protected getStateAsEnum(state: string | AppInstanceState): AppInstanceState {
         return typeof state === 'string' ? AppInstanceState[state] : state;
+    }
+
+    protected loadInstancesLazy(event: any) {
+        this.loadingInstances = true;
+        const page = event.first / event.rows;  // np. first=0, rows=10 → page=0
+        const size = event.rows;
+        const criteria = new CustomPageCriteria(page, size, 'id', 'desc', 'deployed')
+        if (this.searchValue !== '') {
+            criteria.search = this.searchValue
+        }
+        if (this.selectedListRange === AppInstanceListSelection.MY) {
+            this.appInstanceService.getPagedMyAppInstances(this.domainId, criteria).subscribe(response => {
+                this.appDeployedInstances = response.content;
+                this.totalElements = response.totalElements;
+                this.loadingInstances = false;
+            });
+        } else if (this.selectedListRange === AppInstanceListSelection.ALL) {
+            this.appInstanceService.getPagedAppInstances(this.domainId, criteria).subscribe(response => {
+                this.appDeployedInstances = response.content;
+                this.totalElements = response.totalElements;
+                this.loadingInstances = false;
+            });
+        }
+
+
+    }
+
+    protected loadUndeployedInstancesLazy(event: any) {
+        this.loadingUndeployedInstances = true;
+        const page = event.first / event.rows;  // np. first=0, rows=10 → page=0
+        const size = event.rows;
+        const criteria = new CustomPageCriteria(page, size, 'id', 'desc', `undeployed`)
+        if (this.searchValue !== '') {
+            criteria.search = this.searchValue
+        }
+        this.appInstanceService.getPagedAppInstances(this.domainId, criteria).subscribe(response => {
+            this.appUndeployedInstances = response.content;
+            this.totalElements = response.totalElements;
+            this.loadingUndeployedInstances = false;
+        });
+    }
+
+    private reloadDeployedInstances() {
+        if (this.selectedViewType === 'cards') {
+            this.allAppDeployedInstances = this.isOnlyMyVisible ?
+                this.getSortedMyInstances('deployed')
+                : this.getSortedInstances('deployed');
+        } else if (this.selectedViewType === 'list') {
+            this.loadInstancesLazy({first: 0, rows: 10})
+        }
+    }
+
+    private reloadUndeployedInstances() {
+        if (this.selectedViewType === 'cards') {
+            this.allAppUndeployedInstances = this.isOnlyMyVisible ?
+                this.getSortedMyInstances('undeployed')
+                : this.getSortedInstances('undeployed');
+        } else if (this.selectedViewType === 'list') {
+            this.loadUndeployedInstancesLazy({first: 0, rows: 10})
+        }
+    }
+
+    private getSortedMyInstances(status: string) {
+        return this.appInstanceService.getSortedMyAppInstances(
+            this.domainId,
+            new CustomerSearchCriteria('id', 'desc', status))
+    }
+
+    private getSortedInstances(status: string) {
+        return this.appInstanceService.getSortedAppInstances(
+            this.domainId,
+            new CustomerSearchCriteria('id', 'desc', status))
     }
 }
