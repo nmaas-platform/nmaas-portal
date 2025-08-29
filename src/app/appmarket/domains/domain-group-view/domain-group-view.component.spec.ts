@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed, tick} from '@angular/core/testing';
 import {DomainGroupViewComponent} from './domain-group-view.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {provideHttpClientTesting} from '@angular/common/http/testing';
@@ -19,6 +19,7 @@ import {DomainApplicationStatePerDomain} from '../../../model/domainapplications
 import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 import {ToastContainerComponent} from '../../../shared/toast-container/toast-container.component';
 import {MessageService} from 'primeng/api';
+import any = jasmine.any;
 
 describe('DomainGroupViewComponent', () => {
     let component: DomainGroupViewComponent;
@@ -30,8 +31,7 @@ describe('DomainGroupViewComponent', () => {
     let mockModal: jasmine.SpyObj<ModalComponent>;
     let mockActivatedRoute: any;
     let mockRouter: jasmine.SpyObj<Router>;
-    let mockToast: jasmine.SpyObj<ToastContainerComponent>
-    let mockMessageService: jasmine.SpyObj<MessageService>
+
 
 
     beforeEach(async () => {
@@ -57,12 +57,12 @@ describe('DomainGroupViewComponent', () => {
         } as DomainGroup)); // Mock getDomainGroup to return a valid DomainGroup object
 
         mockUserService = jasmine.createSpyObj('UserService', ['getUserBySearchManagers']);
-        mockAuthService = jasmine.createSpyObj('AuthService', ['getUsername']);
+        mockAuthService = jasmine.createSpyObj('AuthService', ['getUsername', 'loadUser']);
         mockRouter = jasmine.createSpyObj('Router', ['navigate']);
         mockProfileService = jasmine.createSpyObj('ProfileService', ['getOne']);
         mockModal = jasmine.createSpyObj('ModalComponent', ['show', 'hide']);
-        mockToast = jasmine.createSpyObj('ToastContainerComponent', ['show']);
-        mockMessageService = jasmine.createSpyObj('MessageService', ['add']);
+        // mockToast = jasmine.createSpyObj('ToastContainerComponent', ['show']);
+        // mockMessageService = jasmine.createSpyObj('MessageService', ['add']);
         mockActivatedRoute = {
             snapshot: {data: {mode: 'VIEW'}},
             params: of({id: 1}) // Mock route parameters
@@ -408,6 +408,7 @@ describe('DomainGroupViewComponent', () => {
     it('should handle domain group update', () => {
         const mockUpdatedGroup = {id: 1, name: 'Updated Group'} as DomainGroup;
         mockDomainService.updateDomainGroup.and.returnValue(of(mockUpdatedGroup));
+        mockAuthService.loadUser.and.stub();
         spyOn(component, 'refresh');
 
         component.domainGroup = mockUpdatedGroup;
