@@ -30,3 +30,6 @@ li::marker {
     font-size: 0em;
 }
 
+:host ::ng-deep .p-datatable-table-container{
+    overflow: unset !important;
+}

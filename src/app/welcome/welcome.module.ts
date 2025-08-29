@@ -21,6 +21,7 @@ import {PasswordResetComponent} from './passwordreset/password-reset.component';
 import {PasswordStrengthMeterComponent} from 'angular-password-strength-meter';
 import {PolicySubpageComponent} from './policy-subpage/policy-subpage.component';
 import {LinkAccountComponent} from './link-account/link-account.component';
+import {InputTextModule} from 'primeng/inputtext';
 
 @NgModule({
     declarations: [
@@ -44,7 +45,8 @@ import {LinkAccountComponent} from './link-account/link-account.component';
         PipesModule,
         AppMarketModule,
         PasswordStrengthMeterComponent,
-        TranslateModule.forChild()
+        TranslateModule.forChild(),
+        InputTextModule
     ],
     exports: [
         WelcomeComponent

@@ -51,40 +51,40 @@ import {DomainRolesDirective} from '../directive/domain-roles.directive';
 import {SshKeysComponent} from './users/ssh-keys/ssh-keys.component';
 import {NewSshKeyComponent} from './users/new-ssh-key/new-ssh-key.component';
 import {ModalProvideSshKeyComponent} from './modal/modal-provide-ssh-key/modal-provide-ssh-key.component';
-import { ContactComponent } from './contact/contact.component';
+import {ContactComponent} from './contact/contact.component';
 import {FormioModule} from '@formio/angular';
-import { PreferencesComponent } from './users/preferences/preferences.component';
+import {PreferencesComponent} from './users/preferences/preferences.component';
 import {TooltipModule} from 'primeng/tooltip';
 import {DropdownModule} from 'primeng/dropdown';
 import {SortableHeaderDirective} from '../service/sort-domain.directive';
 import {InputTextModule} from 'primeng/inputtext';
-import { DomainNamespaceAnnotationsComponent } from './domain-namespace-annotations/domain-namespace-annotations.component';
-import { provideZxvbnServiceForPSM  } from 'angular-password-strength-meter/zxcvbn';
-import { AccessTokensComponent } from './users/access-token/access-tokens.component';
-import { LeftMenuComponent } from './left-menu/left-menu.component';
+import {DomainNamespaceAnnotationsComponent} from './domain-namespace-annotations/domain-namespace-annotations.component';
+import {provideZxvbnServiceForPSM} from 'angular-password-strength-meter/zxcvbn';
+import {AccessTokensComponent} from './users/access-token/access-tokens.component';
+import {LeftMenuComponent} from './left-menu/left-menu.component';
 import {TableModule} from 'primeng/table';
-import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import {AdminDashboardComponent} from './admin-dashboard/admin-dashboard.component';
 import {CheckboxModule} from 'primeng/checkbox';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { ButtonModule } from 'primeng/button';
-import { BrowserModule } from '@angular/platform-browser';
+import {InputGroupModule} from 'primeng/inputgroup';
+import {InputGroupAddonModule} from 'primeng/inputgroupaddon';
+import {ButtonModule} from 'primeng/button';
+import {BrowserModule} from '@angular/platform-browser';
 import {ChartModule} from 'primeng/chart';
-import { RolesExcludedDirective } from '../directive/roles-exluded.directive';
-import { FileUploadModule } from 'primeng/fileupload';
-import { RecaptchaVisibilityService } from '../service/recaptcha-visibility.service';
+import {RolesExcludedDirective} from '../directive/roles-exluded.directive';
+import {FileUploadModule} from 'primeng/fileupload';
+import {RecaptchaVisibilityService} from '../service/recaptcha-visibility.service';
 import {CalendarModule} from 'primeng/calendar';
-import { AddClusterComponent } from './admin/clusters/add-cluster/add-cluster.component';
-import { StepsModule } from 'primeng/steps';
-import { TextareaModule } from 'primeng/textarea';
+import {AddClusterComponent} from './admin/clusters/add-cluster/add-cluster.component';
+import {StepsModule} from 'primeng/steps';
+import {TextareaModule} from 'primeng/textarea';
 import {DialogModule} from 'primeng/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { UserDomainListComponent } from './users/user-domain/user-domain-list.component';
+import {UserDomainListComponent} from './users/user-domain/user-domain-list.component';
 import {Select} from 'primeng/select';
 import {IconField} from 'primeng/iconfield';
 import {InputIcon} from 'primeng/inputicon';
 import {DatePicker} from 'primeng/datepicker';
-
+import {SelectButton, SelectButtonModule} from 'primeng/selectbutton';
 
 
 @NgModule({
@@ -117,7 +117,13 @@ import {DatePicker} from 'primeng/datepicker';
             StepsModule,
             TextareaModule,
             DialogModule,
-            BrowserAnimationsModule, Select, IconField, InputIcon, DatePicker
+            BrowserAnimationsModule,
+            Select,
+            IconField,
+            InputIcon,
+            DatePicker,
+            SelectButton,
+            SelectButtonModule
         ],
     declarations: [
         RateComponent,
@@ -223,7 +229,7 @@ import {DatePicker} from 'primeng/datepicker';
         DomainNamespaceAnnotationsComponent,
         AccessTokensComponent
     ],
-     schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
+    schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
 
 })
 export class SharedModule {

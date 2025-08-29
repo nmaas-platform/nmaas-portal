@@ -7,7 +7,8 @@ import {DomainGroup} from '../../../model/domaingroup';
 import {Domain} from '../../../model/domain';
 import {User} from '../../../model';
 import {AuthService} from '../../../auth/auth.service';
-import { ProfileService } from '../../../service/profile.service';
+import {ProfileService} from '../../../service/profile.service';
+import {ToastContainerComponent, ToastMode} from '../../../shared/toast-container/toast-container.component';
 
 @Component({
     selector: 'app-domain-group-view',
@@ -27,18 +28,22 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
 
     public searchUser = '';
 
+    public errorMessage = '';
+
+
     @ViewChild(ModalComponent, {static: true})
     public readonly modal: ModalComponent;
 
     @ViewChild('userAccess')
     public userAccessModal: ModalComponent;
 
-    constructor(private router: Router,
-                private route: ActivatedRoute,
-                private domainService: DomainService,
-                private userService: UserService,
-                private authService: AuthService,
-                private profileService: ProfileService
+    constructor(private readonly router: Router,
+                private readonly route: ActivatedRoute,
+                private readonly domainService: DomainService,
+                private readonly userService: UserService,
+                private readonly authService: AuthService,
+                private readonly profileService: ProfileService,
+                private readonly toast: ToastContainerComponent
     ) {
         super();
     }
@@ -52,18 +57,20 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
         this.route.params.subscribe(params => {
             if (params['id'] !== undefined) {
                 this.domainGroupId = +params['id'];
-                this.domainService.getDomainGroup(this.domainGroupId).subscribe(
-                    (domainGroup) => {
+                this.domainService.getDomainGroup(this.domainGroupId).subscribe({
+                    next: (domainGroup) => {
                         this.domainGroup = domainGroup;
                         this.sortApplication();
-                    },
-                    err => {
+                    }
+                    ,
+                    error: (err) => {
                         console.error(err);
                         if (err.statusCode && (err.statusCode === 404 ||
                             err.statusCode === 401 || err.statusCode === 403 || err.statusCode === 500)) {
                             this.router.navigateByUrl('/notfound');
                         }
-                    })
+                    }
+                })
             }
         })
     }
@@ -74,17 +81,31 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
         if (this.domainGroup.id === undefined || this.domainGroup.id === null) {
             this.profileService.getOne().subscribe(owner => {
                 this.domainGroup.managers.push(owner)
-                this.domainService.createDomainGroup(this.domainGroup).subscribe(data => {
-                    console.warn('crated', data);
-                    this.router.navigate(['/admin/domains/groups/', data.id]);
+                this.domainService.createDomainGroup(this.domainGroup).subscribe({
+                    next: (data) => {
+                        console.warn('crated', data);
+                        this.authService.loadUser()
+                        this.router.navigate(['/admin/domains/groups/', data.id]);
+                    },
+                    error: (err) => {
+                        console.error(err);
+                        if (err.statusCode !== 409 && err?.message !== undefined) {
+                            this.errorMessage = err.message;
+                        } else {
+                            this.errorMessage = err;
+                        }
+                        this.toast.show('TOAST.ERROR.NEW_GROUP', ToastMode.DANGER, 'TOAST.ERROR_HEADER')
+                    }
                 })
             })
-           
+
         } else {
             this.domainService.updateDomainGroup(this.domainGroup, this.domainGroupId).subscribe(_ => {
                 if (refresh) {
+                    this.authService.loadUser()
                     this.refresh();
                 } else {
+                    this.authService.loadUser()
                     this.router.navigate(['/admin/domains/groups'])
                 }
             });
@@ -118,7 +139,7 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
             this.refresh();
             this.domainsToAdd = [];
             this.refreshDomainForAdd();
-            
+
         });
         this.modal.hide();
     }
@@ -164,8 +185,8 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
 
     public deleteUserAccess(user: User) {
         this.domainGroup.managers = this.domainGroup.managers.filter(val => val.id !== user.id);
-        this.domainService.updateDomainGroupManagers(this.domainGroup.managers, this.domainGroupId).subscribe( view => {
-            console.log("Get updated managers.. ", view);
+        this.domainService.updateDomainGroupManagers(this.domainGroup.managers, this.domainGroupId).subscribe(view => {
+            console.log('Get updated managers.. ', view);
             this.domainGroup = view;
         })
     }
@@ -178,18 +199,18 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
         if (search === '') {
             this.usersFound = [];
         } else {
-                this.userService.getUserBySearchManagers(search ).subscribe(data => {
-                    this.usersFound = [];
-                    const ids = this.domainGroup.managers.flatMap(val => val.id);
-                    const idsLocalAdded = this.usersToAdd.flatMap(val => val.id);
-                    console.warn(ids)
-                    data.forEach( user => {
-                        if (!ids.includes(user.id) && !idsLocalAdded.includes(user.id)) {
-                            this.usersFound.push(user);
-                        }
-                    })
+            this.userService.getUserBySearchManagers(search).subscribe(data => {
+                this.usersFound = [];
+                const ids = this.domainGroup.managers.flatMap(val => val.id);
+                const idsLocalAdded = this.usersToAdd.flatMap(val => val.id);
+                console.warn(ids)
+                data.forEach(user => {
+                    if (!ids.includes(user.id) && !idsLocalAdded.includes(user.id)) {
+                        this.usersFound.push(user);
+                    }
                 })
-            }
+            })
+        }
     }
 
     public addUser(user: User) {
@@ -203,14 +224,14 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
     public saveUsers() {
         this.domainGroup.managers.push(...this.usersToAdd);
         this.usersToAdd = [];
-        this.domainService.updateDomainGroupManagers(this.domainGroup.managers, this.domainGroupId).subscribe( view => {
-            console.log("Get updated managers.. ", view);
+        this.domainService.updateDomainGroupManagers(this.domainGroup.managers, this.domainGroupId).subscribe(view => {
+            console.log('Get updated managers.. ', view);
             this.domainGroup = view;
             this.userAccessModal.hide();
         })
     }
 
-   public removeUserFromSelected(user: User) {
+    public removeUserFromSelected(user: User) {
         this.usersToAdd = this.usersToAdd.filter(val => val.id !== user.id)
     }
 

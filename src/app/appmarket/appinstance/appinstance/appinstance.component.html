@@ -17,7 +17,7 @@
         <div style=" display: flex; flex-direction: row; justify-content: space-between;">
             <div class="" style="display: flex;flex-direction: column;">
                 <div class="text-muted mt-2" style="font-size: small; color: var(--p-text-200)">
-                    {{app?.application.version ? 'v.' + app?.application.version : 'None'}}
+                    {{app?.application.version ? 'v' + app?.application.version : 'None'}}
                     |
                     <span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
                           tooltipPosition="bottom" [showDelay]="50"
@@ -164,7 +164,7 @@
                                     </a>
                                 </li>
                                 <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']">
-                                    <a role="button" (click)="this.undeployModal.show()" style="color: var(--p-primary-900)">
+                                    <a role="button" (click)="this.undeployModal.show()" >
                                         {{'APP_INSTANCE.UNDEPLOY_BUTTON' | translate}}
                                     </a>
                                 </li>
@@ -176,7 +176,7 @@
                                     </a>
                                 </li>
                                 <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']">
-                                    <a role="button" (click)="this.undeployModal.show()" style="color: var(--p-primary-900)">
+                                    <a role="button" (click)="this.undeployModal.show()">
                                         {{'APP_INSTANCE.UNDEPLOY_BUTTON' | translate}}
                                     </a>
                                 </li>
@@ -200,7 +200,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a role="button" style="color: var(--p-primary-900)"
+                                    <a role="button"
                                        *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
                                        (click)="removeConfirm.show()">{{'APP_INSTANCE.REMOVE_BUTTON' | translate}}
                                     </a>
@@ -301,7 +301,7 @@
         </div>
         <div class="nmaas-modal-footer">
             <button type="button" class="btn btn-secondary" (click)="this.scaleDownModal.hide()">{{'APP_INSTANCES.CONFIRM_PAUSE.REJECT' | translate}}</button>
-            <button type="button" class="btn btn-danger" (click)="this.scaleDown(); this.scaleDownModal.hide()">{{'APP_INSTANCES.CONFIRM_PAUSE.ACCEPT' | translate}}</button>
+            <button type="button" class="btn btn-primary" (click)="this.scaleDown(); this.scaleDownModal.hide()">{{'APP_INSTANCES.CONFIRM_PAUSE.ACCEPT' | translate}}</button>
         </div>
 
     </nmaas-modal>
@@ -317,9 +317,9 @@
             </div>
         </div>
         <div class="nmaas-modal-footer">
-            <button type="button" class="btn btn-primary"
+            <button type="button" class="btn btn-secondary"
                     (click)="this.undeployModal.hide()">{{'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
-            <button type="button" class="btn btn-danger"
+            <button type="button" class="btn btn-primary"
                     (click)="this.undeploy()">{{'UNDEPLOY_MODAL.YES_BUTTON' | translate}}</button>
         </div>
     </nmaas-modal>
@@ -362,7 +362,7 @@
                 <p>{{'UPDATE_CONFIG_MODAL.CLONE_LABEL' | translate}}</p>
                 <label style="min-width: 100%;">
                     <input type="text" style="min-width: 100%;" disabled
-                           value="git clone ssh://{{appInstance.appConfigRepositoryAccessDetails?.cloneUrl}}"/>
+                           value="git clone {{appInstance.appConfigRepositoryAccessDetails?.cloneUrl}}"/>
                 </label>
             </div>
             <div style="padding-top: 30px" *ngIf="appInstance && configurationUpdateTemplate">
@@ -408,7 +408,7 @@
     </nmaas-modal>
 
     <!-- apply config modal -->
-    <nmaas-modal styleModal="info" #applyConfig>
+    <nmaas-modal styleModal="info" width="65vw" #applyConfig>
         <div class="nmaas-modal-header">
             <h4 style="text-align: center">{{'APP_INSTANCE.CONFIGURATION.HEADER' | translate}}</h4>
         </div>

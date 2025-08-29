@@ -65,7 +65,7 @@
                                 class="dropdown dropdown-domains">
                                 <a aria-expanded="false" data-close-others="true" aria-haspopup="true"
                                     class="dropdown-toggle" data-toggle="dropdown" role="button">
-                                    <span style="color: black;">{{"ENUM.USER_ROLES." + user.domainRole | translate}}
+                                    <span style="color: var(--p-text-0);">{{"ENUM.USER_ROLES." + user.domainRole | translate}}
                                         <strong class="caret"></strong>
                                     </span>
                                 </a>
@@ -92,7 +92,7 @@
                     <span *ngIf="!checkUserIfIsCurrentUser(user.username)">
                         <a style="display: inline-block" class="" aria-expanded="false" aria-haspopup="true"
                             role="button" (click)="onRemoveRole({id: user.id, value: user.domainRole});$event.stopPropagation()">
-                            <em class="fas fa-trash icon-black "></em>
+                            <em class="pi pi-trash" style="font-size: 1.4rem; color: var(--p-primary-900)"></em>
                         </a>
                     </span>
                 </td>
@@ -120,9 +120,6 @@
                     <th scope="col" class="column-sortable" pSortableColumn="lastname">
                         {{'USERS.NAME' | translate}}
                     </th>
-                    <th scope="col" class="column-sortable" pSortableColumn="email">
-                        {{'USERS.EMAIL' | translate}}
-                    </th>
                     <th scope="col" class="column-sortable" pSortableColumn="enabled">
                         {{ 'USERS.ENABLED' | translate }}
                     </th>
@@ -132,8 +129,7 @@
             <ng-template pTemplate="body" let-user>
                 <tr>
                     <td>{{user?.username}}</td>
-                    <td>{{user?.name}}</td>
-                    <td>{{user?.email}}</td>
+                    <td>{{user?.firstname}} {{user?.lastname}}</td>
                     <td>
                         <i class="pi" [ngClass]="{'pi-check': user?.enabled, 'pi-times': !user?.enabled}"></i>
                     </td>

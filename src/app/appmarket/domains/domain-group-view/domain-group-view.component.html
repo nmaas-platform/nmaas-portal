@@ -43,7 +43,7 @@
                         <div *roles="['ROLE_SYSTEM_ADMIN']" style="display: flex; justify-content: end">
                             <button  type="button" class="btn btn-text" (click)="showModalUser()">{{'DOMAINS.GROUP.ADD_USERS' | translate}}</button>
                         </div>
-                        <div *roles="['ROLE_VL_MANAGER']" style="display: flex; justify-content: end;">
+                        <div *roles="['ROLE_GROUP_MANAGER']" style="display: flex; justify-content: end;">
                             <button  type="button" class="btn btn-danger" (click)="removeMyAccess()">{{'DOMAINS.GROUP.DELETE_MYSELF' | translate}}</button>
                         </div>
                     </div>

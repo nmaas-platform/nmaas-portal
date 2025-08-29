@@ -34,7 +34,6 @@
 :host ::ng-deep  .p-steps .p-steps-item:before {
     content: " ";
     border-top: 1px solid #dee2e6;
-    width: 100%;
     top: 50%;
     left: 0;
     display: block;

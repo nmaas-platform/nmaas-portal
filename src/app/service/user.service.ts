@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {GenericDataService} from './genericdata.service';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -103,6 +103,9 @@ export class UserService extends GenericDataService {
 
     public setUserLanguage(userId: number, selectedLanguage: string): Observable<any> {
         return this.patch(this.getUsersUrl() + userId + '/language?defaultLanguage=' + selectedLanguage, null);
+    }
+    public setUserThemeMode(userId: number, selectedThemeMode: string): Observable<any> {
+        return this.patch(this.getUsersUrl() + userId + '/theme?defaultTheme=' + selectedThemeMode, null);
     }
 
     protected getUsersUrl(): string {

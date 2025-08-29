@@ -17,8 +17,8 @@
                 <div class="panel panel-default" style="border:none">
                     <div id="login-panel" class="col-lg-3 col-md-5 col-sm-6 col-xs-12 pull-right login-vertical-offset panel-collapse collapse"
                          [ngClass]="router.url.startsWith('/welcome/login?ssoUserId=') ? '' : 'collapse'"
-                         style="z-index: 800; position: fixed; right: 1px; max-height: 50vh; font-size: 14px;">
-                        <div class="panel panel-default ">
+                         style="z-index: 800; position: fixed; right: 1px; max-height: 50vh; font-size: 14px; ">
+                        <div class="panel panel-default " style="background: var(--p-background-100); border:none; color: var(--p-text-0)">
                             <div class="panel-body" id="login-out" style="overflow-y: auto;">
                                 <nmaas-login></nmaas-login>
                             </div>
@@ -29,7 +29,7 @@
                     <div id="register-panel" class="col-lg-3 col-md-5 col-sm-6 col-xs-12 pull-right login-vertical-offset panel-collapse collapse"
                          [ngClass]="router.url.startsWith('/welcome/login?ssoUserId=') ? '' : 'collapse'"
                          style="z-index: 800; position: fixed; right: 1px; max-height: 50vh; font-size: 14px;">
-                        <div class="panel panel-default">
+                        <div class="panel panel-default" style="background: var(--p-background-100); border:none; color: var(--p-text-0)">
                             <div class="panel-body" id="login-out" style="overflow-y: auto;">
                                 <nmaas-registration></nmaas-registration>
                             </div>
@@ -37,11 +37,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-12" style="padding: 0">
+            <div class="col-lg-12" style="padding: 0; background: var(--p-background-0)">
                 <section class="vnoc-position">
                     <div class="tab1">
                         <div>
-                            <img src="assets/images/landing/VirtualNOC.png" class="logo">
+                            <img *ngIf="!darkMode" src="assets/images/landing/VirtualNOC.png" class="logo">
+                            <img *ngIf="darkMode" src="assets/images/landing/VirtualNOC_orange_and_white.png" class="logo">
                             <p class="margin2 text" >
                                 Run your network monitoring application stack in the cloud with the nmaas Platform
                             </p>
@@ -102,11 +103,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-12" style="padding: 0">
+                <div class="col-lg-12" style="padding: 0; background: var(--p-background-0)">
                     <section class="vlab-position">
                         <div class="tab1">
                             <div>
-                                <img src="assets/images/landing/VirtualLab.png" class="logo">
+                                <img *ngIf="!darkMode" src="assets/images/landing/VirtualLab.png" class="logo">
+                                <img *ngIf="darkMode" src="assets/images/landing/VirtualLab_purple_and_white.png" class="logo">
                                 <p class="margin2 text">
                                     Organization of online hands-on exercises made easy with the nmaas Platform
                                 </p>

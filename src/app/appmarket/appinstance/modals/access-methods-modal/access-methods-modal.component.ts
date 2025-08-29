@@ -29,7 +29,16 @@ export class AccessMethodsModalComponent implements OnInit {
     if (this.accessMethods) {
       this.externalAccessMethods = this.accessMethods.filter(s => this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.EXTERNAL
           || this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.DEFAULT
-          || this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.INTERNAL);
+          || this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.INTERNAL).sort((a, b) => {
+            const order = {
+              [ServiceAccessMethodType.EXTERNAL]: 0,
+              [ServiceAccessMethodType.DEFAULT]: 1,
+              [ServiceAccessMethodType.INTERNAL]: 2
+            }
+            const aType = this.accessMethodTypeAsEnum(a.type);
+            const bType = this.accessMethodTypeAsEnum(b.type);
+            return order[aType] - order[bType];
+      });
       this.internalAccessMethods = this.accessMethods.filter(s => this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.INTERNAL);
       this.publicAccessMethods = this.accessMethods.filter(s => this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.PUBLIC);
       this.localAccessMethods = this.accessMethods.filter(s => this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.LOCAL);

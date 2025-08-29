@@ -102,6 +102,9 @@ export class AppInstanceListComponent implements OnInit {
 
             this.update(domainId)
         });
+        if (this.authService.hasRole('ROLE_SYSTEM_ADMIN')) {
+            this.selectedOption = 'list'
+        }
     }
 
     public update(domainId: number): void {
@@ -167,7 +170,7 @@ export class AppInstanceListComponent implements OnInit {
         this.appInstances = this.appInstances.pipe(
             map(apps => apps.map(appInst => ({
                 ...appInst,
-                appId: appInst.applicationId || null
+                appId: appInst.applicationBaseId || null
             }))),
             map(apps => apps.filter(appInst =>
                 this.domainId === this.appConfig.getNmaasGlobalDomainId() || this.domainId === appInst.domainId

@@ -23,6 +23,7 @@ export const MyPreset = definePreset(Nora, {
                     100: '#F6F6F7',                        // --card-color
                     200: '#F2F4F7',                         // --menu-color
                     300: '#FFFFFF',
+                    400: '#D1D1D1'
                 },
                 text: {
                     0: '#233354',                          // --l-text-color
@@ -42,14 +43,21 @@ export const MyPreset = definePreset(Nora, {
                     700: '#FEF2F2'                         // --danger-text-button-background-hover
                 },
                 accent: {
+                    200: '#2673B6',
+                    300: '#3c763d',                         // green
+                    400: '#a94442',                         // red
                     500: '#C80071',                         // --menu-pink
                     600: '#CBD5E1',
+                    700: '#9f9',
+                    800: '#FF6651',
+                    900: '#7f7f7f'
                 },
                 background: {
                     0: '#ffffff',                         // --background
                     50: '#F6F6F7',                         // --app-background card -color
                     100: '#F6F6F7',                               // background card
-                    200: '#EAF0FF'                          // primary button text hover background
+                    200: '#EAF0FF',                          // primary button text hover background
+                    300: '#ffffff'                          // card bg
                 }
             },
             dark: {
@@ -71,6 +79,7 @@ export const MyPreset = definePreset(Nora, {
                     100: '#4D5059',                      // --d-card-color
                     200: '#3C3F47',                       // --d-menu-color
                     300: '#3C3F47',
+                    400: '#D1D1D1'
                 },
                 text: {
                     0: '#ffffff',                        // --d-text-color
@@ -90,21 +99,31 @@ export const MyPreset = definePreset(Nora, {
                     700: '#FEF2F2'                       // --d-danger-text-button-background-hover
                 },
                 accent: {
+                    200: '#5da3df',
+                    300: '#68E664',                         //green
+                    400: '#ff8482',                         //red
                     500: '#C80071',                       // --d-menu-pink
                     600: '#4E535F',
+                    700: '#237623',
+                    800: '#a62513',
+                    900: '#7f7f7f'
                 },
                 background: {
                     0: '#1C1F27',                       // --d-background
                     50: '#E4E7F1',                       // --d-app-background card-color
                     100: '#4D5059',                      // background card
-                    200: '#EAF0FF'                          // primary button text hover background
+                    200: '#EAF0FF',                          // primary button text hover background
+                    300: '#5d616c'                          //card bg
                 }
             }
         }
     },
     components: {
         inputtext: {
-            background: '{surface.300}'
+            background: '{surface.300}',
+            disabled: {
+                color: '{text.0}'
+            }
         },
         textarea: {
           background: '{surface.300}',
@@ -114,6 +133,14 @@ export const MyPreset = definePreset(Nora, {
           }
         },
         select: {
+            border: {
+              radius: '4px',
+              color: '{accent.600}'
+            },
+            padding: {
+                y: '6px',
+                x: '12px',
+            },
             background: '{surface.300}',
             overlay: {
                 background: '{surface.50}'
@@ -130,8 +157,9 @@ export const MyPreset = definePreset(Nora, {
             }
         },
         checkbox: {
-            width: '20px',
-            height: '20px',
+            background: '{surface.300}',
+            width: '18px',
+            height: '18px',
             checked: {
                 background: '{primary.100}',
                 border: {
@@ -180,6 +208,11 @@ export const MyPreset = definePreset(Nora, {
         menu: {
             item: {
                 padding: '0.7rem 0.75rem',
+            }
+        },
+        accordion: {
+            content: {
+                padding: '0.8rem'
             }
         }
     }

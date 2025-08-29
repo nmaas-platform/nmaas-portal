@@ -28,6 +28,7 @@ export class NavbarComponent implements OnInit {
     public time: string;
     private intervalId: any;
     public showClock = false;
+    darkMode;
 
     public autoLogout = false;
 
@@ -55,6 +56,13 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.updateDarkMode()
+        const observer = new MutationObserver(() => this.updateDarkMode());
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+
         this.isServiceAvailable = this.serviceAvailability.isServiceAvailable;
         this.getSupportedLanguages();
         this.authService.refreshUserRoles();
@@ -116,5 +124,9 @@ export class NavbarComponent implements OnInit {
         const isGlobal = currentDomainId === globalDomainId
         const isSystemAdmin = this.authService.hasDomainRole(globalDomainId, 'ROLE_SYSTEM_ADMIN')
         return !isGlobal ? true : isSystemAdmin
+    }
+
+    updateDarkMode() {
+        this.darkMode = document.querySelector('html').classList.contains('dark-mode');
     }
 }

@@ -28,13 +28,13 @@ import {AppInstanceExtended} from '../../../model/app-instance-extended';
 import {AppInstanceUpgradeInfo} from '../../../model/app-instance';
 import {ActivatedRoute} from '@angular/router';
 import {ShellClientService} from '../../../service/shell-client.service';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
+import {provideHttpClientTesting} from '@angular/common/http/testing';
 import {ApplicationBase} from '../../../model/application-base';
 import {Application} from '../../../model/application';
 import {ApplicationDTO} from '../../../model/application-dto';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 
 @Pipe({
     name: 'secure',
@@ -182,6 +182,7 @@ describe('Component: AppInstance', () => {
 
     const appInstance: AppInstanceExtended = {
         applicationId: 2,
+        applicationBaseId: 2,
         applicationName: 'Oxidized',
         applicationVersion: '1.0.0',
         configWizardTemplate: {
@@ -196,7 +197,7 @@ describe('Component: AppInstance', () => {
         createdAt: new Date(),
         descriptiveDeploymentId: 'test-oxidized-48',
         domainId: 4,
-        domainName: "Test Domain",
+        domainName: 'Test Domain',
         id: 1,
         internalId: 'eccbaf70-7fdd-401a-bb3e-b8659bcfbdff',
         name: 'oxi-virt-1',
@@ -277,46 +278,46 @@ describe('Component: AppInstance', () => {
         authServiceSpy.hasDomainRole.and.returnValue(false);
 
         await TestBed.configureTestingModule({
-    declarations: [
-        AppInstanceComponent,
-        AppRestartModalComponent,
-        AppAbortModalComponent,
-        SecurePipeMock,
-        RateComponentMockComponent,
-        AppInstanceProgressMockComponent,
-        MockNmaasModalComponent,
-        AccessMethodsModalComponent,
-        MockRolesDirective,
-        SshShellMockComponent,
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-    imports: [ConfirmDialogModule,
-        FormsModule,
-        NgxPaginationModule,
-        PipesModule,
-        FormioModule,
-        RouterTestingModule,
-        JwtModule.forRoot({}),
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateFakeLoader
-            }
-        })],
-    providers: [
-        ConfirmationService,
-        { provide: AppConfigService, useValue: mockAppConfigService },
-        { provide: AppsService, useValue: appsServiceStub },
-        { provide: AuthService, useValue: authServiceSpy },
-        { provide: AppInstanceService, useValue: appInstanceServiceStub },
-        { provide: DomainService, useValue: domainServiceStub },
-        { provide: AppImagesService, useValue: appImagesServiceStub },
-        { provide: ShellClientService, useValue: mockShellClientService },
-        { provide: ActivatedRoute, useValue: { params: of({ id: 1 }) } },
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting()
-    ]
-}).compileComponents().then((result) => {
+            declarations: [
+                AppInstanceComponent,
+                AppRestartModalComponent,
+                AppAbortModalComponent,
+                SecurePipeMock,
+                RateComponentMockComponent,
+                AppInstanceProgressMockComponent,
+                MockNmaasModalComponent,
+                AccessMethodsModalComponent,
+                MockRolesDirective,
+                SshShellMockComponent,
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+            imports: [ConfirmDialogModule,
+                FormsModule,
+                NgxPaginationModule,
+                PipesModule,
+                FormioModule,
+                RouterTestingModule,
+                JwtModule.forRoot({}),
+                TranslateModule.forRoot({
+                    loader: {
+                        provide: TranslateLoader,
+                        useClass: TranslateFakeLoader
+                    }
+                })],
+            providers: [
+                ConfirmationService,
+                {provide: AppConfigService, useValue: mockAppConfigService},
+                {provide: AppsService, useValue: appsServiceStub},
+                {provide: AuthService, useValue: authServiceSpy},
+                {provide: AppInstanceService, useValue: appInstanceServiceStub},
+                {provide: DomainService, useValue: domainServiceStub},
+                {provide: AppImagesService, useValue: appImagesServiceStub},
+                {provide: ShellClientService, useValue: mockShellClientService},
+                {provide: ActivatedRoute, useValue: {params: of({id: 1})}},
+                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClientTesting()
+            ]
+        }).compileComponents().then((result) => {
             console.log(result);
         });
     });

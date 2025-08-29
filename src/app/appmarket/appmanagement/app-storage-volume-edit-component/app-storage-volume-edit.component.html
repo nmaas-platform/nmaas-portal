@@ -51,8 +51,10 @@
       </li>
     </ul>
 
-    <div class="col-sm-1 button-container" pTooltip="{{'APP_STORAGE_VOLUME_EDIT.REMOVE_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50">
-      <em class="fas fa-remove icon-black icon-bigger" (click)="remove()"></em>
+    <div class="col-sm-1 button-container">
+        <button class="button-close" pTooltip="{{'APP_STORAGE_VOLUME_EDIT.REMOVE_TOOLTIP' | translate}}"  (click)="remove()"  tooltipPosition="bottom" [showDelay]="50">
+            <i class="pi pi-times"></i>
+        </button>
     </div>
 
   </div>

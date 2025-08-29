@@ -18,7 +18,7 @@ import {ComponentMode} from '../../shared';
 export class ProfileComponent extends BaseComponent implements OnInit {
 
   public user: User;
-  public languages: string[];
+  // public languages: string[];
   public errorMessage: string;
   public userDetailsMode: ComponentMode = ComponentMode.VIEW;
   public userPreferencesMode: ComponentMode = ComponentMode.VIEW;
@@ -32,27 +32,27 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       super();
   }
 
-  setLanguage(language: string) {
-    this.userService.setUserLanguage(this.user.id, language).subscribe(() => {
-      this.user.selectedLanguage = language;
-      localStorage.setItem('lang', language);
-      this.translate.use(language);
-    });
-  }
-
-  getPathToCurrent() {
-    return 'assets/images/country/' + this.user.selectedLanguage + '_circle.png';
-  }
-
-  public getSupportedLanguages() {
-    this.languageService.getEnabledLanguages().subscribe(langs => {
-      this.translate.addLangs(langs);
-      this.languages = langs;
-    });
-  }
+  // setLanguage(language: string) {
+  //   this.userService.setUserLanguage(this.user.id, language).subscribe(() => {
+  //     this.user.selectedLanguage = language;
+  //     localStorage.setItem('lang', language);
+  //     this.translate.use(language);
+  //   });
+  // }
+  //
+  // getPathToCurrent() {
+  //   return 'assets/images/country/' + this.user.selectedLanguage + '_circle.png';
+  // }
+  //
+  // public getSupportedLanguages() {
+  //   this.languageService.getEnabledLanguages().subscribe(langs => {
+  //     this.translate.addLangs(langs);
+  //     this.languages = langs;
+  //   });
+  // }
 
   ngOnInit() {
-    this.getSupportedLanguages();
+    // this.getSupportedLanguages();
     this.profileService.getOne().subscribe((user) => {
       this.user = user
     });

@@ -13,6 +13,7 @@ import { ChangeDetectorRef, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@an
 import { User, UserListEntry } from '../../../model/user';
 import { Role } from '../../../model/userrole';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {ModalComponent} from '../../modal';
 
 describe('UserDomainListComponent', () => {
   let component: UserDomainListComponent;
@@ -56,7 +57,7 @@ describe('UserDomainListComponent', () => {
     const cdrSpy = jasmine.createSpyObj('ChangeDetectorRef', ['detectChanges']);
 
     TestBed.configureTestingModule({
-    declarations: [UserDomainListComponent],
+    declarations: [UserDomainListComponent, ModalComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     imports: [FormsModule,
         TranslateModule.forRoot({

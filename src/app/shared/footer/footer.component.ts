@@ -17,12 +17,20 @@ export class FooterComponent implements OnInit {
   public gitInfo: GitInfo;
   public landingProfile = '';
   public isLoggedIn  = false;
+  darkMode;
 
   constructor(private changelogService: ChangelogService, private router: Router, private authService: AuthService,
               public appConfigService: AppConfigService, public translate: TranslateService, private appConfig: AppConfigService) {
   }
 
   ngOnInit() {
+      this.updateDarkMode()
+      const observer = new MutationObserver(() => this.updateDarkMode());
+      observer.observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ['class']
+      });
+
     this.isLoggedIn = this.authService.isLogged() ;
     if (this.appConfigService.getShowGitInfo()) {
         this.changelogService.getGitInfo().subscribe(info => this.gitInfo = info);
@@ -38,5 +46,7 @@ export class FooterComponent implements OnInit {
       behavior: 'smooth'
     });
   }
-
+    updateDarkMode() {
+        this.darkMode = document.querySelector('html').classList.contains('dark-mode');
+    }
 }

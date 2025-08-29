@@ -1,22 +1,17 @@
-<div class="col-sm-12 col-sm-12 col-md-12">
-
-    <div class="row" style="margin-top: 5rem;">
-        <h2>{{'BULK.APP.NAVIGATION' | translate}}</h2>
+<div class="">
+    <div class="background-section" style="color: var(--p-text-0);">
+        <p>{{'BULK.APP.INFO' | translate}}</p>
+        <div style="margin-top: 2rem;">
+            <p-dropdown [options]="apps" optionLabel="name" [(ngModel)]="selectedApp" [filter]="true"></p-dropdown>
+        </div>
+        <div  style="margin-top: 2rem;">
+            <p>{{'BULK.APP.PARALLEL' | translate}}</p>
+        </div>
+        <div style="margin-top: 2rem;">
+            <input pInputText type="number" inputId="minmax" mode="decimal" ngDefaultControl [(ngModel)]="parallelDeploymentsLimit" [max]="limitFromConfiguration" [min]="1"  />
+        </div>
     </div>
-    <div class="row" style="margin-top: 3rem;">
-        <h4>{{'BULK.APP.INFO' | translate}}</h4>
+    <div  style=" display: flex; justify-content: right">
+        <button  class="btn btn-primary" [disabled]="!selectedApp || !selectedApp.name  || parallelDeploymentsLimit < 1 || parallelDeploymentsLimit > limitFromConfiguration" (click)="selectApp()"> {{'BULK.LIST.CONTINUE' | translate}}</button>
     </div>
-    <div style="margin-top: 3rem;">
-        <p-dropdown [options]="apps" optionLabel="name" [(ngModel)]="selectedApp" [filter]="true"></p-dropdown>
-    </div>
-    <div class="row" style="margin-top: 3rem;">
-        <h4>{{'BULK.APP.PARALLEL' | translate}}</h4>
-    </div>
-      <div style="margin-top: 3rem;">
-        <input pInputText type="number" inputId="minmax" mode="decimal" ngDefaultControl [(ngModel)]="parallelDeploymentsLimit" [max]="limitFromConfiguration" [min]="1"  />    
-    </div>
-    <div class="row .navbar-right" style="margin-top: 3rem; display: flex; justify-content: right">
-        <button  class="btn btn-primary" [disabled]="selectApp?.name === null || parallelDeploymentsLimit < 1 || parallelDeploymentsLimit > limitFromConfiguration" (click)="selectApp()"> {{'BULK.LIST.CONTINUE' | translate}}</button>
-    </div>
-
 </div>

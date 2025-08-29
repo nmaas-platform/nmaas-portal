@@ -1,14 +1,23 @@
+.form-control[disabled], fieldset[disabled] .form-control{
+    background: transparent;
+    border:none;
+    box-shadow: none;
+    color: var(--p-text-0);
+}
 .form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: #555555;
+    /*color: #555555;*/
+    color: var(--p-text-0);
     opacity: 1; /* Firefox */
 }
 
 .form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: #555555;
+    /*color: #555555;*/
+    color: var(--p-text-0);
 }
 
 .form-control::-ms-input-placeholder { /* Microsoft Edge */
-    color: #555555;
+    /*color: #555555;*/
+    color: var(--p-text-0);
 }
 
 .icon-black{
@@ -41,6 +50,14 @@
         background:green;
     }
 }
-    
+.img-container {
+    background: var(--p-background-50);
+    width: 90px;
+    height: 90px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 

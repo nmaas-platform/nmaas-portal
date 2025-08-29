@@ -43,6 +43,7 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
 import {IconField} from 'primeng/iconfield';
 import {InputIcon} from 'primeng/inputicon';
+import {Select} from 'primeng/select';
 
 @NgModule({
     declarations: [
@@ -86,7 +87,8 @@ import {InputIcon} from 'primeng/inputicon';
         ProgressBarModule,
         ConfirmDialogModule,
         IconField,
-        InputIcon
+        InputIcon,
+        Select
     ],
     exports: [
         AppInstanceComponent,
