@@ -188,6 +188,7 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
         this.domainService.updateDomainGroupManagers(this.domainGroup.managers, this.domainGroupId).subscribe(view => {
             console.log('Get updated managers.. ', view);
             this.domainGroup = view;
+            this.refresh()
         })
     }
 
@@ -228,6 +229,7 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
             console.log('Get updated managers.. ', view);
             this.domainGroup = view;
             this.userAccessModal.hide();
+            this.refresh();
         })
     }
 
