@@ -41,6 +41,7 @@
                     [options]="viewOptions"
                     [(ngModel)]="selectedViewType"
                     [ngModelOptions]="{standalone: true}"
+                    (onChange)="onSelectedViewTypeChange()"
                     optionLabel="label"
                     optionValue="value"
                     ngDefaultControl>
@@ -59,7 +60,7 @@
              [paginator]="true"
              [rows]="10"
              (onLazyLoad)="loadInstancesLazy($event)"
-             [totalRecords]=totalElements
+             [totalRecords]=totalDeployedElements
              [rowsPerPageOptions]="[5, 10, 20]"
              [loading]="loadingInstances"
              [responsiveLayout]="'scroll'">
@@ -134,12 +135,12 @@
                         </p>
                     </div>
                     <div>
-                        <div class="img-container" *ngIf="appInstance?.appId">
+                        <div class="img-container" *ngIf="appInstance?.applicationBaseId">
                             <img alt="App logo"
-                                 [src]="(appImagesService.getAppLogoUrl(appInstance?.appId) | secure) || 'assets/images/app-logo-example.png'"
+                                 [src]="(appImagesService.getAppLogoUrl(appInstance?.applicationBaseId) | secure) || 'assets/images/app-logo-example.png'"
                                  width="70px"/>
                         </div>
-                        <div class="img-container" *ngIf="!appInstance?.appId">
+                        <div class="img-container" *ngIf="!appInstance?.applicationBaseId">
                             <img alt="App logo" src="assets/images/app-logo-example.png" width="70px"/>
                         </div>
                     </div>
@@ -188,12 +189,12 @@
                             <p>{{ appInstance?.applicationName }}</p>
                         </div>
                         <div>
-                            <div class="img-container" *ngIf="appInstance?.appId">
+                            <div class="img-container" *ngIf="appInstance?.applicationBaseId">
                                 <img alt="App logo"
-                                     [src]="(appImagesService.getAppLogoUrl(appInstance?.appId) | secure) || 'assets/images/app-logo-example.png'"
+                                     [src]="(appImagesService.getAppLogoUrl(appInstance?.applicationBaseId) | secure) || 'assets/images/app-logo-example.png'"
                                      width="70px"/>
                             </div>
-                            <div class="img-container" *ngIf="!appInstance?.appId">
+                            <div class="img-container" *ngIf="!appInstance?.applicationBaseId">
                                 <img alt="App logo" src="assets/images/app-logo-example.png" width="70px"/>
                             </div>
                         </div>
@@ -242,6 +243,7 @@
                 [paginator]="true"
                 [rows]="10"
                 (onLazyLoad)="loadUndeployedInstancesLazy($event)"
+                [totalRecords]=totalUndeployedElements
                 [rowsPerPageOptions]="[5, 10, 20]"
                 [loading]="loadingUndeployedInstances"
                 [responsiveLayout]="'scroll'" aria-describedby="Undeployed instances">

@@ -24,7 +24,8 @@ export class AppInstanceListComponent implements OnInit {
     appUndeployedInstances: AppInstance[] = [];
     allAppUndeployedInstances: Observable<AppInstance[]>;
     allAppDeployedInstances: Observable<AppInstance[]>;
-    totalElements = 0;
+    totalDeployedElements = 0;
+    totalUndeployedElements = 0;
     loadingInstances = false;
     loadingUndeployedInstances = false;
 
@@ -102,6 +103,14 @@ export class AppInstanceListComponent implements OnInit {
         if (this.isUndeployedVisible) {
             this.reloadUndeployedInstances();
         }
+        console.error(this.allAppDeployedInstances)
+    }
+
+    public onSelectedViewTypeChange() {
+        this.reloadDeployedInstances();
+        if (this.isUndeployedVisible) {
+            this.reloadUndeployedInstances();
+        }
     }
 
     public onOnlyMyVisibleChange() {
@@ -150,18 +159,16 @@ export class AppInstanceListComponent implements OnInit {
         if (this.selectedListRange === AppInstanceListSelection.MY) {
             this.appInstanceService.getPagedMyAppInstances(this.domainId, criteria).subscribe(response => {
                 this.appDeployedInstances = response.content;
-                this.totalElements = response.totalElements;
+                this.totalDeployedElements = response.totalElements;
                 this.loadingInstances = false;
             });
         } else if (this.selectedListRange === AppInstanceListSelection.ALL) {
             this.appInstanceService.getPagedAppInstances(this.domainId, criteria).subscribe(response => {
                 this.appDeployedInstances = response.content;
-                this.totalElements = response.totalElements;
+                this.totalDeployedElements = response.totalElements;
                 this.loadingInstances = false;
             });
         }
-
-
     }
 
     protected loadUndeployedInstancesLazy(event: any) {
@@ -172,11 +179,21 @@ export class AppInstanceListComponent implements OnInit {
         if (this.searchValue !== '') {
             criteria.search = this.searchValue
         }
-        this.appInstanceService.getPagedAppInstances(this.domainId, criteria).subscribe(response => {
-            this.appUndeployedInstances = response.content;
-            this.totalElements = response.totalElements;
-            this.loadingUndeployedInstances = false;
-        });
+        if (this.selectedListRange === AppInstanceListSelection.MY) {
+            this.appInstanceService.getPagedMyAppInstances(this.domainId, criteria).subscribe(response => {
+                this.appUndeployedInstances = response.content;
+                this.totalUndeployedElements = response.totalElements;
+                this.loadingUndeployedInstances = false;
+            });
+        } else if (this.selectedListRange === AppInstanceListSelection.ALL) {
+            this.appInstanceService.getPagedAppInstances(this.domainId, criteria).subscribe(response => {
+                this.appUndeployedInstances = response.content;
+                this.totalUndeployedElements = response.totalElements;
+                this.loadingUndeployedInstances = false;
+            });
+        }
+
+
     }
 
     private reloadDeployedInstances() {
