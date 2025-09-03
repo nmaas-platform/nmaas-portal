@@ -58,13 +58,18 @@ export class AppMarketComponent implements OnInit {
 
 
         if (this.authService.hasRole('ROLE_DOMAIN_ADMIN') && this.sshKeyService.getAll()) {
-            this.sshKeyService.getAll().subscribe(
-                keys => {
-                    if (keys.length === 0) {
-                        this.provideSshKeyModal.modal.show();
+            if(sessionStorage.getItem('sshKeyReminded') !== this.authService.getUsername()) {
+                this.sshKeyService.getAll().subscribe(
+                    keys => {
+                        if (keys.length === 0) {
+                            this.provideSshKeyModal.modal.show();
+                            sessionStorage.setItem('sshKeyReminded', this.authService.getUsername());
+
+                        }
                     }
-                }
-            )
+                )
+            }
+
         }
     }
 

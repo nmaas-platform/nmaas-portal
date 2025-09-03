@@ -383,6 +383,7 @@ export class AuthService {
             this.http.get(this.appConfig.config.apiUrl + '/oidc/logout/' + oidcToken).subscribe(() => {
             })
         }
+        sessionStorage.removeItem('sshKeyReminded');
     }
 
     public oidcLogout(oidcToken: string): void {
