@@ -1,6 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {DomainService} from '../../../service';
 import {DomainGroup} from '../../../model/domaingroup';
+import {Menu} from 'primeng/menu';
+import {MenuItem} from 'primeng/api';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
     selector: 'app-domain-groups',
@@ -15,7 +18,12 @@ export class DomainGroupsComponent implements OnInit {
     public domainsRowVisible: boolean[] = []
     public searchValue: string;
 
-    constructor(private domainService: DomainService) {
+    @ViewChild('rowMenu') rowMenu!: Menu;
+    rowMenuItems: MenuItem[] = [];
+    selectedGroup: DomainGroup | null = null;
+
+    constructor(private domainService: DomainService,
+                public translate: TranslateService) {
     }
 
     ngOnInit(): void {
@@ -38,6 +46,21 @@ export class DomainGroupsComponent implements OnInit {
             this.groups = data;
         })
     }
+    openRowMenu(event: Event, domainGroup: DomainGroup) {
+        this.selectedGroup = domainGroup;
 
+        this.rowMenuItems = [
+            {
+                label: this.translate.instant('APPS_MANAGEMENT.EDIT_BUTTON'),
+                routerLink: ['/admin/domains/groups', domainGroup?.id]
+            },
+            {
+                label: this.translate.instant( 'APP_INSTANCE.REMOVE_BUTTON'),
+                command: () => this.deleteDomainGroup(domainGroup?.id)
+            }
+        ];
+
+        this.rowMenu.toggle(event);
+    }
 
 }

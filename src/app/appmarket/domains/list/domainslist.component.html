@@ -52,26 +52,34 @@
                     <span class="glyphicon glyphicon-ok" *ngIf="domain?.active"></span>
                     <span class="glyphicon glyphicon-remove" *ngIf="!(domain?.active)"></span>
                 </td>
+<!--                <td class="text-right">-->
+<!--                    <span class="dropdown">-->
+<!--                        <a style="display: inline-block" class="dropdown-toggle" aria-expanded="false"-->
+<!--                            aria-haspopup="true" data-toggle="dropdown" href="#" role="button">-->
+<!--                            <em class="pi pi-cog" style="font-size: 1.4rem; color: var(&#45;&#45;p-text-0)"></em>-->
+<!--                        </a>-->
+<!--                        <ul class="dropdown-menu pull-right-drop" [appendTo]="'body'">-->
+<!--                            <li><a *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']" [routerLink]="['edit/', domain.id]"-->
+<!--                                    class="">{{ 'DOMAINS.EDIT_BUTTON' | translate }}</a>-->
+<!--                            </li>-->
+<!--                            <li><a *roles="['ROLE_SYSTEM_ADMIN']"-->
+<!--                                    (click)="$event.stopPropagation(); changeState(domain)" class="">{{-->
+<!--                                    getStateLabel(domain?.active) }}</a>-->
+<!--                            </li>-->
+<!--                            <li><a *roles="['ROLE_SYSTEM_ADMIN']"-->
+<!--                                    (click)="$event.stopPropagation(); openRemovalModal(domain)" class="">{{-->
+<!--                                    'DOMAINS.DELETE_BUTTON' | translate }}</a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </span>-->
+<!--                </td>-->
                 <td class="text-right">
-                    <span class="dropdown">
-                        <a style="display: inline-block" class="dropdown-toggle" aria-expanded="false"
-                            aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
-                            <em class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></em>
-                        </a>
-                        <ul class="dropdown-menu pull-right-drop" [appendTo]="'body'">
-                            <li><a *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']" [routerLink]="['edit/', domain.id]"
-                                    class="">{{ 'DOMAINS.EDIT_BUTTON' | translate }}</a>
-                            </li>
-                            <li><a *roles="['ROLE_SYSTEM_ADMIN']"
-                                    (click)="$event.stopPropagation(); changeState(domain)" class="">{{
-                                    getStateLabel(domain?.active) }}</a>
-                            </li>
-                            <li><a *roles="['ROLE_SYSTEM_ADMIN']"
-                                    (click)="$event.stopPropagation(); openRemovalModal(domain)" class="">{{
-                                    'DOMAINS.DELETE_BUTTON' | translate }}</a>
-                            </li>
-                        </ul>
-                    </span>
+                    <button type="button"
+                            class="dropdown-button"
+                            (click)="openRowMenu($event, domain)">
+                        <i class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></i>
+                    </button>
+                <p-menu #rowMenu [popup]="true" appendTo="body" [model]="rowMenuItems"></p-menu>
                 </td>
             </tr>
         </ng-template>

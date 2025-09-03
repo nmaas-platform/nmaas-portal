@@ -208,6 +208,9 @@ export const MyPreset = definePreset(Nora, {
         menu: {
             item: {
                 padding: '0.7rem 0.75rem',
+                focus: {
+                    background: '{primary.50}',
+                }
             }
         },
         accordion: {
