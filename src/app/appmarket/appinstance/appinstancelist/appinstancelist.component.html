@@ -251,7 +251,7 @@
                 <tr>
                     <th style="width:15%">{{ 'APP_INSTANCES.NAME' | translate }}</th>
                     <th style="width:10%">{{ 'APP_INSTANCES.APPLICATION' | translate }}</th>
-                    <th style="width:10%"></th>
+                    <th style="width:10%">{{ 'APP_INSTANCES.VERSION' | translate }}</th>
                     <th style="width:20%"
                         *ngIf="domainId === undefined || domainId === domainService.getGlobalDomainId()">
                         {{ 'APP_INSTANCES.DOMAIN' | translate }}
@@ -265,7 +265,7 @@
                 <tr [ngClass]="{'clickable': true}" [routerLink]="[appInstance.id]">
                     <td>{{ appInstance?.name }}</td>
                     <td>{{ appInstance?.applicationName }}</td>
-                    <td></td>
+                    <td>{{ appInstance?.applicationVersion }}</td>
                     <td *ngIf="domainId === undefined || domainId === domainService.getGlobalDomainId()">
                         {{ appInstance?.domainName }}
                     </td>
