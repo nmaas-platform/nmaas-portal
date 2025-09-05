@@ -3,56 +3,57 @@
     <div class="background-section">
         <div style=" display: flex; flex-direction: row; justify-content: space-between; padding-bottom: 50px">
             <div style="display: flex; align-items: center;">
-                <div class="img-container" *ngIf="app">
+                <div class="img-container" *ngIf="appInstance">
                     <img alt="App logo"
-                         [src]="(appImagesService.getAppLogoUrl(app?.applicationBase.id) | secure) || 'assets/images/app-logo-example.png'" width="90px"/>
+                         [src]="(appImagesService.getAppLogoUrl(appInstance?.appBaseId) | secure) || 'assets/images/app-logo-example.png'"
+                         width="90px"/>
                 </div>
-                <div class="img-container" *ngIf="!app">
+                <div class="img-container" *ngIf="!appInstance">
                     <img alt="App logo" src="assets/images/app-logo-example.png" height="90px"/>
                 </div>
-                <h2 style="margin:0 20px;">{{appInstance?.name}} ({{app?.applicationBase.name}})</h2>
+                <h2 style="margin:0 20px;">{{ appInstance?.name }} ({{ appInstance?.appBaseName }})</h2>
             </div>
             <h3><em style="color: var(--p-primary-100);">{{ translateState(appInstanceStatus?.state) }}</em></h3>
         </div>
         <div style=" display: flex; flex-direction: row; justify-content: space-between;">
             <div class="" style="display: flex;flex-direction: column;">
                 <div class="text-muted mt-2" style="font-size: small; color: var(--p-text-200)">
-                    {{app?.application.version ? 'v' + app?.application.version : 'None'}}
+                    {{ appInstance?.applicationVersion ? 'v' + appInstance?.applicationVersion : 'None' }}
                     |
                     <span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
                           tooltipPosition="bottom" [showDelay]="50"
-                          [tooltipDisabled]="!!app?.applicationBase.licenseUrl">
-				    <a class="{{app?.applicationBase.licenseUrl ? '' : 'disabled-url'}}" style="color: var(--p-text-200)"
-                       [href]="app?.applicationBase.licenseUrl"
-                       target="_blank">{{app?.applicationBase.license || 'License'}}</a>
+                          [tooltipDisabled]="!!appInstance?.appLicenseUrl">
+				    <a class="{{appInstance?.appLicenseUrl ? '' : 'disabled-url'}}" style="color: var(--p-text-200)"
+                       [href]="appInstance?.appLicenseUrl"
+                       target="_blank">{{ appInstance?.appLicense || 'License' }}</a>
 				</span>
                     |
                     <span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
                           tooltipPosition="bottom" [showDelay]="50"
-                          [tooltipDisabled]="!!app?.applicationBase.wwwUrl">
-				    <a class="{{app?.applicationBase.wwwUrl ? '' : 'disabled-url'}}" style="color: var(--p-text-200)"
-                       [href]="app?.applicationBase.wwwUrl">WWW</a>
+                          [tooltipDisabled]="!!appInstance?.appWwwUrl">
+				    <a class="{{appInstance?.appWwwUrl ? '' : 'disabled-url'}}" style="color: var(--p-text-200)"
+                       [href]="appInstance?.appWwwUrl" target="_blank">WWW</a>
 				</span>
                     |
                     <span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
                           tooltipPosition="bottom" [showDelay]="50"
-                          [tooltipDisabled]="!!app?.applicationBase.sourceUrl">
-				    <a class="{{app?.applicationBase.sourceUrl ? '' : 'disabled-url'}}" style="color: var(--p-text-200)"
-                       [href]="app?.applicationBase.sourceUrl"
-                       target="_blank">{{'APP_INSTANCE.SOURCE' | translate}}</a>
+                          [tooltipDisabled]="!!appInstance?.appSourceUrl">
+				    <a class="{{appInstance?.appSourceUrl ? '' : 'disabled-url'}}" style="color: var(--p-text-200)"
+                       [href]="appInstance?.appSourceUrl"
+                       target="_blank">{{ 'APP_INSTANCE.SOURCE' | translate }}</a>
 				</span>
                     |
                     <span pTooltip="{{'APPLICATIONS.TOOLTIP_MESSAGE_NOT_AVAILABLE' | translate}}"
                           tooltipPosition="bottom" [showDelay]="50"
-                          [tooltipDisabled]="!!app?.applicationBase.issuesUrl">
-				    <a class="{{app?.applicationBase.issuesUrl ? '' : 'disabled-url'}}" style="color: var(--p-text-200)"
-                       [href]="app?.applicationBase.issuesUrl"
-                       target="_blank">{{'APP_INSTANCE.ISSUES' | translate}}</a>
+                          [tooltipDisabled]="!!appInstance?.appIssuesUrl">
+				    <a class="{{appInstance?.appIssuesUrl ? '' : 'disabled-url'}}" style="color: var(--p-text-200)"
+                       [href]="appInstance?.appIssuesUrl"
+                       target="_blank">{{ 'APP_INSTANCE.ISSUES' | translate }}</a>
 				</span>
                 </div>
-                <div class="" *ngIf="app?.applicationBase.tags">
-                    <a *ngFor="let tag of app.applicationBase.tags" class="tag-button">
-                        {{tag.name | titlecase}}
+                <div class="" *ngIf="appInstance?.tags">
+                    <a *ngFor="let tag of appInstance.tags" class="tag-button">
+                        {{ tag.name | titlecase }}
                     </a>
                 </div>
             </div>
@@ -65,11 +66,12 @@
                          && getStateAsEnum(appInstanceStatus?.state) != AppInstanceState.PAUSED">
                     <button *ngIf="getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.CONFIGURATION_AWAITING"
                             role="button" class="btn btn-primary m-1" (click)="applyConfig.show()">
-                        {{'APP_INSTANCE.CONFIGURE' | translate}}
+                        {{ 'APP_INSTANCE.CONFIGURE' | translate }}
                     </button>
                     <button class="btn btn-danger m-1"
                             *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
-                            (click)="this.appAbortModal.show()">{{'APP_INSTANCE.ABORT_BUTTON' | translate}}</button>
+                            (click)="this.appAbortModal.show()">{{ 'APP_INSTANCE.ABORT_BUTTON' | translate }}
+                    </button>
                 </div>
 
                 <!-- if application is already running -->
@@ -81,60 +83,60 @@
                     <div class="btn-group pull-right">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                            {{'APP_INSTANCE.INSTANCE_ACTIONS' | translate}} <span class="caret"></span>
+                            {{ 'APP_INSTANCE.INSTANCE_ACTIONS' | translate }} <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
                             <ng-container *ngIf="getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.RUNNING">
                                 <li>
                                     <a role="button" (click)="openAccessMethodsModal()">
-                                        {{'APP_INSTANCE.APP_ACCESS_METHODS' | translate}}
+                                        {{ 'APP_INSTANCE.APP_ACCESS_METHODS' | translate }}
                                     </a>
                                 </li>
                                 <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']">
-                                    <a *ngIf="app.application.appConfigurationSpec.configUpdateEnabled"
+                                    <a *ngIf="appInstance.configUpdateEnabled"
                                        (click)="getConfigurationModal()">
-                                        {{'APP_INSTANCE.UPDATE_CONFIG_BUTTON' | translate}}
+                                        {{ 'APP_INSTANCE.UPDATE_CONFIG_BUTTON' | translate }}
                                     </a>
                                 </li>
-                                <li *ngIf="app.application.appDeploymentSpec.allowSshAccess && podNames.length == 1">
+                                <li *ngIf="appInstance.allowSshAccess && podNames.length == 1">
                                     <!-- if only one pod available, select it by default -->
                                     <a [routerLink]="router.url + '/shell/' + podNames[0].name" role="button">
-                                        {{'APP_INSTANCE.SHELL' | translate}}
+                                        {{ 'APP_INSTANCE.SHELL' | translate }}
                                     </a>
                                 </li>
-                                <li *ngIf="app.application.appDeploymentSpec.allowSshAccess && podNames.length > 1">
+                                <li *ngIf="appInstance.allowSshAccess && podNames.length > 1">
                                     <!-- if more pods available, go modal -->
                                     <a role="button" (click)="this.selectPodModal.show()">
-                                        {{'APP_INSTANCE.SHELL' | translate}}
+                                        {{ 'APP_INSTANCE.SHELL' | translate }}
                                     </a>
                                 </li>
                                 <li *ngIf="canDisplayAddMembersModal()">
                                     <a role="button" (click)="this.addMembersModal.show()">
-                                        {{'APP_INSTANCE.ADD_MEMBERS_BUTTON' | translate}}
+                                        {{ 'APP_INSTANCE.ADD_MEMBERS_BUTTON' | translate }}
                                     </a>
                                 </li>
                                 <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']">
                                     <a role="button" style="display: none" (click)="this.appRestartModal.show()"
                                        disabled>
-                                        {{'APP_INSTANCE.RESTART_BUTTON' | translate}}
+                                        {{ 'APP_INSTANCE.RESTART_BUTTON' | translate }}
                                     </a>
                                 </li>
                                 <li *ngIf="!appInstance.autoUpgradesEnabled">
                                     <a *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
                                        role="button" (click)="this.enableAutoUpgradesModal.show()">
-                                        {{'APP_INSTANCE.ENABLE_AUTO_UPGRADES_BUTTON' | translate}}
+                                        {{ 'APP_INSTANCE.ENABLE_AUTO_UPGRADES_BUTTON' | translate }}
                                     </a>
                                 </li>
                                 <li *ngIf="appInstance.autoUpgradesEnabled">
                                     <a *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
                                        role="button" (click)="this.disableAutoUpgradesModal.show()">
-                                        {{'APP_INSTANCE.DISABLE_AUTO_UPGRADES_BUTTON' | translate}}
+                                        {{ 'APP_INSTANCE.DISABLE_AUTO_UPGRADES_BUTTON' | translate }}
                                     </a>
                                 </li>
                                 <li *ngIf="appInstance.upgradePossible">
                                     <a *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
                                        role="button" (click)="this.appUpgradeModal.show()">
-                                        {{'APP_INSTANCE.UPGRADE_BUTTON' | translate}}
+                                        {{ 'APP_INSTANCE.UPGRADE_BUTTON' | translate }}
                                     </a>
                                 </li>
                                 <!-- TODO: Implement config reader in next version -->
@@ -145,39 +147,39 @@
                                 </li> -->
                                 <li *roles="['ROLE_SYSTEM_ADMIN' ]">
                                     <a role="button" (click)="this.openVersionUpdateModal()">
-                                        {{'APP_INSTANCES.MANUAL_UPDATE.HEADER' | translate}}
+                                        {{ 'APP_INSTANCES.MANUAL_UPDATE.HEADER' | translate }}
                                     </a>
                                 </li>
-                                <li *ngIf="app.application.appDeploymentSpec.allowLogAccess">
+                                <li *ngIf="appInstance.allowLogAccess">
                                     <a role="button" [routerLink]="router.url + '/logs'">
-                                        {{'APP_INSTANCE.VIEW_LOGS' | translate}}
+                                        {{ 'APP_INSTANCE.VIEW_LOGS' | translate }}
                                     </a>
                                 </li>
                                 <li *ngIf="getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.PAUSED">
                                     <a role="button" (click)="scaleDownModal.show()">
-                                        {{'APP_INSTANCES.PAUSE' | translate}}
+                                        {{ 'APP_INSTANCES.PAUSE' | translate }}
                                     </a>
                                 </li>
                                 <li *ngIf="getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.PAUSED">
                                     <a role="button" (click)="scaleUp()">
-                                        {{'APP_INSTANCES.RESUME' | translate}}
+                                        {{ 'APP_INSTANCES.RESUME' | translate }}
                                     </a>
                                 </li>
                                 <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']">
-                                    <a role="button" (click)="this.undeployModal.show()" >
-                                        {{'APP_INSTANCE.UNDEPLOY_BUTTON' | translate}}
+                                    <a role="button" (click)="this.undeployModal.show()">
+                                        {{ 'APP_INSTANCE.UNDEPLOY_BUTTON' | translate }}
                                     </a>
                                 </li>
                             </ng-container>
                             <ng-container *ngIf="getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.PAUSED">
                                 <li>
                                     <a role="button" (click)="scaleUp()">
-                                        {{'APP_INSTANCES.RESUME' | translate}}
+                                        {{ 'APP_INSTANCES.RESUME' | translate }}
                                     </a>
                                 </li>
                                 <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']">
                                     <a role="button" (click)="this.undeployModal.show()">
-                                        {{'APP_INSTANCE.UNDEPLOY_BUTTON' | translate}}
+                                        {{ 'APP_INSTANCE.UNDEPLOY_BUTTON' | translate }}
                                     </a>
                                 </li>
                             </ng-container>
@@ -186,23 +188,23 @@
                                 <li>
                                     <a role="button"
                                        *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
-                                       (click)="redeployConfirm.show()">{{'APP_INSTANCE.REDEPLOY_BUTTON' | translate}}</a>
+                                       (click)="redeployConfirm.show()">{{ 'APP_INSTANCE.REDEPLOY_BUTTON' | translate }}</a>
                                 </li>
                                 <li>
                                     <a role="button"
                                        *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
-                                       (click)="checkStatus()">{{'APP_INSTANCE.CHECK_STATUS_BUTTON' | translate}}
+                                       (click)="checkStatus()">{{ 'APP_INSTANCE.CHECK_STATUS_BUTTON' | translate }}
                                     </a>
                                 </li>
-                                <li *ngIf="app.application.appDeploymentSpec.allowLogAccess">
+                                <li *ngIf="appInstance.allowLogAccess">
                                     <a role="button" [routerLink]="router.url + '/logs'">
-                                        {{'APP_INSTANCE.VIEW_LOGS' | translate}}
+                                        {{ 'APP_INSTANCE.VIEW_LOGS' | translate }}
                                     </a>
                                 </li>
                                 <li>
                                     <a role="button"
                                        *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
-                                       (click)="removeConfirm.show()">{{'APP_INSTANCE.REMOVE_BUTTON' | translate}}
+                                       (click)="removeConfirm.show()">{{ 'APP_INSTANCE.REMOVE_BUTTON' | translate }}
                                     </a>
                                 </li>
                             </ng-container>
@@ -220,7 +222,8 @@
 				 'alert-danger': getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.FAILURE || getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.UNKNOWN,
 				 'other-states': getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.FAILURE && getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.UNKNOWN }"
                  class="">
-                <div *ngIf="getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.FAILURE" class="info-container">
+                <div *ngIf="getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.FAILURE"
+                     class="info-container">
                     <span class="glyphicon glyphicon-exclamation-sign info-icon" aria-hidden="true"></span>
                     <span [innerHTML]="'APP_INSTANCE.INSTALLATION_PROGRESS.DEFAULT_ERROR_MESSAGE' | translate"></span>
                 </div>
@@ -234,7 +237,7 @@
 
         <!-- Progress bar -->
         <div class=''>
-            <h3 style="margin-bottom: 30px">{{'APP_INSTANCE.INSTALLATION_PROGRESS.HEADER' | translate}}</h3>
+            <h3 style="margin-bottom: 30px">{{ 'APP_INSTANCE.INSTALLATION_PROGRESS.HEADER' | translate }}</h3>
 
 
             <div id="app-prop" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="overflow-x: auto;">
@@ -245,22 +248,22 @@
 
 
         <!-- Show additional information checkbox -->
-        <div class="" >
+        <div class="">
             <label style="margin-top: 40px">
-                {{ 'APP_INSTANCE.ADDITIONAL_INFO' | translate}}
+                {{ 'APP_INSTANCE.ADDITIONAL_INFO' | translate }}
                 <input type="checkbox" [(ngModel)]="showAppInstanceHistory" (change)="showHistory()">
             </label>
         </div>
 
         <!-- App Instance State History table -->
         <div class="" *ngIf="this.showAppInstanceHistory && this.appInstanceStateHistory">
-            <h3>{{'APP_INSTANCE.DEPLOYMENT_HISTORY.HEADER' | translate}}</h3>
+            <h3>{{ 'APP_INSTANCE.DEPLOYMENT_HISTORY.HEADER' | translate }}</h3>
             <hr>
             <table class="table table-hover table-condensed" aria-describedby="App instance deployment history table">
                 <thead>
                 <tr>
-                    <th scope="col">{{'APP_INSTANCE.DEPLOYMENT_HISTORY.TIMESTAMP' | translate}}</th>
-                    <th scope="col">{{'APP_INSTANCE.DEPLOYMENT_HISTORY.STATE_TRANSITIONS' | translate}}</th>
+                    <th scope="col">{{ 'APP_INSTANCE.DEPLOYMENT_HISTORY.TIMESTAMP' | translate }}</th>
+                    <th scope="col">{{ 'APP_INSTANCE.DEPLOYMENT_HISTORY.STATE_TRANSITIONS' | translate }}</th>
                     <th scope="col">&nbsp;</th>
                 </tr>
                 </thead>
@@ -269,14 +272,14 @@
                              [ngForOf]="this.appInstanceStateHistory | paginate: { itemsPerPage: maxItemsOnPage, currentPage: pageNumber, id: p_first }"
                              let-isLast="last">
                     <tr>
-                        <td>{{history.timestamp | localDate:'medium' }}</td>
+                        <td>{{ history.timestamp | localDate:'medium' }}</td>
                         <td *ngIf="history.previousState !== null">
-                            {{history.previousState | translate }}
+                            {{ history.previousState | translate }}
                             <span class="glyphicon glyphicon-arrow-right"
                                   style="padding-left: 5px;padding-right: 5px"></span>
-                            {{history.currentState | translate }}
+                            {{ history.currentState | translate }}
                         </td>
-                        <td *ngIf="history.previousState === null">{{history.currentState | translate }}</td>
+                        <td *ngIf="history.previousState === null">{{ history.currentState | translate }}</td>
                     </tr>
                 </ng-template>
                 </tbody>
@@ -292,16 +295,20 @@
     <!-- Scale down Modal -->
     <nmaas-modal styleModal="warning" #scaleDownModal>
         <div class="nmaas-modal-header">
-            <h4 style="text-align: center">{{'APP_INSTANCES.CONFIRM_PAUSE.HEADER' | translate}}</h4>
+            <h4 style="text-align: center">{{ 'APP_INSTANCES.CONFIRM_PAUSE.HEADER' | translate }}</h4>
         </div>
         <div class="nmaas-modal-body">
             <div class="form-group">
-                <p>{{'APP_INSTANCES.CONFIRM_PAUSE.MESSAGE' | translate}}</p>
+                <p>{{ 'APP_INSTANCES.CONFIRM_PAUSE.MESSAGE' | translate }}</p>
             </div>
         </div>
         <div class="nmaas-modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="this.scaleDownModal.hide()">{{'APP_INSTANCES.CONFIRM_PAUSE.REJECT' | translate}}</button>
-            <button type="button" class="btn btn-primary" (click)="this.scaleDown(); this.scaleDownModal.hide()">{{'APP_INSTANCES.CONFIRM_PAUSE.ACCEPT' | translate}}</button>
+            <button type="button" class="btn btn-secondary"
+                    (click)="this.scaleDownModal.hide()">{{ 'APP_INSTANCES.CONFIRM_PAUSE.REJECT' | translate }}
+            </button>
+            <button type="button" class="btn btn-primary"
+                    (click)="this.scaleDown(); this.scaleDownModal.hide()">{{ 'APP_INSTANCES.CONFIRM_PAUSE.ACCEPT' | translate }}
+            </button>
         </div>
 
     </nmaas-modal>
@@ -309,29 +316,31 @@
     <!-- Undeploy modal-->
     <nmaas-modal styleModal="warning" #undeployModal>
         <div class="nmaas-modal-header">
-            <h4 style="text-align: center">{{'UNDEPLOY_MODAL.HEADER' | translate}}</h4>
+            <h4 style="text-align: center">{{ 'UNDEPLOY_MODAL.HEADER' | translate }}</h4>
         </div>
         <div class="nmaas-modal-body">
             <div class="form-group">
-                <p>{{'UNDEPLOY_MODAL.BODY' | translate}}</p>
+                <p>{{ 'UNDEPLOY_MODAL.BODY' | translate }}</p>
             </div>
         </div>
         <div class="nmaas-modal-footer">
             <button type="button" class="btn btn-secondary"
-                    (click)="this.undeployModal.hide()">{{'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
+                    (click)="this.undeployModal.hide()">{{ 'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate }}
+            </button>
             <button type="button" class="btn btn-primary"
-                    (click)="this.undeploy()">{{'UNDEPLOY_MODAL.YES_BUTTON' | translate}}</button>
+                    (click)="this.undeploy()">{{ 'UNDEPLOY_MODAL.YES_BUTTON' | translate }}
+            </button>
         </div>
     </nmaas-modal>
 
     <!--    Manual update version modal-->
     <nmaas-modal styleModal="info" #manualUpdateModal>
         <div class="nmaas-modal-header">
-            <h4 style="text-align: center">{{'APP_INSTANCES.MANUAL_UPDATE.HEADER' | translate}}</h4>
+            <h4 style="text-align: center">{{ 'APP_INSTANCES.MANUAL_UPDATE.HEADER' | translate }}</h4>
         </div>
         <div class="nmaas-modal-body">
             <div class="" style="height: 250px">
-                <p>{{'APP_INSTANCES.MANUAL_UPDATE.BODY' | translate}}</p>
+                <p>{{ 'APP_INSTANCES.MANUAL_UPDATE.BODY' | translate }}</p>
                 <div *ngIf="appVersions.length > 0">
                     <p-dropdown id="manualUpdate" [options]="appVersions" optionLabel="version" optionValue="version"
                                 placeholder="Select version" emptyMessage="No version available"
@@ -339,27 +348,29 @@
                                 ngDefaultControl></p-dropdown>
                 </div>
                 <div *ngIf="appVersions.length === 0" class="font-bold">
-                    {{'APP_INSTANCES.MANUAL_UPDATE.EMPTY' | translate}}
+                    {{ 'APP_INSTANCES.MANUAL_UPDATE.EMPTY' | translate }}
                 </div>
             </div>
         </div>
         <div class="nmaas-modal-footer">
             <button type="button" class="btn btn-secondary"
-                    (click)="this.manualUpdateModal.hide()">{{'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
+                    (click)="this.manualUpdateModal.hide()">{{ 'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate }}
+            </button>
             <button type="button" class="btn btn-primary "
                     [disabled]="appVersions.length === 0 || selectedVersion === ''"
-                    (click)="this.manualUpdateVersion()">{{'APP_INSTANCES.MANUAL_UPDATE.YES_BUTTON' | translate}}</button>
+                    (click)="this.manualUpdateVersion()">{{ 'APP_INSTANCES.MANUAL_UPDATE.YES_BUTTON' | translate }}
+            </button>
         </div>
     </nmaas-modal>
 
     <!-- Update config modal -->
     <nmaas-modal styleModal="info" #updateConfig>
         <div class="nmaas-modal-header">
-            <h4>{{'UPDATE_CONFIG_MODAL.HEADER' | translate}}</h4>
+            <h4>{{ 'UPDATE_CONFIG_MODAL.HEADER' | translate }}</h4>
         </div>
         <div class="nmaas-modal-body" style="height: 30%; min-width: 30vw; max-height: 45vh;overflow-y: auto;">
             <div>
-                <p>{{'UPDATE_CONFIG_MODAL.CLONE_LABEL' | translate}}</p>
+                <p>{{ 'UPDATE_CONFIG_MODAL.CLONE_LABEL' | translate }}</p>
                 <label style="min-width: 100%;">
                     <input type="text" style="min-width: 100%;" disabled
                            value="git clone {{appInstance.appConfigRepositoryAccessDetails?.cloneUrl}}"/>
@@ -375,20 +386,21 @@
         </div>
         <div class="nmaas-modal-footer">
             <button type="button" class="btn btn-primary"
-                    (click)="this.closeConfigurationModal()">{{'UPDATE_CONFIG_MODAL.CONFIRM_BUTTON' | translate}}</button>
+                    (click)="this.closeConfigurationModal()">{{ 'UPDATE_CONFIG_MODAL.CONFIRM_BUTTON' | translate }}
+            </button>
         </div>
     </nmaas-modal>
 
     <nmaas-modal styleModal="info" #showConfigurationModal>
         <div class="nmaas-modal-header">
-            <h4 style="text-align: center">{{'APP_INSTANCE.CONFIGURATION.PREVIEW' | translate}}</h4>
+            <h4 style="text-align: center">{{ 'APP_INSTANCE.CONFIGURATION.PREVIEW' | translate }}</h4>
         </div>
         <div class="nmaas-modal-body">
             <div class="col-xs-12">
-                <p *ngIf="appInstance !== undefined && configurationTemplate !== undefined && app?.applicationBase.nmaasDocumentationUrl">
+                <p *ngIf="appInstance !== undefined && configurationTemplate !== undefined && appInstance?.appNmaasDocumentationUrl">
                     {{ 'APP_INSTANCE.CONFIGURATION.DOCUMENTATION_INFO' | translate }}
-                    <a href="{{app.applicationBase.nmaasDocumentationUrl}}"
-                       target="_blank">{{ 'APP_INSTANCE.CONFIGURATION.NMAAS_TOOLS' | translate}}</a>.
+                    <a href="{{appInstance.appNmaasDocumentationUrl}}"
+                       target="_blank">{{ 'APP_INSTANCE.CONFIGURATION.NMAAS_TOOLS' | translate }}</a>.
                 </p>
                 <hr>
                 <formio *ngIf="appInstance !== undefined && configurationTemplate !== undefined"
@@ -403,21 +415,22 @@
         </div>
         <div class="nmaas-modal-footer">
             <button type="button" class="btn btn-primary"
-                    (click)="closeShowConfigModal()">{{'UNDEPLOY_MODAL.CLOSE' | translate}}</button>
+                    (click)="closeShowConfigModal()">{{ 'UNDEPLOY_MODAL.CLOSE' | translate }}
+            </button>
         </div>
     </nmaas-modal>
 
     <!-- apply config modal -->
     <nmaas-modal styleModal="info" width="65vw" #applyConfig>
         <div class="nmaas-modal-header">
-            <h4 style="text-align: center">{{'APP_INSTANCE.CONFIGURATION.HEADER' | translate}}</h4>
+            <h4 style="text-align: center">{{ 'APP_INSTANCE.CONFIGURATION.HEADER' | translate }}</h4>
         </div>
         <div class="nmaas-modal-body">
             <div class="col-xs-12">
-                <p *ngIf="appInstance !== undefined && configurationTemplate !== undefined && app?.applicationBase.nmaasDocumentationUrl">
+                <p *ngIf="appInstance !== undefined && configurationTemplate !== undefined && appInstance?.appNmaasDocumentationUrl">
                     {{ 'APP_INSTANCE.CONFIGURATION.DOCUMENTATION_INFO' | translate }}
-                    <a href="{{app.applicationBase.nmaasDocumentationUrl}}"
-                       target="_blank">{{ 'APP_INSTANCE.CONFIGURATION.NMAAS_TOOLS' | translate}}</a>.
+                    <a href="{{appInstance.appNmaasDocumentationUrl}}"
+                       target="_blank">{{ 'APP_INSTANCE.CONFIGURATION.NMAAS_TOOLS' | translate }}</a>.
                 </p>
                 <hr>
                 <formio *ngIf="appInstance !== undefined && configurationTemplate !== undefined"
@@ -431,23 +444,26 @@
         </div>
         <div class="nmaas-modal-footer">
             <button type="button" class="btn btn-primary"
-                    (click)="this.applyConfig.hide()">{{'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
+                    (click)="this.applyConfig.hide()">{{ 'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate }}
+            </button>
         </div>
     </nmaas-modal>
 
     <!-- Redeploy Confirm -->
     <nmaas-modal styleModal="info" #redeployConfirm>
         <div class="nmaas-modal-header">
-            <h4>{{'REDEPLOY_MODAL.HEADER' | translate}}</h4>
+            <h4>{{ 'REDEPLOY_MODAL.HEADER' | translate }}</h4>
         </div>
         <div class="nmaas-modal-body">
-            {{'REDEPLOY_MODAL.BODY' | translate}}
+            {{ 'REDEPLOY_MODAL.BODY' | translate }}
         </div>
         <div class="nmaas-modal-footer">
             <button type="button" class="btn btn-secondary"
-                    (click)="redeployConfirm.hide()">{{'REDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
+                    (click)="redeployConfirm.hide()">{{ 'REDEPLOY_MODAL.CANCEL_BUTTON' | translate }}
+            </button>
             <button type="button" class="btn btn-primary"
-                    (click)="redeploy(); redeployConfirm.hide()">{{'REDEPLOY_MODAL.OK_BUTTON' | translate}}</button>
+                    (click)="redeploy(); redeployConfirm.hide()">{{ 'REDEPLOY_MODAL.OK_BUTTON' | translate }}
+            </button>
 
         </div>
     </nmaas-modal>
@@ -455,48 +471,54 @@
     <!-- Remove Confirm -->
     <nmaas-modal styleModal="info" #removeConfirm>
         <div class="nmaas-modal-header">
-            <h4>{{'REMOVE_MODAL.HEADER' | translate}}</h4>
+            <h4>{{ 'REMOVE_MODAL.HEADER' | translate }}</h4>
         </div>
         <div class="nmaas-modal-body">
-            {{'REMOVE_MODAL.BODY' | translate}}
+            {{ 'REMOVE_MODAL.BODY' | translate }}
         </div>
         <div class="nmaas-modal-footer">
             <button type="button" class="btn btn-secondary"
-                    (click)="removeConfirm.hide()">{{'REMOVE_MODAL.CANCEL_BUTTON' | translate}}</button>
+                    (click)="removeConfirm.hide()">{{ 'REMOVE_MODAL.CANCEL_BUTTON' | translate }}
+            </button>
             <button type="button" class="btn btn-primary"
-                    (click)="removalFailedInstance(); removeConfirm.hide()">{{'REMOVE_MODAL.OK_BUTTON' | translate}}</button>
+                    (click)="removalFailedInstance(); removeConfirm.hide()">{{ 'REMOVE_MODAL.OK_BUTTON' | translate }}
+            </button>
         </div>
     </nmaas-modal>
 
     <!-- Enable automatic upgrades Confirm -->
     <nmaas-modal styleModal="info" #enableAutoUpgradesConfirm>
         <div class="nmaas-modal-header">
-            <h4>{{'ENABLE_AUTO_UPGRADES_MODAL.HEADER' | translate}}</h4>
+            <h4>{{ 'ENABLE_AUTO_UPGRADES_MODAL.HEADER' | translate }}</h4>
         </div>
         <div class="nmaas-modal-body">
             <div [innerHTML]="'ENABLE_AUTO_UPGRADES_MODAL.BODY' | translate"></div>
         </div>
         <div class="nmaas-modal-footer">
             <button type="button" class="btn btn-secondary"
-                    (click)="enableAutoUpgradesConfirm.hide()">{{'ENABLE_AUTO_UPGRADES_MODAL.CANCEL_BUTTON' | translate}}</button>
+                    (click)="enableAutoUpgradesConfirm.hide()">{{ 'ENABLE_AUTO_UPGRADES_MODAL.CANCEL_BUTTON' | translate }}
+            </button>
             <button type="button" class="btn btn-primary"
-                    (click)="enableAutoUpgrades(); enableAutoUpgradesConfirm.hide()">{{'ENABLE_AUTO_UPGRADES_MODAL.OK_BUTTON' | translate}}</button>
+                    (click)="enableAutoUpgrades(); enableAutoUpgradesConfirm.hide()">{{ 'ENABLE_AUTO_UPGRADES_MODAL.OK_BUTTON' | translate }}
+            </button>
         </div>
     </nmaas-modal>
 
     <!-- Disable automatic upgrades Confirm -->
     <nmaas-modal styleModal="info" #disableAutoUpgradesConfirm>
         <div class="nmaas-modal-header">
-            <h4>{{'DISABLE_AUTO_UPGRADES_MODAL.HEADER' | translate}}</h4>
+            <h4>{{ 'DISABLE_AUTO_UPGRADES_MODAL.HEADER' | translate }}</h4>
         </div>
         <div class="nmaas-modal-body">
             <div [innerHTML]="'DISABLE_AUTO_UPGRADES_MODAL.BODY' | translate"></div>
         </div>
         <div class="nmaas-modal-footer">
             <button type="button" class="btn btn-secondary"
-                    (click)="disableAutoUpgradesConfirm.hide()">{{'DISABLE_AUTO_UPGRADES_MODAL.CANCEL_BUTTON' | translate}}</button>
+                    (click)="disableAutoUpgradesConfirm.hide()">{{ 'DISABLE_AUTO_UPGRADES_MODAL.CANCEL_BUTTON' | translate }}
+            </button>
             <button type="button" class="btn btn-primary"
-                    (click)="disableAutoUpgrades(); disableAutoUpgradesConfirm.hide()">{{'DISABLE_AUTO_UPGRADES_MODAL.OK_BUTTON' | translate}}</button>
+                    (click)="disableAutoUpgrades(); disableAutoUpgradesConfirm.hide()">{{ 'DISABLE_AUTO_UPGRADES_MODAL.OK_BUTTON' | translate }}
+            </button>
         </div>
     </nmaas-modal>
 
@@ -509,7 +531,7 @@
 
     <!-- App upgrade modal -->
     <nmaas-modal-app-upgrade [appInstanceId]="appInstanceId"
-                             [currentHelmChartVersion]="appInstance?.application?.application?.appDeploymentSpec?.kubernetesTemplate?.chart?.version"
+                             [currentHelmChartVersion]="appInstance?.chartVersion"
                              [currentApplicationVersion]="appInstance?.applicationVersion"
                              [upgradeInfo]="appInstance?.upgradeInfo"></nmaas-modal-app-upgrade>
 
@@ -523,7 +545,7 @@
     <app-add-members-modal *ngIf="appInstance" [appInstance]="appInstance"></app-add-members-modal>
 
     <!-- Pods selection modal -->
-    <app-select-pod-modal *ngIf="app.application.appDeploymentSpec.allowSshAccess && podNames?.length > 1"
+    <app-select-pod-modal *ngIf="appInstance.allowSshAccess && podNames?.length > 1"
                           [url]="router.url" [pods]="podNames"></app-select-pod-modal>
 
 </div>
