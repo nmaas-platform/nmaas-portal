@@ -3,9 +3,9 @@
 ### Technologies
 ---
 
-* Angular 14
+* Angular 19
 * Bootstrap 3
-* PrimeNG 14
+* PrimeNG 19
 * Primeflex
 * Formio
 
