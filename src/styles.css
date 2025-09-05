@@ -353,3 +353,20 @@ body .formio-component-datetime .control-label--hidden.field-required{
 .fa-calendar{
     display: none;
 }
+.dropdown-button{
+    background: transparent;
+    border: none;
+}
+:host ::ng-deep .p-menu{
+    background: red;
+}
+.p-menu.p-menu-overlay{
+    background: var(--p-background-300);
+    border-radius: 4px;
+    box-shadow: 0 6px 12px #0000002d;
+    border: 1px solid rgba(0, 0, 0, .15);
+}
+body .p-menu-item-content a{
+  color: var(--p-text-0);
+    text-decoration: none;
+}

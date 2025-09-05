@@ -27,6 +27,7 @@ import {SearchDomainGroupPipe} from './domain-group-search.pipe';
 import { DomainAnnotationsComponent } from './domain-annotations/domain-annotations.component';
 import {IconField} from 'primeng/iconfield';
 import {InputIcon} from 'primeng/inputicon';
+import {Menu} from 'primeng/menu';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import {InputIcon} from 'primeng/inputicon';
         DropdownModule,
         MultiSelectModule,
         IconField,
-        InputIcon
+        InputIcon,
+        Menu
     ],
     exports: [
         DomainsListComponent,

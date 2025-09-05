@@ -11,6 +11,8 @@ import { SortableHeaderDirective, SortColumn, SortDirection } from '../../../ser
 import { RemovalConfirmationModalComponent } from '../modals/removal-confirmation-modal/removal-confirmation-modal.component';
 import { Paginator } from 'primeng/paginator';
 import { Page, PaginationSettings, PrimeNgLazyLoadEvent } from '../../../service/page';
+import {Menu} from 'primeng/menu';
+import {MenuItem} from 'primeng/api';
 
 
 export interface SortEvent {
@@ -29,6 +31,10 @@ export class DomainsListComponent implements OnInit, OnDestroy { // Implemented 
     public readonly users_item_number_key = 'NUMBER_OF_DOMAIN_ITEM_KEY';
 
     public loading: boolean = false;
+
+    @ViewChild('rowMenu') rowMenu!: Menu;
+    rowMenuItems: MenuItem[] = [];
+    selectedDomain: Domain | null = null;
 
 
     public domains: Domain[];
@@ -50,7 +56,10 @@ export class DomainsListComponent implements OnInit, OnDestroy { // Implemented 
     private lazyLoadSubject = new Subject<PrimeNgLazyLoadEvent>();
     private debounceTimeMs = 300; // Debounce time in milliseconds (e.g., 300ms)
 
-    constructor(protected domainService: DomainService, protected authService: AuthService, public translate: TranslateService, private cdr: ChangeDetectorRef) {
+    constructor(protected domainService: DomainService,
+                protected authService: AuthService,
+                public translate: TranslateService,
+                private cdr: ChangeDetectorRef) {
     }
 
     ngOnInit() {
@@ -202,6 +211,28 @@ export class DomainsListComponent implements OnInit, OnDestroy { // Implemented 
             this.clearFilter(); // Call clearFilter if the search field is empty
         }
 
+    }
+
+    openRowMenu(event: Event, domain: Domain) {
+        this.selectedDomain = domain;
+
+        this.rowMenuItems = [
+            {
+                label: this.translate.instant('DOMAINS.EDIT_BUTTON'),
+                routerLink: ['edit', domain.id]
+            },
+            {
+                label: this.getStateLabel(domain.active),
+                command: () => this.changeState(domain)
+            },
+            {
+                label: this.translate.instant('DOMAINS.DELETE_BUTTON'),
+                visible: this.authService.hasRole(Role[Role.ROLE_SYSTEM_ADMIN]),
+                command: () => this.openRemovalModal(domain)
+            }
+        ];
+
+        this.rowMenu.toggle(event);
     }
 
 
