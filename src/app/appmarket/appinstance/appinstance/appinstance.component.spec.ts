@@ -13,7 +13,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {AppRestartModalComponent} from '../modals/app-restart-modal';
 import {AppAbortModalComponent} from '../modals/app-abort-modal';
 import {RouterTestingModule} from '@angular/router/testing';
-import {AppInstanceState, User} from '../../../model';
+import {AppInstanceState, ConfigWizardTemplate, User} from '../../../model';
 import {Role} from '../../../model/userrole';
 import {ServiceAccessMethodType} from '../../../model/service-access-method';
 import {AppDeploymentSpec} from '../../../model/app-deployment-spec';
@@ -35,6 +35,8 @@ import {ApplicationDTO} from '../../../model/application-dto';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
 import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
+import {Tag} from '../../../model/tag';
+import {DomainApplicationStatePerDomain} from '../../../model/domainapplicationstateperdomain';
 
 @Pipe({
     name: 'secure',
@@ -181,10 +183,27 @@ describe('Component: AppInstance', () => {
     };
 
     const appInstance: AppInstanceExtended = {
-        applicationId: 2,
-        applicationBaseId: 2,
+        appBaseId: 2,
+        domainId: 4,
+        appBaseName: 'Oxidized',
+        appLicense: 'appLicense',
+        appLicenseUrl: 'appLicenseUrl',
+        appWwwUrl: 'appWwwUrl',
+        appSourceUrl: 'appSourceUrl',
+        appIssuesUrl: 'appIssuesUrl',
+        appNmaasDocumentationUrl: 'appNmaasDocumentationUrl',
         applicationName: 'Oxidized',
         applicationVersion: '1.0.0',
+        descriptiveDeploymentId: 'test-oxidized-48',
+        chartVersion: '',
+
+        autoUpgradesEnabled: true,
+        upgradePossible: true,
+        allowSshAccess: false,
+        configUpdateEnabled: false,
+        allowLogAccess: false,
+        configFileRepositoryRequired: null,
+
         configWizardTemplate: {
             id: 1,
             template: JSON.parse('{"title": "My Test Form","components": [{"type": "textfield", "input": true, "tableView": true, "inputType": "text", "inputMask": "", "label": "First Name", "key": "firstName", "placeholder": "Enter your first name", "prefix": "", "suffix": "", "multiple": false,"defaultValue": "","protected": false,"unique": false,"persistent": true,"validate": {"required": true,"minLength": 2,"maxLength": 10,"pattern": "","custom": "","customPrivate": false},"conditional": {"show": "","when": null,"eq": ""}},{"type": "textfield","input": true,"tableView": true,"inputType": "text","inputMask": "","label": "Last Name","key": "lastName","placeholder": "Enter your last name","prefix": "","suffix": "","multiple": false,"defaultValue": "","protected": false,"unique": false,"persistent": true,"validate": {"required": true, "minLength": 2, "maxLength": 10, "pattern": "", "custom": "", "customPrivate": false}, "conditional": {"show": "", "when": null, "eq": ""}}, {"input": true, "label": "Submit", "tableView": false, "key": "submit", "size": "md", "leftIcon": "", "rightIcon": "", "block": false, "action": "submit", "disableOnInvalid": true, "theme": "primary", "type": "button"}]}')
@@ -193,16 +212,20 @@ describe('Component: AppInstance', () => {
             id: 2,
             template: JSON.parse('{"title": "My Test Form","components": [{"type": "textfield", "input": true, "tableView": true, "inputType": "text", "inputMask": "", "label": "First Name", "key": "firstName", "placeholder": "Enter your first name", "prefix": "", "suffix": "", "multiple": false,"defaultValue": "","protected": false,"unique": false,"persistent": true,"validate": {"required": true,"minLength": 2,"maxLength": 10,"pattern": "","custom": "","customPrivate": false},"conditional": {"show": "","when": null,"eq": ""}},{"type": "textfield","input": true,"tableView": true,"inputType": "text","inputMask": "","label": "Last Name","key": "lastName","placeholder": "Enter your last name","prefix": "","suffix": "","multiple": false,"defaultValue": "","protected": false,"unique": false,"persistent": true,"validate": {"required": true, "minLength": 2, "maxLength": 10, "pattern": "", "custom": "", "customPrivate": false}, "conditional": {"show": "", "when": null, "eq": ""}}, {"input": true, "label": "Submit", "tableView": false, "key": "submit", "size": "md", "leftIcon": "", "rightIcon": "", "block": false, "action": "submit", "disableOnInvalid": true, "theme": "primary", "type": "button"}]}')
         },
+        state: AppInstanceState.RUNNING,
+        tags: null,
+        applicationStatePerDomain: null,
+
+
+        applicationId: 2,
+        applicationBaseId: 2,
+
         configuration: '{"oxidizedUsername":"oxidized","oxidizedPassword":"oxi@PLLAB","targets":[{"ipAddress":"10.0.0.1"},{"ipAddress":"10.0.0.2"},{"ipAddress":"10.0.0.3"},{"ipAddress":"10.0.0.4"},{"ipAddress":"10.0.0.5"},{"ipAddress":"10.0.0.6"},{"ipAddress":"10.0.0.7"},{"ipAddress":"10.0.0.8"},{"ipAddress":"10.0.0.9"},{"ipAddress":"10.0.0.10"},{"ipAddress":"10.0.0.11"},{"ipAddress":"10.0.0.12"},{"ipAddress":"10.0.0.13"},{"ipAddress":"10.0.0.14"},{"ipAddress":"10.0.0.15"},{"ipAddress":"10.0.0.16"}]}',
         createdAt: new Date(),
-        descriptiveDeploymentId: 'test-oxidized-48',
-        domainId: 4,
         domainName: 'Test Domain',
         id: 1,
         internalId: 'eccbaf70-7fdd-401a-bb3e-b8659bcfbdff',
         name: 'oxi-virt-1',
-        autoUpgradesEnabled: true,
-        upgradePossible: true,
         owner: {
             id: 1, username: 'admin', enabled: true,
             firstname: null, lastname: null,
@@ -210,15 +233,13 @@ describe('Component: AppInstance', () => {
             privacyPolicyAccepted: true, ssoUser: false,
             termsOfUseAccepted: false, roles: [{domainId: 1, role: Role.ROLE_SYSTEM_ADMIN}]
         } as User,
-        state: AppInstanceState.RUNNING,
+
         serviceAccessMethods: [
             {type: ServiceAccessMethodType.DEFAULT, name: 'Default link', protocol: 'Web', url: 'http://oxi-virt-1.test.nmaas.geant.org'},
             {type: ServiceAccessMethodType.EXTERNAL, name: 'Second link', protocol: 'Web', url: 'http://second.org'},
             {type: ServiceAccessMethodType.INTERNAL, name: 'Internal', protocol: 'SSH', url: 'internal'}
         ],
         userFriendlyState: 'Application instance is running',
-        application: dto,
-        domain: domain,
         appConfigRepositoryAccessDetails: {
             cloneUrl: 'http://clone.me'
         },

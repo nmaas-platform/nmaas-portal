@@ -15,10 +15,10 @@ export class AppRestartModalComponent {
     public readonly modal: ModalComponent;
 
     @Input()
-    private appInstanceId: number;
+    appInstanceId: number;
 
     @Input()
-    private domainId: number;
+    domainId: number;
 
     constructor(private appInstanceService: AppInstanceService) {
     }

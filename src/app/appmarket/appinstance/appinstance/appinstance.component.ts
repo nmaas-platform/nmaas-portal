@@ -5,7 +5,6 @@ import {AppImagesService, AppInstanceService, AppsService} from '../../../servic
 import {AppInstanceProgressComponent} from '../appinstanceprogress';
 import {AppInstance, AppInstanceProgressStage, AppInstanceState, AppInstanceStatus} from '../../../model';
 import {AppInstanceExtended} from '../../../model/app-instance-extended';
-import {SecurePipe} from '../../../pipe';
 import {AppRestartModalComponent} from '../modals/app-restart-modal';
 import {AppAbortModalComponent} from '../modals/app-abort-modal';
 import {AppUpgradeModalComponent} from '../modals/app-upgrade-modal';
@@ -16,13 +15,11 @@ import {LOCAL_STORAGE, StorageService} from 'ngx-webstorage-service';
 import {BehaviorSubject, interval} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 import {SessionService} from '../../../service/session.service';
-import {LocalDatePipe} from '../../../pipe/local-date.pipe';
 import {ApplicationState} from '../../../model/application-state';
 import {ServiceAccessMethodType} from '../../../model/service-access-method';
 import {AccessMethodsModalComponent} from '../modals/access-methods-modal/access-methods-modal.component';
 import {ShellClientService} from '../../../service/shell-client.service';
 import {PodInfo} from '../../../model/podinfo';
-import {ApplicationDTO} from '../../../model/application-dto';
 import {AddMembersModalComponent} from '../modals/add-members-modal/add-members-modal.component';
 import {AuthService} from '../../../auth/auth.service';
 import {SelectPodModalComponent} from '../modals/select-pod-modal/select-pod-modal.component';
@@ -94,9 +91,6 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     @ViewChild('scaleDownModal')
     public scaleDownModal: ModalComponent;
 
-    app: ApplicationDTO;
-
-
     public p_first = 'p_first';
 
     public maxItemsOnPage = 6;
@@ -160,7 +154,6 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
 
                     this.appInstance = appInstance;
                     this.configurationTemplate = this.getTemplate(appInstance.configWizardTemplate.template);
-                    this.app = appInstance.application;
 
                     this.submission.data.configuration = JSON.parse(appInstance.configuration);
 
@@ -173,7 +166,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                         min: 1,
                         max: 100,
                     };
-                    validation.max = appInstance.domain.applicationStatePerDomain
+                    validation.max = appInstance.applicationStatePerDomain
                         .find(x => x.applicationBaseName === this.appInstance.applicationName).pvStorageSizeLimit;
                     this.refreshForm.emit({
                         property: 'form',
@@ -331,9 +324,9 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                     if (!this.appInstance || !this.appInstance.serviceAccessMethods) {
                         this.updateAppInstance();
                     }
-                    console.log('is ssh access allowed: ' + this.appInstance.application.application.appDeploymentSpec.allowSshAccess);
+                    console.log('is ssh access allowed: ' + this.appInstance.allowSshAccess);
                     console.log('array of pods has length: ' + this.podNames.length);
-                    if (this.appInstance.application.application.appDeploymentSpec.allowSshAccess && !this.podNames.length) {
+                    if (this.appInstance.allowSshAccess && !this.podNames.length) {
                         this.updateAppInstancePodNames();
                     }
                 }
@@ -345,7 +338,6 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         console.log('update app instance');
         this.appInstanceService.getAppInstance(this.appInstanceId).subscribe(appInstance => {
             this.appInstance = appInstance;
-            this.app = appInstance.application;
         });
     }
 
@@ -576,7 +568,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     }
 
     public canDisplayAddMembersModal(): boolean {
-        if (!this.appInstance.application.application.appConfigurationSpec.configFileRepositoryRequired) {
+        if (!this.appInstance.configFileRepositoryRequired) {
             return false;
         }
         const username = this.authService.getUsername()
@@ -607,7 +599,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     }
 
     public openVersionUpdateModal() {
-        this.appsService.getApplicationVersions(this.appInstance.application.applicationBase.id).subscribe(versions => {
+        this.appsService.getApplicationVersions(this.appInstance.appBaseId).subscribe(versions => {
             this.appVersions = versions
                 .filter(val => val.state.toString() === 'ACTIVE' && val.version !== this.appInstance.applicationVersion)
             this.appVersions.sort(this.appVersionCompare)

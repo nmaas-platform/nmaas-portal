@@ -17,7 +17,7 @@ export class AppUpgradeModalComponent {
     public readonly modal: ModalComponent;
 
     @Input()
-    private appInstanceId: number = undefined;
+    appInstanceId: number = undefined;
 
     @Input()
     public currentApplicationVersion: string = undefined;
