@@ -15,7 +15,7 @@ export class AppAbortModalComponent {
     public readonly modal: ModalComponent;
 
     @Input()
-    private appInstanceId: number;
+    appInstanceId: number;
 
     @Input()
     private domainId: number;
