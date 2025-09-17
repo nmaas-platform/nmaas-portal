@@ -42,6 +42,3 @@ label{
 :host ::ng-deep .p-fileupload-content .p-progressbar{
     display: none;
 }
-:host ::ng-deep .p-datatable-table-container{
-    overflow: unset !important;
-}

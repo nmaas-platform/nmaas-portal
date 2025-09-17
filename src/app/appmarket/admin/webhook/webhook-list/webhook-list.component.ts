@@ -3,6 +3,10 @@ import { Webhook, WebhookType } from '../../../../model/webhook';
 import { ModalComponent } from '../../../../shared';
 import { WebhookService } from '../../../../service/webhook.service';
 import {ToastContainerComponent, ToastMode} from '../../../../shared/toast-container/toast-container.component';
+import {DomainGroup} from '../../../../model/domaingroup';
+import {TranslateService} from '@ngx-translate/core';
+import {Menu} from 'primeng/menu';
+import {MenuItem} from 'primeng/api';
 
 @Component({
     selector: 'app-webhook-list',
@@ -31,9 +35,13 @@ export class WebhookListComponent implements OnInit {
   @ViewChild(ModalComponent, { static: true })
   public modal: ModalComponent;
 
+  @ViewChild('rowMenu') rowMenu!: Menu;
+  rowMenuItems: MenuItem[] = [];
+
 
   constructor(private service: WebhookService,
-              private toast: ToastContainerComponent) {
+              private toast: ToastContainerComponent,
+              public translate: TranslateService) {
     }
 
   ngOnInit() {
@@ -84,5 +92,16 @@ export class WebhookListComponent implements OnInit {
     }, error => {
       console.error("Error removing webhook:", error);
     });
+  }
+  openRowMenu(event: Event, webhook: Webhook) {
+
+    this.rowMenuItems = [
+      {
+        label: this.translate.instant( 'WEBHOOKS.REMOVE'),
+        command: () => this.removeWebhook(webhook.id)
+      }
+    ];
+
+    this.rowMenu.toggle(event);
   }
 }
