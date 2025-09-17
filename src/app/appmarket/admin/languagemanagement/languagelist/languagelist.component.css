@@ -12,6 +12,3 @@
 tr.clickable {
     cursor: pointer;
 }
-:host ::ng-deep .p-datatable-table-container{
-    overflow: unset !important;
-}

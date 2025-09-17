@@ -10,6 +10,7 @@ import {FormsModule} from '@angular/forms';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import {TableModule} from 'primeng/table';
 import { TextareaModule } from 'primeng/textarea';
+import {Menu} from 'primeng/menu';
 
 @NgModule({
   declarations: [LanguageListComponent, LanguageDetailsComponent],
@@ -21,7 +22,8 @@ import { TextareaModule } from 'primeng/textarea';
         SharedModule,
         TranslateModule.forChild(),
         TableModule,
-        TextareaModule
+        TextareaModule,
+        Menu
     ],
   providers: [InternationalizationService],
        schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
