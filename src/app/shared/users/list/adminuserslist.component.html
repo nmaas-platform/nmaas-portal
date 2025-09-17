@@ -69,44 +69,52 @@
                     <i class="pi" [ngClass]="{'pi-check': user?.enabled, 'pi-times': !user?.enabled}"></i>
                 </td>
                 <td class="text-right">
-                    <span class="dropdown">
-                        <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false"
-                            aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
-                            <em class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></em>
-                        </a>
-                        <ul class="dropdown-menu pull-right-drop">
-                            <li *ngIf="isModeAllowed(ComponentMode.VIEW)">
-                                <a (click)="view(user.id);$event.stopPropagation()">
-                                    {{ 'USERS.DETAILS_BUTTON' | translate }}
-                                </a>
-                            </li>
-                            <li
-                                *ngIf="user.enabled && authService.hasRole('ROLE_SYSTEM_ADMIN') && user.username!==authService.getUsername()">
-                                <a (click)="changeUserStatus(user, false);$event.stopPropagation()">
-                                    {{ 'USERS.DISABLE_BUTTON' | translate }}
-                                </a>
-                            </li>
-                            <li *ngIf="!user.enabled && authService.hasRole('ROLE_SYSTEM_ADMIN')">
-                                <a (click)="changeUserStatus(user, true);$event.stopPropagation()">
-                                    {{ 'USERS.ENABLE_BUTTON' | translate }}
-                                </a>
-                            </li>
-                        
-                            <li
-                                *ngIf="isModeAllowed(ComponentMode.DELETE) && domainId != domainService.getGlobalDomainId() && user.username!==authService.getUsername()">
-                                <a role="button" (click)="$event.stopPropagation()">
-                                    {{ 'USERS.REMOVE_FROM_DOMAIN_BUTTON' | translate }}
-                                </a>
-                            </li>
-                            <li
-                                *ngIf="isModeAllowed(ComponentMode.DELETE) && authService.hasRole('ROLE_SYSTEM_ADMIN') && user.username!==authService.getUsername() && canUserBeDeleted(user)">
-                                <a role="button" (click)="$event.stopPropagation()">
-                                    {{ 'USERS.DELETE_BUTTON' | translate }}
-                                </a>
-                            </li>
-                        </ul>
-                    </span>
+                    <button type="button"
+                            class="dropdown-button"
+                            (click)="openRowMenu($event, user)">
+                        <i class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></i>
+                    </button>
+                    <p-menu #rowMenu [popup]="true" appendTo="body" [model]="rowMenuItems"></p-menu>
                 </td>
+<!--                <td class="text-right">-->
+<!--                    <span class="dropdown">-->
+<!--                        <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false"-->
+<!--                            aria-haspopup="true" data-toggle="dropdown" href="#" role="button">-->
+<!--                            <em class="pi pi-cog" style="font-size: 1.4rem; color: var(&#45;&#45;p-text-0)"></em>-->
+<!--                        </a>-->
+<!--                        <ul class="dropdown-menu pull-right-drop">-->
+<!--                            <li *ngIf="isModeAllowed(ComponentMode.VIEW)">-->
+<!--                                <a (click)="view(user.id);$event.stopPropagation()">-->
+<!--                                    {{ 'USERS.DETAILS_BUTTON' | translate }}-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li-->
+<!--                                *ngIf="user.enabled && authService.hasRole('ROLE_SYSTEM_ADMIN') && user.username!==authService.getUsername()">-->
+<!--                                <a (click)="changeUserStatus(user, false);$event.stopPropagation()">-->
+<!--                                    {{ 'USERS.DISABLE_BUTTON' | translate }}-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li *ngIf="!user.enabled && authService.hasRole('ROLE_SYSTEM_ADMIN')">-->
+<!--                                <a (click)="changeUserStatus(user, true);$event.stopPropagation()">-->
+<!--                                    {{ 'USERS.ENABLE_BUTTON' | translate }}-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                        -->
+<!--                            <li-->
+<!--                                *ngIf="isModeAllowed(ComponentMode.DELETE) && domainId != domainService.getGlobalDomainId() && user.username!==authService.getUsername()">-->
+<!--                                <a role="button" (click)="$event.stopPropagation()">-->
+<!--                                    {{ 'USERS.REMOVE_FROM_DOMAIN_BUTTON' | translate }}-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li-->
+<!--                                *ngIf="isModeAllowed(ComponentMode.DELETE) && authService.hasRole('ROLE_SYSTEM_ADMIN') && user.username!==authService.getUsername() && canUserBeDeleted(user)">-->
+<!--                                <a role="button" (click)="$event.stopPropagation()">-->
+<!--                                    {{ 'USERS.DELETE_BUTTON' | translate }}-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </span>-->
+<!--                </td>-->
             </tr>
         </ng-template>
     </p-table>

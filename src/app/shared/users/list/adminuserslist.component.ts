@@ -2,7 +2,18 @@ import { Domain } from '../../../model/domain';
 import { User, UserListEntry } from '../../../model';
 import { CacheService, CustomerSearchCriteria, DomainService, UserService } from '../../../service';
 import { BaseComponent } from '../../common/basecomponent/base.component';
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Output,
+    SimpleChanges,
+    ViewChild
+} from '@angular/core';
 import { debounceTime, distinctUntilChanged, Observable, of, Subject } from 'rxjs';
 
 import { Role, UserRole } from '../../../model/userrole';
@@ -12,6 +23,10 @@ import { AuthService } from '../../../auth/auth.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { PaginationSettings, PrimeNgLazyLoadEvent } from '../../../service/page';
+import {DomainGroup} from '../../../model/domaingroup';
+import {Menu} from 'primeng/menu';
+import {MenuItem} from 'primeng/api';
+import {ComponentMode} from '../../common/componentmode';
 
 
 @Component({
@@ -23,6 +38,8 @@ import { PaginationSettings, PrimeNgLazyLoadEvent } from '../../../service/page'
 export class UsersListAdminComponent extends BaseComponent implements OnInit, OnDestroy {
     public users_item_number_key = 'NUMBER_OF_USERS_ITEM_KEY';
 
+    @ViewChild('rowMenu') rowMenu!: Menu;
+    rowMenuItems: MenuItem[] = [];
 
     public pageNumber = 1;
     public paginatorName = 'paginator-identifier';
@@ -208,6 +225,46 @@ export class UsersListAdminComponent extends BaseComponent implements OnInit, On
         } else {
             return domainsName?.join(', ');
         }
+    }
+    openRowMenu(event: Event, user: User) {
+
+        this.rowMenuItems = [
+            {
+                label: this.translate.instant('USERS.DETAILS_BUTTON'),
+                visible: this.isModeAllowed(ComponentMode.VIEW),
+                command: () => {this.view(user.id); event.stopPropagation()}
+            },
+            {
+                label: this.translate.instant('USERS.DISABLE_BUTTON'),
+                visible: user.enabled && this.authService.hasRole('ROLE_SYSTEM_ADMIN') && user.username !== this.authService.getUsername(),
+                command: () => {this.changeUserStatus(user, false); event.stopPropagation()}
+            },
+            {
+                label: this.translate.instant('USERS.ENABLE_BUTTON'),
+                visible: !user.enabled && this.authService.hasRole('ROLE_SYSTEM_ADMIN'),
+                command: () => {this.changeUserStatus(user, true); event.stopPropagation()}
+            },
+            {
+                label: this.translate.instant('USERS.REMOVE_FROM_DOMAIN_BUTTON'),
+                visible: this.isModeAllowed(ComponentMode.DELETE)
+                    && this.domainId !== this.domainService.getGlobalDomainId()
+                    && user.username !== this.authService.getUsername(),
+                command: () => {
+                    event.stopPropagation()}
+            },
+            {
+                label: this.translate.instant('USERS.DELETE_BUTTON'),
+                visible: this.isModeAllowed(ComponentMode.DELETE)
+                    && this.authService.hasRole('ROLE_SYSTEM_ADMIN')
+                    && user.username !== this.authService.getUsername()
+                    && this.canUserBeDeleted(user),
+                command: () => {
+                    event.stopPropagation()
+                }
+            }
+        ];
+
+        this.rowMenu.toggle(event);
     }
 }
 
