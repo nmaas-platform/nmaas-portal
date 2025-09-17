@@ -20,6 +20,3 @@
     background: var(--p-background-200);
     color: var(--p-primary-400);
 }
-:host ::ng-deep .p-datatable-table-container{
-    overflow: unset !important;
-}

@@ -11,6 +11,10 @@ import * as semver from 'semver'
 import {ModalComponent} from '../../../shared';
 import {RemovalConfirmationModalComponent} from '../../domains/modals/removal-confirmation-modal/removal-confirmation-modal.component';
 import {ApplicationDTO} from '../../../model/application-dto';
+import {DomainGroup} from '../../../model/domaingroup';
+import {Menu} from 'primeng/menu';
+import {MenuItem, MenuItemCommandEvent} from 'primeng/api';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
     selector: 'nmaas-appmanagementlist',
@@ -25,6 +29,15 @@ export class AppManagementListComponent implements OnInit {
 
     @ViewChild(RemovalConfirmationModalComponent)
     public confirmRemovalModal: ModalComponent;
+
+    @ViewChild('rowMenu') rowMenu!: Menu;
+    rowMenuItems: MenuItem[] = [];
+    rowVersionMenuItems: MenuItem[] = [];
+    @ViewChild('versionRowMenu') versionRowMenu!: Menu;
+
+    @ViewChild('appChangeOwnerModal') appChangeOwnerModal: any;
+    @ViewChild('appAddJsonVersion') appAddJsonVersion: any;
+    @ViewChild('appAddJson') appAddJson: any;
 
     public selectedAppName = '';
     public selectedVersion: ApplicationVersion = new ApplicationVersion();
@@ -41,7 +54,8 @@ export class AppManagementListComponent implements OnInit {
 
     constructor(public appsService: AppsService,
                 public router: Router,
-                public authService: AuthService) {
+                public authService: AuthService,
+                public translate: TranslateService) {
     }
 
     ngOnInit() {
@@ -196,5 +210,55 @@ export class AppManagementListComponent implements OnInit {
             })
         }
         return app;
+    }
+    openRowMenu(event: Event, app: ApplicationBase) {
+
+        this.rowMenuItems = [
+            {
+                label: this.translate.instant('APPS_MANAGEMENT.CHANGE_OWNER_BUTTON'),
+                command: () => this.appChangeOwnerModal.show(app)
+            },
+            {
+                label: this.translate.instant('APPS_MANAGEMENT.ADD_NEW_VERSION_BUTTON'),
+                routerLink: ['/admin/apps/create/version', app?.name]
+            },
+            {
+                label: this.translate.instant('APPS_MANAGEMENT.ADD_NEW_VERSION_BUTTON') + ' (JSON)',
+                command: () => this.appAddJsonVersion.show()
+            },
+            {
+                label: this.translate.instant('APPS_MANAGEMENT.EXPORT_JSON'),
+                command: () => this.getApplicationInfoJSONWithBase(app?.id)
+            },
+            {
+                label: this.translate.instant('APPS_MANAGEMENT.EDIT_BUTTON'),
+                routerLink: ['/admin/apps/edit', app?.id]
+            },
+            {
+                label: this.translate.instant('APPS_MANAGEMENT.DELETE_BUTTON'),
+                command: () => this.openRemovalModal(app)
+            },
+        ];
+
+        this.rowMenu.toggle(event);
+    }
+    openVersionRowMenu(event: Event, app: ApplicationBase, version: ApplicationVersion) {
+        this.rowVersionMenuItems = [
+            {
+                label: this.translate.instant('APPS_MANAGEMENT.CHANGE_STATE_BUTTON'),
+                visible: this.authService.hasRole('ROLE_SYSTEM_ADMIN') && this.getStateAsString(version?.state) !== 'DELETED',
+                command: () => this.showModal(event, app, version)
+            },
+            {
+                label: this.translate.instant('APPS_MANAGEMENT.EXPORT_JSON'),
+                command: () => this.getApplicationInfoJSONWithoutBase(version?.appVersionId)
+            },
+            {
+                label: this.translate.instant('APPS_MANAGEMENT.EDIT_BUTTON'),
+                routerLink: ['/admin/apps/edit/version', version?.appVersionId]
+            }
+        ];
+
+        this.versionRowMenu.toggle(event);
     }
 }
