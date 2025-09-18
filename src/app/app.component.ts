@@ -19,10 +19,10 @@ export class AppComponent {
 
     config: any;
     private timer: IdleTimer;
-    public isLoggedIn = false;
+    public isLoggedIn = null;
 
     constructor(private appConfigService: AppConfigService, private configService: ConfigurationService,
-                private authService: AuthService, private translate: TranslateService,
+                public authService: AuthService, private translate: TranslateService,
                 private router: Router, private serviceHealth: ServiceUnavailableService,
                 private primeNg: PrimeNG,
                 private themeModeService: ThemeModeService) {
