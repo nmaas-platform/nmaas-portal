@@ -9,19 +9,20 @@
 <div *ngIf="activeStepIndex === 0">
     <div class="background-section">
         <div class="bs-callout bs-callout-primary">
-            <h4>{{'CLUSTERS.WIZARD.STEP_1' | translate }}</h4>
-            {{'CLUSTERS.WIZARD.STEP_1_INFO' | translate }}
+            <h4>{{ 'CLUSTERS.WIZARD.STEP_1' | translate }}</h4>
+            {{ 'CLUSTERS.WIZARD.STEP_1_INFO' | translate }}
         </div>
         <div>
             <div class="mt-4">
-                <label for="name">{{'CLUSTERS.NAME' | translate}}*</label>
+                <label for="name">{{ 'CLUSTERS.NAME' | translate }}*</label>
                 <input pInputText id="name" type="text" class="form-control" [(ngModel)]="cluster.name"
-                    [ngModelOptions]="{standalone: true}">
+                       [ngModelOptions]="{standalone: true}">
             </div>
             <div class="mt-4">
-                <label for="name">{{'CLUSTERS.FILE' | translate}}*</label>
+                <label for="name">{{ 'CLUSTERS.FILE' | translate }}*</label>
                 <textarea style="width:100%; overflow: auto; max-height: 400px;" pTextarea [autoResize]="false"
-                    class="form-control" [rows]="40" [(ngModel)]="kubernetesFile" name="content-textarea"></textarea>
+                          class="form-control" [rows]="40" [(ngModel)]="kubernetesFile"
+                          name="content-textarea"></textarea>
             </div>
         </div>
     </div>
@@ -29,10 +30,11 @@
 
     </div>
     <button type="button" class="btn btn-primary pull-right" (click)="uploadKubernetesFile()"
-        [disabled]="!step1valid()">{{'APPS_WIZARD.NEXT_BUTTON' | translate}}</button>
+            [disabled]="!step1valid()">{{ 'APPS_WIZARD.NEXT_BUTTON' | translate }}
+    </button>
 
     <div class="error" *ngIf="error">
-        {{error}}
+        {{ error }}
     </div>
 </div>
 
@@ -40,24 +42,25 @@
 <div *ngIf="activeStepIndex === 1">
     <div class="background-section" style="display: flex; flex-direction: column">
         <div class="bs-callout bs-callout-primary">
-            <h4>{{'CLUSTERS.WIZARD.STEP_2' | translate }}</h4>
-            {{'CLUSTERS.WIZARD.STEP_2_INFO' | translate }}
+            <h4>{{ 'CLUSTERS.WIZARD.STEP_2' | translate }}</h4>
+            {{ 'CLUSTERS.WIZARD.STEP_2_INFO' | translate }}
         </div>
         <div class="mt-4">
-            <label for="desc">{{'CLUSTERS.CODENAME' | translate}}</label>
-            <input pInputText id="desc" type="text" class="form-control" [(ngModel)]="cluster.codename" [readOnly]="true"
-                [ngModelOptions]="{standalone: true}">
+            <label for="desc">{{ 'CLUSTERS.CODENAME' | translate }}</label>
+            <input pInputText id="desc" type="text" class="form-control" [(ngModel)]="cluster.codename"
+                   [readOnly]="true"
+                   [ngModelOptions]="{standalone: true}">
         </div>
 
         <div class="mt-4">
-            <label for="desc">{{'CLUSTERS.DESCRIPTION' | translate}}*</label>
+            <label for="desc">{{ 'CLUSTERS.DESCRIPTION' | translate }}*</label>
             <input pInputText id="desc" type="text" class="form-control" [(ngModel)]="cluster.description"
-                [ngModelOptions]="{standalone: true}">
+                   [ngModelOptions]="{standalone: true}">
         </div>
         <div class="mt-4">
-            <label for="contactEmail">{{'CLUSTERS.CONTACT_MAIL' | translate}}*</label>
+            <label for="contactEmail">{{ 'CLUSTERS.CONTACT_MAIL' | translate }}*</label>
             <input pInputText id="contactEmail" type="text" class="form-control" [(ngModel)]="cluster.contactEmail"
-                [ngModelOptions]="{standalone: true}">
+                   [ngModelOptions]="{standalone: true}">
         </div>
 
         <!-- <div *roles="['ROLE_OPERATOR', 'ROLE_SYSTEM_ADMIN']" class="mt-4">
@@ -78,13 +81,14 @@
         </div>  -->
 
         <div class="mt-4">
-            <label for="name">{{'CLUSTERS.DOMAIN' | translate}}*</label>
+            <label for="name">{{ 'CLUSTERS.DOMAIN' | translate }}*</label>
 
             <div class="col-sm-12 padding-0">
-                <p-dropdown id="domainSelector" [options]="domains" optionLabel="name" optionValue="name"
-                    placeholder="Select domain" emptyMessage="No domain available" [disabled]="domains.length === 0"
-                    name="domainSelector" (onChange)="onDomainSelection($event.value)" [required]="true"
-                    (onClear)="this.cluster.domainNames = []" [showClear]="true" ngDefaultControl></p-dropdown>
+                <p-dropdown id="domainSelector" [options]="domains" optionLabel="name" optionValue="codename"
+                            placeholder="Select domain" emptyMessage="No domain available"
+                            [disabled]="domains.length === 0"
+                            name="domainSelector" (onChange)="onDomainSelection($event.value)" [required]="true"
+                            (onClear)="this.cluster.domainNames = []" [showClear]="true" ngDefaultControl></p-dropdown>
             </div>
 
 
@@ -93,10 +97,10 @@
 
         <div class="mt-8 padding-0">
             <div *ngIf="showNamespaceCreation === true">
-                <label for="ingresstlssupported" class="col-sm-2 padding-0">{{"Create namespace if missing " }}</label>
+                <label for="ingresstlssupported" class="col-sm-2 padding-0">{{ "Create namespace if missing " }}</label>
                 <div class="col-sm-10">
                     <input type="checkbox" id="ingresstlssupported" name="ingresstlssupported"
-                        [(ngModel)]="namespaceCreation" [checked]="namespaceCreation == true" [disabled]="">
+                           [(ngModel)]="namespaceCreation" [checked]="namespaceCreation == true" [disabled]="">
                 </div>
             </div>
         </div>
@@ -104,23 +108,21 @@
 
     </div>
     <button type="button" class="btn btn-primary pull-right" (click)="nextStep()"
-        [disabled]="!step2valid()">{{'APPS_WIZARD.NEXT_BUTTON' | translate}}</button>
+            [disabled]="!step2valid()">{{ 'APPS_WIZARD.NEXT_BUTTON' | translate }}
+    </button>
 </div>
-
-
-
 
 
 <div *ngIf="activeStepIndex === 2">
     <div class="background-section" style="color: var(--p-text-0)">
-        <h4>{{'CLUSTERS.WIZARD.STEP_3' | translate }}</h4>
-        {{'CLUSTERS.WIZARD.STEP_3_INFO' | translate }}
+        <h4>{{ 'CLUSTERS.WIZARD.STEP_3' | translate }}</h4>
+        {{ 'CLUSTERS.WIZARD.STEP_3_INFO' | translate }}
     </div>
     <div class="background-section">
         <h4 style="font-size:15px; font-weight: bold">{{ 'CLUSTERS.TITLE' | translate }}</h4>
         <div class="panel-body">
             <form *ngIf="cluster" (submit)="submit()" class="form-horizontal" #clusterForm="ngForm">
-                <div class="panel-default panel-heading">{{ 'CLUSTERS.INGRESS' | translate }} </div>
+                <div class="panel-default panel-heading">{{ 'CLUSTERS.INGRESS' | translate }}</div>
                 <div class="panel-body">
 
                     <!-- <div class="form-group">
@@ -137,19 +139,22 @@
                     </div> -->
                     <div class="form-group">
                         <label for="suportedingressclass" class="col-sm-2 control-label">{{
-                            'CLUSTERS.SUPPORTED_INGRESS_CLASS' | translate }}</label>
+                                'CLUSTERS.SUPPORTED_INGRESS_CLASS' | translate
+                            }}</label>
                         <div class="col-sm-10">
                             <input pInputText type="text" class="form-control" id="suportedingressclass"
-                                name="suportedingressclass" [(ngModel)]="cluster.ingress.supportedIngressClass"
-                                [disabled]="">
+                                   name="suportedingressclass" [(ngModel)]="cluster.ingress.supportedIngressClass"
+                                   [disabled]="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="publicingressclass" class="col-sm-2 control-label">{{
-                            'CLUSTERS.PUBLIC_INGRESS_CLASS' | translate }}</label>
+                                'CLUSTERS.PUBLIC_INGRESS_CLASS' | translate
+                            }}</label>
                         <div class="col-sm-10">
-                            <input pInputText type="text" class="form-control" id="publicingressclass" name="publicingressclass"
-                                [(ngModel)]="cluster.ingress.publicIngressClass" [disabled]="">
+                            <input pInputText type="text" class="form-control" id="publicingressclass"
+                                   name="publicingressclass"
+                                   [(ngModel)]="cluster.ingress.publicIngressClass" [disabled]="">
                         </div>
                     </div>
                     <!-- <div class="form-group">
@@ -184,59 +189,70 @@
                     </div> -->
                     <div class="form-group">
                         <label for="ingressexternalservicedomain" class="col-sm-2 control-label">{{
-                            'CLUSTERS.EXTERNAL_SERVICE_DOMAIN' | translate }}</label>
+                                'CLUSTERS.EXTERNAL_SERVICE_DOMAIN' | translate
+                            }}</label>
                         <div class="col-sm-10">
                             <input pInputText type="text" class="form-control" id="ingressexternalservicedomain"
-                                name="ingressexternalservicedomain" [(ngModel)]="cluster.ingress.externalServiceDomain"
-                                [disabled]="">
+                                   name="ingressexternalservicedomain"
+                                   [(ngModel)]="cluster.ingress.externalServiceDomain"
+                                   [disabled]="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="ingresspublicservicedomain" class="col-sm-2 control-label">{{
-                            'CLUSTERS.PUBLIC_SERVICE_DOMAIN' | translate }}</label>
+                                'CLUSTERS.PUBLIC_SERVICE_DOMAIN' | translate
+                            }}</label>
                         <div class="col-sm-10">
                             <input pInputText type="text" class="form-control" id="ingresspublicservicedomain"
-                                name="ingresspublicservicedomain" [(ngModel)]="cluster.ingress.publicServiceDomain"
-                                [disabled]="">
+                                   name="ingresspublicservicedomain" [(ngModel)]="cluster.ingress.publicServiceDomain"
+                                   [disabled]="">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="ingresstlssupported" class="col-sm-2 control-label">{{ 'CLUSTERS.TLS_SUPPORTED' |
-                            translate }}</label>
+                        <label for="ingresstlssupported" class="col-sm-2 control-label">{{
+                                'CLUSTERS.TLS_SUPPORTED' |
+                                    translate
+                            }}</label>
                         <div class="col-sm-10">
                             <input type="checkbox" id="ingresstlssupported" name="ingresstlssupported"
-                                [(ngModel)]="cluster.ingress.tlsSupported"
-                                [checked]="cluster.ingress.tlsSupported == true" [disabled]="">
+                                   [(ngModel)]="cluster.ingress.tlsSupported"
+                                   [checked]="cluster.ingress.tlsSupported == true" [disabled]="">
                         </div>
                     </div>
                     <div class="form-group" *ngIf="cluster.ingress.tlsSupported">
                         <label for="ingresscertificateconfigoption" class="col-sm-2 control-label">{{
-                            'CLUSTERS.INGRESS_CERTIFICATE_CONFIG_OPTION' | translate }}</label>
+                                'CLUSTERS.INGRESS_CERTIFICATE_CONFIG_OPTION' | translate
+                            }}</label>
                         <div class="col-sm-10">
-                            <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" id="ingresscertificateconfigoption"
-                                name="ingresscertificateconfigoption"
-                                [(ngModel)]="cluster.ingress.certificateConfigOption" [disabled]="" required>
+                            <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);"
+                                    class="form-control" id="ingresscertificateconfigoption"
+                                    name="ingresscertificateconfigoption"
+                                    [(ngModel)]="cluster.ingress.certificateConfigOption" [disabled]="" required>
                                 <option *ngFor="let configOption of getKeys(certificateConfigOption)"
-                                    [value]="certificateConfigOption.get(configOption)">{{configOption}}</option>
+                                        [value]="certificateConfigOption.get(configOption)">{{ configOption }}
+                                </option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group" *ngIf="cluster.ingress.tlsSupported">
                         <label for="ingressissuerorwildcardname" class="col-sm-2 control-label">{{
-                            'CLUSTERS.INGRESS_ISSUER_OR_WILDCARD_NAME' | translate }}</label>
+                                'CLUSTERS.INGRESS_ISSUER_OR_WILDCARD_NAME' | translate
+                            }}</label>
                         <div class="col-sm-10">
                             <input pInputText type="text" class="form-control" id="ingressissuerorwildcardname"
-                                name="ingressissuerorwildcardname" [(ngModel)]="cluster.ingress.issuerOrWildcardName"
-                                [disabled]="">
+                                   name="ingressissuerorwildcardname" [(ngModel)]="cluster.ingress.issuerOrWildcardName"
+                                   [disabled]="">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="ingressperdomain" class="col-sm-2 control-label">{{ 'CLUSTERS.INGRESS_PER_DOMAIN' |
-                            translate }}</label>
+                        <label for="ingressperdomain" class="col-sm-2 control-label">{{
+                                'CLUSTERS.INGRESS_PER_DOMAIN' |
+                                    translate
+                            }}</label>
                         <div class="col-sm-10">
                             <input type="checkbox" id="ingressperdomain" name="ingressperdomain"
-                                [(ngModel)]="cluster.ingress.ingressPerDomain"
-                                [checked]="cluster.ingress.ingressPerDomain == true" [disabled]="">
+                                   [(ngModel)]="cluster.ingress.ingressPerDomain"
+                                   [checked]="cluster.ingress.ingressPerDomain == true" [disabled]="">
                         </div>
                     </div>
                 </div>
@@ -245,90 +261,112 @@
                 <div class="panel-body">
                     <div class="form-group">
                         <label for="deploymentnamespaceconfigoption" class="col-sm-2 control-label">{{
-                            'CLUSTERS.NAMESPACE_CONFIG_OPTION' | translate }}</label>
+                                'CLUSTERS.NAMESPACE_CONFIG_OPTION' | translate
+                            }}</label>
                         <div class="col-sm-10" *ngIf="controllerConfigOption">
-                            <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" id="deploymentnamespaceconfigoption"
-                                name="deploymentnamespaceconfigoption"
-                                [(ngModel)]="cluster.deployment.namespaceConfigOption" [disabled]="" required>
+                            <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);"
+                                    class="form-control" id="deploymentnamespaceconfigoption"
+                                    name="deploymentnamespaceconfigoption"
+                                    [(ngModel)]="cluster.deployment.namespaceConfigOption" [disabled]="" required>
                                 <option *ngFor="let configOption of getKeys(namespaceConfigOption)"
-                                    [value]="namespaceConfigOption.get(configOption)">{{configOption}}</option>
+                                        [value]="namespaceConfigOption.get(configOption)">{{ configOption }}
+                                </option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="deploymentdefaultnamespace" class="col-sm-2 control-label">{{
-                            'CLUSTERS.DEFAULT_NAMESPACE' | translate }}</label>
+                                'CLUSTERS.DEFAULT_NAMESPACE' | translate
+                            }}</label>
                         <div class="col-sm-10">
                             <input pInputText type="text" class="form-control" id="deploymentdefaultnamespace"
-                                name="deploymentdefaultnamespace" #namespace="ngModel" pattern="[a-z-]*" maxlength="64"
-                                [(ngModel)]="cluster.deployment.defaultNamespace" [disabled]="">
+                                   name="deploymentdefaultnamespace" #namespace="ngModel" pattern="[a-z-]*"
+                                   maxlength="64"
+                                   [(ngModel)]="cluster.deployment.defaultNamespace" [disabled]="">
                             <div *ngIf="namespace.invalid && (namespace.dirty || namespace.touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="namespace.errors.pattern">{{ 'CLUSTERS.NAMESPACE_PATTERN_VALIDATION_MESSAGE'
-                                    | translate }}</div>
+                                 class="alert alert-danger">
+                                <div *ngIf="namespace.errors.pattern">{{
+                                        'CLUSTERS.NAMESPACE_PATTERN_VALIDATION_MESSAGE'
+                                            | translate
+                                    }}
+                                </div>
                                 <div *ngIf="namespace.errors.maxlength">{{
-                                    'CLUSTERS.NAMESPACE_MAX_LENGTH_VALIDATION_MESSAGE' | translate }}</div>
+                                        'CLUSTERS.NAMESPACE_MAX_LENGTH_VALIDATION_MESSAGE' | translate
+                                    }}
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="deploymentdefaultstorageclass" class="col-sm-2 control-label">{{
-                            'CLUSTERS.DEFAULT_STORAGE_CLASS' | translate }}</label>
+                                'CLUSTERS.DEFAULT_STORAGE_CLASS' | translate
+                            }}</label>
                         <div class="col-sm-10">
                             <input pInputText type="text" class="form-control" id="deploymentdefaultstorageclass"
-                                name="deploymentdefaultstorageclass"
-                                [(ngModel)]="cluster.deployment.defaultStorageClass" [disabled]="">
+                                   name="deploymentdefaultstorageclass"
+                                   [(ngModel)]="cluster.deployment.defaultStorageClass" [disabled]="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="forceDedicatedWorkers" class="col-sm-2 control-label">{{
-                            'CLUSTERS.FORCE_DEDICATED_WORKERS' | translate }}</label>
+                                'CLUSTERS.FORCE_DEDICATED_WORKERS' | translate
+                            }}</label>
                         <div class="col-sm-10">
                             <input type="checkbox" id="forceDedicatedWorkers" name="forceDedicatedWorkers"
-                                [(ngModel)]="cluster.deployment.forceDedicatedWorkers"
-                                [checked]="cluster.deployment.forceDedicatedWorkers == true" F>
+                                   [(ngModel)]="cluster.deployment.forceDedicatedWorkers"
+                                   [checked]="cluster.deployment.forceDedicatedWorkers == true" F>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="smtpServerHostname" class="col-sm-2 control-label">{{
-                            'CLUSTERS.SMTP_SERVER_HOSTNAME' | translate }}: </label>
+                                'CLUSTERS.SMTP_SERVER_HOSTNAME' | translate
+                            }}: </label>
                         <div class="col-sm-10">
-                            <input pInputText type="text" class="form-control" id="smtpServerHostname" name="smtpServerHostname"
-                                [(ngModel)]="cluster.deployment.smtpServerHostname" [disabled]="" required
-                                #smtpServerHostname="ngModel">
+                            <input pInputText type="text" class="form-control" id="smtpServerHostname"
+                                   name="smtpServerHostname"
+                                   [(ngModel)]="cluster.deployment.smtpServerHostname" [disabled]="" required
+                                   #smtpServerHostname="ngModel">
                             <div class="alert alert-danger"
-                                *ngIf="smtpServerHostname.invalid && (smtpServerHostname.dirty || smtpServerHostname.touched)">
+                                 *ngIf="smtpServerHostname.invalid && (smtpServerHostname.dirty || smtpServerHostname.touched)">
                                 <div *ngIf="smtpServerHostname.errors.required">SMTP server hostname is required</div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="smtpServerPort" class="col-sm-2 control-label">{{ 'CLUSTERS.SMTP_SERVER_PORT' |
-                            translate }}: </label>
+                        <label for="smtpServerPort" class="col-sm-2 control-label">{{
+                                'CLUSTERS.SMTP_SERVER_PORT' |
+                                    translate
+                            }}: </label>
                         <div class="col-sm-10">
-                            <input pInputText type="number" class="form-control no-spin" id="smtpServerPort" name="smtpServerPort"
-                                [(ngModel)]="cluster.deployment.smtpServerPort" [disabled]="" required
-                                #smtpServerPort="ngModel">
+                            <input pInputText type="number" class="form-control no-spin" id="smtpServerPort"
+                                   name="smtpServerPort"
+                                   [(ngModel)]="cluster.deployment.smtpServerPort" [disabled]="" required
+                                   #smtpServerPort="ngModel">
                             <div class="alert alert-danger"
-                                *ngIf="smtpServerPort.invalid && (smtpServerPort.dirty || smtpServerPort.touched)">
+                                 *ngIf="smtpServerPort.invalid && (smtpServerPort.dirty || smtpServerPort.touched)">
                                 <div *ngIf="smtpServerPort.errors.required">SMTP server port is required</div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="smtpServerUsername" class="col-sm-2 control-label">{{
-                            'CLUSTERS.SMTP_SERVER_USERNAME' | translate }}: </label>
+                                'CLUSTERS.SMTP_SERVER_USERNAME' | translate
+                            }}: </label>
                         <div class="col-sm-10">
-                            <input pInputText type="text" class="form-control" id="smtpServerUsername" name="smtpServerUsername"
-                                [(ngModel)]="cluster.deployment.smtpServerUsername" [disabled]="false">
+                            <input pInputText type="text" class="form-control" id="smtpServerUsername"
+                                   name="smtpServerUsername"
+                                   [(ngModel)]="cluster.deployment.smtpServerUsername" [disabled]="false">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="smtpServerPass" class="col-sm-2 control-label">{{ 'CLUSTERS.SMTP_SERVER_PASSWORD' |
-                            translate }}: </label>
+                        <label for="smtpServerPass" class="col-sm-2 control-label">{{
+                                'CLUSTERS.SMTP_SERVER_PASSWORD' |
+                                    translate
+                            }}: </label>
                         <div class="col-sm-10">
-                            <input pInputText style="background: red" type="password" class="form-control" id="smtpServerPass" name="smtpServerPass"
-                                [(ngModel)]="cluster.deployment.smtpServerPassword" [disabled]="false">
+                            <input pInputText style="background: red" type="password" class="form-control"
+                                   id="smtpServerPass" name="smtpServerPass"
+                                   [(ngModel)]="cluster.deployment.smtpServerPassword" [disabled]="false">
                         </div>
                     </div>
                 </div>
@@ -339,98 +377,116 @@
                 <div [hidden]="true" class="panel-body">
                     <table class="table table-hover table-condensed" aria-describedby="Clusters details table">
                         <thead>
-                            <tr>
-                                <th scope="col">{{ 'CLUSTERS.ADDRESS' | translate }}</th>
-                                <th scope="col">{{ 'CLUSTERS.NETWORK' | translate }}</th>
-                                <th scope="col">{{ 'CLUSTERS.NETMASK_LENGTH' | translate }}</th>
-                                <th scope="col">{{ 'CLUSTERS.ASSIGNED' | translate }}</th>
-                                <th scope="col">{{ 'CLUSTERS.ASSIGNED_SINCE' | translate }}</th>
-                                <th scope="col">{{ 'CLUSTERS.ASSIGNED_TO' | translate }}</th>
-                                <th scope="col">&nbsp;</th>
-                            </tr>
+                        <tr>
+                            <th scope="col">{{ 'CLUSTERS.ADDRESS' | translate }}</th>
+                            <th scope="col">{{ 'CLUSTERS.NETWORK' | translate }}</th>
+                            <th scope="col">{{ 'CLUSTERS.NETMASK_LENGTH' | translate }}</th>
+                            <th scope="col">{{ 'CLUSTERS.ASSIGNED' | translate }}</th>
+                            <th scope="col">{{ 'CLUSTERS.ASSIGNED_SINCE' | translate }}</th>
+                            <th scope="col">{{ 'CLUSTERS.ASSIGNED_TO' | translate }}</th>
+                            <th scope="col">&nbsp;</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <ng-template ngFor let-extnetwork [ngForOf]="cluster.externalNetworks" let-i="index"
-                                [ngForTrackBy]="">
-                                <tr>
-                                    <td>
-                                        <input pInputText type="text" class="form-control" [name]="'extnetextip'+i"
-                                            [(ngModel)]="extnetwork.externalIp" [disabled]="" required pattern="[0-9.]*"
-                                            #ip="ngModel">
-                                        <div class="alert alert-danger" *ngIf="ip.invalid && (ip.dirty || ip.touched)">
-                                            <div *ngIf="ip.errors.required">{{ 'CLUSTERS.IP_REQUIRED_MESSAGE' |
-                                                translate }}</div>
-                                            <div *ngIf="ip.errors.pattern">{{ 'CLUSTERS.IP_VALIDATION_MESSAGE' |
-                                                translate }}</div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <input pInputText type="text" class="form-control" [name]="'extnetextnet'+i"
-                                            [(ngModel)]="extnetwork.externalNetwork" [disabled]="" required
-                                            pattern="[0-9.]*" #network="ngModel">
-                                        <div class="alert alert-danger"
-                                            *ngIf="network.invalid && (network.dirty || network.touched)">
-                                            <div *ngIf="network.errors.required">{{ 'CLUSTERS.NETWORK_REQUIRED_MESSAGE'
-                                                | translate }}</div>
-                                            <div *ngIf="network.errors.pattern">{{
-                                                'CLUSTERS.NETWORK_ADDRESS_VALIDATION_MESSAGE' | translate }}</div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <input pInputText type="text" class="form-control" [name]="'extnetmask'+i"
-                                            [(ngModel)]="extnetwork.externalNetworkMaskLength" [disabled]="" min="0"
-                                            max="32" #mask="ngModel">
-                                        <div class="alert alert-danger"
-                                            *ngIf="mask.invalid && (mask.dirty || mask.touched)">
-                                            <div *ngIf="mask.errors.min || mask.errors.max">{{
-                                                'CLUSTERS.MASK_VALIDATION_MESSAGE' | translate }}</div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" [name]="'extnetassigned'+i"
-                                            [(ngModel)]="extnetwork.assigned" [checked]="extnetwork.assigned == true"
-                                            [disabled]="">
-                                    </td>
-                                    <td>
-                                        <input pInputText type="text" class="form-control" [name]="'extnetassince'+i"
-                                            [(ngModel)]="extnetwork.assignedSince" [disabled]=" !extnetwork.assigned">
-                                    </td>
-                                    <td>
-                                        <input pInputText type="text" class="form-control" [name]="'extnetassto'+i"
-                                            [(ngModel)]="extnetwork.assignedTo" [disabled]=" !extnetwork.assigned">
-                                    </td>
-                                    <td class="text-right">
-                                        <button *ngIf="" type="button" class="btn btn-sm btn-danger"
-                                            (click)="removeNetwork(extnetwork.id)">{{ 'CLUSTERS.REMOVE_BUTTON' |
-                                            translate }}
-                                        </button>
-                                    </td>
-                                </tr>
-                            </ng-template>
-                            <tr *ngIf="">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                        <ng-template ngFor let-extnetwork [ngForOf]="cluster.externalNetworks" let-i="index"
+                                     [ngForTrackBy]="">
+                            <tr>
                                 <td>
-                                    <button type="button" class="btn btn-sm btn-secondary" (click)="addNetwork()">{{
-                                        'CLUSTERS.ADD_BUTTON' | translate }}
+                                    <input pInputText type="text" class="form-control" [name]="'extnetextip'+i"
+                                           [(ngModel)]="extnetwork.externalIp" [disabled]="" required pattern="[0-9.]*"
+                                           #ip="ngModel">
+                                    <div class="alert alert-danger" *ngIf="ip.invalid && (ip.dirty || ip.touched)">
+                                        <div *ngIf="ip.errors.required">{{
+                                                'CLUSTERS.IP_REQUIRED_MESSAGE' |
+                                                    translate
+                                            }}
+                                        </div>
+                                        <div *ngIf="ip.errors.pattern">{{
+                                                'CLUSTERS.IP_VALIDATION_MESSAGE' |
+                                                    translate
+                                            }}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <input pInputText type="text" class="form-control" [name]="'extnetextnet'+i"
+                                           [(ngModel)]="extnetwork.externalNetwork" [disabled]="" required
+                                           pattern="[0-9.]*" #network="ngModel">
+                                    <div class="alert alert-danger"
+                                         *ngIf="network.invalid && (network.dirty || network.touched)">
+                                        <div *ngIf="network.errors.required">{{
+                                                'CLUSTERS.NETWORK_REQUIRED_MESSAGE'
+                                                    | translate
+                                            }}
+                                        </div>
+                                        <div *ngIf="network.errors.pattern">{{
+                                                'CLUSTERS.NETWORK_ADDRESS_VALIDATION_MESSAGE' | translate
+                                            }}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <input pInputText type="text" class="form-control" [name]="'extnetmask'+i"
+                                           [(ngModel)]="extnetwork.externalNetworkMaskLength" [disabled]="" min="0"
+                                           max="32" #mask="ngModel">
+                                    <div class="alert alert-danger"
+                                         *ngIf="mask.invalid && (mask.dirty || mask.touched)">
+                                        <div *ngIf="mask.errors.min || mask.errors.max">{{
+                                                'CLUSTERS.MASK_VALIDATION_MESSAGE' | translate
+                                            }}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="checkbox" [name]="'extnetassigned'+i"
+                                           [(ngModel)]="extnetwork.assigned" [checked]="extnetwork.assigned == true"
+                                           [disabled]="">
+                                </td>
+                                <td>
+                                    <input pInputText type="text" class="form-control" [name]="'extnetassince'+i"
+                                           [(ngModel)]="extnetwork.assignedSince" [disabled]=" !extnetwork.assigned">
+                                </td>
+                                <td>
+                                    <input pInputText type="text" class="form-control" [name]="'extnetassto'+i"
+                                           [(ngModel)]="extnetwork.assignedTo" [disabled]=" !extnetwork.assigned">
+                                </td>
+                                <td class="text-right">
+                                    <button *ngIf="" type="button" class="btn btn-sm btn-danger"
+                                            (click)="removeNetwork(extnetwork.id)">{{
+                                            'CLUSTERS.REMOVE_BUTTON' |
+                                                translate
+                                        }}
                                     </button>
                                 </td>
                             </tr>
+                        </ng-template>
+                        <tr *ngIf="">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-secondary" (click)="addNetwork()">{{
+                                        'CLUSTERS.ADD_BUTTON' | translate
+                                    }}
+                                </button>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
 
                 <div *ngIf="this.error" class="alert alert-danger">
-                    <p>{{this.error}}</p>
+                    <p>{{ this.error }}</p>
                 </div>
 
                 <div class="flex justify-content-end">
                     <button [disabled]="!clusterForm.form.valid" type="submit" class="btn btn-primary" type="submit">{{
-                        'PORTAL_CONFIGURATION.SUBMIT_BUTTON' | translate }}</button>
+                            'PORTAL_CONFIGURATION.SUBMIT_BUTTON' | translate
+                        }}
+                    </button>
                 </div>
                 <!-- <button
                     class="btn btn-primary">{{ 'CLUSTERS.SUBMIT_BUTTON' | translate }}</button> -->
