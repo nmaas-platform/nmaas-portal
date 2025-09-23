@@ -85,6 +85,7 @@ import {IconField} from 'primeng/iconfield';
 import {InputIcon} from 'primeng/inputicon';
 import {DatePicker} from 'primeng/datepicker';
 import {SelectButton, SelectButtonModule} from 'primeng/selectbutton';
+import {Menu} from 'primeng/menu';
 
 
 @NgModule({
@@ -123,7 +124,7 @@ import {SelectButton, SelectButtonModule} from 'primeng/selectbutton';
             InputIcon,
             DatePicker,
             SelectButton,
-            SelectButtonModule
+            SelectButtonModule, Menu
         ],
     declarations: [
         RateComponent,

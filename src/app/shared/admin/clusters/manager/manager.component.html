@@ -41,20 +41,12 @@
                 <td [routerLink]="[cluster.id]">{{cluster.codename}}</td>
                 <td [routerLink]="[cluster.id]">{{('CLUSTERS.'+cluster.state.toString().toUpperCase() ) | translate}}</td>
                 <td class="text-right">
-                    <span class="dropdown">
-                            <a style="display: inline-block" class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
-                                <em class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></em>
-                            </a>
-                            <ul class="dropdown-menu pull-right-drop" >
-                                <li><a [routerLink]="[ cluster.id]" class="">
-                                    {{ 'CLUSTERS.DETAILS' | translate }}</a>
-                                </li>
-                                <li><a (click)="deleteCluster(cluster)" class="">
-                                    {{ 'CLUSTERS.REMOVE' | translate }}</a>
-                                </li>
-                            </ul>
-
-                    </span>
+                    <button type="button"
+                            class="dropdown-button"
+                            (click)="openRowMenu($event, cluster)">
+                        <i class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></i>
+                    </button>
+                    <p-menu #rowMenu [popup]="true" appendTo="body" [model]="rowMenuItems"></p-menu>
                 </td>
             </tr>
         </ng-template>

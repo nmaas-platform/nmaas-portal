@@ -16,30 +16,38 @@
             <img alt="language" src="assets/images/country/{{lang.language}}_circle.png" style="height: 22px;">
           </td>
           <td [routerLink]="['/admin/languages/' + lang.language]">{{'LANGUAGE.' + lang.language.toUpperCase() + '_LABEL' | translate}}</td>
-          <td class="text-right">
-            <span class="dropdown">
-              <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
-                <em class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></em>
-              </a>
-              <ul class="dropdown-menu pull-right-drop">
-                <li>
-                  <a [routerLink]="['/admin/languages/' + lang.language]">
-                    {{ 'LANGUAGE_MANAGEMENT.EDIT_BUTTON' | translate }}
-                  </a>
-                </li>
-                <li>
-                  <a *ngIf="lang.enabled" (click)="changeLanguageState(lang)">
-                    {{ 'LANGUAGE_MANAGEMENT.LANGUAGE_DISABLED' | translate }}
-                  </a>
-                </li>
-                <li>
-                  <a *ngIf="!lang.enabled" (click)="changeLanguageState(lang)">
-                    {{ 'LANGUAGE_MANAGEMENT.LANGUAGE_ENABLED' | translate }}
-                  </a>
-                </li>
-              </ul>
-            </span>
-          </td>
+<!--          <td class="text-right">-->
+<!--            <span class="dropdown">-->
+<!--              <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">-->
+<!--                <em class="pi pi-cog" style="font-size: 1.4rem; color: var(&#45;&#45;p-text-0)"></em>-->
+<!--              </a>-->
+<!--              <ul class="dropdown-menu pull-right-drop">-->
+<!--                <li>-->
+<!--                  <a [routerLink]="['/admin/languages/' + lang.language]">-->
+<!--                    {{ 'LANGUAGE_MANAGEMENT.EDIT_BUTTON' | translate }}-->
+<!--                  </a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                  <a *ngIf="lang.enabled" (click)="changeLanguageState(lang)">-->
+<!--                    {{ 'LANGUAGE_MANAGEMENT.LANGUAGE_DISABLED' | translate }}-->
+<!--                  </a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                  <a *ngIf="!lang.enabled" (click)="changeLanguageState(lang)">-->
+<!--                    {{ 'LANGUAGE_MANAGEMENT.LANGUAGE_ENABLED' | translate }}-->
+<!--                  </a>-->
+<!--                </li>-->
+<!--              </ul>-->
+<!--            </span>-->
+<!--          </td>-->
+            <td class="text-right">
+                <button type="button"
+                        class="dropdown-button"
+                        (click)="openRowMenu($event, lang)">
+                    <i class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></i>
+                </button>
+                <p-menu #rowMenu [popup]="true" appendTo="body" [model]="rowMenuItems"></p-menu>
+            </td>
         </tr>
       </ng-template>
     </p-table>

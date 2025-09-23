@@ -58,6 +58,7 @@ import {IconField} from 'primeng/iconfield';
 import {InputIcon} from 'primeng/inputicon';
 import {Button} from 'primeng/button';
 import {Drawer} from 'primeng/drawer';
+import {Menu} from 'primeng/menu';
 
 
 
@@ -121,7 +122,8 @@ import {Drawer} from 'primeng/drawer';
         IconField,
         InputIcon,
         Button,
-        Drawer
+        Drawer,
+        Menu
     ],
          providers: [
             AppsService,

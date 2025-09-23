@@ -16,6 +16,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import {IconField} from 'primeng/iconfield';
 import {InputIcon} from 'primeng/inputicon';
 import {InputTextModule} from 'primeng/inputtext';
+import {Menu} from 'primeng/menu';
 
 
 
@@ -38,7 +39,8 @@ import {InputTextModule} from 'primeng/inputtext';
         TooltipModule,
         IconField,
         InputIcon,
-        InputTextModule
+        InputTextModule,
+        Menu
     ],
     exports: [
         ClusterDetailsComponent,

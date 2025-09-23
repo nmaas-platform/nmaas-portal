@@ -5,6 +5,10 @@ import { ModalComponent } from '../../../modal';
 import { DomainService } from '../../../../service';
 import { UserDataService } from '../../../../service/userdata.service';
 import { debounceTime } from 'rxjs';
+import {Menu} from 'primeng/menu';
+import {MenuItem} from 'primeng/api';
+import {DomainGroup} from '../../../../model/domaingroup';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
     selector: 'app-manager',
@@ -28,8 +32,12 @@ export class ClusterManagerComponent implements OnDestroy {
   @ViewChild(ModalComponent, { static: true })
   public modal: ModalComponent;
 
+  @ViewChild('rowMenu') rowMenu!: Menu;
+  rowMenuItems: MenuItem[] = [];
+
   constructor(private clusterService: ClusterManagerService,
-    protected userDataService: UserDataService
+              protected userDataService: UserDataService,
+              public translate: TranslateService
   ) {
     this.getAllClusters();
 
@@ -84,5 +92,21 @@ export class ClusterManagerComponent implements OnDestroy {
       cluster.codename?.toLowerCase().includes(value) ||
       cluster.id?.toString().includes(value)
     );
+  }
+
+  openRowMenu(event: Event, cluster: ClusterManager) {
+
+    this.rowMenuItems = [
+      {
+        label: this.translate.instant('CLUSTERS.DETAILS'),
+        routerLink: [ cluster.id]
+      },
+      {
+        label: this.translate.instant( 'CLUSTERS.REMOVE'),
+        command: () => this.deleteCluster(cluster)
+      },
+    ];
+
+    this.rowMenu.toggle(event);
   }
 }

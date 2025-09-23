@@ -3,6 +3,9 @@ import {InternationalizationService} from '../../../../service/internationalizat
 import {Language} from '../../../../model/language';
 import {TranslateService} from '@ngx-translate/core';
 import {ModalComponent} from '../../../../shared/modal';
+import {Menu} from 'primeng/menu';
+import {MenuItem} from 'primeng/api';
+import {DomainGroup} from '../../../../model/domaingroup';
 
 @Component({
     selector: 'app-languagelist',
@@ -14,6 +17,9 @@ export class LanguageListComponent implements OnInit {
 
   @ViewChild(ModalComponent, { static: true })
   public modal: ModalComponent;
+
+  @ViewChild('rowMenu') rowMenu!: Menu;
+  rowMenuItems: MenuItem[] = [];
 
   public languages: Language[] = [];
 
@@ -35,6 +41,27 @@ export class LanguageListComponent implements OnInit {
     } else {
       this.modal.show();
     }
+  }
+
+  openRowMenu(event: Event, lang: Language) {
+
+    this.rowMenuItems = [
+      {
+        label: this.translate.instant('LANGUAGE_MANAGEMENT.EDIT_BUTTON'),
+        routerLink: ['/admin/languages/' + lang.language]
+      },
+      {
+        label: this.translate.instant( 'LANGUAGE_MANAGEMENT.LANGUAGE_DISABLED'),
+        command: () => this.changeLanguageState(lang)
+      },
+      {
+        label: this.translate.instant( 'LANGUAGE_MANAGEMENT.LANGUAGE_ENABLED'),
+        visible: !lang.enabled,
+        command: () => this.changeLanguageState(lang)
+      }
+    ];
+
+    this.rowMenu.toggle(event);
   }
 
 }
