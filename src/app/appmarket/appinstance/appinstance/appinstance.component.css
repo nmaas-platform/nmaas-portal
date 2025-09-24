@@ -107,3 +107,6 @@
 a {
     color: var(--p-primary-100);
 }
+:host ::ng-deep .ngx-pagination a, .ngx-pagination button{
+    color: var(--p-text-0);
+}
