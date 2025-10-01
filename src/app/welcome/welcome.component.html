@@ -84,7 +84,7 @@
                         <div id="login-panel" class="col-lg-3 col-md-5 col-sm-6 col-xs-12 pull-right login-vertical-offset panel-collapse collapse"
                              [ngClass]="router.url.startsWith('/welcome/login?ssoUserId=') ? '' : 'collapse'"
                              style="z-index: 800; position: fixed; right: 1px; max-height: 50vh; font-size: 14px;">
-                            <div class="panel panel-default ">
+                            <div class="panel panel-default" style="background: var(--p-background-100); border:none; color: var(--p-text-0)">
                                 <div class="panel-body" id="login-out" style="overflow-y: auto;">
                                     <nmaas-login></nmaas-login>
                                 </div>
