@@ -1,8 +1,9 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ModalComponent} from '../../../../shared/modal';
-import {AppInstance, User} from '../../../../model';
+import {User} from '../../../../model';
 import {AppInstanceService, UserService} from '../../../../service';
 import {SelectItem} from 'primeng/api';
+import {AppInstanceExtended} from '../../../../model/app-instance-extended';
 
 @Component({
     selector: 'app-add-members-modal',
@@ -16,7 +17,7 @@ export class AddMembersModalComponent implements OnInit {
     public readonly modal: ModalComponent;
 
     @Input()
-    public appInstance: AppInstance = undefined;
+    public appInstance: AppInstanceExtended = undefined;
 
     public users: User[] = [];
 
@@ -28,23 +29,27 @@ export class AddMembersModalComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.userService.getAll(this.appInstance.domainId).subscribe(
-            data => {
-                this.users = data.filter(u => u.username !== this.appInstance.owner.username)
-                // retrieve members identifiers
-                const memberIds = this.members.map(m => m.id);
-                // rewrite members to get full users data instead of only firstname and lastname
-                this.members = this.users.filter(u => memberIds.includes(u.id));
-                this.selectItems = this.users.map(u => {
-                    return {
-                        value: u,
-                        label: (u.firstname !== '' && u.lastname !== '') ? u.firstname + ' ' + u.lastname : u.username,
-                        disabled: u.hasSshKeys === false
-                    }
-                });
-            },
-            error => console.error(error),
-            () => console.log('Domain Users list download completed')
+
+        this.userService.getAll(this.appInstance.domainId).subscribe({
+                next: (data: User[]) => {
+                    this.users = data.filter(u => u.username !== this.appInstance.owner.username)
+                    // retrieve members identifiers
+                    const memberIds = this.members.map(m => m.id);
+                    // rewrite members to get full users data instead of only firstname and lastname
+                    this.members = this.users.filter(u => memberIds.includes(u.id));
+                    this.selectItems = this.users.map(u => {
+                        return {
+                            value: u,
+                            label: (u.firstname !== '' && u.lastname !== '') ? u.firstname + ' ' + u.lastname : u.username,
+                            disabled: u.hasSshKeys === false
+                        }
+                    });
+                },
+                error: (err: any) => {
+                    console.error(err)
+                },
+                complete: () => console.log('Domain Users list download completed')
+            }
         )
         this.members = this.appInstance.members;
     }
@@ -58,10 +63,11 @@ export class AddMembersModalComponent implements OnInit {
     }
 
     public submit() {
-        this.appInstanceService.updateAppInstanceMembers(this.appInstance.id, this.members).subscribe(
-            () => console.log('Updated members'),
-            error => console.error('Error updating members', error),
-            () => this.hide()
+        this.appInstanceService.updateAppInstanceMembers(this.appInstance.id, this.members).subscribe({
+                next: () => console.log('Updated members'),
+                error: err => console.error('Error updating members', err),
+                complete: () => this.hide()
+            }
         )
     }
 
