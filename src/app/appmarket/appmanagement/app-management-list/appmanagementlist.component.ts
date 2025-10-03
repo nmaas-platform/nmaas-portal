@@ -86,7 +86,7 @@ export class AppManagementListComponent implements OnInit {
 
     public appVersionCompare(a: ApplicationVersion, b: ApplicationVersion): number {
         // defaults version that cannot be parsed to `0.0.0`
-        return semver.compare(semver.coerce(a.version) || '0.0.0', semver.coerce(b.version) || '0.0.0')
+        return semver.compare(a.version || '0.0.0', b.version || '0.0.0');
     }
 
     public refresh() {
