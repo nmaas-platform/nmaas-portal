@@ -185,6 +185,7 @@ describe('Component: AppInstance', () => {
     const appInstance: AppInstanceExtended = {
         appBaseId: 2,
         domainId: 4,
+        ownerUsername: '',
         appBaseName: 'Oxidized',
         appLicense: 'appLicense',
         appLicenseUrl: 'appLicenseUrl',
