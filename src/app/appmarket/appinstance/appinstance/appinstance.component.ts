@@ -123,22 +123,22 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     public appVersions: ApplicationVersion[] = [];
     public selectedVersion = '';
 
-    private deployParametersSubject = new BehaviorSubject<Map<string, string>>(new Map<string, string>());
+    private readonly deployParametersSubject = new BehaviorSubject<Map<string, string>>(new Map<string, string>());
     public deployParameters$ = this.deployParametersSubject.asObservable();
 
-    constructor(private appsService: AppsService,
+    constructor(readonly appsService: AppsService,
                 public appImagesService: AppImagesService,
-                private appInstanceService: AppInstanceService,
+                readonly appInstanceService: AppInstanceService,
                 public router: Router,
-                private route: ActivatedRoute,
-                private location: Location,
-                private translateService: TranslateService,
-                private sessionService: SessionService,
-                private shellClientService: ShellClientService,
-                private authService: AuthService,
+                readonly route: ActivatedRoute,
+                readonly location: Location,
+                readonly translateService: TranslateService,
+                readonly sessionService: SessionService,
+                readonly shellClientService: ShellClientService,
+                readonly authService: AuthService,
                 @Inject(LOCAL_STORAGE) public storage: StorageService,
-                private confirmationService: ConfirmationService,
-                private translate: TranslateService) {
+                readonly confirmationService: ConfirmationService,
+                readonly translate: TranslateService) {
     }
 
     ngOnInit() {
@@ -147,42 +147,44 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         this.route.params.subscribe(params => {
             this.appInstanceId = +params['id'];
 
-            this.appInstanceService.getAppInstance(this.appInstanceId).subscribe(
-                appInstance => {
-                    this.refreshForm = new EventEmitter();
-                    this.refreshUpdateForm = new EventEmitter();
+            this.appInstanceService.getAppInstance(this.appInstanceId).subscribe({
+                    next: (appInstance) => {
+                        this.refreshForm = new EventEmitter();
+                        this.refreshUpdateForm = new EventEmitter();
 
-                    this.appInstance = appInstance;
-                    this.configurationTemplate = this.getTemplate(appInstance.configWizardTemplate.template);
+                        this.appInstance = appInstance;
+                        this.configurationTemplate = this.getTemplate(appInstance.configWizardTemplate.template);
 
-                    this.submission.data.configuration = JSON.parse(appInstance.configuration);
+                        this.submission.data.configuration = JSON.parse(appInstance.configuration);
 
-                    if (this.appInstance.configUpdateWizardTemplate != null) {
-                        this.configurationUpdateTemplate = this.getTemplate(this.appInstance.configUpdateWizardTemplate.template);
+                        if (this.appInstance.configUpdateWizardTemplate != null) {
+                            this.configurationUpdateTemplate = this.getTemplate(this.appInstance.configUpdateWizardTemplate.template);
+                        }
+
+                        // apply validation from application state per domain
+                        const validation = {
+                            min: 1,
+                            max: 100,
+                        };
+                        validation.max = appInstance.applicationStatePerDomain
+                            .find(x => x.applicationBaseName === this.appInstance.applicationName).pvStorageSizeLimit;
+                        this.refreshForm.emit({
+                            property: 'form',
+                            value: this.addValidationToConfigurationTemplateSpecificElement({key: 'storageSpace'}, validation),
+                        });
+
+                        this.appInstanceService.getDeploymentParameters(this.appInstanceId).subscribe(
+                            deployParams => this.deployParametersSubject.next(deployParams)
+                        )
+                    },
+                    error: (err) => {
+                        console.error(err);
+                        if (err.statusCode && (err.statusCode === 404 || err.statusCode === 401 || err.statusCode === 403)) {
+                            this.router.navigateByUrl('/notfound');
+                        }
                     }
-
-                    // apply validation from application state per domain
-                    const validation = {
-                        min: 1,
-                        max: 100,
-                    };
-                    validation.max = appInstance.applicationStatePerDomain
-                        .find(x => x.applicationBaseName === this.appInstance.applicationName).pvStorageSizeLimit;
-                    this.refreshForm.emit({
-                        property: 'form',
-                        value: this.addValidationToConfigurationTemplateSpecificElement({key: 'storageSpace'}, validation),
-                    });
-
-                    this.appInstanceService.getDeploymentParameters(this.appInstanceId).subscribe(
-                        deployParams => this.deployParametersSubject.next(deployParams)
-                    )
-                },
-                err => {
-                    console.error(err);
-                    if (err.statusCode && (err.statusCode === 404 || err.statusCode === 401 || err.statusCode === 403)) {
-                        this.router.navigateByUrl('/notfound');
-                    }
-                });
+                }
+            );
 
             this.updateAppInstanceState();
             this.intervalCheckerState = interval(5000).subscribe(() => this.updateAppInstanceState());
@@ -235,7 +237,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     changeForm() {
         if (!this.wasUpdated) {
             let temp = JSON.stringify(this.configurationTemplate);
-            if (temp.match(this.REPLACE_TEXT)) {
+            if (RegExp(this.REPLACE_TEXT).exec(temp)) {
                 this.appInstanceService.getRunningAppInstances(this.appInstance.domainId).subscribe(apps => {
                     temp = temp.replace('"insert-app-instances-here"', JSON.stringify(this.getRunningAppsMap(apps)));
                     this.refreshForm.emit({
@@ -321,7 +323,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                     if (this.storage.has('appConfig_' + this.appInstanceId.toString())) {
                         this.storage.remove('appConfig_' + this.appInstanceId.toString());
                     }
-                    if (!this.appInstance || !this.appInstance.serviceAccessMethods) {
+                    if (!this.appInstance?.serviceAccessMethods) {
                         this.updateAppInstance();
                     }
                     console.log('is ssh access allowed: ' + this.appInstance.allowSshAccess);
@@ -404,30 +406,31 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         this.changeConfiguration(input['configuration']);
         this.changeAccessCredentials(input['accessCredentials']);
         this.changeTermsAcceptance(input['termsAcceptance']);
-        if (this.appConfiguration.jsonInput == null) {
-            this.appConfiguration.jsonInput = {};
-        }
-        this.appInstanceService.applyConfiguration(this.appInstanceId, this.appConfiguration).subscribe(
-            () => {
-                console.log('Configuration applied');
-                this.storage.set('appConfig_' + this.appInstanceId.toString(), this.appConfiguration);
-                this.applyConfig.hide();
-            },
-            (error) => {
-                console.error(error);
-                throw new Error('Invalid submission ' + error.message);
-            });
+        this.appConfiguration.jsonInput ??= {};
+        this.appInstanceService.applyConfiguration(this.appInstanceId, this.appConfiguration).subscribe({
+                next: () => {
+                    console.log('Configuration applied');
+                    this.storage.set('appConfig_' + this.appInstanceId.toString(), this.appConfiguration);
+                    this.applyConfig.hide();
+                },
+                error: (err) => {
+                    console.error(err);
+                    throw new Error('Invalid submission ' + err.message);
+                }
+            }
+        );
     }
 
     public updateConfiguration(): void {
-        this.appInstanceService.updateConfiguration(this.appInstanceId, this.appConfiguration).subscribe(
-            () => {
-                console.log('Configuration updated');
-                this.updateConfigModal.hide();
-            },
-            (error) => {
-                console.error(error);
-                throw new Error('Invalid submission ' + error.message);
+        this.appInstanceService.updateConfiguration(this.appInstanceId, this.appConfiguration).subscribe({
+                next: () => {
+                    console.log('Configuration updated');
+                    this.updateConfigModal.hide();
+                },
+                error: (err) => {
+                    console.error(err);
+                    throw new Error('Invalid submission ' + err.message);
+                }
             }
         );
     }
@@ -557,12 +560,13 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     }
 
     public checkStatus(): void {
-        this.appInstanceService.checkStatus(this.appInstanceId).subscribe(
-            data => {
-                console.log('Deployment verified');
-            },
-            error => {
-                console.error(error);
+        this.appInstanceService.checkStatus(this.appInstanceId).subscribe({
+                next: (data) => {
+                    console.log('Deployment verified');
+                },
+                error: (err) => {
+                    console.error(err);
+                }
             }
         )
     }
@@ -572,7 +576,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
             return false;
         }
         const username = this.authService.getUsername()
-        if (username === this.appInstance.owner.username) {
+        if (username === this.appInstance.ownerUsername) {
             return true;
         }
         if (this.authService.hasRole('ROLE_SYSTEM_ADMIN')) {

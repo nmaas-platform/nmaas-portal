@@ -3,6 +3,7 @@ import {ConfigWizardTemplate} from './configwizardtemplate';
 import {AppInstanceState} from './app-instance-status';
 import {Tag} from './tag';
 import {DomainApplicationStatePerDomain} from './domainapplicationstateperdomain';
+import {User} from './user';
 
 export class AppInstanceExtended extends AppInstance {
     public appBaseId: number;
@@ -18,6 +19,8 @@ export class AppInstanceExtended extends AppInstance {
     public applicationVersion: string;
     public descriptiveDeploymentId: string;
     public chartVersion: string;
+    public ownerUsername: string;
+    public configuration: string
 
     public autoUpgradesEnabled: boolean;
     public upgradePossible: boolean;
@@ -30,5 +33,6 @@ export class AppInstanceExtended extends AppInstance {
     public state: AppInstanceState;
     public tags: Tag[] = [];
     public applicationStatePerDomain: DomainApplicationStatePerDomain[] = [];
+    public members: User[];
 
 }
