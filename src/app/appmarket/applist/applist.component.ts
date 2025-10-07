@@ -36,6 +36,7 @@ export class AppListComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        const sessionStorageDomainId: number = Number(sessionStorage.getItem('selectedDomainId'))
         if (this.route.snapshot.data.appViewType !== undefined) {
             this.appsView = AppViewType.APPLICATION;
         } else {
@@ -46,6 +47,9 @@ export class AppListComponent implements OnInit, OnDestroy {
             if (domainId !== 0) {
                 // if domain id is not equal 0, it is assumed that everything works just fine
                 this.domainId = domainId;
+            } else if (sessionStorageDomainId !== 0) {
+                // session storage contains information about the selected domain
+                this.domainId = sessionStorageDomainId;
             } else {
                 // otherwise, user domain id's are selected and first one is chosen, usually global domain
                 const domains = this.authService.getDomains();
