@@ -370,3 +370,19 @@ body .p-menu-item-content a{
   color: var(--p-text-0);
     text-decoration: none;
 }
+
+.formio-select,
+.form-control.formio-select,
+.selectpicker .choices__list--dropdown, .choices__list {
+    color: var(--p-text-0);
+    background-color: var(--p-surface-300) !important;
+
+}
+.choices__list--dropdown .choices__item--selectable.is-highlighted, .choices__list[aria-expanded] .choices__item--selectable.is-highlighted{
+    background: var(--p-primary-50) !important;
+}
+.choices[data-type*=select-one] .choices__input{
+    background-color: var(--p-surface-300) !important;
+    color: var(--p-text-0);
+}
+
