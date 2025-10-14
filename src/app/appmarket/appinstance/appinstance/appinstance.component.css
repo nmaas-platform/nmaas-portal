@@ -111,6 +111,10 @@ a {
     color: var(--p-text-0);
 }
 
+.p-dialog {
+    transform: none !important;
+}
+
 .choices__list--dropdown,
 .choices__list[aria-expanded] {
     position: absolute !important;
