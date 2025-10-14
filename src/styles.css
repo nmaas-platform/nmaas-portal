@@ -386,3 +386,6 @@ body .p-menu-item-content a{
     color: var(--p-text-0);
 }
 
+body .p-dialog {
+    transform: none !important;
+}
