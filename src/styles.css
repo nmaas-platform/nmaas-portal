@@ -370,6 +370,7 @@ body .p-menu-item-content a{
   color: var(--p-text-0);
     text-decoration: none;
 }
+
 .formio-select,
 .form-control.formio-select,
 .selectpicker .choices__list--dropdown, .choices__list {
