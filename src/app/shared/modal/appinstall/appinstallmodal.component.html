@@ -3,7 +3,12 @@
 	<div class="nmaas-modal-body">
 		<div >
 			<label for="instance_name-{{app?.id}}" class="control-label">{{'INSTALL_MODAL.INSTANCE_NAME' | translate}}</label>
-			<input pInputText type="text" class="form-control" id="instance_name-{{app?.id}}" name="instance_name" pattern="[a-zA-Z0-9-]*" [(ngModel)]="name" #instance_name="ngModel" minlength="3" maxlength="10" required>
+			<input pInputText type="text" class="form-control" id="instance_name-{{app?.id}}" name="instance_name"
+                   pattern="[a-zA-Z0-9-]*" [(ngModel)]="name" #instance_name="ngModel" minlength="3"
+                   maxlength="10" (ngModelChange)="hasForbiddenWords()" required>
+            <div *ngIf="forbiddenWordError" class="alert alert-danger">
+                {{'INSTALL_MODAL.INSTANCE_NAME_FORBIDDEN_WORD_ERROR' | translate}}
+            </div>
 			<div *ngIf="app" style="padding-top: 15px">
 				<label for="selectedVersion" class="control-label">{{'INSTALL_MODAL.SELECT_VERSION' | translate}}</label>
 				<select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" name="selectedVersion" id="selectedVersion" [(ngModel)]="selectedAppVersion" required>
@@ -47,6 +52,6 @@
 	</div>
 	<div class="nmaas-modal-footer">
 		<button type="button" class="btn btn-secondary" (click)="modal.hide()">{{'INSTALL_MODAL.CLOSE_BUTTON' | translate}}</button>
-        <button type="button" class="btn btn-primary" (click)="create()" [disabled]="instance_name.invalid || clicked">{{'INSTALL_MODAL.DEPLOY_BUTTON' | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="create()" [disabled]="instance_name.invalid  || clicked || forbiddenWordError">{{'INSTALL_MODAL.DEPLOY_BUTTON' | translate}}</button>
 	</div>
 </nmaas-modal>

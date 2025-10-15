@@ -33,6 +33,8 @@ export class AppInstallModalComponent implements OnInit {
     selectedAppVersion: number;
     autoUpgradesEnabled: boolean;
     error: string;
+    forbiddenWords: string[] = ['test'];
+    forbiddenWordError: boolean = false;
 
     public selectedCluster: number;
 
@@ -108,5 +110,13 @@ export class AppInstallModalComponent implements OnInit {
 
     public onClusterOptionChange(event: any) {
         console.log(event);
+    }
+
+    hasForbiddenWords() {
+        if (!this.name || !this.forbiddenWords) {
+            this.forbiddenWordError = false;
+            return;
+        }
+         this.forbiddenWordError = this.forbiddenWords.some(w => this.name.toLowerCase() === w.toLowerCase());
     }
 }
