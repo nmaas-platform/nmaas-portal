@@ -85,24 +85,15 @@ export class AppManagementListComponent implements OnInit {
     }
 
     public appVersionCompare(a: ApplicationVersion, b: ApplicationVersion): number {
-        const normalize = (v: string | undefined) => {
-            if (!v) {
-                return '0.0.0';
-            }
-            const match = v.match(/^(\d+)(?:\.(\d+))?(?:\.(\d+))?(.*)$/);
-            if (!match) {
-                return '0.0.0';
-            }
+        const normalize = (v?: string) => {
+            v = v || '0.0.0';
+            return v.split(/[.\-]/).map(n => parseInt(n, 10) || 0);
+        }
 
-            const [, majorRaw, minorRaw, patchRaw, rest] = match;
-            const major = String(parseInt(majorRaw, 10));
-            const minor = minorRaw !== undefined ? String(parseInt(minorRaw, 10)) : '0';
-            const patch = patchRaw !== undefined ? String(parseInt(patchRaw, 10)) : '0';
+        const [a1, a2, a3, a4 = 0] = normalize(a.version);
+        const [b1, b2, b3, b4 = 0] = normalize(b.version);
 
-            return `${major}.${minor}.${patch}${rest || ''}`;
-        };
-
-        return semver.compare(semver.valid(normalize(a.version)) || '0.0.0', semver.valid(normalize(b.version)) || '0.0.0');
+        return a1 - b1 || a2 - b2 || a3 - b3 || a4 - b4;
     }
 
     public refresh() {
