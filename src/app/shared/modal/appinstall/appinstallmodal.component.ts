@@ -117,7 +117,6 @@ export class AppInstallModalComponent implements OnInit {
             this.forbiddenWordError = false;
             return;
         }
-        this.forbiddenWordError = this.forbiddenWords.some(w => this.name.toLowerCase().includes(w.toLowerCase()));
-        console.log(this.forbiddenWordError);
+         this.forbiddenWordError = this.forbiddenWords.some(w => this.name.toLowerCase() === w.toLowerCase());
     }
 }
