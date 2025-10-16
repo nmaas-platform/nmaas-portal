@@ -41,11 +41,13 @@
                     {{ 'USERS.GLOBAL_ROLE' | translate }}
                 </th>
 
-                <th scope="col" >
+                <th scope="col" class="column-sortable" pSortableColumn="firstLoginDate">
                     {{ 'USERS.FIRST_LOGIN' | translate }}
+                    <p-sortIcon field="firstLoginDate"></p-sortIcon>
                 </th>
-                <th scope="col" >
+                <th scope="col" class="column-sortable" pSortableColumn="lastSuccessfulLoginDate">
                     {{ 'USERS.LAST_SUCCESSFUL_LOGIN' | translate }}
+                    <p-sortIcon field="lastSuccessfulLoginDate"></p-sortIcon>
                 </th>
                 <th scope="col" class="column-sortable" pSortableColumn="enabled">
                     {{ 'USERS.ENABLED' | translate }}
