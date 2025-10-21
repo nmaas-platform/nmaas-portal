@@ -98,15 +98,12 @@
                                         {{ 'APP_INSTANCE.UPDATE_CONFIG_BUTTON' | translate }}
                                     </a>
                                 </li>
-                                <li *ngIf="appInstance.allowSshAccess && podNames.length == 1">
-                                    <!-- if only one pod available, select it by default -->
-                                    <a [routerLink]="router.url + '/shell/' + podNames[0].name" role="button">
-                                        {{ 'APP_INSTANCE.SHELL' | translate }}
-                                    </a>
-                                </li>
-                                <li *ngIf="appInstance.allowSshAccess && podNames.length > 1">
-                                    <!-- if more pods available, go modal -->
-                                    <a role="button" (click)="this.selectPodModal.show()">
+                                <li *ngIf="appInstance.allowSshAccess">
+                                    <a
+                                            role="button"
+                                            [class.disabled]="!podNames || podNames.length === 0"
+                                            (click)="onOpenShell()"
+                                    >
                                         {{ 'APP_INSTANCE.SHELL' | translate }}
                                     </a>
                                 </li>
