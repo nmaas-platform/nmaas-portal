@@ -679,6 +679,18 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         )
 
     }
+    onOpenShell() {
+        if (!this.podNames || this.podNames.length === 0) {
+            return;
+        }
+
+        if (this.podNames.length === 1) {
+            this.router.navigate([this.router.url + '/shell/' + this.podNames[0].name]);
+        } else {
+            this.selectPodModal.show();
+        }
+    }
+
 
     private getDeploymentId(): string {
         return this.appInstance.internalId
