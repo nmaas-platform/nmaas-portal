@@ -123,3 +123,12 @@ hr{
     border: none;
     box-shadow: none;
 }
+.img-container {
+    background: var(--p-background-50);
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
