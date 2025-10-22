@@ -679,18 +679,22 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         )
 
     }
-    onOpenShell() {
-        if (!this.podNames || this.podNames.length === 0) {
-            this.updateAppInstancePodNames()
-        }
 
-        if (this.podNames.length === 1) {
-            this.router.navigate([this.router.url + '/shell/' + this.podNames[0].name]);
-        } else if (this.podNames.length > 1) {
-            this.selectPodModal.show();
-        } else {
-            return;
-        }
+    onOpenShell() {
+        this.shellClientService.getPossiblePods(this.appInstanceId).subscribe({
+                next: pods => {
+                    this.podNames = pods;
+                    if (pods.length === 1) {
+                        this.router.navigate([this.router.url + '/shell/' + this.podNames[0].name]);
+                    } else if (pods.length > 1) {
+                        this.selectPodModal.show();
+                    } else {
+                        return;
+                    }
+                },
+            error: (err) => {
+            }
+            });
     }
 
 
