@@ -38,7 +38,10 @@ describe('AppStaticGlobalDeployParametersEditComponent', () => {
             deployParameters: {},
             storageVolumes: [],
             accessMethods: [],
-            globalDeployParameters: {}
+            globalDeployParameters: {},
+            consumedPods: 1,
+            consumedCpu: 100,
+            consumedMemory: 128
         }
         component.propertyName = 'deployParameters';
         fixture.detectChanges();
