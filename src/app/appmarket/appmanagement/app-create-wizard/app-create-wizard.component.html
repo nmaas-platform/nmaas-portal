@@ -351,6 +351,36 @@
                                tooltipPosition="bottom" [showDelay]="50">
                     </div>
                 </div>
+                <div class="form-group form-group-sm">
+                    <label for="consumedPods"
+                           class="control-label">{{'APPS_WIZARD.CONSUMED_PODS' | translate}}</label>
+                    <br>
+                    <input pInputText type="number" class="form-control" id="consumedPods"
+                           name="consumedPods"
+                           [(ngModel)]="applicationDTO.application.appDeploymentSpec.consumedPods"
+                           pTooltip="{{'APPS_WIZARD.CONSUMED_PODS_TOOLTIP' | translate}}"
+                           tooltipPosition="bottom" [showDelay]="50">
+                </div>
+                <div class="form-group form-group-sm">
+                    <label for="consumedCpu"
+                           class="control-label">{{'APPS_WIZARD.CONSUMED_CPU' | translate}}</label>
+                    <br>
+                    <input pInputText type="number" class="form-control" id="consumedCpu"
+                           name="consumedCpu"
+                           [(ngModel)]="applicationDTO.application.appDeploymentSpec.consumedCpu"
+                           pTooltip="{{'APPS_WIZARD.CONSUMED_CPU_TOOLTIP' | translate}}"
+                           tooltipPosition="bottom" [showDelay]="50">
+                </div>
+                <div class="form-group form-group-sm">
+                    <label for="consumedMemory"
+                           class="control-label">{{'APPS_WIZARD.CONSUMED_MEMORY' | translate}}</label>
+                    <br>
+                    <input pInputText type="number" class="form-control" id="consumedMemory"
+                           name="consumedMemory"
+                           [(ngModel)]="applicationDTO.application.appDeploymentSpec.consumedMemory"
+                           pTooltip="{{'APPS_WIZARD.CONSUMED_MEMORY_TOOLTIP' | translate}}"
+                           tooltipPosition="bottom" [showDelay]="50">
+                </div>
 
                 <div class="form-group form-group-sm">
                     <h4>{{'APPS_WIZARD.DEPLOY_PARAMETERS' | translate}}</h4>
