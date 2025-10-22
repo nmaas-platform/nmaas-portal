@@ -2,12 +2,16 @@ import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, Vi
 import {BulkDeployment} from '../../../model/bulk-deployment';
 import {BulkType} from '../../../model/bulk-response';
 import {SortableHeaderDirective} from '../../../service/sort-domain.directive';
-import {ModalComponent} from '../../../shared';
+import {ComponentMode, ModalComponent} from '../../../shared';
 import {AppdeploymentService} from '../appdeployment.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import { BulkQueueDetails } from '../../../model/bulk-queue-details';
 import { map, timer } from 'rxjs';
 import { ConfigurationService } from '../../../service';
+import {Menu} from 'primeng/menu';
+import {MenuItem} from 'primeng/api';
+import {User} from '../../../model';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
     selector: 'app-bulk-list',
@@ -29,6 +33,9 @@ export class BulkListComponent implements OnDestroy, OnInit {
 
     @Input()
     public mode: BulkType;
+
+    @ViewChild('rowMenu') rowMenu!: Menu;
+    rowMenuItems: MenuItem[] = [];
 
     @ViewChildren(SortableHeaderDirective)
     headers: QueryList<SortableHeaderDirective>;
@@ -62,7 +69,8 @@ export class BulkListComponent implements OnDestroy, OnInit {
 
     constructor(private appDeploy: AppdeploymentService,
                 private sanitizer: DomSanitizer,
-                private configService: ConfigurationService) {   
+                private configService: ConfigurationService,
+                private translate: TranslateService) {
     }
 
     public ngOnInit(): void {
@@ -211,5 +219,22 @@ export class BulkListComponent implements OnDestroy, OnInit {
 
     public open() {
 
+    }
+    openRowMenu(event: Event, bulk: BulkDeployment) {
+
+        this.rowMenuItems = [
+            {
+                label: this.translate.instant('BULK.APP.DOWNLOAD_CSV'),
+                visible: this.mode === this.bulkTypeApp && bulk?.state !== 'REMOVED',
+                command: () => { this.getAppBulkDetails(bulk?.id)}
+            },
+            {
+                label: this.translate.instant('BULK.LIST.REMOVE'),
+                visible: this.mode === this.bulkTypeApp && !(bulk?.state === 'REMOVED' || bulk?.deleted ),
+                command: () => {this.modal.show(); this.removeBulkId = bulk?.id}
+            }
+        ];
+
+        this.rowMenu.toggle(event);
     }
 }

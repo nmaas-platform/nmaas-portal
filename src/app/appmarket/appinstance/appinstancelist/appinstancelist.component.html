@@ -259,8 +259,8 @@
                         {{ 'APP_INSTANCES.DOMAIN' | translate }}
                     </th>
                     <th style="width:20%">{{ 'APP_INSTANCES.OWNER' | translate }}</th>
-                    <th style="width: 15%"></th>
-                    <th style="width:15%">{{ 'APP_INSTANCES.DEPLOYED_AT' | translate }}</th>
+                    <th style="width: 15%">{{ 'APP_INSTANCES.DEPLOYED_AT' | translate }}</th>
+                    <th style="width:15%"></th>
                     <th style="width:10%">{{ 'APP_INSTANCES.STATE' | translate }}</th>
                     <th></th>
                 </tr>
@@ -274,8 +274,8 @@
                         {{ appInstance?.domainName }}
                     </td>
                     <td>{{ appInstance?.owner?.username }}</td>
-                    <td></td>
                     <td>{{ appInstance?.createdAt | localDate:'dd-MM-yyyy HH:mm' }}</td>
+                    <td></td>
                     <td>{{ translateState(appInstance?.state) }}</td>
                     <td></td>
                 </tr>

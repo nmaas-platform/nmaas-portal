@@ -187,22 +187,28 @@
                     <td [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{bulk?.creationDate | date: 'dd-MM-yyyy HH:mm'}}</td>
                     <td [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{'BULK.STATE.' + bulk?.state | translate}}</td>
                     <td class="text-right">
-                        <span class="dropdown">
-                          <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
-                             <em class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></em>
-                          </a>
-                          <ul class="dropdown-menu pull-right-drop">
-<!--                            <li *ngIf="mode === bulkTypeApp">-->
-<!--                              <a [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>-->
+                        <button type="button"
+                                class="dropdown-button"
+                                (click)="openRowMenu($event, bulk)">
+                            <i class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></i>
+                        </button>
+                        <p-menu #rowMenu [popup]="true" appendTo="body" [model]="rowMenuItems"></p-menu>
+<!--                        <span class="dropdown">-->
+<!--                          <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">-->
+<!--                             <em class="pi pi-cog" style="font-size: 1.4rem; color: var(&#45;&#45;p-text-0)"></em>-->
+<!--                          </a>-->
+<!--                          <ul class="dropdown-menu pull-right-drop">-->
+<!--&lt;!&ndash;                            <li *ngIf="mode === bulkTypeApp">&ndash;&gt;-->
+<!--&lt;!&ndash;                              <a [routerLink]="['/admin/apps/bulks/', bulk?.id]">{{ 'BULK.LIST.DETAILS' | translate }}</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </li>&ndash;&gt;-->
+<!--                            <li *ngIf="mode === bulkTypeApp && bulk?.state !== 'REMOVED'">-->
+<!--                              <a (click)="getAppBulkDetails(bulk?.id)"> {{"BULK.APP.DOWNLOAD_CSV" | translate}}</a>-->
 <!--                            </li>-->
-                            <li *ngIf="mode === bulkTypeApp && bulk?.state !== 'REMOVED'">
-                              <a (click)="getAppBulkDetails(bulk?.id)"> {{"BULK.APP.DOWNLOAD_CSV" | translate}}</a>
-                            </li>
-                            <li *ngIf="mode === bulkTypeApp && !(bulk?.state === 'REMOVED' || bulk?.deleted )">
-                              <a (click)="modal.show(); removeBulkId=bulk?.id">{{ 'BULK.LIST.REMOVE' | translate }}</a>
-                            </li>
-                          </ul>
-                        </span>
+<!--                            <li *ngIf="mode === bulkTypeApp && !(bulk?.state === 'REMOVED' || bulk?.deleted )">-->
+<!--                              <a (click)="modal.show(); removeBulkId=bulk?.id">{{ 'BULK.LIST.REMOVE' | translate }}</a>-->
+<!--                            </li>-->
+<!--                          </ul>-->
+<!--                        </span>-->
                     </td>
                 </tr>
             </ng-template>
