@@ -32,7 +32,7 @@ export class AddMembersModalComponent implements OnInit {
 
         this.userService.getAll(this.appInstance.domainId).subscribe({
                 next: (data: User[]) => {
-                    this.users = data.filter(u => u.username !== this.appInstance.owner.username)
+                    this.users = data.filter(u => u.username !== this.appInstance.ownerUsername)
                     // retrieve members identifiers
                     const memberIds = this.members.map(m => m.id);
                     // rewrite members to get full users data instead of only firstname and lastname
