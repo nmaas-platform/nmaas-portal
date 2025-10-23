@@ -202,11 +202,11 @@ export class AppInstanceService extends GenericDataService {
 
     }
 
-    public scaleDown(appInstanceId: string): Observable<any> {
+    public scaleDown(appInstanceId: number): Observable<any> {
         return this.http.put(this.getUrl() + `${appInstanceId}/scale-down`, null)
     }
 
-    public scaleUp(appInstanceId: string): Observable<any> {
+    public scaleUp(appInstanceId: number): Observable<any> {
         return this.http.put(this.getUrl() + `${appInstanceId}/scale-up`, null)
     }
 }

@@ -649,7 +649,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
 
     public scaleDown(): void {
         this.appInstanceService.scaleDown(
-            this.appInstance.appId.toString()
+            this.appInstance.appId
         ).subscribe(
             {
                 next: () => {
@@ -664,7 +664,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
 
     public scaleUp(): void {
         this.appInstanceService.scaleUp(
-            this.appInstance.appId.toString()
+            this.appInstance.appId
         ).subscribe(
             {
                 next: () => {
