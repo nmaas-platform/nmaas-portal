@@ -308,10 +308,10 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                                 document.getElementsByClassName('stepwizard-btn-danger').length * 180);
                     }
                 }
-
-                this.appInstanceProgress.activeState = this.getStateAsEnum(this.appInstanceStatus.state);
-                this.appInstanceProgress.previousState = this.getStateAsEnum(this.appInstanceStatus.previousState);
-
+                if (this.appInstanceProgress) {
+                    this.appInstanceProgress.activeState = this.getStateAsEnum(this.appInstanceStatus.state);
+                    this.appInstanceProgress.previousState = this.getStateAsEnum(this.appInstanceStatus.previousState);
+                }
                 if (appPropElement) {
                     document.getElementById('app-prop').scrollLeft =
                         (document.getElementsByClassName('stepwizard-btn-success').length * 180 +
