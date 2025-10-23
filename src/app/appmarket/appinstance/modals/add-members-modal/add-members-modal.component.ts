@@ -63,7 +63,7 @@ export class AddMembersModalComponent implements OnInit {
     }
 
     public submit() {
-        this.appInstanceService.updateAppInstanceMembers(this.appInstance.id, this.members).subscribe({
+        this.appInstanceService.updateAppInstanceMembers(this.appInstance.appId, this.members).subscribe({
                 next: () => console.log('Updated members'),
                 error: err => console.error('Error updating members', err),
                 complete: () => this.hide()

@@ -6,6 +6,7 @@ import {DomainApplicationStatePerDomain} from './domainapplicationstateperdomain
 import {User} from './user';
 
 export class AppInstanceExtended extends AppInstance {
+    public appId: number;
     public appBaseId: number;
     public domainId: number;
     public appBaseName: string;
