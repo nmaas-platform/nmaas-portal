@@ -166,8 +166,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                             min: 1,
                             max: 100,
                         };
-                        validation.max = appInstance.applicationStatePerDomain
-                            .find(x => x.applicationBaseName === this.appInstance.applicationName).pvStorageSizeLimit;
+                        validation.max = appInstance.applicationStatePerDomain.pvStorageSizeLimit;
                         this.refreshForm.emit({
                             property: 'form',
                             value: this.addValidationToConfigurationTemplateSpecificElement({key: 'storageSpace'}, validation),
