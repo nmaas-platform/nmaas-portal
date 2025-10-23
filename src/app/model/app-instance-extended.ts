@@ -4,6 +4,7 @@ import {AppInstanceState} from './app-instance-status';
 import {Tag} from './tag';
 import {DomainApplicationStatePerDomain} from './domainapplicationstateperdomain';
 import {User} from './user';
+import {ServiceAccessMethod} from './service-access-method';
 
 export class AppInstanceExtended extends AppInstance {
     public appId: number;
@@ -35,5 +36,6 @@ export class AppInstanceExtended extends AppInstance {
     public tags: Tag[] = [];
     public applicationStatePerDomain: DomainApplicationStatePerDomain[] = [];
     public members: User[];
+    public serviceAccessMethods: ServiceAccessMethod[]
 
 }
