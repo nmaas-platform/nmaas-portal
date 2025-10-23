@@ -326,9 +326,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                     if (!this.appInstance?.serviceAccessMethods) {
                         this.updateAppInstance();
                     }
-                    console.log('is ssh access allowed: ' + this.appInstance.allowSshAccess);
-                    console.log('array of pods has length: ' + this.podNames.length);
-                    if (this.appInstance.allowSshAccess && !this.podNames.length) {
+                    if (this.appInstance?.allowSshAccess && !this.podNames.length) {
                         this.updateAppInstancePodNames();
                     }
                 }
