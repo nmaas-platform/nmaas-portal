@@ -183,6 +183,7 @@ describe('Component: AppInstance', () => {
     };
 
     const appInstance: AppInstanceExtended = {
+        appId: 2,
         appBaseId: 2,
         domainId: 4,
         ownerUsername: '',
