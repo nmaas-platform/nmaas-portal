@@ -31,10 +31,10 @@ export class AppInstanceExtended extends AppInstance {
     public allowLogAccess: boolean;
     public configFileRepositoryRequired: boolean;
 
+    public applicationStatePerDomain: DomainApplicationStatePerDomain;
     public configWizardTemplate: ConfigWizardTemplate;
     public state: AppInstanceState;
     public tags: Tag[] = [];
-    public applicationStatePerDomain: DomainApplicationStatePerDomain[] = [];
     public members: User[];
     public serviceAccessMethods: ServiceAccessMethod[]
 
