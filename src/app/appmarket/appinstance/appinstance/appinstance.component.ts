@@ -649,7 +649,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
 
     public scaleDown(): void {
         this.appInstanceService.scaleDown(
-            this.getDeploymentId()
+            this.appInstance.appId.toString()
         ).subscribe(
             {
                 next: () => {
@@ -664,7 +664,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
 
     public scaleUp(): void {
         this.appInstanceService.scaleUp(
-            this.getDeploymentId()
+            this.appInstance.appId.toString()
         ).subscribe(
             {
                 next: () => {
@@ -693,10 +693,5 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
             error: (err) => {
             }
             });
-    }
-
-
-    private getDeploymentId(): string {
-        return this.appInstance.appId.toString()
     }
 }
