@@ -697,6 +697,6 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
 
 
     private getDeploymentId(): string {
-        return this.appInstance.internalId
+        return this.appInstance.appId.toString()
     }
 }
