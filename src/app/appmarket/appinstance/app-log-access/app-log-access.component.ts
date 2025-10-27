@@ -3,6 +3,7 @@ import {PodLogs} from '../../../model/pod-logs';
 import {AppLogsService} from '../../../service/app-logs.service';
 import {PodInfo} from '../../../model/podinfo';
 import {ActivatedRoute} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
     selector: 'app-log-access',
@@ -19,13 +20,18 @@ export class AppLogAccessComponent implements OnInit, AfterViewChecked {
     public selectedContainer: string = undefined;
     public isLoading = true;
     private scrolledToBottom = false;
+    public logsLimitNumber = [50, 100, 200, 500];
+    public logsLimitOptions = [{label: this.translate.instant('APP_INSTANCE.LOG_ACCESS.NO_LIMIT'), value: 0},
+        ...this.logsLimitNumber.map(n => ({ label: n.toString(), value: n}))];
+    public logsLimit = 200;
 
     public blobUrl;
 
     @ViewChild('terminal', {static: false}) private terminalElement: ElementRef;
 
     constructor(private logService: AppLogsService,
-                private route: ActivatedRoute) {
+                private route: ActivatedRoute,
+                private  translate: TranslateService) {
     }
 
     ngOnInit(): void {
@@ -84,7 +90,7 @@ export class AppLogAccessComponent implements OnInit, AfterViewChecked {
     retrieveLogs() {
         this.scrolledToBottom = false
         this.isLoading = true
-        this.logService.getLogsFromPod(this.appInstanceId, this.selectedPodInfo.name, this.selectedContainer).subscribe(
+        this.logService.getLogsFromPod(this.appInstanceId, this.selectedPodInfo.name, this.selectedContainer, this.logsLimit).subscribe(
             podLogs => {
                 this.selectedPodLogs = podLogs
                 this.isLoading = false
@@ -99,5 +105,10 @@ export class AppLogAccessComponent implements OnInit, AfterViewChecked {
                 this.scrolledToBottom = true;
             }
         } catch (_) {}
+    }
+
+    selectLimit(event: any): void {
+        this.logsLimit = event.value;
+        this.retrieveLogs()
     }
 }

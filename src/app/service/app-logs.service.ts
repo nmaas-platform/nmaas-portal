@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {GenericDataService} from './genericdata.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import {AppConfigService} from './appconfig.service';
 import {PodLogs} from '../model/pod-logs';
 import {Observable} from 'rxjs';
@@ -15,8 +15,12 @@ export class AppLogsService extends GenericDataService {
     super(http, appConfig);
   }
 
-  public getLogsFromPod(appInstanceId: number, podName: string, containerName: string): Observable<PodLogs> {
-    return this.http.get<PodLogs>(`${this.getUrl()}/${appInstanceId}/pods/${podName}/container/${containerName}`)
+  public getLogsFromPod(appInstanceId: number, podName: string, containerName: string, limit?: number): Observable<PodLogs> {
+    let params = new HttpParams();
+    if (limit) {
+      params = params.set('limit', limit);
+    }
+    return this.http.get<PodLogs>(`${this.getUrl()}/${appInstanceId}/pods/${podName}/container/${containerName}`, {params})
   }
 
   public getPodNames(appInstanceId: number): Observable<PodInfo[]> {
