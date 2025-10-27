@@ -31,6 +31,14 @@
                 </ng-template>
             </p-select>
         </div>
+        <div>
+            <p class="font-bold pl-2" style="color: var(--p-text-0)">{{ 'APP_INSTANCE.LOG_ACCESS.LIMIT' | translate}}</p>
+            <p-select [options]="logsLimitOptions" [(ngModel)]="logsLimit"
+                      (onChange)="selectLimit($event)"
+                      placeholder="{{ 'APP_INSTANCE.LOG_ACCESS.PLACEHOLDER_LIMIT' | translate}}"
+                      class="flex bottom">
+            </p-select>
+        </div>
         <div class="flex-grow-1"></div>
         <button type="button" class="btn btn-primary mr-3 align-self-end button-height"
                 (click)="retrieveLogs()" [disabled]="!selectedPodInfo">
