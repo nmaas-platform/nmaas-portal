@@ -2,52 +2,55 @@
 
 <div *ngIf="podInfos.length > 0">
 
-    <div class="flex mt-2 mb-2">
-        <div>
-            <p class="font-bold pl-2" style="color: var(--p-text-0)">{{ 'APP_INSTANCE.LOG_ACCESS.POD' | translate}}</p>
-            <p-select [options]="podInfos" [(ngModel)]="selectedPodInfo"
-                        (onChange)="selectPod($event)"
-                        placeholder="{{ 'APP_INSTANCE.LOG_ACCESS.DROPDOWN_PLACEHOLDER' | translate}}"
-                        class="flex bottom">
-                <ng-template let-option pTemplate="items">
-                    {{ option.displayName }}
-                </ng-template>
-                <ng-template let-selected pTemplate="selectedItem">
-                    {{ selected.displayName }}
-                </ng-template>
-            </p-select>
+    <div class="flex mt-2 mb-2" style="justify-content: space-between">
+        <div class="flex" style="gap:20px">
+            <div>
+                <p class="font-bold pl-2" style="color: var(--p-text-0)">{{ 'APP_INSTANCE.LOG_ACCESS.POD' | translate}}</p>
+                <p-select [options]="podInfos" [(ngModel)]="selectedPodInfo"
+                          (onChange)="selectPod($event)"
+                          placeholder="{{ 'APP_INSTANCE.LOG_ACCESS.DROPDOWN_PLACEHOLDER' | translate}}"
+                          class="flex bottom">
+                    <ng-template let-option pTemplate="items">
+                        {{ option.displayName }}
+                    </ng-template>
+                    <ng-template let-selected pTemplate="selectedItem">
+                        {{ selected.displayName }}
+                    </ng-template>
+                </p-select>
+            </div>
+            <div *ngIf="!isLoading" class="">
+                <p class="font-bold pl-2" style="color: var(--p-text-0)">{{ 'APP_INSTANCE.LOG_ACCESS.CONTAINER' | translate}}</p>
+                <p-select [options]="selectedPodInfo.containers" [(ngModel)]="selectedContainer"
+                          (onChange)="selectContainer()"
+                          placeholder="{{ 'APP_INSTANCE.LOG_ACCESS.DROPDOWN_PLACEHOLDER' | translate}}"
+                          class="bottom">
+                    <ng-template let-option pTemplate="items">
+                        {{ option }}
+                    </ng-template>
+                    <ng-template pTemplate="selectedItem">
+                        {{ selectedContainer }}
+                    </ng-template>
+                </p-select>
+            </div>
+            <div>
+                <p class="font-bold pl-2" style="color: var(--p-text-0)">{{ 'APP_INSTANCE.LOG_ACCESS.LIMIT' | translate}}</p>
+                <p-select [options]="logsLimitOptions" [(ngModel)]="logsLimit"
+                          (onChange)="selectLimit($event)"
+                          placeholder="{{ 'APP_INSTANCE.LOG_ACCESS.PLACEHOLDER_LIMIT' | translate}}"
+                          class="flex bottom">
+                </p-select>
+            </div>
         </div>
-        <div *ngIf="!isLoading" class="ml-5">
-            <p class="font-bold pl-2" style="color: var(--p-text-0)">{{ 'APP_INSTANCE.LOG_ACCESS.CONTAINER' | translate}}</p>
-            <p-select [options]="selectedPodInfo.containers" [(ngModel)]="selectedContainer"
-                        (onChange)="selectContainer()"
-                        placeholder="{{ 'APP_INSTANCE.LOG_ACCESS.DROPDOWN_PLACEHOLDER' | translate}}"
-                        class="bottom">
-                <ng-template let-option pTemplate="items">
-                    {{ option }}
-                </ng-template>
-                <ng-template pTemplate="selectedItem">
-                    {{ selectedContainer }}
-                </ng-template>
-            </p-select>
+        <div class="flex" style="gap: 20px">
+            <button type="button" class="btn btn-primary align-self-end button-height"
+                    (click)="retrieveLogs()" [disabled]="!selectedPodInfo">
+                {{ 'APP_INSTANCE.LOG_ACCESS.REFRESH' | translate}}
+            </button>
+            <button type="button" class="btn btn-primary align-self-end button-height"
+                    (click)="downloadLogs(selectedPodInfo.name, selectedPodLogs.lines)" [disabled]="!selectedPodInfo">
+                {{ 'APP_INSTANCE.LOG_ACCESS.DOWNLOAD' | translate}}
+            </button>
         </div>
-        <div>
-            <p class="font-bold pl-2" style="color: var(--p-text-0)">{{ 'APP_INSTANCE.LOG_ACCESS.LIMIT' | translate}}</p>
-            <p-select [options]="logsLimitOptions" [(ngModel)]="logsLimit"
-                      (onChange)="selectLimit($event)"
-                      placeholder="{{ 'APP_INSTANCE.LOG_ACCESS.PLACEHOLDER_LIMIT' | translate}}"
-                      class="flex bottom">
-            </p-select>
-        </div>
-        <div class="flex-grow-1"></div>
-        <button type="button" class="btn btn-primary mr-3 align-self-end button-height"
-                (click)="retrieveLogs()" [disabled]="!selectedPodInfo">
-            {{ 'APP_INSTANCE.LOG_ACCESS.REFRESH' | translate}}
-        </button>
-        <button type="button" class="btn btn-primary align-self-end button-height"
-                (click)="downloadLogs(selectedPodInfo.name, selectedPodLogs.lines)" [disabled]="!selectedPodInfo">
-            {{ 'APP_INSTANCE.LOG_ACCESS.DOWNLOAD' | translate}}
-        </button>
     </div>
     <div *ngIf="isLoading">
         <div class="spinner-wrapper">
