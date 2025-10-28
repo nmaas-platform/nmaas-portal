@@ -2,8 +2,8 @@
 
 <div *ngIf="podInfos.length > 0">
 
-    <div class="flex mt-2 mb-2" style="justify-content: space-between">
-        <div class="flex" style="gap:20px">
+    <div class="flex mt-2 mb-2" style="justify-content: space-between; gap:20px; flex-wrap:wrap;">
+        <div class="flex" style="gap:20px; flex-wrap:wrap">
             <div>
                 <p class="font-bold pl-2" style="color: var(--p-text-0)">{{ 'APP_INSTANCE.LOG_ACCESS.POD' | translate}}</p>
                 <p-select [options]="podInfos" [(ngModel)]="selectedPodInfo"
@@ -41,12 +41,12 @@
                 </p-select>
             </div>
         </div>
-        <div class="flex" style="gap: 20px">
-            <button type="button" class="btn btn-primary align-self-end button-height"
+        <div class="flex" style="gap: 20px; width: 100%; justify-content: flex-end">
+            <button type="button" class="btn btn-primary align-self-end "
                     (click)="retrieveLogs()" [disabled]="!selectedPodInfo">
                 {{ 'APP_INSTANCE.LOG_ACCESS.REFRESH' | translate}}
             </button>
-            <button type="button" class="btn btn-primary align-self-end button-height"
+            <button type="button" class="btn btn-primary align-self-end "
                     (click)="downloadLogs(selectedPodInfo.name, selectedPodLogs.lines)" [disabled]="!selectedPodInfo">
                 {{ 'APP_INSTANCE.LOG_ACCESS.DOWNLOAD' | translate}}
             </button>
