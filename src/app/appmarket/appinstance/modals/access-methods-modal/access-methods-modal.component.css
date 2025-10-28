@@ -4,3 +4,8 @@
 :host ::ng-deep .well{
     margin-bottom: 0;
 }
+.well{
+    background-color: var(--p-surface-300);
+    background-image: none;
+    border-color: var(--p-accent-600)
+}
