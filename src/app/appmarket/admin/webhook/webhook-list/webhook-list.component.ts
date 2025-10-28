@@ -29,8 +29,9 @@ export class WebhookListComponent implements OnInit {
     { name: "DOMAIN_ACTION", value: "DOMAIN_ACTION" },
     { name: "DOMAIN_GROUP_ACTION", value: "DOMAIN_GROUP_ACTION" },
     { name: "APPLICATION_DEPLOYMENT", value: "APPLICATION_DEPLOYMENT" },
-    { name: "USER_ASSIGNMENT", value: "USER_ASSIGNMENT" },
-    { name: "APPLICATION_REMOVAL", value: "APPLICATION_REMOVAL"}
+    { name: "APPLICATION_REMOVAL", value: "APPLICATION_REMOVAL"},
+    { name: "USER_ASSIGNMENT", value: "USER_ASSIGNMENT" }
+
   ]
 
   @ViewChild(ModalComponent, { static: true })
