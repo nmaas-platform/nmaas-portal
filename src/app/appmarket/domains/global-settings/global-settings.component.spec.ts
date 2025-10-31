@@ -1,0 +1,45 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { GlobalSettingsComponent } from './global-settings.component';
+import {ResourcesLimitService} from '../../../service/resources-limit.service';
+import {of} from 'rxjs';
+import {FormsModule} from '@angular/forms';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+
+describe('GlobalSettingsComponent', () => {
+  let component: GlobalSettingsComponent;
+  let fixture: ComponentFixture<GlobalSettingsComponent>;
+  let mockService: jasmine.SpyObj<ResourcesLimitService>
+
+  beforeEach(async () => {
+    mockService = jasmine.createSpyObj('ResourcesLimitService', ['getGlobalLimit', 'setGlobalLimit']);
+    mockService.getGlobalLimit.and.returnValue(of({ limitType: 'GLOBAL'}));
+    mockService.setGlobalLimit.and.returnValue(of({limitType: 'GLOBAL'}));
+
+    await TestBed.configureTestingModule({
+      declarations: [GlobalSettingsComponent],
+      imports: [FormsModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateFakeLoader
+          }
+        }),
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      providers: [
+        {provide: ResourcesLimitService, useValue: mockService},
+      ]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(GlobalSettingsComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
