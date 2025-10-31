@@ -1,6 +1,4 @@
 <div class="panel-body" style="color: var(--p-text-0)">
-<!--    <h3> {{'DOMAINS.ANNOTATIONS.HEADER' | translate}}</h3>-->
-    <p>{{'DOMAINS.ANNOTATIONS.SUBHEADER' | translate}} </p>
     <div style="width: 100% !important;">
         <app-domain-namespace-annotations [annotationRead]="annotations" [globalSettings]="true" (annotations)="handleAnnotationsUpdate($event)" 
         (trigerDelete)="handleDelete($event)" class="flex flex-grow-1"></app-domain-namespace-annotations>
