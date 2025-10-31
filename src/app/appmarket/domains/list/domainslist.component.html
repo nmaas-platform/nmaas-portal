@@ -12,10 +12,6 @@
         <button *roles="['ROLE_SYSTEM_ADMIN']" [routerLink]="['add']" class="btn btn-primary"
             role="button">{{'DOMAINS.ADD_BUTTON' | translate}}</button>
     </div>
-    <div *roles="['ROLE_SYSTEM_ADMIN']" class="flex" style="margin-right:20px">
-        <button class="btn btn-primary" [routerLink]="['annotations']">{{'DOMAINS.ANNOTATIONS.EDIT' |
-            translate}}</button>
-    </div>
     <div *roles="['ROLE_SYSTEM_ADMIN']" class="flex">
         <p-checkbox id="showNotActive" [binary]="true" [(ngModel)]=" showNotActive" class="flex"></p-checkbox>
         <label for="showNotActive" style="color: var(--p-text-0)"> {{'DOMAINS.NOTACTIVE' | translate}}</label>
