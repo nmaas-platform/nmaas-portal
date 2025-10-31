@@ -28,6 +28,8 @@ import { DomainAnnotationsComponent } from './domain-annotations/domain-annotati
 import {IconField} from 'primeng/iconfield';
 import {InputIcon} from 'primeng/inputicon';
 import {Menu} from 'primeng/menu';
+import {GlobalSettingsComponent} from './global-settings/global-settings.component';
+import {Tab, TabList, TabPanel, TabPanels, Tabs} from 'primeng/tabs';
 
 
 @NgModule({
@@ -39,6 +41,7 @@ import {Menu} from 'primeng/menu';
     DomainGroupViewComponent,
     RemovalConfirmationModalComponent,
       SearchDomainGroupPipe,
+      GlobalSettingsComponent,
       DomainAnnotationsComponent
   ],
     imports: [
@@ -57,13 +60,19 @@ import {Menu} from 'primeng/menu';
         MultiSelectModule,
         IconField,
         InputIcon,
-        Menu
+        Menu,
+        Tabs,
+        TabList,
+        Tab,
+        TabPanels,
+        TabPanel
     ],
     exports: [
         DomainsListComponent,
         SearchDomainPipe,
         SearchDomainGroupPipe,
-        RemovalConfirmationModalComponent
+        RemovalConfirmationModalComponent,
+        DomainAnnotationsComponent
     ],
   providers: [
     DomainService,

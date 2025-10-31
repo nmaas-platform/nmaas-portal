@@ -9,6 +9,7 @@ import {DomainGroupViewComponent} from './domain-group-view/domain-group-view.co
 import {BulkDomainListComponent} from '../bulkDeployment/bulk-domain-list/bulk-domain-list.component';
 import {BulkViewComponent} from '../bulkDeployment/bulk-view/bulk-view.component';
 import { DomainAnnotationsComponent } from './domain-annotations/domain-annotations.component';
+import {GlobalSettingsComponent} from './global-settings/global-settings.component';
 
 export const DomainsRoutes: Route[] = [
     {
@@ -53,5 +54,9 @@ export const DomainsRoutes: Route[] = [
     {
         path: 'domains/bulks/:id', component: BulkViewComponent, canActivate: [AuthGuard, RoleGuard],
         data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']}
+    },
+    {
+        path: 'resources-limits', component: GlobalSettingsComponent, canActivate: [AuthGuard, RoleGuard],
+        data: {roles: ['ROLE_SYSTEM_ADMIN']}
     }
 ];
