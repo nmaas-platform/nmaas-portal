@@ -55,7 +55,7 @@
                     <li *roles="['ROLE_SYSTEM_ADMIN']"
                         [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
                         <a  style="display: flex; align-items: center;" [routerLink]="['/admin/resources-limits']">
-                            <i class="pi pi-sitemap" style="margin-right:10px; font-size: 18px" title="Bulk deployments"></i>
+                            <i class="pi pi-cog" style="margin-right:10px; font-size: 18px" title="Global settings"></i>
                             <span *ngIf="!isCollapsed">
                                 Global settings
                             </span>
@@ -82,7 +82,7 @@
                     <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']"
                         [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
                         <a  style="display: flex; align-items: center;" [routerLink]="['/admin/domains/bulks']">
-                            <i class="pi pi-sitemap" style="margin-right:10px; font-size: 18px" title="Bulk deployments"></i>
+                            <i class="pi pi-box" style="margin-right:10px; font-size: 18px" title="Bulk deployments"></i>
                             <span *ngIf="!isCollapsed">
                                 {{ 'NAVBAR.BULK_DEPLOYMENT_DOMAIN' | translate }}
                             </span>
