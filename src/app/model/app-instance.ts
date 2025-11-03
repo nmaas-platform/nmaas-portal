@@ -49,4 +49,5 @@ export class AppInstance {
   public appConfigRepositoryAccessDetails: AppConfigRepositoryAccessDetails = undefined;
   public members: User[] = []
   public upgradeInfo: AppInstanceUpgradeInfo = undefined;
+  public remoteClusterId?: number = undefined;
 }
