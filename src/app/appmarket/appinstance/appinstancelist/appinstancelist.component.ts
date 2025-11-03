@@ -7,6 +7,7 @@ import {UserDataService} from '../../../service/userdata.service';
 import {Observable} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 import {SessionService} from '../../../service/session.service';
+import {ClusterManagerService} from '../../../service/cluster-manager.service';
 
 export enum AppInstanceListSelection {
     ALL, MY,
@@ -53,7 +54,7 @@ export class AppInstanceListComponent implements OnInit {
 
 
     public searchValue = '';
-
+    private clusterMap: Map<number, string> = new Map();
 
     constructor(private readonly appInstanceService: AppInstanceService,
                 protected readonly domainService: DomainService,
@@ -61,11 +62,15 @@ export class AppInstanceListComponent implements OnInit {
                 private readonly authService: AuthService,
                 private readonly translateService: TranslateService,
                 private readonly sessionService: SessionService,
-                protected readonly appImagesService: AppImagesService) {
+                protected readonly appImagesService: AppImagesService,
+                private clusterManagerService: ClusterManagerService) {
 
     }
 
     ngOnInit() {
+        this.clusterManagerService.getAllClusters().subscribe(c => {
+            c.forEach(cluster => this.clusterMap.set(cluster.id, cluster.name));
+        })
         this.userDataService.selectedDomainId.subscribe(domainId => {
             if (this.authService.hasDomainRole(domainId, 'ROLE_USER') ||
                 this.authService.hasDomainRole(domainId, 'ROLE_GUEST') ||
@@ -158,13 +163,17 @@ export class AppInstanceListComponent implements OnInit {
         }
         if (this.selectedListRange === AppInstanceListSelection.MY) {
             this.appInstanceService.getPagedMyAppInstances(this.domainId, criteria).subscribe(response => {
-                this.appDeployedInstances = response.content;
+                this.appDeployedInstances = response.content.map(ins => ({
+                    ...ins, remoteClusterName: this.clusterMap.get(ins.id)
+                }));
                 this.totalDeployedElements = response.totalElements;
                 this.loadingInstances = false;
             });
         } else if (this.selectedListRange === AppInstanceListSelection.ALL) {
             this.appInstanceService.getPagedAppInstances(this.domainId, criteria).subscribe(response => {
-                this.appDeployedInstances = response.content;
+                this.appDeployedInstances = response.content.map(ins => ({
+                    ...ins, remoteClusterName: this.clusterMap.get(ins.id)
+                }));
                 this.totalDeployedElements = response.totalElements;
                 this.loadingInstances = false;
             });
@@ -181,13 +190,17 @@ export class AppInstanceListComponent implements OnInit {
         }
         if (this.selectedListRange === AppInstanceListSelection.MY) {
             this.appInstanceService.getPagedMyAppInstances(this.domainId, criteria).subscribe(response => {
-                this.appUndeployedInstances = response.content;
+                this.appDeployedInstances = response.content.map(ins => ({
+                    ...ins, remoteClusterName: this.clusterMap.get(ins.id)
+                }));
                 this.totalUndeployedElements = response.totalElements;
                 this.loadingUndeployedInstances = false;
             });
         } else if (this.selectedListRange === AppInstanceListSelection.ALL) {
             this.appInstanceService.getPagedAppInstances(this.domainId, criteria).subscribe(response => {
-                this.appUndeployedInstances = response.content;
+                this.appUndeployedInstances = response.content.map(ins => ({
+                    ...ins, remoteClusterName: this.clusterMap.get(ins.id)
+                }));
                 this.totalUndeployedElements = response.totalElements;
                 this.loadingUndeployedInstances = false;
             });
