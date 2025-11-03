@@ -164,7 +164,7 @@ export class AppInstanceListComponent implements OnInit {
         if (this.selectedListRange === AppInstanceListSelection.MY) {
             this.appInstanceService.getPagedMyAppInstances(this.domainId, criteria).subscribe(response => {
                 this.appDeployedInstances = response.content.map(ins => ({
-                    ...ins, remoteClusterName: this.clusterMap.get(ins.id)
+                    ...ins, remoteClusterName: this.clusterMap.get(ins.remoteClusterId)
                 }));
                 this.totalDeployedElements = response.totalElements;
                 this.loadingInstances = false;
@@ -172,8 +172,9 @@ export class AppInstanceListComponent implements OnInit {
         } else if (this.selectedListRange === AppInstanceListSelection.ALL) {
             this.appInstanceService.getPagedAppInstances(this.domainId, criteria).subscribe(response => {
                 this.appDeployedInstances = response.content.map(ins => ({
-                    ...ins, remoteClusterName: this.clusterMap.get(ins.id)
+                    ...ins, remoteClusterName: this.clusterMap.get(ins.remoteClusterId)
                 }));
+                console.log(this.appDeployedInstances, 'Instances');
                 this.totalDeployedElements = response.totalElements;
                 this.loadingInstances = false;
             });
@@ -191,7 +192,7 @@ export class AppInstanceListComponent implements OnInit {
         if (this.selectedListRange === AppInstanceListSelection.MY) {
             this.appInstanceService.getPagedMyAppInstances(this.domainId, criteria).subscribe(response => {
                 this.appDeployedInstances = response.content.map(ins => ({
-                    ...ins, remoteClusterName: this.clusterMap.get(ins.id)
+                    ...ins, remoteClusterName: this.clusterMap.get(ins.remoteClusterId)
                 }));
                 this.totalUndeployedElements = response.totalElements;
                 this.loadingUndeployedInstances = false;
@@ -199,7 +200,7 @@ export class AppInstanceListComponent implements OnInit {
         } else if (this.selectedListRange === AppInstanceListSelection.ALL) {
             this.appInstanceService.getPagedAppInstances(this.domainId, criteria).subscribe(response => {
                 this.appUndeployedInstances = response.content.map(ins => ({
-                    ...ins, remoteClusterName: this.clusterMap.get(ins.id)
+                    ...ins, remoteClusterName: this.clusterMap.get(ins.remoteClusterId)
                 }));
                 this.totalUndeployedElements = response.totalElements;
                 this.loadingUndeployedInstances = false;
