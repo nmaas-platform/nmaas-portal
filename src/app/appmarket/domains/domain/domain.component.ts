@@ -18,6 +18,8 @@ import {MaxLengthDirective} from '../../../directive/max-length.directive';
 import {DomainAnnotation} from '../../../model/domain-annotation';
 import { ClusterManager } from '../../../model/cluster-manager';
 import {ToastContainerComponent, ToastMode} from '../../../shared/toast-container/toast-container.component';
+import {ResourcesLimitService} from '../../../service/resources-limit.service';
+import {GlobalResourcesLimit} from '../../../model/global-resources-limit';
 
 
 @Component({
@@ -53,6 +55,14 @@ export class DomainComponent extends BaseComponent implements OnInit {
 
     public errorMessage = "";
 
+    public domainLimit: GlobalResourcesLimit = {
+        memory: null,
+        cpu: null,
+        instancesNo: null,
+        containersNo: null,
+        limitType: 'DOMAIN'
+    };
+
     public cluster: ClusterManager = new ClusterManager();
 
     constructor(public domainService: DomainService,
@@ -62,7 +72,8 @@ export class DomainComponent extends BaseComponent implements OnInit {
                 private location: Location,
                 public authService: AuthService,
                 protected appsService: AppsService,
-                private toast: ToastContainerComponent) {
+                private toast: ToastContainerComponent,
+                private resourcesLimitsService: ResourcesLimitService) {
         super();
     }
 
@@ -90,7 +101,10 @@ export class DomainComponent extends BaseComponent implements OnInit {
                             err.statusCode === 401 || err.statusCode === 403 || err.statusCode === 500)) {
                             this.router.navigateByUrl('/notfound');
                         }
-                    });
+                });
+                this.resourcesLimitsService.getDomainLimit(this.domainId).subscribe((limit) => {
+                    this.domainLimit = limit ?? this.domainLimit
+                })
             } else {
                 this.domain = new Domain();
                 this.domain.active = true;
@@ -113,10 +127,19 @@ export class DomainComponent extends BaseComponent implements OnInit {
     public submit(): void {
         if (this.domainId !== undefined) {
             this.updateExistingDomain();
+            if (this.domainLimit?.id) {
+                this.resourcesLimitsService.updateDomainLimit(this.domainLimit).subscribe();
+            } else if (this.hasAnyLimit()) {
+                this.resourcesLimitsService.setDomainLimit(this.domainId, this.domainLimit).subscribe();
+            }
             this.toast.show('TOAST.SUCCESS.UPDATE_DOMAIN', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER' )
         } else {
-            this.domainService.add(this.domain).subscribe(() => {
+            this.domainService.add(this.domain).subscribe((domain) => {
+                this.domainId = domain.id;
                 this.toast.show('TOAST.SUCCESS.NEW_DOMAIN', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER')
+                if (this.hasAnyLimit()) {
+                    this.resourcesLimitsService.setDomainLimit(this.domainId, this.domainLimit).subscribe();
+                }
                 this.router.navigate(['admin/domains/'])
             }, err => {
                 console.error(err);
@@ -129,6 +152,29 @@ export class DomainComponent extends BaseComponent implements OnInit {
             });
         }
         this.domainService.setUpdateRequiredFlag(true);
+    }
+
+    public hasAnyLimit(): boolean {
+        return !!(
+                this.domainLimit?.cpu ||
+                this.domainLimit?.instancesNo ||
+                this.domainLimit?.memory ||
+                this.domainLimit?.containersNo
+        )
+    }
+
+    public disableLimits(): void {
+        if (this.domainLimit?.id) {
+            this.resourcesLimitsService.deleteDomainLimit(this.domainLimit.id).subscribe(() => {
+                    this.domainLimit = {
+                        memory: null,
+                        cpu: null,
+                        instancesNo: null,
+                        containersNo: null,
+                        limitType: 'DOMAIN'
+                    };
+            });
+        }
     }
 
     public updateExistingDomain(): void {
