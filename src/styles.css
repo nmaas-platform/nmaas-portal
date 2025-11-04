@@ -389,3 +389,7 @@ body .p-menu-item-content a{
 body .p-dialog {
     transform: none !important;
 }
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{
+    background: transparent;
+    border: none;
+}
