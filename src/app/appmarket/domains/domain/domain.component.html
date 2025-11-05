@@ -70,10 +70,10 @@
 			</div>
 
 			<div class="form-group" *ngIf="domain.id !== domainService.getGlobalDomainId()">
-				<label for="externalServiceDomain " class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.EXTERNAL_SERVICE_DOMAIN' | translate }}</label>
+				<label for="externalServiceDomain" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.EXTERNAL_SERVICE_DOMAIN' | translate }}</label>
 				<div class="col-sm-10">
-					<input pInputText type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="externalServiceDomain "
-						   name="externalServiceDomain " [(ngModel)]="domain.domainTechDetails.externalServiceDomain">
+					<input pInputText type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="externalServiceDomain"
+						   name="externalServiceDomain" [(ngModel)]="domain.domainTechDetails.externalServiceDomain">
 				</div>
 			</div>
 
@@ -114,7 +114,7 @@
                             class="btn btn-danger"
                             (click)="disableLimits()"
                             [disabled]="!domainLimit?.id">
-                        Disable Limits
+                        {{'DOMAIN_DETAILS.DISABLE_BUTTON' | translate}}
                     </button>
                 </div>
 
@@ -382,13 +382,25 @@
 
 		 
 		<div class="flex justify-content-end">
-			<button *ngIf="!isInMode(ComponentMode.VIEW)" type="submit" class="btn btn-primary" [disabled]="!domainForm.form.valid">{{ 'DOMAIN_DETAILS.SUBMIT_BUTTON' | translate }}</button>
+			<button *ngIf="!isInMode(ComponentMode.VIEW)" type="submit" class="btn btn-primary"
+                    [disabled]="!domainForm.form.valid">{{ 'DOMAIN_DETAILS.SUBMIT_BUTTON' | translate }}</button>
+
 		</div>
 
+
 		<br *ngIf="errorMessage">
-      <div class="alert alert-danger text-left" *ngIf="errorMessage">
-        {{errorMessage}}
-      </div>
+
+        <div *ngIf="domainForm">
+            <h5>Form debug:</h5>
+            <pre>Valid: {{ domainForm.form.valid }}</pre>
+            <pre>Status: {{ domainForm.form.status }}</pre>
+
+            <div *ngFor="let control of domainForm.form?.controls | keyvalue">
+                <b>{{ control.key }}</b>:
+                {{ control.value.status }}
+                <span *ngIf="control.value.errors">→ {{ control.value.errors | json }}</span>
+            </div>
+        </div>
 	</form>
 </div>
 
