@@ -386,21 +386,7 @@
                     [disabled]="!domainForm.form.valid">{{ 'DOMAIN_DETAILS.SUBMIT_BUTTON' | translate }}</button>
 
 		</div>
-
-
 		<br *ngIf="errorMessage">
-
-        <div *ngIf="domainForm">
-            <h5>Form debug:</h5>
-            <pre>Valid: {{ domainForm.form.valid }}</pre>
-            <pre>Status: {{ domainForm.form.status }}</pre>
-
-            <div *ngFor="let control of domainForm.form?.controls | keyvalue">
-                <b>{{ control.key }}</b>:
-                {{ control.value.status }}
-                <span *ngIf="control.value.errors">→ {{ control.value.errors | json }}</span>
-            </div>
-        </div>
 	</form>
 </div>
 
