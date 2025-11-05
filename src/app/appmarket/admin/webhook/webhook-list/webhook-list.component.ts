@@ -76,10 +76,6 @@ export class WebhookListComponent implements OnInit {
     });
   }
 
-  public newWebhookValid(): boolean {
-    return this.addedWebhook.name !== '' && this.addedWebhook.targetUrl !== '';
-  }
-
   filterWebhooks() {
     const value = this.searchValue?.toLowerCase() || '';
     this.filteredWebhooks = this.webkooks.filter(webhook =>

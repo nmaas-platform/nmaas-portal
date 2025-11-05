@@ -78,47 +78,58 @@
 <nmaas-modal >
     <div class="nmaas-modal-header">{{'WEBHOOKS.TITLE_NEW' | translate}}</div>
     <div class="nmaas-modal-body">
-        <div class="flex flex-column">
-            <div class="mt-4">
-                <label for="name">{{'WEBHOOKS.NAME' | translate}}</label>
-                <input pInputText id="name" type="text" class="form-control" [(ngModel)]="addedWebhook.name" [ngModelOptions]="{standalone: true}">
-            </div>
-
-            <div class="mt-4">
-                <label for="desc">{{'WEBHOOKS.TARGET_URL' | translate}}</label>
-                <input pInputText id="desc" type="text" class="form-control" [(ngModel)]="addedWebhook.targetUrl" [ngModelOptions]="{standalone: true}">
-            </div>
-            <div class="mt-4">
-                <label for="contactEmail">{{'WEBHOOKS.TYPE' | translate}}</label>
-              <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" id="domain" #typeSelect class="form-control" (change)="onTypeSelect(typeSelect.value)" >
-                    <option *ngFor="let t of type" [value]="t.name"
-                        >{{('WEBHOOKS.' + t.name ) | translate}}</option>
-                </select>       
-            </div>
-
-
-            <div class="mt-4">
-                    <label for="assignDomain">Auth required</label>
-                    <input class="ml-2" type="checkbox" [(ngModel)]="authRequired"  id="authRequired"/>
+        <form (submit)="closeModalAndSaveWebhook()" #newWebhookForm= "ngForm">
+            <div class="flex flex-column">
+                <div class="mt-4">
+                    <label for="name">{{'WEBHOOKS.NAME' | translate}}</label>
+                    <input pInputText id="name" type="text" class="form-control" [(ngModel)]="addedWebhook.name"
+                           name="name" #name="ngModel" required>
                 </div>
 
-            <div *ngIf="authRequired" class="mt-4">
-                <label for="desc">{{'WEBHOOKS.TOKEN' | translate}}</label>
-                <input pInputText id="desc" type="text" class="form-control" [(ngModel)]="addedWebhook.tokenValue" [ngModelOptions]="{standalone: true}">
-            </div>
+                <div class="mt-4">
+                    <label for="desc">{{'WEBHOOKS.TARGET_URL' | translate}}</label>
+                    <input pInputText id="desc" type="text" class="form-control" [(ngModel)]="addedWebhook.targetUrl"
+                            name="targetUrl" #targetUrl="ngModel" required>
+                </div>
+                <div class="mt-4">
+                    <label for="contactEmail">{{'WEBHOOKS.TYPE' | translate}}</label>
+                    <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" id="domain" #typeSelect class="form-control"
+                            (change)="onTypeSelect(typeSelect.value)" >
+                        <option *ngFor="let t of type" [value]="t.name"
+                        >{{('WEBHOOKS.' + t.name ) | translate}}</option>
+                    </select>
+                </div>
 
-            <div *ngIf="authRequired" class="mt-4">
-                <label for="desc">{{'WEBHOOKS.AUTH' | translate}}</label>
-                <input pInputText id="desc" type="text" class="form-control" [(ngModel)]="addedWebhook.authorizationHeader" [ngModelOptions]="{standalone: true}">
-            </div>
 
-            
-        </div>
+                <div class="mt-4">
+                    <label for="assignDomain">Auth required</label>
+                    <input class="ml-2" type="checkbox" [(ngModel)]="authRequired" name="authRequired"  id="authRequired"/>
+                </div>
+
+                <div *ngIf="authRequired" class="mt-4">
+                    <label for="desc">{{'WEBHOOKS.TOKEN' | translate}}</label>
+                    <input pInputText id="desc" type="text" class="form-control" [(ngModel)]="addedWebhook.tokenValue"
+                           name="tokenValue" #tokenValue="ngModel" [required]="authRequired" >
+                </div>
+
+                <div *ngIf="authRequired" class="mt-4">
+                    <label for="desc">{{'WEBHOOKS.AUTH' | translate}}</label>
+                    <input #authorizationHeader= "ngModel" pInputText pattern="^(Authorization|X-.*)$"
+                           id="desc" type="text" class="form-control" [(ngModel)]="addedWebhook.authorizationHeader"
+                           name="authorizationHeader" [required]="authRequired" >
+                    <div style="margin-top: 5px" *ngIf="authorizationHeader.invalid && (authorizationHeader.dirty || authorizationHeader.touched)"
+                         class="alert alert-danger">
+                        <div *ngIf="authorizationHeader.errors?.['pattern']">Authorization header must be either 'Authorization' or start with 'X-'</div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
     </div>
     <div class="nmaas-modal-footer">
       <button type="button" class="btn btn-secondary"
                     (click)="this.modal.hide()">{{'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
-      <button type="button" class="btn btn-primary" [disabled]="!newWebhookValid()" (click)="closeModalAndSaveWebhook()"
+      <button type="button" class="btn btn-primary" [disabled]="!newWebhookForm.form.valid" (click)="closeModalAndSaveWebhook()"
               pTooltip="Upload file is required before save" showDelay="2000" >{{'WEBHOOKS.SAVE' | translate}}</button>
     </div>
   </nmaas-modal>
