@@ -18,7 +18,7 @@ export class WebhookService extends GenericDataService {
     }
 
 
-    public getAll() : Observable<Webhook[]> {
+    public getAll(): Observable<Webhook[]> {
         return this.get<Webhook[]>(this.url);
     }
 
@@ -30,13 +30,32 @@ export class WebhookService extends GenericDataService {
         return this.get<Webhook>(this.url + '/' + id);
     }
 
-
     public update(webhook: Webhook) {
         return this.put<Webhook, Webhook>(this.url + '/' + webhook.id, webhook);
     }
 
-    public remove(id:number) {
+    public remove(id: number) {
         return this.delete<void>(this.url + '/' + id);
+    }
+
+    public getByDomain(domainId: number): Observable<Webhook[]> {
+        return this.get<Webhook[]>(this.url + '/domain/' + domainId);
+    }
+
+    public getOneByDomain(domainId: number, id: number): Observable<Webhook> {
+        return this.get<Webhook>(this.url + '/domain/' + domainId + '/' + id);
+    }
+
+    public createByDomain(domainId: number, webhook: Webhook) {
+        return this.post<Webhook, Id>(this.url + '/domain/' + domainId, webhook);
+    }
+
+    public updateByDomain(domainId: number, webhook: Webhook) {
+        return this.put<Webhook, Webhook>(this.url + '/domain/' + domainId + '/' + webhook.id, webhook);
+    }
+
+    public removeByDomain(domainId: number, id: number) {
+        return this.delete<void>(this.url + '/domain/' + domainId + '/' + id);
     }
 
 }

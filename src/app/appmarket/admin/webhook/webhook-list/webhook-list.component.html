@@ -91,9 +91,19 @@
                     <input pInputText id="desc" type="text" class="form-control" [(ngModel)]="addedWebhook.targetUrl"
                             name="targetUrl" #targetUrl="ngModel" required>
                 </div>
+                <div class="mt-4" *ngIf="this.selectedDomain == this.domainGlobalId">
+                    <label for="domain">Domain</label>
+                    <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" id="domain" #domainSelect class="form-control"
+                            (change)="onDomainSelect(domainSelect.value)" name="domain">
+                        <option *ngIf="!newWebhookSelectedDomain" value="" disabled selected> </option>
+                        <option *ngFor="let d of domains" [value]="d.id">
+                            {{d.name}}
+                        </option>
+                    </select>
+                </div>
                 <div class="mt-4">
-                    <label for="contactEmail">{{'WEBHOOKS.TYPE' | translate}}</label>
-                    <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" id="domain" #typeSelect class="form-control"
+                    <label for="type">{{'WEBHOOKS.TYPE' | translate}}</label>
+                    <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" id="type" #typeSelect class="form-control"
                             (change)="onTypeSelect(typeSelect.value)" >
                         <option *ngFor="let t of type" [value]="t.name"
                         >{{('WEBHOOKS.' + t.name ) | translate}}</option>
