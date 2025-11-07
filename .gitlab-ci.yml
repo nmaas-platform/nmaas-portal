@@ -69,7 +69,7 @@ build_and_push_release_image:
 
 mend:
   stage: mend
-  image: openjdk:17-jdk-slim
+  image: eclipse-temurin:17-jdk-jammy
   only:
     - /^release/
   variables:
