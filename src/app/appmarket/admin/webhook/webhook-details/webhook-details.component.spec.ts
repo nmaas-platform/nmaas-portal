@@ -2,12 +2,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { WebhookDetailsComponent } from './webhook-details.component';
 import { WebhookService } from '../../../../service/webhook.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { of } from 'rxjs';
+import {BehaviorSubject, of} from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Webhook } from '../../../../model/webhook';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import {ToastContainerComponent} from '../../../../shared/toast-container/toast-container.component';
+import {UserDataService} from '../../../../service/userdata.service';
+import {DomainService} from '../../../../service';
 
 class MockWebhookService {
   getOne = jasmine.createSpy().and.returnValue(of({ id: 1, name: 'Test', eventType: 'DOMAIN_CREATION', targetUrl: 'http://test' }));
@@ -27,6 +29,11 @@ describe('WebhookDetailsComponent', () => {
   let mockToast: jasmine.SpyObj<ToastContainerComponent>;
 
   beforeEach(async () => {
+    const userDataServiceSpy = jasmine.createSpyObj('UserDataService', [], {
+      selectedDomainId: new BehaviorSubject<number>(1).asObservable()
+    });
+    const domainServiceSpy = jasmine.createSpyObj('DomainService', ['getGlobalDomainId']);
+    domainServiceSpy.getGlobalDomainId.and.returnValue(1);
     mockToast = jasmine.createSpyObj('ToastContainerComponent', ['show']);
     await TestBed.configureTestingModule({
       declarations: [WebhookDetailsComponent],
@@ -43,7 +50,9 @@ describe('WebhookDetailsComponent', () => {
         { provide: WebhookService, useClass: MockWebhookService },
         { provide: ActivatedRoute, useClass: MockActivatedRoute },
         { provide: Router, useClass: MockRouter },
-        { provide: ToastContainerComponent, useValue: mockToast }
+        { provide: ToastContainerComponent, useValue: mockToast },
+        { provide: UserDataService, useValue: userDataServiceSpy },
+        { provide: DomainService, useValue: domainServiceSpy }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

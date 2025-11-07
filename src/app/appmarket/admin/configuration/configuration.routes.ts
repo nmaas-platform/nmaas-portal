@@ -7,9 +7,9 @@ import { WebhookDetailsComponent } from "../webhook/webhook-details/webhook-deta
 
 export const ConfigurationRoutes: Route[] = [
     {path: 'configuration', component: ConfigurationDetailsComponent, canActivate: [AuthGuard, RoleGuard],
-        data:{roles: ['ROLE_SYSTEM_ADMIN']} },
+        data: {roles: ['ROLE_SYSTEM_ADMIN']} },
     {path: 'webhooks', component: WebhookListComponent, canActivate: [AuthGuard, RoleGuard],
-        data:{roles: ['ROLE_SYSTEM_ADMIN']} },
+        data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN']} },
     {path: 'webhooks/:id', component: WebhookDetailsComponent, canActivate: [AuthGuard, RoleGuard],
-        data:{roles: ['ROLE_SYSTEM_ADMIN']} }
+        data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN']} }
 ];

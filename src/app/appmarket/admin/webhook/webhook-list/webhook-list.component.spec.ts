@@ -1,12 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { WebhookListComponent } from './webhook-list.component';
 import { WebhookService } from '../../../../service/webhook.service';
-import { of } from 'rxjs';
+import {BehaviorSubject, of} from 'rxjs';
 import { ModalComponent } from '../../../../shared';
 import { Webhook, WebhookType } from '../../../../model/webhook';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import {ToastContainerComponent} from '../../../../shared/toast-container/toast-container.component';
+import {UserDataService} from '../../../../service/userdata.service';
+import {DomainService} from '../../../../service';
+import {FormsModule} from '@angular/forms';
 
 class MockWebhookService {
   getAll = jasmine.createSpy().and.returnValue(of([{ id: 1, name: 'Test', eventType: 'DOMAIN_ACTION', targetUrl: 'http://test' }]));
@@ -25,10 +28,17 @@ describe('WebhookListComponent', () => {
   let mockToast: jasmine.SpyObj<ToastContainerComponent>;
 
   beforeEach(async () => {
+    const userDataServiceSpy = jasmine.createSpyObj('UserDataService', [], {
+      selectedDomainId: new BehaviorSubject<number>(1).asObservable()
+    });
+    const domainServiceSpy = jasmine.createSpyObj('DomainService', ['getMyDomains', 'getGlobalDomainId']);
+    domainServiceSpy.getMyDomains.and.returnValue(of([]));
+    domainServiceSpy.getGlobalDomainId.and.returnValue(1);
     mockToast = jasmine.createSpyObj('ToastContainerComponent', ['show']);
     await TestBed.configureTestingModule({
       declarations: [WebhookListComponent],
       imports: [
+        FormsModule,
         TranslateModule.forRoot({
                             loader: {
                                 provide: TranslateLoader,
@@ -39,7 +49,9 @@ describe('WebhookListComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: WebhookService, useClass: MockWebhookService },
-        { provide: ToastContainerComponent, useValue: mockToast }
+        { provide: ToastContainerComponent, useValue: mockToast },
+        { provide: UserDataService, useValue: userDataServiceSpy },
+        { provide: DomainService, useValue: domainServiceSpy },
       ]
     })
     .overrideComponent(WebhookListComponent, {
@@ -69,12 +81,13 @@ describe('WebhookListComponent', () => {
     expect(compiled).toBeTruthy();
   });
 
-  it('should refresh list and set webkooks', () => {
+  it('should refresh list and set webkooks', fakeAsync(() => {
     component.refreshList();
+    tick(400);
     expect(service.getAll).toHaveBeenCalled();
     fixture.detectChanges();
-    expect(component.webkooks.length).toBeGreaterThan(0);
-  });
+    expect(component.webhooks.length).toBeGreaterThan(0);
+  }));
 
   it('should open modal and set default event type', () => {
     component.openModal();
@@ -83,6 +96,8 @@ describe('WebhookListComponent', () => {
   });
 
   it('should call service.create and hide modal on closeModalAndSaveWebhook', () => {
+    component.selectedDomain = 1;
+    component.domainGlobalId = 1;
     component.addedWebhook = { name: 'Test', eventType: 'DOMAIN_ACTION', targetUrl: 'http://test' } as Webhook;
     component.closeModalAndSaveWebhook();
     expect(service.create).toHaveBeenCalled()

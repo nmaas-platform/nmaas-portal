@@ -6,6 +6,10 @@ export class Webhook {
     public tokenValue: string = undefined;
     public authorizationHeader: string = undefined;
     public eventType: WebhookType = undefined;
+    public domain?: Domain = undefined;
+}
+export interface Domain {
+    id: number;
 }
 
 export enum WebhookType {
