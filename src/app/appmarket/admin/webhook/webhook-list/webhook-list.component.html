@@ -92,7 +92,7 @@
                             name="targetUrl" #targetUrl="ngModel" required>
                 </div>
                 <div class="mt-4" *ngIf="this.selectedDomain == this.domainGlobalId">
-                    <label for="domain">Domain</label>
+                    <label for="domain">{{'WEBHOOKS.DOMAIN' | translate}}</label>
                     <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" id="domain" #domainSelect class="form-control"
                             (change)="onDomainSelect(domainSelect.value)" name="domain">
                         <option *ngIf="!newWebhookSelectedDomain" value="" disabled selected> </option>

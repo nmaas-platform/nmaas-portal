@@ -10,6 +10,7 @@ export class Webhook {
 }
 export interface Domain {
     id: number;
+    name?: string;
 }
 
 export enum WebhookType {
