@@ -37,6 +37,9 @@
                 <th pSortableColumn="targetUrl" id="url"> {{ 'WEBHOOKS.TARGET_URL' | translate }}
                     <p-sortIcon field="targetUrl"></p-sortIcon>
                 </th>
+                <th *ngIf="selectedDomain == domainGlobalId " pSortableColumn="domain" id="domain"> {{ 'WEBHOOKS.DOMAIN' | translate }}
+                    <p-sortIcon field="domain"></p-sortIcon>
+                </th>
                <th></th>
             </tr>
         </ng-template>
@@ -46,6 +49,7 @@
                 <td [routerLink]="[webhook.id]">{{webhook.name}}</td>
                 <td [routerLink]="[webhook.id]">{{('WEBHOOKS.' + webhook.eventType.toString().toUpperCase() ) | translate}}</td>
                 <td [routerLink]="[webhook.id]">{{webhook.targetUrl}}</td>
+                <td *ngIf="selectedDomain == domainGlobalId" [routerLink]="[webhook.id]">{{webhook.domain?.name}}</td>
     
 <!--               <td class="text-right">-->
 <!--                   <span class="dropdown">-->
