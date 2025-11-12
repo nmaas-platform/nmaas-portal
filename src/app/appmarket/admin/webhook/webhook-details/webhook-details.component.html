@@ -27,6 +27,16 @@
                     </div>
                 </div>
 
+                <div *ngIf="webhook.domain" class="form-group">
+                    <label for="doaminName" class="col-sm-2 control-label">{{'WEBHOOKS.DOMAIN' | translate}}</label>
+                    <div class="col-sm-10">
+                        <div class="col-sm-10">
+                            <input pInputText type="text" class="form-control" id="domainName" name="domainName"
+                                   [(ngModel)]="webhook.domain.name" [disabled]="true">
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label for="targetUrl" class="col-sm-2 control-label">{{ 'WEBHOOKS.TARGET_URL' | translate }}</label>
                     <div class="col-sm-10">
