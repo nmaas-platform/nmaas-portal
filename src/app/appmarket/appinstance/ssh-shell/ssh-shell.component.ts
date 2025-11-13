@@ -141,7 +141,7 @@ export class SshShellComponent implements OnInit, AfterViewInit, OnDestroy {
             } else if (e.key === String.fromCharCode(127)) { // backspace (DEL) for some reason this is ascii 127 instead of 8
                 // ev.keyCode === 8
                 // Do not delete the prompt
-                if (this.child.underlying.buffer.active.cursorX > this.minPosition) {
+                if (this.child.underlying.buffer.active.cursorX > this.minPosition || this.line.length > 0) {
                     this.child.write('\b \b'); // write backspace
                     this.line = this.line.slice(0, -1); // remove last character from line
                 }
