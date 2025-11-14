@@ -118,14 +118,24 @@ export class SshShellComponent implements OnInit, AfterViewInit, OnDestroy {
     ngAfterViewInit() {
         const clipboardAddon = new ClipboardAddon();
         this.child.underlying.loadAddon(clipboardAddon);
+
+        this.child.underlying.textarea.addEventListener('paste', async (event: ClipboardEvent) => {
+            console.log('evet works')
+            event.preventDefault();
+            const pasteData = event.clipboardData?.getData('text');
+            console.log('pasted data', pasteData);
+            if (pasteData) {
+                this.child.write(pasteData);
+                this.line += pasteData;
+                console.log('current line with paste: ', this.line);
+            }
+        });
+
         // terminal is available now
         // default handler with enhancement
         this.child.keyEventInput.subscribe(e => {
 
             const ev = e.domEvent;
-            if (ev.ctrlKey || ev.metaKey || ev.shiftKey) {
-                return;
-            }
             const printable = !ev.altKey && !ev.ctrlKey && !ev.metaKey;
 
             if (e.key === '\r') { // enter - submit new command
