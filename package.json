@@ -33,6 +33,7 @@
     "@primeuix/themes": "^1.2.1",
     "@types/semver": "^7.3.8",
     "@types/zxcvbn": "^4.4.1",
+    "@xterm/addon-clipboard": "^0.1.0",
     "@zxcvbn-ts/core": "^3.0.0",
     "@zxcvbn-ts/language-en": "^3.0.0",
     "ajv": "^8.0.0",

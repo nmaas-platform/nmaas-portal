@@ -2,6 +2,9 @@ import {AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild} from '@an
 import {NgTerminal} from 'ng-terminal';
 import {ShellClientService} from '../../../service/shell-client.service';
 import {ModalComponent} from '../../../shared/modal';
+import { ClipboardAddon } from '@xterm/addon-clipboard';
+
+
 
 @Component({
     selector: 'app-ssh-shell',
@@ -113,6 +116,8 @@ export class SshShellComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
+        const clipboardAddon = new ClipboardAddon();
+        this.child.underlying.loadAddon(clipboardAddon);
         // terminal is available now
         // default handler with enhancement
         this.child.keyEventInput.subscribe(e => {
