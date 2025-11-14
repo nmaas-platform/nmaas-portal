@@ -123,6 +123,9 @@ export class SshShellComponent implements OnInit, AfterViewInit, OnDestroy {
         this.child.keyEventInput.subscribe(e => {
 
             const ev = e.domEvent;
+            if (ev.ctrlKey || ev.metaKey || ev.shiftKey) {
+                return;
+            }
             const printable = !ev.altKey && !ev.ctrlKey && !ev.metaKey;
 
             if (e.key === '\r') { // enter - submit new command
