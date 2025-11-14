@@ -120,14 +120,11 @@ export class SshShellComponent implements OnInit, AfterViewInit, OnDestroy {
         this.child.underlying.loadAddon(clipboardAddon);
 
         this.child.underlying.textarea.addEventListener('paste', async (event: ClipboardEvent) => {
-            console.log('evet works')
             event.preventDefault();
             const pasteData = event.clipboardData?.getData('text');
-            console.log('pasted data', pasteData);
             if (pasteData) {
                 this.child.write(pasteData);
                 this.line += pasteData;
-                console.log('current line with paste: ', this.line);
             }
         });
 
