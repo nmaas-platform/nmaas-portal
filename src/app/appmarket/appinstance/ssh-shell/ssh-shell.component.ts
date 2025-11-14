@@ -118,13 +118,22 @@ export class SshShellComponent implements OnInit, AfterViewInit, OnDestroy {
     ngAfterViewInit() {
         const clipboardAddon = new ClipboardAddon();
         this.child.underlying.loadAddon(clipboardAddon);
+        let cursorPosition = 0;
+        this.line = '';
 
         this.child.underlying.textarea.addEventListener('paste', async (event: ClipboardEvent) => {
             event.preventDefault();
             const pasteData = event.clipboardData?.getData('text');
             if (pasteData) {
+                this.line = this.line.slice(0, cursorPosition) + pasteData + this.line.slice(cursorPosition);
                 this.child.write(pasteData);
-                this.line += pasteData;
+                cursorPosition += pasteData.length;
+
+                const rest = this.line.slice(cursorPosition);
+                if (rest.length > 0) {
+                    this.child.write(rest);
+                    this.child.write('\b'.repeat(rest.length));
+                }
             }
         });
 
@@ -139,6 +148,8 @@ export class SshShellComponent implements OnInit, AfterViewInit, OnDestroy {
                 if (this.line === 'exit') {
                     this.disconnectWithModal();
                     this.child.underlying.reset();
+                    this.line = '';
+                    cursorPosition = 0;
                 } else {
                     this.shellClientService.sendCommand(this.sessionId, {
                         'command': this.line
@@ -150,25 +161,51 @@ export class SshShellComponent implements OnInit, AfterViewInit, OnDestroy {
                             console.error(error);
                         }
                     );
-                    // this.line = '';
-                    // this.child.write('\r\n');
+                    this.line = '';
+                    cursorPosition = 0;
                 }
+                this.child.write('\r\n');
             } else if (e.key === String.fromCharCode(127)) { // backspace (DEL) for some reason this is ascii 127 instead of 8
                 // ev.keyCode === 8
                 // Do not delete the prompt
-                if (this.child.underlying.buffer.active.cursorX > this.minPosition || this.line.length > 0) {
-                    this.child.write('\b \b'); // write backspace
-                    this.line = this.line.slice(0, -1); // remove last character from line
+                if (cursorPosition > 0) {
+                    this.line = this.line.slice(0, cursorPosition - 1) + this.line.slice(cursorPosition); // remove last character from line
+                    cursorPosition--;
+
+                    this.child.write('\b');
+                    this.child.write(this.line.slice(cursorPosition) + ' ');
+                    this.child.write('\b'.repeat(this.line.length - cursorPosition + 1));
                 }
 
+            } else if (e.key === 'ArrowLeft') {
+                if (cursorPosition > 0) {
+                    cursorPosition--;
+                    this.child.write('\u001b[D');
+                }
+            } else if (e.key === 'ArrowRight') {
+                if (cursorPosition < this.line.length) {
+                    cursorPosition++;
+                    this.child.write('\u001b[C');
+                }
+            } else if (e.key === 'ArrowUp') {
+                this.child.write('\u001b[A');
+            } else if (e.key === 'ArrowDown') {
+                this.child.write('\u001b[B');
             } else if (printable) { // standard
                 // extend definition of printable characters
                 const code = e.key.charCodeAt(0)
                 console.debug('new char entered', code)
                 // ascii printable characters
                 if (32 <= code && code <= 126) {
+                    this.line = this.line.slice(0, cursorPosition) + e.key + this.line.slice(cursorPosition);
                     this.child.write(e.key);
-                    this.line += e.key;
+
+                    const rest = this.line.slice(cursorPosition + 1);
+                    if (rest.length > 0) {
+                        this.child.write(rest);
+                        this.child.write('\b'.repeat(rest.length));
+                    }
+                    cursorPosition++;
                 }
             }
         })
