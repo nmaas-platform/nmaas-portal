@@ -137,9 +137,15 @@ export class SshShellComponent implements OnInit, AfterViewInit, OnDestroy {
             }
         });
 
+        this.child.underlying.onData(data => {
+            console.log('Current data', JSON.stringify(data));
+        });
+
         // terminal is available now
         // default handler with enhancement
         this.child.keyEventInput.subscribe(e => {
+
+            console.log('Current key', e.key);
 
             const ev = e.domEvent;
             const printable = !ev.altKey && !ev.ctrlKey && !ev.metaKey;
