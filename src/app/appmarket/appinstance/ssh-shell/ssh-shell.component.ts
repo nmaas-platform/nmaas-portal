@@ -139,6 +139,21 @@ export class SshShellComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.child.underlying.onData(data => {
             console.log('Current data', JSON.stringify(data));
+            if (data === '\u001b[D') {                      // arrow left
+                if (cursorPosition > 0) {
+                    cursorPosition--;
+                    this.child.write('\u001b[D');
+                }
+            } else if (data === '\u001b[C') {               // arrow right
+                if (cursorPosition < this.line.length) {
+                    cursorPosition++;
+                    this.child.write('\u001b[C');
+                }
+            } else if (data === '\u001b[A') {               // arrow up
+                this.child.write('\u001b[A');
+            } else if (data === '\u001b[B') {               // arrow down
+                this.child.write('\u001b[B');
+            }
         });
 
         // terminal is available now
@@ -182,21 +197,6 @@ export class SshShellComponent implements OnInit, AfterViewInit, OnDestroy {
                     this.child.write(this.line.slice(cursorPosition) + ' ');
                     this.child.write('\b'.repeat(this.line.length - cursorPosition + 1));
                 }
-
-            } else if (e.key === 'ArrowLeft') {
-                if (cursorPosition > 0) {
-                    cursorPosition--;
-                    this.child.write('\u001b[D');
-                }
-            } else if (e.key === 'ArrowRight') {
-                if (cursorPosition < this.line.length) {
-                    cursorPosition++;
-                    this.child.write('\u001b[C');
-                }
-            } else if (e.key === 'ArrowUp') {
-                this.child.write('\u001b[A');
-            } else if (e.key === 'ArrowDown') {
-                this.child.write('\u001b[B');
             } else if (printable) { // standard
                 // extend definition of printable characters
                 const code = e.key.charCodeAt(0)
