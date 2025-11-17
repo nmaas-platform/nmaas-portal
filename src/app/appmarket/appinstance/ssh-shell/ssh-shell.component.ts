@@ -138,7 +138,6 @@ export class SshShellComponent implements OnInit, AfterViewInit, OnDestroy {
         });
 
         this.child.underlying.onData(data => {
-            console.log('Current data', JSON.stringify(data));
             if (data === '\u001b[D') {                      // arrow left
                 if (cursorPosition > 0) {
                     cursorPosition--;
@@ -149,18 +148,17 @@ export class SshShellComponent implements OnInit, AfterViewInit, OnDestroy {
                     cursorPosition++;
                     this.child.write('\u001b[C');
                 }
-            } else if (data === '\u001b[A') {               // arrow up
-                this.child.write('\u001b[A');
-            } else if (data === '\u001b[B') {               // arrow down
-                this.child.write('\u001b[B');
             }
+            // else if (data === '\u001b[A') {               // arrow up
+            //     this.child.write('\u001b[A');
+            // } else if (data === '\u001b[B') {               // arrow down
+            //     this.child.write('\u001b[B');
+            // }
         });
 
         // terminal is available now
         // default handler with enhancement
         this.child.keyEventInput.subscribe(e => {
-
-            console.log('Current key', e.key);
 
             const ev = e.domEvent;
             const printable = !ev.altKey && !ev.ctrlKey && !ev.metaKey;
