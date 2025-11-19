@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {GlobalResourcesLimit} from '../../../model/global-resources-limit';
 import {ResourcesLimitService} from '../../../service/resources-limit.service';
+import {ToastContainerComponent, ToastMode} from '../../../shared/toast-container/toast-container.component';
 
 
 
@@ -16,7 +17,8 @@ export class GlobalSettingsComponent {
     limitType: 'GLOBAL',
   };
 
-  constructor(private resourcesLimitsService: ResourcesLimitService) {
+  constructor(private resourcesLimitsService: ResourcesLimitService,
+              private toast: ToastContainerComponent) {
   }
 
   ngOnInit() {
@@ -32,7 +34,9 @@ export class GlobalSettingsComponent {
 
   public save(): void {
     this.resourcesLimitsService.setGlobalLimit(this.globalResourcesLimit).subscribe({
-      next: (result) => {},
+      next: (result) => {
+        this.toast.show('TOAST.SUCCESS.GLOBAL_LIMIT', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER')
+      },
       error: (err) => {}
     });
   }
