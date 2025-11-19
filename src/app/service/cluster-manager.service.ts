@@ -53,4 +53,8 @@ export class ClusterManagerService {
         return this.http.get<ClusterManager[]>(`${this.url}/domain/${domainId}`);
     }
 
+    public refreshCluster(id: number): Observable<ClusterManager> {
+       return this.http.post<ClusterManager>(`${this.url}/${id}/status`, {});
+    }
+
 }
