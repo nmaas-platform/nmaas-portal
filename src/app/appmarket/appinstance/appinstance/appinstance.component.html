@@ -181,7 +181,7 @@
                                 </li>
                             </ng-container>
 
-                            <ng-container *ngIf="getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.FAILURE">
+                            <ng-container *ngIf="getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.FAILURE || AppInstanceState.VALIDATION_FAILED">
                                 <li>
                                     <a role="button"
                                        *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
@@ -216,15 +216,26 @@
         <div id="app-progress-info" style="font-size: 16px;" class="">
             <div id="app-progress-info-sub alert"
                  [ngClass]="{
-				 'alert-danger': getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.FAILURE || getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.UNKNOWN,
-				 'other-states': getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.FAILURE && getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.UNKNOWN }"
+				 'alert-danger': getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.FAILURE ||
+				                 getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.UNKNOWN ||
+				                 getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.VALIDATION_FAILED,
+				 'other-states': getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.FAILURE &&
+				                 getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.UNKNOWN &&
+				                 getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.VALIDATION_FAILED}"
                  class="">
                 <div *ngIf="getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.FAILURE"
                      class="info-container">
                     <span class="glyphicon glyphicon-exclamation-sign info-icon" aria-hidden="true"></span>
                     <span [innerHTML]="'APP_INSTANCE.INSTALLATION_PROGRESS.DEFAULT_ERROR_MESSAGE' | translate"></span>
                 </div>
-                <div *ngIf="getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.FAILURE && getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.UNKNOWN"
+                <div *ngIf="getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.VALIDATION_FAILED"
+                     class="info-container">
+                    <span class="glyphicon glyphicon-exclamation-sign info-icon" aria-hidden="true"></span>
+                    <span [innerHTML]="'APP_INSTANCE.INSTALLATION_PROGRESS.VALIDATION_FAILED' | translate"></span>
+                </div>
+                <div *ngIf="getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.FAILURE &&
+                            getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.UNKNOWN &&
+                            getStateAsEnum(appInstanceStatus?.state) !== AppInstanceState.VALIDATION_FAILED"
                      class="info-container">
                     <span class="glyphicon glyphicon-info-sign info-icon" aria-hidden="true"></span>
                     <span [innerHTML]="'APP_INSTANCE.USER_FRIENDLY.' + getStateAsString(appInstanceStatus?.state) | translate"></span>
