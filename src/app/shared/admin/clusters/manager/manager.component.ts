@@ -106,7 +106,7 @@ export class ClusterManagerComponent implements OnDestroy {
         command: () => this.deleteCluster(cluster)
       },
       {
-        label: 'Refresh status',
+        label: this.translate.instant( 'CLUSTERS.REFRESH'),
         command: () => this.clusterService.refreshCluster(cluster.id)
       }
     ];
