@@ -25,10 +25,8 @@ export class ResourcesLimitService extends GenericDataService {
   getLimits(): Observable<GlobalResourcesLimit[]> {
     return this.http.get<GlobalResourcesLimit[]>(this.uri);
   }
-  getDomainLimit(domainId: number): Observable<GlobalResourcesLimit | null> {
-    return this.getLimits().pipe(
-        map(limits => limits.find(l => l.limitType === 'DOMAIN' && l.domain?.id === domainId)
-    ));
+  getDomainLimit(domainId: number): Observable<GlobalResourcesLimit> {
+    return this.http.get<GlobalResourcesLimit>(`${this.uri}/domain/${domainId}`);
   }
 
   setGlobalLimit(limit: GlobalResourcesLimit): Observable<GlobalResourcesLimit> {
