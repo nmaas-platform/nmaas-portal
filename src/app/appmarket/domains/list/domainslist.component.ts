@@ -219,15 +219,17 @@ export class DomainsListComponent implements OnInit, OnDestroy { // Implemented 
         this.rowMenuItems = [
             {
                 label: this.translate.instant('DOMAINS.EDIT_BUTTON'),
+                visible: this.authService.hasRole('ROLE_SYSTEM_ADMIN') || this.authService.hasRole('ROLE_OPERATOR'),
                 routerLink: ['edit', domain.id]
             },
             {
                 label: this.getStateLabel(domain.active),
+                visible: this.authService.hasRole('ROLE_SYSTEM_ADMIN'),
                 command: () => this.changeState(domain)
             },
             {
                 label: this.translate.instant('DOMAINS.DELETE_BUTTON'),
-                visible: this.authService.hasRole(Role[Role.ROLE_SYSTEM_ADMIN]),
+                visible: this.authService.hasRole('ROLE_SYSTEM_ADMIN'),
                 command: () => this.openRemovalModal(domain)
             }
         ];
