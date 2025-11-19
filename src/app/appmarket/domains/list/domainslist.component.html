@@ -70,7 +70,7 @@
 <!--                    </span>-->
 <!--                </td>-->
                 <td class="text-right">
-                    <button type="button"
+                    <button type="button" *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']"
                             class="dropdown-button"
                             (click)="openRowMenu($event, domain)">
                         <i class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></i>

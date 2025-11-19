@@ -30,7 +30,7 @@ export const DomainsRoutes: Route[] = [
     },
     {
         path: 'domains/edit/:id', component: DomainComponent, canActivate: [AuthGuard, RoleGuard],
-        data: {mode: ComponentMode.EDIT, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_DOMAIN_ADMIN']}
+        data: {mode: ComponentMode.EDIT, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']}
     },
     {
         path: 'domains/groups', component: DomainGroupsComponent, canActivate: [AuthGuard, RoleGuard],
