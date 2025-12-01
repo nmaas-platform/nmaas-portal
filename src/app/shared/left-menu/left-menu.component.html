@@ -143,14 +143,34 @@
                     </span>
                 </a>
             </li>
-            <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
-                <a  style="display: flex; align-items: center;" [routerLink]="['/admin/webhooks']">
-                    <i class="pi pi-share-alt" style="margin-right:10px; font-size: 18px" title="Settings"></i>
-                    <span *ngIf="!isCollapsed">
-                        {{ 'WEBHOOKS.TITLE' | translate }}
+            <p-accordion>
+                <p-accordionTab *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN']">
+                    <ng-template pTemplate="header">
+                        <div>
+                            <i class="pi pi-share-alt" style="margin-right:10px; font-size: 18px" title=" {{ 'NAVBAR.MARKET' | translate }}"></i>
+                            <span *ngIf="!isCollapsed">
+                                  {{ 'NAVBAR.WEBHOOKS.TITLE' | translate }}
+                            </span>
+                        </div>
+                    </ng-template>
+                    <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
+                        <a  style="display: flex; align-items: center;" [routerLink]="['/admin/webhooks']">
+                            <i class="pi pi-list" style="margin-right:10px; font-size: 18px" title="webhookList"></i>
+                            <span *ngIf="!isCollapsed">
+                       {{ 'NAVBAR.WEBHOOKS.LIST' | translate }}
                     </span>
-                </a>
-            </li>
+                        </a>
+                    </li>
+                    <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
+                        <a  style="display: flex; align-items: center;" [routerLink]="['/admin/webhooks/history']">
+                            <i class="pi pi-history" style="margin-right:10px; font-size: 18px" title="webhookHistory"></i>
+                            <span *ngIf="!isCollapsed">
+                        {{ 'NAVBAR.WEBHOOKS.HISTORY' | translate }}
+                    </span>
+                        </a>
+                    </li>
+                </p-accordionTab>
+            </p-accordion>
             <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
                 <a  style="display: flex; align-items: center;" [routerLink]="['/admin/manage/clusters']">
                     <i class="pi pi-cloud" style="margin-right:10px; font-size: 18px"></i>
