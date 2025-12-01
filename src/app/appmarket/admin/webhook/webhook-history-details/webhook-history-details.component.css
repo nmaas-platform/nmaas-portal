@@ -1,0 +1,10 @@
+textarea{
+    resize: none;
+}
+.p-inputtext:enabled:focus{
+    border: none;
+}
+.p-textarea:enabled:focus{
+    border: none;
+    outline: none;
+}
