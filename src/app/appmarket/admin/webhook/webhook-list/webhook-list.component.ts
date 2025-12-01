@@ -156,6 +156,11 @@ export class WebhookListComponent implements OnInit {
 
     this.rowMenuItems = [
       {
+        label: this.translate.instant('WEBHOOKS.HISTORY.HISTORY'),
+        routerLink: ['/admin/webhooks/history'],
+        queryParams: {eventType: webhook.eventType, domainCodename: webhook.domain?.codename}
+      },
+      {
         label: this.translate.instant( 'WEBHOOKS.REMOVE'),
         command: () => this.removeWebhook(webhook.id)
       }

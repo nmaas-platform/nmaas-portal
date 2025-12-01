@@ -59,6 +59,11 @@ import {InputIcon} from 'primeng/inputicon';
 import {Button} from 'primeng/button';
 import {Drawer} from 'primeng/drawer';
 import {Menu} from 'primeng/menu';
+import {WebhookHistoryComponent} from './admin/webhook/webhook-history/webhook-history.component';
+import {WebhookHistoryDetailsComponent} from './admin/webhook/webhook-history-details/webhook-history-details.component';
+import {DropdownModule} from 'primeng/dropdown';
+import { DatePickerModule } from 'primeng/datepicker';
+import { SelectModule } from 'primeng/select';
 
 
 
@@ -77,7 +82,9 @@ import {Menu} from 'primeng/menu';
         BulkListComponent,
         BulkSearchPipe,
         WebhookDetailsComponent,
-        WebhookListComponent
+        WebhookListComponent,
+        WebhookHistoryComponent,
+        WebhookHistoryDetailsComponent
     ],
     exports: [
         AppMarketComponent,
@@ -123,7 +130,10 @@ import {Menu} from 'primeng/menu';
         InputIcon,
         Button,
         Drawer,
-        Menu
+        Menu,
+        DropdownModule,
+        DatePickerModule,
+        SelectModule
     ],
          providers: [
             AppsService,

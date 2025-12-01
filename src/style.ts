@@ -154,6 +154,11 @@ export const MyPreset = definePreset(Nora, {
                         background: '{primary.50}'
                     }
                 }
+            },
+            focus: {
+                ring: {
+                    width: '1px'
+                }
             }
         },
         checkbox: {
@@ -216,6 +221,13 @@ export const MyPreset = definePreset(Nora, {
         accordion: {
             content: {
                 padding: '0.8rem'
+            }
+        },
+        datepicker: {
+            dropdown: {
+                border: {
+                    color: '{accent.600}'
+                }
             }
         }
     }
