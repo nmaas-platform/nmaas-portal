@@ -11,6 +11,7 @@ export class Webhook {
 export interface Domain {
     id: number;
     name?: string;
+    codename?: string;
 }
 
 export enum WebhookType {

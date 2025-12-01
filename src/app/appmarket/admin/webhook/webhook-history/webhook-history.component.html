@@ -1,0 +1,82 @@
+<h4 class="header">{{ 'WEBHOOKS.HISTORY.TITLE' | translate }}</h4>
+<div class="filters">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+        <div class="form-group filters-position">
+            <label>{{ 'WEBHOOKS.HISTORY.EVENT_ID' | translate }}</label>
+            <input pInputText type="number" [(ngModel)]="filterEventId" (ngModelChange)="applyFilters()">
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+        <div class="form-group filters-position">
+            <label>{{ 'WEBHOOKS.HISTORY.EVENT_TYPE' | translate }}</label>
+            <p-dropdown style="height: 36px" [options]="webhookType" showClear="true" [(ngModel)]="filterEventType" (ngModelChange)="applyFilters()">
+                <ng-template let-option pTemplate="item">
+                    {{ ('WEBHOOKS.' + option.label) | translate }}
+                </ng-template>
+                <ng-template let-selected pTemplate="selectedItem">
+                    {{ ('WEBHOOKS.' + selected.label) | translate }}
+                </ng-template>
+            </p-dropdown>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+        <div class="form-group filters-position">
+            <label>{{ 'WEBHOOKS.HISTORY.DOMAIN' | translate }}</label>
+            <input pInputText type="text" [(ngModel)]="filterDomainCodename" (ngModelChange)="applyFilters()">
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+        <div class="form-group filters-position">
+            <label>{{ 'WEBHOOKS.HISTORY.DATE' | translate }}</label>
+            <p-datePicker showClear="true" [(ngModel)]="filterDate" dateFormat="dd.mm.yy" selectionMode="range" (ngModelChange)="applyFilters()"></p-datePicker>
+        </div>
+    </div>
+    <div style="display: flex; width: 100%; justify-content: flex-end; padding: 0 15px;">
+        <button class="btn btn-text" (click)="clearFilters()">
+            {{ 'WEBHOOKS.HISTORY.CLEAR_FILTER' | translate }}
+        </button>
+    </div>
+</div>
+<div class="background-section">
+    <p-table
+        [value]="filteredWebhooksHistory"
+        [paginator]="true"
+        [rows]="maxItemsOnPage"
+        [rowsPerPageOptions]="[15, 20, 25, 30, 50]"
+        [responsiveLayout]="'scroll'">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="eventId" id="eventId">
+                    {{ 'WEBHOOKS.HISTORY.EVENT_ID' | translate }}
+                    <p-sortIcon field="eventId"></p-sortIcon>
+                </th>
+                <th pSortableColumn="eventType" id="eventType">
+                    {{ 'WEBHOOKS.HISTORY.EVENT_TYPE' | translate }}
+                    <p-sortIcon field="eventType"></p-sortIcon>
+                </th>
+                <th pSortableColumn="codename" id="codename">
+                    {{ 'WEBHOOKS.HISTORY.DOMAIN' | translate }}
+                    <p-sortIcon field="codename"></p-sortIcon>
+                </th>
+                <th pSortableColumn="response" id="response">
+                    {{ 'WEBHOOKS.HISTORY.RESPONSE_STATUS' | translate }}
+                    <p-sortIcon field="response"></p-sortIcon>
+                </th>
+                <th pSortableColumn="time" id="time">
+                    {{ 'WEBHOOKS.HISTORY.TEXECUTION_TIMESTAMP' | translate }}
+                    <p-sortIcon field="time"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-webhooksHistory>
+            <tr>
+                <td [routerLink]="[webhooksHistory.id]">{{webhooksHistory.webhookEventId}}</td>
+                <td [routerLink]="[webhooksHistory.id]">{{('WEBHOOKS.' + webhooksHistory.eventType.toString().toUpperCase() ) | translate}}</td>
+                <td [routerLink]="[webhooksHistory.id]">{{webhooksHistory.domainCodename}}</td>
+                <td [routerLink]="[webhooksHistory.id]">{{webhooksHistory.responseStatus}} ({{getStatusText(webhooksHistory.responseStatus)}})</td>
+                <td [routerLink]="[webhooksHistory.id]">{{webhooksHistory.executionTimestamp | date: 'dd-MM-yyyy' }}</td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+</div>

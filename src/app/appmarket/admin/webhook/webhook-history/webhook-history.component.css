@@ -1,0 +1,18 @@
+.filters{
+    display: flex;
+    align-items: center;
+    margin-top:20px;
+    flex-wrap: wrap;
+}
+.filters-position {
+    display: flex;
+    gap: 4px;
+    flex-direction: column;
+}
+:host ::ng-deep .p-datepicker {
+    width: 100%;
+}
+:host ::ng-deep .p-datepicker-clear-icon {
+    padding-left: 5px;
+    background: var(--p-inputtext-background);
+}

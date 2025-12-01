@@ -4,12 +4,18 @@ import {RoleGuard} from "../../../auth/role.guard";
 import {ConfigurationDetailsComponent} from "./index";
 import { WebhookListComponent } from "../webhook/webhook-list/webhook-list.component";
 import { WebhookDetailsComponent } from "../webhook/webhook-details/webhook-details.component";
+import {WebhookHistoryComponent} from '../webhook/webhook-history/webhook-history.component';
+import {WebhookHistoryDetailsComponent} from '../webhook/webhook-history-details/webhook-history-details.component';
 
 export const ConfigurationRoutes: Route[] = [
     {path: 'configuration', component: ConfigurationDetailsComponent, canActivate: [AuthGuard, RoleGuard],
         data: {roles: ['ROLE_SYSTEM_ADMIN']} },
     {path: 'webhooks', component: WebhookListComponent, canActivate: [AuthGuard, RoleGuard],
         data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN']} },
+    {path: 'webhooks/history', component: WebhookHistoryComponent, canActivate: [AuthGuard, RoleGuard],
+        data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN']} },
+    {path: 'webhooks/history/:id', component: WebhookHistoryDetailsComponent, canActivate: [AuthGuard, RoleGuard],
+        data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN']} },
     {path: 'webhooks/:id', component: WebhookDetailsComponent, canActivate: [AuthGuard, RoleGuard],
-        data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN']} }
+        data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN']} },
 ];
