@@ -3,6 +3,9 @@ import {WebhookService} from '../../../../service/webhook.service';
 import {WebhookHistory} from '../../../../model/webhook-history';
 import {WebhookType} from '../../../../model/webhook';
 import {ActivatedRoute} from '@angular/router';
+import {debounceTime} from 'rxjs';
+import {UserDataService} from '../../../../service/userdata.service';
+import {DomainService} from '../../../../service';
 
 @Component({
   selector: 'app-webhook-history',
@@ -20,6 +23,10 @@ export class WebhookHistoryComponent implements OnInit {
   public filterDomainCodename;
   public filterDate: Date | null = null;
 
+  private pipeRefresh: any;
+  public domains = [];
+  public domainGlobalId
+
   webhookType = [
     { label: "DOMAIN_ACTION", value: "DOMAIN_ACTION" },
     { label: "DOMAIN_GROUP_ACTION", value: "DOMAIN_GROUP_ACTION" },
@@ -29,16 +36,26 @@ export class WebhookHistoryComponent implements OnInit {
   ]
 
   constructor(private webhookService: WebhookService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              public domainService: DomainService,
+              public userDataService: UserDataService) {
+  }
+
+  ngOnDestroy(): void {
+    this.pipeRefresh.unsubscribe();
+    this.pipeRefresh = null;
   }
 
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.filterEventType = params['eventType'];
-      this.filterDomainCodename = params['domainCodename'];
+      this.filterEventId = params['eventId'];
       this.applyFilters()
     })
+    this.domainGlobalId = this.domainService.getGlobalDomainId();
+    this.domainService.getMyDomains().subscribe(result => {
+      this.domains = result.filter(d => d.id !== this.domainService.getGlobalDomainId());
+    });
   }
   getStatusText(status: number): string {
     const statusMap: { [key: string]: string } = {
@@ -64,14 +81,29 @@ export class WebhookHistoryComponent implements OnInit {
       toDate = this.filterDate[1];
     }
     const to  = toDate ? this.fixedDate(toDate) : null;
-    this.webhookService.getAllHistory(
-        this.filterEventId,
-        this.filterEventType,
-        this.filterDomainCodename,
-        fromDate,
-        to
-    ).subscribe(result => {
-      this.filteredWebhooksHistory = result;
+
+    this.pipeRefresh = this.userDataService.selectedDomainId.pipe(debounceTime(300)).subscribe((domainId) => {
+      if (domainId !== this.domainGlobalId) {
+        this.webhookService.getAllHistoryByDomain(
+            domainId,
+            this.filterEventId,
+            this.filterEventType,
+            fromDate,
+            to
+        ).subscribe(result => {
+          this.filteredWebhooksHistory = result;
+        })
+      } else {
+        this.webhookService.getAllHistory(
+            this.filterEventId,
+            this.filterEventType,
+            this.filterDomainCodename,
+            fromDate,
+            to
+        ).subscribe(result => {
+          this.filteredWebhooksHistory = result;
+        })
+      }
     })
   }
 
