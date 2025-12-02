@@ -54,6 +54,7 @@ describe('ClusterManagerDetailsComponent', () => {
     },
     deployment: {
       id: 1,
+      smtpFromDefaultDomain: 'test',
       smtpServerHostname: 'smtp.example.com',
       smtpServerPort: '587',
       smtpServerUsername: 'user@example.com',
