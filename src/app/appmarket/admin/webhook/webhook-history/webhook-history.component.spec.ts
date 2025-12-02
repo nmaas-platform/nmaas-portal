@@ -1,11 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import { WebhookHistoryComponent } from './webhook-history.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {WebhookService} from '../../../../service/webhook.service';
-import {of} from 'rxjs';
+import {BehaviorSubject, of} from 'rxjs';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {UserDataService} from '../../../../service/userdata.service';
+import {DomainService} from '../../../../service';
 
 class MockWebhookService {
   getAllHistory = jasmine.createSpy().and.returnValue(of([{ id: 1, domainCodename: 'Test', eventType: 'DOMAIN_CREATION',
@@ -22,6 +24,12 @@ describe('WebhookHistoryComponent', () => {
   let service: MockWebhookService;
 
   beforeEach(async () => {
+    const userDataServiceSpy = jasmine.createSpyObj('UserDataService', [], {
+      selectedDomainId: new BehaviorSubject<number>(1).asObservable()
+    });
+    const domainServiceSpy = jasmine.createSpyObj('DomainService', ['getMyDomains', 'getGlobalDomainId']);
+    domainServiceSpy.getMyDomains.and.returnValue(of([]));
+    domainServiceSpy.getGlobalDomainId.and.returnValue(1);
     await TestBed.configureTestingModule({
       declarations: [WebhookHistoryComponent],
       imports: [
@@ -35,6 +43,8 @@ describe('WebhookHistoryComponent', () => {
       providers: [
         { provide: ActivatedRoute, useClass: MockActivatedRoute },
         { provide: WebhookService, useClass: MockWebhookService },
+        { provide: UserDataService, useValue: userDataServiceSpy },
+        { provide: DomainService, useValue: domainServiceSpy },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -48,6 +58,13 @@ describe('WebhookHistoryComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    expect(service.getAllHistory).toHaveBeenCalled();
   });
+
+  it('should refresh list and set webkooks', fakeAsync(() => {
+    component.applyFilters();
+    tick(400);
+    expect(service.getAllHistory).toHaveBeenCalled();
+    fixture.detectChanges();
+    expect(component.filteredWebhooksHistory.length).toBeGreaterThan(0);
+  }));
 });

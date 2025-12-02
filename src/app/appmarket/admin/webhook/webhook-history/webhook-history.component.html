@@ -19,7 +19,7 @@
             </p-dropdown>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+    <div *roles="['ROLE_SYSTEM_ADMIN']" class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
         <div class="form-group filters-position">
             <label>{{ 'WEBHOOKS.HISTORY.DOMAIN' | translate }}</label>
             <input pInputText type="text" [(ngModel)]="filterDomainCodename" (ngModelChange)="applyFilters()">
@@ -54,7 +54,7 @@
                     {{ 'WEBHOOKS.HISTORY.EVENT_TYPE' | translate }}
                     <p-sortIcon field="eventType"></p-sortIcon>
                 </th>
-                <th pSortableColumn="codename" id="codename">
+                <th *roles="['ROLE_SYSTEM_ADMIN']" pSortableColumn="codename" id="codename">
                     {{ 'WEBHOOKS.HISTORY.DOMAIN' | translate }}
                     <p-sortIcon field="codename"></p-sortIcon>
                 </th>
@@ -63,7 +63,7 @@
                     <p-sortIcon field="response"></p-sortIcon>
                 </th>
                 <th pSortableColumn="time" id="time">
-                    {{ 'WEBHOOKS.HISTORY.TEXECUTION_TIMESTAMP' | translate }}
+                    {{ 'WEBHOOKS.HISTORY.EXECUTION_TIMESTAMP' | translate }}
                     <p-sortIcon field="time"></p-sortIcon>
                 </th>
             </tr>
@@ -72,9 +72,9 @@
             <tr>
                 <td [routerLink]="[webhooksHistory.id]">{{webhooksHistory.webhookEventId}}</td>
                 <td [routerLink]="[webhooksHistory.id]">{{('WEBHOOKS.' + webhooksHistory.eventType.toString().toUpperCase() ) | translate}}</td>
-                <td [routerLink]="[webhooksHistory.id]">{{webhooksHistory.domainCodename}}</td>
+                <td *roles="['ROLE_SYSTEM_ADMIN']" [routerLink]="[webhooksHistory.id]">{{webhooksHistory.domainCodename}}</td>
                 <td [routerLink]="[webhooksHistory.id]">{{webhooksHistory.responseStatus}} ({{getStatusText(webhooksHistory.responseStatus)}})</td>
-                <td [routerLink]="[webhooksHistory.id]">{{webhooksHistory.executionTimestamp | date: 'dd-MM-yyyy' }}</td>
+                <td [routerLink]="[webhooksHistory.id]">{{webhooksHistory.executionTimestamp | date: 'dd-MM-yyyy HH:mm:ss' }}</td>
             </tr>
         </ng-template>
 

@@ -59,9 +59,6 @@ export class WebhookService extends GenericDataService {
         return this.delete<void>(this.url + '/domain/' + domainId + '/' + id);
     }
 
-    // public getAllHistory() {
-    //    return this.get<WebhookHistory[]>(this.appConfig.getApiUrl() + '/webhooks-history');
-    // }
     getAllHistory(eventId?: number, eventType?: WebhookType, domainCodename?: string, from?: Date, to?: Date) {
         const params: any = {};
         if (eventId) {
@@ -76,6 +73,20 @@ export class WebhookService extends GenericDataService {
         } if (to) { params['to'] = to.toISOString().split('.')[0];
         }
         return this.http.get<WebhookHistory[]>(this.appConfig.getApiUrl() + '/webhooks-history', {params});
+    }
+
+    getAllHistoryByDomain(domainId, eventId?: number, eventType?: WebhookType, from?: Date, to?: Date) {
+        const params: any = {};
+        if (eventId) {
+            params['eventId'] = eventId;
+        }
+        if (eventType) {
+            params['eventType'] = eventType;
+        } if (from) {
+            params['from'] = from.toISOString().split('.')[0];
+        } if (to) { params['to'] = to.toISOString().split('.')[0];
+        }
+        return this.http.get<WebhookHistory[]>(this.appConfig.getApiUrl() + '/webhooks-history/domain/' + domainId, {params});
     }
     public getOneHistory(id: number) {
         return this.get<WebhookHistory>(this.appConfig.getApiUrl() + '/webhooks-history/' + id );
