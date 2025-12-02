@@ -167,6 +167,13 @@
                                [(ngModel)]="cluster.deployment.smtpServerPassword" [disabled]="isInMode(ComponentMode.VIEW)">
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="smtpFromDefaultDomain" class="col-sm-3 control-label">{{'CLUSTERS.SMTP_FROM_DEFAULT_DOMAIN' | translate }}: </label>
+                    <div class="col-sm-9">
+                        <input pInputText type="password" class="form-control" id="smtpFromDefaultDomain" name="smtpFromDefaultDomain"
+                               [(ngModel)]="cluster.deployment.smtpFromDefaultDomain" [disabled]="isInMode(ComponentMode.VIEW)">
+                    </div>
+                </div>
             </div>
 
             <!-- Hide external networks section -->
