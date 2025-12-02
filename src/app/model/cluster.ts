@@ -7,6 +7,7 @@ export class ClusterDeployment {
     public smtpServerPort: string="";
     public smtpServerUsername: string="";
     public smtpServerPassword: string="";
+    public smtpFromDefaultDomain: string="";
     public defaultNamespace: string="";
     public defaultStorageClass: string="";
     public id: number;
