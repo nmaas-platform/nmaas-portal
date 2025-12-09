@@ -36,6 +36,9 @@ export class AddClusterComponent implements OnInit {
   public cluster: ClusterManager = new ClusterManager();
   public showNamespaceCreation: boolean = false;
   public namespaceCreation = true;
+  public readFromSecret;
+  public secretName = '';
+  public secretNamespace = '';
 
 
   constructor(public translate: TranslateService,
@@ -88,16 +91,27 @@ export class AddClusterComponent implements OnInit {
   }
 
   public uploadKubernetesFile(): void {
-    this.cluserService.readClusterFile(new File([this.kubernetesFile], 'kubernetes.yaml'), this.cluster).subscribe(result => {
-      console.log(result);
-      this.cluster = result;
-      this.error  = null;
-      this.nextStep();
-    }, error => {
-      console.error('Error reading Kubernetes file:', error);
-      this.error = error.error.message || 'Error reading Kubernetes file';
-    });
-
+    if (this.readFromSecret) {
+      this.cluserService.readClusterFile(this.cluster, undefined, this.secretNamespace, this.secretName).subscribe(result => {
+        console.log(result);
+        this.cluster = result;
+        this.error  = null;
+        this.nextStep();
+      }, error => {
+        console.error('Error reading Kubernetes from secret:', error);
+        this.error = error.error.message || 'Error reading Kubernetes from secret';
+      });
+    } else {
+      this.cluserService.readClusterFile(this.cluster, new File([this.kubernetesFile], 'kubernetes.yaml') ).subscribe(result => {
+        console.log(result);
+        this.cluster = result;
+        this.error  = null;
+        this.nextStep();
+      }, error => {
+        console.error('Error reading Kubernetes file:', error);
+        this.error = error.error.message || 'Error reading Kubernetes file';
+      });
+    }
 
   }
 
@@ -171,7 +185,8 @@ export class AddClusterComponent implements OnInit {
   }
 
   public step1valid(): boolean {
-    return this.cluster.name !== '' && this.kubernetesFile !== undefined && this.kubernetesFile !== '';
+    return this.cluster.name !== '' && ((!this.readFromSecret && this.kubernetesFile !== undefined && this.kubernetesFile !== '') ||
+        (this.readFromSecret && this.secretName !== '' && this.secretNamespace !== ''));
   }
 
   public setInitialValues() {
