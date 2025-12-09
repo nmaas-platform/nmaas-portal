@@ -41,10 +41,17 @@ export class ClusterManagerService {
         return this.http.delete<void>(this.url + '/' + id);
     }
 
-    public readClusterFile(file: File, view: ClusterManager): Observable<ClusterManager> {
+    public readClusterFile(view: ClusterManager, file?: File, secretNamespace?: string, secretName?: string): Observable<ClusterManager> {
         const formParams = new FormData();
-        formParams.append('file', file);
         formParams.append('data', new Blob([JSON.stringify(view)], { type: 'application/json' }));
+
+        if (file) {
+            formParams.append('file', file);
+        }
+        if (secretName && secretName) {
+            formParams.append('secretName', secretName);
+            formParams.append('secretNamespace', secretNamespace);
+        }
 
         return this.http.post<ClusterManager>(this.url + '/read', formParams);
     }

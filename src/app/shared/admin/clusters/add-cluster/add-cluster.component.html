@@ -18,7 +18,29 @@
                 <input pInputText id="name" type="text" class="form-control" [(ngModel)]="cluster.name"
                        [ngModelOptions]="{standalone: true}">
             </div>
-            <div class="mt-4">
+
+            <div class="mt-4 flex" >
+                <label  class="" for="readFromSecret">{{ 'CLUSTERS.READ_FROM_SECRET' | translate }}</label>
+                <div class="ml-3">
+                    <input type="checkbox" id="readFromSecret" name="readFromSecret"
+                           [(ngModel)]="readFromSecret" [checked]="readFromSecret == true" [disabled]="">
+                </div>
+            </div>
+
+            <div *ngIf="readFromSecret">
+                <div class="mt-4">
+                    <label for="secretName">{{ 'CLUSTERS.SECRET_NAME' | translate }}</label>
+                    <input pInputText id="secretName" type="text" class="form-control" [(ngModel)]="secretName"
+                           [ngModelOptions]="{standalone: true}">
+                </div>
+                <div class="mt-4">
+                    <label for="secretNamespace">{{ 'CLUSTERS.SECRET_NAMESPACE' | translate }}</label>
+                    <input pInputText id="secretNamespace" type="text" class="form-control" [(ngModel)]="secretNamespace"
+                           [ngModelOptions]="{standalone: true}">
+                </div>
+            </div>
+
+            <div class="mt-4" *ngIf="!readFromSecret">
                 <label for="name">{{ 'CLUSTERS.FILE' | translate }}*</label>
                 <textarea style="width:100%; overflow: auto; max-height: 400px;" pTextarea [autoResize]="false"
                           class="form-control" [rows]="40" [(ngModel)]="kubernetesFile"
