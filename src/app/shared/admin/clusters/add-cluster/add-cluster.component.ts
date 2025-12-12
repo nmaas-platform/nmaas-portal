@@ -185,8 +185,8 @@ export class AddClusterComponent implements OnInit {
   }
 
   public step1valid(): boolean {
-    return this.cluster.name !== '' && ((!this.readFromSecret && this.kubernetesFile !== undefined && this.kubernetesFile !== '') ||
-        (this.readFromSecret && this.secretName !== '' && this.secretNamespace !== ''));
+    return this.cluster.name?.length > 0 && ((!this.readFromSecret && this.kubernetesFile !== undefined &&
+            this.kubernetesFile !== '') || (this.readFromSecret && this.secretName !== '' && this.secretNamespace !== ''));
   }
 
   public setInitialValues() {
