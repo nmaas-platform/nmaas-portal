@@ -58,7 +58,7 @@ export class DomainFilterComponent implements OnInit {
                 this.updateDomains();
                 this.domains.subscribe(domain => {
                     const savedDomainId = sessionStorage.getItem('selectedDomainId');
-                    const savedDomain = domain.find(d => d.id === Number(savedDomainId));
+                    const savedDomain = domain.find(d => d.id === this.profile.defaultDomain);
                     if (savedDomain) {
                         this.selectedDomain = savedDomain;
                         this.domainName = savedDomain.name;
@@ -123,6 +123,7 @@ export class DomainFilterComponent implements OnInit {
                 domains => {
                     const global = domains.find(domain => domain.id === globalDomainId);
                     const defaultDomain = domains.find(domain => domain.id === this.profile.defaultDomain);
+                    console.log(this.profile.defaultDomain, 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW')
                     domains = domains.filter(domain => domain.id !== globalDomainId && domain.id !== this.profile.defaultDomain);
 
                     domains.sort((a: Domain, b: Domain): number => {
