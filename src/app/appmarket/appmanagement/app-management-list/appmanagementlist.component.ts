@@ -7,13 +7,11 @@ import {AppChangeStateModalComponent} from '../app-change-state-modal/appchanges
 import {ApplicationVersion} from '../../../model/application-version';
 import {map} from 'rxjs/operators';
 import {ApplicationBase} from '../../../model/application-base';
-import * as semver from 'semver'
 import {ModalComponent} from '../../../shared';
 import {RemovalConfirmationModalComponent} from '../../domains/modals/removal-confirmation-modal/removal-confirmation-modal.component';
 import {ApplicationDTO} from '../../../model/application-dto';
-import {DomainGroup} from '../../../model/domaingroup';
 import {Menu} from 'primeng/menu';
-import {MenuItem, MenuItemCommandEvent} from 'primeng/api';
+import {MenuItem} from 'primeng/api';
 import {TranslateService} from '@ngx-translate/core';
 
 @Component({
@@ -24,7 +22,7 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class AppManagementListComponent implements OnInit {
 
-    @ViewChild(AppChangeStateModalComponent, { static: true })
+    @ViewChild(AppChangeStateModalComponent, {static: true})
     public appChangeStateModalComponent: AppChangeStateModalComponent;
 
     @ViewChild(RemovalConfirmationModalComponent)
@@ -123,7 +121,7 @@ export class AppManagementListComponent implements OnInit {
     public searchApp(value: string) {
         const result = [];
         if (value !== null && value !== '') {
-            this.apps.forEach(app => {
+            this.filteredApps.forEach(app => {
                 if (app.name.toLowerCase().includes(value.toLowerCase())) {
                     result.push(app)
                 }
@@ -142,7 +140,7 @@ export class AppManagementListComponent implements OnInit {
     }
 
     public openRemovalModal(app: ApplicationBase): void {
-        if(app.versions.find(version => version.state !== ApplicationState.DELETED)) {
+        if (app.versions.find(version => version.state !== ApplicationState.DELETED)) {
             this.hasRunningInstances = true;
         }
         this.appToRemove = app;
@@ -150,8 +148,8 @@ export class AppManagementListComponent implements OnInit {
     }
 
     public getApplicationInfoJSONWithBase(id: number) {
-        this.appsService.getApplicationBaseWithVersion(id).subscribe( appDTO => {
-           let blob = new Blob([JSON.stringify(appDTO, null, 4)], {type: 'application/json'})
+        this.appsService.getApplicationBaseWithVersion(id).subscribe(appDTO => {
+            let blob = new Blob([JSON.stringify(appDTO, null, 4)], {type: 'application/json'})
             this.blobUrl = window.URL.createObjectURL(blob);
             let a = document.createElement('a');
             document.body.appendChild(a);
@@ -165,11 +163,11 @@ export class AppManagementListComponent implements OnInit {
     }
 
     public getApplicationInfoJSONWithoutBase(id: number) {
-        this.appsService.getApplicationDTO(id).subscribe( appDTO => {
+        this.appsService.getApplicationDTO(id).subscribe(appDTO => {
             appDTO = this.deleteIDsFields(appDTO);
             delete appDTO.applicationBase;
             console.log(appDTO);
-           let blob = new Blob([JSON.stringify(appDTO.application, null, 4)], {type: 'application/json'})
+            let blob = new Blob([JSON.stringify(appDTO.application, null, 4)], {type: 'application/json'})
             this.blobUrl = window.URL.createObjectURL(blob);
             let a = document.createElement('a');
             document.body.appendChild(a);
@@ -218,6 +216,7 @@ export class AppManagementListComponent implements OnInit {
         }
         return app;
     }
+
     openRowMenu(event: Event, app: ApplicationBase) {
 
         this.rowMenuItems = [
@@ -249,6 +248,7 @@ export class AppManagementListComponent implements OnInit {
 
         this.rowMenu.toggle(event);
     }
+
     openVersionRowMenu(event: Event, app: ApplicationBase, version: ApplicationVersion) {
         this.rowVersionMenuItems = [
             {
