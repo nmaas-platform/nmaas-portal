@@ -22,7 +22,7 @@ export class LinkAccountComponent implements OnInit, OnDestroy {
         private readonly route: ActivatedRoute,
         private readonly authService: AuthService,
         private readonly router: Router,
-        private translate: TranslateService,
+        private readonly translate: TranslateService,
     ) {
     }
 
@@ -53,15 +53,16 @@ export class LinkAccountComponent implements OnInit, OnDestroy {
             this.user.username,
             this.user.firstname,
             this.user.lastname,
-        ).subscribe(
-            () => {
+        ).subscribe({
+            next: () => {
                 this.router.navigate(['/']);
             },
-            err => {
+            error: (err: any) => {
                 this.error = this.translate.instant(this.getMessage(err));
             }
-        )
+        })
     }
+
     private getMessage(err: any): string {
         switch (err['status']) {
             case 401:
