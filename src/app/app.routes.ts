@@ -7,6 +7,7 @@ import {ServiceUnavailableRoutes} from './service-unavailable/service-unavailabl
 import {PageNotFoundComponent} from './shared/page-not-found/page-not-found.component';
 import {LoginSuccessComponent} from './auth/login-success/login-success.component';
 import {LinkAccountComponent} from './welcome/link-account/link-account.component';
+import {SsoFirstLoginComponent} from './welcome/sso-first-login/sso-first-login.component';
 
 const appRoutes: Routes = [
     ...WelcomeRoutes,
@@ -15,6 +16,7 @@ const appRoutes: Routes = [
     { path: 'notfound', component: PageNotFoundComponent },
     { path: 'login-success', component: LoginSuccessComponent },
     { path: 'login-linking', component: LinkAccountComponent},
+    { path: 'sso-first-login', component: SsoFirstLoginComponent},
     { path: '**', redirectTo: '/welcome' },
 
 ];

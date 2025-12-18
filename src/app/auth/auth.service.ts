@@ -10,8 +10,8 @@ import {Role, UserRole} from '../model/userrole';
 
 export class DomainRoles {
     constructor(
-        private domainId: number,
-        private roles: string[] = []
+        private readonly domainId: number,
+        private readonly roles: string[] = []
     ) {
     }
 
@@ -20,33 +20,33 @@ export class DomainRoles {
     }
 
     public hasRole(role: string): boolean {
-        return (this.roles != null ? this.roles.indexOf(role) >= 0 : false);
+        return (this.roles == null ? false : this.roles.indexOf(role) >= 0);
     }
 }
 
 @Injectable()
 export class AuthService {
 
-    private static REFRESH_TOKEN: string = 'refresh-token';
-    private static OIDC_TOKEN: string = 'oidc-token';
+    private static readonly REFRESH_TOKEN: string = 'refresh-token';
+    private static readonly OIDC_TOKEN: string = 'oidc-token';
 
     public loginUsingSsoService: boolean;
 
     private readonly isLoggedInSubject: Subject<boolean> = new BehaviorSubject<boolean>(false);
     public profile: UserRole[]
 
-    private rolesTabelName = 'rolesToken'
+    private readonly rolesTabelName = 'rolesToken'
 
     private refresh: any;
 
-    private maintenance: boolean = false;
+    private maintenance = false;
 
 
-    constructor(private http: HttpClient,
-                private appConfig: AppConfigService,
-                private jwtHelper: JwtHelperService,
-                private profileService: ProfileService,
-                private maintenanceService: ConfigurationService) {
+    constructor(private readonly http: HttpClient,
+                private readonly appConfig: AppConfigService,
+                private readonly jwtHelper: JwtHelperService,
+                private readonly profileService: ProfileService,
+                private readonly maintenanceService: ConfigurationService) {
         this.loadAndSaveRoles();
         this.loadUser()
         this.getConfigurationToCheckMaintenance();
@@ -71,7 +71,7 @@ export class AuthService {
 
     private getConfigurationToCheckMaintenance() {
         this.maintenanceService.getConfiguration().subscribe(value => {
-            if (value !== undefined && value !== null && value.maintenance) {
+            if (value?.maintenance) {
                 console.warn('Maintenance is on. Disabled login.')
                 this.isLoggedInSubject.next(false);
                 this.logout();
@@ -97,8 +97,8 @@ export class AuthService {
         return this.http.post<any>(this.appConfig.config.apiUrl + '/auth/basic/token', {
             refreshToken: this.getRefreshToken()
         }).subscribe(response => {
-            const token = response && response['token'];
-            const refreshToken = response && response[AuthService.REFRESH_TOKEN];
+            const token = response?.['token'];
+            const refreshToken = response?.[AuthService.REFRESH_TOKEN];
             if (token) {
                 this.storeToken(token);
             }
@@ -153,14 +153,14 @@ export class AuthService {
     }
 
     public getSelectedThemeMode(): string {
-        return this.getToken() != null ? this.jwtHelper.decodeToken(this.getToken()).thememode : undefined;
+        return this.getToken() == null ? undefined : this.jwtHelper.decodeToken(this.getToken()).thememode;
     }
 
     public getSelectedLanguage(): string {
         if (localStorage.getItem('lang') != null) {
             return localStorage.getItem('lang')
         }
-        return this.getToken() != null ? this.jwtHelper.decodeToken(this.getToken()).language : undefined;
+        return this.getToken() == null ? undefined : this.jwtHelper.decodeToken(this.getToken()).language;
     }
 
     public getUsername(): string {
@@ -292,11 +292,11 @@ export class AuthService {
             {headers: headers}).pipe(
             debounceTime(1000),
             map((res: Response) => {
-                    const token = res && res['token'];
-                    const oidcToken = res && res['oidcToken'];
-                    if (token && oidcToken) {
-                        this.storeToken(token);
-                        this.storeOidcToken(oidcToken);
+                    const resToken = res?.['token'];
+                    const resOidcToken = res?.['resOidcToken'];
+                    if (resToken && resOidcToken) {
+                        this.storeToken(resToken);
+                        this.storeOidcToken(resOidcToken);
                         this.loginUsingSsoService = false;
                         this.isLoggedInSubject.next(true);
                         this.profileService.getRoles().subscribe(profile => {
@@ -313,6 +313,55 @@ export class AuthService {
         )
     }
 
+    public approveAupAndPn(oidcToken: string,
+                           email: string,
+                           password: string,
+                           uuid: string,
+                           firstName: string,
+                           lastName: string,
+                           username: string,
+                           isAupChecked: boolean,
+                           isPnChecked: boolean): Observable<boolean> {
+        const headers = new HttpHeaders({'Content-Type': 'application/json', 'Accept': 'application/json'});
+        return this.http.post(this.appConfig.config.apiUrl + '/oidc/approvals',
+            JSON.stringify(
+                {
+                    'oidcToken': oidcToken,
+                    'email': email,
+                    'password': password,
+                    'uuid': uuid,
+                    'firstName': firstName,
+                    'lastName': lastName,
+                    'username': username,
+                    'isAupApprove': isAupChecked,
+                    'isPnApprove': isPnChecked
+                }
+            ),
+            {headers: headers}).pipe(
+                debounceTime(1000),
+            map((res: Response) => {
+                const resToken = res?.['token'];
+                const resOidcToken = res?.['resOidcToken'];
+                if (resToken && resOidcToken) {
+                    this.storeToken(resToken);
+                    this.storeOidcToken(resOidcToken);
+                    this.loginUsingSsoService = false;
+                    this.isLoggedInSubject.next(true);
+                    this.profileService.getRoles().subscribe(profile => {
+                        this.profile = profile
+                        this.storeRoles(profile);
+                        return true;
+                    })
+                } else {
+                    this.isLoggedInSubject.next(false);
+                    return false;
+                }
+            })
+        )
+
+
+    }
+
     public login(username: string, password: string): Observable<boolean> {
         // hack so test instance modal is shown onl after login
         localStorage.setItem(this.appConfig.getTestInstanceModalKey(), 'True');
@@ -320,7 +369,7 @@ export class AuthService {
         if (this.maintenance) {
             this.isLoggedInSubject.next(false);
             console.warn('Maintenance is on. Disabled login.')
-            //add toast here
+            // add toast here
             return of(false);
         }
 
@@ -329,19 +378,13 @@ export class AuthService {
             JSON.stringify({'username': username, 'password': password}), {headers: headers}).pipe(
             debounceTime(10000),
             map((response: Response) => {
-                console.debug('Login response: ' + response.statusText);
                 // login successful if there's a jwt token in the response
-                const token = response && response['token'];
-                const refreshToken = response && response[AuthService.REFRESH_TOKEN];
+                const token = response?.['token'];
+                const refreshToken = response?.[AuthService.REFRESH_TOKEN];
                 if (token && refreshToken) {
                     // set token property
                     this.storeToken(token);
                     this.storeRefreshToken(refreshToken)
-
-                    console.debug('AUTH | User: ' + this.getUsername());
-                    console.debug('AUTH | Domains: ' + this.getDomains());
-                    console.debug('AUTH | Roles: ' + this.getRoles());
-                    console.debug('AUTH | DomainRoles: ' + this.getDomainRoles());
                     this.loginUsingSsoService = false;
                     this.isLoggedInSubject.next(true);
                     this.profileService.getRoles().subscribe(profile => {
@@ -363,7 +406,6 @@ export class AuthService {
                     message = 'Server error';
                 }
 
-                console.debug(error['status'] + ' - ' + message);
                 return observableThrowError(error);
             }));
     }
