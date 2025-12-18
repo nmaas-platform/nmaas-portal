@@ -180,8 +180,17 @@
                                     </a>
                                 </li>
                             </ng-container>
-
-                            <ng-container *ngIf="getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.FAILURE || AppInstanceState.VALIDATION_FAILED">
+                            <ng-container
+                                    *ngIf="getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.VALIDATION_FAILED">
+                                <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']">
+                                    <a role="button" (click)="redeployConfirm.show()">{{ 'APP_INSTANCE.REDEPLOY_BUTTON' | translate }}</a>
+                                </li>
+                                <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']">
+                                    <a role="button" (click)="removeConfirm.show()">{{ 'APP_INSTANCE.REMOVE_BUTTON' | translate }}</a>
+                                </li>
+                            </ng-container>
+                            <ng-container
+                                    *ngIf="getStateAsEnum(appInstanceStatus?.state) === AppInstanceState.FAILURE">
                                 <li>
                                     <a role="button"
                                        *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN']"
