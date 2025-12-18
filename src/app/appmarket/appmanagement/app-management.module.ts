@@ -39,6 +39,7 @@ import {IconField} from 'primeng/iconfield';
 import {InputIcon} from 'primeng/inputicon';
 import {InputTextModule} from 'primeng/inputtext';
 import {Menu} from 'primeng/menu';
+import {Chips} from 'primeng/chips';
 
 
 export function getJsonTemplates(config: ConfigTemplateService) {
@@ -93,7 +94,8 @@ export function formioAppConfigFactory(appConfig: AppConfigService) {
         IconField,
         InputIcon,
         InputTextModule,
-        Menu
+        Menu,
+        Chips
     ],
     exports: [],
     providers: [

@@ -40,6 +40,7 @@ import { CommonModule } from '@angular/common';
 import Nora from '@primeng/themes/nora';
 import { MyPreset } from '../style';
 import {Button} from 'primeng/button';
+import {ChipsModule} from 'primeng/chips';
 
 
 export function appConfigFactory(config: AppConfigService) {
@@ -81,6 +82,7 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
     ],
     imports: [
         FormsModule,
+        ChipsModule,
         CommonModule,
         JwtModule.forRoot({
             jwtOptionsProvider: {
