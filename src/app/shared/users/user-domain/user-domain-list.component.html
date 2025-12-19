@@ -104,11 +104,15 @@
 <nmaas-modal styleModal="info" #addUser>
         <div class="nmaas-modal-header">{{ 'USERS.ADD_TO_DOMAIN_BUTTON' | translate }}</div>
     <div class="nmaas-modal-body">
-        <div style="display: flex; margin-bottom: 30px">
+        <div style="margin-bottom: 30px">
+            <p>{{'USERS.DOMAINS.ADD_INFO' | translate}}</p>
+            <div style="display: flex">
             <input type="text" class="form-control" placeholder="{{ 'USERS.SEARCH' | translate }}" [(ngModel)]="searchInModalValue">
-            <button class="btn btn-primary ml-2" (click)="searchUsers(searchInModalValue)">
+
+                <button class="btn btn-primary ml-2" (click)="searchUsers(searchInModalValue)">
                 {{ 'SEARCH' | translate }}
             </button>
+            </div>
         </div>
         <p-table [value]="usersToAdd" [lazy]="false"
                  [sortOrder]="paginationSettings.sortOrder === 'asc' ? 1 : -1">
