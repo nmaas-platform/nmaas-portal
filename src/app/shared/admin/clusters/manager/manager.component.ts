@@ -94,6 +94,16 @@ export class ClusterManagerComponent implements OnDestroy {
     );
   }
 
+  refreshCluster(id) {
+    this.clusterService.refreshCluster(id).subscribe(() => {
+        this.getAllClusters();
+      },
+      error => {
+        console.error('Error refreshing cluster:', error);
+      }
+    );
+  }
+
   openRowMenu(event: Event, cluster: ClusterManager) {
 
     this.rowMenuItems = [
@@ -107,7 +117,7 @@ export class ClusterManagerComponent implements OnDestroy {
       },
       {
         label: this.translate.instant( 'CLUSTERS.REFRESH'),
-        command: () => this.clusterService.refreshCluster(cluster.id).subscribe()
+        command: () => this.refreshCluster(cluster.id)
       }
     ];
 
