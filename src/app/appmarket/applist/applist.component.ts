@@ -5,12 +5,12 @@ import {UserDataService} from '../../service/userdata.service';
 import {AppViewType} from '../../shared/common/viewtype';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
-import {distinctUntilChanged, startWith, Subscription} from 'rxjs';
+import {distinctUntilChanged, Subscription} from 'rxjs';
 import {SortService} from '../../service/sort.service';
 import {SortableColumnComponent} from '../../shared/sortable-column/sortable-column.component';
 import {SortableTableDirective} from '../../shared/sortable-column/sortable-table.directive';
 import {AuthService} from '../../auth/auth.service';
-import {filter} from 'rxjs/operators';
+import {filter, tap} from 'rxjs/operators';
 
 @Component({
     selector: 'nmaas-applications',
@@ -35,25 +35,30 @@ export class AppListComponent implements OnInit, OnDestroy {
                 private readonly location: Location) {
     }
 
+
     ngOnInit(): void {
-        const sessionStorageDomainId = Number(sessionStorage.getItem('selectedDomainId')) || 0;
-        const defaultDomainId = this.getDefaultDomainId(sessionStorageDomainId);
-        this.appsView = this.route.snapshot.data.appViewType !== undefined
-            ? AppViewType.APPLICATION
-            : this.route.snapshot.data.appView;
+        const sessionIdRaw = Number(sessionStorage.getItem('selectedDomainId'));
+        const sessionIdIsValid = Number.isFinite(sessionIdRaw)
+        const sessionId = sessionIdIsValid ? sessionIdRaw : 0;
+
+        this.appsView = this.route.snapshot.data.appViewType === undefined
+            ? this.route.snapshot.data.appView
+            : AppViewType.APPLICATION;
+
+        const seedId = this.getDefaultDomainId(sessionId);
+        if (typeof seedId === 'number' && seedId > 0) {
+            this.userDataService.selectDomainId(seedId);
+        }
         this.userDataService.selectedDomainId
             .pipe(
-                filter((domainId): domainId is number =>
-                    domainId !== null
-                    && domainId !== undefined
-                    && domainId !== 0),
+                filter((id): id is number => typeof id === 'number' && id > 0),
                 distinctUntilChanged(),
-                startWith(defaultDomainId)
+                tap(domainId => {
+                    this.domainId = domainId;
+                    sessionStorage.setItem('selectedDomainId', String(domainId));
+                })
             )
-            .subscribe(domainId => {
-                this.domainId = domainId;
-                sessionStorage.setItem('selectedDomainId', String(domainId));
-            });
+            .subscribe();
     }
 
     private getDefaultDomainId(sessionStorageDomainId: number): number {
@@ -68,7 +73,6 @@ export class AppListComponent implements OnInit, OnDestroy {
             this.userDataService.selectDomainId(id);
             return id;
         }
-
         return 1;
     }
 
