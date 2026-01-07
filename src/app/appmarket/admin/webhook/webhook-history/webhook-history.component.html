@@ -46,25 +46,25 @@
         [responsiveLayout]="'scroll'">
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="eventId" id="eventId">
+                <th pSortableColumn="webhookEventId" id="webhookEventId">
                     {{ 'WEBHOOKS.HISTORY.EVENT_ID' | translate }}
-                    <p-sortIcon field="eventId"></p-sortIcon>
+                    <p-sortIcon field="webhookEventId"></p-sortIcon>
                 </th>
                 <th pSortableColumn="eventType" id="eventType">
                     {{ 'WEBHOOKS.HISTORY.EVENT_TYPE' | translate }}
                     <p-sortIcon field="eventType"></p-sortIcon>
                 </th>
-                <th *roles="['ROLE_SYSTEM_ADMIN']" pSortableColumn="codename" id="codename">
+                <th *roles="['ROLE_SYSTEM_ADMIN']" pSortableColumn="domainCodename" id="domainCodename">
                     {{ 'WEBHOOKS.HISTORY.DOMAIN' | translate }}
-                    <p-sortIcon field="codename"></p-sortIcon>
+                    <p-sortIcon field="domainCodename"></p-sortIcon>
                 </th>
-                <th pSortableColumn="response" id="response">
+                <th pSortableColumn="responseStatus" id="responseStatus">
                     {{ 'WEBHOOKS.HISTORY.RESPONSE_STATUS' | translate }}
-                    <p-sortIcon field="response"></p-sortIcon>
+                    <p-sortIcon field="responseStatus"></p-sortIcon>
                 </th>
-                <th pSortableColumn="time" id="time">
+                <th pSortableColumn="executionTimestamp" id="executionTimestamp">
                     {{ 'WEBHOOKS.HISTORY.EXECUTION_TIMESTAMP' | translate }}
-                    <p-sortIcon field="time"></p-sortIcon>
+                    <p-sortIcon field="executionTimestamp"></p-sortIcon>
                 </th>
             </tr>
         </ng-template>
