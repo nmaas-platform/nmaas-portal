@@ -417,11 +417,13 @@ export class AuthService {
             this.removeToken();
             this.isLoggedInSubject.next(false);
             localStorage.removeItem('_expiredTime');
+            sessionStorage.removeItem('selectedDomainId');
         } else {
             this.removeToken();
             this.removeOidcToken();
             this.isLoggedInSubject.next(false);
             localStorage.removeItem('_expiredTime');
+            sessionStorage.removeItem('selectedDomainId');
             this.http.get(this.appConfig.config.apiUrl + '/oidc/logout/' + oidcToken).subscribe(() => {
             })
         }

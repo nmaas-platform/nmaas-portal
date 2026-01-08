@@ -4,7 +4,7 @@ import {BehaviorSubject} from 'rxjs';
 @Injectable()
 export class UserDataService {
 
-  private domainIdSelectionSource = new BehaviorSubject<number>(0);
+  private readonly domainIdSelectionSource = new BehaviorSubject<number>(0);
   public selectedDomainId = this.domainIdSelectionSource.asObservable();
 
   constructor() {}

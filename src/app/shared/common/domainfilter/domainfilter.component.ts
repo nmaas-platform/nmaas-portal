@@ -1,12 +1,13 @@
-import { AuthService } from '../../../auth/auth.service';
-import { Domain } from '../../../model/domain';
-import { DomainService } from '../../../service';
-import { UserDataService } from '../../../service/userdata.service';
-import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, interval, Observable, of, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { ProfileService } from '../../../service/profile.service';
-import { User } from '../../../model';
+import {AuthService} from '../../../auth/auth.service';
+import {Domain} from '../../../model/domain';
+import {DomainService} from '../../../service';
+import {UserDataService} from '../../../service/userdata.service';
+import {Component, OnInit} from '@angular/core';
+import {BehaviorSubject, interval, Observable, of, Subscription} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {ProfileService} from '../../../service/profile.service';
+import {User} from '../../../model';
+import {Role} from '../../../model/userrole';
 
 @Component({
     selector: 'nmaas-domain-filter',
@@ -37,9 +38,9 @@ export class DomainFilterComponent implements OnInit {
     public filteredDomains = this.filteredDomainsSub.asObservable();
 
     constructor(private authService: AuthService,
-        private domainService: DomainService,
-        private userData: UserDataService,
-        private profileService: ProfileService) {
+                private domainService: DomainService,
+                private userData: UserDataService,
+                private profileService: ProfileService) {
     }
 
     ngOnInit() {
@@ -54,11 +55,23 @@ export class DomainFilterComponent implements OnInit {
         this.profileService.getOne().subscribe(
             profile => {
                 this.profile = profile;
+                const domainIds = [...new Set((this.profile.roles ?? []).map(r => r.domainId))];
+                const roles = [...new Set((this.profile.roles ?? []).map(r => r.role))];
 
                 this.updateDomains();
                 this.domains.subscribe(domain => {
-                    const savedDomainId = sessionStorage.getItem('selectedDomainId');
-                    const savedDomain = domain.find(d => d.id === this.profile.defaultDomain);
+                    const sessionSelectedDomainId = Number(sessionStorage.getItem('selectedDomainId'));
+                    let savedDomain: Domain
+                    if (Number.isFinite(sessionSelectedDomainId)
+                        && (
+                            domainIds.includes(sessionSelectedDomainId))
+                        || roles.includes(Role.ROLE_SYSTEM_ADMIN)
+                    ) {
+                        savedDomain = domain.find(d => d.id === sessionSelectedDomainId);
+                    } else {
+                        savedDomain = domain.find(d => d.id === this.profile.defaultDomain);
+                    }
+
                     if (savedDomain) {
                         this.selectedDomain = savedDomain;
                         this.domainName = savedDomain.name;
