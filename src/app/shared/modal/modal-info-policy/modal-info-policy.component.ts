@@ -26,7 +26,7 @@ export class ModalInfoPolicyComponent implements OnInit {
     }
 
     getContent(): void {
-        this.contentDisplayService.getContent('pp').subscribe(content => this.content = content);
+        this.contentDisplayService.getContent('privacy').subscribe(content => this.content = content);
         if (this.content == null) {
             this.modal.hide();
         }
