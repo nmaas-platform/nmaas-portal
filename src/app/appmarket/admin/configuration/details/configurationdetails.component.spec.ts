@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {ConfigurationDetailsComponent} from './configurationdetails.component';
 import {FormsModule} from '@angular/forms';
 import {RouterTestingModule} from '@angular/router/testing';
-import {ConfigurationService} from '../../../../service';
+import {ConfigurationService, DomainService} from '../../../../service';
 import {of} from 'rxjs';
 import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {InternationalizationService} from '../../../../service/internationalization.service';
@@ -27,6 +27,9 @@ describe('ConfigurationDetailsComponent', () => {
         configurationServiceSpy.updateConfiguration.and.returnValue(of())
         mockToast = jasmine.createSpyObj('ToastContainerComponent', ['show']);
 
+        const domainServiceSpy = createSpyObj('DomainService', ['getAll']);
+        domainServiceSpy.getAll.and.returnValue(of([]))
+
         TestBed.configureTestingModule({
             declarations: [ConfigurationDetailsComponent],
             imports: [
@@ -42,7 +45,8 @@ describe('ConfigurationDetailsComponent', () => {
             providers: [
                 {provide: ConfigurationService, useValue: configurationServiceSpy},
                 {provide: InternationalizationService, useValue: internationalizationSpy},
-                { provide: ToastContainerComponent, useValue: mockToast }
+                { provide: ToastContainerComponent, useValue: mockToast },
+                {provide: DomainService, useValue: domainServiceSpy}
             ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })

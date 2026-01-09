@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {BaseComponent} from '../../../../shared/common/basecomponent/base.component';
 import {Router} from '@angular/router';
-import {ConfigurationService} from '../../../../service';
+import {ConfigurationService, DomainService} from '../../../../service';
 import {Configuration} from '../../../../model/configuration';
 import {InternationalizationService} from '../../../../service/internationalization.service';
 import {Language} from '../../../../model/language';
 import {ToastContainerComponent, ToastMode} from '../../../../shared/toast-container/toast-container.component';
+import {Domain} from '../../../../model/domain';
 
 
 
@@ -20,17 +21,22 @@ export class ConfigurationDetailsComponent extends BaseComponent implements OnIn
     public errorMsg: string;
     public configuration: Configuration;
     public languages: Language[];
+    public domainForSsoUsers: Domain[];
 
     constructor(private router: Router,
                 private configurationService: ConfigurationService,
                 private languageService: InternationalizationService,
-                private toast: ToastContainerComponent) {
+                private toast: ToastContainerComponent,
+                private domainService: DomainService) {
         super();
     }
 
     ngOnInit() {
         this.update();
         this.languageService.getAllSupportedLanguages().subscribe(langs => this.languages = langs);
+        this.domainService.getAll().subscribe(domains => {
+            this.domainForSsoUsers = domains.filter(domain => domain.id !== 1);
+        })
     }
 
     public update(): void {
