@@ -26,7 +26,7 @@ export class ModalInfoTermsComponent implements OnInit {
     }
 
     getContent(): void {
-        this.contentDisplayService.getContent('tos').subscribe(content => this.content = content);
+        this.contentDisplayService.getContent('aup').subscribe(content => this.content = content);
         if (this.content == null) {
             this.modal.hide();
         }
