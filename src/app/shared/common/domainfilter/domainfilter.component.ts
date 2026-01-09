@@ -60,7 +60,7 @@ export class DomainFilterComponent implements OnInit {
 
                 this.updateDomains();
                 this.domains.subscribe(domain => {
-                    const sessionSelectedDomainId = Number(sessionStorage.getItem('selectedDomainId'));
+                    const sessionSelectedDomainId = Number(localStorage.getItem('selectedDomainId'));
                     let savedDomain: Domain
                     if (Number.isFinite(sessionSelectedDomainId)
                         && (
@@ -164,8 +164,8 @@ export class DomainFilterComponent implements OnInit {
         this.domainName = domainName;
         this.userData.selectDomainId(Number(domainId));
 
-        sessionStorage.setItem('selectedDomainId', domainId.toString());
-        sessionStorage.setItem('selectedDomainName', domainName);
+        localStorage.setItem('selectedDomainId', domainId.toString());
+        localStorage.setItem('selectedDomainName', domainName);
     }
 
     public getCurrent() {

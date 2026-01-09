@@ -229,6 +229,9 @@ export const MyPreset = definePreset(Nora, {
                     color: '{accent.600}'
                 }
             }
+        },
+        inputchips: {
+            background: '{surface.300}',
         }
     }
 });

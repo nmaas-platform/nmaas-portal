@@ -37,7 +37,7 @@ export class AppListComponent implements OnInit, OnDestroy {
 
 
     ngOnInit(): void {
-        const sessionIdRaw = Number(sessionStorage.getItem('selectedDomainId'));
+        const sessionIdRaw = Number(localStorage.getItem('selectedDomainId'));
         const sessionIdIsValid = Number.isFinite(sessionIdRaw)
         const sessionId = sessionIdIsValid ? sessionIdRaw : 0;
 
@@ -55,15 +55,15 @@ export class AppListComponent implements OnInit, OnDestroy {
                 distinctUntilChanged(),
                 tap(domainId => {
                     this.domainId = domainId;
-                    sessionStorage.setItem('selectedDomainId', String(domainId));
+                    localStorage.setItem('selectedDomainId', String(domainId));
                 })
             )
             .subscribe();
     }
 
-    private getDefaultDomainId(sessionStorageDomainId: number): number {
-        if (sessionStorageDomainId !== 0) {
-            return sessionStorageDomainId;
+    private getDefaultDomainId(localStorageDomainId: number): number {
+        if (localStorageDomainId !== 0) {
+            return localStorageDomainId;
         }
 
         const domains = this.authService.getDomains();

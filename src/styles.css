@@ -393,3 +393,7 @@ body .p-dialog {
     background: transparent;
     border: none;
 }
+
+.p-chip {
+    background: #76767a !important;
+}
