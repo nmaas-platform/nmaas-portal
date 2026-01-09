@@ -14,4 +14,5 @@ export class Configuration {
     public bulkDeploymentQueueRefresh: number;
     public deploymentPrefix: string;
     public bulkDeploymentTimeThreshold: number;
+    public defaultDomainForSsoUsers: number;
 }

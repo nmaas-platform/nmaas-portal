@@ -27,6 +27,23 @@
                                        [checked]="this.configuration.ssoLoginAllowed === true">
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label for="defaultDomainForSsoUsers"
+                                   class="col-sm-3 control-label">{{ 'PORTAL_CONFIGURATION.DEFAULT_DOMAIN_FOR_SSO_USER' | translate }}</label>
+                            <div class="col-sm-3">
+                                <select style=" background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" id="defaultLang" #defaultDomainForSsoUsers class="form-control"
+                                        name="defaultDomainForSsoUsers"
+                                        [(ngModel)]="configuration.defaultDomainForSsoUsers">
+                                    <option [ngValue]="null">
+                                       {{'PORTAL_CONFIGURATION.NULL' | translate}}
+                                    </option>
+                                    <option *ngFor="let domain of domainForSsoUsers" [ngValue]="domain.id">
+                                     {{domain.codename}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="defaultLang"
                                    class="col-sm-3 control-label">{{'PORTAL_CONFIGURATION.DEFAULT_LANGUAGE' | translate}}</label>
