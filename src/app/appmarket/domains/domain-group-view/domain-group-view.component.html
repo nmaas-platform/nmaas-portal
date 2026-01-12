@@ -100,11 +100,11 @@
                         {{ 'DOMAINS.GROUP.ACCESS_USER' | translate }}
                     </h4>
                     <div style="display: flex; gap:10px;">
-                        <div *roles="['ROLE_SYSTEM_ADMIN']" style="display: flex; justify-content: end">
-                            <button  type="button" class="btn btn-text" (click)="showModalUser()">{{'DOMAINS.GROUP.ADD_USERS' | translate}}</button>
+                        <div  *roles="['ROLE_SYSTEM_ADMIN']" style="display: flex; justify-content: end">
+                            <button *ngIf="isInMode(ComponentMode.EDIT)" type="button" class="btn btn-text" (click)="showModalUser()">{{'DOMAINS.GROUP.ADD_USERS' | translate}}</button>
                         </div>
                         <div *roles="['ROLE_GROUP_MANAGER']" style="display: flex; justify-content: end;">
-                            <button  type="button" class="btn btn-danger" (click)="removeMyAccess()">{{'DOMAINS.GROUP.DELETE_MYSELF' | translate}}</button>
+                            <button *ngIf="isInMode(ComponentMode.EDIT)" type="button" class="btn btn-danger" (click)="removeMyAccess()">{{'DOMAINS.GROUP.DELETE_MYSELF' | translate}}</button>
                         </div>
                     </div>
                 </div>
@@ -122,7 +122,7 @@
                             <td style="width: 40%" >{{user.username}}</td>
                             <td style="width: 40%" >{{user.firstname}} {{user.lastname}}</td>
                             <td style="text-align:end">
-                                <div class="">
+                                <div *ngIf="isInMode(ComponentMode.EDIT)" class="">
                                     <button *roles="['ROLE_SYSTEM_ADMIN']" type="button" class="btn btn-danger-text" (click)="deleteUserAccess(user)">
                                         <i class="pi pi-trash" style="font-size: 15px;"></i>
 <!--                                        {{'DOMAINS.GROUP.DELETE_USER' | translate}}-->
@@ -149,7 +149,7 @@
                 </div>
             </div>
             <div class="panel-body collapse" id="domains-list">
-                <div style="display: flex; justify-content: end">
+                <div *ngIf="isInMode(ComponentMode.EDIT)" style="display: flex; justify-content: end">
                     <button type="button" class="btn btn-text" (click)="showModal()">{{'DOMAINS.LIST.ADD' | translate}}</button>
                 </div>
                 <table class="table table-hover table-condensed" aria-describedby="Domains in Group table" style="margin-top: 2rem">
@@ -226,6 +226,7 @@
                                                 <input type="checkbox" class="custom-control-input"
                                                        id="domain-state-enabled-{{i}}"
                                                        name="domain-state-enabled-{{i}} "
+                                                       [disabled]="isInMode(ComponentMode.VIEW)"
                                                        [(ngModel)]="domainGroup.applicationStatePerDomain[i].enabled">
                                             </div>
                                         </div>
@@ -237,6 +238,7 @@
                                                 <input pInputText type="number" step="1" min="1" max="100" class="form-control"
                                                        id="domain-state-storage-limit-size-{{i}}"
                                                        name="domain-state-storage-limit-size-{{i}} "
+                                                       [disabled]="isInMode(ComponentMode.VIEW)"
                                                        [(ngModel)]="domainGroup.applicationStatePerDomain[i].pvStorageSizeLimit">
                                             </div>
                                         </div>
