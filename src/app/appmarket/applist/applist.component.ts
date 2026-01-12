@@ -11,6 +11,7 @@ import {SortableColumnComponent} from '../../shared/sortable-column/sortable-col
 import {SortableTableDirective} from '../../shared/sortable-column/sortable-table.directive';
 import {AuthService} from '../../auth/auth.service';
 import {filter, tap} from 'rxjs/operators';
+import {ProfileService} from '../../service/profile.service';
 
 @Component({
     selector: 'nmaas-applications',
@@ -32,7 +33,8 @@ export class AppListComponent implements OnInit, OnDestroy {
                 private readonly router: Router,
                 private readonly route: ActivatedRoute,
                 private readonly authService: AuthService,
-                private readonly location: Location) {
+                private readonly location: Location,
+                private readonly profileService: ProfileService) {
     }
 
 
@@ -68,9 +70,18 @@ export class AppListComponent implements OnInit, OnDestroy {
 
         const domains = this.authService.getDomains();
         if (domains.length > 0) {
-
             const id = domains[0];
-            this.userDataService.selectDomainId(id);
+            this.profileService.getOne().subscribe({
+                next: profile => {
+                    this.userDataService.selectDomainId(profile.defaultDomain)
+                    return profile.defaultDomain
+                },
+                error: () => {
+                    this.userDataService.selectDomainId(id);
+                    return id
+                }
+            })
+
             return id;
         }
         return 1;
