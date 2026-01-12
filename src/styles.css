@@ -397,3 +397,6 @@ body .p-dialog {
 .p-chip {
     background: #76767a !important;
 }
+.form-control[disabled], fieldset[disabled] .form-control {
+    cursor: default;
+}

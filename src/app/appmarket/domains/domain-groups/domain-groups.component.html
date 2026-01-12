@@ -18,18 +18,15 @@
     <p-table [value]="groups | searchDomainGroup: searchValue" [rowHover]="true">
         <ng-template pTemplate="header">
             <tr>
-                <th></th>
                 <th pSortableColumn="name">{{'APPS_MANAGEMENT.NAME' | translate}}
                     <p-sortIcon field="name"></p-sortIcon>
                 </th>
                 <th pSortableColumn="codenam">{{'DOMAINS.CODE_NAME' | translate}}
                     <p-sortIcon field="codename"></p-sortIcon>
                 </th>
-                <th pSortableColumn="domainName">{{'DOMAINS.LIST.DOMAIN_NAME' | translate}}
-                    <p-sortIcon field="domainName"></p-sortIcon>
-                </th>
-                <th pSortableColumn="domainCode">{{'DOMAINS.LIST.DOMAIN_CODE_NAME' | translate}}
-                    <p-sortIcon field="domainCode"></p-sortIcon>
+                <th pSortableColumn="numberOfDomains">
+                    Number of domains
+                    <p-sortIcon fiels="numberOfDomains"></p-sortIcon>
                 </th>
                 <th></th>
             </tr>
@@ -37,16 +34,9 @@
 
         <ng-template pTemplate="body" let-domainGroup let-i="rowIndex">
             <tr class="table-row">
-                <td style="width: 5%" (click)="clickTableRow(i)" *ngIf="!domainsRowVisible[i]">
-                    <span class="pi pi-chevron-right"></span>
-                </td>
-                <td style="width: 5%" (click)="clickTableRow(i)" *ngIf="domainsRowVisible[i]">
-                    <span class="pi pi-chevron-down"></span>
-                </td>
-                <td style="width: 25%" (click)="clickTableRow(i)">{{domainGroup?.name}}</td>
-                <td style="width: 20%" (click)="clickTableRow(i)">{{domainGroup?.codename}}</td>
-                <td style="width: 15%" (click)="clickTableRow(i)"></td>
-                <td style="width: 15%" (click)="clickTableRow(i)"></td>
+                <td style="width: 30%" [routerLink]="['view/', domainGroup.id]" >{{domainGroup?.name}}</td>
+                <td style="width: 30%" [routerLink]="['view/', domainGroup.id]">{{domainGroup?.codename}}</td>
+                <td style="width: 30%" [routerLink]="['view/', domainGroup.id]">{{domainGroup.domains.length}}</td>
 <!--                <td style="width: 20%" class="text-right">-->
 <!--                    <span class="dropdown">-->
 <!--                        <a style="display: inline-block" class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">-->
@@ -72,16 +62,16 @@
                 </td>
             </tr>
 
-            <ng-template ngFor let-domain [ngForOf]="domainGroup.domains">
-                <tr *ngIf="domainsRowVisible[i]" class="table-row pointer" [routerLink]="['/admin/domains/view/', domain.id]">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{domain.name}}</td>
-                    <td>{{domain.codename}}</td>
-                    <td class="text-right"></td>
-                </tr>
-            </ng-template>
+<!--            <ng-template ngFor let-domain [ngForOf]="domainGroup.domains">-->
+<!--                <tr *ngIf="domainsRowVisible[i]" class="table-row pointer" [routerLink]="['/admin/domains/view/', domain.id]">-->
+<!--                    <td></td>-->
+<!--                    <td></td>-->
+<!--                    <td></td>-->
+<!--                    <td>{{domain.name}}</td>-->
+<!--                    <td>{{domain.codename}}</td>-->
+<!--                    <td class="text-right"></td>-->
+<!--                </tr>-->
+<!--            </ng-template>-->
         </ng-template>
     </p-table>
 </div>

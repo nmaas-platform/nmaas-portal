@@ -52,7 +52,7 @@ export class DomainGroupsComponent implements OnInit {
         this.rowMenuItems = [
             {
                 label: this.translate.instant('APPS_MANAGEMENT.EDIT_BUTTON'),
-                routerLink: ['/admin/domains/groups', domainGroup?.id]
+                routerLink: ['edit', domainGroup?.id]
             },
             {
                 label: this.translate.instant( 'APP_INSTANCE.REMOVE_BUTTON'),

@@ -41,8 +41,12 @@ export const DomainsRoutes: Route[] = [
         data: {mode: ComponentMode.CREATE, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']}
     },
     {
-        path: 'domains/groups/:id', component: DomainGroupViewComponent, canActivate: [AuthGuard, RoleGuard],
+        path: 'domains/groups/view/:id', component: DomainGroupViewComponent, canActivate: [AuthGuard, RoleGuard],
         data: {mode: ComponentMode.VIEW, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']}
+    },
+    {
+        path: 'domains/groups/edit/:id', component: DomainGroupViewComponent, canActivate: [AuthGuard, RoleGuard],
+        data: {mode: ComponentMode.EDIT, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']}
     },
     {
         path: 'domains/bulks/new', component: DomainuploadComponent,
