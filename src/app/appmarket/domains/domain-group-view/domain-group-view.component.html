@@ -6,7 +6,7 @@
                 <label for="name" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.NAME' | translate }}</label>
                 <div class="col-sm-10">
                     <input pInputText type="text" class="form-control"  id="name" name="name"
-                           [(ngModel)]="domainGroup.name" #name="ngModel" required>
+                           [(ngModel)]="domainGroup.name" #name="ngModel" required [disabled]="isInMode(ComponentMode.VIEW)">
                     <div *ngIf="name.invalid && (name.dirty || name.touched)"
                          class="alert alert-danger">
                         <div *ngIf="name.errors.required">{{ 'DOMAIN_DETAILS.NAME_IS_REQUIRED_MESSAGE' | translate }}</div>
@@ -14,12 +14,12 @@
                 </div>
             </div>
 
-            <div class="form-group" *ngIf="!isInMode(ComponentMode.EDIT)">
+            <div class="form-group">
                 <label for="codename" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.CODE_NAME' | translate }}</label>
                 <div class="col-sm-10">
                     <input pInputText type="text" class="form-control"  id="codename"
                            name="codename" pattern="[a-zA-Z0-9-]*"
-                           [(ngModel)]="domainGroup.codename" #codename="ngModel" minlength="2" maxlength="20" required>
+                           [(ngModel)]="domainGroup.codename" #codename="ngModel" minlength="2" maxlength="20" required [disabled]="isInMode(ComponentMode.VIEW)">
                     <div *ngIf="codename.invalid && (codename.dirty || codename.touched)"
                          class="alert alert-danger">
 
@@ -31,6 +31,66 @@
                 </div>
             </div>
         </div>
+
+        <div class="background-section" *ngIf="domainGroupLimit || isInMode(ComponentMode.CREATE)">
+            <div class="panel-body">
+
+                <div class="flex justify-content-between mb-3">
+                    <h4 style="font-size:15px; font-weight: bold">
+                        {{'DOMAIN_DETAILS.RESOURCE_LIMIT' | translate}}
+                    </h4>
+                    <button *ngIf="isInMode(ComponentMode.EDIT)" type="button"
+                            class="btn btn-danger"
+                            (click)="disableLimits()"
+                            [disabled]="!domainGroupLimit?.id">
+                        {{'DOMAIN_DETAILS.DISABLE_BUTTON' | translate}}
+                    </button>
+                </div>
+
+                <div class="form-horizontal">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="instancesNo">{{ 'DOMAINS.GLOBAL_SETTINGS.INSTANCES'| translate }}</label>
+                            <div class="col-sm-10 ">
+                                <input class="form-control"
+                                       placeholder="Not set" pInputText id="instancesNo" name="instancesNo"
+                                       type="number" pattern="^[1-9][0-9]*$" [(ngModel)]="domainGroupLimit.instancesNo"
+                                       [disabled]="isInMode(ComponentMode.VIEW)"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="containersNo">{{ 'DOMAINS.GLOBAL_SETTINGS.CONTAINERS'| translate }}</label>
+                            <div class="col-sm-10 pd-top-7">
+                                <input class="form-control"
+                                       placeholder="Not set" pInputText id="containersNo" name="containersNo"
+                                       type="number" pattern="^[1-9][0-9]*$" [(ngModel)]="domainGroupLimit.containersNo"
+                                       [disabled]="isInMode(ComponentMode.VIEW)"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="cpu">{{ 'DOMAINS.GLOBAL_SETTINGS.CPU'| translate }}</label>
+                            <div class="col-sm-10 pd-top-7">
+                                <input class="form-control"
+                                       placeholder="Not set" pInputText id="cpu" name="cpu"
+                                       type="number" pattern="^[1-9][0-9]*$" [(ngModel)]="domainGroupLimit.cpu"
+                                       [disabled]="isInMode(ComponentMode.VIEW)"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="memory">{{ 'DOMAINS.GLOBAL_SETTINGS.MEMORY'| translate }}</label>
+                            <div class="col-sm-10 pd-top-7"><div class="input-width">
+                                <input class="form-control"
+                                       placeholder="Not set" pInputText id="memory" name="memory"
+                                       type="number" pattern="^[1-9][0-9]*$" [(ngModel)]="domainGroupLimit.memory"
+                                       [disabled]="isInMode(ComponentMode.VIEW)"/>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <div *ngIf="!this.addingMode" class="background-section" style="margin-top: 3rem">
             <div class="panel-heading">
@@ -192,7 +252,7 @@
                 </table>
             </div>
         </div>
-        <div class="flex justify-content-end">
+        <div class="flex justify-content-end" *ngIf="isInMode(ComponentMode.EDIT) || isInMode(ComponentMode.CREATE)">
             <button  type="submit" class="btn btn-primary" [disabled]="!domainForm.form.valid">{{ 'DOMAIN_DETAILS.SUBMIT_BUTTON' | translate }}</button>
         </div>
 

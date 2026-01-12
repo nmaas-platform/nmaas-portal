@@ -28,17 +28,31 @@ export class ResourcesLimitService extends GenericDataService {
   getDomainLimit(domainId: number): Observable<GlobalResourcesLimit> {
     return this.http.get<GlobalResourcesLimit>(`${this.uri}/domain/${domainId}`);
   }
+  getDomainGroupLimit(domainGroupId: number): Observable<GlobalResourcesLimit | null> {
+    return this.http.get<GlobalResourcesLimit[]>(this.uri).pipe(
+        map(limits => limits.find(l => l.limitType === 'DOMAIN_GROUP' && l.domainGroup?.id === domainGroupId) || null)
+    );
+  }
 
   setGlobalLimit(limit: GlobalResourcesLimit): Observable<GlobalResourcesLimit> {
     return this.http.post<GlobalResourcesLimit>(`${this.uri}/global`, limit);
   }
 
-  setDomainLimit(domainId: number, limit: GlobalResourcesLimit): Observable<any> {
-    return this.http.post(this.uri, {
-      limitType: 'DOMAIN',
-      domain: { id: domainId },
-      ...limit
-    });
+  setDomainLimit( domainId: number, limit: GlobalResourcesLimit): Observable<any> {
+    let load: any
+    if ( limit.limitType === 'DOMAIN' ) {
+       load = {
+         ...limit,
+         domain: { id: domainId }
+      }
+    }
+    if ( limit.limitType === 'DOMAIN_GROUP' ) {
+      load = {
+        ...limit,
+        domainGroup: { id: domainId }
+      }
+    }
+    return this.http.post(this.uri, load);
   }
   updateDomainLimit(limit: GlobalResourcesLimit): Observable<any> {
     return this.http.put(`${this.uri}/${limit.id}`, limit);

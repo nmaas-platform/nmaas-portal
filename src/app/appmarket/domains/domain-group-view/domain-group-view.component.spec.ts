@@ -402,7 +402,7 @@ describe('DomainGroupViewComponent', () => {
         expect(mockDomainService.createDomainGroup).toHaveBeenCalledWith(jasmine.objectContaining({
             managers: [mockOwner]
         }));
-        expect(mockRouter.navigate).toHaveBeenCalledWith(['/admin/domains/groups/', mockCreatedGroup.id]);
+        expect(mockRouter.navigate).toHaveBeenCalledWith(['/admin/domains/groups/view/', mockCreatedGroup.id]);
     });
 
     it('should handle domain group update', () => {

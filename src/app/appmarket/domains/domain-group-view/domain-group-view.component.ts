@@ -9,6 +9,8 @@ import {User} from '../../../model';
 import {AuthService} from '../../../auth/auth.service';
 import {ProfileService} from '../../../service/profile.service';
 import {ToastContainerComponent, ToastMode} from '../../../shared/toast-container/toast-container.component';
+import {GlobalResourcesLimit} from '../../../model/global-resources-limit';
+import {ResourcesLimitService} from '../../../service/resources-limit.service';
 
 @Component({
     selector: 'app-domain-group-view',
@@ -29,6 +31,13 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
     public searchUser = '';
 
     public errorMessage = '';
+    public domainGroupLimit: GlobalResourcesLimit = {
+        memory: null,
+        cpu: null,
+        instancesNo: null,
+        containersNo: null,
+        limitType: 'DOMAIN_GROUP'
+    };
 
 
     @ViewChild(ModalComponent, {static: true})
@@ -43,12 +52,15 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
                 private readonly userService: UserService,
                 private readonly authService: AuthService,
                 private readonly profileService: ProfileService,
-                private readonly toast: ToastContainerComponent
+                private readonly toast: ToastContainerComponent,
+                private resourcesLimitsService: ResourcesLimitService
     ) {
         super();
     }
 
     ngOnInit(): void {
+        this.mode = this.getMode(this.route);
+        console.warn('Route:', this.route, this.getMode(this.route))
         this.refreshDomainForAdd();
         if (this.route.snapshot.data['mode'] === ComponentMode.CREATE) {
             console.warn('creation mode');
@@ -71,6 +83,9 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
                         }
                     }
                 })
+                this.resourcesLimitsService.getDomainGroupLimit(this.domainGroupId).subscribe((limit) => {
+                    this.domainGroupLimit = limit ?? this.domainGroupLimit
+                })
             }
         })
     }
@@ -85,7 +100,10 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
                     next: (data) => {
                         console.warn('crated', data);
                         this.authService.loadUser()
-                        this.router.navigate(['/admin/domains/groups/', data.id]);
+                        if (this.hasAnyLimit()) {
+                            this.resourcesLimitsService.setDomainLimit(data.id, this.domainGroupLimit).subscribe();
+                        }
+                        this.router.navigate(['/admin/domains/groups/view/', data.id]);
                     },
                     error: (err) => {
                         console.error(err);
@@ -108,6 +126,34 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
                     this.authService.loadUser()
                     this.router.navigate(['/admin/domains/groups'])
                 }
+            });
+            if (this.domainGroupLimit?.id) {
+                this.resourcesLimitsService.updateDomainLimit(this.domainGroupLimit).subscribe();
+            } else if (this.hasAnyLimit()) {
+                this.resourcesLimitsService.setDomainLimit(this.domainGroupId, this.domainGroupLimit).subscribe();
+            }
+        }
+    }
+
+    public hasAnyLimit(): boolean {
+        return !!(
+            this.domainGroupLimit?.cpu ||
+            this.domainGroupLimit?.instancesNo ||
+            this.domainGroupLimit?.memory ||
+            this.domainGroupLimit?.containersNo
+        )
+    }
+
+    public disableLimits(): void {
+        if (this.domainGroupLimit?.id) {
+            this.resourcesLimitsService.deleteDomainLimit(this.domainGroupLimit.id).subscribe(() => {
+                this.domainGroupLimit = {
+                    memory: null,
+                    cpu: null,
+                    instancesNo: null,
+                    containersNo: null,
+                    limitType: 'DOMAIN_GROUP'
+                };
             });
         }
     }

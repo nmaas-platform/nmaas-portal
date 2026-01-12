@@ -86,3 +86,18 @@ td{
 .table-hover>tbody>tr:hover{
     background: transparent;
 }
+.form-control[disabled], fieldset[disabled] .form-control{
+    background: transparent;
+    border:none;
+    box-shadow: none;
+    color: var(--p-text-0);
+}
+.form-control[disabled],
+fieldset[disabled] .form-control {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: transparent;
+    border:none;
+    box-shadow: none;
+}

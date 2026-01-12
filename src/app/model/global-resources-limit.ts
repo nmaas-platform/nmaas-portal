@@ -5,8 +5,12 @@ export class GlobalResourcesLimit {
     instancesNo?: number;
     containersNo?: number;
     domain?: Domain;
-    limitType: 'GLOBAL' | 'DOMAIN' | 'USER';
+    domainGroup?: DomainGroup;
+    limitType: 'GLOBAL' | 'DOMAIN' | 'DOMAIN_GROUP';
 }
  export interface Domain {
     id: number
  }
+export interface DomainGroup {
+    id: number
+}
