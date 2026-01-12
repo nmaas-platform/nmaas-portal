@@ -293,10 +293,12 @@ export class AuthService {
             debounceTime(1000),
             map((res: Response) => {
                     const resToken = res?.['token'];
-                    const resOidcToken = res?.['resOidcToken'];
-                    if (resToken && resOidcToken) {
+                    const resOidcToken = res?.['oidcToken'];
+                    const refreshToken = res?.['refreshToken'];
+                    if (resToken && resOidcToken && refreshToken) {
                         this.storeToken(resToken);
                         this.storeOidcToken(resOidcToken);
+                        this.storeRefreshToken(refreshToken);
                         this.loginUsingSsoService = false;
                         this.isLoggedInSubject.next(true);
                         this.profileService.getRoles().subscribe(profile => {
@@ -341,10 +343,12 @@ export class AuthService {
                 debounceTime(1000),
             map((res: Response) => {
                 const resToken = res?.['token'];
-                const resOidcToken = res?.['resOidcToken'];
-                if (resToken && resOidcToken) {
+                const resOidcToken = res?.['oidcToken'];
+                const refreshToken = res?.['refreshToken'];
+                if (resToken && resOidcToken && refreshToken) {
                     this.storeToken(resToken);
                     this.storeOidcToken(resOidcToken);
+                    this.storeRefreshToken(refreshToken);
                     this.loginUsingSsoService = false;
                     this.isLoggedInSubject.next(true);
                     this.profileService.getRoles().subscribe(profile => {
