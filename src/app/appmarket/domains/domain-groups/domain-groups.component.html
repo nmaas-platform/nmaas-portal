@@ -18,11 +18,11 @@
     <p-table [value]="groups | searchDomainGroup: searchValue" [rowHover]="true">
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="name">{{'APPS_MANAGEMENT.NAME' | translate}}
-                    <p-sortIcon field="name"></p-sortIcon>
-                </th>
                 <th pSortableColumn="codenam">{{'DOMAINS.CODE_NAME' | translate}}
                     <p-sortIcon field="codename"></p-sortIcon>
+                </th>
+                <th pSortableColumn="name">{{'APPS_MANAGEMENT.NAME' | translate}}
+                    <p-sortIcon field="name"></p-sortIcon>
                 </th>
                 <th pSortableColumn="numberOfDomains">
                     {{'DOMAINS.NUMBER_OF_DOMAINS' | translate}}
@@ -34,8 +34,8 @@
 
         <ng-template pTemplate="body" let-domainGroup let-i="rowIndex">
             <tr class="table-row">
-                <td style="width: 30%" [routerLink]="['view/', domainGroup.id]" >{{domainGroup?.name}}</td>
                 <td style="width: 30%" [routerLink]="['view/', domainGroup.id]">{{domainGroup?.codename}}</td>
+                <td style="width: 30%" [routerLink]="['view/', domainGroup.id]" >{{domainGroup?.name}}</td>
                 <td style="width: 30%" [routerLink]="['view/', domainGroup.id]">{{domainGroup.domains.length}}</td>
 <!--                <td style="width: 20%" class="text-right">-->
 <!--                    <span class="dropdown">-->
