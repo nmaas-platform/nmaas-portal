@@ -39,7 +39,7 @@
                                style="margin-right: 5px"
                                required/>
                         {{ 'REGISTRATION.AGREEMENT_MESSAGE' | translate }}
-                        <a (click)="modalInfoPolicy.show()">
+                        <a (click)="modalInfoTerms.show()">
                             {{ 'REGISTRATION.ACCEPTABLE_USE_POLICY' | translate }}
                         </a>
                         *
@@ -57,3 +57,5 @@
         </div>
     </div>
 </div>
+<modal-info-terms></modal-info-terms>
+<modal-info-policy></modal-info-policy>

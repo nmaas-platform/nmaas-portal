@@ -5,22 +5,32 @@ import {ModalInfoPolicyComponent} from '../../shared/modal/modal-info-policy/mod
 import {User} from '../../model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../auth/auth.service';
-import jwtDecode from 'jwt-decode';
+// import jwtDecode from 'jwt-decode';
+import {ModalInfoTermsComponent} from '../../shared/modal/modal-info-terms/modal-info-terms.component';
+import {ModalComponent, SharedModule} from '../../shared';
 
 @Component({
     selector: 'app-sso-first-login',
-    imports: [
-        FormsModule,
-        TranslatePipe,
-        ReactiveFormsModule
-    ],
+    // imports: [
+    //     FormsModule,
+    //     TranslatePipe,
+    //     ReactiveFormsModule,
+    //     SharedModule,
+    // ],
+    providers: [ModalComponent, ModalInfoTermsComponent, ModalInfoPolicyComponent],
+
     templateUrl: './sso-first-login.component.html',
-    styleUrl: './sso-first-login.component.css'
+    styleUrl: './sso-first-login.component.css',
+    standalone: false
 })
 export class SsoFirstLoginComponent implements OnInit, OnDestroy {
 
-    @ViewChild(ModalInfoPolicyComponent, {static: true})
+    @ViewChild(ModalInfoTermsComponent, { static: true })
+    public readonly modalInfoTerms: ModalInfoTermsComponent;
+
+    @ViewChild(ModalInfoPolicyComponent, { static: true })
     public readonly modalInfoPolicy: ModalInfoPolicyComponent;
+
 
     public user: User;
     private token: string;
@@ -45,7 +55,7 @@ export class SsoFirstLoginComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.route.queryParams.subscribe(param => {
             this.token = param['oidc-token'];
-            const decoded: TokenPayload = jwtDecode<TokenPayload>(this.token);
+            const decoded: TokenPayload = null
             this.user = new User();
             this.user.username = decoded.preferred_username;
             this.user.firstname = decoded.given_name;
