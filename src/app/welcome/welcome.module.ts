@@ -22,6 +22,7 @@ import {PasswordStrengthMeterComponent} from 'angular-password-strength-meter';
 import {PolicySubpageComponent} from './policy-subpage/policy-subpage.component';
 import {LinkAccountComponent} from './link-account/link-account.component';
 import {InputTextModule} from 'primeng/inputtext';
+import {SsoFirstLoginComponent} from './sso-first-login/sso-first-login.component';
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import {InputTextModule} from 'primeng/inputtext';
         TermsAcceptanceComponent,
         PasswordResetComponent,
         PolicySubpageComponent,
-        LinkAccountComponent
+        LinkAccountComponent,
+        SsoFirstLoginComponent
     ],
     imports: [
         FormsModule,
