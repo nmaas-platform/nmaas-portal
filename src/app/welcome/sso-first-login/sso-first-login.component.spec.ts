@@ -25,7 +25,6 @@ describe('SsoFirstLoginComponent', () => {
 
         await TestBed.configureTestingModule({
             imports: [
-                SsoFirstLoginComponent,
                 RouterTestingModule,
                 TranslateModule.forRoot(),
             ],
