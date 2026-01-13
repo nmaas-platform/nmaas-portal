@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../auth/auth.service';
 import {ModalInfoTermsComponent} from '../../shared/modal/modal-info-terms/modal-info-terms.component';
 import {ModalComponent} from '../../shared';
+import jwtDecode from 'jwt-decode';
 
 @Component({
     selector: 'app-sso-first-login',
@@ -47,7 +48,7 @@ export class SsoFirstLoginComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.route.queryParams.subscribe(param => {
             this.token = param['oidc-token'];
-            const decoded: TokenPayload = null
+            const decoded: TokenPayload = jwtDecode<TokenPayload>(this.token);
             this.user = new User();
             this.user.username = decoded.preferred_username;
             this.user.firstname = decoded.given_name;
@@ -87,9 +88,6 @@ export class SsoFirstLoginComponent implements OnInit, OnDestroy {
 
     public checkConfirmations() {
         this.confirmationDisabled = !(this.checkboxAUP && this.checkboxPN);
-        console.log('checkboxAUP =', this.checkboxAUP);
-        console.log('checkboxPN =', this.checkboxPN);
-        console.log('confirmationDisabled =', this.confirmationDisabled);
     }
 
     private getMessage(err: any): string {
