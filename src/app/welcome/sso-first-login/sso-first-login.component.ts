@@ -1,22 +1,14 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {TranslatePipe, TranslateService} from '@ngx-translate/core';
+import {TranslateService} from '@ngx-translate/core';
 import {ModalInfoPolicyComponent} from '../../shared/modal/modal-info-policy/modal-info-policy.component';
 import {User} from '../../model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../auth/auth.service';
-// import jwtDecode from 'jwt-decode';
 import {ModalInfoTermsComponent} from '../../shared/modal/modal-info-terms/modal-info-terms.component';
-import {ModalComponent, SharedModule} from '../../shared';
+import {ModalComponent} from '../../shared';
 
 @Component({
     selector: 'app-sso-first-login',
-    // imports: [
-    //     FormsModule,
-    //     TranslatePipe,
-    //     ReactiveFormsModule,
-    //     SharedModule,
-    // ],
     providers: [ModalComponent, ModalInfoTermsComponent, ModalInfoPolicyComponent],
 
     templateUrl: './sso-first-login.component.html',
@@ -25,10 +17,10 @@ import {ModalComponent, SharedModule} from '../../shared';
 })
 export class SsoFirstLoginComponent implements OnInit, OnDestroy {
 
-    @ViewChild(ModalInfoTermsComponent, { static: true })
+    @ViewChild(ModalInfoTermsComponent, {static: true})
     public readonly modalInfoTerms: ModalInfoTermsComponent;
 
-    @ViewChild(ModalInfoPolicyComponent, { static: true })
+    @ViewChild(ModalInfoPolicyComponent, {static: true})
     public readonly modalInfoPolicy: ModalInfoPolicyComponent;
 
 
