@@ -164,7 +164,7 @@
                             <td style="width: 40%" >{{domain.name}}</td>
                             <td style="width: 40%" >{{domain.codename}}</td>
                             <td style="text-align: end">
-                                <button type="button" class="btn btn-danger-text" (click)="deleteDomainFromGroup(domain)">
+                                <button *ngIf="isInMode(ComponentMode.EDIT)" type="button" class="btn btn-danger-text" (click)="deleteDomainFromGroup(domain)">
                                     <i class="pi pi-trash" style="font-size: 15px;"></i>
 <!--                                    {{'DOMAINS.LIST.DELETE' | translate}}-->
                                 </button>
