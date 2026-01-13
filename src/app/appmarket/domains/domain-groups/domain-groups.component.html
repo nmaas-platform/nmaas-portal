@@ -15,7 +15,10 @@
 
 <div class="background-section">
 
-    <p-table [value]="groups | searchDomainGroup: searchValue" [rowHover]="true">
+    <p-table [value]="groups | searchDomainGroup: searchValue" [lazy]="true" (onLazyLoad)="onTableLazyLoad($event)"
+    [totalRecords]="paginationSettings.totalElements" [rows]="paginationSettings.maxItemsOnPage"
+    [rowsPerPageOptions]="[15,20,25,50]" paginator="true" [loading]="loading"
+    [sortField]="paginationSettings.sortField" [sortOrder]="paginationSettings.sortOrder === 'asc' ? 1 : -1">
         <ng-template pTemplate="header">
             <tr>
                 <th pSortableColumn="codenam">{{'DOMAINS.CODE_NAME' | translate}}

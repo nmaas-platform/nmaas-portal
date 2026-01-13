@@ -134,6 +134,16 @@ export class DomainService extends GenericDataService {
   public getAllDomainGroups(): Observable<DomainGroup[]> {
     return this.get<DomainGroup[]>(this.urlGroups);
   }
+  public getAllDomainGroupsPageable( paginatorEvent: PaginatorEvent, searchValue: string = ''): Observable<Page<DomainGroup>> {
+    const customFilters = {
+      searchValue: searchValue
+    };
+
+    const params = this.paggination.getPaginationAndFilterParams(paginatorEvent, customFilters);
+
+    return this.http.get<Page<DomainGroup>>(this.urlGroups + '/', {params});
+
+  }
 
   public getDomainGroup(domainGroupId: number): Observable<DomainGroup> {
     return this.get<DomainGroup>(this.urlGroups + '/' + domainGroupId);
