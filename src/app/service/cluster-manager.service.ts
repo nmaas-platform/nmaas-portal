@@ -17,11 +17,19 @@ export class ClusterManagerService {
             this.url = this.appConfig.getApiUrl() + '/management/cluster';
     }
 
-    public sendCluster(file: File, view: ClusterManager, createNamespace: boolean = false): Observable<ClusterManager> {
+    public sendCluster(view: ClusterManager, file?: File, createNamespace: boolean = false,
+                       secretNamespace?: string, secretName?: string): Observable<ClusterManager> {
         const formParams = new FormData();
-        formParams.append('file', file);
-        formParams.append('createNamespace', createNamespace.toString());
-        formParams.append('data', new Blob([JSON.stringify(view)], { type: 'application/json' }));
+        if (file) {
+            formParams.append('file', file);
+            formParams.append('createNamespace', createNamespace.toString());
+            formParams.append('data', new Blob([JSON.stringify(view)], { type: 'application/json' }));
+        }
+        if (secretName && secretName) {
+            formParams.append('createNamespace', createNamespace.toString());
+            formParams.append('secretName', secretName);
+            formParams.append('secretNamespace', secretNamespace);
+        }
         return this.http.post<ClusterManager>(this.url, formParams);
     }
 
