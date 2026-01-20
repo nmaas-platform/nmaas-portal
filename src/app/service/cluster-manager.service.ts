@@ -20,10 +20,10 @@ export class ClusterManagerService {
     public sendCluster(view: ClusterManager, file?: File, createNamespace: boolean = false,
                        secretNamespace?: string, secretName?: string): Observable<ClusterManager> {
         const formParams = new FormData();
+        formParams.append('data', new Blob([JSON.stringify(view)], { type: 'application/json' }));
         if (file) {
             formParams.append('file', file);
             formParams.append('createNamespace', createNamespace.toString());
-            formParams.append('data', new Blob([JSON.stringify(view)], { type: 'application/json' }));
         }
         if (secretName && secretName) {
             formParams.append('createNamespace', createNamespace.toString());
