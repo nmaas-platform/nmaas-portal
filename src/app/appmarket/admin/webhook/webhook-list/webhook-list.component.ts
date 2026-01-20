@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Webhook, WebhookType } from '../../../../model/webhook';
-import { ModalComponent } from '../../../../shared';
-import { WebhookService } from '../../../../service/webhook.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Webhook, WebhookType} from '../../../../model/webhook';
+import {ModalComponent} from '../../../../shared';
+import {WebhookService} from '../../../../service/webhook.service';
 import {ToastContainerComponent, ToastMode} from '../../../../shared/toast-container/toast-container.component';
-import {DomainGroup} from '../../../../model/domaingroup';
 import {TranslateService} from '@ngx-translate/core';
 import {Menu} from 'primeng/menu';
 import {MenuItem} from 'primeng/api';
@@ -34,16 +33,16 @@ export class WebhookListComponent implements OnInit {
   public authRequired: boolean = false;
 
   public globalType = [
-    { name: "DOMAIN_ACTION", value: "DOMAIN_ACTION" },
-    { name: "DOMAIN_GROUP_ACTION", value: "DOMAIN_GROUP_ACTION" },
-    { name: "APPLICATION_DEPLOYMENT", value: "APPLICATION_DEPLOYMENT" },
-    { name: "APPLICATION_REMOVAL", value: "APPLICATION_REMOVAL"},
-    { name: "USER_ASSIGNMENT", value: "USER_ASSIGNMENT" }
+    { name: 'DOMAIN_ACTION', value: 'DOMAIN_ACTION' },
+    {name: 'DOMAIN_GROUP_ACTION', value: 'DOMAIN_GROUP_ACTION' },
+    {name: 'APPLICATION_DEPLOYMENT', value: 'APPLICATION_DEPLOYMENT' },
+    {name: 'APPLICATION_REMOVAL', value: 'APPLICATION_REMOVAL'},
+    {name: 'USER_ASSIGNMENT', value: 'USER_ASSIGNMENT' }
   ]
   public domainType = [
-    { name: "APPLICATION_DEPLOYMENT", value: "APPLICATION_DEPLOYMENT" },
-    { name: "APPLICATION_REMOVAL", value: "APPLICATION_REMOVAL"},
-    { name: "USER_ASSIGNMENT", value: "USER_ASSIGNMENT" }
+    {name: 'APPLICATION_DEPLOYMENT', value: 'APPLICATION_DEPLOYMENT' },
+    {name: 'APPLICATION_REMOVAL', value: 'APPLICATION_REMOVAL'},
+    {name: 'USER_ASSIGNMENT', value: 'USER_ASSIGNMENT' }
   ]
   public type = this.globalType
 
@@ -54,8 +53,8 @@ export class WebhookListComponent implements OnInit {
   rowMenuItems: MenuItem[] = [];
 
 
-  constructor(private service: WebhookService,
-              private toast: ToastContainerComponent,
+  constructor(private readonly service: WebhookService,
+              private readonly toast: ToastContainerComponent,
               public translate: TranslateService,
               public userDataService: UserDataService,
               public domainService: DomainService) {
@@ -107,7 +106,7 @@ export class WebhookListComponent implements OnInit {
   }
 
   public openModal() {
-    this.addedWebhook.eventType = WebhookType.DOMAIN_ACTION
+    this.onTypeSelect(this.type[0].value)
       this.modal.show();
   }
 
