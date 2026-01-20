@@ -51,7 +51,7 @@ export class ClusterDetailsComponent extends BaseComponent {
     const view = new ClusterManager();
     view.name = "test"
     view.description="testest"
-    this.clusterService.sendCluster(file, view).subscribe(result => { 
+    this.clusterService.sendCluster(view, file).subscribe(result => {
         console.log(result);
     }
     )

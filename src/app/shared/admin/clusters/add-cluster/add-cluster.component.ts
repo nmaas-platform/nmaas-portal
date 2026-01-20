@@ -148,14 +148,24 @@ export class AddClusterComponent implements OnInit {
     console.log(this.cluster);
     this.deteleDates();
     this.setInitialValues();
-    this.cluserService.sendCluster(new File([this.kubernetesFile], 'kubernetes.yaml'), this.cluster, this.namespaceCreation).subscribe(result => {
-      console.log(result);
-      this.cluster = result;
-      this.router.navigate(['/admin/manage/clusters']);
-      this.toast.show('TOAST.SUCCESS.NEW_CLUSTER', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER' )
-    });
+    if (this.readFromSecret) {
+      this.cluserService.sendCluster(this.cluster, undefined, this.namespaceCreation, this.secretNamespace, this.secretName)
+          .subscribe(result => {
+            console.log(result);
+            this.cluster = result;
+            this.router.navigate(['/admin/manage/clusters']);
+            this.toast.show('TOAST.SUCCESS.NEW_CLUSTER', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER')
+          })
+    } else {
+      this.cluserService.sendCluster(this.cluster, new File([this.kubernetesFile], 'kubernetes.yaml'), this.namespaceCreation)
+          .subscribe(result => {
+            console.log(result);
+            this.cluster = result;
+            this.router.navigate(['/admin/manage/clusters']);
+            this.toast.show('TOAST.SUCCESS.NEW_CLUSTER', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER' )
+          });
+    }
   }
-
   private deteleDates() {
     this.cluster.creationDate = null;
     this.cluster.modificationDate = null;

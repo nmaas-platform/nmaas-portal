@@ -98,7 +98,7 @@ describe('AddClusterComponent', () => {
     component.cluster = mockCluster;
     component.submit();
 
-    expect(clusterService.sendCluster).toHaveBeenCalledWith(jasmine.any(File), mockCluster, true);
+    expect(clusterService.sendCluster).toHaveBeenCalledWith(mockCluster, jasmine.any(File), true);
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/admin/manage/clusters']);
   });
 
