@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Webhook, WebhookType } from '../../../../model/webhook';
-import { ModalComponent } from '../../../../shared';
-import { WebhookService } from '../../../../service/webhook.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Webhook, WebhookType} from '../../../../model/webhook';
+import {ModalComponent} from '../../../../shared';
+import {WebhookService} from '../../../../service/webhook.service';
 import {ToastContainerComponent, ToastMode} from '../../../../shared/toast-container/toast-container.component';
-import {DomainGroup} from '../../../../model/domaingroup';
 import {TranslateService} from '@ngx-translate/core';
 import {Menu} from 'primeng/menu';
 import {MenuItem} from 'primeng/api';
@@ -107,7 +106,7 @@ export class WebhookListComponent implements OnInit {
   }
 
   public openModal() {
-    this.addedWebhook.eventType = WebhookType.DOMAIN_ACTION
+    this.onTypeSelect(this.type[0].value)
       this.modal.show();
   }
 
