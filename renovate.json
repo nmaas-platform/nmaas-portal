@@ -4,5 +4,7 @@
     "config:recommended",
     ":semanticCommits"
   ],
-  "separateMinorPatch": true
+  "separateMinorPatch": true,
+  "prConcurrentLimit": 0,
+  "prHourlyLimit": 10
 }
