@@ -69,7 +69,7 @@ build_and_push_release_image:
 
 mend:
   stage: mend
-  image: eclipse-temurin:17-jdk-jammy
+  image: eclipse-temurin:17.0.18_8-jdk-jammy
   only:
     - /^release/
   variables:
