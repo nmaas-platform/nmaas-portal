@@ -157,7 +157,9 @@ export class AppInstanceListComponent implements OnInit {
         this.loadingInstances = true;
         const page = event.first / event.rows;  // np. first=0, rows=10 → page=0
         const size = event.rows;
-        const criteria = new CustomPageCriteria(page, size, 'id', 'desc', 'deployed')
+        const sortField = event.sortField || 'id';
+        const sortDirection = event.sortOrder === 1 ? 'asc' : 'desc';
+        const criteria = new CustomPageCriteria(page, size, sortField, sortDirection,  'deployed')
         if (this.searchValue !== '') {
             criteria.search = this.searchValue
         }
