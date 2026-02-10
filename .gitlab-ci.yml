@@ -28,7 +28,7 @@ sonar:
 
 build_and_push_latest_image:
   stage: build
-  image: korvoj/docker-git:26.1.4
+  image: korvoj/docker-git:29.2.1
   only:
     - develop
   variables:
@@ -55,7 +55,7 @@ build_and_push_alfa_image:
 
 build_and_push_release_image:
   stage: build
-  image: korvoj/docker-git:26.1.4
+  image: korvoj/docker-git:29.2.1
   only:
     - tags
   script:
