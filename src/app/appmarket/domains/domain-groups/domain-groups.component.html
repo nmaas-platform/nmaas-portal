@@ -21,15 +21,16 @@
     [sortField]="paginationSettings.sortField" [sortOrder]="paginationSettings.sortOrder === 'asc' ? 1 : -1">
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="codenam">{{'DOMAINS.CODE_NAME' | translate}}
+                <th pSortableColumn="codename">{{'DOMAINS.CODE_NAME' | translate}}
                     <p-sortIcon field="codename"></p-sortIcon>
                 </th>
                 <th pSortableColumn="name">{{'APPS_MANAGEMENT.NAME' | translate}}
                     <p-sortIcon field="name"></p-sortIcon>
                 </th>
-                <th pSortableColumn="numberOfDomains">
+<!--                <th pSortableColumn="numberOfDomains">-->
+                <th>
                     {{'DOMAINS.NUMBER_OF_DOMAINS' | translate}}
-                    <p-sortIcon fiels="numberOfDomains"></p-sortIcon>
+<!--                    <p-sortIcon fiels="numberOfDomains"></p-sortIcon>-->
                 </th>
                 <th></th>
             </tr>
