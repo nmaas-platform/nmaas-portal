@@ -141,7 +141,7 @@ export class DomainService extends GenericDataService {
 
     const params = this.paggination.getPaginationAndFilterParams(paginatorEvent, customFilters);
 
-    return this.http.get<Page<DomainGroup>>(this.urlGroups + '/', {params});
+    return this.http.get<Page<DomainGroup>>(this.urlGroups, {params});
 
   }
 
