@@ -20,16 +20,15 @@ import {TableModule} from 'primeng/table';
 import {CheckboxModule} from 'primeng/checkbox';
 import {DomainGroupsComponent} from './domain-groups/domain-groups.component';
 import {DomainGroupViewComponent} from './domain-group-view/domain-group-view.component';
-import {DropdownModule} from 'primeng/dropdown';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {RemovalConfirmationModalComponent} from './modals/removal-confirmation-modal/removal-confirmation-modal.component';
 import {SearchDomainGroupPipe} from './domain-group-search.pipe';
 import { DomainAnnotationsComponent } from './domain-annotations/domain-annotations.component';
-import {IconField} from 'primeng/iconfield';
-import {InputIcon} from 'primeng/inputicon';
-import {Menu} from 'primeng/menu';
+import {IconFieldModule} from 'primeng/iconfield';
+import {InputIconModule} from 'primeng/inputicon';
+import {MenuModule} from 'primeng/menu';
 import {GlobalSettingsComponent} from './global-settings/global-settings.component';
-import {Tab, TabList, TabPanel, TabPanels, Tabs} from 'primeng/tabs';
+import {TabsModule} from 'primeng/tabs';
 
 
 @NgModule({
@@ -51,21 +50,16 @@ import {Tab, TabList, TabPanel, TabPanels, Tabs} from 'primeng/tabs';
         SharedModule,
         AuthModule,
         PipesModule,
-        TranslateModule.forChild(),
+        TranslateModule,
         InputTextModule,
         NgxPaginationModule,
         TableModule,
         CheckboxModule,
-        DropdownModule,
         MultiSelectModule,
-        IconField,
-        InputIcon,
-        Menu,
-        Tabs,
-        TabList,
-        Tab,
-        TabPanels,
-        TabPanel
+        IconFieldModule,
+        InputIconModule,
+        MenuModule,
+        TabsModule
     ],
     exports: [
         DomainsListComponent,

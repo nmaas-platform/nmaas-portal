@@ -42,81 +42,85 @@
                     </span>
                 </a>
             </li>
-            <p-accordion>
-                <p-accordionTab *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_GROUP_MANAGER', 'ROLE_GROUP_DOMAIN_ADMIN']">
-                    <ng-template pTemplate="header">
-                        <div>
+            <p-accordion value="0">
+                <p-accordion-panel value="1" *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_GROUP_MANAGER', 'ROLE_GROUP_DOMAIN_ADMIN']">
+                    <p-accordion-header>
+                        <div style="display: flex">
                             <i class="pi pi-server" style="margin-right:10px; font-size: 18px" title="{{ 'NAVBAR.DOMAINS' | translate }}"></i>
                             <span *ngIf="!isCollapsed">
                                  {{ 'NAVBAR.DOMAINS' | translate }}
                             </span>
                         </div>
-                    </ng-template>
-                    <li *roles="['ROLE_SYSTEM_ADMIN']"
-                        [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
-                        <a  style="display: flex; align-items: center;" [routerLink]="['/admin/resources-limits']">
-                            <i class="pi pi-cog" style="margin-right:10px; font-size: 18px" title="Global settings"></i>
-                            <span *ngIf="!isCollapsed">
+                    </p-accordion-header>
+                    <p-accordion-content>
+                        <li *roles="['ROLE_SYSTEM_ADMIN']"
+                            [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
+                            <a  style="display: flex; align-items: center;" [routerLink]="['/admin/resources-limits']">
+                                <i class="pi pi-cog" style="margin-right:10px; font-size: 18px" title="Global settings"></i>
+                                <span *ngIf="!isCollapsed">
                                 Global settings
                             </span>
-                        </a>
-                    </li>
-                    <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_GROUP_MANAGER', 'ROLE_GROUP_DOMAIN_ADMIN']"
-                        [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}" >
-                        <a  style="display: flex; align-items: center;" [routerLink]="['/admin/domains']">
-                            <i class="pi pi-list" style="margin-right:10px; font-size: 18px" title="List"></i>
-                            <span *ngIf="!isCollapsed">
+                            </a>
+                        </li>
+                        <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_GROUP_MANAGER', 'ROLE_GROUP_DOMAIN_ADMIN']"
+                            [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}" >
+                            <a  style="display: flex; align-items: center;" [routerLink]="['/admin/domains']">
+                                <i class="pi pi-list" style="margin-right:10px; font-size: 18px" title="List"></i>
+                                <span *ngIf="!isCollapsed">
                                 {{ 'NAVBAR.LIST' | translate }}
                             </span>
-                        </a>
-                    </li>
-                    <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']"
-                        [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
-                        <a  style="display: flex; align-items: center;" [routerLink]="['/admin/domains/groups']">
-                            <i class="pi pi-table" style="margin-right:10px; font-size: 18px" title="Group"></i>
-                            <span *ngIf="!isCollapsed">
+                            </a>
+                        </li>
+                        <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']"
+                            [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
+                            <a  style="display: flex; align-items: center;" [routerLink]="['/admin/domains/groups']">
+                                <i class="pi pi-table" style="margin-right:10px; font-size: 18px" title="Group"></i>
+                                <span *ngIf="!isCollapsed">
                                 {{ 'NAVBAR.GROUP' | translate }}
                             </span>
-                        </a>
-                    </li>
-                    <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']"
-                        [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
-                        <a  style="display: flex; align-items: center;" [routerLink]="['/admin/domains/bulks']">
-                            <i class="pi pi-box" style="margin-right:10px; font-size: 18px" title="Bulk deployments"></i>
-                            <span *ngIf="!isCollapsed">
+                            </a>
+                        </li>
+                        <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']"
+                            [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
+                            <a  style="display: flex; align-items: center;" [routerLink]="['/admin/domains/bulks']">
+                                <i class="pi pi-box" style="margin-right:10px; font-size: 18px" title="Bulk deployments"></i>
+                                <span *ngIf="!isCollapsed">
                                 {{ 'NAVBAR.BULK_DEPLOYMENT_DOMAIN' | translate }}
                             </span>
-                        </a>
-                    </li>
-                </p-accordionTab>
+                            </a>
+                        </li>
+                    </p-accordion-content>
+                </p-accordion-panel>
             </p-accordion>
-            <p-accordion>
-                <p-accordionTab *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER', 'ROLE_GROUP_MANAGER']">
-                    <ng-template pTemplate="header">
-                        <div>
+            <p-accordion value="1">
+                <p-accordion-panel value="2" *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER', 'ROLE_GROUP_MANAGER']">
+                    <p-accordion-header>
+                        <div style="display: flex">
                             <i class="pi pi-th-large" style="margin-right:10px; font-size: 18px" title=" {{ 'NAVBAR.MARKET' | translate }}"></i>
                             <span *ngIf="!isCollapsed">
                                   {{ 'NAVBAR.MARKET' | translate }}
                             </span>
                         </div>
-                    </ng-template>
-                    <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
-                        <a  style="display: flex; align-items: center;" [routerLink]="['/admin/apps']">
-                            <i class="pi pi-th-large" style="margin-right:10px; font-size: 18px" title="Catalog"></i>
-                            <span *ngIf="!isCollapsed">
+                    </p-accordion-header>
+                    <p-accordion-content>
+                        <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
+                            <a  style="display: flex; align-items: center;" [routerLink]="['/admin/apps']">
+                                <i class="pi pi-th-large" style="margin-right:10px; font-size: 18px" title="Catalog"></i>
+                                <span *ngIf="!isCollapsed">
                                 {{ 'NAVBAR.CATALOG' | translate  }}
                             </span>
-                        </a>
-                    </li>
-                    <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER', 'ROLE_GROUP_MANAGER']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
-                        <a  style="display: flex; align-items: center;" [routerLink]="['/admin/apps/bulks']">
-                            <i class="pi pi-box" style="margin-right:10px; font-size: 18px" title="{{ 'BULK.APP.HEADER' | translate }}"></i>
-                            <span *ngIf="!isCollapsed">
+                            </a>
+                        </li>
+                        <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER', 'ROLE_GROUP_MANAGER']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
+                            <a  style="display: flex; align-items: center;" [routerLink]="['/admin/apps/bulks']">
+                                <i class="pi pi-box" style="margin-right:10px; font-size: 18px" title="{{ 'BULK.APP.HEADER' | translate }}"></i>
+                                <span *ngIf="!isCollapsed">
                                  {{ 'BULK.APP.HEADER' | translate }}
                             </span>
-                        </a>
-                    </li>
-                </p-accordionTab>
+                            </a>
+                        </li>
+                    </p-accordion-content>
+                </p-accordion-panel>
             </p-accordion>
 
             <li *roles="['ROLE_SYSTEM_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
@@ -143,33 +147,35 @@
                     </span>
                 </a>
             </li>
-            <p-accordion>
-                <p-accordionTab *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN']">
-                    <ng-template pTemplate="header">
-                        <div>
+            <p-accordion value="2">
+                <p-accordion-panel value="3"  *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN']">
+                    <p-accordion-header>
+                        <div style="display: flex">
                             <i class="pi pi-share-alt" style="margin-right:10px; font-size: 18px" title=" {{ 'NAVBAR.MARKET' | translate }}"></i>
                             <span *ngIf="!isCollapsed">
                                   {{ 'NAVBAR.WEBHOOKS.TITLE' | translate }}
                             </span>
                         </div>
-                    </ng-template>
-                    <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
-                        <a  style="display: flex; align-items: center;" [routerLink]="['/admin/webhooks']">
-                            <i class="pi pi-list" style="margin-right:10px; font-size: 18px" title="webhookList"></i>
-                            <span *ngIf="!isCollapsed">
+                    </p-accordion-header>
+                    <p-accordion-content>
+                        <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
+                            <a  style="display: flex; align-items: center;" [routerLink]="['/admin/webhooks']">
+                                <i class="pi pi-list" style="margin-right:10px; font-size: 18px" title="webhookList"></i>
+                                <span *ngIf="!isCollapsed">
                        {{ 'NAVBAR.WEBHOOKS.LIST' | translate }}
                     </span>
-                        </a>
-                    </li>
-                    <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
-                        <a  style="display: flex; align-items: center;" [routerLink]="['/admin/webhooks/history']">
-                            <i class="pi pi-history" style="margin-right:10px; font-size: 18px" title="webhookHistory"></i>
-                            <span *ngIf="!isCollapsed">
+                            </a>
+                        </li>
+                        <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
+                            <a  style="display: flex; align-items: center;" [routerLink]="['/admin/webhooks/history']">
+                                <i class="pi pi-history" style="margin-right:10px; font-size: 18px" title="webhookHistory"></i>
+                                <span *ngIf="!isCollapsed">
                         {{ 'NAVBAR.WEBHOOKS.HISTORY' | translate }}
                     </span>
-                        </a>
-                    </li>
-                </p-accordionTab>
+                            </a>
+                        </li>
+                    </p-accordion-content>
+                </p-accordion-panel>
             </p-accordion>
             <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN']" [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
                 <a  style="display: flex; align-items: center;" [routerLink]="['/admin/manage/clusters']">
@@ -203,14 +209,15 @@
         </ul>
     </div>
     <div class="menu-bottom flex" [ngStyle]="{'width': isCollapsed ? '100px' : '300px'}">
-        <p-menu  #menu [model]="items" [popup]="true" class="test" [ngClass]="{'collapsed-user': isCollapsed}"/>
-        <p-button  (onClick)="menu.toggle($event)" class="user-button"><i class="pi pi-user" style="font-size: 18px; margin-right:10px"[ngClass]="{'collapsed': isCollapsed}" title="User"></i>
+        <p-menu  #menu [model]="items" [popup]="true" class="test"  appendTo="body" [ngClass]="{'collapsed-user': isCollapsed}"></p-menu>
+        <p-button  (click)="menu.toggle($event)" class="user-button">
+            <i class="pi pi-user" style="font-size: 18px; margin-right:10px" [ngClass]="{'collapsed': isCollapsed}" title="User"></i>
             <span *ngIf="!isCollapsed">
                {{userName}}
             </span>
         </p-button>
         <div *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR','ROLE_GROUP_MANAGER']" style="margin-top:10px" [routerLink]="['admin/dashboard']">
-            <p-button *ngIf="!toggleAdmin" (onClick)="adminPanel()" ><i class="pi pi-sign-in" style="margin-right:10px; font-size: 18px"[ngClass]="{'collapsed': isCollapsed}" title=" Go to admin panel"></i>
+            <p-button *ngIf="!toggleAdmin" (click)="adminPanel()" ><i class="pi pi-sign-in" style="margin-right:10px; font-size: 18px"[ngClass]="{'collapsed': isCollapsed}" title=" Go to admin panel"></i>
                 <span *ngIf="!isCollapsed">
                     {{ 'NAVBAR.ADMIN_PANEL' | translate }}
                 </span>

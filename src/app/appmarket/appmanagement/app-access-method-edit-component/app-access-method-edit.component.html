@@ -52,8 +52,8 @@
         <div class="form-group col-sm-11">
           <div class="double-form col-sm-6">
             <label class="control-label" for="new-key">{{'APP_ACCESS_METHOD_EDIT.NEW_KEY' | translate}}</label>
-            <p-dropdown [options]="allowedKeys"  id="new-key" class="" ngDefaultControl [(ngModel)]="newKey" placeholder="Choose">
-            </p-dropdown>
+            <p-select [options]="allowedKeys"  id="new-key" class="" ngDefaultControl [(ngModel)]="newKey" placeholder="Choose">
+            </p-select>
           </div>
           <div class="double-form col-sm-6">
             <label class="control-label" for="new-value">{{'APP_ACCESS_METHOD_EDIT.NEW_VALUE' | translate}}</label>

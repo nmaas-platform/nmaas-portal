@@ -26,20 +26,19 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import {FileUploadModule} from 'primeng/fileupload';
 import { ChipModule } from 'primeng/chip';
 import {JsonEditComponent} from './json-edit/json-edit.component';
-import {TabViewModule} from 'primeng/tabview';
 import {AppChangeOwnerModalComponent} from './app-change-owner-modal/app-change-owner-modal.component';
 import {TooltipModule} from 'primeng/tooltip';
-import {DropdownModule} from 'primeng/dropdown';
 import {AppAddJsonAppComponent} from './app-add-json-app/app-add-json-app.component';
 import { TextareaModule } from 'primeng/textarea';
 import {AppAddJsonVersionAppComponent} from './app-add-json-version-app/app-add-json-version-app.component';
 import {DomainsModule} from '../domains/domains.module';
 import {TableModule} from 'primeng/table';
-import {IconField} from 'primeng/iconfield';
-import {InputIcon} from 'primeng/inputicon';
+import {IconFieldModule} from 'primeng/iconfield';
+import {InputIconModule} from 'primeng/inputicon';
 import {InputTextModule} from 'primeng/inputtext';
-import {Menu} from 'primeng/menu';
-import {Chips} from 'primeng/chips';
+import { MenuModule} from 'primeng/menu';
+import {TabsModule} from 'primeng/tabs';
+import {Select} from 'primeng/select';
 
 
 export function getJsonTemplates(config: ConfigTemplateService) {
@@ -75,7 +74,7 @@ export function formioAppConfigFactory(appConfig: AppConfigService) {
         SharedModule,
         AuthModule,
         PipesModule,
-        TranslateModule.forChild(),
+        TranslateModule,
         FormioModule,
         RouterModule,
         StepsModule,
@@ -84,18 +83,18 @@ export function formioAppConfigFactory(appConfig: AppConfigService) {
         BrowserAnimationsModule,
         ChipModule,
         ReactiveFormsModule,
-        TabViewModule,
+        TabsModule,
         TooltipModule,
-        DropdownModule,
         TextareaModule,
         DomainsModule,
         TableModule,
         CommonModule,
-        IconField,
-        InputIcon,
+        IconFieldModule,
+        InputIconModule,
         InputTextModule,
-        Menu,
-        Chips
+        MenuModule,
+        Select,
+        // Chips
     ],
     exports: [],
     providers: [

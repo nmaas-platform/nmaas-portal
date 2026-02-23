@@ -46,9 +46,9 @@ import {SsoFirstLoginComponent} from './sso-first-login/sso-first-login.componen
         SharedModule,
         PipesModule,
         AppMarketModule,
-        PasswordStrengthMeterComponent,
-        TranslateModule.forChild(),
-        InputTextModule
+        TranslateModule,
+        InputTextModule,
+        PasswordStrengthMeterComponent
     ],
     exports: [
         WelcomeComponent

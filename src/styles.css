@@ -400,3 +400,19 @@ body .p-dialog {
 .form-control[disabled], fieldset[disabled] .form-control {
     cursor: default;
 }
+.checkbox input[type=checkbox], .checkbox-inline input[type=checkbox], .radio input[type=radio], .radio-inline input[type=radio] {
+    margin-left:0;
+}
+.has-success .checkbox, .has-success .checkbox-inline, .has-success .control-label, .has-success .help-block, .has-success .radio, .has-success .radio-inline, .has-success.checkbox label, .has-success.checkbox-inline label, .has-success.radio label, .has-success.radio-inline label{
+    color: var(--p-accent-700);
+}
+.formio-dialog.formio-dialog-theme-default .formio-dialog-content{
+    background: var(--p-background-100) !important;
+    color: var(--p-text-0);
+}
+.btn.focus, .btn:focus, .btn:hover{
+    color: var(--p-text-0);
+}
+.list-group-item{
+    background-color: var(--p-background-100);
+}

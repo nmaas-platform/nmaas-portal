@@ -40,9 +40,9 @@
             </p-drawer>
 
         </div>
-        <div  *roles="['ROLE_SYSTEM_ADMIN']"  class="flex align-items-center mr-6 pt-2">
-            <label  *ngIf="mode=== bulkTypeApp" class="mr-2" style="color:var(--p-text-0)" for="showDeleted">{{'BULK.LIST.SHOW_ALL' | translate}}</label>
-            <p-inputSwitch  *ngIf="mode=== bulkTypeApp"  id="showDeleted" (onChange)="refreshBulks()" [(ngModel)]="showDeleted" ngDefaultControl/>
+        <div  *roles="['ROLE_SYSTEM_ADMIN']"  class="flex align-items-center mr-6">
+            <label  *ngIf="mode=== bulkTypeApp" class="mr-2" style="color:var(--p-text-0); margin-bottom: 0" for="showDeleted">{{'BULK.LIST.SHOW_ALL' | translate}}</label>
+            <p-toggleswitch  *ngIf="mode=== bulkTypeApp"  id="showDeleted" (onChange)="refreshBulks()" [(ngModel)]="showDeleted" ngDefaultControl/>
         </div>
     </div>
 
@@ -66,7 +66,7 @@
 <!--        </div>-->
 <!--    </div>-->
     <div *ngIf="mode === 'DOMAIN'" class="background-section">
-        <p-table *ngIf="mode === 'DOMAIN'" [value]="bulks" class="p-datatable-hover p-datatable-sm" [responsive]="true" (onSort)="onSort($event)">
+        <p-table *ngIf="mode === 'DOMAIN'" [value]="bulks" class="p-datatable-hover " [responsive]="true" (onSort)="onSort($event)">
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="id">{{'BULK.LIST.ID' | translate}}

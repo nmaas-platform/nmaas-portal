@@ -30,7 +30,6 @@ import {TooltipModule} from 'primeng/tooltip';
 import {AppinstanceSearchPipe} from './appinstance-search.pipe';
 import {InputTextModule} from 'primeng/inputtext';
 import {AppdeploymentComponent} from '../bulkDeployment/appDeployment/appSelection/appdeployment.component';
-import {DropdownModule} from 'primeng/dropdown';
 import {TimelineModule} from 'primeng/timeline';
 import {ButtonModule} from 'primeng/button';
 import {AppLogAccessComponent} from './app-log-access/app-log-access.component';
@@ -41,9 +40,9 @@ import {TableModule} from 'primeng/table';
 import {ProgressBarModule} from 'primeng/progressbar';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
-import {IconField} from 'primeng/iconfield';
-import {InputIcon} from 'primeng/inputicon';
-import {Select} from 'primeng/select';
+import {IconFieldModule} from 'primeng/iconfield';
+import {InputIconModule} from 'primeng/inputicon';
+import {SelectModule} from 'primeng/select';
 
 @NgModule({
     declarations: [
@@ -73,11 +72,10 @@ import {Select} from 'primeng/select';
         AppInstanceProgressModule,
         PipesModule,
         NgxPaginationModule,
-        TranslateModule.forChild(),
+        TranslateModule,
         NgTerminalModule,
         MultiSelectModule,
         TooltipModule,
-        DropdownModule,
         TimelineModule,
         ButtonModule,
         InputTextModule,
@@ -86,9 +84,9 @@ import {Select} from 'primeng/select';
         TableModule,
         ProgressBarModule,
         ConfirmDialogModule,
-        IconField,
-        InputIcon,
-        Select
+        IconFieldModule,
+        InputIconModule,
+        SelectModule
     ],
     exports: [
         AppInstanceComponent,

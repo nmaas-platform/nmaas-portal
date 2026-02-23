@@ -11,7 +11,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {InternationalizationService} from "../../../service/internationalization.service";
 import {ClustersModule} from '../clusters/clusters.module';
 import {InputTextModule} from 'primeng/inputtext';
-import {Tab, TabList, TabPanel, TabPanels, Tabs} from 'primeng/tabs';
+import {TabsModule} from 'primeng/tabs';
 
 @NgModule({
     declarations: [
@@ -24,14 +24,10 @@ import {Tab, TabList, TabPanel, TabPanels, Tabs} from 'primeng/tabs';
         AuthModule,
         FormsModule,
         PipesModule,
-        TranslateModule.forChild(),
+        TranslateModule,
         ClustersModule,
         InputTextModule,
-        Tabs,
-        TabList,
-        Tab,
-        TabPanels,
-        TabPanel
+        TabsModule
     ],
   providers: [
       ConfigurationService,
