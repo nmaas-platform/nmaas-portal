@@ -37,10 +37,10 @@ import { AccordionModule } from 'primeng/accordion';
 import { RecaptchaVisibilityService } from './service/recaptcha-visibility.service';
 import { providePrimeNG } from 'primeng/config';
 import { CommonModule } from '@angular/common';
-import Nora from '@primeng/themes/nora';
+import Nora from '@primeuix/themes/nora';
 import { MyPreset } from '../style';
-import {Button} from 'primeng/button';
-import {ChipsModule} from 'primeng/chips';
+import {Button, ButtonModule} from 'primeng/button';
+// import {ChipsModule} from 'primeng/chips';
 
 
 export function appConfigFactory(config: AppConfigService) {
@@ -82,7 +82,7 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
     ],
     imports: [
         FormsModule,
-        ChipsModule,
+        // ChipsModule,
         CommonModule,
         JwtModule.forRoot({
             jwtOptionsProvider: {
@@ -110,7 +110,7 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
         SplitButtonModule,
         MenuModule,
         AccordionModule,
-        Button
+        ButtonModule
     ],
     providers: [
         providePrimeNG({

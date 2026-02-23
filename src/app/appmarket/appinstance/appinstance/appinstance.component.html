@@ -359,10 +359,10 @@
             <div class="" style="height: 250px">
                 <p>{{ 'APP_INSTANCES.MANUAL_UPDATE.BODY' | translate }}</p>
                 <div *ngIf="appVersions.length > 0">
-                    <p-dropdown id="manualUpdate" [options]="appVersions" optionLabel="version" optionValue="version"
+                    <p-select id="manualUpdate" [options]="appVersions" optionLabel="version" optionValue="version"
                                 placeholder="Select version" emptyMessage="No version available"
                                 [disabled]="appVersions.length === 0" [(ngModel)]="selectedVersion" name="manualUpdate"
-                                ngDefaultControl></p-dropdown>
+                                ngDefaultControl></p-select>
                 </div>
                 <div *ngIf="appVersions.length === 0" class="font-bold">
                     {{ 'APP_INSTANCES.MANUAL_UPDATE.EMPTY' | translate }}

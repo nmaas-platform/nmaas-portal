@@ -21,7 +21,7 @@ import { ClustersModule } from './admin/clusters/clusters.module';
 import { ClusterService } from '../service/cluster.service';
 import { ConfigurationModule } from './admin/configuration/configuration.module';
 import { MonitorModule } from './admin/monitor/monitor.module';
-import { TranslateModule } from '@ngx-translate/core';
+import {TranslateLoader, TranslateModule, TranslatePipe} from '@ngx-translate/core';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { SortService } from '../service/sort.service';
@@ -47,22 +47,27 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { InputTextModule } from 'primeng/inputtext';
 import { BulkSearchPipe } from './bulkDeployment/bulk-list/bulk-search.pipe';
 import { CheckboxModule } from 'primeng/checkbox';
-import { InputSwitchModule } from 'primeng/inputswitch';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { SidebarModule } from 'primeng/sidebar';
+// import { InputSwitchModule } from 'primeng/inputswitch';
+// import { OverlayPanelModule } from 'primeng/overlaypanel';
+// import { SidebarModule } from 'primeng/sidebar';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { WebhookDetailsComponent } from './admin/webhook/webhook-details/webhook-details.component';
 import { WebhookListComponent } from './admin/webhook/webhook-list/webhook-list.component';
 import { WebhookService } from '../service/webhook.service';
 import {IconField} from 'primeng/iconfield';
 import {InputIcon} from 'primeng/inputicon';
-import {Button} from 'primeng/button';
+import {Button, ButtonModule} from 'primeng/button';
 import {Drawer} from 'primeng/drawer';
-import {Menu} from 'primeng/menu';
+import {Menu, MenuModule} from 'primeng/menu';
 import {WebhookHistoryComponent} from './admin/webhook/webhook-history/webhook-history.component';
 import {WebhookHistoryDetailsComponent} from './admin/webhook/webhook-history-details/webhook-history-details.component';
-import {DropdownModule} from 'primeng/dropdown';
+// import {DropdownModule} from 'primeng/dropdown';
 import { DatePickerModule } from 'primeng/datepicker';
+import {TranslateLoaderImpl} from '../i18n/translate-loader-impl.service';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { DrawerModule } from 'primeng/drawer';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 import { SelectModule } from 'primeng/select';
 
 
@@ -95,6 +100,7 @@ import { SelectModule } from 'primeng/select';
         CUSTOM_ELEMENTS_SCHEMA
     ],
     imports: [
+        TranslatePipe,
         FormsModule,
         CommonModule,
         RouterModule,
@@ -111,7 +117,7 @@ import { SelectModule } from 'primeng/select';
         MonitorModule,
         ConfigurationModule,
         BrowserModule,
-        TranslateModule.forChild(),
+        TranslateModule,
         TooltipModule,
         AvatarModule,
         StepsModule,
@@ -122,31 +128,28 @@ import { SelectModule } from 'primeng/select';
         InputTextModule,
         TooltipModule,
         CheckboxModule,
-        InputSwitchModule,
-        OverlayPanelModule,
-        SidebarModule,
+        ToggleSwitchModule,
+        DrawerModule,
         ProgressBarModule,
-        IconField,
-        InputIcon,
-        Button,
-        Drawer,
-        Menu,
-        DropdownModule,
+        IconFieldModule,
+        InputIconModule,
+        ButtonModule,
+        MenuModule,
         DatePickerModule,
         SelectModule
     ],
-         providers: [
-            AppsService,
-            DomainService,
-            UserService,
-            TagService,
-            UserService,
-            ClusterService,
-            SortService,
-            SessionService,
-            WebhookService,
-            provideHttpClient(withInterceptorsFromDi())
-        ]
+    providers: [
+        AppsService,
+        DomainService,
+        UserService,
+        TagService,
+        UserService,
+        ClusterService,
+        SortService,
+        SessionService,
+        WebhookService,
+        provideHttpClient(withInterceptorsFromDi())
+    ]
 })
 export class AppMarketModule {
 }

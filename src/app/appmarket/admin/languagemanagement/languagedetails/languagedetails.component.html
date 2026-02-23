@@ -1,7 +1,7 @@
 <h2 *ngIf="language" style="color: var(--p-text-0)"><img alt="language" src="assets/images/country/{{language.language}}_circle.png" style="height: 32px;"> {{'LANGUAGE.' + language.language.toUpperCase() + '_LABEL' | translate}}</h2>
 <label style="color: var(--p-text-0)" for="advanced-switch">{{switchLabel}}</label>
 <br>
-<p-inputSwitch [(ngModel)]="advanced" id="advanced-switch" name="advanced-switch" (onChange)="handleLabel()"></p-inputSwitch>
+<p-toggleswitch [(ngModel)]="advanced" id="advanced-switch" name="advanced-switch" (onChange)="handleLabel()"></p-toggleswitch>
 <div *ngIf="language && !advanced">
   <h3 style="color: var(--p-text-0)">{{ 'LANGUAGE_MANAGEMENT.LABELS_TRANSLATION' | translate }}</h3>
   <div *ngFor="let key of keys; let ix=index">

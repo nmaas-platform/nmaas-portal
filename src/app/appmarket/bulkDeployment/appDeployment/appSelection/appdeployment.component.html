@@ -2,7 +2,7 @@
     <div class="background-section" style="color: var(--p-text-0);">
         <p>{{'BULK.APP.INFO' | translate}}</p>
         <div style="margin-top: 2rem;">
-            <p-dropdown [options]="apps" optionLabel="name" [(ngModel)]="selectedApp" [filter]="true"></p-dropdown>
+            <p-select [options]="apps" optionLabel="name" [(ngModel)]="selectedApp" [filter]="true"></p-select>
         </div>
         <div  style="margin-top: 2rem;">
             <p>{{'BULK.APP.PARALLEL' | translate}}</p>

@@ -11,7 +11,7 @@ describe('ShellClientService', () => {
 }));
 
   it('should be created', () => {
-    const service: ShellClientService = TestBed.get(ShellClientService);
+    const service: ShellClientService = TestBed.inject(ShellClientService);
     expect(service).toBeTruthy();
   });
 });

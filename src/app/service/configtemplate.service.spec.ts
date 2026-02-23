@@ -11,7 +11,7 @@ describe('ConfigtemplateService', () => {
 }));
 
   it('should be created', () => {
-    const service: ConfigTemplateService = TestBed.get(ConfigTemplateService);
+    const service: ConfigTemplateService = TestBed.inject(ConfigTemplateService);
     expect(service).toBeTruthy();
   });
 });

@@ -2,14 +2,15 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { LanguageDetailsComponent } from './languagedetails.component';
 import {TranslateModule} from '@ngx-translate/core';
-import {InputSwitchModule} from 'primeng/inputswitch';
-import {FormsModule} from '@angular/forms';
+// import {InputSwitchModule} from 'primeng/inputswitch';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {InternationalizationService} from '../../../../service/internationalization.service';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {AppConfigService} from '../../../../service';
 import {RouterTestingModule} from '@angular/router/testing';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {ToggleSwitchModule} from 'primeng/toggleswitch';
 
 describe('LanguageDetailsComponent', () => {
   let component: LanguageDetailsComponent;
@@ -18,7 +19,7 @@ describe('LanguageDetailsComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
     declarations: [LanguageDetailsComponent],
-    imports: [TranslateModule.forRoot(), InputSwitchModule, FormsModule, CommonModule, RouterTestingModule],
+    imports: [TranslateModule.forRoot(), ToggleSwitchModule,  ReactiveFormsModule, FormsModule, CommonModule, RouterTestingModule],
     providers: [InternationalizationService, AppConfigService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 })
     .compileComponents();

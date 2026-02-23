@@ -28,7 +28,7 @@ import {AppElementComponent} from './applications/list/element/appelement.compon
 import {ClusterDetailsComponent} from './admin/clusters/details/clusterdetails.component';
 import {ModalInfoTermsComponent} from './modal/modal-info-terms/modal-info-terms.component';
 import {ModalInfoPolicyComponent} from './modal/modal-info-policy/modal-info-policy.component';
-import {TranslateModule} from '@ngx-translate/core';
+import {TranslateModule, TranslatePipe} from '@ngx-translate/core';
 import {SortableColumnComponent} from './sortable-column/sortable-column.component';
 import {SortableTableDirective} from './sortable-column/sortable-table.directive';
 import {AppInstallModalComponent} from './modal/appinstall';
@@ -55,7 +55,6 @@ import {ContactComponent} from './contact/contact.component';
 import {FormioModule} from '@formio/angular';
 import {PreferencesComponent} from './users/preferences/preferences.component';
 import {TooltipModule} from 'primeng/tooltip';
-import {DropdownModule} from 'primeng/dropdown';
 import {SortableHeaderDirective} from '../service/sort-domain.directive';
 import {InputTextModule} from 'primeng/inputtext';
 import {DomainNamespaceAnnotationsComponent} from './domain-namespace-annotations/domain-namespace-annotations.component';
@@ -73,35 +72,34 @@ import {ChartModule} from 'primeng/chart';
 import {RolesExcludedDirective} from '../directive/roles-exluded.directive';
 import {FileUploadModule} from 'primeng/fileupload';
 import {RecaptchaVisibilityService} from '../service/recaptcha-visibility.service';
-import {CalendarModule} from 'primeng/calendar';
 import {AddClusterComponent} from './admin/clusters/add-cluster/add-cluster.component';
 import {StepsModule} from 'primeng/steps';
 import {TextareaModule} from 'primeng/textarea';
 import {DialogModule} from 'primeng/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {UserDomainListComponent} from './users/user-domain/user-domain-list.component';
-import {Select} from 'primeng/select';
-import {IconField} from 'primeng/iconfield';
-import {InputIcon} from 'primeng/inputicon';
-import {DatePicker} from 'primeng/datepicker';
-import {SelectButton, SelectButtonModule} from 'primeng/selectbutton';
-import {Menu} from 'primeng/menu';
+import {SelectModule} from 'primeng/select';
+import {IconFieldModule} from 'primeng/iconfield';
+import {InputIconModule} from 'primeng/inputicon';
+import {DatePickerModule} from 'primeng/datepicker';
+import {SelectButtonModule} from 'primeng/selectbutton';
+import {MenuModule} from 'primeng/menu';
 
 
 @NgModule({
     imports:
-        [CommonModule,
+        [
+            CommonModule,
+            TranslatePipe,
             PipesModule,
             FormsModule,
             ServicesModule,
             RouterModule,
             ReactiveFormsModule,
-            PasswordStrengthMeterComponent,
             TranslateModule,
             NgxPaginationModule,
             FormioModule,
             TooltipModule,
-            DropdownModule,
             InputTextModule,
             FormioModule,
             TableModule,
@@ -114,17 +112,17 @@ import {Menu} from 'primeng/menu';
             ChartModule,
             FileUploadModule,
             TableModule,
-            CalendarModule,
             StepsModule,
             TextareaModule,
             DialogModule,
             BrowserAnimationsModule,
-            Select,
-            IconField,
-            InputIcon,
-            DatePicker,
-            SelectButton,
-            SelectButtonModule, Menu
+            SelectModule,
+            IconFieldModule,
+            InputIconModule,
+            DatePickerModule,
+            SelectButtonModule,
+            MenuModule,
+            PasswordStrengthMeterComponent
         ],
     declarations: [
         RateComponent,

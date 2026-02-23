@@ -12,8 +12,9 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('Service: Auth', () => {
     let authService: AuthService;
-    let appConfigServiceSpy: jasmine.SpyObj<AppConfigService>;
+    let appConfigService: AppConfigService;
     let jwtHelperServiceSpy: jasmine.SpyObj<JwtHelperService>;
+    let configurationService: ConfigurationService;
     let maintenanceServiceSpy: jasmine.SpyObj<ConfigurationService>;
     let httpMock: HttpTestingController;
     let store: any = {};
@@ -87,10 +88,11 @@ describe('Service: Auth', () => {
 });
 
         httpMock = TestBed.inject(HttpTestingController)
-        authService = TestBed.get(AuthService);
+        authService = TestBed.inject(AuthService);
         authService.profile = [userRole, userRole2]
-        appConfigServiceSpy = TestBed.get(AppConfigService);
-        jwtHelperServiceSpy = TestBed.get(JwtHelperService);
+        appConfigService = TestBed.inject(AppConfigService);
+        jwtHelperServiceSpy = TestBed.inject(JwtHelperService) as jasmine.SpyObj<JwtHelperService>;
+        configurationService = TestBed.inject(ConfigurationService);
         // maintenanceServiceSpy = TestBed.get(ConfigurationService);
 
         // local store mock

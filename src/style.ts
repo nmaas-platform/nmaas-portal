@@ -1,5 +1,5 @@
-import { definePreset } from '@primeng/themes';
-import Nora from '@primeng/themes/nora';
+import { definePreset } from '@primeuix/themes';
+import Nora from '@primeuix/themes/nora';
 
 export const MyPreset = definePreset(Nora, {
     semantic: {
@@ -48,7 +48,7 @@ export const MyPreset = definePreset(Nora, {
                     400: '#a94442',                         // red
                     500: '#C80071',                         // --menu-pink
                     600: '#CBD5E1',
-                    700: '#9f9',
+                    700: '#237623',
                     800: '#FF6651',
                     900: '#7f7f7f'
                 },
@@ -104,7 +104,7 @@ export const MyPreset = definePreset(Nora, {
                     400: '#ff8482',                         //red
                     500: '#C80071',                       // --d-menu-pink
                     600: '#4E535F',
-                    700: '#237623',
+                    700: '#9f9',
                     800: '#a62513',
                     900: '#7f7f7f'
                 },
@@ -120,118 +120,110 @@ export const MyPreset = definePreset(Nora, {
     },
     components: {
         inputtext: {
-            background: '{surface.300}',
-            disabled: {
-                color: '{text.0}'
+            root: {
+                background: '{surface.300}',
+                disabledColor: '{text.0}'
             }
         },
         textarea: {
-          background: '{surface.300}',
-          border: {
-              radius: '4px',
-              color: '{accent.600}'
-          }
+            root: {
+                background: '{surface.300}',
+                borderRadius: '4px',
+                borderColor: '{accent.600}',
+            },
         },
         select: {
-            border: {
-              radius: '4px',
-              color: '{accent.600}'
-            },
-            padding: {
-                y: '6px',
-                x: '12px',
-            },
-            background: '{surface.300}',
-            overlay: {
-                background: '{surface.50}'
-            },
-            option: {
-                selected: {
-                    color: '{text.0}',
-                    background: '{primary.50}',
-                    focus: {
-                        color: '{text.0}',
-                        background: '{primary.50}'
-                    }
-                }
-            },
-            focus: {
-                ring: {
+            root: {
+                borderRadius: '4px',
+                borderColor: '{accent.600}',
+                paddingY: '6px',
+                paddingX: '12px',
+                background: '{surface.300}',
+                focusRing:{
                     width: '1px'
                 }
+            },
+            option: {
+                selectedColor: '{text.0}',
+                selectedBackground: '{primary.50}',
+                selectedFocusColor: '{text.0}',
+                selectedFocusBackground: '{primary.50}',
+
+            },
+            overlay:{
+                background: '{surface.50}'
             }
         },
         checkbox: {
-            background: '{surface.300}',
-            width: '18px',
-            height: '18px',
-            checked: {
-                background: '{primary.100}',
-                border: {
-                    color: '{primary.100}',
-                },
-                hover: {
-                    background: '{primary.200}',
-                    border: {
-                        color: '{primary.200}',
-                    }
-                }
+            root: {
+                background: '{surface.300}',
+                width: '18px',
+                height: '18px',
+                checkedBackground: '{primary.100}',
+                checkedBorderColor: '{primary.100}',
+                checkedHoverBackground: '{primary.200}',
+                checkedHoverBorderColor: '{primary.200}'
             }
         },
         selectbutton: {
-            borderRadius: '3px',
+            root: {
+                borderRadius: '3px'
+            }
         },
         togglebutton: {
-            background: '{background.100}',
-            checked: {
-                background: '{primary.100}',
-                border: {
-                    color: '{accent.600}',
-                }
-            },
-            border: {
-                color: '{accent.600}',
+            root: {
+                background: '{background.100}',
+                checkedBackground: '{primary.100}',
+                checkedBorderColor: '{accent.600}',
+                borderColor: '{accent.600}'
             }
         },
         paginator: {
-            background: '{neutral.700}',
+            root: {
+                background: '{neutral.700}'
+            }
         },
         multiselect: {
-            border: {
-                radius: '4px',
-                color: '{accent.600}',
-            },
-            background: '{surface.300}'
+            root: {
+                borderRadius: '4px',
+                borderColor: '{accent.600}',
+                background: '{surface.300}'
+            }
         },
         fileupload: {
-            background: '{surface.300}',
-            border: {
-                radius: '4px',
-                color: '{accent.600}'
+            root:{
+                background: '{surface.300}',
+                borderRadius: '4px',
+                borderColor: '{accent.600}'
             }
         },
         menu: {
             item: {
                 padding: '0.7rem 0.75rem',
-                focus: {
-                    background: '{primary.50}',
-                }
+                focusBackground: '{primary.50}'
             }
         },
         accordion: {
+            root:{
+                transitionDuration: '',
+            },
+            header: {
+                fontWeight: '100',
+                activeBackground: 'transparent'
+            },
             content: {
                 padding: '0.8rem'
             }
         },
         datepicker: {
             dropdown: {
-                border: {
-                    color: '{accent.600}'
-                }
+                borderColor: '{accent.600}'
             }
         },
         inputchips: {
-            background: '{surface.300}',
+            root: {
+                background: '{surface.300}'
+            }
         }
     }
 });

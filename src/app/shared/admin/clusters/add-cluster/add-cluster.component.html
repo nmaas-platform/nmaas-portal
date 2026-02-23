@@ -106,11 +106,11 @@
             <label for="name">{{ 'CLUSTERS.DOMAIN' | translate }}*</label>
 
             <div class="col-sm-12 padding-0">
-                <p-dropdown id="domainSelector" [options]="domains" optionLabel="name" optionValue="codename"
+                <p-select style="width: 100%" id="domainSelector" [options]="domains" optionLabel="name" optionValue="codename"
                             placeholder="Select domain" emptyMessage="No domain available"
                             [disabled]="domains.length === 0"
                             name="domainSelector" (onChange)="onDomainSelection($event.value)" [required]="true"
-                            (onClear)="this.cluster.domainNames = []" [showClear]="true" ngDefaultControl></p-dropdown>
+                            (onClear)="this.cluster.domainNames = []" [showClear]="true" ngDefaultControl></p-select>
             </div>
 
 

@@ -7,23 +7,23 @@ import {RouterModule} from '@angular/router';
 import {TranslateModule} from '@ngx-translate/core';
 import {SharedModule} from '../../../shared';
 import {FormsModule} from '@angular/forms';
-import {InputSwitchModule} from 'primeng/inputswitch';
 import {TableModule} from 'primeng/table';
-import { TextareaModule } from 'primeng/textarea';
-import {Menu} from 'primeng/menu';
+import {TextareaModule } from 'primeng/textarea';
+import {MenuModule} from 'primeng/menu';
+import {ToggleSwitchModule} from 'primeng/toggleswitch';
 
 @NgModule({
   declarations: [LanguageListComponent, LanguageDetailsComponent],
     imports: [
         CommonModule,
         FormsModule,
-        InputSwitchModule,
+        ToggleSwitchModule,
         RouterModule,
         SharedModule,
-        TranslateModule.forChild(),
+        TranslateModule,
         TableModule,
         TextareaModule,
-        Menu
+        MenuModule
     ],
   providers: [InternationalizationService],
        schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]

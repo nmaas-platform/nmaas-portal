@@ -12,7 +12,7 @@ describe('MailtemplateService', () => {
 }));
 
   it('should be created', () => {
-    const service: MailTemplateService = TestBed.get(MailTemplateService);
+    const service: MailTemplateService = TestBed.inject(MailTemplateService);
     expect(service).toBeTruthy();
   });
 });
