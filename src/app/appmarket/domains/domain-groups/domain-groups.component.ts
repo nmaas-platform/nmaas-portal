@@ -1,9 +1,12 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {DomainService} from '../../../service';
 import {DomainGroup} from '../../../model/domaingroup';
 import {Menu} from 'primeng/menu';
 import {MenuItem} from 'primeng/api';
 import {TranslateService} from '@ngx-translate/core';
+import {Page, PaginationSettings, PrimeNgLazyLoadEvent} from '../../../service/page';
+import {Subject} from 'rxjs';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
     selector: 'app-domain-groups',
@@ -15,30 +18,85 @@ export class DomainGroupsComponent implements OnInit {
 
 
     public groups: DomainGroup[] = [];
-    public domainsRowVisible: boolean[] = []
-    public searchValue: string;
+    public loading = false;
+    public searchValue = '';
+
+    public paginationSettings: PaginationSettings = new PaginationSettings(0, 15, 1, 'id', 'asc', {}, 0);
 
     @ViewChild('rowMenu') rowMenu!: Menu;
     rowMenuItems: MenuItem[] = [];
     selectedGroup: DomainGroup | null = null;
 
+    private lazyLoadSubject = new Subject<PrimeNgLazyLoadEvent>();
+    private debounceTimeMs = 300;
+
     constructor(private domainService: DomainService,
-                public translate: TranslateService) {
+                public translate: TranslateService,
+                private cdr: ChangeDetectorRef) {
     }
 
     ngOnInit(): void {
-        this.refresh();
+        this.lazyLoadSubject.pipe(
+            debounceTime(this.debounceTimeMs),
+            distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b))
+        ).subscribe(event => this.loadGroups(event));
+    }
+    ngOnDestroy(): void {
+        this.lazyLoadSubject.complete();
+        this.lazyLoadSubject.unsubscribe();
     }
 
-    public clickTableRow(i: number) {
-        this.domainsRowVisible[i] = !this.domainsRowVisible[i];
-    }
+    loadGroups(event?: PrimeNgLazyLoadEvent): void {
+        this.loading = true;
+        this.cdr.detectChanges();
 
-    public deleteDomainGroup(id: number) {
-        return this.domainService.deleteDomainGroup(id).subscribe(_ => {
-            console.log(`Group ${id} deleted`);
-            this.refresh();
-        })
+        if (event) {
+            this.paginationSettings.maxItemsOnPage = event.rows;
+            this.paginationSettings.pageNumber =
+                event.rows > 0 ? Math.floor(event.first / event.rows) + 1 : 1;
+
+            this.paginationSettings.sortField = event.sortField || 'id';
+            this.paginationSettings.sortOrder =
+                event.sortOrder === 1 ? 'asc' : 'desc';
+        }
+
+        const paginatorEvent: PrimeNgLazyLoadEvent = {
+            first: (this.paginationSettings.pageNumber - 1) * this.paginationSettings.maxItemsOnPage,
+            rows: this.paginationSettings.maxItemsOnPage,
+            sortField: this.paginationSettings.sortField,
+            sortOrder: this.paginationSettings.sortOrder === 'asc' ? 1 : -1,
+            filters: {}
+        };
+
+        this.domainService.getAllDomainGroupsPageable(
+            paginatorEvent,
+            this.searchValue
+        ).subscribe({
+            next: (page: Page<DomainGroup>) => {
+                this.groups = page.content;
+                this.paginationSettings.totalElements = page.totalElements;
+                this.paginationSettings.totalPages = page.totalPages;
+                this.loading = false;
+            },
+            error: err => {
+                console.error(err);
+                this.loading = false;
+            }
+        });
+    }
+    onTableLazyLoad(event: PrimeNgLazyLoadEvent): void {
+        this.lazyLoadSubject.next(event);
+    }
+    deleteDomainGroup(id: number): void {
+        this.domainService.deleteDomainGroup(id).subscribe(() => {
+            this.lazyLoadSubject.next({
+                first: 0,
+                rows: this.paginationSettings.maxItemsOnPage,
+                sortField: this.paginationSettings.sortField,
+                sortOrder: this.paginationSettings.sortOrder === 'asc' ? 1 : -1,
+                filters: {}
+            });
+        });
     }
 
     public refresh() {
