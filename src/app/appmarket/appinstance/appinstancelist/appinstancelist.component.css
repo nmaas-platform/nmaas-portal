@@ -61,35 +61,35 @@ label{
 :host ::ng-deep .p-button.p-button-icon-only{
     width: unset;
 }
-::ng-deep .running .p-progressbar .p-progressbar-value {
+::ng-deep .running .p-progressbar-value {
     background: #EBBD59;
 }
 .running{
     color: #EBBD59;
     font-weight: bold;
 }
-::ng-deep .failure .p-progressbar .p-progressbar-value{
-    background: var(--p-accent-400);
+::ng-deep .failure .p-progressbar-value{
+    background: var(--p-accent-400) ;
 }
 .failure{
     color: var(--p-accent-400);
     font-weight: bold;
 }
-::ng-deep .done .p-progressbar .p-progressbar-value{
+::ng-deep .done .p-progressbar-value{
     background: var(--p-accent-300);
 }
 .done{
     color: var(--p-accent-300);
     font-weight: bold;
 }
-::ng-deep .removed .p-progressbar .p-progressbar-value{
+::ng-deep .removed .p-progressbar-value{
     background: #929292;
 }
 .removed{
     color: #929292;
     font-weight: bold;
 }
-::ng-deep .scaledDown .p-progressbar .p-progressbar-value{
+::ng-deep .scaledDown .p-progressbar-value{
     background: var(--p-accent-200);
 }
 .scaledDown{
