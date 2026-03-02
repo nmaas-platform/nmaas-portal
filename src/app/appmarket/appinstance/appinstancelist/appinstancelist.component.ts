@@ -51,6 +51,7 @@ export class AppInstanceListComponent implements OnInit {
     ];
     public selectedViewType = 'cards';
     public selectedListRange: AppInstanceListSelection = AppInstanceListSelection.ALL;
+    private intervalId;
 
 
     public searchValue = '';
@@ -93,6 +94,19 @@ export class AppInstanceListComponent implements OnInit {
         }
         if (this.authService.hasRole('ROLE_SYSTEM_ADMIN')) {
             this.selectedViewType = 'list'
+        }
+
+        this.intervalId = setInterval(() => {
+            this.reloadDeployedInstances();
+            if (this.isUndeployedVisible) {
+                this.reloadUndeployedInstances()
+            }
+        }, 60000);
+    }
+
+    ngOnDestroy() {
+        if(this.intervalId) {
+            clearInterval(this.intervalId);
         }
     }
 
