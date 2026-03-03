@@ -1,40 +1,42 @@
 
 <div class="col-sm-12 col-sm-12 col-md-12" style="display: flex; align-items: flex-end; flex-wrap: wrap; padding: 0">
-	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-		<nmaas-inline-search [value]="searchedAppName"
-			(changed)="filterAppsByName($event)"></nmaas-inline-search>
-	</div>
+  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+    <nmaas-inline-search [value]="searchedAppName"
+    (changed)="filterAppsByName($event)"></nmaas-inline-search>
+  </div>
 
-	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-		<nmaas-tag-filter (changed)="filterAppsByTag($event)"></nmaas-tag-filter>
-	</div>
-	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 form-inline">
-		<div class="form-group" style="width: 100%">
-			<label for="sortMode" style="margin-right: 6px; color: var(--p-text-0)" >{{'APP_INSTANCES.SORT' | translate}}</label>
-			<select id="sortMode" name="sortMode" class="form-control" [(ngModel)]="sortMode" (ngModelChange)="onSort()"
-                    style="width: 100%; background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color:var(--p-text-0)">
-				<option *ngFor="let opt of sortModeList" [value]="opt">{{('APP_INSTANCES.SORT_MODE.' + opt) | translate}}</option>
-			</select>
-		</div>
-	</div>
-	<div  class="col-xs-12 col-sm-12 col-md-4 col-lg-3" style="padding: 8px 15px; display: flex">
-		<p-checkbox
-				inputId="subscribed"
-				binary="true"
-				[(ngModel)]="showSubscribed"
-				[ngModelOptions]="{standalone: true}"
-				id="subscribed"
-				ngDefaultControl/>
-		<label style="margin: 0; padding-left: 5px; font-weight: unset; text-wrap: nowrap; color: var(--p-text-0)" for="subscribed">Show subscribed only</label>
-	</div>
-<!--	<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">-->
-<!--		<div class="btn-toolbar" role="toolbar">-->
-<!--			<div class="btn-group pull-right">-->
-<!--				<button href="#tab-grid" class="btn btn-default" data-toggle="tab" [class.active]="selectedListType === ListType.GRID" (click)="selectedListType = ListType.GRID">-->
-<!--					<span class="glyphicon glyphicon-th"></span>-->
-<!--				</button>-->
-<!--				<button href="#tab-list" class="btn btn-default" data-toggle="tab" [class.active]="selectedListType === ListType.TABLE" (click)="selectedListType = ListType.TABLE">-->
-<!--					<span class="glyphicon glyphicon-th-list"></span>-->
+  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+    <nmaas-tag-filter (changed)="filterAppsByTag($event)"></nmaas-tag-filter>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 form-inline">
+    <div class="form-group" style="width: 100%">
+      <label for="sortMode" style="margin-right: 6px; color: var(--p-text-0)" >{{'APP_INSTANCES.SORT' | translate}}</label>
+      <select id="sortMode" name="sortMode" class="form-control" [(ngModel)]="sortMode" (ngModelChange)="onSort()"
+        style="width: 100%; background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color:var(--p-text-0)">
+        @for (opt of sortModeList; track opt) {
+          <option [value]="opt">{{('APP_INSTANCES.SORT_MODE.' + opt) | translate}}</option>
+        }
+      </select>
+    </div>
+  </div>
+  <div  class="col-xs-12 col-sm-12 col-md-4 col-lg-3" style="padding: 8px 15px; display: flex">
+    <p-checkbox
+      inputId="subscribed"
+      binary="true"
+      [(ngModel)]="showSubscribed"
+      [ngModelOptions]="{standalone: true}"
+      id="subscribed"
+      ngDefaultControl/>
+      <label style="margin: 0; padding-left: 5px; font-weight: unset; text-wrap: nowrap; color: var(--p-text-0)" for="subscribed">Show subscribed only</label>
+    </div>
+    <!--	<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">-->
+    <!--		<div class="btn-toolbar" role="toolbar">-->
+    <!--			<div class="btn-group pull-right">-->
+    <!--				<button href="#tab-grid" class="btn btn-default" data-toggle="tab" [class.active]="selectedListType === ListType.GRID" (click)="selectedListType = ListType.GRID">-->
+    <!--					<span class="glyphicon glyphicon-th"></span>-->
+  <!--				</button>-->
+  <!--				<button href="#tab-list" class="btn btn-default" data-toggle="tab" [class.active]="selectedListType === ListType.TABLE" (click)="selectedListType = ListType.TABLE">-->
+  <!--					<span class="glyphicon glyphicon-th-list"></span>-->
 <!--				</button>-->
 <!--			</div>-->
 <!--		</div>-->

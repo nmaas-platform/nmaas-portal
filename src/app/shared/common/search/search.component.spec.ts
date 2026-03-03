@@ -1,8 +1,15 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SearchComponent } from './search.component';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import {of} from 'rxjs';
+
+class TranslateFakeLoader implements TranslateLoader {
+  getTranslation(lang: string) {
+    return of({});
+  }
+}
 
 describe('SearchComponent', () => {
   let component: SearchComponent;

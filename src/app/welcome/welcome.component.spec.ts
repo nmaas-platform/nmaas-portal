@@ -2,9 +2,16 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {WelcomeComponent} from './welcome.component';
 import {RouterTestingModule} from '@angular/router/testing';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {AppConfigService} from '../service';
 import {ServiceUnavailableService} from '../service-unavailable/service-unavailable.service';
+import {of} from 'rxjs';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('WelcomeComponent', () => {
     let component: WelcomeComponent;

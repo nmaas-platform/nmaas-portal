@@ -1,50 +1,50 @@
 <div style="margin: auto; width: 70%;">
-    <div class="background-section">
-        <h4 style="font-size: 15px; font-weight: bold;">{{ 'ACCOUNT_LINKING.HEADER' | translate }}</h4>
-        <div class="panel-body">
-            <form *ngIf="user"
-                  class="form-horizontal" #userDetailsForm="ngForm">
-                <div>
-                    <p>
-                        {{ 'ACCOUNT_LINKING.INFO' | translate }}
-                    </p>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">{{ 'USER_DETAILS.FIRST_NAME' | translate }}</label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static">{{ user.firstname }}</p>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">{{ 'USER_DETAILS.LAST_NAME' | translate }}</label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static">{{ user.lastname }}</p>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">{{ 'USER_DETAILS.EMAIL' | translate }}</label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static">{{ user.email }}</p>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="password" class="col-sm-2 control-label">{{ 'PASSWORD.PASSWORD' | translate }}</label>
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" id="password"
-                               name="password" [(ngModel)]="password">
-                    </div>
-                </div>
-                <div class="flex justify-content-end" style="margin-top:25px">
-                    <button type="submit" class="btn btn-primary"
-                            (click)="submit()">{{ 'ACCOUNT_LINKING.CONFIRM' | translate }}
-                    </button>
-                </div>
-
-                <div *ngIf="error" class="alert alert-danger" style="margin-top: 20px">{{error}}</div>
-            </form>
-        </div>
+  <div class="background-section">
+    <h4 style="font-size: 15px; font-weight: bold;">{{ 'ACCOUNT_LINKING.HEADER' | translate }}</h4>
+    <div class="panel-body">
+      @if (user) {
+        <form
+          class="form-horizontal" #userDetailsForm="ngForm">
+          <div>
+            <p>
+              {{ 'ACCOUNT_LINKING.INFO' | translate }}
+            </p>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">{{ 'USER_DETAILS.FIRST_NAME' | translate }}</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{ user.firstname }}</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">{{ 'USER_DETAILS.LAST_NAME' | translate }}</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{ user.lastname }}</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">{{ 'USER_DETAILS.EMAIL' | translate }}</label>
+            <div class="col-sm-10">
+              <p class="form-control-static">{{ user.email }}</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">{{ 'PASSWORD.PASSWORD' | translate }}</label>
+            <div class="col-sm-10">
+              <input type="password" class="form-control" id="password"
+                name="password" [(ngModel)]="password">
+              </div>
+            </div>
+            <div class="flex justify-content-end" style="margin-top:25px">
+              <button type="submit" class="btn btn-primary"
+                (click)="submit()">{{ 'ACCOUNT_LINKING.CONFIRM' | translate }}
+              </button>
+            </div>
+            @if (error) {
+              <div class="alert alert-danger" style="margin-top: 20px">{{error}}</div>
+            }
+          </form>
+        }
+      </div>
     </div>
-</div>
+  </div>

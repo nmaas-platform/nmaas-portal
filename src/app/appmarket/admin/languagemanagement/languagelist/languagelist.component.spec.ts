@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {LanguageListComponent} from './languagelist.component';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {FormsModule} from '@angular/forms';
 import {RouterTestingModule} from '@angular/router/testing';
 import {InternationalizationService} from '../../../../service/internationalization.service';
@@ -9,6 +9,12 @@ import {AppConfigService} from '../../../../service';
 import {of} from 'rxjs';
 import {ModalComponent} from '../../../../shared/modal';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('LanguagelistComponent', () => {
     let component: LanguageListComponent;

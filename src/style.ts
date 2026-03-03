@@ -130,7 +130,11 @@ export const MyPreset = definePreset(Nora, {
                 background: '{surface.300}',
                 borderRadius: '4px',
                 borderColor: '{accent.600}',
+                focusRing: {
+                    color: 'transparent'
+                }
             },
+
         },
         select: {
             root: {
@@ -224,7 +228,10 @@ export const MyPreset = definePreset(Nora, {
             root: {
                 background: '{surface.300}'
             }
-        }
+        },
+        label: {
+            color: '{text.0}'
+        },
     }
 });
 

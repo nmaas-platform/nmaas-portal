@@ -3,10 +3,17 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppuploadComponent } from './appupload.component';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {RouterModule} from '@angular/router';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {SecurePipe} from '../../../../pipe';
 import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Pipe, PipeTransform} from '@angular/core';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {of} from 'rxjs';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 @Pipe({
     name: 'secure',

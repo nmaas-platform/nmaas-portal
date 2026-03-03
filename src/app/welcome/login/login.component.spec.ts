@@ -3,7 +3,7 @@ import {LoginComponent} from './login.component';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterTestingModule} from '@angular/router/testing';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {ModalComponent} from '../../shared/modal';
 import {AuthService} from '../../auth/auth.service';
 import {ConfigurationService, UserService} from '../../service';
@@ -13,6 +13,12 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {DialogModule} from 'primeng/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 
 describe('Component: Login', () => {

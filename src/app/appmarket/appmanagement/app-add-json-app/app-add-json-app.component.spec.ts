@@ -5,7 +5,13 @@ import { AppsService } from '../../../service';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {  TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
+class TranslateFakeLoader implements TranslateLoader {
+  getTranslation(lang: string) {
+    return of({});
+  }
+}
 
 describe('AppAddJsonAppComponent', () => {
   let component: AppAddJsonAppComponent;

@@ -1,100 +1,99 @@
 <div class="">
-    <h4 class="header">{{ 'WEBHOOKS.TITLE_SHORT' | translate }}</h4>
-    <div class="background-section">
+  <h4 class="header">{{ 'WEBHOOKS.TITLE_SHORT' | translate }}</h4>
+  <div class="background-section">
 
     <div class="panel-body">
-        <form *ngIf="webhook" (submit)="submit()" class="form-horizontal" #webhookForm="ngForm">
-<!--            <div class="panel-default panel-heading">{{ 'CLUSTERS.GENERAL' | translate }} </div>-->
-            <div class="panel-body">
-               
-                <div class="form-group">
-                    <label for="clusterId" class="col-sm-2 control-label">{{ 'WEBHOOKS.ID' | translate }}</label>
-                    <div class="col-sm-10">
-                        <div class="col-sm-10">
-                            <input pInputText type="text" class="form-control" id="clusterId" name="clusterId"
-                                   [(ngModel)]="webhook.id" [disabled]="true">
-                        </div>
-                    </div>
+      @if (webhook) {
+        <form (submit)="submit()" class="form-horizontal" #webhookForm="ngForm">
+          <!--            <div class="panel-default panel-heading">{{ 'CLUSTERS.GENERAL' | translate }} </div>-->
+          <div class="panel-body">
+            <div class="form-group">
+              <label for="clusterId" class="col-sm-2 control-label">{{ 'WEBHOOKS.ID' | translate }}</label>
+              <div class="col-sm-10">
+                <div class="col-sm-10">
+                  <input pInputText type="text" class="form-control" id="clusterId" name="clusterId"
+                    [(ngModel)]="webhook.id" [disabled]="true">
+                  </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="clusterName" class="col-sm-2 control-label">{{ 'WEBHOOKS.NAME' | translate }}</label>
-                    <div class="col-sm-10">
-                        <div class="col-sm-10">
-                            <input pInputText type="text" class="form-control" id="clusterName" name="clusterName"
-                                   [(ngModel)]="webhook.name" [disabled]="false">
-                        </div>
+              </div>
+              <div class="form-group">
+                <label for="clusterName" class="col-sm-2 control-label">{{ 'WEBHOOKS.NAME' | translate }}</label>
+                <div class="col-sm-10">
+                  <div class="col-sm-10">
+                    <input pInputText type="text" class="form-control" id="clusterName" name="clusterName"
+                      [(ngModel)]="webhook.name" [disabled]="false">
                     </div>
+                  </div>
                 </div>
-
-                <div *ngIf="webhook.domain" class="form-group">
+                @if (webhook.domain) {
+                  <div class="form-group">
                     <label for="doaminName" class="col-sm-2 control-label">{{'WEBHOOKS.DOMAIN' | translate}}</label>
                     <div class="col-sm-10">
-                        <div class="col-sm-10">
-                            <input pInputText type="text" class="form-control" id="domainName" name="domainName"
-                                   [(ngModel)]="webhook.domain.name" [disabled]="true">
+                      <div class="col-sm-10">
+                        <input pInputText type="text" class="form-control" id="domainName" name="domainName"
+                          [(ngModel)]="webhook.domain.name" [disabled]="true">
                         </div>
+                      </div>
                     </div>
-                </div>
-
-                <div class="form-group">
+                  }
+                  <div class="form-group">
                     <label for="targetUrl" class="col-sm-2 control-label">{{ 'WEBHOOKS.TARGET_URL' | translate }}</label>
                     <div class="col-sm-10">
-                        <div class="col-sm-10">
-                            <input pInputText type="text" class="form-control" id="targetUrl" name="targetUrl"
-                                   [(ngModel)]="webhook.targetUrl" [disabled]="false">
+                      <div class="col-sm-10">
+                        <input pInputText type="text" class="form-control" id="targetUrl" name="targetUrl"
+                          [(ngModel)]="webhook.targetUrl" [disabled]="false">
                         </div>
+                      </div>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="clusterDescription" class="col-sm-2 control-label">{{ 'WEBHOOKS.TYPE' | translate }}</label>
-                    <div class="col-sm-10">
+                    <div class="form-group">
+                      <label for="clusterDescription" class="col-sm-2 control-label">{{ 'WEBHOOKS.TYPE' | translate }}</label>
+                      <div class="col-sm-10">
                         <div class="col-sm-10">
-                            <input pInputText type="text" class="form-control" id="clusterDescription" name="clusterDescription"
-                                   placeholder="{{'WEBHOOKS.' +webhook.eventType | translate}}" [disabled]="true">
+                          <input pInputText type="text" class="form-control" id="clusterDescription" name="clusterDescription"
+                            placeholder="{{'WEBHOOKS.' +webhook.eventType | translate}}" [disabled]="true">
+                          </div>
                         </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="assignDomain" class="col-sm-2 control-label">{{ 'WEBHOOKS.AUTH_REQUIRED' | translate }}</label>
-                     <div class="col-sm-10">
-                    <input class="ml-5 mt-2" type="checkbox" [(ngModel)]="authRequired" [ngModelOptions]="{standalone: true}"  id="authRequired" (change)="onCheckboxChange()" />
-                     </div>
-                </div>
-
-                <div *ngIf="authRequired" class="form-group">
-                    <label for="token" class="col-sm-2 control-label">{{ 'WEBHOOKS.TOKEN' | translate }}</label>
-                    <div class="col-sm-10">
+                      </div>
+                      <div class="form-group">
+                        <label for="assignDomain" class="col-sm-2 control-label">{{ 'WEBHOOKS.AUTH_REQUIRED' | translate }}</label>
                         <div class="col-sm-10">
-                            <input pInputText type="text" class="form-control" id="token" name="token" [ngModelOptions]="{standalone: true}"
-                                   [(ngModel)]="webhook.tokenValue" [disabled]="false" [required]="authRequired" >
+                          <input class="ml-5 mt-2" type="checkbox" [(ngModel)]="authRequired" [ngModelOptions]="{standalone: true}"  id="authRequired" (change)="onCheckboxChange()" />
                         </div>
-                    </div>
-                </div>
-
-
-                <div *ngIf="authRequired" class="form-group">
-                    <label for="auth" class="col-sm-2 control-label">{{ 'WEBHOOKS.AUTH' | translate }}</label>
-                    <div class="col-sm-10">
-                        <div class="col-sm-10">
-                            <input pInputText type="text" class="form-control" id="auth" name="auth" [ngModelOptions]="{standalone: true}"
-                                   [(ngModel)]="webhook.authorizationHeader" [disabled]="false" [required]="authRequired">
+                      </div>
+                      @if (authRequired) {
+                        <div class="form-group">
+                          <label for="token" class="col-sm-2 control-label">{{ 'WEBHOOKS.TOKEN' | translate }}</label>
+                          <div class="col-sm-10">
+                            <div class="col-sm-10">
+                              <input pInputText type="text" class="form-control" id="token" name="token" [ngModelOptions]="{standalone: true}"
+                                [(ngModel)]="webhook.tokenValue" [disabled]="false" [required]="authRequired" >
+                              </div>
+                            </div>
+                          </div>
+                        }
+                        @if (authRequired) {
+                          <div class="form-group">
+                            <label for="auth" class="col-sm-2 control-label">{{ 'WEBHOOKS.AUTH' | translate }}</label>
+                            <div class="col-sm-10">
+                              <div class="col-sm-10">
+                                <input pInputText type="text" class="form-control" id="auth" name="auth" [ngModelOptions]="{standalone: true}"
+                                  [(ngModel)]="webhook.authorizationHeader" [disabled]="false" [required]="authRequired">
+                                </div>
+                              </div>
+                            </div>
+                          }
+                          <div class="flex justify-content-end">
+                            <button [disabled]="!webhookForm.form.valid || !isFormValid()" type="submit" class="btn btn-primary"
+                            type="submit">{{ 'PORTAL_CONFIGURATION.SUBMIT_BUTTON' | translate }}</button>
+                          </div>
+                          <div>
+                            @if (errorMessage) {
+                              <div class="alert alert-danger mt-2">{{ errorMessage }}</div>
+                            }
+                          </div>
                         </div>
-                    </div>
+                      </form>
+                    }
+                  </div>
                 </div>
-
-            <div class="flex justify-content-end">
-                <button [disabled]="!webhookForm.form.valid || !isFormValid()" type="submit" class="btn btn-primary"
-                        type="submit">{{ 'PORTAL_CONFIGURATION.SUBMIT_BUTTON' | translate }}</button>
-            </div>
-               
-            <div>
-                <div *ngIf="errorMessage" class="alert alert-danger mt-2">{{ errorMessage }}</div>
-            </div>
-
-            </div>
-        </form>
-    </div>
-</div>
-</div>
+              </div>

@@ -3,10 +3,16 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { AppListComponent } from './applist.component';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {UserDataService} from '../../../service/userdata.service';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {Domain} from '../../../model/domain';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('AppListComponent', () => {
   let component: AppListComponent;

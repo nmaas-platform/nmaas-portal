@@ -1,57 +1,79 @@
 <nmaas-modal>
-	<div class="nmaas-modal-header">{{'INSTALL_MODAL.HEADER' | translate}} {{app?.name}}</div>
-	<div class="nmaas-modal-body">
-		<div >
-			<label for="instance_name-{{app?.id}}" class="control-label">{{'INSTALL_MODAL.INSTANCE_NAME' | translate}}</label>
-			<input pInputText type="text" class="form-control" id="instance_name-{{app?.id}}" name="instance_name"
-                   pattern="[a-zA-Z0-9-]*" [(ngModel)]="name" #instance_name="ngModel" minlength="3"
-                   maxlength="10" (ngModelChange)="hasForbiddenWords()" required>
-            <div *ngIf="forbiddenWordError" class="alert alert-danger">
-                {{'INSTALL_MODAL.INSTANCE_NAME_FORBIDDEN_WORD_ERROR' | translate}}
+  <div class="nmaas-modal-header">{{'INSTALL_MODAL.HEADER' | translate}} {{app?.name}}</div>
+  <div class="nmaas-modal-body">
+    <div >
+      <label for="instance_name-{{app?.id}}" class="control-label">{{'INSTALL_MODAL.INSTANCE_NAME' | translate}}</label>
+      <input pInputText type="text" class="form-control" id="instance_name-{{app?.id}}" name="instance_name"
+        pattern="[a-zA-Z0-9-]*" [(ngModel)]="name" #instance_name="ngModel" minlength="3"
+        maxlength="10" (ngModelChange)="hasForbiddenWords()" required>
+        @if (forbiddenWordError) {
+          <div class="alert alert-danger">
+            {{'INSTALL_MODAL.INSTANCE_NAME_FORBIDDEN_WORD_ERROR' | translate}}
+          </div>
+        }
+        @if (app) {
+          <div style="padding-top: 15px">
+            <label for="selectedVersion" class="control-label">{{'INSTALL_MODAL.SELECT_VERSION' | translate}}</label>
+            <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" name="selectedVersion" id="selectedVersion" [(ngModel)]="selectedAppVersion" required>
+              @for (appVersion of app?.versions; track appVersion) {
+                <option [value]="appVersion.appVersionId" [hidden]="applicationState(appVersion.state) !== ApplicationState.ACTIVE">{{appVersion.version}}</option>
+              }
+            </select>
+          </div>
+        }
+        @if (instance_name.invalid && (instance_name.dirty || instance_name.touched)) {
+          <div class="alert alert-danger">
+            @if (instance_name.errors.pattern) {
+              <div>{{'INSTALL_MODAL.INSTANCE_NAME_PATTERN_ERROR' | translate}}</div>
+            }
+            @if (instance_name.errors.minlength || instance_name.errors.maxlength) {
+              <div>{{'INSTALL_MODAL.INSTANCE_NAME_LENGTH_ERROR' | translate}}</div>
+            }
+            @if (instance_name.errors.required) {
+              <div>{{'INSTALL_MODAL.INSTANCE_NAME_REQUIRED_ERROR' | translate}}</div>
+            }
+          </div>
+        }
+        @if (error) {
+          <div class="alert alert-danger">{{error}}</div>
+        }
+
+        <div style="padding-top: 15px">
+          <p style="margin-bottom: 5px"><strong>{{'INSTALL_MODAL.DOMAIN' | translate}}: </strong>{{domainName}}</p>
+        </div>
+        <div class="" style="padding-top:15px; display: flex; gap:10px">
+          <label for="autoUpgradesEnabled" style="padding-left: 0px">{{ 'INSTALL_MODAL.AUTO_UPGRADES_ENABLED' | translate }}:</label>
+          <div>
+            <p-checkbox  inputId="autoUpgradesEnabled" name="autoUpgradesEnabled"
+              [(ngModel)]="autoUpgradesEnabled" binary="true"/>
             </div>
-			<div *ngIf="app" style="padding-top: 15px">
-				<label for="selectedVersion" class="control-label">{{'INSTALL_MODAL.SELECT_VERSION' | translate}}</label>
-				<select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" name="selectedVersion" id="selectedVersion" [(ngModel)]="selectedAppVersion" required>
-					<option *ngFor="let appVersion of app?.versions" [value]="appVersion.appVersionId" [hidden]="applicationState(appVersion.state) !== ApplicationState.ACTIVE">{{appVersion.version}}</option>
-				</select>
-			</div>
-			<div *ngIf="instance_name.invalid && (instance_name.dirty || instance_name.touched)" class="alert alert-danger">
-				<div *ngIf="instance_name.errors.pattern">{{'INSTALL_MODAL.INSTANCE_NAME_PATTERN_ERROR' | translate}}</div>
-				<div *ngIf="instance_name.errors.minlength || instance_name.errors.maxlength">{{'INSTALL_MODAL.INSTANCE_NAME_LENGTH_ERROR' | translate}}</div>
-				<div *ngIf="instance_name.errors.required">{{'INSTALL_MODAL.INSTANCE_NAME_REQUIRED_ERROR' | translate}}</div>
-			</div>
-			<div *ngIf="error" class="alert alert-danger">{{error}}</div>
-
-            <div style="padding-top: 15px">
-                <p style="margin-bottom: 5px"><strong>{{'INSTALL_MODAL.DOMAIN' | translate}}: </strong>{{domainName}}</p>
-            </div>
-			<div class="" style="padding-top:15px; display: flex; gap:10px">
-				<label for="autoUpgradesEnabled" style="padding-left: 0px">{{ 'INSTALL_MODAL.AUTO_UPGRADES_ENABLED' | translate }}:</label>
-				<div>
-					<p-checkbox  inputId="autoUpgradesEnabled" name="autoUpgradesEnabled"
-						   [(ngModel)]="autoUpgradesEnabled" binary="true"/>
-				</div>
-			</div>
+          </div>
 
 
-			<div *ngIf="isRemoteClusterAvailable"  class="" style="padding-top:15px; display: flex; gap:10px">
-				<label for="showCluster" style="padding-left: 0px" >{{ 'INSTALL_MODAL.REMOTE_CLUSTER' | translate }}:</label>
-				<div>
-					<p-checkbox type="checkbox" id="showCluster" name="showCluster"
-						   [(ngModel)]="showClusterOptions" binary="true" (onchange)="onClusterOptionChange($event)"/>
-				</div>
-			</div>
-			<div *ngIf="showClusterOptions" style="padding-top:15px;">
-				<label for="selectCluster" class="control-label">{{'INSTALL_MODAL.SELECT_CLUSTER' | translate}}</label>
-				<select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" name="selectCluster" id="selectCluster" [(ngModel)]="selectedCluster" required>
-					<option *ngFor="let cluster of domain?.clusters" [value]="cluster.id" >{{cluster.name}}</option>
-				</select>
-			</div>
+          @if (isRemoteClusterAvailable) {
+            <div  class="" style="padding-top:15px; display: flex; gap:10px">
+              <label for="showCluster" style="padding-left: 0px" >{{ 'INSTALL_MODAL.REMOTE_CLUSTER' | translate }}:</label>
+              <div>
+                <p-checkbox type="checkbox" id="showCluster" name="showCluster"
+                  [(ngModel)]="showClusterOptions" binary="true" (onchange)="onClusterOptionChange($event)"/>
+                </div>
+              </div>
+            }
+            @if (showClusterOptions) {
+              <div style="padding-top:15px;">
+                <label for="selectCluster" class="control-label">{{'INSTALL_MODAL.SELECT_CLUSTER' | translate}}</label>
+                <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" name="selectCluster" id="selectCluster" [(ngModel)]="selectedCluster" required>
+                  @for (cluster of domain?.clusters; track cluster) {
+                    <option [value]="cluster.id" >{{cluster.name}}</option>
+                  }
+                </select>
+              </div>
+            }
 
-		</div>
-	</div>
-	<div class="nmaas-modal-footer">
-		<button type="button" class="btn btn-secondary" (click)="modal.hide()">{{'INSTALL_MODAL.CLOSE_BUTTON' | translate}}</button>
-        <button type="button" class="btn btn-primary" (click)="create()" [disabled]="instance_name.invalid  || clicked || forbiddenWordError">{{'INSTALL_MODAL.DEPLOY_BUTTON' | translate}}</button>
-	</div>
-</nmaas-modal>
+          </div>
+        </div>
+        <div class="nmaas-modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="modal.hide()">{{'INSTALL_MODAL.CLOSE_BUTTON' | translate}}</button>
+          <button type="button" class="btn btn-primary" (click)="create()" [disabled]="instance_name.invalid  || clicked || forbiddenWordError">{{'INSTALL_MODAL.DEPLOY_BUTTON' | translate}}</button>
+        </div>
+      </nmaas-modal>

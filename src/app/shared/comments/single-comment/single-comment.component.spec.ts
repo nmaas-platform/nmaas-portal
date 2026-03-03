@@ -5,8 +5,14 @@ import {AuthService} from '../../../auth/auth.service';
 import {FormsModule} from '@angular/forms';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {JwtModule} from '@auth0/angular-jwt';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {of} from 'rxjs';
+
+class TranslateFakeLoader implements TranslateLoader {
+  getTranslation(lang: string) {
+    return of({});
+  }
+}
 
 
 describe('SingleCommentComponent', () => {

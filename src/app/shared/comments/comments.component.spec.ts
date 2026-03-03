@@ -1,6 +1,6 @@
 import {CommentsComponent} from './comments.component';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {AppConfigService, AppsService} from '../../service';
 import {FormsModule} from '@angular/forms';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
@@ -10,6 +10,12 @@ import {AuthService} from '../../auth/auth.service';
 import {JwtModule} from '@auth0/angular-jwt';
 import {Component} from '@angular/core';
 import {SingleCommentComponent} from './single-comment/single-comment.component';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 @Component({
     selector: 'app-single-comment',

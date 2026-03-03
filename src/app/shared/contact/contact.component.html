@@ -1,33 +1,37 @@
 <form [formGroup]="selectForm">
-    <div class="form-group">
-        <label for="selectedFormKey">{{'CONTACT_FORM.SELECT_CATEGORY' | translate}}:</label>
-        <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" id="selectedFormKey" [formControlName]="'formKey'" name="selectedFormKey" class="form-control">
-            <option *ngFor="let k of getFormOptions()" [value]="k">{{'CONTACT_FORM.TYPES.' + k | translate}}</option>
-        </select>
-    </div>
+  <div class="form-group">
+    <label for="selectedFormKey">{{'CONTACT_FORM.SELECT_CATEGORY' | translate}}:</label>
+    <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" id="selectedFormKey" [formControlName]="'formKey'" name="selectedFormKey" class="form-control">
+      @for (k of getFormOptions(); track k) {
+        <option [value]="k">{{'CONTACT_FORM.TYPES.' + k | translate}}</option>
+      }
+    </select>
+  </div>
 </form>
 
 <hr/>
 
-<formio *ngIf="currentFormioTemplate && i18n" [form]="currentFormioTemplate"
-        [success]="successEmitter"
-        [refresh]="refreshForm"
-        [language]="langChangeEventEmitter"
+@if (currentFormioTemplate && i18n) {
+  <formio [form]="currentFormioTemplate"
+    [success]="successEmitter"
+    [refresh]="refreshForm"
+    [language]="langChangeEventEmitter"
         [renderOptions]="{
         language: getCurrentLang(),
         i18n: i18n
         }"
-        (ready)="ready($event)"
-        (submit)="onSubmit($event.data)"></formio>
+    (ready)="ready($event)"
+  (submit)="onSubmit($event.data)"></formio>
+}
 
 <nmaas-modal (click)="modal.hide()">
-    <div class="nmaas-modal-header">{{'CONTACT_FORM.MODAL.TITLE' | translate}}</div>
-    <div class="nmaas-modal-body">
-        {{ 'CONTACT_FORM.MODAL.MESSAGE' | translate }}
-    </div>
-    <div class="nmaas-modal-footer">
-        <button type="button" class="btn btn-primary" (click)="modal.hide()">
-            {{'CONTACT_FORM.MODAL.CLOSE_BUTTON' | translate}}
-        </button>
-    </div>
+  <div class="nmaas-modal-header">{{'CONTACT_FORM.MODAL.TITLE' | translate}}</div>
+  <div class="nmaas-modal-body">
+    {{ 'CONTACT_FORM.MODAL.MESSAGE' | translate }}
+  </div>
+  <div class="nmaas-modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.hide()">
+      {{'CONTACT_FORM.MODAL.CLOSE_BUTTON' | translate}}
+    </button>
+  </div>
 </nmaas-modal>

@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ApplicationsViewComponent } from './applications.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {AppConfigService, AppInstanceService, AppsService, DomainService, TagService} from '../../service';
 import {AppSubscriptionsService} from '../../service/appsubscriptions.service';
 import {UserDataService} from '../../service/userdata.service';
@@ -19,6 +19,12 @@ import {AppInstallModalComponent} from '../modal/appinstall';
 import {ModalComponent} from '../modal';
 import {Domain} from '../../model/domain';
 import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA} from '@angular/core';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('ApplicationsComponent', () => {
   let component: ApplicationsViewComponent;

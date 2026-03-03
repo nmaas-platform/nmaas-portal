@@ -4,8 +4,14 @@ import { WebhookHistoryDetailsComponent } from './webhook-history-details.compon
 import {WebhookService} from '../../../../service/webhook.service';
 import {of} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
+
+class TranslateFakeLoader implements TranslateLoader {
+  getTranslation(lang: string) {
+    return of({});
+  }
+}
 
 class MockWebhookService {
   getOneHistory = jasmine.createSpy().and.returnValue(of({ id: 1, domainCodename: 'Test', eventType: 'DOMAIN_CREATION',

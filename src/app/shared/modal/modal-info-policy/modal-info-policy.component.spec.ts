@@ -2,13 +2,19 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {ModalInfoPolicyComponent} from './modal-info-policy.component';
 import {RouterTestingModule} from '@angular/router/testing';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {ModalComponent} from '../modal.component';
 import {ContentDisplayService} from '../../../service/content-display.service';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
 import {DialogModule} from 'primeng/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('ModalInfoPolicyComponent', () => {
     let component: ModalInfoPolicyComponent;

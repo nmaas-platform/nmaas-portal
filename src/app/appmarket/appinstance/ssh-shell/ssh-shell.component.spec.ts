@@ -5,12 +5,18 @@ import {NgTerminalModule} from 'ng-terminal';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {Component} from '@angular/core';
 import {ModalComponent} from '../../../shared/modal';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {RouterTestingModule} from '@angular/router/testing';
 import createSpyObj = jasmine.createSpyObj;
 import {ShellClientService} from '../../../service/shell-client.service';
 import {concat, of, throwError} from 'rxjs';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 @Component({
     selector: 'nmaas-modal',

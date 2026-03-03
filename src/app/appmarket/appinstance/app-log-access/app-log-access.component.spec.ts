@@ -5,7 +5,13 @@ import {AppLogsService} from '../../../service/app-logs.service';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {  TranslateLoader, TranslateModule} from '@ngx-translate/core';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('AppLogAccessComponent', () => {
     let component: AppLogAccessComponent;

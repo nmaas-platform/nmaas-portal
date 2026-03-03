@@ -5,11 +5,6 @@
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "lib": [
-      "es2018",
-      "dom",
-      "es2020"
-    ],
     "mapRoot": "./",
     "module": "es2020",
     "moduleResolution": "bundler",

@@ -3,9 +3,16 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ClusterDetailsComponent } from './clusterdetails.component';
 import {FormsModule} from '@angular/forms';
 import {RouterTestingModule} from '@angular/router/testing';
-import {MissingTranslationHandler, TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {MissingTranslationHandler,   TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {CustomMissingTranslationService} from '../../../../i18n/custommissingtranslation.service';
 import { ClusterManagerService } from '../../../../service/cluster-manager.service';
+import {of} from 'rxjs';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('ClusterDetailsComponent', () => {
     let component: ClusterDetailsComponent;

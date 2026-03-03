@@ -1,6 +1,8 @@
 <form [formGroup]="objectForm">
-    <textarea class="form-control" formControlName="content" style="width: 100%" rows="30" id="content"></textarea>
+  <textarea class="form-control" formControlName="content" style="width: 100%" rows="30" id="content"></textarea>
 </form>
-<div *ngIf="content.invalid  && (content.dirty || content.touched)" class="alert alert-danger">
+@if (content.invalid  && (content.dirty || content.touched)) {
+  <div class="alert alert-danger">
     {{'JSON_EDIT.INVALID_JSON' | translate}}
-</div>
+  </div>
+}

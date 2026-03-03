@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {DomainsListComponent} from './domainslist.component';
 import {RouterTestingModule} from '@angular/router/testing';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import createSpyObj = jasmine.createSpyObj;
 import {AuthService} from '../../../auth/auth.service';
 import {DomainService} from '../../../service';
@@ -10,6 +10,12 @@ import {of} from 'rxjs';
 import {SearchDomainPipe} from '../domain-search.pipe';
 import {PaginatePipe, PaginationService} from 'ngx-pagination';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('DomainslistComponent', () => {
     let component: DomainsListComponent;

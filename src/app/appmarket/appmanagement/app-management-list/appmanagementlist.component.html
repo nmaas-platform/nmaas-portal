@@ -4,7 +4,7 @@
     <div style="margin-right:20px">
       <p-iconfield class="p-input-icon-right" style="width: 100%">
         <input pInputText id="searchText" type="text" class="form-control"  placeholder="Search" (keyup)="searchApp($event.target.value)">
-          <p-inputicon class="pi pi-search" style="font-size: 13px;"></p-inputicon>
+        <p-inputicon class="pi pi-search" style="font-size: 13px;"></p-inputicon>
       </p-iconfield>
     </div>
     <div style="display:flex">
@@ -28,65 +28,74 @@
             <p-sortIcon field="owner"></p-sortIcon>
           </th>
           <th style="width: 20%" >
-              <div *ngIf="isAnySubtableVisible()">
-                  {{'APPS_MANAGEMENT.VERSION' | translate}}
+            @if (isAnySubtableVisible()) {
+              <div>
+                {{'APPS_MANAGEMENT.VERSION' | translate}}
               </div>
+            }
           </th>
           <th style="width: 20%"  >
-              <div *ngIf="isAnySubtableVisible()">
-                  {{'APPS_MANAGEMENT.STATE' | translate}}
+            @if (isAnySubtableVisible()) {
+              <div>
+                {{'APPS_MANAGEMENT.STATE' | translate}}
               </div>
+            }
           </th>
           <th> </th>
-            <th></th>
+          <th></th>
         </tr>
       </ng-template>
 
       <ng-template pTemplate="body" let-app let-i="rowIndex">
         <tr>
-          <td *ngIf="!versionRowVisible[i]"  (click)="clickTableRow(i)">
-            <span class="pi pi-chevron-right"></span>
-          </td>
-          <td *ngIf="versionRowVisible[i]"  (click)="clickTableRow(i)">
-            <span class="pi pi-chevron-down"></span>
-          </td>
+          @if (!versionRowVisible[i]) {
+            <td  (click)="clickTableRow(i)">
+              <span class="pi pi-chevron-right"></span>
+            </td>
+          }
+          @if (versionRowVisible[i]) {
+            <td  (click)="clickTableRow(i)">
+              <span class="pi pi-chevron-down"></span>
+            </td>
+          }
           <td  (click)="clickTableRow(i)">{{app?.name}}</td>
           <td  (click)="clickTableRow(i)">{{app?.owner}}</td>
           <td (click)="clickTableRow(i)"></td>
           <td (click)="clickTableRow(i)"></td>
-            <td></td>
+          <td></td>
           <td class="text-right">
-              <button type="button"
-                      class="dropdown-button"
-                      (click)="openRowMenu($event, app)">
-                  <i class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></i>
-              </button>
-              <p-menu #rowMenu [popup]="true" appendTo="body" [model]="rowMenuItems"></p-menu>
+            <button type="button"
+              class="dropdown-button"
+              (click)="openRowMenu($event, app)">
+              <i class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></i>
+            </button>
+            <p-menu #rowMenu [popup]="true" appendTo="body" [model]="rowMenuItems"></p-menu>
           </td>
         </tr>
-        <ng-container *ngIf="versionRowVisible[i]">
-          <tr *ngFor="let version of app.versions.sort(appVersionCompare)">
-            <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]"></td>
-            <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]"></td>
-            <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]"></td>
-            <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]">{{version.version}}</td>
-            <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]">{{"ENUM.STATE." + getStateAsString(version.state).toUpperCase() | translate }}</td>
-            <td>
+        @if (versionRowVisible[i]) {
+          @for (version of app.versions.sort(appVersionCompare); track version) {
+            <tr>
+              <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]"></td>
+              <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]"></td>
+              <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]"></td>
+              <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]">{{version.version}}</td>
+              <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]">{{"ENUM.STATE." + getStateAsString(version.state).toUpperCase() | translate }}</td>
+              <td>
                 <a [routerLink]="['/admin/apps/view', version?.appVersionId]">
-                      <em class="pi pi-eye" style="font-size: 1.4rem; color: var(--p-text-0); margin-right:10px"></em>
+                  <em class="pi pi-eye" style="font-size: 1.4rem; color: var(--p-text-0); margin-right:10px"></em>
                 </a>
-            </td>
-            <td class="text-right">
+              </td>
+              <td class="text-right">
                 <button type="button"
-                      class="dropdown-button"
-                      (click)="openVersionRowMenu($event, app, version)">
-                    <i class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></i>
+                  class="dropdown-button"
+                  (click)="openVersionRowMenu($event, app, version)">
+                  <i class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></i>
                 </button>
                 <p-menu #versionRowMenu [popup]="true" appendTo="body" [model]="rowVersionMenuItems"></p-menu>
-            </td>
-
-          </tr>
-        </ng-container>
+              </td>
+            </tr>
+          }
+        }
       </ng-template>
     </p-table>
   </div>
@@ -104,7 +113,7 @@
 <app-app-add-json-version-app #appAddJsonVersion (refresh)="refresh()"></app-app-add-json-version-app>
 
 <nmaas-removal-confirmation-modal [object]="appToRemove" [disableButton]="hasRunningInstances"
-                                (onConfirm)="removeApp(appToRemove.id)" [header]="'APPS_MANAGEMENT.CONFIRM_REMOVAL.HEADER'"
-                                [description]="'APPS_MANAGEMENT.CONFIRM_REMOVAL.DESCRIPTION'"
-                                [disabledButtonWarning]="'APPS_MANAGEMENT.CONFIRM_REMOVAL.DISABLED'"
+  (onConfirm)="removeApp(appToRemove.id)" [header]="'APPS_MANAGEMENT.CONFIRM_REMOVAL.HEADER'"
+  [description]="'APPS_MANAGEMENT.CONFIRM_REMOVAL.DESCRIPTION'"
+  [disabledButtonWarning]="'APPS_MANAGEMENT.CONFIRM_REMOVAL.DISABLED'"
 ></nmaas-removal-confirmation-modal>

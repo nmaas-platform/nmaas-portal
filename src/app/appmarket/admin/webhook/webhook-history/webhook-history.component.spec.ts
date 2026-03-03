@@ -5,9 +5,15 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {WebhookService} from '../../../../service/webhook.service';
 import {BehaviorSubject, of} from 'rxjs';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {UserDataService} from '../../../../service/userdata.service';
 import {DomainService} from '../../../../service';
+
+class TranslateFakeLoader implements TranslateLoader {
+  getTranslation(lang: string) {
+    return of({});
+  }
+}
 
 class MockWebhookService {
   getAllHistory = jasmine.createSpy().and.returnValue(of([{ id: 1, domainCodename: 'Test', eventType: 'DOMAIN_CREATION',

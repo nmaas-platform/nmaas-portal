@@ -1,6 +1,8 @@
-<div *ngIf="appInstanceId && ready" class="row">
-  <div class="page-header">
-    <h4 style="color: var(--p-text-0)">{{'SHELL.CONNECTED_TO' | translate}} {{appInstanceName}} ({{'SHELL.POD_NAME' | translate}} {{podName}})</h4>
+@if (appInstanceId && ready) {
+  <div class="row">
+    <div class="page-header">
+      <h4 style="color: var(--p-text-0)">{{'SHELL.CONNECTED_TO' | translate}} {{appInstanceName}} ({{'SHELL.POD_NAME' | translate}} {{podName}})</h4>
+    </div>
+    <app-ssh-shell [appInstanceId]="appInstanceId" [podName]="podName"></app-ssh-shell>
   </div>
-  <app-ssh-shell [appInstanceId]="appInstanceId" [podName]="podName"></app-ssh-shell>
-</div>
+}

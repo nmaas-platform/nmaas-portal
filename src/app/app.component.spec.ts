@@ -4,7 +4,7 @@ import {TestBed, waitForAsync} from '@angular/core/testing';
 import {AppComponent} from './app.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AppConfigService, ConfigurationService} from './service';
-import {MissingTranslationHandler, TranslateFakeLoader, TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
+import {MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
 import {Observable, of} from 'rxjs';
 import {Configuration} from './model/configuration';
 import {CustomMissingTranslationService} from './i18n/custommissingtranslation.service';
@@ -18,6 +18,12 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 class MockConfigurationService {
     protected uri: string;

@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {NavbarComponent} from './navbar.component';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {of} from 'rxjs';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AuthService} from '../../auth/auth.service';
@@ -12,6 +12,12 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {DatePipe} from '@angular/common';
 import {UserDataService} from '../../service/userdata.service';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 @Component({
     selector: 'nmaas-domain-filter',

@@ -5,12 +5,18 @@ import {AppImagesService, AppsService, TagService} from '../../../service';
 import {RouterTestingModule} from '@angular/router/testing';
 import {InternationalizationService} from '../../../service/internationalization.service';
 import {ConfigTemplateService} from '../../../service/configtemplate.service';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {StepsModule} from 'primeng/steps';
 import {SharedModule} from '../../../shared';
 import {of} from 'rxjs';
 import createSpyObj = jasmine.createSpyObj;
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('AppCreateWizardComponent', () => {
     let component: AppCreateWizardComponent;

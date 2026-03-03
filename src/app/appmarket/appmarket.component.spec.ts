@@ -4,7 +4,6 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {ServiceUnavailableService} from '../service-unavailable/service-unavailable.service';
 import {
   MissingTranslationHandler,
-  TranslateFakeLoader,
   TranslateLoader,
   TranslateModule,
   TranslateService
@@ -19,6 +18,12 @@ import {Component} from '@angular/core';
 import {AuthService, DomainRoles} from '../auth/auth.service';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 export class MockAuthService {
 

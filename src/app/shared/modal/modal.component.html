@@ -26,35 +26,43 @@
 
 <p-dialog
         [(visible)]="visible"
-        [modal]="true"
-        [style]="{width: width}"
-        [closable]="true"
-        [draggable]="false"
-        [baseZIndex]="1200"
-        (onHide)="hide()">
-    <ng-template pTemplate="header">
-        <div class="modal-header text-center"
+  [modal]="true"
+  [style]="{width: width}"
+  [closable]="true"
+  [draggable]="false"
+  [baseZIndex]="1200"
+  (onHide)="hide()">
+  <ng-template pTemplate="header">
+    <div class="modal-header text-center"
              [ngClass]="{
            'alert-info': isInfo,
            'alert-danger': isError,
            'alert-success': isSuccess,
            'alert-warning': isWarning
          }">
-            <img *ngIf="isIconsEnabled && isError" src="../../../assets/images/error.png" class="modal-img" alt="Error">
-            <img *ngIf="isIconsEnabled && isInfo"  src="../../../assets/images/info.png" class="modal-img" alt="Info">
-            <img *ngIf="isIconsEnabled && isSuccess" src="../../../assets/images/success.png" class="modal-img" alt="Success">
-            <img *ngIf="isIconsEnabled && isWarning" src="../../../assets/images/alert.png" class="modal-img" alt="Warning">
-            <h4 class="modal-title" style="display: inline-block;">
-                <ng-content select=".nmaas-modal-header"></ng-content>
-            </h4>
-        </div>
-    </ng-template>
-
-    <div class="modal-body" style="max-height: 70vh; overflow: auto;">
-        <ng-content select=".nmaas-modal-body"></ng-content>
+      @if (isIconsEnabled && isError) {
+        <img src="../../../assets/images/error.png" class="modal-img" alt="Error">
+      }
+      @if (isIconsEnabled && isInfo) {
+        <img  src="../../../assets/images/info.png" class="modal-img" alt="Info">
+      }
+      @if (isIconsEnabled && isSuccess) {
+        <img src="../../../assets/images/success.png" class="modal-img" alt="Success">
+      }
+      @if (isIconsEnabled && isWarning) {
+        <img src="../../../assets/images/alert.png" class="modal-img" alt="Warning">
+      }
+      <h4 class="modal-title" style="display: inline-block;">
+        <ng-content select=".nmaas-modal-header"></ng-content>
+      </h4>
     </div>
+  </ng-template>
 
-    <ng-template pTemplate="footer">
-        <ng-content select=".nmaas-modal-footer"></ng-content>
-    </ng-template>
+  <div class="modal-body" style="max-height: 70vh; overflow: auto;">
+    <ng-content select=".nmaas-modal-body"></ng-content>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <ng-content select=".nmaas-modal-footer"></ng-content>
+  </ng-template>
 </p-dialog>

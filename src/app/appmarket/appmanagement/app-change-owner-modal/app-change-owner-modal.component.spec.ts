@@ -2,11 +2,17 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {AppChangeOwnerModalComponent} from './app-change-owner-modal.component';
 import {FormsModule} from '@angular/forms';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import createSpyObj = jasmine.createSpyObj;
 import {AppsService, UserService} from '../../../service';
 import {of} from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('AppChangeOwnerModalComponent', () => {
     let component: AppChangeOwnerModalComponent;

@@ -2,18 +2,22 @@
   <div class="panel-body panel-container">
 
     <ul class="col-sm-12">
-      <li class="deploy-param-row" *ngIf="getDeploymentParamsKeys().length != 0">
-        <strong>{{'APP_ACCESS_METHOD_EDIT.DEPLOY_PARAMETERS' | translate}}</strong>
-      </li>
-      <li *ngFor="let k of getDeploymentParamsKeys(); let i=index" class="deploy-param-row">
-        <div class="form-group col-sm-11">
-          <label class="control-label" for="{{i}}-param">{{'APP_ACCESS_METHOD_EDIT.PARAM' | translate}}: {{k}}</label>
-          <input pInputText  class="form-control" type="text" id="{{i}}-param" [(ngModel)]="appDeploymentSpec[propertyName][k]">
-        </div>
-        <div class="col-sm-1">
-          <button class="btn btn-danger" role="button" (click)="removeDeployParam(k)">{{'APP_ACCESS_METHOD_EDIT.REMOVE_PARAM' | translate}}</button>
-        </div>
-      </li>
+      @if (getDeploymentParamsKeys().length != 0) {
+        <li class="deploy-param-row">
+          <strong>{{'APP_ACCESS_METHOD_EDIT.DEPLOY_PARAMETERS' | translate}}</strong>
+        </li>
+      }
+      @for (k of getDeploymentParamsKeys(); track k; let i = $index) {
+        <li class="deploy-param-row">
+          <div class="form-group col-sm-11">
+            <label class="control-label" for="{{i}}-param">{{'APP_ACCESS_METHOD_EDIT.PARAM' | translate}}: {{k}}</label>
+            <input pInputText  class="form-control" type="text" id="{{i}}-param" [(ngModel)]="appDeploymentSpec[propertyName][k]">
+          </div>
+          <div class="col-sm-1">
+            <button class="btn btn-danger" role="button" (click)="removeDeployParam(k)">{{'APP_ACCESS_METHOD_EDIT.REMOVE_PARAM' | translate}}</button>
+          </div>
+        </li>
+      }
       <li class="deploy-param-row">
         <strong>{{'APP_ACCESS_METHOD_EDIT.NEW_DEPLOY_PARAMETER' | translate}}</strong>
       </li>
@@ -22,22 +26,30 @@
           <div class="double-form col-sm-6">
             <label class="control-label" for="new-key">{{'APP_ACCESS_METHOD_EDIT.NEW_KEY' | translate}}</label>
             <input pInputText  type="text" id="new-key" class="form-control" [formControl]="newKeyFormControl">
-            <div *ngIf="newKeyFormControl.invalid && (newKeyFormControl.dirty || newKeyFormControl.touched)"
-                 class="alert alert-danger">
-              <div *ngIf="keyValidatorErrorKey && newKeyFormControl.errors[keyValidatorErrorKey] && keyValidatorMessage">
-                {{keyValidatorMessage}}
+            @if (newKeyFormControl.invalid && (newKeyFormControl.dirty || newKeyFormControl.touched)) {
+              <div
+                class="alert alert-danger">
+                @if (keyValidatorErrorKey && newKeyFormControl.errors[keyValidatorErrorKey] && keyValidatorMessage) {
+                  <div>
+                    {{keyValidatorMessage}}
+                  </div>
+                }
               </div>
-            </div>
+            }
           </div>
           <div class="double-form col-sm-6">
             <label class="control-label" for="new-value">{{'APP_ACCESS_METHOD_EDIT.NEW_VALUE' | translate}}</label>
             <input pInputText  type="text" id="new-value" class="form-control" [formControl]="newValueFormControl">
-            <div *ngIf="newValueFormControl.invalid && (newValueFormControl.dirty || newValueFormControl.touched)"
-                 class="alert alert-danger">
-              <div *ngIf="valueValidatorErrorKey && newKeyFormControl.errors[valueValidatorErrorKey] && valueValidatorMessage">
-                {{valueValidatorMessage}}
+            @if (newValueFormControl.invalid && (newValueFormControl.dirty || newValueFormControl.touched)) {
+              <div
+                class="alert alert-danger">
+                @if (valueValidatorErrorKey && newKeyFormControl.errors[valueValidatorErrorKey] && valueValidatorMessage) {
+                  <div>
+                    {{valueValidatorMessage}}
+                  </div>
+                }
               </div>
-            </div>
+            }
           </div>
         </div>
         <div class="col-sm-1">

@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PreferencesComponent } from './preferences.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {FormsModule} from '@angular/forms';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {DomainService, UserService} from '../../../service';
 import {of} from 'rxjs';
 import createSpyObj = jasmine.createSpyObj;
@@ -11,6 +11,12 @@ import {InternationalizationService} from '../../../service/internationalization
 import {AuthService} from '../../../auth/auth.service';
 import {provideHttpClientTesting} from '@angular/common/http/testing';
 import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA} from '@angular/core';
+
+class TranslateFakeLoader implements TranslateLoader {
+  getTranslation(lang: string) {
+    return of({});
+  }
+}
 
 describe('PreferencesComponent', () => {
   let component: PreferencesComponent;

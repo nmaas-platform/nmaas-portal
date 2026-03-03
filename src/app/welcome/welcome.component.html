@@ -1,177 +1,188 @@
-<div *ngIf="autoLogout" class="banner flex-center">
+@if (autoLogout) {
+  <div class="banner flex-center">
     <div style="display: grid">
-        <span class="text-center">{{'WELCOME.TIME_EXPIRED' | translate}}
-            <a class=""
-               style="width:3rem; height: 3rem; color: white; cursor: pointer" (click)="autoLogout=false">
-            <em class="pi pi-times"></em>
+      <span class="text-center">{{'WELCOME.TIME_EXPIRED' | translate}}
+        <a class=""
+          style="width:3rem; height: 3rem; color: white; cursor: pointer" (click)="autoLogout=false">
+          <em class="pi pi-times"></em>
         </a>
-        </span>
+      </span>
     </div>
-</div>
+  </div>
+}
 
-<div *ngIf="landingProfile === 'VNOC'; else elseBlock">
+@if (landingProfile === 'VNOC') {
+  <div>
     <div class="row">
-        <div id="welcome-container"
-             style="text-align: justify; padding: 0">
-            <div class="panel-group" id="accordion">
-                <div class="panel panel-default" style="border:none">
-                    <div id="login-panel" class="col-lg-3 col-md-5 col-sm-6 col-xs-12 pull-right login-vertical-offset panel-collapse collapse"
-                         [ngClass]="router.url.startsWith('/welcome/login?ssoUserId=') ? '' : 'collapse'"
-                         style="z-index: 800; position: fixed; right: 1px; max-height: 50vh; font-size: 14px; ">
-                        <div class="panel panel-default " style="background: var(--p-background-100); border:none; color: var(--p-text-0)">
-                            <div class="panel-body" id="login-out" style="overflow-y: auto;">
-                                <nmaas-login></nmaas-login>
-                            </div>
-                        </div>
-                    </div>
+      <div id="welcome-container"
+        style="text-align: justify; padding: 0">
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default" style="border:none">
+            <div id="login-panel" class="col-lg-3 col-md-5 col-sm-6 col-xs-12 pull-right login-vertical-offset panel-collapse collapse"
+              [ngClass]="router.url.startsWith('/welcome/login?ssoUserId=') ? '' : 'collapse'"
+              style="z-index: 800; position: fixed; right: 1px; max-height: 50vh; font-size: 14px; ">
+              <div class="panel panel-default " style="background: var(--p-background-100); border:none; color: var(--p-text-0)">
+                <div class="panel-body" id="login-out" style="overflow-y: auto;">
+                  <nmaas-login></nmaas-login>
                 </div>
-                <div class="panel panel-default" style="border:none" >
-                    <div id="register-panel" class="col-lg-3 col-md-5 col-sm-6 col-xs-12 pull-right login-vertical-offset panel-collapse collapse"
-                         [ngClass]="router.url.startsWith('/welcome/login?ssoUserId=') ? '' : 'collapse'"
-                         style="z-index: 800; position: fixed; right: 1px; max-height: 50vh; font-size: 14px;">
-                        <div class="panel panel-default" style="background: var(--p-background-100); border:none; color: var(--p-text-0)">
-                            <div class="panel-body" id="login-out" style="overflow-y: auto;">
-                                <nmaas-registration></nmaas-registration>
-                            </div>
-                        </div>
-                    </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default" style="border:none" >
+            <div id="register-panel" class="col-lg-3 col-md-5 col-sm-6 col-xs-12 pull-right login-vertical-offset panel-collapse collapse"
+              [ngClass]="router.url.startsWith('/welcome/login?ssoUserId=') ? '' : 'collapse'"
+              style="z-index: 800; position: fixed; right: 1px; max-height: 50vh; font-size: 14px;">
+              <div class="panel panel-default" style="background: var(--p-background-100); border:none; color: var(--p-text-0)">
+                <div class="panel-body" id="login-out" style="overflow-y: auto;">
+                  <nmaas-registration></nmaas-registration>
                 </div>
+              </div>
             </div>
-            <div class="col-lg-12" style="padding: 0; background: var(--p-background-0)">
-                <section class="vnoc-position">
-                    <div class="tab1">
-                        <div>
-                            <img *ngIf="!darkMode" src="assets/images/landing/VirtualNOC.png" class="logo">
-                            <img *ngIf="darkMode" src="assets/images/landing/VirtualNOC_orange_and_white.png" class="logo">
-                            <p class="margin2 text" >
-                                Run your network monitoring application stack in the cloud with the nmaas Platform
-                            </p>
-                            <a href="https://vnoc.docs.nmaas.eu/" class="button button-vNOC margin2">
-                                Learn more
-                            </a>
-                        </div>
-                    </div>
-                    <div class="tab2 tab2-vnoc">
-                        <div  class="position">
-                            <div class="shape">
-                                <svg class="map"  xmlns="http://www.w3.org/2000/svg" viewBox="136 0 180 220">
-                                    <path class="line cls-2" d="M 210 0 l 0 37 a 1 1 0 0 1 0 5 a 1 1 0 0 1 0 -5" transform="translate(-27 0)"/>
-                                    <path class="line cls-1" d="M 222 0 l 0 46 L 209 63 L 209 85 A 1 1 0 0 1 209 91 A 1 1 0 0 1 209 85" transform="translate(-27 0)"/>
-                                    <path class="line cls-2" d="M 234 0 l 0 60 L 234 60 L 234 60 A 1 1 0 0 1 234 66 A 1 1 0 0 1 234 60" transform="translate(-27 0)"/>
-                                    <path class="line cls-1" d="M 245 0 l 1 54 l 12 19 l 0 41 a 1 1 0 0 1 0 7 a 1 1 0 0 1 0 -7" transform="translate(-27 0)"/>
-                                    <path class="line cls-1" d="M 260 0 l 0 38 l 12 15 l 0 46 a 1 1 0 0 1 0 6 a 1 1 0 0 1 0 -6" transform="translate(-27 0)"/>
-                                    <path class="line cls-2" d="M 278 0 l 0 25 a 1 1 0 0 1 0 5 a 1 1 0 0 1 0 -5" transform="translate(-27 0)"/>
-                                    <path class="line cls-1" d="M 295 0 l 0 49 l -8 14 l 0 70 a 1 1 0 0 1 0 6 a 1 1 0 0 1 0 -6" transform="translate(-27 0)"/>
-                                    <path class="line cls-2" d="M 310 0 l 0 80 a 1 1 0 0 1 0 5 a 1 1 0 0 1 0 -5" transform="translate(-27 0)"/>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
+          </div>
         </div>
+        <div class="col-lg-12" style="padding: 0; background: var(--p-background-0)">
+          <section class="vnoc-position">
+            <div class="tab1">
+              <div>
+                @if (!darkMode) {
+                  <img src="assets/images/landing/VirtualNOC.png" class="logo">
+                }
+                @if (darkMode) {
+                  <img src="assets/images/landing/VirtualNOC_orange_and_white.png" class="logo">
+                }
+                <p class="margin2 text" >
+                  Run your network monitoring application stack in the cloud with the nmaas Platform
+                </p>
+                <a href="https://vnoc.docs.nmaas.eu/" class="button button-vNOC margin2">
+                  Learn more
+                </a>
+              </div>
+            </div>
+            <div class="tab2 tab2-vnoc">
+              <div  class="position">
+                <div class="shape">
+                  <svg class="map"  xmlns="http://www.w3.org/2000/svg" viewBox="136 0 180 220">
+                    <path class="line cls-2" d="M 210 0 l 0 37 a 1 1 0 0 1 0 5 a 1 1 0 0 1 0 -5" transform="translate(-27 0)"/>
+                    <path class="line cls-1" d="M 222 0 l 0 46 L 209 63 L 209 85 A 1 1 0 0 1 209 91 A 1 1 0 0 1 209 85" transform="translate(-27 0)"/>
+                    <path class="line cls-2" d="M 234 0 l 0 60 L 234 60 L 234 60 A 1 1 0 0 1 234 66 A 1 1 0 0 1 234 60" transform="translate(-27 0)"/>
+                    <path class="line cls-1" d="M 245 0 l 1 54 l 12 19 l 0 41 a 1 1 0 0 1 0 7 a 1 1 0 0 1 0 -7" transform="translate(-27 0)"/>
+                    <path class="line cls-1" d="M 260 0 l 0 38 l 12 15 l 0 46 a 1 1 0 0 1 0 6 a 1 1 0 0 1 0 -6" transform="translate(-27 0)"/>
+                    <path class="line cls-2" d="M 278 0 l 0 25 a 1 1 0 0 1 0 5 a 1 1 0 0 1 0 -5" transform="translate(-27 0)"/>
+                    <path class="line cls-1" d="M 295 0 l 0 49 l -8 14 l 0 70 a 1 1 0 0 1 0 6 a 1 1 0 0 1 0 -6" transform="translate(-27 0)"/>
+                    <path class="line cls-2" d="M 310 0 l 0 80 a 1 1 0 0 1 0 5 a 1 1 0 0 1 0 -5" transform="translate(-27 0)"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+} @else {
+  <div>
+    <div class="row">
+      <div id="welcome-container"
+        style="text-align: justify; padding: 0">
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default" style="border:none">
+            <div id="login-panel" class="col-lg-3 col-md-5 col-sm-6 col-xs-12 pull-right login-vertical-offset panel-collapse collapse"
+              [ngClass]="router.url.startsWith('/welcome/login?ssoUserId=') ? '' : 'collapse'"
+              style="z-index: 800; position: fixed; right: 1px; max-height: 50vh; font-size: 14px;">
+              <div class="panel panel-default" style="background: var(--p-background-100); border:none; color: var(--p-text-0)">
+                <div class="panel-body" id="login-out" style="overflow-y: auto;">
+                  <nmaas-login></nmaas-login>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default" style="border:none" >
+            <div id="register-panel" class="col-lg-3 col-md-5 col-sm-6 col-xs-12 pull-right login-vertical-offset panel-collapse collapse"
+              [ngClass]="router.url.startsWith('/welcome/login?ssoUserId=') ? '' : 'collapse'"
+              style="z-index: 800; position: fixed; right: 1px; max-height: 50vh; font-size: 14px;">
+              <div class="panel panel-default">
+                <div class="panel-body" id="login-out" style="overflow-y: auto;">
+                  <nmaas-registration></nmaas-registration>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12" style="padding: 0; background: var(--p-background-0)">
+          <section class="vlab-position">
+            <div class="tab1">
+              <div>
+                @if (!darkMode) {
+                  <img src="assets/images/landing/VirtualLab.png" class="logo">
+                }
+                @if (darkMode) {
+                  <img src="assets/images/landing/VirtualLab_purple_and_white.png" class="logo">
+                }
+                <p class="margin2 text">
+                  Organization of online hands-on exercises made easy with the nmaas Platform
+                </p>
+                <a href="https://vlab.docs.nmaas.eu/" class="button button-vLAB margin2">
+                  Learn more
+                </a>
+              </div>
+            </div>
+            <div class="tab2" >
+              <svg width="60%" height="80%" viewBox="0 275 275 275" xmlns="http://www.w3.org/2000/svg">
+                <g transform="scale(1) translate(0, 0)">
+                  <path fill="#C0B4CF">
+                    <animate attributeName="d" dur="21s" repeatCount="indefinite"
+                                                 values="M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z;
+                                                    M275,0 C370,0 500,150 500,275 C500,400 370,550 275,550 C180,550 50,400 50,275 C50,150 180,0 275,0 Z;
+                                                    M275,0 C420,0 550,150 550,275 C550,400 420,550 275,550 C130,550 0,400 0,275 C0,150 130,0 275,0 Z;
+                                                    M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z;
+                                                    M275,0 C350,0 500,150 500,275 C500,400 350,550 275,550 C200,550 50,400 50,275 C50,150 200,0 275,0 Z;
+                                                    M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z"
+                      />
+                    </path>
+                  </g>
+                  <g transform="scale(0.9) translate(27.5, 27.5)">
+                    <path fill="#AC9CC0" >
+                      <animate attributeName="d" dur="20s" repeatCount="indefinite"
+                                                 values="M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z;
+                                                    M275,0 C370,0 500,150 500,275 C500,400 370,550 275,550 C180,550 50,400 50,275 C50,150 180,0 275,0 Z;
+                                                    M275,0 C420,0 550,150 550,275 C550,400 420,550 275,550 C130,550 0,400 0,275 C0,150 130,0 275,0 Z;
+                                                    M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z;
+                                                    M275,0 C350,0 500,150 500,275 C500,400 350,550 275,550 C200,550 50,400 50,275 C50,150 200,0 275,0 Z;
+                                                    M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z"
+                        />
+                      </path>
+                    </g>
+                    <g transform="scale(0.8) translate(55, 55)">
+                      <path fill="#A391B9">
+                        <animate attributeName="d" dur="18s" repeatCount="indefinite"
+                                                 values="M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z;
+                                                    M275,0 C370,0 500,150 500,275 C500,400 370,550 275,550 C180,550 50,400 50,275 C50,150 180,0 275,0 Z;
+                                                    M275,0 C420,0 550,150 550,275 C550,400 420,550 275,550 C130,550 0,400 0,275 C0,150 130,0 275,0 Z;
+                                                    M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z;
+                                                    M275,0 C350,0 500,150 500,275 C500,400 350,550 275,550 C200,550 50,400 50,275 C50,150 200,0 275,0 Z;
+                                                    M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z"
+                          />
+                        </path>
+                      </g>
+                      <g transform="scale(0.7) translate(82.5, 82.5)">
+                        <path fill="#785C97">
+                          <animate attributeName="d" dur="19s" repeatCount="indefinite"
+                                                 values="M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z;
+                                                    M275,0 C370,0 500,150 500,275 C500,400 370,550 275,550 C180,550 50,400 50,275 C50,150 180,0 275,0 Z;
+                                                    M275,0 C420,0 550,150 550,275 C550,400 420,550 275,550 C130,550 0,400 0,275 C0,150 130,0 275,0 Z;
+                                                    M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z;
+                                                    M275,0 C350,0 500,150 500,275 C500,400 350,550 275,550 C200,550 50,400 50,275 C50,150 200,0 275,0 Z;
+                                                    M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z"
+                            />
+                          </path>
+                        </g>
+                      </svg>
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
 
 
-<ng-template #elseBlock>
-    <div>
-        <div class="row">
-            <div id="welcome-container"
-                 style="text-align: justify; padding: 0">
-                <div class="panel-group" id="accordion">
-                    <div class="panel panel-default" style="border:none">
-                        <div id="login-panel" class="col-lg-3 col-md-5 col-sm-6 col-xs-12 pull-right login-vertical-offset panel-collapse collapse"
-                             [ngClass]="router.url.startsWith('/welcome/login?ssoUserId=') ? '' : 'collapse'"
-                             style="z-index: 800; position: fixed; right: 1px; max-height: 50vh; font-size: 14px;">
-                            <div class="panel panel-default" style="background: var(--p-background-100); border:none; color: var(--p-text-0)">
-                                <div class="panel-body" id="login-out" style="overflow-y: auto;">
-                                    <nmaas-login></nmaas-login>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default" style="border:none" >
-                        <div id="register-panel" class="col-lg-3 col-md-5 col-sm-6 col-xs-12 pull-right login-vertical-offset panel-collapse collapse"
-                             [ngClass]="router.url.startsWith('/welcome/login?ssoUserId=') ? '' : 'collapse'"
-                             style="z-index: 800; position: fixed; right: 1px; max-height: 50vh; font-size: 14px;">
-                            <div class="panel panel-default">
-                                <div class="panel-body" id="login-out" style="overflow-y: auto;">
-                                    <nmaas-registration></nmaas-registration>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12" style="padding: 0; background: var(--p-background-0)">
-                    <section class="vlab-position">
-                        <div class="tab1">
-                            <div>
-                                <img *ngIf="!darkMode" src="assets/images/landing/VirtualLab.png" class="logo">
-                                <img *ngIf="darkMode" src="assets/images/landing/VirtualLab_purple_and_white.png" class="logo">
-                                <p class="margin2 text">
-                                    Organization of online hands-on exercises made easy with the nmaas Platform
-                                </p>
-                                <a href="https://vlab.docs.nmaas.eu/" class="button button-vLAB margin2">
-                                    Learn more
-                                </a>
-                            </div>
-                        </div>
-                        <div class="tab2" >
-                            <svg width="60%" height="80%" viewBox="0 275 275 275" xmlns="http://www.w3.org/2000/svg">
-                                <g transform="scale(1) translate(0, 0)">
-                                    <path fill="#C0B4CF">
-                                        <animate attributeName="d" dur="21s" repeatCount="indefinite"
-                                                 values="M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z;
-                                                    M275,0 C370,0 500,150 500,275 C500,400 370,550 275,550 C180,550 50,400 50,275 C50,150 180,0 275,0 Z;
-                                                    M275,0 C420,0 550,150 550,275 C550,400 420,550 275,550 C130,550 0,400 0,275 C0,150 130,0 275,0 Z;
-                                                    M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z;
-                                                    M275,0 C350,0 500,150 500,275 C500,400 350,550 275,550 C200,550 50,400 50,275 C50,150 200,0 275,0 Z;
-                                                    M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z"
-                                        />
-                                    </path>
-                                </g>
-                                <g transform="scale(0.9) translate(27.5, 27.5)">
-                                    <path fill="#AC9CC0" >
-                                        <animate attributeName="d" dur="20s" repeatCount="indefinite"
-                                                 values="M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z;
-                                                    M275,0 C370,0 500,150 500,275 C500,400 370,550 275,550 C180,550 50,400 50,275 C50,150 180,0 275,0 Z;
-                                                    M275,0 C420,0 550,150 550,275 C550,400 420,550 275,550 C130,550 0,400 0,275 C0,150 130,0 275,0 Z;
-                                                    M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z;
-                                                    M275,0 C350,0 500,150 500,275 C500,400 350,550 275,550 C200,550 50,400 50,275 C50,150 200,0 275,0 Z;
-                                                    M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z"
-                                        />
-                                    </path>
-                                </g>
-                                <g transform="scale(0.8) translate(55, 55)">
-                                    <path fill="#A391B9">
-                                        <animate attributeName="d" dur="18s" repeatCount="indefinite"
-                                                 values="M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z;
-                                                    M275,0 C370,0 500,150 500,275 C500,400 370,550 275,550 C180,550 50,400 50,275 C50,150 180,0 275,0 Z;
-                                                    M275,0 C420,0 550,150 550,275 C550,400 420,550 275,550 C130,550 0,400 0,275 C0,150 130,0 275,0 Z;
-                                                    M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z;
-                                                    M275,0 C350,0 500,150 500,275 C500,400 350,550 275,550 C200,550 50,400 50,275 C50,150 200,0 275,0 Z;
-                                                    M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z"
-                                        />
-                                    </path>
-                                </g>
-                                <g transform="scale(0.7) translate(82.5, 82.5)">
-                                    <path fill="#785C97">
-                                        <animate attributeName="d" dur="19s" repeatCount="indefinite"
-                                                 values="M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z;
-                                                    M275,0 C370,0 500,150 500,275 C500,400 370,550 275,550 C180,550 50,400 50,275 C50,150 180,0 275,0 Z;
-                                                    M275,0 C420,0 550,150 550,275 C550,400 420,550 275,550 C130,550 0,400 0,275 C0,150 130,0 275,0 Z;
-                                                    M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z;
-                                                    M275,0 C350,0 500,150 500,275 C500,400 350,550 275,550 C200,550 50,400 50,275 C50,150 200,0 275,0 Z;
-                                                    M275,0 C400,0 550,150 550,275 C550,400 400,550 275,550 C150,550 0,400 0,275 C0,150 150,0 275,0 Z"
-                                        />
-                                    </path>
-                                </g>
-                            </svg>
-                        </div>
-                    </section>
-                </div>
-            </div>
-        </div>
-    </div>
-</ng-template>

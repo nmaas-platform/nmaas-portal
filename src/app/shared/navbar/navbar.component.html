@@ -1,163 +1,191 @@
 <nav class="navbar navbar-default" id="navbar" role="navigation" style="margin:0">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a routerLink="/">
-                <img *ngIf="!darkMode" alt="GÉANT" src="assets/images/logo-small.png" style="margin: 8px; padding:4px; height:35px">
-                <img *ngIf="darkMode" alt="GÉANT" src="assets/images/nmaas_white_with_cloud.png" style="margin: 8px; padding:4px; height:35px">
-            </a>
-            <button class="navbar-toggle" data-target="#navbarCollapse" data-toggle="collapse" type="button">
-                <span class="sr-only">Toggle Navigation</span>
-                <em class="fas fa-bars"></em>
-            </button>
-        </div>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul *ngIf="authService.isLogged()" class="nav navbar-nav navbar-left">
-                <li [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']"><a
-                        [routerLink]="['/']">{{ 'NAVBAR.MARKET' | translate }}</a></li>
-                <li *ngIf="checkUserRole() && shouldDisplaySubscriptions()" [routerLinkActiveOptions]="{exact:true}"
-                    [routerLinkActive]="['active']"><a
-                        [routerLink]="['/subscriptions']">{{ 'NAVBAR.SUBSCRIPTIONS' | translate }}</a></li>
-                <li *ngIf="!isOnlyGuestInGlobalDomain()"
-                    [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']"><a
-                        [routerLink]="['/instances']">{{ 'NAVBAR.INSTANCES' | translate }}</a></li>
-            </ul>
-            <ul *ngIf="authService.isLogged()" class="nav navbar-nav navbar-right">
-                <li *ngIf="showClock" class="">
-                    <div class="navbar-logout">{{ 'NAVBAR.EXPIRED_TIME' | translate }}: {{ time }}</div>
-                </li>
-                <li *ngIf="showClock" class="divider-vertical"></li>
-                <li *ngIf="checkUserRole()" class="drop-domain">
-                    <nmaas-domain-filter class="drop-domain"></nmaas-domain-filter>
-                </li>
-                <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']" class="divider-vertical"></li>
-                <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']" [routerLinkActiveOptions]="{exact:true}"
-                    [routerLinkActive]="['active']" class="dropdown">
-                    <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown"
-                       role="button">{{ 'NAVBAR.ADVANCED' | translate }}<strong class="caret"></strong></a>
-                    <ul class="dropdown-menu">
-                        <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']">
-                            <a [routerLink]="['/admin/domains/bulks']">{{ 'BULK.DOMAIN.HEADER' | translate }}</a>
-                        </li>
-                        <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']">
-                            <a [routerLink]="['/admin/apps/bulks']">{{ 'BULK.APP.HEADER' | translate }}</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="divider-vertical"></li>
-                <li *roles="['ROLE_SYSTEM_ADMIN']" [routerLinkActiveOptions]="{exact:true}"
-                    [routerLinkActive]="['active']" class="dropdown">
-                    <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown"
-                       role="button">{{ 'NAVBAR.NOTIFICATION' | translate }}<strong class="caret"></strong></a>
-                    <ul class="dropdown-menu">
-                        <li *roles="['ROLE_SYSTEM_ADMIN']">
-                            <span (click)="showNotificationModal()">{{ 'NAVBAR.ALL_USERS' | translate }}</span>
-                        </li>
-                    </ul>
-                </li>
-                <li *roles="['ROLE_SYSTEM_ADMIN']" class="divider-vertical"></li>
-                <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_DOMAIN_ADMIN', 'ROLE_TOOL_MANAGER', 'ROLE_GROUP_MANAGER']"
-                    [routerLinkActiveOptions]="{exact:true}"
-                    [routerLinkActive]="['active']" class="dropdown">
-                    <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown"
-                       role="button"><em style="font-size: 1.4rem" class="pi pi-cog"></em><strong class=""></strong></a>
-                    <ul class="dropdown-menu">
-                        <li *roles="['ROLE_SYSTEM_ADMIN']"><a
-                                [routerLink]="['/admin/configuration']">{{ 'NAVBAR.SETTINGS' | translate }}</a>
-                        </li>
-                        <li *roles="['ROLE_SYSTEM_ADMIN']"><a
-                            [routerLink]="['/admin/manage/clusters']">{{ 'CLUSTERS.CONFIGURATION' | translate }}</a>
-                    </li>
-
-                        <li *roles="['ROLE_SYSTEM_ADMIN']" class="dropdown-divider"></li>
-                        <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER']"><a
-                                [routerLink]="['/admin/apps']">{{ 'NAVBAR.MARKET' | translate }}</a>
-                        </li>
-                        <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_GROUP_MANAGER', 'ROLE_GROUP_DOMAIN_ADMIN']">
-                            <a
-                                    [routerLink]="['/admin/domains']">{{ 'NAVBAR.DOMAINS' | translate }}</a>
-                        </li>
-                        <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']">
-                            <a [routerLink]="['/admin/domains/groups']">{{ 'NAVBAR.DOMAIN_GROUPS' | translate }}</a>
-                        </li>
-                        <li *roles="['ROLE_SYSTEM_ADMIN']"><a
-                                [routerLink]="['/admin/users']">{{ 'NAVBAR.USERS' | translate }}</a>
-                        </li>
-                        
-                        <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_GROUP_DOMAIN_ADMIN']">
-                                <a *rolesExcluded="['ROLE_SYSTEM_ADMIN']"
-                                    [routerLink]="['/domain/users']">{{ 'NAVBAR.DOMAIN_USERS' | translate }}</a>
-                           
-                        </li>
-                    
-                        <li *roles="['ROLE_SYSTEM_ADMIN']"><a
-                                [routerLink]="['/admin/languages']">{{ 'NAVBAR.LANGUAGES' | translate }}</a>
-                        </li>
-
-                        <li *roles="['ROLE_SYSTEM_ADMIN']" class="dropdown-divider"></li>
-
-                        <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']" [routerLinkActiveOptions]="{exact:true}"
-                            [routerLinkActive]="['active']"><a
-                                [routerLink]="['/admin/monitor']">{{ 'NAVBAR.MONITOR' | translate }}</a>
-                        </li>
-                    </ul>
-                </li>
-                <li [routerLinkActive]="['active']" class="dropdown">
-                    <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle"
-                       data-toggle="dropdown" href="#" role="button">
-                        <span class="glyphicon glyphicon-user"></span>
-                        {{ authService.getPreferredUsername() }} <strong class="caret"></strong></a>
-                    <ul class="dropdown-menu">
-                        <li [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']"><a
-                                [routerLink]="['/profile']">{{ 'NAVBAR.PROFILE' | translate }}</a></li>
-                        <li [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']"><a
-                                [routerLink]="['/about']">{{ 'NAVBAR.ABOUT' | translate }}</a></li>
-                        <li [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']"><a
-                                [routerLink]="['/logout']">{{ 'NAVBAR.LOGOUT' | translate }}</a></li>
-                    </ul>
-                </li>
-            </ul>
-
-            <ul *ngIf="!authService.isLogged()" class="nav navbar-nav pull-right-lg" id="navbar-main-not-logged">
-                <li>
-                    <button *ngIf="router.url == '/welcome' || router.url.startsWith('/welcome/login') || router.url == '/welcome/registration'"
-                            data-parent="#accordion"
-                            class="btn navbar-btn accordion-group" data-target="#login-panel" data-toggle="collapse"
-                            [routerLink]="['welcome/login']">
-                        {{ 'WELCOME.LOGIN' | translate }}
-                    </button>
-                    <button *ngIf="router.url == '/welcome' || router.url.startsWith('/welcome/login') || router.url == '/welcome/registration'"
-                            data-parent="#accordion"
-                            class="btn navbar-btn accordion-group" data-target="#register-panel" data-toggle="collapse"
-                            [routerLink]="['welcome/registration']">
-                        {{ 'WELCOME.REGISTER' | translate }}
-                    </button>
-                </li>
-                <li *ngIf="isServiceAvailable">
-                    <button *ngIf="router.url != '/about'" class="btn navbar-btn" [routerLink]="['/about']">
-                        {{ 'NAVBAR.ABOUT' | translate }}
-                    </button>
-                    <button *ngIf="router.url != '/welcome' && router.url != '/welcome/login' && router.url != '/welcome/registration'"
-                            class="btn navbar-btn" [routerLink]="['/welcome']">
-                        {{ 'NAVBAR.BACK' | translate }}
-                    </button>
-                </li>
-                <li *ngIf="isServiceAvailable" class="dropdown">
-                    <a style="display: inline-block" class="dropdown-toggle dropdown-lang" aria-expanded="false"
-                       aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
-                        <img alt="language" class="lang-circle-icon" src="{{[getPathToCurrent()]}}"/>
-                    </a>
-                    <ul class="dropdown-menu pull-right-drop">
-                        <li *ngFor="let lang of languages" [ngClass]="{'active': getCurrent() == lang}">
-                            <a (click)="useLanguage(lang)">
-                                <img alt="lang flag" class="lang-circle-icon"
-                                     src="assets/images/country/{{lang}}_circle.png"/>
-                                <span>{{ lang.toUpperCase() }}</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a routerLink="/">
+        @if (!darkMode) {
+          <img alt="GÉANT" src="assets/images/logo-small.png" style="margin: 8px; padding:4px; height:35px">
+        }
+        @if (darkMode) {
+          <img alt="GÉANT" src="assets/images/nmaas_white_with_cloud.png" style="margin: 8px; padding:4px; height:35px">
+        }
+      </a>
+      <button class="navbar-toggle" data-target="#navbarCollapse" data-toggle="collapse" type="button">
+        <span class="sr-only">Toggle Navigation</span>
+        <em class="fas fa-bars"></em>
+      </button>
     </div>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      @if (authService.isLogged()) {
+        <ul class="nav navbar-nav navbar-left">
+          <li [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']"><a
+          [routerLink]="['/']">{{ 'NAVBAR.MARKET' | translate }}</a></li>
+          @if (checkUserRole() && shouldDisplaySubscriptions()) {
+            <li [routerLinkActiveOptions]="{exact:true}"
+              [routerLinkActive]="['active']"><a
+            [routerLink]="['/subscriptions']">{{ 'NAVBAR.SUBSCRIPTIONS' | translate }}</a></li>
+          }
+          @if (!isOnlyGuestInGlobalDomain()) {
+            <li
+              [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']"><a
+            [routerLink]="['/instances']">{{ 'NAVBAR.INSTANCES' | translate }}</a></li>
+          }
+        </ul>
+      }
+      @if (authService.isLogged()) {
+        <ul class="nav navbar-nav navbar-right">
+          @if (showClock) {
+            <li class="">
+              <div class="navbar-logout">{{ 'NAVBAR.EXPIRED_TIME' | translate }}: {{ time }}</div>
+            </li>
+          }
+          @if (showClock) {
+            <li class="divider-vertical"></li>
+          }
+          @if (checkUserRole()) {
+            <li class="drop-domain">
+              <nmaas-domain-filter class="drop-domain"></nmaas-domain-filter>
+            </li>
+          }
+          <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']" class="divider-vertical"></li>
+          <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']" [routerLinkActiveOptions]="{exact:true}"
+            [routerLinkActive]="['active']" class="dropdown">
+            <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown"
+              role="button">{{ 'NAVBAR.ADVANCED' | translate }}<strong class="caret"></strong></a>
+              <ul class="dropdown-menu">
+                <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']">
+                  <a [routerLink]="['/admin/domains/bulks']">{{ 'BULK.DOMAIN.HEADER' | translate }}</a>
+                </li>
+                <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']">
+                  <a [routerLink]="['/admin/apps/bulks']">{{ 'BULK.APP.HEADER' | translate }}</a>
+                </li>
+              </ul>
+            </li>
+            <li class="divider-vertical"></li>
+            <li *roles="['ROLE_SYSTEM_ADMIN']" [routerLinkActiveOptions]="{exact:true}"
+              [routerLinkActive]="['active']" class="dropdown">
+              <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown"
+                role="button">{{ 'NAVBAR.NOTIFICATION' | translate }}<strong class="caret"></strong></a>
+                <ul class="dropdown-menu">
+                  <li *roles="['ROLE_SYSTEM_ADMIN']">
+                    <span (click)="showNotificationModal()">{{ 'NAVBAR.ALL_USERS' | translate }}</span>
+                  </li>
+                </ul>
+              </li>
+              <li *roles="['ROLE_SYSTEM_ADMIN']" class="divider-vertical"></li>
+              <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_DOMAIN_ADMIN', 'ROLE_TOOL_MANAGER', 'ROLE_GROUP_MANAGER']"
+                [routerLinkActiveOptions]="{exact:true}"
+                [routerLinkActive]="['active']" class="dropdown">
+                <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown"
+                  role="button"><em style="font-size: 1.4rem" class="pi pi-cog"></em><strong class=""></strong></a>
+                  <ul class="dropdown-menu">
+                    <li *roles="['ROLE_SYSTEM_ADMIN']"><a
+                    [routerLink]="['/admin/configuration']">{{ 'NAVBAR.SETTINGS' | translate }}</a>
+                  </li>
+                  <li *roles="['ROLE_SYSTEM_ADMIN']"><a
+                  [routerLink]="['/admin/manage/clusters']">{{ 'CLUSTERS.CONFIGURATION' | translate }}</a>
+                </li>
+                <li *roles="['ROLE_SYSTEM_ADMIN']" class="dropdown-divider"></li>
+                <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER']"><a
+                [routerLink]="['/admin/apps']">{{ 'NAVBAR.MARKET' | translate }}</a>
+              </li>
+              <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_GROUP_MANAGER', 'ROLE_GROUP_DOMAIN_ADMIN']">
+                <a
+                [routerLink]="['/admin/domains']">{{ 'NAVBAR.DOMAINS' | translate }}</a>
+              </li>
+              <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']">
+                <a [routerLink]="['/admin/domains/groups']">{{ 'NAVBAR.DOMAIN_GROUPS' | translate }}</a>
+              </li>
+              <li *roles="['ROLE_SYSTEM_ADMIN']"><a
+              [routerLink]="['/admin/users']">{{ 'NAVBAR.USERS' | translate }}</a>
+            </li>
+            <li *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_GROUP_DOMAIN_ADMIN']">
+              <a *rolesExcluded="['ROLE_SYSTEM_ADMIN']"
+              [routerLink]="['/domain/users']">{{ 'NAVBAR.DOMAIN_USERS' | translate }}</a>
+            </li>
+            <li *roles="['ROLE_SYSTEM_ADMIN']"><a
+            [routerLink]="['/admin/languages']">{{ 'NAVBAR.LANGUAGES' | translate }}</a>
+          </li>
+          <li *roles="['ROLE_SYSTEM_ADMIN']" class="dropdown-divider"></li>
+          <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']" [routerLinkActiveOptions]="{exact:true}"
+            [routerLinkActive]="['active']"><a
+          [routerLink]="['/admin/monitor']">{{ 'NAVBAR.MONITOR' | translate }}</a>
+        </li>
+      </ul>
+    </li>
+    <li [routerLinkActive]="['active']" class="dropdown">
+      <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle"
+        data-toggle="dropdown" href="#" role="button">
+        <span class="glyphicon glyphicon-user"></span>
+        {{ authService.getPreferredUsername() }} <strong class="caret"></strong></a>
+        <ul class="dropdown-menu">
+          <li [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']"><a
+          [routerLink]="['/profile']">{{ 'NAVBAR.PROFILE' | translate }}</a></li>
+          <li [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']"><a
+          [routerLink]="['/about']">{{ 'NAVBAR.ABOUT' | translate }}</a></li>
+          <li [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']"><a
+          [routerLink]="['/logout']">{{ 'NAVBAR.LOGOUT' | translate }}</a></li>
+        </ul>
+      </li>
+    </ul>
+  }
+
+  @if (!authService.isLogged()) {
+    <ul class="nav navbar-nav pull-right-lg" id="navbar-main-not-logged">
+      <li>
+        @if (router.url == '/welcome' || router.url.startsWith('/welcome/login') || router.url == '/welcome/registration') {
+          <button
+            data-parent="#accordion"
+            class="btn navbar-btn accordion-group" data-target="#login-panel" data-toggle="collapse"
+            [routerLink]="['welcome/login']">
+            {{ 'WELCOME.LOGIN' | translate }}
+          </button>
+        }
+        @if (router.url == '/welcome' || router.url.startsWith('/welcome/login') || router.url == '/welcome/registration') {
+          <button
+            data-parent="#accordion"
+            class="btn navbar-btn accordion-group" data-target="#register-panel" data-toggle="collapse"
+            [routerLink]="['welcome/registration']">
+            {{ 'WELCOME.REGISTER' | translate }}
+          </button>
+        }
+      </li>
+      @if (isServiceAvailable) {
+        <li>
+          @if (router.url != '/about') {
+            <button class="btn navbar-btn" [routerLink]="['/about']">
+              {{ 'NAVBAR.ABOUT' | translate }}
+            </button>
+          }
+          @if (router.url != '/welcome' && router.url != '/welcome/login' && router.url != '/welcome/registration') {
+            <button
+              class="btn navbar-btn" [routerLink]="['/welcome']">
+              {{ 'NAVBAR.BACK' | translate }}
+            </button>
+          }
+        </li>
+      }
+      @if (isServiceAvailable) {
+        <li class="dropdown">
+          <a style="display: inline-block" class="dropdown-toggle dropdown-lang" aria-expanded="false"
+            aria-haspopup="true" data-toggle="dropdown" href="#" role="button">
+            <img alt="language" class="lang-circle-icon" src="{{[getPathToCurrent()]}}"/>
+          </a>
+          <ul class="dropdown-menu pull-right-drop">
+            @for (lang of languages; track lang) {
+              <li [ngClass]="{'active': getCurrent() == lang}">
+                <a (click)="useLanguage(lang)">
+                  <img alt="lang flag" class="lang-circle-icon"
+                    src="assets/images/country/{{lang}}_circle.png"/>
+                    <span>{{ lang.toUpperCase() }}</span>
+                  </a>
+                </li>
+              }
+            </ul>
+          </li>
+        }
+      </ul>
+    }
+  </div>
+</div>
 </nav>
 <app-modal-notification-send></app-modal-notification-send>

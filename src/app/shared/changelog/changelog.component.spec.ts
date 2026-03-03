@@ -2,10 +2,16 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ChangelogComponent} from './changelog.component';
 import {RouterTestingModule} from '@angular/router/testing';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {ChangelogService} from '../../service';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('ChangelogComponent', () => {
     let component: ChangelogComponent;

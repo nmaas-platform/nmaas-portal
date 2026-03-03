@@ -6,10 +6,16 @@ import {of} from 'rxjs';
 import createSpyObj = jasmine.createSpyObj;
 import {AppImagesService, AppsService, TagService} from '../../../service';
 import {ConfigTemplateService} from '../../../service/configtemplate.service';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {StepsModule} from 'primeng/steps';
 import {SharedModule} from '../../../shared';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('AppVersionCreateWizardComponent', () => {
     let component: AppVersionCreateWizardComponent;

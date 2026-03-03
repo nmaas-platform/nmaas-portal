@@ -1,11 +1,17 @@
 import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {ContentDisplayService} from '../../service/content-display.service';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {RouterTestingModule} from '@angular/router/testing';
 import {of} from 'rxjs';
 import {PolicySubpageComponent} from './policy-subpage.component';
 import createSpyObj = jasmine.createSpyObj;
+
+class TranslateFakeLoader implements TranslateLoader {
+  getTranslation(lang: string) {
+    return of({});
+  }
+}
 
 describe('PolicySubpageComponent', () => {
   let component: PolicySubpageComponent;

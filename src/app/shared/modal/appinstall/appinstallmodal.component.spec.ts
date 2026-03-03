@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {AppInstallModalComponent} from './appinstallmodal.component';
 import {RouterTestingModule} from '@angular/router/testing';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {AppInstanceService, DomainService} from '../../../service';
 import {UserDataService} from '../../../service/userdata.service';
 import {of} from 'rxjs';
@@ -11,6 +11,12 @@ import {ApplicationBase} from '../../../model/application-base';
 import {ApplicationState} from '../../../model/application-state';
 import {Rate} from '../../../model';
 import {Domain} from '../../../model/domain';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('AppInstallmodalComponent', () => {
     let component: AppInstallModalComponent;

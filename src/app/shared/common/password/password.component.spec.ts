@@ -3,12 +3,19 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {PasswordComponent} from './password.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {RouterTestingModule} from '@angular/router/testing';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {UserService} from '../../../service';
 import {SharedModule} from '../../shared.module';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import createSpyObj = jasmine.createSpyObj;
 import { IPasswordStrengthMeterService } from 'angular-password-strength-meter';
+import {of} from 'rxjs';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 
 describe('PasswordComponent', () => {

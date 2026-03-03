@@ -1,43 +1,59 @@
 <footer class="footer col-xs-12" id="global-footer">
-	<div class="container-width">
-		<div class="" style="display: flex; justify-content: space-between">
-            <div style="width:50%; display: flex">
-                <div *ngIf="!isLoggedIn" class="" style="margin-right: 20px">
-                    <!-- nmaas Logo optionally -->
-                    <a href="https://www.geant.org/">
-                        <img *ngIf="!darkMode" alt="GÉANT Logo" src="/assets/images/geant-logo.png"  width="100" class="image-link"/>
-                        <img *ngIf="darkMode" alt="GÉANT Logo" src="/assets/images/Geant_logo_white.png"  width="100" class="image-link"/>
-                    </a>
-                </div>
-                <div *ngIf="!isLoggedIn" class="">
-                    <img  *ngIf="!darkMode" alt="EU flag" src="/assets/images/cofunded.png" width="180" style="padding-top: 5px; "/>
-                    <img  *ngIf="darkMode" alt="EU flag" src="/assets/images/EN_Co-fundedbytheEU_RGB_WHITE.png" width="180" style="padding-top: 5px; "/>
-                </div>
-            </div>
-			<div class="" style="display: flex; width: 50%; justify-content: end; margin-right: 50px; color: var(--p-text-0)">
-                <div style="margin-right: 30px">
-                    <p>
-                        <a *ngIf="landingProfile === 'VNOC'" href="https://docs.nmaas.eu/use-cases/virtual-noc/vnoc-introduction/">{{ 'FOOTER.DOCUMENTATION' | translate }}</a>
-                        <a *ngIf="landingProfile !== 'VNOC'" href="https://docs.nmaas.eu/use-cases/virtual-lab/vlab-introduction/">{{ 'FOOTER.DOCUMENTATION' | translate }}</a>
-                    </p>
-                    <p><a routerLink="/about">{{ 'FOOTER.CONTACT' | translate }}</a></p>
-                </div>
-                <div>
-                    <p><a routerLink="/privacy">{{ 'FOOTER.NOTICE' | translate }}</a></p>
-                    <p><a routerLink="/aup">{{ 'FOOTER.AUP' | translate }}</a></p>
-                </div>
-			</div>
-		</div>
-<!--        <div class="row">-->
-<!--            <div class="col-xs-10">-->
-<!--            </div>-->
-<!--            <div class="col-xs-2">-->
-<!--                <div>-->
-<!--                    <a class="footer-light footer-move-top" (click)="this.moveToTop();">-->
-<!--                        <em class="fas fa-arrow-up"></em> {{ 'FOOTER.TOP' | translate }}-->
+  <div class="container-width">
+    <div class="" style="display: flex; justify-content: space-between">
+      <div style="width:50%; display: flex">
+        @if (!isLoggedIn) {
+          <div class="" style="margin-right: 20px">
+            <!-- nmaas Logo optionally -->
+            <a href="https://www.geant.org/">
+              @if (!darkMode) {
+                <img alt="GÉANT Logo" src="/assets/images/geant-logo.png"  width="100" class="image-link"/>
+              }
+              @if (darkMode) {
+                <img alt="GÉANT Logo" src="/assets/images/Geant_logo_white.png"  width="100" class="image-link"/>
+              }
+            </a>
+          </div>
+        }
+        @if (!isLoggedIn) {
+          <div class="">
+            @if (!darkMode) {
+              <img  alt="EU flag" src="/assets/images/cofunded.png" width="180" style="padding-top: 5px; "/>
+            }
+            @if (darkMode) {
+              <img  alt="EU flag" src="/assets/images/EN_Co-fundedbytheEU_RGB_WHITE.png" width="180" style="padding-top: 5px; "/>
+            }
+          </div>
+        }
+      </div>
+      <div class="" style="display: flex; width: 50%; justify-content: end; margin-right: 50px; color: var(--p-text-0)">
+        <div style="margin-right: 30px">
+          <p>
+            @if (landingProfile === 'VNOC') {
+              <a href="https://docs.nmaas.eu/use-cases/virtual-noc/vnoc-introduction/">{{ 'FOOTER.DOCUMENTATION' | translate }}</a>
+            }
+            @if (landingProfile !== 'VNOC') {
+              <a href="https://docs.nmaas.eu/use-cases/virtual-lab/vlab-introduction/">{{ 'FOOTER.DOCUMENTATION' | translate }}</a>
+            }
+          </p>
+          <p><a routerLink="/about">{{ 'FOOTER.CONTACT' | translate }}</a></p>
+        </div>
+        <div>
+          <p><a routerLink="/privacy">{{ 'FOOTER.NOTICE' | translate }}</a></p>
+          <p><a routerLink="/aup">{{ 'FOOTER.AUP' | translate }}</a></p>
+        </div>
+      </div>
+    </div>
+    <!--        <div class="row">-->
+    <!--            <div class="col-xs-10">-->
+  <!--            </div>-->
+  <!--            <div class="col-xs-2">-->
+  <!--                <div>-->
+  <!--                    <a class="footer-light footer-move-top" (click)="this.moveToTop();">-->
+  <!--                        <em class="fas fa-arrow-up"></em> {{ 'FOOTER.TOP' | translate }}-->
 <!--                    </a>-->
 <!--                </div>-->
 <!--            </div>-->
 <!--        </div>-->
-	</div>
+</div>
 </footer>

@@ -4,11 +4,17 @@ import { AppListComponent } from './applist.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {UserDataService} from '../../service/userdata.service';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {Observable, of} from 'rxjs';
 import {Component, Input} from '@angular/core';
 import {AuthService} from '../../auth/auth.service';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 @Component({
     selector: 'nmaas-applications-view',

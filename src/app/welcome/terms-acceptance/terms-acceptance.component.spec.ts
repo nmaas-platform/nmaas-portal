@@ -3,11 +3,17 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {TermsAcceptanceComponent} from './terms-acceptance.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ReactiveFormsModule} from '@angular/forms';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {UserService} from '../../service';
 import {AuthService} from '../../auth/auth.service';
 import {ModalComponent} from '../../shared/modal';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {of} from 'rxjs';
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('TermsAcceptanceComponent', () => {
     let component: TermsAcceptanceComponent;

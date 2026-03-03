@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {AddMembersModalComponent} from './add-members-modal.component';
 import {AppInstanceService, UserService} from '../../../../service';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {  TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {SharedModule} from '../../../../shared';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {Role} from '../../../../model/userrole';
@@ -15,6 +15,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AppInstanceExtended} from '../../../../model/app-instance-extended';
 import {Tag} from '../../../../model/tag';
 import {DomainApplicationStatePerDomain} from '../../../../model/domainapplicationstateperdomain';
+
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('AddMembersModalComponent', () => {
     let component: AddMembersModalComponent;

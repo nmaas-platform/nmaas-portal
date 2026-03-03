@@ -5,8 +5,14 @@ import {AppsService} from '../../service';
 import {Observable, of} from 'rxjs';
 import {Rate} from '../../model';
 import { HttpResponse } from '@angular/common/http';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 class MockAppService {
     public getAppRateByUrl(urlPath: string): Observable<Rate> {
