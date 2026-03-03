@@ -2,7 +2,14 @@ import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {AppStaticGlobalDeployParametersEditComponent} from './app-static-global-deploy-parameters-edit.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {of} from 'rxjs';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('AppStaticGlobalDeployParametersEditComponent', () => {
     let component: AppStaticGlobalDeployParametersEditComponent;

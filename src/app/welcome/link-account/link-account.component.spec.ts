@@ -4,7 +4,13 @@ import {LinkAccountComponent} from './link-account.component';
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
 import {AuthService} from '../../auth/auth.service';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('LinkAccountComponent', () => {
     let component: LinkAccountComponent;

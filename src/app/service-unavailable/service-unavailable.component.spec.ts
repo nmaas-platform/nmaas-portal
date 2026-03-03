@@ -2,12 +2,18 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {ServiceUnavailableComponent} from './service-unavailable.component';
 import {RouterTestingModule} from '@angular/router/testing';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {MonitorService} from '../service/monitor.service';
 import {InternationalizationService} from '../service/internationalization.service';
 import {ServiceUnavailableService} from './service-unavailable.service';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('ServiceUnavailableComponent', () => {
     let component: ServiceUnavailableComponent;

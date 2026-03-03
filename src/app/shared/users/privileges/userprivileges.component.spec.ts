@@ -5,10 +5,16 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DomainService, UserService} from '../../../service';
 import {AuthService} from '../../../auth/auth.service';
 import {UserDataService} from '../../../service/userdata.service';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {RouterTestingModule} from '@angular/router/testing';
 import {of} from 'rxjs';
 import createSpyObj = jasmine.createSpyObj;
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('UserPrivilegesComponent', () => {
     let component: UserPrivilegesComponent;

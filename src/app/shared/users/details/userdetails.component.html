@@ -1,81 +1,91 @@
 <div style="padding-bottom: 15px;" class="background-section">
-	<div class="" style="display: flex; justify-content:space-between">
-		<h4 style="font-size:15px; font-weight: bold">
-			{{'USER_DETAILS.HEADER' | translate}}
-		</h4>
+  <div class="" style="display: flex; justify-content:space-between">
+    <h4 style="font-size:15px; font-weight: bold">
+      {{'USER_DETAILS.HEADER' | translate}}
+    </h4>
 
-		<button *ngIf="isInMode(ComponentMode.VIEW) && isModeAllowed(ComponentMode.EDIT) && authService.hasRole('ROLE_SYSTEM_ADMIN')" type="button"
-				class="btn btn-text" (click)="onModeChange()">{{'USER_DETAILS.EDIT_BUTTON' | translate}}</button>
-	</div>
-	<div class="panel-body">
-		<form *ngIf="user" (submit)="submit()" class="form-horizontal" #userDetailsForm="ngForm">
-<!--			<div class="flex justify-content-end mb-4">-->
-<!--				<button *ngIf="!isInMode(ComponentMode.VIEW)" type="button"-->
-<!--						class="btn btn-text" (click)="onModeChange()">{{'USER_DETAILS.VIEW_BUTTON' | translate}}</button>-->
-<!--				<button *ngIf="!isInMode(ComponentMode.VIEW)" type="submit" [disabled]="userDetailsForm.invalid"-->
-<!--						class="btn btn-primary">{{'USER_DETAILS.SUBMIT_BUTTON' | translate}}</button>-->
-<!--			</div>-->
-
-
-			<div class="form-group">
-				<label class="col-sm-2 control-label">{{'USER_DETAILS.USERNAME' | translate}}</label>
-				<div class="col-sm-10">			
-					<p class="form-control-static" style="padding-left:12px">{{user.username}}</p>
-				</div>				
-			</div>
-
-			<div class="form-group">
-				<label for="firstname" class="col-sm-2 control-label">{{'USER_DETAILS.FIRST_NAME' | translate}}</label>
-				<div class="col-sm-10">
-					<input pInputText type="text" class="form-control" id="firstname"
-						name="firstname" [(ngModel)]="user.firstname"
-						[disabled]="isInMode(ComponentMode.VIEW)">
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="lastname" class="col-sm-2 control-label">{{'USER_DETAILS.LAST_NAME' | translate}}</label>
-				<div class="col-sm-10">
-					<input pInputText type="text" class="form-control" id="lastname"
-						name="lastname" [(ngModel)]="user.lastname"
-						[disabled]="isInMode(ComponentMode.VIEW)">
-				</div>
-			</div>
-
+    @if (isInMode(ComponentMode.VIEW) && isModeAllowed(ComponentMode.EDIT) && authService.hasRole('ROLE_SYSTEM_ADMIN')) {
+      <button type="button"
+      class="btn btn-text" (click)="onModeChange()">{{'USER_DETAILS.EDIT_BUTTON' | translate}}</button>
+    }
+  </div>
+  <div class="panel-body">
+    @if (user) {
+      <form (submit)="submit()" class="form-horizontal" #userDetailsForm="ngForm">
+        <!--			<div class="flex justify-content-end mb-4">-->
+        <!--				<button *ngIf="!isInMode(ComponentMode.VIEW)" type="button"-->
+      <!--						class="btn btn-text" (click)="onModeChange()">{{'USER_DETAILS.VIEW_BUTTON' | translate}}</button>-->
+      <!--				<button *ngIf="!isInMode(ComponentMode.VIEW)" type="submit" [disabled]="userDetailsForm.invalid"-->
+    <!--						class="btn btn-primary">{{'USER_DETAILS.SUBMIT_BUTTON' | translate}}</button>-->
+  <!--			</div>-->
+  <div class="form-group">
+    <label class="col-sm-2 control-label">{{'USER_DETAILS.USERNAME' | translate}}</label>
+    <div class="col-sm-10">
+      <p class="form-control-static" style="padding-left:12px">{{user.username}}</p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="firstname" class="col-sm-2 control-label">{{'USER_DETAILS.FIRST_NAME' | translate}}</label>
+    <div class="col-sm-10">
+      <input pInputText type="text" class="form-control" id="firstname"
+        name="firstname" [(ngModel)]="user.firstname"
+        [disabled]="isInMode(ComponentMode.VIEW)">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastname" class="col-sm-2 control-label">{{'USER_DETAILS.LAST_NAME' | translate}}</label>
+      <div class="col-sm-10">
+        <input pInputText type="text" class="form-control" id="lastname"
+          name="lastname" [(ngModel)]="user.lastname"
+          [disabled]="isInMode(ComponentMode.VIEW)">
+        </div>
+      </div>
 			<div class="form-group" [ngClass]="{'has-error':  emailField.invalid && (emailField.dirty || emailField.touched),
  			    		 	'has-success': emailField.valid && (emailField.dirty || emailField.touched)}">
-				<label for="email" class="col-sm-2 control-label">{{'USER_DETAILS.EMAIL' | translate}}</label>
-				<div class="col-sm-10">
-					<input pInputText type="text" class="form-control" id="email" name="email" required #emailField="ngModel"
-						[(ngModel)]="user.email" [disabled]="isInMode(ComponentMode.VIEW)">
-				</div>
-			</div>
+        <label for="email" class="col-sm-2 control-label">{{'USER_DETAILS.EMAIL' | translate}}</label>
+        <div class="col-sm-10">
+          <input pInputText type="text" class="form-control" id="email" name="email" required #emailField="ngModel"
+            [(ngModel)]="user.email" [disabled]="isInMode(ComponentMode.VIEW)">
+          </div>
+        </div>
+        @if (user?.id && authService.hasRole('ROLE_SYSTEM_ADMIN')) {
+          <div class="form-group">
+            <label class="col-sm-2 control-label">{{'USER_DETAILS.ID' | translate}}</label>
+            <div class="col-sm-10">
+              <p style="padding-left:12px" class="form-control-static">{{user?.id}}</p>
+            </div>
+          </div>
+        }
+        @if (!user.ssoUser) {
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+              @if (canChangePassword() && !user.ssoUser) {
+                <button (click)="passwordModal.show()" class="btn btn-text"
+                >{{'USER_DETAILS.CHANGE_PASSWORD_BUTTON' | translate}}</button>
+              }
+            </div>
+          </div>
+        }
+        <div class="flex justify-content-end mb-4">
+          @if (!isInMode(ComponentMode.VIEW)) {
+            <button type="button" style="margin-right:10px"
+            class="btn btn-secondary" (click)="onModeChange()">{{'USER_DETAILS.VIEW_BUTTON' | translate}}</button>
+          }
+          @if (!isInMode(ComponentMode.VIEW)) {
+            <button type="submit" [disabled]="userDetailsForm.invalid"
+            class="btn btn-primary">{{'USER_DETAILS.SUBMIT_BUTTON' | translate}}</button>
+          }
+        </div>
+      </form>
+    }
+    <br>
+      @if (errorMessage) {
+        <div class="alert alert-danger">
+          {{errorMessage}}
+        </div>
+      }
+    </div>
+  </div>
 
-			<div *ngIf="user?.id && authService.hasRole('ROLE_SYSTEM_ADMIN')" class="form-group">
-				<label class="col-sm-2 control-label">{{'USER_DETAILS.ID' | translate}}</label>
-				<div class="col-sm-10">
-					<p style="padding-left:12px" class="form-control-static">{{user?.id}}</p>
-				</div>
-			</div>
-			<div *ngIf="!user.ssoUser" class="form-group">
-				<label class="col-sm-2 control-label">Password</label>
-				<div class="col-sm-10">
-					<button (click)="passwordModal.show()" class="btn btn-text" *ngIf="canChangePassword() && !user.ssoUser"
-							>{{'USER_DETAILS.CHANGE_PASSWORD_BUTTON' | translate}}</button>
-				</div>
-			</div>
-			<div class="flex justify-content-end mb-4">
-				<button *ngIf="!isInMode(ComponentMode.VIEW)" type="button" style="margin-right:10px"
-						class="btn btn-secondary" (click)="onModeChange()">{{'USER_DETAILS.VIEW_BUTTON' | translate}}</button>
-				<button *ngIf="!isInMode(ComponentMode.VIEW)" type="submit" [disabled]="userDetailsForm.invalid"
-						class="btn btn-primary">{{'USER_DETAILS.SUBMIT_BUTTON' | translate}}</button>
-			</div>
-		</form>
-		<br>
-		<div class="alert alert-danger" *ngIf="errorMessage">
-			{{errorMessage}}
-		</div>
-	</div>
-</div>
-
-<nmaas-password></nmaas-password>
+  <nmaas-password></nmaas-password>

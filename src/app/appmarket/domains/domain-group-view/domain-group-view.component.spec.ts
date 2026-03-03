@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed, tick} from '@angular/core/testing';
 import {DomainGroupViewComponent} from './domain-group-view.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {provideHttpClientTesting} from '@angular/common/http/testing';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {of} from 'rxjs';
 import {DomainService, UserService} from '../../../service';
@@ -20,6 +20,12 @@ import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 import {ToastContainerComponent} from '../../../shared/toast-container/toast-container.component';
 import {MessageService} from 'primeng/api';
 import any = jasmine.any;
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('DomainGroupViewComponent', () => {
     let component: DomainGroupViewComponent;

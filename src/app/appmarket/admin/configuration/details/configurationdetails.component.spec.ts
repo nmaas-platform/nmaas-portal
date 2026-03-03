@@ -5,11 +5,17 @@ import {FormsModule} from '@angular/forms';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ConfigurationService, DomainService} from '../../../../service';
 import {of} from 'rxjs';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {InternationalizationService} from '../../../../service/internationalization.service';
 import createSpyObj = jasmine.createSpyObj;
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {ToastContainerComponent} from '../../../../shared/toast-container/toast-container.component';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 
 describe('ConfigurationDetailsComponent', () => {

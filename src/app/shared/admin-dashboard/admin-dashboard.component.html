@@ -1,143 +1,147 @@
 <div  *roles="['ROLE_SYSTEM_ADMIN']">
-    <div style="display: flex; flex-direction:column">
-        <div style="display: flex; flex-wrap: wrap;">
-            <div class="background-section" style="flex: 1 1 30%; margin-right: 20px">
-                <h5 style="font-weight: bold">{{ 'DASHBOARD.NUMBERS_OF_USERS' | translate }} </h5>
-                <h1 style="font-weight: bold">{{ adminData?.userCount}}</h1>
-            </div>
-            <div class="background-section" style="flex: 1 1 30%; margin-right: 20px">
-                <h5 style="font-weight: bold">{{ 'DASHBOARD.NUMBERS_OF_DOMAINS' | translate }}</h5>
-                <h1 style="font-weight: bold">{{ adminData?.domainsCount}}</h1>
-            </div>
-            <div class="background-section" style="flex: 1 1 30% ;">
-                <h5 style="font-weight: bold">{{ 'DASHBOARD.NUMBERS_OF_DEPLOYED_APP' | translate }} </h5>
-                <h1 style="font-weight: bold">{{ adminData?.instanceCount}}</h1>
-            </div>
-        </div>
-        <div class="grid" style="display: flex; justify-content: space-between;">
-            <div class="background-section width-50 " style="margin-right: 20px">
-                <div style=" margin-bottom: 20px;   display: flex; justify-content: space-between; flex-wrap: wrap">
-                    <h5 style="font-weight: bold">{{ 'DASHBOARD.APP_DEPLOYMENTS' | translate }} <ng-container *ngIf="rangeDates && rangeDates[0] && rangeDates[1]; else lastWeek">
-                        from {{ rangeDates[0] | date:'dd.MM.yyyy' }} to {{ rangeDates[1] | date:'dd.MM.yyyy' }}
-                    </ng-container>
-                        <ng-template #lastWeek>in the last week</ng-template></h5>
-                    <p-datePicker
-                            [(ngModel)]="rangeDates"
-                            selectionMode="range"
-                            [readonlyInput]="true"
-                            (ngModelChange)="onDateChange($event)"
-
-                            showClear="true"
-                            dateFormat="dd.mm.yy"
-                    />
-                </div>
-
-                <p-table [value]="instanceCountInPeriodDetails"   [scrollable]="true" [style]="{'width': '100%', 'max-height': '47vh', 'overflow':'auto'}">
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th></th>
-                            <th>{{ 'DASHBOARD.NAME' | translate }}</th>
-                            <th>{{ 'DASHBOARD.VERSION' | translate }}</th>
-                            <th>{{ 'DASHBOARD.DOMAIN' | translate }}</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-instance>
-                        <tr [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain()}"
-                            [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : ['/instances',instance.instanceId]">
-                            <td>
-                                <div class="img-container">
-                                    <img style="width: 40px" [src]="(appImagesService.getAppLogoUrl(instance.appId) | secure) || '../../../assets/images/app-logo-example.png'"/>
-                                </div>
-                            </td>
-                            <td>{{instance.applicationName}}</td>
-                            <td>{{instance.applicationVersion}}</td>
-                            <td>{{instance.domainName}}</td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </div>
-            <div class="width-50" >
-                <div class="background-section" style="">
-                    <h5 style="margin-bottom: 20px; font-weight: bold">{{ 'DASHBOARD.MOST_POPULAR' | translate }} </h5>
-                    <p-chart type="bar" [data]="popularAppsChartData" [options]="basicOptions" width="100%" height="50vh" />
-                </div>
-            </div>
-        </div>
+  <div style="display: flex; flex-direction:column">
+    <div style="display: flex; flex-wrap: wrap;">
+      <div class="background-section" style="flex: 1 1 30%; margin-right: 20px">
+        <h5 style="font-weight: bold">{{ 'DASHBOARD.NUMBERS_OF_USERS' | translate }} </h5>
+        <h1 style="font-weight: bold">{{ adminData?.userCount}}</h1>
+      </div>
+      <div class="background-section" style="flex: 1 1 30%; margin-right: 20px">
+        <h5 style="font-weight: bold">{{ 'DASHBOARD.NUMBERS_OF_DOMAINS' | translate }}</h5>
+        <h1 style="font-weight: bold">{{ adminData?.domainsCount}}</h1>
+      </div>
+      <div class="background-section" style="flex: 1 1 30% ;">
+        <h5 style="font-weight: bold">{{ 'DASHBOARD.NUMBERS_OF_DEPLOYED_APP' | translate }} </h5>
+        <h1 style="font-weight: bold">{{ adminData?.instanceCount}}</h1>
+      </div>
     </div>
+    <div class="grid" style="display: flex; justify-content: space-between;">
+      <div class="background-section width-50 " style="margin-right: 20px">
+        <div style=" margin-bottom: 20px;   display: flex; justify-content: space-between; flex-wrap: wrap">
+          <h5 style="font-weight: bold">{{ 'DASHBOARD.APP_DEPLOYMENTS' | translate }} @if (rangeDates && rangeDates[0] && rangeDates[1]) {
+            from {{ rangeDates[0] | date:'dd.MM.yyyy' }} to {{ rangeDates[1] | date:'dd.MM.yyyy' }}
+          } @else {
+            in the last week
+          }
+        </h5>
+        <p-datePicker
+          [(ngModel)]="rangeDates"
+          selectionMode="range"
+          [readonlyInput]="true"
+          (ngModelChange)="onDateChange($event)"
+
+          showClear="true"
+          dateFormat="dd.mm.yy"
+          />
+        </div>
+
+        <p-table [value]="instanceCountInPeriodDetails"   [scrollable]="true" [style]="{'width': '100%', 'max-height': '47vh', 'overflow':'auto'}">
+          <ng-template pTemplate="header">
+            <tr>
+              <th></th>
+              <th>{{ 'DASHBOARD.NAME' | translate }}</th>
+              <th>{{ 'DASHBOARD.VERSION' | translate }}</th>
+              <th>{{ 'DASHBOARD.DOMAIN' | translate }}</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-instance>
+            <tr [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain()}"
+              [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : ['/instances',instance.instanceId]">
+              <td>
+                <div class="img-container">
+                  <img style="width: 40px" [src]="(appImagesService.getAppLogoUrl(instance.appId) | secure) || '../../../assets/images/app-logo-example.png'"/>
+                </div>
+              </td>
+              <td>{{instance.applicationName}}</td>
+              <td>{{instance.applicationVersion}}</td>
+              <td>{{instance.domainName}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <div class="width-50" >
+        <div class="background-section" style="">
+          <h5 style="margin-bottom: 20px; font-weight: bold">{{ 'DASHBOARD.MOST_POPULAR' | translate }} </h5>
+          <p-chart type="bar" [data]="popularAppsChartData" [options]="basicOptions" width="100%" height="50vh" />
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <div *roles="['ROLE_DOMAIN_ADMIN','ROLE_SYSTEM_ADMIN']">
-    <div *ngIf="domainId !== 1">
-        <div style="display: flex">
-            <div class="background-section" style="flex: 1 1 50%; margin-right: 20px">
-                <h5 style="font-weight: bold">{{ 'DASHBOARD.LAST_LOGIN' | translate }} </h5>
-                <p-table [value]="domainAdminData?.userLogins | keyvalue">
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th>{{ 'DASHBOARD.USER' | translate }}</th>
-                            <th>{{ 'DASHBOARD.LOGIN' | translate }}</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-login>
-                        <tr>
-                            <td>{{ login.key }}</td>
-                            <td>{{ formatDate(login.value) }}</td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </div>
-            <div class="background-section" style="flex: 1 1 50%;">
-                <h5 style="font-weight: bold">{{ 'DASHBOARD.DEPLOYED_APP' | translate }} </h5>
-                <p-table [value]="domainAdminData?.applicationDeployed | keyvalue">
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th>{{ 'DASHBOARD.USER' | translate }}</th>
-                            <th>{{ 'DASHBOARD.DEPLOYMENT' | translate }}</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-deployment>
-                        <tr>
-                            <td>{{ deployment.key }}</td>
-                            <td>{{ deployment.value }}</td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </div>
+  @if (domainId !== 1) {
+    <div>
+      <div style="display: flex">
+        <div class="background-section" style="flex: 1 1 50%; margin-right: 20px">
+          <h5 style="font-weight: bold">{{ 'DASHBOARD.LAST_LOGIN' | translate }} </h5>
+          <p-table [value]="domainAdminData?.userLogins | keyvalue">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>{{ 'DASHBOARD.USER' | translate }}</th>
+                <th>{{ 'DASHBOARD.LOGIN' | translate }}</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-login>
+              <tr>
+                <td>{{ login.key }}</td>
+                <td>{{ formatDate(login.value) }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
         </div>
-        <div class="background-section" style="">
-            <h5 style="font-weight: bold">{{ 'DASHBOARD.APP_STATUS' | translate }}</h5>
-            <p-table [value]="applicationUpgradeStatus"  [paginator]="true" [rows]="4" [scrollable]="true" [style]="{'width': '100%'}">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th></th>
-                        <th>{{ 'DASHBOARD.NAME' | translate }}</th>
-                        <th>{{ 'DASHBOARD.ID' | translate }}</th>
-                        <th>{{ 'DASHBOARD.INSTANCE_NAME' | translate }}</th>
-                        <th>{{ 'DASHBOARD.VERSION' | translate }}</th>
-                        <th>{{ 'DASHBOARD.NEED_UPGRADE' | translate }}</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-app>
-                    <tr  [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain()}"
-                         [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : ['/instances',app.appId]">
-                        <td>
-                            <div class="img-container">
-                                <img style="width: 40px" [src]="(appImagesService.getAppLogoUrl(app.baseAppId) | secure) || '../../../assets/images/app-logo-example.png'"/>
-                            </div>
-                        </td>
-                        <td>{{app.appName}}</td>
-                        <td>{{app.appId}}</td>
-                        <td>{{app.instanceName}}</td>
-                        <td>{{app.appVersion}}</td>
-                        <td>{{app.upgradePossible}}</td>
-                    </tr>
-                </ng-template>
-            </p-table>
+        <div class="background-section" style="flex: 1 1 50%;">
+          <h5 style="font-weight: bold">{{ 'DASHBOARD.DEPLOYED_APP' | translate }} </h5>
+          <p-table [value]="domainAdminData?.applicationDeployed | keyvalue">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>{{ 'DASHBOARD.USER' | translate }}</th>
+                <th>{{ 'DASHBOARD.DEPLOYMENT' | translate }}</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-deployment>
+              <tr>
+                <td>{{ deployment.key }}</td>
+                <td>{{ deployment.value }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
         </div>
+      </div>
+      <div class="background-section" style="">
+        <h5 style="font-weight: bold">{{ 'DASHBOARD.APP_STATUS' | translate }}</h5>
+        <p-table [value]="applicationUpgradeStatus"  [paginator]="true" [rows]="4" [scrollable]="true" [style]="{'width': '100%'}">
+          <ng-template pTemplate="header">
+            <tr>
+              <th></th>
+              <th>{{ 'DASHBOARD.NAME' | translate }}</th>
+              <th>{{ 'DASHBOARD.ID' | translate }}</th>
+              <th>{{ 'DASHBOARD.INSTANCE_NAME' | translate }}</th>
+              <th>{{ 'DASHBOARD.VERSION' | translate }}</th>
+              <th>{{ 'DASHBOARD.NEED_UPGRADE' | translate }}</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-app>
+            <tr  [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain()}"
+              [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : ['/instances',app.appId]">
+              <td>
+                <div class="img-container">
+                  <img style="width: 40px" [src]="(appImagesService.getAppLogoUrl(app.baseAppId) | secure) || '../../../assets/images/app-logo-example.png'"/>
+                </div>
+              </td>
+              <td>{{app.appName}}</td>
+              <td>{{app.appId}}</td>
+              <td>{{app.instanceName}}</td>
+              <td>{{app.appVersion}}</td>
+              <td>{{app.upgradePossible}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
     </div>
+  }
 </div>
 <div *roles="['ROLE_OPERATOR']">
-    <div class="background-section" style="flex: 1 1 30%; margin-right: 20px">
-        <h5 style="font-weight: bold">{{ 'DASHBOARD.NUMBERS_OF_DOMAINS' | translate }} </h5>
-        <h1 style="font-weight: bold">{{operatorData?.domainsCount}}</h1>
-    </div>
+  <div class="background-section" style="flex: 1 1 30%; margin-right: 20px">
+    <h5 style="font-weight: bold">{{ 'DASHBOARD.NUMBERS_OF_DOMAINS' | translate }} </h5>
+    <h1 style="font-weight: bold">{{operatorData?.domainsCount}}</h1>
+  </div>
 </div>

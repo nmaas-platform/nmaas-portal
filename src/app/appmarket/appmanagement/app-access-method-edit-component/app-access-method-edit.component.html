@@ -8,8 +8,12 @@
       <div class="form-group">
         <label class="control-label" for="{{id}}-type-{{accessMethod.type}}">{{'APP_ACCESS_METHOD_EDIT.TYPE' | translate}}: </label>
         <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" id="{{id}}-type-{{accessMethod.type}}" [(ngModel)]="accessMethod.type">
-          <option *ngIf="isDefault()" value="{{ServiceAccessMethodType.DEFAULT}}">DEFAULT</option>
-          <option *ngFor="let s of accessMethodTypes" value="{{ServiceAccessMethodType[s]}}">{{s}}</option>
+          @if (isDefault()) {
+            <option value="{{ServiceAccessMethodType.DEFAULT}}">DEFAULT</option>
+          }
+          @for (s of accessMethodTypes; track s) {
+            <option value="{{ServiceAccessMethodType[s]}}">{{s}}</option>
+          }
         </select>
       </div>
       <div class="form-group">
@@ -23,28 +27,36 @@
       <div class="form-group">
         <label class="control-label" for="{{id}}-conditionType-{{accessMethod.conditionType}}">{{'APP_ACCESS_METHOD_EDIT.CONDITION_TYPE' | translate}}: </label>
         <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" id="{{id}}-conditionType-{{accessMethod.conditionType}}" [(ngModel)]="accessMethod.conditionType" (change)="onSelectConditionType($event)">
-          <option *ngFor="let s of conditionType; let i=index" value="{{s}}">{{s}}</option>
+          @for (s of conditionType; track s; let i = $index) {
+            <option value="{{s}}">{{s}}</option>
+          }
         </select>
       </div>
-      <div *ngIf="accessMethod.conditionType === 'DEPLOYMENT_PARAMETER'" class="form-group">
-        <label class="control-label" for="{{id}}-condition-{{accessMethod.type}}">{{'APP_ACCESS_METHOD_EDIT.CONDITION' | translate}}: </label>
-        <input pInputText class="form-control" type="text" id="{{id}}-condition-{{accessMethod.type}}" ngDefaultControl [(ngModel)]="accessMethod.condition">
-      </div>
+      @if (accessMethod.conditionType === 'DEPLOYMENT_PARAMETER') {
+        <div class="form-group">
+          <label class="control-label" for="{{id}}-condition-{{accessMethod.type}}">{{'APP_ACCESS_METHOD_EDIT.CONDITION' | translate}}: </label>
+          <input pInputText class="form-control" type="text" id="{{id}}-condition-{{accessMethod.type}}" ngDefaultControl [(ngModel)]="accessMethod.condition">
+        </div>
+      }
     </div>
 
     <ul class="col-sm-7">
-      <li class="deploy-param-row" *ngIf="getDeploymentParamsKeys().length != 0">
-        <strong>{{'APP_ACCESS_METHOD_EDIT.DEPLOY_PARAMETERS' | translate}}</strong>
-      </li>
-      <li *ngFor="let k of getDeploymentParamsKeys(); let i=index" class="deploy-param-row">
-        <div class="form-group col-sm-11">
-          <label class="control-label" for="{{id}}-{{i}}-param">{{'APP_ACCESS_METHOD_EDIT.PARAM' | translate}}: {{k}}</label>
-          <input pInputText class="form-control" type="text" id="{{id}}-{{i}}-param" name="keyValue" ngDefaultControl (change)="setKeyValueToDeployParam()" [(ngModel)]="keyValue[i].value">
-        </div>
-        <div class="col-sm-1">
-          <button class="btn btn-danger" role="button" (click)="removeDeployParam(k,keyValue[i])">{{'APP_ACCESS_METHOD_EDIT.REMOVE_PARAM' | translate}}</button>
-        </div>
-      </li>
+      @if (getDeploymentParamsKeys().length != 0) {
+        <li class="deploy-param-row">
+          <strong>{{'APP_ACCESS_METHOD_EDIT.DEPLOY_PARAMETERS' | translate}}</strong>
+        </li>
+      }
+      @for (k of getDeploymentParamsKeys(); track k; let i = $index) {
+        <li class="deploy-param-row">
+          <div class="form-group col-sm-11">
+            <label class="control-label" for="{{id}}-{{i}}-param">{{'APP_ACCESS_METHOD_EDIT.PARAM' | translate}}: {{k}}</label>
+            <input pInputText class="form-control" type="text" id="{{id}}-{{i}}-param" name="keyValue" ngDefaultControl (change)="setKeyValueToDeployParam()" [(ngModel)]="keyValue[i].value">
+          </div>
+          <div class="col-sm-1">
+            <button class="btn btn-danger" role="button" (click)="removeDeployParam(k,keyValue[i])">{{'APP_ACCESS_METHOD_EDIT.REMOVE_PARAM' | translate}}</button>
+          </div>
+        </li>
+      }
       <li class="deploy-param-row">
         <strong>{{'APP_ACCESS_METHOD_EDIT.NEW_DEPLOY_PARAMETER' | translate}}</strong>
       </li>
@@ -67,9 +79,9 @@
     </ul>
 
     <div class="col-sm-1 button-container">
-        <button class="button-close" pTooltip="{{'APP_STORAGE_VOLUME_EDIT.REMOVE_TOOLTIP' | translate}}"  (click)="remove()"  tooltipPosition="bottom" [showDelay]="50">
-            <i class="pi pi-times"></i>
-        </button>
+      <button class="button-close" pTooltip="{{'APP_STORAGE_VOLUME_EDIT.REMOVE_TOOLTIP' | translate}}"  (click)="remove()"  tooltipPosition="bottom" [showDelay]="50">
+        <i class="pi pi-times"></i>
+      </button>
     </div>
 
   </div>

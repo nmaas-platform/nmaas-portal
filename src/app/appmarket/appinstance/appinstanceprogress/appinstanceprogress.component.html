@@ -1,17 +1,19 @@
 <div class="stepwizard">
-    <div class="row stepwizard-row">
+  <div class="row stepwizard-row">
 
-        <ng-template ngFor let-stage [ngForOf]="stages">
-            <div class="stepwizard-step" *ngIf="stage.isVisible(activeState)" style="min-width: 180px;">
+    @for (stage of stages; track stage) {
+      @if (stage.isVisible(activeState)) {
+        <div class="stepwizard-step" style="min-width: 180px;">
                 <a type="button" class="btn btn-circle btn-default" [ngClass]="{
 					'btn-success stepwizard-btn-success': displaySuccessStyle(stage),
 					'btn-primary stepwizard-btn-primary': displayPrimaryStyle(stage),
 					'btn-danger stepwizard-btn-danger': displayDangerStyle(stage),
 					'btn-default stepwizard-btn-default':  displayDefaultStyle(stage)}">
-                    {{stage.activeState}}
-                </a>
-                <p>{{ getTranslateTag(stage.name) }}</p>
-            </div>
-        </ng-template>
-    </div>
+            {{stage.activeState}}
+          </a>
+          <p>{{ getTranslateTag(stage.name) }}</p>
+        </div>
+      }
+    }
+  </div>
 </div>

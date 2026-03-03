@@ -1,47 +1,59 @@
 <nmaas-modal [styleModal]="'info'">
-    <div class="nmaas-modal-header">{{'APP_ACCESS_METHODS_MODAL.HEADER' | translate}}</div>
-    <div class="nmaas-modal-body">
-        <div *ngIf="externalAccessMethods.length > 0" class="">
-            <h4>{{'APP_ACCESS_METHODS_MODAL.EXTERNAL_HEADER' | translate}}</h4>
-            <table class="table table-condensed" aria-describedby="Table with external access details">
-                <thead>
-                <tr>
-                    <th scope="col">{{'APP_ACCESS_METHODS_MODAL.SERVICE_NAME' | translate}}</th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let am of externalAccessMethods">
-                    <td><strong>{{am.name}}</strong></td>
-                    <td *ngIf="accessMethodTypeAsEnum(am.type) !== 'INTERNAL'" class="text-right"><a type="button" class="btn btn-primary"
-                           href="{{validateURL(am.url)}}" target="_blank" rel="noopener noreferrer">{{'APP_ACCESS_METHODS_MODAL.EXTERNAL_ACCESS' | translate}}</a>
-                    </td>
-                    <td *ngIf="accessMethodTypeAsEnum(am.type) === 'INTERNAL'">
-                        <div class="well well-sm">{{am.protocol}}: {{!!am.url ? am.url : "Not available"}}</div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div *ngIf="publicAccessMethods.length > 0" class="">
-            <h4>{{'APP_ACCESS_METHODS_MODAL.PUBLIC_HEADER' | translate}}</h4>
-            <table class="table table-hover table-condensed" aria-describedby="Table with public access details">
-                <thead>
-                <tr>
-                    <th scope="col">{{'APP_ACCESS_METHODS_MODAL.SERVICE_NAME' | translate}}</th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let am of publicAccessMethods">
-                    <td><strong>{{am.name}}</strong></td>
-                    <td class="text-right"><a type="button" class="btn btn-primary"
-                           href="{{validateURL(am.url)}}" target="_blank" rel="noopener noreferrer">{{'APP_ACCESS_METHODS_MODAL.PUBLIC_ACCESS' | translate}}</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+  <div class="nmaas-modal-header">{{'APP_ACCESS_METHODS_MODAL.HEADER' | translate}}</div>
+  <div class="nmaas-modal-body">
+    @if (externalAccessMethods.length > 0) {
+      <div class="">
+        <h4>{{'APP_ACCESS_METHODS_MODAL.EXTERNAL_HEADER' | translate}}</h4>
+        <table class="table table-condensed" aria-describedby="Table with external access details">
+          <thead>
+            <tr>
+              <th scope="col">{{'APP_ACCESS_METHODS_MODAL.SERVICE_NAME' | translate}}</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (am of externalAccessMethods; track am) {
+              <tr>
+                <td><strong>{{am.name}}</strong></td>
+                @if (accessMethodTypeAsEnum(am.type) !== 'INTERNAL') {
+                  <td class="text-right"><a type="button" class="btn btn-primary"
+                  href="{{validateURL(am.url)}}" target="_blank" rel="noopener noreferrer">{{'APP_ACCESS_METHODS_MODAL.EXTERNAL_ACCESS' | translate}}</a>
+                </td>
+              }
+              @if (accessMethodTypeAsEnum(am.type) === 'INTERNAL') {
+                <td>
+                  <div class="well well-sm">{{am.protocol}}: {{!!am.url ? am.url : "Not available"}}</div>
+                </td>
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (publicAccessMethods.length > 0) {
+    <div class="">
+      <h4>{{'APP_ACCESS_METHODS_MODAL.PUBLIC_HEADER' | translate}}</h4>
+      <table class="table table-hover table-condensed" aria-describedby="Table with public access details">
+        <thead>
+          <tr>
+            <th scope="col">{{'APP_ACCESS_METHODS_MODAL.SERVICE_NAME' | translate}}</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (am of publicAccessMethods; track am) {
+            <tr>
+              <td><strong>{{am.name}}</strong></td>
+              <td class="text-right"><a type="button" class="btn btn-primary"
+              href="{{validateURL(am.url)}}" target="_blank" rel="noopener noreferrer">{{'APP_ACCESS_METHODS_MODAL.PUBLIC_ACCESS' | translate}}</a>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}
 <!--        <div *ngIf="internalAccessMethods.length > 0" class="">-->
 <!--            <h4>{{'APP_ACCESS_METHODS_MODAL.INTERNAL_HEADER' | translate}}</h4>-->
 <!--            <table class="table table-hover table-condensed" aria-describedby="Table with internal access details">-->
@@ -61,46 +73,54 @@
 <!--                </tbody>-->
 <!--            </table>-->
 <!--        </div>-->
-        <div *ngIf="localAccessMethods.length > 0" class="">
-            <h4>{{'APP_ACCESS_METHODS_MODAL.LOCAL_HEADER' | translate}}</h4>
-            <table class="table table-hover table-condensed" aria-describedby="Table with local access details">
-                <thead>
-                <tr>
-                    <th scope="col" class="width-half">{{'APP_ACCESS_METHODS_MODAL.SERVICE_NAME' | translate}}</th>
-                    <th scope="col" class="width-half">{{'APP_ACCESS_METHODS_MODAL.ACCESS_METHOD' | translate}}</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let am of localAccessMethods">
-                    <td><strong>{{am.name}}</strong></td>
-                    <td>
-                        <div class="well well-sm">{{am.protocol}}: {{!!am.url ? am.url : "Not available"}}</div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+@if (localAccessMethods.length > 0) {
+  <div class="">
+    <h4>{{'APP_ACCESS_METHODS_MODAL.LOCAL_HEADER' | translate}}</h4>
+    <table class="table table-hover table-condensed" aria-describedby="Table with local access details">
+      <thead>
+        <tr>
+          <th scope="col" class="width-half">{{'APP_ACCESS_METHODS_MODAL.SERVICE_NAME' | translate}}</th>
+          <th scope="col" class="width-half">{{'APP_ACCESS_METHODS_MODAL.ACCESS_METHOD' | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (am of localAccessMethods; track am) {
+          <tr>
+            <td><strong>{{am.name}}</strong></td>
+            <td>
+              <div class="well well-sm">{{am.protocol}}: {{!!am.url ? am.url : "Not available"}}</div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}
 
-        <div *ngIf="deployParameters$ | async as deployParameters" class="">
-            <h4>{{'APP_ACCESS_METHODS_MODAL.DEPLOYMENT_PARAMETERS.HEADER' | translate}}</h4>
-            <table class="table table-hover table-condensed" aria-describedby="Table with internal access details">
-                <thead>
-                <tr>
-                    <th scope="col" class="width-half">{{'APP_ACCESS_METHODS_MODAL.DEPLOYMENT_PARAMETERS.KEY' | translate}}</th>
-                    <th scope="col" class="width-half">{{'APP_ACCESS_METHODS_MODAL.DEPLOYMENT_PARAMETERS.VALUE' | translate}}</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let param of deployParameters | keyvalue">
-                    <td><strong>{{param.key}}</strong></td>
-                    <td>{{param.value}}</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="nmaas-modal-footer">
-        <button type="button" class="btn btn-primary"
-                (click)="modal.hide()">{{'APP_ACCESS_METHODS_MODAL.HIDE_BUTTON' | translate}}</button>
-    </div>
+@if (deployParameters$ | async; as deployParameters) {
+  <div class="">
+    <h4>{{'APP_ACCESS_METHODS_MODAL.DEPLOYMENT_PARAMETERS.HEADER' | translate}}</h4>
+    <table class="table table-hover table-condensed" aria-describedby="Table with internal access details">
+      <thead>
+        <tr>
+          <th scope="col" class="width-half">{{'APP_ACCESS_METHODS_MODAL.DEPLOYMENT_PARAMETERS.KEY' | translate}}</th>
+          <th scope="col" class="width-half">{{'APP_ACCESS_METHODS_MODAL.DEPLOYMENT_PARAMETERS.VALUE' | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (param of deployParameters | keyvalue; track param) {
+          <tr>
+            <td><strong>{{param.key}}</strong></td>
+            <td>{{param.value}}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}
+</div>
+<div class="nmaas-modal-footer">
+  <button type="button" class="btn btn-primary"
+  (click)="modal.hide()">{{'APP_ACCESS_METHODS_MODAL.HIDE_BUTTON' | translate}}</button>
+</div>
 </nmaas-modal>

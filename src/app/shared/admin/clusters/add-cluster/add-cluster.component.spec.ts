@@ -7,13 +7,19 @@ import { AuthService } from '../../../../auth/auth.service';
 import { Router } from '@angular/router';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
-import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {  TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of, BehaviorSubject } from 'rxjs';
 import { ClusterManager } from '../../../../model/cluster-manager';
 import { DatePipe } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import {ToastContainerComponent} from '../../../toast-container/toast-container.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('AddClusterComponent', () => {
   let component: AddClusterComponent;

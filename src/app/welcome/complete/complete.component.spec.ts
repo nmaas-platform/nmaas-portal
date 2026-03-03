@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CompleteComponent } from './complete.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {RouterTestingModule} from '@angular/router/testing';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {UserService} from '../../service';
 import {ProfileService} from '../../service/profile.service';
 import {AuthService} from '../../auth/auth.service';
@@ -12,6 +12,12 @@ import {of} from 'rxjs';
 import createSpyObj = jasmine.createSpyObj;
 import {ModalComponent} from '../../shared/modal';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('CompleteComponent', () => {
     let component: CompleteComponent;

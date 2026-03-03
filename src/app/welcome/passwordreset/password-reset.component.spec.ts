@@ -1,6 +1,6 @@
 import {PasswordResetComponent} from './password-reset.component';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {UserService} from '../../service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ModalComponent} from '../../shared/modal';
@@ -9,6 +9,11 @@ import {IPasswordStrengthMeterService, PasswordStrengthMeterComponent} from 'ang
 import {ReCaptchaV3Service} from 'ng-recaptcha';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('Password reset component', () => {
     let component: PasswordResetComponent;

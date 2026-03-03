@@ -5,8 +5,14 @@ import {ResourcesLimitService} from '../../../service/resources-limit.service';
 import {of} from 'rxjs';
 import {FormsModule} from '@angular/forms';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {ToastContainerComponent} from '../../../shared/toast-container/toast-container.component';
+
+class TranslateFakeLoader implements TranslateLoader {
+  getTranslation(lang: string) {
+    return of({});
+  }
+}
 
 describe('GlobalSettingsComponent', () => {
   let component: GlobalSettingsComponent;

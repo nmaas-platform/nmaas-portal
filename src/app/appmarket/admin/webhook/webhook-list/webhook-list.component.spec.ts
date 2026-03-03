@@ -5,11 +5,17 @@ import { WebhookService } from '../../../../service/webhook.service';
 import {BehaviorSubject, of} from 'rxjs';
 import { ModalComponent } from '../../../../shared';
 import { Webhook, WebhookType } from '../../../../model/webhook';
-import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import {ToastContainerComponent} from '../../../../shared/toast-container/toast-container.component';
 import {UserDataService} from '../../../../service/userdata.service';
 import {DomainService} from '../../../../service';
 import {FormsModule} from '@angular/forms';
+
+class TranslateFakeLoader implements TranslateLoader {
+  getTranslation(lang: string) {
+    return of({});
+  }
+}
 
 class MockWebhookService {
   getAll = jasmine.createSpy().and.returnValue(of([{ id: 1, name: 'Test', eventType: 'DOMAIN_ACTION', targetUrl: 'http://test' }]));

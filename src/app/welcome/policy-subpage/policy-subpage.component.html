@@ -1,13 +1,17 @@
 <div id="welcome-container" class="container-fluid" style="margin-bottom: 20px;">
-    <div class="center-block center text-center">
-        <a routerLink="/" data-toggle="tooltip" data-placement="right" title="Network Management as a Service homepage">
-            <img *ngIf="!darkMode" src="assets/images/logo-small.png" alt="logo" width="280px" style="margin-top: 30px" />
-            <img *ngIf="darkMode" src="assets/images/nmaas_white_with_cloud.png" alt="logo" width="280px" style="margin-top: 30px" />
-        </a>
-    </div>
+  <div class="center-block center text-center">
+    <a routerLink="/" data-toggle="tooltip" data-placement="right" title="Network Management as a Service homepage">
+      @if (!darkMode) {
+        <img src="assets/images/logo-small.png" alt="logo" width="280px" style="margin-top: 30px" />
+      }
+      @if (darkMode) {
+        <img src="assets/images/nmaas_white_with_cloud.png" alt="logo" width="280px" style="margin-top: 30px" />
+      }
+    </a>
+  </div>
     <div class="card card-body col-lg-offset-2 col-md-offset-2 col-sm-offset-2
   col-lg-8 col-md-8 col-sm-8 col-xs-12" style="margin-top: 15px; font-size: 14px;">
-        <div class="" [innerHTML]="content?.content">Default content</div>
-        <p class="text-center"><a class="btn" style="color: inherit; border: 1px solid lightgray;" routerLink="/">{{ 'NAVBAR.BACK' | translate }}</a></p>
-    </div>
+    <div class="" [innerHTML]="content?.content">Default content</div>
+    <p class="text-center"><a class="btn" style="color: inherit; border: 1px solid lightgray;" routerLink="/">{{ 'NAVBAR.BACK' | translate }}</a></p>
+  </div>
 </div>

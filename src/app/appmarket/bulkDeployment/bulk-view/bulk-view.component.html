@@ -1,294 +1,295 @@
 <div class="">
-    <div class="background-section">
-        <div *ngIf="bulk && bulkType === 'DOMAIN' ">
-            <h3>{{'BULK.DOMAIN.HEADER_VIEW' | translate}}</h3>
-            <div>
-                <div class="flex" style="padding-bottom: 1rem; margin-top: 1rem">
-                    <label for="id" class="col-sm-2 control-label text-right mt-2 pl-0">{{ 'BULK.LIST.ID' | translate }}</label>
-                    <div class="col-sm-10 pl-0">
-                        <input pInputText type="text" class="form-control" id="id" name="id" [disabled]="true"
-                               [(ngModel)]="bulk.id" #name="ngModel">
-                    </div>
-                </div>
-
-                <div class="flex" style="padding-bottom: 1rem">
-                    <label for="creator"
-                           class="col-sm-2 control-label text-right mt-2 pl-0">{{ 'BULK.LIST.CREATOR' | translate }}</label>
-                    <div class="col-sm-10 pl-0">
-                        <input pInputText type="text" class="form-control" id="creator" name="creator" [disabled]="true"
-                               placeholder="{{bulk.creator.username}} ({{bulk.creator.firstname}} {{bulk.creator.lastname}})">
-                    </div>
-                </div>
-
-                <div class="flex" style="padding-bottom: 1rem">
-                    <label for="date"
-                           class="col-sm-2  text-right mt-2 pl-0">{{ 'BULK.LIST.CREATION_DATE' | translate }}</label>
-                    <div class="col-sm-10 pl-0">
-                        <input pInputText type="text" class="form-control" id="date" name="date" [disabled]="true"
-                               placeholder="{{bulk.creationDate | date: 'dd-MM-yyyy HH:mm'}}">
-                    </div>
-                </div>
-
-                <div class="flex" style="padding-bottom: 1rem">
-                    <label for="state"
-                           class="col-sm-2 control-label text-right mt-2 pl-0">{{ 'BULK.LIST.STATE' | translate }}</label>
-                    <div class="col-sm-10 pl-0">
-                        <input pInputText type="text" class="form-control" id="state" name="state" [disabled]="true"
-                               placeholder="{{'BULK.STATE.' + bulk.state | translate}}">
-                    </div>
-                </div>
+  <div class="background-section">
+    @if (bulk && bulkType === 'DOMAIN' ) {
+      <div>
+        <h3>{{'BULK.DOMAIN.HEADER_VIEW' | translate}}</h3>
+        <div>
+          <div class="flex" style="padding-bottom: 1rem; margin-top: 1rem">
+            <label for="id" class="col-sm-2 control-label text-right mt-2 pl-0">{{ 'BULK.LIST.ID' | translate }}</label>
+            <div class="col-sm-10 pl-0">
+              <input pInputText type="text" class="form-control" id="id" name="id" [disabled]="true"
+                [(ngModel)]="bulk.id" #name="ngModel">
+              </div>
             </div>
-
-            <div class="card" style="margin-top: 3rem">
-                <div class="panel-heading">
-
-                    <div style="display: flex; justify-content: start; align-items: center">
-                        <div>
-                            {{ 'BULK.DOMAIN.DEPLOYMENTS' | translate }}
-                        </div>
+            <div class="flex" style="padding-bottom: 1rem">
+              <label for="creator"
+              class="col-sm-2 control-label text-right mt-2 pl-0">{{ 'BULK.LIST.CREATOR' | translate }}</label>
+              <div class="col-sm-10 pl-0">
+                <input pInputText type="text" class="form-control" id="creator" name="creator" [disabled]="true"
+                  placeholder="{{bulk.creator.username}} ({{bulk.creator.firstname}} {{bulk.creator.lastname}})">
+                </div>
+              </div>
+              <div class="flex" style="padding-bottom: 1rem">
+                <label for="date"
+                class="col-sm-2  text-right mt-2 pl-0">{{ 'BULK.LIST.CREATION_DATE' | translate }}</label>
+                <div class="col-sm-10 pl-0">
+                  <input pInputText type="text" class="form-control" id="date" name="date" [disabled]="true"
+                    placeholder="{{bulk.creationDate | date: 'dd-MM-yyyy HH:mm'}}">
+                  </div>
+                </div>
+                <div class="flex" style="padding-bottom: 1rem">
+                  <label for="state"
+                  class="col-sm-2 control-label text-right mt-2 pl-0">{{ 'BULK.LIST.STATE' | translate }}</label>
+                  <div class="col-sm-10 pl-0">
+                    <input pInputText type="text" class="form-control" id="state" name="state" [disabled]="true"
+                      placeholder="{{'BULK.STATE.' + bulk.state | translate}}">
                     </div>
+                  </div>
                 </div>
-                <div class="panel-body">
-                    <table class="table table-hover table-condensed" aria-describedby="Domains in Group table">
-                        <thead>
-                        <tr>
-                            <th scope="col">{{'BULK.LIST.STATE' | translate}}</th>
-                            <th scope="col">{{'BULK.LIST.CREATED' | translate}}</th>
-                            <th scope="col">{{'BULK.LIST.DOMAIN_ID' | translate}}</th>
-                            <th scope="col">{{'BULK.LIST.DOMAIN_NAME' | translate}}</th>
-                            <th scope="col">{{'BULK.LIST.DOMAIN_CODENAME' | translate}}</th>
-                            <th style="width: 5%" scope="col"></th>
-                        </tr>
-                        <ng-template ngFor let-response [ngForOf]="bulk.entries" let-i="index">
-                            <tr *ngIf="response.type === 'DOMAIN'" class="table-row">
-                                <td>{{'BULK.STATE.' + response.state | translate}}</td>
-                                <td>{{response.created}}</td>
-                                <td>{{getDomainId(response)}}</td>
-                                <td>{{getDomainName(response)}}</td>
-                                <td>{{getDomainCodeName(response)}}</td>
-                                <td style="width: 5%" class="text-right" *ngIf="bulk.state !== 'REMOVED'">
-                                    <i *ngIf="response.type === 'DOMAIN'" class="pi pi-search" style="font-size: 1rem; cursor: pointer" [routerLink]="['/admin/domains/view/', response?.details['domainId']]"></i>
-                                    <i *ngIf="response.type === 'USER'" class="pi pi-search" style="font-size: 1rem; cursor: pointer" [routerLink]="['/admin/users/view', response?.details['userId']]"></i>
-                                    <!-- <span class="dropdown">
-                            <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
-                               data-toggle="dropdown" href="#" role="button">
-                              <em class="fas fa-cog icon-black icon-bigger"></em>
-                            </a>
-                            <ul class="dropdown-menu pull-right-drop">
-                              <li *ngIf="response.type === 'DOMAIN'">
-                                <a [routerLink]="['/admin/domains/view/', response?.details['domainId']]">{{ 'BULK.LIST.MOVE_DOMAIN' | translate }}</a>
-                              </li>
-                                 <li *ngIf="response.type === 'USER'">
-                                <a [routerLink]="['/admin/users/view', response?.details['userId']]">{{ 'BULK.LIST.MOVE_USER' | translate }}</a>
-                              </li>
-                            </ul>
-                          </span> -->
-                                </td>
-                            </tr>
-                        </ng-template>
-                        </thead>
-                    </table>
-
-                </div>
-            </div>
-
-            <div class="card" style="margin-top: 3rem">
-                <div class="panel-heading">
-
+                <div class="card" style="margin-top: 3rem">
+                  <div class="panel-heading">
                     <div style="display: flex; justify-content: start; align-items: center">
-                        <div>
-                            {{'BULK.USER.DEPLOYMENTS' | translate }}
-                        </div>
+                      <div>
+                        {{ 'BULK.DOMAIN.DEPLOYMENTS' | translate }}
+                      </div>
                     </div>
-                </div>
-                <div class="panel-body">
+                  </div>
+                  <div class="panel-body">
                     <table class="table table-hover table-condensed" aria-describedby="Domains in Group table">
-                        <thead>
+                      <thead>
                         <tr>
-                            <th scope="col">{{'BULK.LIST.STATE' | translate}}</th>
-                            <th scope="col">{{'BULK.LIST.CREATED' | translate}}</th>
-                            <th scope="col">{{'BULK.LIST.USER_ID' | translate}}</th>
-                            <th scope="col">{{'BULK.LIST.USER_NAME' | translate}}</th>
-                            <th scope="col">{{'BULK.LIST.EMAIL' | translate}}</th>
-                            <th style="width: 5%" scope="col"></th>
+                          <th scope="col">{{'BULK.LIST.STATE' | translate}}</th>
+                          <th scope="col">{{'BULK.LIST.CREATED' | translate}}</th>
+                          <th scope="col">{{'BULK.LIST.DOMAIN_ID' | translate}}</th>
+                          <th scope="col">{{'BULK.LIST.DOMAIN_NAME' | translate}}</th>
+                          <th scope="col">{{'BULK.LIST.DOMAIN_CODENAME' | translate}}</th>
+                          <th style="width: 5%" scope="col"></th>
                         </tr>
-                        <ng-template ngFor let-response [ngForOf]="bulk.entries" let-i="index">
-                            <tr *ngIf="response.type === 'USER'" class="table-row">
-                                <td>{{'BULK.STATE.' + response.state | translate}}</td>
-                                <td>{{response.created}}</td>
-                                <td>{{getUserId(response)}}</td>
-                                <td>{{getUsername(response)}}</td>
-                                <td>{{getEmail(response)}}</td>
+                        @for (response of bulk.entries; track response; let i = $index) {
+                          @if (response.type === 'DOMAIN') {
+                            <tr class="table-row">
+                              <td>{{'BULK.STATE.' + response.state | translate}}</td>
+                              <td>{{response.created}}</td>
+                              <td>{{getDomainId(response)}}</td>
+                              <td>{{getDomainName(response)}}</td>
+                              <td>{{getDomainCodeName(response)}}</td>
+                              @if (bulk.state !== 'REMOVED') {
                                 <td style="width: 5%" class="text-right">
-                                    <i *ngIf="response.type === 'DOMAIN'" class="pi pi-search" style="font-size: 1rem; cursor: pointer" [routerLink]="['/admin/domains/view/', response?.details['domainId']]"></i>
-                                    <i *ngIf="response.type === 'USER'" class="pi pi-search" style="font-size: 1rem; cursor: pointer" [routerLink]="['/admin/users/view', response?.details['userId']]"></i>
-
-                                    <!-- <span class="dropdown">
-                            <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
-                               data-toggle="dropdown" href="#" role="button">
-                              <em class="fas fa-cog icon-black icon-bigger"></em>
-                            </a>
-                            <ul class="dropdown-menu pull-right-drop">
+                                  @if (response.type === 'DOMAIN') {
+                                    <i class="pi pi-search" style="font-size: 1rem; cursor: pointer" [routerLink]="['/admin/domains/view/', response?.details['domainId']]"></i>
+                                  }
+                                  @else if (response.type === 'USER') {
+                                    <i class="pi pi-search" style="font-size: 1rem; cursor: pointer" [routerLink]="['/admin/users/view', response?.details['userId']]"></i>
+                                  }
+                                  <!-- <span class="dropdown">
+                                  <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
+                                    data-toggle="dropdown" href="#" role="button">
+                                    <em class="fas fa-cog icon-black icon-bigger"></em>
+                                  </a>
+                                  <ul class="dropdown-menu pull-right-drop">
+                                    <li *ngIf="response.type === 'DOMAIN'">
+                                      <a [routerLink]="['/admin/domains/view/', response?.details['domainId']]">{{ 'BULK.LIST.MOVE_DOMAIN' | translate }}</a>
+                                    </li>
+                                    <li *ngIf="response.type === 'USER'">
+                                      <a [routerLink]="['/admin/users/view', response?.details['userId']]">{{ 'BULK.LIST.MOVE_USER' | translate }}</a>
+                                    </li>
+                                  </ul>
+                                </span> -->
+                              </td>
+                            }
+                          </tr>
+                        }
+                      }
+                    </thead>
+                  </table>
+                </div>
+              </div>
+              <div class="card" style="margin-top: 3rem">
+                <div class="panel-heading">
+                  <div style="display: flex; justify-content: start; align-items: center">
+                    <div>
+                      {{'BULK.USER.DEPLOYMENTS' | translate }}
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <table class="table table-hover table-condensed" aria-describedby="Domains in Group table">
+                    <thead>
+                      <tr>
+                        <th scope="col">{{'BULK.LIST.STATE' | translate}}</th>
+                        <th scope="col">{{'BULK.LIST.CREATED' | translate}}</th>
+                        <th scope="col">{{'BULK.LIST.USER_ID' | translate}}</th>
+                        <th scope="col">{{'BULK.LIST.USER_NAME' | translate}}</th>
+                        <th scope="col">{{'BULK.LIST.EMAIL' | translate}}</th>
+                        <th style="width: 5%" scope="col"></th>
+                      </tr>
+                      @for (response of bulk.entries; track response; let i = $index) {
+                        @if (response.type === 'USER') {
+                          <tr class="table-row">
+                            <td>{{'BULK.STATE.' + response.state | translate}}</td>
+                            <td>{{response.created}}</td>
+                            <td>{{getUserId(response)}}</td>
+                            <td>{{getUsername(response)}}</td>
+                            <td>{{getEmail(response)}}</td>
+                            <td style="width: 5%" class="text-right">
+<!--                              @if (response.type === 'DOMAIN') {-->
+<!--                                <i class="pi pi-search" style="font-size: 1rem; cursor: pointer" [routerLink]="['/admin/domains/view/', response?.details['domainId']]"></i>-->
+<!--                              }-->
+                              @if (response.type === 'USER') {
+                                <i class="pi pi-search" style="font-size: 1rem; cursor: pointer" [routerLink]="['/admin/users/view', response?.details['userId']]"></i>
+                              }
+                              <!-- <span class="dropdown">
+                              <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
+                                data-toggle="dropdown" href="#" role="button">
+                                <em class="fas fa-cog icon-black icon-bigger"></em>
+                              </a>
+                              <ul class="dropdown-menu pull-right-drop">
                                 <li *ngIf="response.type === 'DOMAIN'">
-                                <a [routerLink]="['/admin/domains/view/', response?.details['domainId']]">{{ 'BULK.LIST.MOVE_DOMAIN' | translate }}</a>
-                              </li>
-                                 <li *ngIf="response.type === 'USER'">
-                                <a [routerLink]="['/admin/users/view', response?.details['userId']]">{{ 'BULK.LIST.MOVE_USER' | translate }}</a>
-                              </li>
-                            </ul>
-                          </span> -->
-                                </td>
-                            </tr>
-                        </ng-template>
-                        </thead>
-                    </table>
-
-                </div>
+                                  <a [routerLink]="['/admin/domains/view/', response?.details['domainId']]">{{ 'BULK.LIST.MOVE_DOMAIN' | translate }}</a>
+                                </li>
+                                <li *ngIf="response.type === 'USER'">
+                                  <a [routerLink]="['/admin/users/view', response?.details['userId']]">{{ 'BULK.LIST.MOVE_USER' | translate }}</a>
+                                </li>
+                              </ul>
+                            </span> -->
+                          </td>
+                        </tr>
+                      }
+                    }
+                  </thead>
+                </table>
+              </div>
             </div>
+          </div>
+        }
 
-
-        </div>
-
-        <div *ngIf="bulk && bulkType === 'APPLICATION' ">
+        @if (bulk && bulkType === 'APPLICATION' ) {
+          <div>
             <div class="flex justify-content-between">
-                <h3>{{'BULK.APP.VIEW_HEADER' | translate}}</h3>
-                <div class="img-container">
-                    <img alt="App logo" style="width: 60px"
-                         [src]="(appImagesService.getAppLogoUrl(bulk.details['appId']) | secure) || 'assets/images/app-logo-example.png'"/>
+              <h3>{{'BULK.APP.VIEW_HEADER' | translate}}</h3>
+              <div class="img-container">
+                <img alt="App logo" style="width: 60px"
+                  [src]="(appImagesService.getAppLogoUrl(bulk.details['appId']) | secure) || 'assets/images/app-logo-example.png'"/>
                 </div>
-
-            </div>
-
-            <div class="flex" style="padding-bottom: 1rem; margin-top: 1rem">
+              </div>
+              <div class="flex" style="padding-bottom: 1rem; margin-top: 1rem">
                 <label for="id" class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.ID' | translate }}</label>
                 <div class="col-sm-10">
+                  <input pInputText  type="text" class="form-control" id="id" name="id" [disabled]="true"
+                    [(ngModel)]="bulk.id" #name="ngModel">
+                  </div>
+                </div>
+                <div class="flex" style="padding-bottom: 1rem;">
+                  <label for="id" class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.APP_NAME' | translate }}</label>
+                  <div class="col-sm-10">
                     <input pInputText  type="text" class="form-control" id="id" name="id" [disabled]="true"
-                           [(ngModel)]="bulk.id" #name="ngModel">
-                </div>
-            </div>
-
-            <div class="flex" style="padding-bottom: 1rem;">
-                <label for="id" class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.APP_NAME' | translate }}</label>
-                <div class="col-sm-10">
-                    <input pInputText  type="text" class="form-control" id="id" name="id" [disabled]="true"
-                           [(ngModel)]="bulk.details['appName']" #name="ngModel">
-                </div>
-
-            </div>
-
-            <div class="flex" style="padding-bottom: 1rem">
-                <label for="creator"
-                       class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.CREATOR' | translate }}</label>
-                <div class="col-sm-10">
-                    <input pInputText  type="text" class="form-control" id="creator" name="creator" [disabled]="true"
-                           placeholder="{{bulk.creator.username}} ({{bulk.creator.firstname}} {{bulk.creator.lastname}})">
-                </div>
-            </div>
-
-            <div class="flex" style="padding-bottom: 1rem">
-                <label for="date"
-                       class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.CREATION_DATE' | translate }}</label>
-                <div class="col-sm-10">
-                    <input pInputText  type="text" class="form-control" id="date" name="date" [disabled]="true"
-                           placeholder="{{bulk.creationDate | date: 'dd-MM-yyyy HH:mm'}}">
-                </div>
-            </div>
-
-            <div class="flex" style="padding-bottom: 1rem">
-                <label for="state"
-                       class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.STATE' | translate }}</label>
-                <div class="col-sm-10">
-                    <input pInputText  type="text" class="form-control" id="state" name="state" [disabled]="true"
-                           placeholder="{{'BULK.STATE.' + bulk.state | translate}}">
-                </div>
-            </div>
-
-            <div class="flex" style="padding-bottom: 1rem">
-                <label for="completionDate"
-                       class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.COMPLETION_DATE' | translate }}</label>
-                <div class="col-sm-10">
-                    <input pInputText  type="text" class="form-control" id="completionDate" name="completionDate" [disabled]="true"
-                           placeholder="{{completionDate}}">
-                </div>
-            </div>
-
-
-
-            <div *ngIf="bulk.state !== 'REMOVED'" class="flex justify-content-end" style="padding-right: 1.5rem">
-                <button class="btn btn-primary mr-2" (click)="refreshStates()">{{'BULK.APP.REFRESH' | translate}}</button>
-
-                <button *ngIf="bulk.state !== 'FAILED'" class="btn btn-primary" (click)="getAppBulkDetails(this.bulkId)">{{'BULK.APP.DOWNLOAD_CSV' | translate}}</button>
-            </div>
-            <div class="mt-4">
-                <p-progressBar [mode]="progressBarMode"[value]="progressBarValue" id="progressBarr" [style]="{ height: '18px' }" [styleClass]="jobDone ? 'job-done-bar' : 'normal-bar'">
-                    <ng-template pTemplate="content" let-value>
-                        <span>{{queueDetails?.jobDone}} <span *ngIf="queueDetails?.jobDone !== bulk.entries.length">(+{{queueDetails?.jobInProcess}})</span> / {{bulk.entries.length}}</span>
-                    </ng-template>
-                </p-progressBar>
-
-            </div>
-            <div class="card" style="margin-top: 3rem">
-                <div class="panel-heading">
-
-                    <div style="display: flex; justify-content: start; align-items: center">
-                        <div>
-                            {{ 'BULK.APP.DEPLOYMENTS' | translate }}
-                        </div>
+                      [(ngModel)]="bulk.details['appName']" #name="ngModel">
                     </div>
+                  </div>
+                  <div class="flex" style="padding-bottom: 1rem">
+                    <label for="creator"
+                    class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.CREATOR' | translate }}</label>
+                    <div class="col-sm-10">
+                      <input pInputText  type="text" class="form-control" id="creator" name="creator" [disabled]="true"
+                        placeholder="{{bulk.creator.username}} ({{bulk.creator.firstname}} {{bulk.creator.lastname}})">
+                      </div>
+                    </div>
+                    <div class="flex" style="padding-bottom: 1rem">
+                      <label for="date"
+                      class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.CREATION_DATE' | translate }}</label>
+                      <div class="col-sm-10">
+                        <input pInputText  type="text" class="form-control" id="date" name="date" [disabled]="true"
+                          placeholder="{{bulk.creationDate | date: 'dd-MM-yyyy HH:mm'}}">
+                        </div>
+                      </div>
+                      <div class="flex" style="padding-bottom: 1rem">
+                        <label for="state"
+                        class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.STATE' | translate }}</label>
+                        <div class="col-sm-10">
+                          <input pInputText  type="text" class="form-control" id="state" name="state" [disabled]="true"
+                            placeholder="{{'BULK.STATE.' + bulk.state | translate}}">
+                          </div>
+                        </div>
+                        <div class="flex" style="padding-bottom: 1rem">
+                          <label for="completionDate"
+                          class="col-sm-2 control-label text-right mt-2">{{ 'BULK.LIST.COMPLETION_DATE' | translate }}</label>
+                          <div class="col-sm-10">
+                            <input pInputText  type="text" class="form-control" id="completionDate" name="completionDate" [disabled]="true"
+                              placeholder="{{completionDate}}">
+                            </div>
+                          </div>
+                          @if (bulk.state !== 'REMOVED') {
+                            <div class="flex justify-content-end" style="padding-right: 1.5rem">
+                              <button class="btn btn-primary mr-2" (click)="refreshStates()">{{'BULK.APP.REFRESH' | translate}}</button>
+                              @if (bulk.state !== 'FAILED') {
+                                <button class="btn btn-primary" (click)="getAppBulkDetails(this.bulkId)">{{'BULK.APP.DOWNLOAD_CSV' | translate}}</button>
+                              }
+                            </div>
+                          }
+                          <div class="mt-4">
+                            <p-progressBar [mode]="progressBarMode"[value]="progressBarValue" id="progressBarr" [style]="{ height: '18px' }" [styleClass]="jobDone ? 'job-done-bar' : 'normal-bar'">
+                              <ng-template pTemplate="content" let-value>
+                                <span>{{queueDetails?.jobDone}} @if (queueDetails?.jobDone !== bulk.entries.length) {
+                                  <span>(+{{queueDetails?.jobInProcess}})</span>
+                                } / {{bulk.entries.length}}</span>
+                              </ng-template>
+                            </p-progressBar>
+                          </div>
+                          <div class="card" style="margin-top: 3rem">
+                            <div class="panel-heading">
+                              <div style="display: flex; justify-content: start; align-items: center">
+                                <div>
+                                  {{ 'BULK.APP.DEPLOYMENTS' | translate }}
+                                </div>
+                              </div>
+                            </div>
+                            <div class="panel-body">
+                              <table class="table table-hover table-condensed" aria-describedby="Domains in Group table">
+                                <thead>
+                                  <tr #column>
+                                    <th scope="col">{{'BULK.LIST.STATE' | translate}}</th>
+                                    <th scope="col">{{'BULK.APP.INSTANCE_ID' | translate}}</th>
+                                    <th scope="col">{{'BULK.APP.INSTANCE_NAME' | translate}}</th>
+                                    <th scope="col">{{'BULK.APP.DOMAIN' | translate}}</th>
+                                    <th style="width: 5%" scope="col"></th>
+                                  </tr>
+                                  @for (response of bulk.entries; track response; let i = $index) {
+                                    @if (response.type === 'APPLICATION') {
+                                      <tr class="table-row">
+                                        <td>{{'BULK.STATE.' + response.state | translate}}  @if (response.state == 'PROCESSING') {
+                                          <em
+                                            class="pi pi-spin pi-spinner ml-1"
+                                          style="font-size: 1.4rem"></em>
+                                        }
+                                        @if (response.state == 'FAILED' && response?.details['appInstanceId'] === undefined) {
+                                          <em class="pi pi-info-circle"
+                                            style="font-size: 1.4rem"
+                                            pTooltip="{{response?.details['errorMessage']}}"
+                                          tooltipStyleClass="p-tooltip-width " [fitContent]="false"></em>
+                                        }</td>
+                                        <td>{{getAppInstanceId(response)}}</td>
+                                        <td>{{getAppInstanceName(response)}}</td>
+                                        <td>{{getDomainCodeName(response)}}</td>
+                                        <td style="width: 5%" class="text-right"  >
+                                          @if (response?.details['appInstanceId'] !== undefined) {
+                                            <i class="pi pi-search" style="font-size: 1.8rem; cursor: pointer" [routerLink]="['/instances/', response?.details['appInstanceId']]"></i>
+                                          }
+                                          <!-- <span *ngIf="response?.details['appInstanceId'] !== undefined" class="dropdown">
+                                          <a  style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
+                                            data-toggle="dropdown" href="#" role="button">
+                                            <em class="fas fa-cog icon-black icon-bigger"></em>
+                                          </a>
+                                          <ul class="dropdown-menu pull-right-drop">
+                                            <li *ngIf="response.type === 'APPLICATION' && response?.details['appInstanceId'] !== undefined">
+                                              <a [routerLink]="['/instances/', response?.details['appInstanceId']]">{{ 'BULK.LIST.MOVE_APP' | translate }}</a>
+                                            </li>
+                                            <li *ngIf="response.type === 'APPLICATION' && response.state !== 'COMPLETED'">
+                                              <a>{{ 'BULK.APP.CHECK_STATE' | translate }}</a>
+                                            </li>
+                                          </ul>
+                                        </span> -->
+                                      </td>
+                                    </tr>
+                                  }
+                                }
+                              </thead>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    }
+                  </div>
+
+
+
                 </div>
-                <div class="panel-body">
-
-
-                    <table class="table table-hover table-condensed" aria-describedby="Domains in Group table">
-                        <thead>
-                        <tr #column>
-                            <th scope="col">{{'BULK.LIST.STATE' | translate}}</th>
-                            <th scope="col">{{'BULK.APP.INSTANCE_ID' | translate}}</th>
-                            <th scope="col">{{'BULK.APP.INSTANCE_NAME' | translate}}</th>
-                            <th scope="col">{{'BULK.APP.DOMAIN' | translate}}</th>
-                            <th style="width: 5%" scope="col"></th>
-                        </tr>
-                        <ng-template ngFor let-response [ngForOf]="bulk.entries" let-i="index">
-                            <tr *ngIf="response.type === 'APPLICATION'" class="table-row">
-                                <td>{{'BULK.STATE.' + response.state | translate}}  <em
-                                        *ngIf="response.state == 'PROCESSING'"
-                                        class="pi pi-spin pi-spinner ml-1"
-                                        style="font-size: 1.4rem"></em>
-                                    <em *ngIf="response.state == 'FAILED' && response?.details['appInstanceId'] === undefined" class="pi pi-info-circle"
-                                        style="font-size: 1.4rem"
-                                        pTooltip="{{response?.details['errorMessage']}}"
-                                        tooltipStyleClass="p-tooltip-width " [fitContent]="false"></em></td>
-                                <td>{{getAppInstanceId(response)}}</td>
-                                <td>{{getAppInstanceName(response)}}</td>
-                                <td>{{getDomainCodeName(response)}}</td>
-                                <td style="width: 5%" class="text-right"  >
-                                    <i *ngIf="response?.details['appInstanceId'] !== undefined" class="pi pi-search" style="font-size: 1.8rem; cursor: pointer" [routerLink]="['/instances/', response?.details['appInstanceId']]"></i>
-                                    <!-- <span *ngIf="response?.details['appInstanceId'] !== undefined" class="dropdown">
-                            <a  style="display: inline-block" class="dropdown-toggle " aria-expanded="false" aria-haspopup="true"
-                               data-toggle="dropdown" href="#" role="button">
-                              <em class="fas fa-cog icon-black icon-bigger"></em>
-                            </a>
-                            <ul class="dropdown-menu pull-right-drop">
-                                 <li *ngIf="response.type === 'APPLICATION' && response?.details['appInstanceId'] !== undefined">
-                                <a [routerLink]="['/instances/', response?.details['appInstanceId']]">{{ 'BULK.LIST.MOVE_APP' | translate }}</a>
-                              </li>
-                                 <li *ngIf="response.type === 'APPLICATION' && response.state !== 'COMPLETED'">
-                                    <a>{{ 'BULK.APP.CHECK_STATE' | translate }}</a>
-                                </li>
-                            </ul>
-                          </span> -->
-                                </td>
-                            </tr>
-                        </ng-template>
-                        </thead>
-                    </table>
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-
-
-</div>

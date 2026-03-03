@@ -1,82 +1,100 @@
 <div style="padding-bottom: 15px;" class="background-section">
-    <div style="display: flex; justify-content:space-between">
-        <h4 style="font-size:15px; font-weight: bold">{{'TOKENS.HEADER' | translate}}</h4>
-        <button type="button" class="btn btn-text"
-                (click)="modal.show()">{{'TOKENS.NEW_TOKEN' | translate}}</button>
-    </div>
-    <div class="panel-body">
-        <table class="table table-hover" aria-describedby="User access tokens table">
-            <thead>
-            <tr>
-                <th scope="col">{{'TOKENS.TABLE.ID' | translate}}</th>
-                <th scope="col">{{'TOKENS.TABLE.NAME' | translate}}</th>
-                <th scope="col">{{'TOKENS.TABLE.VALID' | translate}}</th>
-                <th scope="col" class="col-2">{{'TOKENS.TABLE.ACTIONS' | translate}}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let token of tokensList">
-                <td style="width: 25%;">{{token.id}}</td>
-                <td style="width: 30%;">{{token.name}}</td>
-                <td style="width: 30%;">{{token.valid}}</td>
-                <td style="width: 15%;" *ngIf="token.valid">
-                    <button type="button" class="btn btn-danger"
-                            (click)="invalidate(token.id)">{{'TOKENS.BUTTON_INVALIDATE' | translate}}</button>
-                </td>
-                <td style="width: 25%;" *ngIf="!token.valid">
-                    <button type="button" class="btn btn-danger"
-                            (click)="deleteToken(token.id)">{{'TOKENS.BUTTON_DELETE' | translate}}</button>
-                </td>
-            </tr>
-            <tr *ngIf="tokensList.length === 0">
-                <td colspan="3" style="text-align: center">{{'TOKENS.NO_TOKENS' | translate}}</td>
-            </tr>
-            </tbody>
-        </table>
+  <div style="display: flex; justify-content:space-between">
+    <h4 style="font-size:15px; font-weight: bold">{{'TOKENS.HEADER' | translate}}</h4>
+    <button type="button" class="btn btn-text"
+    (click)="modal.show()">{{'TOKENS.NEW_TOKEN' | translate}}</button>
+  </div>
+  <div class="panel-body">
+    <table class="table table-hover" aria-describedby="User access tokens table">
+      <thead>
+        <tr>
+          <th scope="col">{{'TOKENS.TABLE.ID' | translate}}</th>
+          <th scope="col">{{'TOKENS.TABLE.NAME' | translate}}</th>
+          <th scope="col">{{'TOKENS.TABLE.VALID' | translate}}</th>
+          <th scope="col" class="col-2">{{'TOKENS.TABLE.ACTIONS' | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (token of tokensList; track token) {
+          <tr>
+            <td style="width: 25%;">{{token.id}}</td>
+            <td style="width: 30%;">{{token.name}}</td>
+            <td style="width: 30%;">{{token.valid}}</td>
+            @if (token.valid) {
+              <td style="width: 15%;">
+                <button type="button" class="btn btn-danger"
+                (click)="invalidate(token.id)">{{'TOKENS.BUTTON_INVALIDATE' | translate}}</button>
+              </td>
+            }
+            @if (!token.valid) {
+              <td style="width: 25%;">
+                <button type="button" class="btn btn-danger"
+                (click)="deleteToken(token.id)">{{'TOKENS.BUTTON_DELETE' | translate}}</button>
+              </td>
+            }
+          </tr>
+        }
+        @if (tokensList.length === 0) {
+          <tr>
+            <td colspan="3" style="text-align: center">{{'TOKENS.NO_TOKENS' | translate}}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
 
-    </div>
+  </div>
 </div>
 
 <nmaas-modal styleModal="info">
-    <div class="nmaas-modal-header">{{'TOKENS.MODAL.HEADER' | translate}}</div>
-    <div class="nmaas-modal-body" style="height: 60%; max-height: 80vh;overflow-y: auto;">
-        <form *ngIf="!showCopyToken" [formGroup]="requestForm" (ngSubmit)="createNewToken()">
-            <div class="form-group">
-                <label class="control-label" for="new-token-name">
-                    {{'TOKENS.MODAL.NAME' | translate}}:
-                </label>
-                <input pInputText id="new-token-name" type="text" class="form-control" formControlName="name">
-            </div>
-            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
-                <div *ngIf="name.errors.required">{{'SSH_KEYS.MODAL.ERROR.NAME_REQUIRED' | translate}}</div>
-                <div *ngIf="name.errors.minlength">{{'SSH_KEYS.MODAL.ERROR.NAME_MINLENGTH' | translate}}</div>
-                <div *ngIf="name.errors.maxlength">{{'SSH_KEYS.MODAL.ERROR.NAME_MAXLENGTH' | translate}}</div>
-                <div *ngIf="name.errors.notUnique">{{name.errors.message}}</div>
-
-            </div>
-            <div style="display: flex; justify-content: flex-end">
-                <button type="button" class="btn btn-secondary mr-2"
-                        (click)="modal.hide()">{{'SSH_KEYS.MODAL.BUTTON_CANCEL' | translate}}</button>
-                <input pInputText type="submit" class="btn btn-primary" value="{{'SSH_KEYS.MODAL.BUTTON_ADD' | translate}}"
-                       [disabled]="!requestForm.valid">
-            </div>
-
-
-
-        </form>
-        <div *ngIf="showCopyToken">
-                <span class="text-bold">
-                    {{"TOKENS.MODAL.TOKEN_COPY" | translate}}
-                </span>
-                <div style="margin-top:20px">
-                    <p-inputGroup>
-                        <input style="border-radius:3px" pInputText [(ngModel)]="newToken.tokenValue"  readonly="true"  placeholder="Token to copy" />
-                        <button class="btn btn-secondary" style="margin-left:10px" type="button" (click)="copyToClipboard()">{{"TOKENS.MODAL.COPY" | translate}}</button>
-                    </p-inputGroup>
-                </div>
-                <div class="mt-6 flex justify-content-end">
-                    <button class="btn btn-primary" type="button"  (click)="ConfirmAndClose()"  >{{"TOKENS.MODAL.TOKEN_SAVED" | translate}}</button>
-                </div>
+  <div class="nmaas-modal-header">{{'TOKENS.MODAL.HEADER' | translate}}</div>
+  <div class="nmaas-modal-body" style="height: 60%; max-height: 80vh;overflow-y: auto;">
+    @if (!showCopyToken) {
+      <form [formGroup]="requestForm" (ngSubmit)="createNewToken()">
+        <div class="form-group">
+          <label class="control-label" for="new-token-name">
+            {{'TOKENS.MODAL.NAME' | translate}}:
+          </label>
+          <input pInputText id="new-token-name" type="text" class="form-control" formControlName="name">
         </div>
+        @if (name.invalid && (name.dirty || name.touched)) {
+          <div class="alert alert-danger">
+            @if (name.errors.required) {
+              <div>{{'SSH_KEYS.MODAL.ERROR.NAME_REQUIRED' | translate}}</div>
+            }
+            @if (name.errors.minlength) {
+              <div>{{'SSH_KEYS.MODAL.ERROR.NAME_MINLENGTH' | translate}}</div>
+            }
+            @if (name.errors.maxlength) {
+              <div>{{'SSH_KEYS.MODAL.ERROR.NAME_MAXLENGTH' | translate}}</div>
+            }
+            @if (name.errors.notUnique) {
+              <div>{{name.errors.message}}</div>
+            }
+          </div>
+        }
+        <div style="display: flex; justify-content: flex-end">
+          <button type="button" class="btn btn-secondary mr-2"
+          (click)="modal.hide()">{{'SSH_KEYS.MODAL.BUTTON_CANCEL' | translate}}</button>
+          <input pInputText type="submit" class="btn btn-primary" value="{{'SSH_KEYS.MODAL.BUTTON_ADD' | translate}}"
+            [disabled]="!requestForm.valid">
+          </div>
+        </form>
+      }
+      @if (showCopyToken) {
+        <div>
+          <span class="text-bold">
+            {{"TOKENS.MODAL.TOKEN_COPY" | translate}}
+          </span>
+          <div style="margin-top:20px">
+            <p-inputGroup>
+              <input style="border-radius:3px" pInputText [(ngModel)]="newToken.tokenValue"  readonly="true"  placeholder="Token to copy" />
+              <button class="btn btn-secondary" style="margin-left:10px" type="button" (click)="copyToClipboard()">{{"TOKENS.MODAL.COPY" | translate}}</button>
+            </p-inputGroup>
+          </div>
+          <div class="mt-6 flex justify-content-end">
+            <button class="btn btn-primary" type="button"  (click)="ConfirmAndClose()"  >{{"TOKENS.MODAL.TOKEN_SAVED" | translate}}</button>
+          </div>
+        </div>
+      }
     </div>
-</nmaas-modal>
+  </nmaas-modal>

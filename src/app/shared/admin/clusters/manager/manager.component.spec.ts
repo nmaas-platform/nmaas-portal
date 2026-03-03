@@ -4,11 +4,17 @@ import { ClusterManagerComponent } from './manager.component';
 import { ClusterManagerService } from '../../../../service/cluster-manager.service';
 import { BehaviorSubject, of } from 'rxjs';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {   TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ClusterManager } from '../../../../model/cluster-manager';
 import { ModalComponent } from '../../../modal';
 import { UserDataService } from '../../../../service/userdata.service';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+
+class TranslateFakeLoader implements TranslateLoader {
+  getTranslation(lang: string) {
+    return of({});
+  }
+}
 
 describe('ClusterManagerComponent', () => {
   let component: ClusterManagerComponent;

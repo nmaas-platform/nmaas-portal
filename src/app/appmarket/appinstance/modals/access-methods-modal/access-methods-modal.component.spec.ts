@@ -1,9 +1,16 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {AccessMethodsModalComponent} from './access-methods-modal.component';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {SharedModule} from '../../../../shared';
 import {ServiceAccessMethod, ServiceAccessMethodType} from '../../../../model/service-access-method';
+import {of} from 'rxjs';
+
+class TranslateFakeLoader implements TranslateLoader {
+  getTranslation(lang: string) {
+    return of({});
+  }
+}
 
 describe('AccessMethodsModalComponent', () => {
   let component: AccessMethodsModalComponent;

@@ -5,7 +5,7 @@ import {AppDetailsComponent} from './appdetails.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AppConfigService, AppImagesService, AppsService, DomainService} from '../../service';
 import {Component, Input, NO_ERRORS_SCHEMA, Pipe, PipeTransform} from '@angular/core';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {AppSubscriptionsService} from '../../service/appsubscriptions.service';
 import {UserDataService} from '../../service/userdata.service';
 import {AuthService} from '../../auth/auth.service';
@@ -15,6 +15,12 @@ import {of} from 'rxjs';
 import {ApplicationBase} from '../../model/application-base';
 import {ApplicationState} from '../../model/application-state';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 @Pipe({
     name: 'secure',

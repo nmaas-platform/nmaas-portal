@@ -1,13 +1,15 @@
 
 <form class="form-inline" role="form">
-	<div class="form-group" style="width: 100%">
-		<label style="margin-right: 6px; color: var(--p-text-0)" for="tag">{{ "FILTER.TAGS" | translate }}</label>
-		<select class="form-control" id="tag" style="width: 100%; background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color:var(--p-text-0)"
-			[(ngModel)]="value" [ngModelOptions]="{standalone: true}"
-			(ngModelChange)="onChange()">
-			<option [value]="'all'">all</option>
-			<option *ngFor="let tag of tagsValue" [value]="tag">{{tag}}</option>
-		</select>
-	</div>
+  <div class="form-group" style="width: 100%">
+    <label style="margin-right: 6px; color: var(--p-text-0)" for="tag">{{ "FILTER.TAGS" | translate }}</label>
+    <select class="form-control" id="tag" style="width: 100%; background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color:var(--p-text-0)"
+      [(ngModel)]="value" [ngModelOptions]="{standalone: true}"
+      (ngModelChange)="onChange()">
+      <option [value]="'all'">all</option>
+      @for (tag of tagsValue; track tag) {
+        <option [value]="tag">{{tag}}</option>
+      }
+    </select>
+  </div>
 </form>
 

@@ -1,137 +1,144 @@
 <!--<h4 style="margin-top:40px; font-weight: bold" *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']">{{ 'APP_INSTANCES.DEPLOYED' | translate }}</h4>-->
 <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-top:40px; padding:15px 0 5px 0">
-    <div class="col-sm-12 col-sm-12 col-md-12" style="display:flex; align-items: center; padding:0; flex-wrap:wrap">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3" style="padding-top:10px; padding-bottom:10px">
-            <p-iconfield class="p-input-icon-right " style="width:100%">
-                <input pInputText class="form-control" name="search" id="search" placeholder="Search" type="text"
-                       [(ngModel)]="searchValue"
-                       (change)="onSearch()"
-                >
-                <p-inputicon class="pi pi-search" style="font-size: 13px;"></p-inputicon>
-            </p-iconfield>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 wrap" style="display:flex;">
-            <div class="" style="display: flex; padding:10px 15px 10px 0">
-                <p-checkbox id="show_my" inputId="show_my" binary="true"
-                            [(ngModel)]="isOnlyMyVisible"
-                            (onChange)="onOnlyMyVisibleChange()"
-                            [ngModelOptions]="{standalone: true}"
-                            ngDefaultControl>
+  <div class="col-sm-12 col-sm-12 col-md-12" style="display:flex; align-items: center; padding:0; flex-wrap:wrap">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3" style="padding-top:10px; padding-bottom:10px">
+      <p-iconfield class="p-input-icon-right " style="width:100%">
+        <input pInputText class="form-control" name="search" id="search" placeholder="Search" type="text"
+          [(ngModel)]="searchValue"
+          (change)="onSearch()"
+          >
+          <p-inputicon class="pi pi-search" style="font-size: 13px;"></p-inputicon>
+        </p-iconfield>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 wrap" style="display:flex;">
+        <div class="" style="display: flex; padding:10px 15px 10px 0">
+          <p-checkbox id="show_my" inputId="show_my" binary="true"
+            [(ngModel)]="isOnlyMyVisible"
+            (onChange)="onOnlyMyVisibleChange()"
+            [ngModelOptions]="{standalone: true}"
+            ngDefaultControl>
 
-                </p-checkbox>
-                <label for="show_my"
-                       style="text-wrap: nowrap; color: var(--p-text-0)">{{ 'APP_INSTANCES.SHOW_MY' | translate }} </label>
-            </div>
-            <div class="" style="display: flex; padding:10px 15px">
-                <p-checkbox *domainRoles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR'];domainId:domainId"
-                            id="show_visible" inputId="show_visible" binary="true"
-                            [(ngModel)]="isUndeployedVisible"
-                            (onChange)="onUndeployVisibleChange()"
-                            [ngModelOptions]="{standalone: true}">
+          </p-checkbox>
+          <label for="show_my"
+          style="text-wrap: nowrap; color: var(--p-text-0)">{{ 'APP_INSTANCES.SHOW_MY' | translate }} </label>
+        </div>
+        <div class="" style="display: flex; padding:10px 15px">
+          <p-checkbox *domainRoles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR'];domainId:domainId"
+            id="show_visible" inputId="show_visible" binary="true"
+            [(ngModel)]="isUndeployedVisible"
+            (onChange)="onUndeployVisibleChange()"
+            [ngModelOptions]="{standalone: true}">
 
-                </p-checkbox>
-                <label for="show_visible" style="text-wrap: nowrap; color: var(--p-text-0)"
-                       *domainRoles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR'];domainId:domainId">{{ 'APP_INSTANCES.UNDEPLOYED_VISIBLE' | translate }}</label>
-            </div>
+          </p-checkbox>
+          <label for="show_visible" style="text-wrap: nowrap; color: var(--p-text-0)"
+          *domainRoles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR'];domainId:domainId">{{ 'APP_INSTANCES.UNDEPLOYED_VISIBLE' | translate }}</label>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-1"
-             style="display: inline-flex; align-items: center; padding:10px 0; justify-content: flex-end;">
-            <p-selectButton
-                    id="selectionType"
-                    [options]="viewOptions"
-                    [(ngModel)]="selectedViewType"
-                    [ngModelOptions]="{standalone: true}"
-                    (onChange)="onSelectedViewTypeChange()"
-                    optionLabel="label"
-                    optionValue="value"
-                    ngDefaultControl>
-                <ng-template #item let-item pTemplate>
-                    <i style="font-size: 14px;" [class]="item.icon"></i>
-                </ng-template>
-            </p-selectButton>
-        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-2 col-lg-1"
+        style="display: inline-flex; align-items: center; padding:10px 0; justify-content: flex-end;">
+        <p-selectButton
+          id="selectionType"
+          [options]="viewOptions"
+          [(ngModel)]="selectedViewType"
+          [ngModelOptions]="{standalone: true}"
+          (onChange)="onSelectedViewTypeChange()"
+          optionLabel="label"
+          optionValue="value"
+          ngDefaultControl>
+          <ng-template #item let-item pTemplate>
+            <i style="font-size: 14px;" [class]="item.icon"></i>
+          </ng-template>
+        </p-selectButton>
+      </div>
     </div>
-</div>
+  </div>
 
 
-<div *ngIf="selectedViewType === 'list'" class="background-section" style="margin-top:30px">
-    <p-table [value]="appDeployedInstances"
-             [lazy]="true"
-             [paginator]="true"
-             [rows]="10"
-             (onLazyLoad)="loadInstancesLazy($event)"
-             [totalRecords]=totalDeployedElements
-             [rowsPerPageOptions]="[5, 10, 20]"
-             [loading]="loadingInstances"
-             [responsiveLayout]="'scroll'">
-
+  @if (selectedViewType === 'list') {
+    <div class="background-section" style="margin-top:30px">
+      <p-table [value]="appDeployedInstances"
+        [lazy]="true"
+        [paginator]="true"
+        [rows]="10"
+        (onLazyLoad)="loadInstancesLazy($event)"
+        [totalRecords]=totalDeployedElements
+        [rowsPerPageOptions]="[5, 10, 20]"
+        [loading]="loadingInstances"
+        [responsiveLayout]="'scroll'">
         <ng-template pTemplate="header">
-            <tr>
-                <th style="width:15%" pSortableColumn="name" id="name">
-                    {{ 'APP_INSTANCES.NAME' | translate }}
-                    <p-sortIcon field="name"></p-sortIcon>
-                </th>
-                <th style="width:10%" pSortableColumn="application" id="application">
-                    {{ 'APP_INSTANCES.APPLICATION' | translate }}
-                    <p-sortIcon field="application"></p-sortIcon>
-                </th>
-                <th style="width:10%">{{ 'APP_INSTANCES.VERSION' | translate }}</th>
-                <th style="width:20%" *ngIf="domainId === undefined || domainId === domainService.getGlobalDomainId()">
-                    {{ 'APP_INSTANCES.DOMAIN' | translate }}
-                </th>
-                <th style="width:10%" pSortableColumn="remoteClusterId" id="remoteClusterName">
-                    {{ 'APP_INSTANCES.CLUSTER' | translate }}
-                    <p-sortIcon field="remoteClusterId"></p-sortIcon>
-                </th>
-                <th style="width:20%"  pSortableColumn="owner" id="owner">
-                    {{ 'APP_INSTANCES.OWNER' | translate }}
-                    <p-sortIcon field="owner"></p-sortIcon>
-                </th>
-                <th style="width:15%"  pSortableColumn="createdAt" id="createdAt">
-                    {{ 'APP_INSTANCES.DEPLOYED_AT' | translate }}
-                    <p-sortIcon field="createdAt"></p-sortIcon>
-                </th>
-                <th style="width: 15%"></th>
-                <th style="width:10%" pSortableColumn="state" id="state">
-                    {{ 'APP_INSTANCES.STATE' | translate }}
-                    <p-sortIcon field="state"></p-sortIcon>
-                </th>
-                <th></th>
-            </tr>
+          <tr>
+            <th style="width:15%" pSortableColumn="name" id="name">
+              {{ 'APP_INSTANCES.NAME' | translate }}
+              <p-sortIcon field="name"></p-sortIcon>
+            </th>
+            <th style="width:10%" pSortableColumn="application" id="application">
+              {{ 'APP_INSTANCES.APPLICATION' | translate }}
+              <p-sortIcon field="application"></p-sortIcon>
+            </th>
+            <th style="width:10%">{{ 'APP_INSTANCES.VERSION' | translate }}</th>
+            @if (domainId === undefined || domainId === domainService.getGlobalDomainId()) {
+              <th style="width:20%">
+                {{ 'APP_INSTANCES.DOMAIN' | translate }}
+              </th>
+            }
+            <th style="width:10%" pSortableColumn="remoteClusterId" id="remoteClusterName">
+              {{ 'APP_INSTANCES.CLUSTER' | translate }}
+              <p-sortIcon field="remoteClusterId"></p-sortIcon>
+            </th>
+            <th style="width:20%"  pSortableColumn="owner" id="owner">
+              {{ 'APP_INSTANCES.OWNER' | translate }}
+              <p-sortIcon field="owner"></p-sortIcon>
+            </th>
+            <th style="width:15%"  pSortableColumn="createdAt" id="createdAt">
+              {{ 'APP_INSTANCES.DEPLOYED_AT' | translate }}
+              <p-sortIcon field="createdAt"></p-sortIcon>
+            </th>
+            <th style="width: 15%"></th>
+            <th style="width:10%" pSortableColumn="state" id="state">
+              {{ 'APP_INSTANCES.STATE' | translate }}
+              <p-sortIcon field="state"></p-sortIcon>
+            </th>
+            <th></th>
+          </tr>
         </ng-template>
-
         <ng-template pTemplate="body" let-appInstance>
-            <tr [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain()}"
-                [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : [appInstance.id]">
-                <td>{{ appInstance?.name }}</td>
-                <td>{{ appInstance?.applicationName }}</td>
-                <td>{{ appInstance?.applicationVersion }}</td>
-                <td *ngIf="domainId === undefined || domainId === domainService.getGlobalDomainId()">
-                    {{ appInstance?.domainName }}
-                </td>
-                <td>{{appInstance?.remoteClusterName}}</td>
-                <td>{{ appInstance?.owner?.username }}</td>
-                <td>{{ appInstance?.createdAt | localDate:'dd-MM-yyyy HH:mm' }}</td>
-                <td></td>
-                <td>{{ translateState(appInstance?.state) }}</td>
-                <td style="text-align: right">
-                    <ng-container *ngIf="appInstance?.upgradePossible">
-                        <span class="pi pi-arrow-circle-up"></span>
-                    </ng-container>
-                </td>
-            </tr>
+          <tr [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain()}"
+            [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : [appInstance.id]">
+            <td>{{ appInstance?.name }}</td>
+            <td>{{ appInstance?.applicationName }}</td>
+            <td>{{ appInstance?.applicationVersion }}</td>
+            @if (domainId === undefined || domainId === domainService.getGlobalDomainId()) {
+              <td>
+                {{ appInstance?.domainName }}
+              </td>
+            }
+            <td>{{appInstance?.remoteClusterName}}</td>
+            <td>{{ appInstance?.owner?.username }}</td>
+            <td>{{ appInstance?.createdAt | localDate:'dd-MM-yyyy HH:mm' }}</td>
+            <td></td>
+            <td>{{ translateState(appInstance?.state) }}</td>
+            <td style="text-align: right">
+              @if (appInstance?.upgradePossible) {
+                <span class="pi pi-arrow-circle-up"></span>
+              }
+            </td>
+          </tr>
         </ng-template>
-    </p-table>
-</div>
+      </p-table>
+    </div>
+  }
 
-<div *ngIf="selectedViewType === 'cards'"
-     style="height: 70vh; overflow: auto;">
-    <div *ngIf="selectedViewType === 'cards'" class="grid col-12">
-        <div *ngFor="let appInstance of allAppDeployedInstances | async | searchAppInstance: searchValue"
-             class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-            <div class="background-section instance-card"
-                 [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain()}"
-                 [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : [appInstance.id]">
+  @if (selectedViewType === 'cards') {
+    <div
+      style="height: 70vh; overflow: auto;">
+      @if (selectedViewType === 'cards') {
+        <div class="grid col-12">
+          @for (appInstance of allAppDeployedInstances | async | searchAppInstance: searchValue; track appInstance) {
+            <div
+              class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+              <div class="background-section instance-card"
+                [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain()}"
+                [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : [appInstance.id]">
                 <div style="
                 display:flex;
                 justify-content:
@@ -140,171 +147,210 @@
                     <div style="position: absolute;
                      right: 30px;
                       top: 25px">
-                        <ng-container
-                                *ngIf="appInstance?.upgradePossible">
+                    @if (appInstance?.upgradePossible) {
                             <span style="display: flex;
                              align-items: center;
                               font-size:20px"
-                                  class="pi pi-arrow-circle-up">
-                            </span>
-                        </ng-container>
+                        class="pi pi-arrow-circle-up">
+                      </span>
+                    }
+                  </div>
+                  <div style="display: flex; flex-direction:column; justify-content:space-between">
+                    <p>{{ appInstance?.name }}</p>
+                    <p style="display: flex; gap:10px">{{ appInstance?.applicationName }}
+                    </p>
+                  </div>
+                  <div>
+                    @if (appInstance?.applicationBaseId) {
+                      <div class="img-container">
+                        <img alt="App logo"
+                          [src]="(appImagesService.getAppLogoUrl(appInstance?.applicationBaseId) | secure) || 'assets/images/app-logo-example.png'"
+                          width="70px"/>
+                        </div>
+                      }
+                      @if (!appInstance?.applicationBaseId) {
+                        <div class="img-container">
+                          <img alt="App logo" src="assets/images/app-logo-example.png" width="70px"/>
+                        </div>
+                      }
                     </div>
-
-                    <div style="display: flex; flex-direction:column; justify-content:space-between">
-                        <p>{{ appInstance?.name }}</p>
-                        <p style="display: flex; gap:10px">{{ appInstance?.applicationName }}
-
-                        </p>
-                    </div>
+                  </div>
+                  @if (getStateAsEnum(appInstance?.state) == AppInstanceState.FAILURE) {
                     <div>
-                        <div class="img-container" *ngIf="appInstance?.applicationBaseId">
-                            <img alt="App logo"
-                                 [src]="(appImagesService.getAppLogoUrl(appInstance?.applicationBaseId) | secure) || 'assets/images/app-logo-example.png'"
-                                 width="70px"/>
-                        </div>
-                        <div class="img-container" *ngIf="!appInstance?.applicationBaseId">
-                            <img alt="App logo" src="assets/images/app-logo-example.png" width="70px"/>
-                        </div>
+                      <p class="failure">{{ translateState(appInstance?.state) }}</p>
+                      <p-progressBar class="failure" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
                     </div>
-                </div>
-                <div *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.FAILURE">
-                    <p class="failure">{{ translateState(appInstance?.state) }}</p>
-                    <p-progressBar class="failure" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
-                </div>
-                <div *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.DEPLOYING ||
+                  }
+                  @if (getStateAsEnum(appInstance?.state) == AppInstanceState.DEPLOYING ||
                     getStateAsEnum(appInstance?.state) == AppInstanceState.CONFIGURATION_AWAITING ||
                     getStateAsEnum(appInstance?.state) == AppInstanceState.CONNECTING ||
                     getStateAsEnum(appInstance?.state) == AppInstanceState.REQUESTED ||
                     getStateAsEnum(appInstance?.state) == AppInstanceState.VALIDATION ||
-                    getStateAsEnum(appInstance?.state) == AppInstanceState.PREPARATION">
-                    <p class="running">{{ translateState(appInstance?.state) }}</p>
-                    <p-progressBar class="running" mode="indeterminate" [style]="{'height': '8px'}"></p-progressBar>
+                    getStateAsEnum(appInstance?.state) == AppInstanceState.PREPARATION) {
+                    <div>
+                      <p class="running">{{ translateState(appInstance?.state) }}</p>
+                      <p-progressBar class="running" mode="indeterminate" [style]="{'height': '8px'}"></p-progressBar>
+                    </div>
+                  }
+                  @if (getStateAsEnum(appInstance?.state) == AppInstanceState.RUNNING ) {
+                    <div>
+                      <p class="done">{{ translateState(appInstance?.state) }}</p>
+                      <p-progressBar class="done" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
+                    </div>
+                  }
+                  @if (getStateAsEnum(appInstance?.state) == AppInstanceState.PAUSED ) {
+                    <div>
+                      <p class="scaledDown">{{ translateState(appInstance?.state) }}</p>
+                      <p-progressBar class="scaledDown" [value]="100" [style]="{'height': '6px'}"></p-progressBar>
+                    </div>
+                  }
+                  @if (getStateAsEnum(appInstance?.state) == AppInstanceState.DONE ||
+                    getStateAsEnum(appInstance?.state) == AppInstanceState.REMOVED ) {
+                    <div>
+                      <p class="done">{{ translateState(appInstance?.state) }}</p>
+                      <p-progressBar class="removed" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
+                    </div>
+                  }
                 </div>
-                <div *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.RUNNING ">
-                    <p class="done">{{ translateState(appInstance?.state) }}</p>
-                    <p-progressBar class="done" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
-                </div>
-                <div *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.PAUSED ">
-                    <p class="scaledDown">{{ translateState(appInstance?.state) }}</p>
-                    <p-progressBar class="scaledDown" [value]="100" [style]="{'height': '6px'}"></p-progressBar>
-                </div>
-                <div *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.DONE ||
-                    getStateAsEnum(appInstance?.state) == AppInstanceState.REMOVED ">
-                    <p class="done">{{ translateState(appInstance?.state) }}</p>
-                    <p-progressBar class="removed" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div style="margin-top:40px" *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']">
-        <h4 class="header" *ngIf="isUndeployedVisible">{{ 'APP_INSTANCES.UNDEPLOYED' | translate }}</h4>
-        <div *ngIf="isUndeployedVisible && selectedViewType === 'cards'" class="grid col-12">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
-                 *ngFor="let appInstance of allAppUndeployedInstances| async | searchAppInstance: searchValue" >
-                <div class="background-section instance-card"
-                     [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain()}"
-                     [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : [appInstance.id]">
+              </div>
+            }
+          </div>
+        }
+        <div style="margin-top:40px" *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']">
+          @if (isUndeployedVisible) {
+            <h4 class="header">{{ 'APP_INSTANCES.UNDEPLOYED' | translate }}</h4>
+          }
+          @if (isUndeployedVisible && selectedViewType === 'cards') {
+            <div class="grid col-12">
+              @for (appInstance of allAppUndeployedInstances| async | searchAppInstance: searchValue; track appInstance) {
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
+                  >
+                  <div class="background-section instance-card"
+                    [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain()}"
+                    [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : [appInstance.id]">
                     <div style="display:flex; justify-content: space-between; margin-bottom: 30px">
-                        <div>
-                            <p>{{ appInstance?.name }}</p>
-                            <p>{{ appInstance?.applicationName }}</p>
-                        </div>
-                        <div>
-                            <div class="img-container" *ngIf="appInstance?.applicationBaseId">
-                                <img alt="App logo"
-                                     [src]="(appImagesService.getAppLogoUrl(appInstance?.applicationBaseId) | secure) || 'assets/images/app-logo-example.png'"
-                                     width="70px"/>
+                      <div>
+                        <p>{{ appInstance?.name }}</p>
+                        <p>{{ appInstance?.applicationName }}</p>
+                      </div>
+                      <div>
+                        @if (appInstance?.applicationBaseId) {
+                          <div class="img-container">
+                            <img alt="App logo"
+                              [src]="(appImagesService.getAppLogoUrl(appInstance?.applicationBaseId) | secure) || 'assets/images/app-logo-example.png'"
+                              width="70px"/>
                             </div>
-                            <div class="img-container" *ngIf="!appInstance?.applicationBaseId">
-                                <img alt="App logo" src="assets/images/app-logo-example.png" width="70px"/>
+                          }
+                          @if (!appInstance?.applicationBaseId) {
+                            <div class="img-container">
+                              <img alt="App logo" src="assets/images/app-logo-example.png" width="70px"/>
                             </div>
+                          }
                         </div>
+                      </div>
+                      @if (getStateAsEnum(appInstance?.state) == AppInstanceState.FAILURE) {
+                        <div>
+                          <p class="failure">{{ translateState(appInstance?.state) }}</p>
+                          <p-progressBar class="failure" [value]="100" [style]="{'height': '6px'}"></p-progressBar>
+                        </div>
+                      }
+                      @if (getStateAsEnum(appInstance?.state) == AppInstanceState.DEPLOYING ||
+                        getStateAsEnum(appInstance?.state) == AppInstanceState.CONFIGURATION_AWAITING ||
+                        getStateAsEnum(appInstance?.state) == AppInstanceState.CONNECTING ||
+                        getStateAsEnum(appInstance?.state) == AppInstanceState.REQUESTED ||
+                        getStateAsEnum(appInstance?.state) == AppInstanceState.VALIDATION ||
+                        getStateAsEnum(appInstance?.state) == AppInstanceState.PREPARATION) {
+                        <div>
+                          <p class="running">{{ translateState(appInstance?.state) }}</p>
+                          <p-progressBar class="running" mode="indeterminate" [style]="{'height': '8px'}"></p-progressBar>
+                        </div>
+                      }
+                      @if (getStateAsEnum(appInstance?.state) == AppInstanceState.RUNNING ) {
+                        <div>
+                          <p class="done">{{ translateState(appInstance?.state) }}</p>
+                          <p-progressBar class="done" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
+                        </div>
+                      }
+                      @if (getStateAsEnum(appInstance?.state) == AppInstanceState.PAUSED ) {
+                        <div>
+                          <p class="scaledDown">{{ translateState(appInstance?.state) }}</p>
+                          <p-progressBar class="scaledDown" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
+                        </div>
+                      }
+                      @if (getStateAsEnum(appInstance?.state) == AppInstanceState.DONE ||
+                        getStateAsEnum(appInstance?.state) == AppInstanceState.REMOVED ) {
+                        <div>
+                          <p class="removed">{{ translateState(appInstance?.state) }}</p>
+                          <p-progressBar class="removed" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
+                        </div>
+                      }
                     </div>
-                    <div *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.FAILURE">
-                        <p class="failure">{{ translateState(appInstance?.state) }}</p>
-                        <p-progressBar class="failure" [value]="100" [style]="{'height': '6px'}"></p-progressBar>
-                    </div>
-                    <div *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.DEPLOYING ||
-                    getStateAsEnum(appInstance?.state) == AppInstanceState.CONFIGURATION_AWAITING ||
-                    getStateAsEnum(appInstance?.state) == AppInstanceState.CONNECTING ||
-                    getStateAsEnum(appInstance?.state) == AppInstanceState.REQUESTED ||
-                    getStateAsEnum(appInstance?.state) == AppInstanceState.VALIDATION ||
-                    getStateAsEnum(appInstance?.state) == AppInstanceState.PREPARATION">
-                        <p class="running">{{ translateState(appInstance?.state) }}</p>
-                        <p-progressBar class="running" mode="indeterminate" [style]="{'height': '8px'}"></p-progressBar>
-                    </div>
-                    <div *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.RUNNING ">
-                        <p class="done">{{ translateState(appInstance?.state) }}</p>
-                        <p-progressBar class="done" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
-                    </div>
-                    <div *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.PAUSED ">
-                        <p class="scaledDown">{{ translateState(appInstance?.state) }}</p>
-                        <p-progressBar class="scaledDown" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
-                    </div>
-                    <div *ngIf="getStateAsEnum(appInstance?.state) == AppInstanceState.DONE ||
-                    getStateAsEnum(appInstance?.state) == AppInstanceState.REMOVED ">
-                        <p class="removed">{{ translateState(appInstance?.state) }}</p>
-                        <p-progressBar class="removed" [value]="100" [style]="{'height': '8px'}"></p-progressBar>
-                    </div>
-                </div>
-            </div>
+                  </div>
+                }
+              </div>
+            }
+          </div>
         </div>
-    </div>
-
-
-</div>
-<div style="margin-top:40px" *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']">
-    <h4 class="header"
-        *ngIf="isUndeployedVisible && selectedViewType === 'list'">{{ 'APP_INSTANCES.UNDEPLOYED' | translate }}</h4>
-    <div *ngIf="isUndeployedVisible && selectedViewType === 'list'" class="background-section"
-         style="margin-top:30px">
-        <p-table
-                [value]="appUndeployedInstances"
-                [lazy]="true"
-                [paginator]="true"
-                [rows]="10"
-                (onLazyLoad)="loadUndeployedInstancesLazy($event)"
-                [totalRecords]=totalUndeployedElements
-                [rowsPerPageOptions]="[5, 10, 20]"
-                [loading]="loadingUndeployedInstances"
-                [responsiveLayout]="'scroll'" aria-describedby="Undeployed instances">
-            <ng-template pTemplate="header">
+      }
+      <div style="margin-top:40px" *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']">
+        @if (isUndeployedVisible && selectedViewType === 'list') {
+          <h4 class="header"
+          >{{ 'APP_INSTANCES.UNDEPLOYED' | translate }}</h4>
+        }
+        @if (isUndeployedVisible && selectedViewType === 'list') {
+          <div class="background-section"
+            style="margin-top:30px">
+            <p-table
+              [value]="appUndeployedInstances"
+              [lazy]="true"
+              [paginator]="true"
+              [rows]="10"
+              (onLazyLoad)="loadUndeployedInstancesLazy($event)"
+              [totalRecords]=totalUndeployedElements
+              [rowsPerPageOptions]="[5, 10, 20]"
+              [loading]="loadingUndeployedInstances"
+              [responsiveLayout]="'scroll'" aria-describedby="Undeployed instances">
+              <ng-template pTemplate="header">
                 <tr>
-                    <th style="width:15%">{{ 'APP_INSTANCES.NAME' | translate }}</th>
-                    <th style="width:10%">{{ 'APP_INSTANCES.APPLICATION' | translate }}</th>
-                    <th style="width:10%">{{ 'APP_INSTANCES.VERSION' | translate }}</th>
+                  <th style="width:15%">{{ 'APP_INSTANCES.NAME' | translate }}</th>
+                  <th style="width:10%">{{ 'APP_INSTANCES.APPLICATION' | translate }}</th>
+                  <th style="width:10%">{{ 'APP_INSTANCES.VERSION' | translate }}</th>
+                  @if (domainId === undefined || domainId === domainService.getGlobalDomainId()) {
                     <th style="width:20%"
-                        *ngIf="domainId === undefined || domainId === domainService.getGlobalDomainId()">
-                        {{ 'APP_INSTANCES.DOMAIN' | translate }}
+                      >
+                      {{ 'APP_INSTANCES.DOMAIN' | translate }}
                     </th>
-                    <th style="width:10%">{{ 'APP_INSTANCES.CLUSTER' | translate }}</th>
-                    <th style="width:20%">{{ 'APP_INSTANCES.OWNER' | translate }}</th>
-                    <th style="width: 15%">{{ 'APP_INSTANCES.DEPLOYED_AT' | translate }}</th>
-                    <th style="width:15%"></th>
-                    <th style="width:10%">{{ 'APP_INSTANCES.STATE' | translate }}</th>
-                    <th></th>
+                  }
+                  <th style="width:10%">{{ 'APP_INSTANCES.CLUSTER' | translate }}</th>
+                  <th style="width:20%">{{ 'APP_INSTANCES.OWNER' | translate }}</th>
+                  <th style="width: 15%">{{ 'APP_INSTANCES.DEPLOYED_AT' | translate }}</th>
+                  <th style="width:15%"></th>
+                  <th style="width:10%">{{ 'APP_INSTANCES.STATE' | translate }}</th>
+                  <th></th>
                 </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-appInstance>
+              </ng-template>
+              <ng-template pTemplate="body" let-appInstance>
                 <tr [ngClass]="{'clickable': true}" [routerLink]="[appInstance.id]">
-                    <td>{{ appInstance?.name }}</td>
-                    <td>{{ appInstance?.applicationName }}</td>
-                    <td>{{ appInstance?.applicationVersion }}</td>
-                    <td *ngIf="domainId === undefined || domainId === domainService.getGlobalDomainId()">
-                        {{ appInstance?.domainName }}
+                  <td>{{ appInstance?.name }}</td>
+                  <td>{{ appInstance?.applicationName }}</td>
+                  <td>{{ appInstance?.applicationVersion }}</td>
+                  @if (domainId === undefined || domainId === domainService.getGlobalDomainId()) {
+                    <td>
+                      {{ appInstance?.domainName }}
                     </td>
-                    <td>{{appInstance?.remoteClusterId}}</td>
-                    <td>{{ appInstance?.owner?.username }}</td>
-                    <td>{{ appInstance?.createdAt | localDate:'dd-MM-yyyy HH:mm' }}</td>
-                    <td></td>
-                    <td>{{ translateState(appInstance?.state) }}</td>
-                    <td></td>
+                  }
+                  <td>{{appInstance?.remoteClusterId}}</td>
+                  <td>{{ appInstance?.owner?.username }}</td>
+                  <td>{{ appInstance?.createdAt | localDate:'dd-MM-yyyy HH:mm' }}</td>
+                  <td></td>
+                  <td>{{ translateState(appInstance?.state) }}</td>
+                  <td></td>
                 </tr>
-            </ng-template>
-        </p-table>
-    </div>
-</div>
+              </ng-template>
+            </p-table>
+          </div>
+        }
+      </div>
 
 
 

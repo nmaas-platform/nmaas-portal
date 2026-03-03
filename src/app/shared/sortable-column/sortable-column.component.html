@@ -1,3 +1,7 @@
-<em class="fa fa-chevron-up" *ngIf="sortDirection === 'asc'" ></em>
-<em class="fa fa-chevron-down" *ngIf="sortDirection === 'desc'"></em>
+@if (sortDirection === 'asc') {
+  <em class="fa fa-chevron-up" ></em>
+}
+@if (sortDirection === 'desc') {
+  <em class="fa fa-chevron-down"></em>
+}
 <ng-content></ng-content>

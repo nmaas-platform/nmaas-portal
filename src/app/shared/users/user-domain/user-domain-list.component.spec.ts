@@ -4,7 +4,7 @@ import { UserService } from '../../../service/user.service';
 import { DomainService } from '../../../service/domain.service';
 import { UserDataService } from '../../../service/userdata.service';
 import { AuthService } from '../../../auth/auth.service';
-import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { of, BehaviorSubject } from 'rxjs';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
@@ -14,6 +14,12 @@ import { User, UserListEntry } from '../../../model/user';
 import { Role } from '../../../model/userrole';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {ModalComponent} from '../../modal';
+
+class TranslateFakeLoader implements TranslateLoader {
+  getTranslation(lang: string) {
+    return of({});
+  }
+}
 
 describe('UserDomainListComponent', () => {
   let component: UserDomainListComponent;

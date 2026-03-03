@@ -6,8 +6,14 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {MonitorService} from '../../../../service/monitor.service';
 import {MonitorEntry} from '../../../../model/monitorentry';
 import {Observable, of} from 'rxjs';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {PipesModule} from '../../../../pipe/pipes.module';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 class MockMonitorService {
     private readonly url: string;

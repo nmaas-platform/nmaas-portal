@@ -1,12 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {UserDetailsComponent} from './userdetails.component';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {RouterTestingModule} from '@angular/router/testing';
 import {UserService} from '../../../service';
 import {AuthService} from '../../../auth/auth.service';
 import createSpyObj = jasmine.createSpyObj;
 import {CUSTOM_ELEMENTS_SCHEMA, Component} from '@angular/core';
+import {of} from 'rxjs';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 @Component({
     selector: 'nmaas-userdetails',

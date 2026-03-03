@@ -2,9 +2,16 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {AppPreviewComponent} from './apppreview.component';
 import {RouterTestingModule} from '@angular/router/testing';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {AppImagesService, AppsService} from '../../../service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {of} from 'rxjs';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('AppPreviewComponent', () => {
     let component: AppPreviewComponent;

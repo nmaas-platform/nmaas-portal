@@ -5,10 +5,17 @@ import {SshShellComponent} from '../ssh-shell/ssh-shell.component';
 import {NgTerminalModule} from 'ng-terminal';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
 import {Component} from '@angular/core';
 import {ModalComponent} from '../../../shared/modal';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {of} from 'rxjs';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 @Component({
     selector: 'nmaas-modal',

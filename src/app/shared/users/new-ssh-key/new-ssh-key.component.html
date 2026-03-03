@@ -11,30 +11,46 @@
           </label>
           <input pInputText id="new-ssh-key-name" type="text" class="form-control" formControlName="name">
         </div>
-        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
-          <div *ngIf="name.errors.required">{{'SSH_KEYS.MODAL.ERROR.NAME_REQUIRED' | translate}}</div>
-          <div *ngIf="name.errors.minlength">{{'SSH_KEYS.MODAL.ERROR.NAME_MINLENGTH' | translate}}</div>
-          <div *ngIf="name.errors.maxlength">{{'SSH_KEYS.MODAL.ERROR.NAME_MAXLENGTH' | translate}}</div>
-        </div>
+        @if (name.invalid && (name.dirty || name.touched)) {
+          <div class="alert alert-danger">
+            @if (name.errors.required) {
+              <div>{{'SSH_KEYS.MODAL.ERROR.NAME_REQUIRED' | translate}}</div>
+            }
+            @if (name.errors.minlength) {
+              <div>{{'SSH_KEYS.MODAL.ERROR.NAME_MINLENGTH' | translate}}</div>
+            }
+            @if (name.errors.maxlength) {
+              <div>{{'SSH_KEYS.MODAL.ERROR.NAME_MAXLENGTH' | translate}}</div>
+            }
+          </div>
+        }
         <div class="form-group">
           <label class="control-label" for="new-ssh-key-value">
             {{'SSH_KEYS.MODAL.LABEL.KEY' | translate}}:
           </label>
           <textarea pTextarea [autoResize]="false" [rows]="10" style="min-height: 252px; max-height: 300px" id="new-ssh-key-value" class="form-control" formControlName="key" rows="12"></textarea>
         </div>
-        <div *ngIf="key.invalid && (key.dirty || key.touched)" class="alert alert-danger">
-          <div *ngIf="key.errors.required">{{'SSH_KEYS.MODAL.ERROR.KEY_REQUIRED' | translate}}</div>
-          <div *ngIf="key.errors.pattern">{{'SSH_KEYS.MODAL.ERROR.KEY_PATTERN' | translate}}</div>
-        </div>
+        @if (key.invalid && (key.dirty || key.touched)) {
+          <div class="alert alert-danger">
+            @if (key.errors.required) {
+              <div>{{'SSH_KEYS.MODAL.ERROR.KEY_REQUIRED' | translate}}</div>
+            }
+            @if (key.errors.pattern) {
+              <div>{{'SSH_KEYS.MODAL.ERROR.KEY_PATTERN' | translate}}</div>
+            }
+          </div>
+        }
         <div style="display: flex; justify-content: flex-end">
           <button type="button" class="btn btn-secondary mr-2" (click)="modal.hide()">{{'SSH_KEYS.MODAL.BUTTON_CANCEL' | translate}}</button>
           <input type="submit" style="border-radius: 4px" class="btn btn-primary" value="{{'SSH_KEYS.MODAL.BUTTON_ADD' | translate}}" [disabled]="!requestForm.valid">
         </div>
 
       </form>
-      <div *ngIf="error" class="alert alert-danger">
-        {{error}}
-      </div>
+      @if (error) {
+        <div class="alert alert-danger">
+          {{error}}
+        </div>
+      }
 
     </div>
   </div>

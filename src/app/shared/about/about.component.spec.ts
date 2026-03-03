@@ -1,12 +1,18 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {AboutComponent} from './about.component';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {AppConfigService, ChangelogService} from '../../service';
 import {RouterTestingModule} from '@angular/router/testing';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
 import {Component} from '@angular/core';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 @Component({
     selector: 'app-contact',

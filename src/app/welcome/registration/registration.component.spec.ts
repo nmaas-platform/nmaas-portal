@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {RegistrationComponent} from './registration.component';
 import {ReCaptchaV3Service} from 'ng-recaptcha';
 import {ReactiveFormsModule} from '@angular/forms';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {RegistrationService} from '../../auth/registration.service';
 import {AppConfigService, ConfigurationService} from '../../service';
 import {ModalComponent} from '../../shared/modal';
@@ -11,6 +11,11 @@ import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
 import {RouterTestingModule} from '@angular/router/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('RegistrationComponent', () => {
     let component: RegistrationComponent;

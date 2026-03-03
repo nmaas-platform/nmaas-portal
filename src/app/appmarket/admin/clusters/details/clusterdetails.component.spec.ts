@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {ClusterDetailsComponent} from './clusterdetails.component';
 import {ClusterDetailsComponent as ClusterSharedDetailsComponent} from '../../../../shared/admin/clusters/details/clusterdetails.component';
 import {ClusterService} from '../../../../service/cluster.service';
@@ -8,6 +8,13 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppConfigService} from '../../../../service';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {of} from 'rxjs';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('Cluster details component', () => {
     let component: ClusterDetailsComponent;

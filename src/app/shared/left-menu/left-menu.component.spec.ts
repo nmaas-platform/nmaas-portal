@@ -6,7 +6,13 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { of, Subject } from 'rxjs';
 import {ProfileService} from '../../service/profile.service';
 import {AuthService} from '../../auth/auth.service';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {  TranslateLoader, TranslateModule} from '@ngx-translate/core';
+
+class TranslateFakeLoader implements TranslateLoader {
+  getTranslation(lang: string) {
+    return of({});
+  }
+}
 
 describe('LeftMenuComponent', () => {
   let component: LeftMenuComponent;

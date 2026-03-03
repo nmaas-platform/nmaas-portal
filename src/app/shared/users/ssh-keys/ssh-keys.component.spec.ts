@@ -2,11 +2,17 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {SshKeysComponent} from './ssh-keys.component';
 import {RouterTestingModule} from '@angular/router/testing';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {SSHKeyService} from '../../../service/sshkey.service';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('SshKeysComponent', () => {
     let component: SshKeysComponent;

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AppManagementListComponent } from './appmanagementlist.component';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {AppConfigService, AppsService} from '../../../service';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -17,6 +17,13 @@ import { ApplicationState } from '../../../model/application-state';
 import { Rate } from '../../../model';
 import { RemovalConfirmationModalComponent } from '../../domains/modals/removal-confirmation-modal/removal-confirmation-modal.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {of} from 'rxjs';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('AppManagementListComponent', () => {
   let component: AppManagementListComponent;

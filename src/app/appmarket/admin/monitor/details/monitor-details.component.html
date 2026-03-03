@@ -1,52 +1,69 @@
 <div >
-    <h4 class="header">{{'MONITOR_DETAILS.HEADER' | translate}}</h4>
-    <form *ngIf="monitorEntry" (submit)="submit()" class="form-horizontal" #monitorForm="ngForm">
-        <div class="background-section">
-            <div class="form-group">
-                <label for="serviceName" class="col-sm-2 control-label">{{'MONITOR_DETAILS.SERVICE_NAME' | translate}}:</label>
-                <div class="col-sm-10">
-                    <p class="control-label" id="serviceName" style="float: left" >{{services[monitorEntry.serviceName]}}</p>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="checkInterval" class="col-sm-2 control-label">{{'MONITOR_DETAILS.INTERVAL' | translate}}:</label>
-                <div class="col-sm-10">
-                    <div class="col-sm-6">
-                        <input pInputText type="number" class="form-control no-spin" [disabled]="isInMode(ComponentMode.VIEW)" id="checkInterval"
-                               name="checkInterval" [(ngModel)]="monitorEntry.checkInterval" #interval="ngModel" required/>
-                    </div>
-                    <div class="col-sm-6">
-                        <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" id="timeFormat" name="timeFormat"
-                                [(ngModel)]="monitorEntry.timeFormat"
-                                [disabled]="isInMode(ComponentMode.VIEW)"
-                                required [ngModelOptions]="{standalone: true}"
-                                #timeFormat="ngModel">
-                            <option *ngFor="let format of formats | keys" [ngValue]="format.value">
-                                {{format.value.toLocaleLowerCase()}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <div *ngIf="interval.invalid && (interval.dirty || interval.touched)" class="alert alert-danger">
-                        <div *ngIf="interval.errors.required">{{'MONITOR_DETAILS.INTERVAL_REQUIRED_ERROR' | translate}}</div>
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <div *ngIf="timeFormat.invalid && (timeFormat.dirty || timeFormat.touched)" class="alert alert-danger">
-                        <div *ngIf="timeFormat.errors.required">{{'MONITOR_DETAILS.TIME_FORMAT_REQUIRED_ERROR' | translate}}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="alert alert-danger" *ngIf="errMsg">
-                {{errMsg}}
-            </div>
-            <div class="flex justify-content-between">
-                <button type="button" class="btn btn-secondary" [routerLink]="['/admin/monitor']">{{'MONITOR_DETAILS.GO_BACK_BUTTON' | translate}}</button>
-                <button *ngIf="!isInMode(ComponentMode.VIEW)" [disabled]="!monitorForm.form.valid" type="submit"
-                        class="btn btn-primary">{{'MONITOR_DETAILS.SUBMIT_BUTTON' | translate}}</button>
-            </div>
+  <h4 class="header">{{'MONITOR_DETAILS.HEADER' | translate}}</h4>
+  @if (monitorEntry) {
+    <form (submit)="submit()" class="form-horizontal" #monitorForm="ngForm">
+      <div class="background-section">
+        <div class="form-group">
+          <label for="serviceName" class="col-sm-2 control-label">{{'MONITOR_DETAILS.SERVICE_NAME' | translate}}:</label>
+          <div class="col-sm-10">
+            <p class="control-label" id="serviceName" style="float: left" >{{services[monitorEntry.serviceName]}}</p>
+          </div>
         </div>
-    </form>
-    <div *ngIf="!monitorEntry">{{'MONITOR_DETAILS.NOT_FOUND_ERROR' | translate}}</div>
-</div>
+        <div class="form-group">
+          <label for="checkInterval" class="col-sm-2 control-label">{{'MONITOR_DETAILS.INTERVAL' | translate}}:</label>
+          <div class="col-sm-10">
+            <div class="col-sm-6">
+              <input pInputText type="number" class="form-control no-spin" [disabled]="isInMode(ComponentMode.VIEW)" id="checkInterval"
+                name="checkInterval" [(ngModel)]="monitorEntry.checkInterval" #interval="ngModel" required/>
+              </div>
+              <div class="col-sm-6">
+                <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" id="timeFormat" name="timeFormat"
+                  [(ngModel)]="monitorEntry.timeFormat"
+                  [disabled]="isInMode(ComponentMode.VIEW)"
+                  required [ngModelOptions]="{standalone: true}"
+                  #timeFormat="ngModel">
+                  @for (format of formats | keys; track format) {
+                    <option [ngValue]="format.value">
+                    {{format.value.toLocaleLowerCase()}}</option>
+                  }
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              @if (interval.invalid && (interval.dirty || interval.touched)) {
+                <div class="alert alert-danger">
+                  @if (interval.errors.required) {
+                    <div>{{'MONITOR_DETAILS.INTERVAL_REQUIRED_ERROR' | translate}}</div>
+                  }
+                </div>
+              }
+            </div>
+            <div class="col-sm-12">
+              @if (timeFormat.invalid && (timeFormat.dirty || timeFormat.touched)) {
+                <div class="alert alert-danger">
+                  @if (timeFormat.errors.required) {
+                    <div>{{'MONITOR_DETAILS.TIME_FORMAT_REQUIRED_ERROR' | translate}}</div>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+          @if (errMsg) {
+            <div class="alert alert-danger">
+              {{errMsg}}
+            </div>
+          }
+          <div class="flex justify-content-between">
+            <button type="button" class="btn btn-secondary" [routerLink]="['/admin/monitor']">{{'MONITOR_DETAILS.GO_BACK_BUTTON' | translate}}</button>
+            @if (!isInMode(ComponentMode.VIEW)) {
+              <button [disabled]="!monitorForm.form.valid" type="submit"
+              class="btn btn-primary">{{'MONITOR_DETAILS.SUBMIT_BUTTON' | translate}}</button>
+            }
+          </div>
+        </div>
+      </form>
+    }
+    @if (!monitorEntry) {
+      <div>{{'MONITOR_DETAILS.NOT_FOUND_ERROR' | translate}}</div>
+    }
+  </div>

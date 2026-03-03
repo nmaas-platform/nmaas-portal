@@ -2,11 +2,17 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {RouterTestingModule} from '@angular/router/testing';
 import {RateComponent} from './rate.component';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {AppsService} from '../../service';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
 import {Rate} from '../../model';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 
 describe('RateComponent', () => {

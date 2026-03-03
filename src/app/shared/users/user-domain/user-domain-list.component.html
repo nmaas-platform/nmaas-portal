@@ -3,152 +3,163 @@
 <h4 class="header"> {{ 'NAVBAR.DOMAIN_USERS' | translate }}</h4>
 <div class="" style="display: flex; margin-top:20px">
 
-<!--    <div *ngIf="isInAddToDomainMode" style="margin-right: 15px; padding-top: 5px;"> {{'USERS.SEARCH' |-->
+  <!--    <div *ngIf="isInAddToDomainMode" style="margin-right: 15px; padding-top: 5px;"> {{'USERS.SEARCH' |-->
 <!--        translate}}</div>-->
 
-    <div class="flex" style="margin-right:20px">
-        <p-iconfield class="p-input-icon-right" style="width: 100%">
-            <input pInputText name="searchText" id="searchText" placeholder="Search" type="text" class="form-control"
-                [(ngModel)]="searchValue" (keyup)="onSearchValueChange($event.target.value)"
-                (keyup.enter)="applyFilter()">
-            <p-inputicon class="pi pi-search" style="font-size: 13px;"></p-inputicon>
-        </p-iconfield>
-    </div>
+<div class="flex" style="margin-right:20px">
+  <p-iconfield class="p-input-icon-right" style="width: 100%">
+    <input pInputText name="searchText" id="searchText" placeholder="Search" type="text" class="form-control"
+      [(ngModel)]="searchValue" (keyup)="onSearchValueChange($event.target.value)"
+      (keyup.enter)="applyFilter()">
+      <p-inputicon class="pi pi-search" style="font-size: 13px;"></p-inputicon>
+    </p-iconfield>
+  </div>
 
+  @if (authService.hasDomainRole(domainId, 'ROLE_DOMAIN_ADMIN') || authService.hasDomainRole(domainId, 'ROLE_GROUP_DOMAIN_ADMIN')) {
     <button
-        *ngIf="authService.hasDomainRole(domainId, 'ROLE_DOMAIN_ADMIN') || authService.hasDomainRole(domainId, 'ROLE_GROUP_DOMAIN_ADMIN')"
-        class="btn btn-primary" (click)="showModal()">
-        {{'USERS.ADD_TO_DOMAIN_BUTTON' | translate}}
-<!--        <span *ngIf="isInMode(ComponentMode.EDIT)">{{'USERS.GO_BACK_BUTTON' | translate}}</span>-->
+      class="btn btn-primary" (click)="showModal()">
+      {{'USERS.ADD_TO_DOMAIN_BUTTON' | translate}}
+      <!--        <span *ngIf="isInMode(ComponentMode.EDIT)">{{'USERS.GO_BACK_BUTTON' | translate}}</span>-->
     </button>
+  }
 </div>
 
 
 
 <div class="background-section">
-    <p-table [value]="users" [lazy]="true" (onLazyLoad)="onTableLazyLoad($event)"
-        [totalRecords]="paginationSettings.totalElements" [rows]="paginationSettings.maxItemsOnPage"
-        [rowsPerPageOptions]="[15,20,25,50]" [paginator]="true" [loading]="loading"
-        [sortField]="paginationSettings.sortField" [sortOrder]="paginationSettings.sortOrder === 'asc' ? 1 : -1">
-        <ng-template pTemplate="header">
-            <tr>
-                <th scope="col" class="column-sortable" pSortableColumn="username">
-                    {{ 'USERS.USER_NAME' | translate }}
-                    <p-sortIcon field="username"></p-sortIcon>
-                </th>
-                <th scope="col" class="column-sortable" pSortableColumn="lastname">
-                    {{'USERS.NAME' | translate}}
-                    <p-sortIcon field="lastname"></p-sortIcon>
-                </th>
+  <p-table [value]="users" [lazy]="true" (onLazyLoad)="onTableLazyLoad($event)"
+    [totalRecords]="paginationSettings.totalElements" [rows]="paginationSettings.maxItemsOnPage"
+    [rowsPerPageOptions]="[15,20,25,50]" [paginator]="true" [loading]="loading"
+    [sortField]="paginationSettings.sortField" [sortOrder]="paginationSettings.sortOrder === 'asc' ? 1 : -1">
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col" class="column-sortable" pSortableColumn="username">
+          {{ 'USERS.USER_NAME' | translate }}
+          <p-sortIcon field="username"></p-sortIcon>
+        </th>
+        <th scope="col" class="column-sortable" pSortableColumn="lastname">
+          {{'USERS.NAME' | translate}}
+          <p-sortIcon field="lastname"></p-sortIcon>
+        </th>
 
-                <th scope="col" class="column-sortable" pSortableColumn="roles">
-                    {{ 'USERS.ROLES' | translate }}
-                    <p-sortIcon field="roles"></p-sortIcon>
-                </th>
+        <th scope="col" class="column-sortable" pSortableColumn="roles">
+          {{ 'USERS.ROLES' | translate }}
+          <p-sortIcon field="roles"></p-sortIcon>
+        </th>
 
-                <th scope="col" class="column-sortable" pSortableColumn="enabled">
-                    {{ 'USERS.ENABLED' | translate }}
-                    <p-sortIcon field="enabled"></p-sortIcon>
-                </th>
-                <th scope="col">&nbsp;</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-user>
-            <tr>
-                <td>{{user?.username}}</td>
-                <td>{{user?.name}}</td>
+        <th scope="col" class="column-sortable" pSortableColumn="enabled">
+          {{ 'USERS.ENABLED' | translate }}
+          <p-sortIcon field="enabled"></p-sortIcon>
+        </th>
+        <th scope="col">&nbsp;</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr>
+        <td>{{user?.username}}</td>
+        <td>{{user?.name}}</td>
 
-                <td *ngIf="domainId !== domainService.getGlobalDomainId() && !isModeAllowed(ComponentMode.EDIT)">
-                    <div *roles="['ROLE_DOMAIN_ADMIN'];excluded:['ROLE_SYSTEM_ADMIN']">
-                        <div *ngIf="!checkUserIfIsCurrentUser(user.username)">
-                            <li [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']"
-                                class="dropdown dropdown-domains">
-                                <a aria-expanded="false" data-close-others="true" aria-haspopup="true"
-                                    class="dropdown-toggle" data-toggle="dropdown" role="button">
-                                    <span style="color: var(--p-text-0);">{{"ENUM.USER_ROLES." + user.domainRole | translate}}
-                                        <strong class="caret"></strong>
-                                    </span>
-                                </a>
-                                <ul class="dropdown-menu" style="left: 0; right:unset;">
-                                    <li *ngFor="let role of getAllowedRoles()">
-                                        <a (click)="changeUserRole(user,domainId, {value:role})">{{"ENUM.USER_ROLES." +
-                                            Role[role].toUpperCase() | translate}}</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </div>
-                        <div *ngIf="checkUserIfIsCurrentUser(user.username)">
-                            <span>
-                                {{"ENUM.USER_ROLES." + user.domainRole | translate}}
-                            </span>
-                        </div>
-                    </div>
-                </td>
+        @if (domainId !== domainService.getGlobalDomainId() && !isModeAllowed(ComponentMode.EDIT)) {
+          <td>
+            <div *roles="['ROLE_DOMAIN_ADMIN'];excluded:['ROLE_SYSTEM_ADMIN']">
+              @if (!checkUserIfIsCurrentUser(user.username)) {
+                <div>
+                  <li [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']"
+                    class="dropdown dropdown-domains">
+                    <a aria-expanded="false" data-close-others="true" aria-haspopup="true"
+                      class="dropdown-toggle" data-toggle="dropdown" role="button">
+                      <span style="color: var(--p-text-0);">{{"ENUM.USER_ROLES." + user.domainRole | translate}}
+                        <strong class="caret"></strong>
+                      </span>
+                    </a>
+                    <ul class="dropdown-menu" style="left: 0; right:unset;">
+                      @for (role of getAllowedRoles(); track role) {
+                        <li>
+                          <a (click)="changeUserRole(user,domainId, {value:role})">{{"ENUM.USER_ROLES." +
+                          Role[role].toUpperCase() | translate}}</a>
+                        </li>
+                      }
+                    </ul>
+                  </li>
+                </div>
+              }
+              @if (checkUserIfIsCurrentUser(user.username)) {
+                <div>
+                  <span>
+                    {{"ENUM.USER_ROLES." + user.domainRole | translate}}
+                  </span>
+                </div>
+              }
+            </div>
+          </td>
+        }
 
-                <td>
-                    <i class="pi" [ngClass]="{'pi-check': user?.enabled, 'pi-times': !user?.enabled}"></i>
-                </td>
-                <td>
-                    <span *ngIf="!checkUserIfIsCurrentUser(user.username)">
-                        <a style="display: inline-block" class="" aria-expanded="false" aria-haspopup="true"
-                            role="button" (click)="onRemoveRole({id: user.id, value: user.domainRole});$event.stopPropagation()">
-                            <em class="pi pi-trash" style="font-size: 1.4rem; color: var(--p-primary-900)"></em>
-                        </a>
-                    </span>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+        <td>
+          <i class="pi" [ngClass]="{'pi-check': user?.enabled, 'pi-times': !user?.enabled}"></i>
+        </td>
+        <td>
+          @if (!checkUserIfIsCurrentUser(user.username)) {
+            <span>
+              <a style="display: inline-block" class="" aria-expanded="false" aria-haspopup="true"
+                role="button" (click)="onRemoveRole({id: user.id, value: user.domainRole});$event.stopPropagation()">
+                <em class="pi pi-trash" style="font-size: 1.4rem; color: var(--p-primary-900)"></em>
+              </a>
+            </span>
+          }
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 
 </div>
 <nmaas-modal styleModal="info" #addUser>
-        <div class="nmaas-modal-header">{{ 'USERS.ADD_TO_DOMAIN_BUTTON' | translate }}</div>
-    <div class="nmaas-modal-body">
-        <div style="margin-bottom: 30px">
-            <p>{{'DOMAINS.ADD_INFO' | translate}}</p>
-            <div style="display: flex">
-            <input type="text" class="form-control" placeholder="{{ 'USERS.SEARCH' | translate }}" [(ngModel)]="searchInModalValue">
+  <div class="nmaas-modal-header">{{ 'USERS.ADD_TO_DOMAIN_BUTTON' | translate }}</div>
+  <div class="nmaas-modal-body">
+    <div style="margin-bottom: 30px">
+      <p>{{'DOMAINS.ADD_INFO' | translate}}</p>
+      <div style="display: flex">
+        <input type="text" class="form-control" placeholder="{{ 'USERS.SEARCH' | translate }}" [(ngModel)]="searchInModalValue">
 
-                <button class="btn btn-primary ml-2" (click)="searchUsers(searchInModalValue)">
-                {{ 'SEARCH' | translate }}
-            </button>
-            </div>
-        </div>
-        <p-table [value]="usersToAdd" [lazy]="false"
-                 [sortOrder]="paginationSettings.sortOrder === 'asc' ? 1 : -1">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th scope="col" class="column-sortable" pSortableColumn="username">
-                        {{ 'USERS.USER_NAME' | translate }}
-                    </th>
-                    <th scope="col" class="column-sortable" pSortableColumn="lastname">
-                        {{'USERS.NAME' | translate}}
-                    </th>
-                    <th scope="col" class="column-sortable" pSortableColumn="enabled">
-                        {{ 'USERS.ENABLED' | translate }}
-                    </th>
-                    <th scope="col">&nbsp;</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-user>
-                <tr>
-                    <td>{{user?.username}}</td>
-                    <td>{{user?.firstname}} {{user?.lastname}}</td>
-                    <td>
-                        <i class="pi" [ngClass]="{'pi-check': user?.enabled, 'pi-times': !user?.enabled}"></i>
-                    </td>
-                    <td>
-                    <span>
-                        <a (click)="addToCurrentDomain(user);$event.stopPropagation()">
-                                        {{'USERS.GRANT_USER_ROLE_IN_CURRENT_DOMAIN_BUTTON' | translate}}
-                        </a>
-                    </span>
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
+        <button class="btn btn-primary ml-2" (click)="searchUsers(searchInModalValue)">
+          {{ 'SEARCH' | translate }}
+        </button>
+      </div>
     </div>
-    <div class="nmaas-modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="closeModal()">{{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}</button>
-    </div>
+    <p-table [value]="usersToAdd" [lazy]="false"
+      [sortOrder]="paginationSettings.sortOrder === 'asc' ? 1 : -1">
+      <ng-template pTemplate="header">
+        <tr>
+          <th scope="col" class="column-sortable" pSortableColumn="username">
+            {{ 'USERS.USER_NAME' | translate }}
+          </th>
+          <th scope="col" class="column-sortable" pSortableColumn="lastname">
+            {{'USERS.NAME' | translate}}
+          </th>
+          <th scope="col" class="column-sortable" pSortableColumn="enabled">
+            {{ 'USERS.ENABLED' | translate }}
+          </th>
+          <th scope="col">&nbsp;</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-user>
+        <tr>
+          <td>{{user?.username}}</td>
+          <td>{{user?.firstname}} {{user?.lastname}}</td>
+          <td>
+            <i class="pi" [ngClass]="{'pi-check': user?.enabled, 'pi-times': !user?.enabled}"></i>
+          </td>
+          <td>
+            <span>
+              <a (click)="addToCurrentDomain(user);$event.stopPropagation()">
+                {{'USERS.GRANT_USER_ROLE_IN_CURRENT_DOMAIN_BUTTON' | translate}}
+              </a>
+            </span>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="nmaas-modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">{{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}</button>
+  </div>
 </nmaas-modal>

@@ -2,13 +2,20 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {DomainComponent} from './domain.component';
 import {RouterTestingModule} from '@angular/router/testing';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {AppsService, DomainService, UserService} from '../../../service';
 import {AuthService} from '../../../auth/auth.service';
 import {SharedModule} from '../../../shared';
 import {FormsModule} from '@angular/forms';
 import createSpyObj = jasmine.createSpyObj;
 import {ToastContainerComponent} from '../../../shared/toast-container/toast-container.component';
+import {of} from 'rxjs';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('DomainComponent', () => {
     let component: DomainComponent;

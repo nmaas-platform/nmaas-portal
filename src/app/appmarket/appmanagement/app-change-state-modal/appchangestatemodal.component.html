@@ -2,45 +2,61 @@
   <div class="nmaas-modal-header">{{'APP_CHANGE_STATE_MODAL.HEADER' | translate:{'app_name': appName, 'app_version': app?.version} }}</div>
   <div class="nmaas-modal-body">
     <div class="form-group">
-      <div style="padding-top: 15px; display: flex; flex-direction: column" class="" *ngIf="app.state">
-        <p class="col-sm-12"><strong>{{'APP_CHANGE_STATE_MODAL.CURRENT_STATE' | translate}}: </strong></p>
-        <p class="col-sm-12">{{"ENUM.STATE." + getStateAsString(app?.state).toUpperCase() | translate}}</p>
-      </div>
+      @if (app.state) {
+        <div style="padding-top: 15px; display: flex; flex-direction: column" class="">
+          <p class="col-sm-12"><strong>{{'APP_CHANGE_STATE_MODAL.CURRENT_STATE' | translate}}: </strong></p>
+          <p class="col-sm-12">{{"ENUM.STATE." + getStateAsString(app?.state).toUpperCase() | translate}}</p>
+        </div>
+      }
       <div style="display: flex; flex-direction: column">
         <label for="changeState" class="col-sm-12 control-label">{{'APP_CHANGE_STATE_MODAL.NEW_STATE' | translate}}:</label>
 
         <span class="col-md-12">
           <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);"  class="form-control" id="changeState" name="changeState" #changeState="ngModel" [(ngModel)]="stateChange.state" required>
-            <option *ngFor="let state of stateList" [value]="state">{{"ENUM.STATE." + getStateAsString(state).toUpperCase() | translate}}</option>
+            @for (state of stateList; track state) {
+              <option [value]="state">{{"ENUM.STATE." + getStateAsString(state).toUpperCase() | translate}}</option>
+            }
           </select>
         </span>
-        <div *ngIf="getStateAsString(stateChange?.state) != 'ACTIVE' && getStateAsString(stateChange?.state) != 'NEW'" style="padding-top:10px">
-          <label for="reason" class="col-sm-12 control-label">{{'APP_CHANGE_STATE_MODAL.REASON' | translate}}:</label>
+        @if (getStateAsString(stateChange?.state) != 'ACTIVE' && getStateAsString(stateChange?.state) != 'NEW') {
+          <div style="padding-top:10px">
+            <label for="reason" class="col-sm-12 control-label">{{'APP_CHANGE_STATE_MODAL.REASON' | translate}}:</label>
+            <br>
+              <span class="col-md-12">
+                <textarea pTextarea class="" style="width: 100%" id="reason" name="reason" placeholder="{{'APP_CHANGE_STATE_MODAL.REASON_PLACEHOLDER' | translate}}" [(ngModel)]="stateChange.reason"></textarea>
+              </span>
+            </div>
+          }
+          @if (getStateAsString(stateChange?.state) == 'ACTIVE') {
+            <div>
+              <input type="checkbox" id="sendEmail" name="sendEmail" [(ngModel)]="stateChange.shouldSendNotification">
+              <label for="sendEmail">{{ 'APPS_MANAGEMENT.SEND_NOTIFICATION' | translate }}</label><br>
+              @if (stateChange.shouldSendNotification) {
+                <span class="col-md-12">
+                  <textarea pTextarea class="form-control" style="width: 100%" id="emailContext" name="emailContext" placeholder="{{'APPS_MANAGEMENT.NOTIFICATION_CONTENT' | translate}}" [(ngModel)]="stateChange.notificationText"></textarea>
+                </span>
+              }
+            </div>
+          }
+        </div>
+        @if (errorMessage) {
           <br>
-          <span class="col-md-12">
-            <textarea pTextarea class="" style="width: 100%" id="reason" name="reason" placeholder="{{'APP_CHANGE_STATE_MODAL.REASON_PLACEHOLDER' | translate}}" [(ngModel)]="stateChange.reason"></textarea>
-          </span>
+          }
+          @if (errorMessage && translateError) {
+            <div class="alert alert-danger text-left">
+              {{errorMessage | translate}}
+            </div>
+          }
+          @if (errorMessage && !translateError) {
+            <div class="alert alert-danger text-left">
+              {{errorMessage}}
+            </div>
+          }
         </div>
-        <div *ngIf="getStateAsString(stateChange?.state) == 'ACTIVE'">
-          <input type="checkbox" id="sendEmail" name="sendEmail" [(ngModel)]="stateChange.shouldSendNotification">
-          <label for="sendEmail">{{ 'APPS_MANAGEMENT.SEND_NOTIFICATION' | translate }}</label><br>
-          <span class="col-md-12" *ngIf="stateChange.shouldSendNotification">
-          <textarea pTextarea class="form-control" style="width: 100%" id="emailContext" name="emailContext" placeholder="{{'APPS_MANAGEMENT.NOTIFICATION_CONTENT' | translate}}" [(ngModel)]="stateChange.notificationText"></textarea>
-          </span>
-        </div>
       </div>
-      <br *ngIf="errorMessage">
-      <div class="alert alert-danger text-left" *ngIf="errorMessage && translateError">
-        {{errorMessage | translate}}
+      <div class="nmaas-modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.hide()">{{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="submit()" [disabled]="changeState.invalid">{{'APP_CHANGE_STATE_MODAL.CHANGE_STATE_BUTTON' | translate}}</button>
       </div>
-      <div class="alert alert-danger text-left" *ngIf="errorMessage && !translateError">
-        {{errorMessage}}
-      </div>
-    </div>
-  </div>
-  <div class="nmaas-modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="modal.hide()">{{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}</button>
-    <button type="button" class="btn btn-primary" (click)="submit()" [disabled]="changeState.invalid">{{'APP_CHANGE_STATE_MODAL.CHANGE_STATE_BUTTON' | translate}}</button>
-  </div>
-</nmaas-modal>
+    </nmaas-modal>
 

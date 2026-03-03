@@ -5,7 +5,14 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {RouterModule} from '@angular/router';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {  TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {of} from 'rxjs';
+
+class TranslateFakeLoader implements TranslateLoader {
+  getTranslation(lang: string) {
+    return of({});
+  }
+}
 
 describe('AppnavigatorComponent', () => {
   let component: AppnavigatorComponent;

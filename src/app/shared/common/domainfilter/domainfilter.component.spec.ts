@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {DomainFilterComponent} from './domainfilter.component';
 import {RouterTestingModule} from '@angular/router/testing';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import createSpyObj = jasmine.createSpyObj;
 import {DomainService} from '../../../service';
 import {AuthService} from '../../../auth/auth.service';
@@ -12,6 +12,12 @@ import {Domain} from '../../../model/domain';
 import {ProfileService} from '../../../service/profile.service';
 import {User} from '../../../model';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('DomainFilterComponent', () => {
     let component: DomainFilterComponent;

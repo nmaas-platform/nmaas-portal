@@ -3,8 +3,15 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {AppStorageVolumeEditComponent} from './app-storage-volume-edit.component';
 import {FormsModule} from '@angular/forms';
 import {ServiceStorageVolumeType} from '../../../model/service-storage-volume';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import {of} from 'rxjs';
+
+class TranslateFakeLoader implements TranslateLoader {
+  getTranslation(lang: string) {
+    return of({});
+  }
+}
 
 describe('AppStorageVolumeEditComponent', () => {
   let component: AppStorageVolumeEditComponent;

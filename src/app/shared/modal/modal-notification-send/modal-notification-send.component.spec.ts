@@ -4,10 +4,17 @@ import { ModalNotificationSendComponent } from './modal-notification-send.compon
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ModalComponent} from '../modal.component';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import {ToastContainerComponent} from '../../toast-container/toast-container.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {of} from 'rxjs';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 describe('ModalNotificationSendComponent', () => {
   let component: ModalNotificationSendComponent;

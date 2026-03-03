@@ -3,9 +3,16 @@ import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {AppAccessMethodEditComponent} from './app-access-method-edit.component';
 import {FormsModule} from '@angular/forms';
 import {ServiceAccessMethodType} from '../../../model/service-access-method';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {  TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {ConditionType} from '../../../model/app-access-method';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import {of} from 'rxjs';
+
+class TranslateFakeLoader implements TranslateLoader {
+  getTranslation(lang: string) {
+    return of({});
+  }
+}
 
 describe('AppAccessMethodEditComponent', () => {
   let component: AppAccessMethodEditComponent;

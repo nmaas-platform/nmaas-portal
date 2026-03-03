@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {AppInstanceComponent} from './appinstance.component';
 import {FormsModule} from '@angular/forms';
 import {JwtModule} from '@auth0/angular-jwt';
-import {TranslateFakeLoader, TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
 import {AppConfigService, AppImagesService, AppInstanceService, AppsService, DomainService} from '../../../service';
 import {AuthService} from '../../../auth/auth.service';
 import {of} from 'rxjs';
@@ -37,6 +37,12 @@ import {ConfirmationService} from 'primeng/api';
 import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 import {Tag} from '../../../model/tag';
 import {DomainApplicationStatePerDomain} from '../../../model/domainapplicationstateperdomain';
+
+class TranslateFakeLoader implements TranslateLoader {
+    getTranslation(lang: string) {
+        return of({});
+    }
+}
 
 @Pipe({
     name: 'secure',
