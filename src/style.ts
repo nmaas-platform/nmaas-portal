@@ -232,6 +232,11 @@ export const MyPreset = definePreset(Nora, {
         label: {
             color: '{text.0}'
         },
+        tabs: {
+            tablist: {
+                background: 'transparent'
+            }
+        }
     }
 });
 
