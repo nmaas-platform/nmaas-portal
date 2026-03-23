@@ -15,5 +15,5 @@ export class Configuration {
     public deploymentPrefix: string;
     public bulkDeploymentTimeThreshold: number;
     public defaultDomainForSsoUsers: number;
-    public appInstanceLengthLimit: number;
+    public appInstanceNameLengthLimit: number;
 }
