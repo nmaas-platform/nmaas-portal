@@ -6,7 +6,7 @@ stages:
 
 test:
   stage: test
-  image: trion/ng-cli-karma:21.2.3
+  image: trion/ng-cli-karma:21.2.5
   script:
     - npm ci --force
     - ng build
