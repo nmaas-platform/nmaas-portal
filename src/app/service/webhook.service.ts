@@ -1,21 +1,23 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
-import { AppConfigService } from './appconfig.service';
-import { GenericDataService } from './genericdata.service';
+import {Observable} from 'rxjs';
+import {AppConfigService} from './appconfig.service';
+import {GenericDataService} from './genericdata.service';
 import {Webhook, WebhookType} from '../model/webhook';
-import { Id } from '../model';
+import {Id} from '../model';
 import {WebhookHistory} from '../model/webhook-history';
+import {Page, PaginatorEvent} from './page';
+import {PaginationService} from './pagination.service';
 
 @Injectable()
 export class WebhookService extends GenericDataService {
 
 
-  protected url: string;
-  
-    constructor(http: HttpClient, appConfig: AppConfigService) {
-          super(http, appConfig);
-          this.url = this.appConfig.getApiUrl() + '/webhooks';
+    protected url: string;
+
+    constructor(http: HttpClient, appConfig: AppConfigService, private paggination: PaginationService) {
+        super(http, appConfig);
+        this.url = this.appConfig.getApiUrl() + '/webhooks';
     }
 
 
@@ -23,11 +25,20 @@ export class WebhookService extends GenericDataService {
         return this.get<Webhook[]>(this.url);
     }
 
+    public getAllPageable(paginatorEvent: PaginatorEvent, searchValue: string = ''): Observable<Page<Webhook>> {
+        const customFilters = {
+            searchValue: searchValue
+        };
+        const params = this.paggination.getPaginationAndFilterParams(paginatorEvent, customFilters);
+
+        return this.http.get<Page<Webhook>>(this.url, {params});
+    }
+
     public create(webhook: Webhook) {
         return this.post<Webhook, Id>(this.url, webhook);
     }
 
-     public getOne(id: number) {
+    public getOne(id: number) {
         return this.get<Webhook>(this.url + '/' + id);
     }
 
@@ -66,11 +77,15 @@ export class WebhookService extends GenericDataService {
         }
         if (eventType) {
             params['eventType'] = eventType;
-        } if (domainCodename) {
+        }
+        if (domainCodename) {
             params['domainCodename'] = domainCodename;
-        } if (from) {
+        }
+        if (from) {
             params['from'] = from.toISOString().split('.')[0];
-        } if (to) { params['to'] = to.toISOString().split('.')[0];
+        }
+        if (to) {
+            params['to'] = to.toISOString().split('.')[0];
         }
         return this.http.get<WebhookHistory[]>(this.appConfig.getApiUrl() + '/webhooks-history', {params});
     }
@@ -82,14 +97,18 @@ export class WebhookService extends GenericDataService {
         }
         if (eventType) {
             params['eventType'] = eventType;
-        } if (from) {
+        }
+        if (from) {
             params['from'] = from.toISOString().split('.')[0];
-        } if (to) { params['to'] = to.toISOString().split('.')[0];
+        }
+        if (to) {
+            params['to'] = to.toISOString().split('.')[0];
         }
         return this.http.get<WebhookHistory[]>(this.appConfig.getApiUrl() + '/webhooks-history/domain/' + domainId, {params});
     }
+
     public getOneHistory(id: number) {
-        return this.get<WebhookHistory>(this.appConfig.getApiUrl() + '/webhooks-history/' + id );
+        return this.get<WebhookHistory>(this.appConfig.getApiUrl() + '/webhooks-history/' + id);
     }
 
 }
