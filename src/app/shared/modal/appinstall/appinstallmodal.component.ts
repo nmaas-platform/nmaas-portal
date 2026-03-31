@@ -2,11 +2,12 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 
 import {ModalComponent} from '..';
-import {AppInstanceService, DomainService} from '../../../service';
+import {AppInstanceService, ConfigurationService, DomainService} from '../../../service';
 import {UserDataService} from '../../../service/userdata.service';
 import {Domain} from '../../../model/domain';
 import {ApplicationBase} from '../../../model/application-base';
 import {ApplicationState} from '../../../model/application-state';
+import {Configuration} from '../../../model/configuration';
 
 @Component({
     selector: 'nmaas-modal-app-install',
@@ -40,12 +41,14 @@ export class AppInstallModalComponent implements OnInit {
 
     isRemoteClusterAvailable: boolean = false;
     showClusterOptions: boolean = false;
+    public configuration: Configuration;
 
     public clicked = false;
 
     constructor(private appInstanceService: AppInstanceService,
                 private domainService: DomainService,
                 private userDataService: UserDataService,
+                private configurationService: ConfigurationService,
                 private router: Router) {
     }
 
@@ -57,6 +60,7 @@ export class AppInstallModalComponent implements OnInit {
         this.domainId = this.domain.id;
         this.domainName = this.domain.name;
         this.autoUpgradesEnabled = false;
+        this.configurationService.getConfiguration().subscribe(value => this.configuration = value);
     }
 
     public create(): void {

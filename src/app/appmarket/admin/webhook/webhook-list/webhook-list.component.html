@@ -1,169 +1,169 @@
 <h4 class="header">{{ 'WEBHOOKS.TITLE' | translate }}</h4>
 <div style="display: flex; align-items: center;  margin-top:20px">
-  <div style=" display:flex; align-items: center;">
-    <p-iconfield class="p-input-icon-right" style="margin-right:20px">
-      <input pInputText class="form-control" name="search" id="search"
-        placeholder="Search" type="text" [(ngModel)]="searchValue"  (ngModelChange)="filterWebhooks()">
-        <p-inputicon class="pi pi-search" style="font-size: 13px;"></p-inputicon>
-      </p-iconfield>
-      <div >
-        <button class="btn btn-primary" (click)="openModal()">{{'WEBHOOKS.NEW' | translate}}</button>
-      </div>
+    <div style=" display:flex; align-items: center;">
+        <p-iconfield class="p-input-icon-right" style="margin-right:20px">
+            <input pInputText name="searchText" id="searchText" placeholder="Search" type="text" class="form-control"
+                   [(ngModel)]="searchValue"
+                   (keyup)="onSearchValueChange($event.target.value)" (keyup.enter)="applyFilter()">
+            <p-inputicon class="pi pi-search" style="font-size: 13px;"></p-inputicon>
+        </p-iconfield>
+        <div>
+            <button class="btn btn-primary" (click)="openModal()">{{ 'WEBHOOKS.NEW' | translate }}</button>
+        </div>
     </div>
     <div class="flex" style="margin-right:20px">
 
     </div>
-  </div>
+</div>
 
 
-  <div class="background-section">
+<div class="background-section">
     <p-table
-      [value]="filteredWebhooks"
-      [paginator]="true"
-      [rows]="maxItemsOnPage"
-      [rowsPerPageOptions]="[15, 20, 25, 30, 50]"
-      [responsiveLayout]="'scroll'">
-      <ng-template pTemplate="header">
-        <tr>
-          <th  pSortableColumn="id" id="id"> {{ 'WEBHOOKS.ID' | translate }}
-            <p-sortIcon field="id"></p-sortIcon>
-          </th>
-          <th pSortableColumn="name" id="name"> {{ 'WEBHOOKS.NAME' | translate }}
-            <p-sortIcon field="name"></p-sortIcon>
-          </th>
-          <th pSortableColumn="eventType" id="type"> {{ 'WEBHOOKS.TYPE' | translate }}
-            <p-sortIcon field="eventType"></p-sortIcon>
-          </th>
-          <th pSortableColumn="targetUrl" id="url"> {{ 'WEBHOOKS.TARGET_URL' | translate }}
-            <p-sortIcon field="targetUrl"></p-sortIcon>
-          </th>
-          @if (selectedDomain == domainGlobalId ) {
-            <th pSortableColumn="domain" id="domain"> {{ 'WEBHOOKS.DOMAIN' | translate }}
-              <p-sortIcon field="domain"></p-sortIcon>
-            </th>
-          }
-          <th></th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-webhook>
-        <tr>
-          <td  [routerLink]="[webhook.id]">{{webhook.id}}</td>
-          <td [routerLink]="[webhook.id]">{{webhook.name}}</td>
-          <td [routerLink]="[webhook.id]">{{('WEBHOOKS.' + webhook.eventType.toString().toUpperCase() ) | translate}}</td>
-          <td [routerLink]="[webhook.id]">{{webhook.targetUrl}}</td>
-          @if (selectedDomain == domainGlobalId) {
-            <td [routerLink]="[webhook.id]">{{webhook.domain?.name}}</td>
-          }
-
-          <!--               <td class="text-right">-->
-          <!--                   <span class="dropdown">-->
-          <!--                           <a style="display: inline-block" class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button">-->
-          <!--                               <em class="pi pi-cog" style="font-size: 1.4rem; color: var(&#45;&#45;p-text-0)"></em>-->
-        <!--                           </a>-->
-        <!--                           <ul class="dropdown-menu pull-right-drop" >-->
-
-        <!--                                <li> <a (click)="removeWebhook(webhook.id)" class="">-->
-      <!--                                   {{ 'WEBHOOKS.REMOVE' | translate }} </a>-->
-    <!--                               </li>-->
-  <!--                           </ul>-->
-<!--                   </span>-->
-<!--                </td>-->
-<td class="text-right">
-  <button type="button"
-    class="dropdown-button"
-    (click)="openRowMenu($event, webhook)">
-    <i class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></i>
-  </button>
-  <p-menu #rowMenu [popup]="true" appendTo="body" [model]="rowMenuItems"></p-menu>
-</td>
-</tr>
-</ng-template>
-</p-table>
+            [value]="webhooks"
+            [lazy]="true"
+            (onLazyLoad)="onTableLazyLoad($event)"
+            [totalRecords]="paginationSettings.totalElements"
+            [rows]="paginationSettings.maxItemsOnPage"
+            [rowsPerPageOptions]="[15,20,25,50]"
+            [paginator]="true"
+            [loading]="loading"
+            [sortField]="paginationSettings.sortField"
+            [sortOrder]="paginationSettings.sortOrder === 'asc' ? 1 : -1">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id" id="id"> {{ 'WEBHOOKS.ID' | translate }}
+                    <p-sortIcon field="id"></p-sortIcon>
+                </th>
+                <th pSortableColumn="name" id="name"> {{ 'WEBHOOKS.NAME' | translate }}
+                    <p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="eventType" id="type"> {{ 'WEBHOOKS.TYPE' | translate }}
+                    <p-sortIcon field="eventType"></p-sortIcon>
+                </th>
+                <th pSortableColumn="targetUrl" id="url"> {{ 'WEBHOOKS.TARGET_URL' | translate }}
+                    <p-sortIcon field="targetUrl"></p-sortIcon>
+                </th>
+                @if (selectedDomain == domainGlobalId) {
+                    <th pSortableColumn="domain" id="domain"> {{ 'WEBHOOKS.DOMAIN' | translate }}
+                        <p-sortIcon field="domain"></p-sortIcon>
+                    </th>
+                }
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-webhook>
+            <tr>
+                <td [routerLink]="[webhook.id]">{{ webhook.id }}</td>
+                <td [routerLink]="[webhook.id]">{{ webhook.name }}</td>
+                <td [routerLink]="[webhook.id]">{{ ('WEBHOOKS.' + webhook.eventType.toString().toUpperCase()) | translate }}</td>
+                <td [routerLink]="[webhook.id]">{{ webhook.targetUrl }}</td>
+                @if (selectedDomain == domainGlobalId) {
+                    <td [routerLink]="[webhook.id]">{{ webhook.domain?.name }}</td>
+                }
+                <td class="text-right">
+                    <button type="button"
+                            class="dropdown-button"
+                            (click)="openRowMenu($event, webhook)">
+                        <i class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></i>
+                    </button>
+                    <p-menu #rowMenu [popup]="true" appendTo="body" [model]="rowMenuItems"></p-menu>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
 
 </div>
 
 
-<nmaas-modal >
-  <div class="nmaas-modal-header">{{'WEBHOOKS.TITLE_NEW' | translate}}</div>
-  <div class="nmaas-modal-body">
-    <form (submit)="closeModalAndSaveWebhook()" #newWebhookForm= "ngForm">
-      <div class="flex flex-column">
-        <div class="mt-4">
-          <label for="name">{{'WEBHOOKS.NAME' | translate}}</label>
-          <input pInputText id="name" type="text" class="form-control" [(ngModel)]="addedWebhook.name"
-            name="name" #name="ngModel" required>
-          </div>
-
-          <div class="mt-4">
-            <label for="desc">{{'WEBHOOKS.TARGET_URL' | translate}}</label>
-            <input pInputText id="desc" type="text" class="form-control" [(ngModel)]="addedWebhook.targetUrl"
-              name="targetUrl" #targetUrl="ngModel" required>
-            </div>
-            @if (this.selectedDomain == this.domainGlobalId) {
-              <div class="mt-4">
-                <label for="domain">{{'WEBHOOKS.DOMAIN' | translate}}</label>
-                <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" id="domain" #domainSelect class="form-control"
-                  (change)="onDomainSelect(domainSelect.value)" name="domain">
-                  @if (!newWebhookSelectedDomain) {
-                    <option value="" disabled selected> </option>
-                  }
-                  @for (d of domains; track d) {
-                    <option [value]="d.id">
-                      {{d.name}}
-                    </option>
-                  }
-                </select>
-              </div>
-            }
-            <div class="mt-4">
-              <label for="type">{{'WEBHOOKS.TYPE' | translate}}</label>
-              <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" id="type" #typeSelect class="form-control"
-                (change)="onTypeSelect(typeSelect.value)" >
-                @for (t of type; track t) {
-                  <option [value]="t.name"
-                  >{{('WEBHOOKS.' + t.name ) | translate}}</option>
-                }
-              </select>
-            </div>
-
-
-            <div class="mt-4">
-              <label for="assignDomain">Auth required</label>
-              <input class="ml-2" type="checkbox" [(ngModel)]="authRequired" name="authRequired"  id="authRequired"/>
-            </div>
-
-            @if (authRequired) {
-              <div class="mt-4">
-                <label for="desc">{{'WEBHOOKS.TOKEN' | translate}}</label>
-                <input pInputText id="desc" type="text" class="form-control" [(ngModel)]="addedWebhook.tokenValue"
-                  name="tokenValue" #tokenValue="ngModel" [required]="authRequired" >
-                </div>
-              }
-
-              @if (authRequired) {
+<nmaas-modal>
+    <div class="nmaas-modal-header">{{ 'WEBHOOKS.TITLE_NEW' | translate }}</div>
+    <div class="nmaas-modal-body">
+        <form (submit)="closeModalAndSaveWebhook()" #newWebhookForm="ngForm">
+            <div class="flex flex-column">
                 <div class="mt-4">
-                  <label for="desc">{{'WEBHOOKS.AUTH' | translate}}</label>
-                  <input #authorizationHeader= "ngModel" pInputText pattern="^(Authorization|X-.*)$"
-                    id="desc" type="text" class="form-control" [(ngModel)]="addedWebhook.authorizationHeader"
-                    name="authorizationHeader" [required]="authRequired" >
-                    @if (authorizationHeader.invalid && (authorizationHeader.dirty || authorizationHeader.touched)) {
-                      <div style="margin-top: 5px"
-                        class="alert alert-danger">
-                        @if (authorizationHeader.errors?.['pattern']) {
-                          <div>Authorization header must be either 'Authorization' or start with 'X-'</div>
-                        }
-                      </div>
-                    }
-                  </div>
-                }
-              </div>
-            </form>
+                    <label for="name">{{ 'WEBHOOKS.NAME' | translate }}</label>
+                    <input pInputText id="name" type="text" class="form-control" [(ngModel)]="addedWebhook.name"
+                           name="name" #name="ngModel" required>
+                </div>
 
-          </div>
-          <div class="nmaas-modal-footer">
-            <button type="button" class="btn btn-secondary"
-            (click)="this.modal.hide()">{{'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate}}</button>
-            <button type="button" class="btn btn-primary" [disabled]="!newWebhookForm.form.valid" (click)="closeModalAndSaveWebhook()"
-            pTooltip="Upload file is required before save" showDelay="2000" >{{'WEBHOOKS.SAVE' | translate}}</button>
-          </div>
-        </nmaas-modal>
+                <div class="mt-4">
+                    <label for="desc">{{ 'WEBHOOKS.TARGET_URL' | translate }}</label>
+                    <input pInputText id="desc" type="text" class="form-control" [(ngModel)]="addedWebhook.targetUrl"
+                           name="targetUrl" #targetUrl="ngModel" required>
+                </div>
+                @if (this.selectedDomain == this.domainGlobalId) {
+                    <div class="mt-4">
+                        <label for="domain">{{ 'WEBHOOKS.DOMAIN' | translate }}</label>
+                        <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);"
+                                id="domain" #domainSelect class="form-control"
+                                (change)="onDomainSelect(domainSelect.value)" name="domain">
+                            @if (!newWebhookSelectedDomain) {
+                                <option value="" disabled selected></option>
+                            }
+                            @for (d of domains; track d) {
+                                <option [value]="d.id">
+                                    {{ d.name }}
+                                </option>
+                            }
+                        </select>
+                    </div>
+                }
+                <div class="mt-4">
+                    <label for="type">{{ 'WEBHOOKS.TYPE' | translate }}</label>
+                    <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);"
+                            id="type" #typeSelect class="form-control"
+                            (change)="onTypeSelect(typeSelect.value)">
+                        @for (t of type; track t) {
+                            <option [value]="t.name"
+                            >{{ ('WEBHOOKS.' + t.name) | translate }}
+                            </option>
+                        }
+                    </select>
+                </div>
+
+
+                <div class="mt-4">
+                    <label for="assignDomain">Auth required</label>
+                    <input class="ml-2" type="checkbox" [(ngModel)]="authRequired" name="authRequired"
+                           id="authRequired"/>
+                </div>
+
+                @if (authRequired) {
+                    <div class="mt-4">
+                        <label for="desc">{{ 'WEBHOOKS.TOKEN' | translate }}</label>
+                        <input pInputText id="desc" type="text" class="form-control"
+                               [(ngModel)]="addedWebhook.tokenValue"
+                               name="tokenValue" #tokenValue="ngModel" [required]="authRequired">
+                    </div>
+                }
+
+                @if (authRequired) {
+                    <div class="mt-4">
+                        <label for="desc">{{ 'WEBHOOKS.AUTH' | translate }}</label>
+                        <input #authorizationHeader="ngModel" pInputText pattern="^(Authorization|X-.*)$"
+                               id="desc" type="text" class="form-control" [(ngModel)]="addedWebhook.authorizationHeader"
+                               name="authorizationHeader" [required]="authRequired">
+                        @if (authorizationHeader.invalid && (authorizationHeader.dirty || authorizationHeader.touched)) {
+                            <div style="margin-top: 5px"
+                                 class="alert alert-danger">
+                                @if (authorizationHeader.errors?.['pattern']) {
+                                    <div>Authorization header must be either 'Authorization' or start with 'X-'</div>
+                                }
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </form>
+
+    </div>
+    <div class="nmaas-modal-footer">
+        <button type="button" class="btn btn-secondary"
+                (click)="this.modal.hide()">{{ 'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" [disabled]="!newWebhookForm.form.valid"
+                (click)="closeModalAndSaveWebhook()"
+                pTooltip="Upload file is required before save" showDelay="2000">{{ 'WEBHOOKS.SAVE' | translate }}
+        </button>
+    </div>
+</nmaas-modal>

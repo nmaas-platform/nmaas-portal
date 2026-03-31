@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {AppInstallModalComponent} from './appinstallmodal.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {AppInstanceService, DomainService} from '../../../service';
+import {AppInstanceService, ConfigurationService, DomainService} from '../../../service';
 import {UserDataService} from '../../../service/userdata.service';
 import {of} from 'rxjs';
 import {SharedModule} from '../../shared.module';
@@ -11,6 +11,7 @@ import {ApplicationBase} from '../../../model/application-base';
 import {ApplicationState} from '../../../model/application-state';
 import {Rate} from '../../../model';
 import {Domain} from '../../../model/domain';
+import createSpyObj = jasmine.createSpyObj;
 
 class TranslateFakeLoader implements TranslateLoader {
     getTranslation(lang: string) {
@@ -21,6 +22,8 @@ class TranslateFakeLoader implements TranslateLoader {
 describe('AppInstallmodalComponent', () => {
     let component: AppInstallModalComponent;
     let fixture: ComponentFixture<AppInstallModalComponent>;
+    const configurationServiceSpy = createSpyObj('ConfigurationService', ['getConfiguration'])
+    configurationServiceSpy.getConfiguration.and.returnValue(of())
 
     const appBase: ApplicationBase = {
         id: 1,
@@ -71,6 +74,7 @@ describe('AppInstallmodalComponent', () => {
             ],
             providers: [
                 {provide: DomainService, useValue: {}},
+                {provide: ConfigurationService, useValue: configurationServiceSpy},
                 {provide: AppInstanceService, useValue: {}},
                 {
                     provide: UserDataService, useValue: {

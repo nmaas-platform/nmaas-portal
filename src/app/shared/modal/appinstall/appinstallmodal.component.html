@@ -5,7 +5,7 @@
       <label for="instance_name-{{app?.id}}" class="control-label">{{'INSTALL_MODAL.INSTANCE_NAME' | translate}}</label>
       <input pInputText type="text" class="form-control" id="instance_name-{{app?.id}}" name="instance_name"
         pattern="[a-zA-Z0-9-]*" [(ngModel)]="name" #instance_name="ngModel" minlength="3"
-        maxlength="10" (ngModelChange)="hasForbiddenWords()" required>
+         [maxLength]="configuration?.appInstanceNameLengthLimit ?? 10" (ngModelChange)="hasForbiddenWords()" required>
         @if (forbiddenWordError) {
           <div class="alert alert-danger">
             {{'INSTALL_MODAL.INSTANCE_NAME_FORBIDDEN_WORD_ERROR' | translate}}
