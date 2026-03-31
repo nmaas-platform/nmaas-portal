@@ -1,7 +1,7 @@
 <!--<h4 style="margin-top:40px; font-weight: bold" *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']">{{ 'APP_INSTANCES.DEPLOYED' | translate }}</h4>-->
-<div style="display: flex; align-items: flex-start; justify-content: space-between; margin-top:40px; padding:15px 0 5px 0">
-  <div class="col-sm-12 col-sm-12 col-md-12" style="display:flex; align-items: center; padding:0; flex-wrap:wrap">
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3" style="padding-top:10px; padding-bottom:10px">
+<div style="display: flex; align-items: flex-start; justify-content: space-between; margin-top:40px; padding:15px 0 5px 0" class="grid">
+  <div class="col-12" style="display:flex; align-items: center; padding:0; flex-wrap:wrap">
+    <div class="sm:col-12 md:col-12 lg:col-4 xl:col-3 " style="padding-top:10px; padding-bottom:10px">
       <p-iconfield class="p-input-icon-right " style="width:100%">
         <input pInputText class="form-control" name="search" id="search" placeholder="Search" type="text"
           [(ngModel)]="searchValue"
@@ -10,7 +10,7 @@
           <p-inputicon class="pi pi-search" style="font-size: 13px;"></p-inputicon>
         </p-iconfield>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 wrap" style="display:flex;">
+      <div class="sm:col-12 md:col-12 lg:col-6 xl:col-8 wrap " style="display:flex;">
         <div class="" style="display: flex; padding:10px 15px 10px 0">
           <p-checkbox id="show_my" inputId="show_my" binary="true"
             [(ngModel)]="isOnlyMyVisible"
@@ -34,7 +34,7 @@
           *domainRoles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR'];domainId:domainId">{{ 'APP_INSTANCES.UNDEPLOYED_VISIBLE' | translate }}</label>
         </div>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-2 col-lg-1"
+      <div class="sm:col-12 md:col-12 lg:col-2 xl:col-1"
         style="display: inline-flex; align-items: center; padding:10px 0; justify-content: flex-end;">
         <p-selectButton
           id="selectionType"

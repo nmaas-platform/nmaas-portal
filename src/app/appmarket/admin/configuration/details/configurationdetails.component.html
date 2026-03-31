@@ -10,28 +10,28 @@
                 <div class="panel-body">
                     @if (this.configuration) {
                         <form (submit)="save()" class="form-horizontal" #configurationForm="ngForm">
-                            <div class="form-group">
+                            <div class=" grid col-12">
                                 <label for="setMaintenance"
-                                       class="col-sm-3 control-label">{{ 'PORTAL_CONFIGURATION.MAINTENANCE' | translate }}</label>
-                                <div class="col-sm-9 pd-top-7">
+                                       class="col-3 control-label">{{ 'PORTAL_CONFIGURATION.MAINTENANCE' | translate }}</label>
+                                <div class="col-9 pd-top-7">
                                     <input type="checkbox" id="setMaintenance" name="setMaintenance"
                                            [(ngModel)]="this.configuration.maintenance"
                                            [checked]="this.configuration.maintenance === true">
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class=" grid col-12">
                                 <label for="SSOLoginAllowed"
-                                       class="col-sm-3 control-label">{{ 'PORTAL_CONFIGURATION.ALLOW_SSO_LOGIN' | translate }}</label>
-                                <div class="col-sm-9 pd-top-7">
+                                       class="col-3 control-label">{{ 'PORTAL_CONFIGURATION.ALLOW_SSO_LOGIN' | translate }}</label>
+                                <div class="col-9 pd-top-7">
                                     <input type="checkbox" id="SSOLoginAllowed" name="SSOLoginAllowed"
                                            [(ngModel)]="this.configuration.ssoLoginAllowed"
                                            [checked]="this.configuration.ssoLoginAllowed === true">
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class=" grid col-12">
                                 <label for="defaultDomainForSsoUsers"
-                                       class="col-sm-3 control-label">{{ 'PORTAL_CONFIGURATION.DEFAULT_DOMAIN_FOR_SSO_USER' | translate }}</label>
-                                <div class="col-sm-3">
+                                       class="col-3 control-label">{{ 'PORTAL_CONFIGURATION.DEFAULT_DOMAIN_FOR_SSO_USER' | translate }}</label>
+                                <div class="col-3">
                                     <select style=" background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);"
                                             id="defaultLang" #defaultDomainForSsoUsers class="form-control"
                                             name="defaultDomainForSsoUsers"
@@ -47,10 +47,10 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class=" grid col-12">
                                 <label for="defaultLang"
-                                       class="col-sm-3 control-label">{{ 'PORTAL_CONFIGURATION.DEFAULT_LANGUAGE' | translate }}</label>
-                                <div class="col-sm-3">
+                                       class="col-3 control-label">{{ 'PORTAL_CONFIGURATION.DEFAULT_LANGUAGE' | translate }}</label>
+                                <div class="col-3">
                                     <select style=" background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);"
                                             id="defaultLang" #langSelect class="form-control"
                                             (change)="this.configuration.defaultLanguage = langSelect.value">
@@ -62,34 +62,34 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class=" grid col-12">
                                 <label for="testInstance"
-                                       class="col-sm-3 control-label">{{ 'PORTAL_CONFIGURATION.TEST_INSTANCE' | translate }}</label>
-                                <div class="col-sm-9 pd-top-7">
+                                       class="col-3 control-label">{{ 'PORTAL_CONFIGURATION.TEST_INSTANCE' | translate }}</label>
+                                <div class="col-9 pd-top-7">
                                     <input type="checkbox" id="testInstance" name="testInstance"
                                            [(ngModel)]="this.configuration.testInstance"
                                            [checked]="this.configuration.testInstance === true">
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class=" grid col-12">
                                 <label for="sendAppInstanceFailureEmails"
-                                       class="col-sm-3 control-label">{{ 'PORTAL_CONFIGURATION.SEND_APP_INSTANCE_FAILURE_EMAILS' | translate }}</label>
-                                <div class="col-sm-9 pd-top-7">
+                                       class="col-3 control-label">{{ 'PORTAL_CONFIGURATION.SEND_APP_INSTANCE_FAILURE_EMAILS' | translate }}</label>
+                                <div class="col-9 pd-top-7">
                                     <input type="checkbox" id="sendAppInstanceFailureEmails"
                                            name="sendAppInstanceFailureEmails"
                                            [(ngModel)]="this.configuration.sendAppInstanceFailureEmails">
                                 </div>
                             </div>
-                            <div class="form-group">
-                        <span class="control-label col-sm-3">
-                          <strong>
-                            {{ 'PORTAL_CONFIGURATION.SEND_APP_INSTANCE_FAILURE_EMAILS_LIST' | translate }}
-                          </strong>
-                        </span>
-                                <div class="col-sm-9 display-emails">
+                            <div class="grid col-12" style="align-items:baseline">
+                                <span class="control-label col-3">
+                                  <strong>
+                                    {{ 'PORTAL_CONFIGURATION.SEND_APP_INSTANCE_FAILURE_EMAILS_LIST' | translate }}
+                                  </strong>
+                                </span>
+                                <div class="col-9 display-emails">
                                     @for (email of configuration.appInstanceFailureEmailList; track trackByFn(i, email); let i = $index) {
                                         <div
-                                                class="col-lg-6 col-md-10 col-sm-12 pd-bottom-5 row email-row">
+                                                class="xl:col-6 lg:col-10 md:col-12 pd-bottom-5 row email-row">
                                             <div class="email-input">
                                                 <input pInputText class="form-control" type="text"
                                                        id="appInstanceFailureEmailList.{{i}}"
@@ -102,26 +102,26 @@
                                             </button>
                                         </div>
                                     }
-                                    <div class="">
+                                    <div class="" style=" padding: 7px">
                                         <button role="button" type="button" class="btn btn-secondary"
                                                 (click)="addEmailEntry()">Add
                                         </button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="grid col-12">
                                 <label for="registrationDomainSelectionEnabled"
-                                       class="col-sm-3 control-label">{{ 'PORTAL_CONFIGURATION.DOMAIN_SELECTION_ENABLED' | translate }}</label>
-                                <div class="col-sm-9 pd-top-7">
+                                       class="col-3 control-label">{{ 'PORTAL_CONFIGURATION.DOMAIN_SELECTION_ENABLED' | translate }}</label>
+                                <div class="col-9 pd-top-7">
                                     <input type="checkbox" id="registrationDomainSelectionEnabled"
                                            name="registrationDomainSelectionEnabled"
                                            [(ngModel)]="this.configuration.registrationDomainSelectionEnabled">
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class=" grid col-12">
                                 <label for="deploymentPrefix"
-                                       class="col-sm-3 control-label">{{ 'PORTAL_CONFIGURATION.DEPLOYMENT_PREFIX' | translate }}</label>
-                                <div class="col-sm-9 pd-top-7">
+                                       class="col-3 control-label">{{ 'PORTAL_CONFIGURATION.DEPLOYMENT_PREFIX' | translate }}</label>
+                                <div class="col-9 pd-top-7">
                                     <div class="input-width">
                                         <input pInputText class="form-control" type="text" id="deploymentPrefix"
                                                name="deploymentPrefix"
@@ -129,10 +129,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class=" grid col-12">
                                 <label for="appInstanceLengthLimit"
-                                       class="col-sm-3 control-label">{{ 'PORTAL_CONFIGURATION.APP_INSTANCE_LIMIT' | translate }}</label>
-                                <div class="col-sm-9 pd-top-7">
+                                       class="col-3 control-label">{{ 'PORTAL_CONFIGURATION.APP_INSTANCE_LIMIT' | translate }}</label>
+                                <div class="col-9 pd-top-7">
                                     <div class="input-width">
                                         <input pInputText class="form-control" type="number" id="appInstanceLengthLimit"
                                                name="appInstanceLengthLimit"
@@ -160,30 +160,30 @@
                         <form (submit)="save()" class="form-horizontal" #configurationForm="ngForm">
                             <!--                    <div class="panel-default panel-heading"></div>-->
                             <div class="panel-body">
-                                <div class="form-group">
+                                <div class="grid col-12">
                                     <label for="bulkDomainsAllowForSsoAccounts"
-                                           class="col-sm-3 control-label">{{ 'PORTAL_CONFIGURATION.BULK_DOMAINS_ALLOW_FOR_SSO_ACCOUNTS' | translate }}</label>
-                                    <div class="col-sm-9 pd-top-7">
+                                           class="col-3 control-label">{{ 'PORTAL_CONFIGURATION.BULK_DOMAINS_ALLOW_FOR_SSO_ACCOUNTS' | translate }}</label>
+                                    <div class="col-9 pd-top-7">
                                         <input type="checkbox" id="bulkDomainsAllowForSsoAccounts"
                                                name="bulkDomainsAllowForSsoAccounts"
                                                [(ngModel)]="this.configuration.bulkDomainsAllowForSsoAccounts"
                                                [checked]="this.configuration.bulkDomainsAllowForSsoAccounts === true">
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="grid col-12">
                                     <label for="bulkDomainsSendEmailForNewAccounts"
-                                           class="col-sm-3 control-label">{{ 'PORTAL_CONFIGURATION.BULK_DOMAINS_SEND_EMAIL_FOR_NEW_ACCOUNTS' | translate }}</label>
-                                    <div class="col-sm-9 pd-top-7">
+                                           class="col-3 control-label">{{ 'PORTAL_CONFIGURATION.BULK_DOMAINS_SEND_EMAIL_FOR_NEW_ACCOUNTS' | translate }}</label>
+                                    <div class="col-9 pd-top-7">
                                         <input type="checkbox" id="bulkDomainsSendEmailForNewAccounts"
                                                name="bulkDomainsSendEmailForNewAccounts"
                                                [(ngModel)]="this.configuration.bulkDomainsSendEmailForNewAccounts"
                                                [checked]="this.configuration.bulkDomainsSendEmailForNewAccounts === true">
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="grid col-12">
                                     <label for="bulkDeploymentJobCron"
-                                           class="col-sm-3 control-label">{{ 'PORTAL_CONFIGURATION.BULK_DEPLOYMENT_CRON' | translate }}</label>
-                                    <div class="col-sm-9 pd-top-7 ">
+                                           class="col-3 control-label">{{ 'PORTAL_CONFIGURATION.BULK_DEPLOYMENT_CRON' | translate }}</label>
+                                    <div class="col-9 pd-top-7 ">
                                         <div class="input-width">
                                             <input pInputText class="form-control" type="text"
                                                    id="bulkDeploymentJobCron" name="bulkDeploymentJobCron"
@@ -191,10 +191,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="grid col-12">
                                     <label for="parallelDeploymentsLimit"
-                                           class="col-sm-3 control-label">{{ 'PORTAL_CONFIGURATION.BULK_DEPLOYMENT_LIMIT' | translate }}</label>
-                                    <div class="col-sm-9 pd-top-7">
+                                           class="col-3 control-label">{{ 'PORTAL_CONFIGURATION.BULK_DEPLOYMENT_LIMIT' | translate }}</label>
+                                    <div class="col-9 pd-top-7">
                                         <div class="input-width">
                                             <input pInputText class="form-control" type="number"
                                                    id="parallelDeploymentsLimit" name="parallelDeploymentsLimit"
@@ -202,10 +202,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="grid col-12">
                                     <label for="bulkDeploymentQueueRefresh"
-                                           class="col-sm-3 control-label">{{ 'PORTAL_CONFIGURATION.BULK_DEPLOYMENT_QUEUE_REFRESH' | translate }}</label>
-                                    <div class="col-sm-9 pd-top-7">
+                                           class="col-3 control-label">{{ 'PORTAL_CONFIGURATION.BULK_DEPLOYMENT_QUEUE_REFRESH' | translate }}</label>
+                                    <div class="col-9 pd-top-7">
                                         <div class="input-width">
                                             <input pInputText class="form-control" type="number"
                                                    id="bulkDeploymentQueueRefresh" name="bulkDeploymentQueueRefresh"
@@ -213,10 +213,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="grid col-12">
                                     <label for="bulkDeploymentTimeThreshold"
-                                           class="col-sm-3 control-label">{{ 'PORTAL_CONFIGURATION.BULK_DEPLOYMENT_THRESHOLD' | translate }}</label>
-                                    <div class="col-sm-9 pd-top-7">
+                                           class="col-3 control-label">{{ 'PORTAL_CONFIGURATION.BULK_DEPLOYMENT_THRESHOLD' | translate }}</label>
+                                    <div class="col-9 pd-top-7">
                                         <div class="input-width">
                                             <input pInputText class="form-control" type="number"
                                                    id="bulkDeploymentTimeThreshold" name="bulkDeploymentTimeThreshold"

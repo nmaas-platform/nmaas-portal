@@ -235,8 +235,34 @@ export const MyPreset = definePreset(Nora, {
         tabs: {
             tablist: {
                 background: 'transparent'
+            },
+            tab: {
+                background:'{surface.300}'
+            }
+        },
+        popover: {
+            root:{
+                borderRadius: '4px',
+                background: '{background.100}',
+                color: '{text.0}',
+            }
+        },
+        datatable: {
+            headerCell :{
+                selectedColor:'{primary.100}'
+            },
+            sortIcon:{
+                hoverColor: '{text.0}'
+            }
+        },
+        button: {
+            root: {
+                label: {
+                    fontWeight: 'unset'
+                }
             }
         }
+
     }
 });
 

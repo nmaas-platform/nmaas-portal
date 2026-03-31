@@ -176,6 +176,15 @@ p-fileupload .p-fileupload-content {
     border: none;
     box-shadow: none;
 }
-/*.panel {*/
-/*    background-color: var(--p-surface-300);*/
-/*}*/
+.p-tab{
+    border-radius: 5px 5px 0 0;
+    background-color: var(--p-surface-300);
+}
+.p-tab-active{
+    background-color: var(--p-background-100);
+    color: var(--p-text-0);
+}
+.p-tabpanels{
+    background-color: var(--p-background-100);
+    border-radius: 10px;
+}

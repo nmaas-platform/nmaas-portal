@@ -2,7 +2,7 @@
     display: flex;
     width: 100%;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-end;
     list-style:none;
 }
 
@@ -14,6 +14,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    background: var(--p-background-300);
 }
 
 .double-form:last-of-type {

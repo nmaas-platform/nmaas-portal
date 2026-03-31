@@ -6,7 +6,7 @@ import {AppConfigService, ConfigurationService, UserService} from '../../service
 import {Configuration} from '../../model/configuration';
 import {SSOConfig} from '../../model/sso';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
-import {ModalComponent} from '../../shared/modal';
+import {ModalComponent} from '../modal';
 import {TranslateService} from '@ngx-translate/core';
 import {ThemeModeService} from '../../service/theme-mode.service';
 

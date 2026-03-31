@@ -102,8 +102,8 @@
   margin-left: 5px;
 }
 .btn:hover:active:focus{
-  color:var(--p-text-50);
   background: var(--p-surface-400);
+  color:var(--p-text-50);
 }
 .btn:focus{
   color:var(--p-text-50);
@@ -112,6 +112,7 @@
 }
 .btn.focus, .btn:focus, .btn:hover {
   background: var(--p-surface-400);
+  color:var(--p-text-50);
 }
 
 .navbar-list, .navbar-list:link {
@@ -216,3 +217,27 @@
   color: #142548;
   background-color: #D1D1D1;
 }
+.nav-position {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+body .p-select-dropdown{
+  display: none !important;
+}
+.p-select {
+  background: transparent;
+  border: none;
+  .p-select-label {
+    padding: 0;
+  }
+  .p-select-dropdown {
+    display: none;
+  }
+}
+
+.flex-center {
+  display: flex;
+  align-items: center
+}
+

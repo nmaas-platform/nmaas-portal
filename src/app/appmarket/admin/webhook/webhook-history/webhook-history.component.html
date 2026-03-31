@@ -1,15 +1,15 @@
 <h4 class="header">{{ 'WEBHOOKS.HISTORY.TITLE' | translate }}</h4>
 <div class="filters">
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+    <div class="sm:col-12 md:col-12 lg:col-4 xl:col-3 ">
         <div class="form-group filters-position">
             <label>{{ 'WEBHOOKS.HISTORY.EVENT_ID' | translate }}</label>
-            <input pInputText type="number" [(ngModel)]="filterEventId" (ngModelChange)="applyFilters()">
+            <input style="height: 34px;" pInputText type="number" [(ngModel)]="filterEventId" (ngModelChange)="applyFilters()">
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+    <div class="sm:col-12 md:col-12 lg:col-4 xl:col-3 ">
         <div class="form-group filters-position">
             <label>{{ 'WEBHOOKS.HISTORY.EVENT_TYPE' | translate }}</label>
-            <p-select style="height: 36px" [options]="webhookType" showClear="true" [(ngModel)]="filterEventType" (ngModelChange)="applyFilters()">
+            <p-select style="height: 34px;" [options]="webhookType" showClear="true" [(ngModel)]="filterEventType" (ngModelChange)="applyFilters()">
                 <ng-template let-option pTemplate="item">
                     {{ ('WEBHOOKS.' + option.label) | translate }}
                 </ng-template>
@@ -19,16 +19,16 @@
             </p-select>
         </div>
     </div>
-    <div *roles="['ROLE_SYSTEM_ADMIN']" class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+    <div *roles="['ROLE_SYSTEM_ADMIN']" class="sm:col-12 md:col-12 lg:col-4 xl:col-3 ">
         <div class="form-group filters-position">
             <label>{{ 'WEBHOOKS.HISTORY.DOMAIN' | translate }}</label>
-            <input pInputText type="text" [(ngModel)]="filterDomainCodename" (ngModelChange)="applyFilters()">
+            <input style="height: 34px;" pInputText type="text" [(ngModel)]="filterDomainCodename" (ngModelChange)="applyFilters()">
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+    <div class="sm:col-12 md:col-12 lg:col-4 xl:col-3 ">
         <div class="form-group filters-position">
             <label>{{ 'WEBHOOKS.HISTORY.DATE' | translate }}</label>
-            <p-datePicker showClear="true" [(ngModel)]="filterDate" dateFormat="dd.mm.yy" selectionMode="range" (ngModelChange)="applyFilters()"></p-datePicker>
+            <p-datePicker style="height: 34px;" showClear="true" [(ngModel)]="filterDate" dateFormat="dd.mm.yy" selectionMode="range" (ngModelChange)="applyFilters()"></p-datePicker>
         </div>
     </div>
     <div style="display: flex; width: 100%; justify-content: flex-end; padding: 0 15px;">

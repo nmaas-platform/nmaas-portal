@@ -14,6 +14,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    background: var(--p-background-300);
 }
 
 .double-form:last-of-type {

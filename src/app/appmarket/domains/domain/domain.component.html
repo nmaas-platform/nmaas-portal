@@ -1,465 +1,528 @@
 <div style="color: var(--p-text-0)">
-  <h4 class="header">{{ 'DOMAINS.DETAILS_TITLE' | translate }}</h4>
+    <h4 class="header">{{ 'DOMAINS.DETAILS_TITLE' | translate }}</h4>
 
-  @if (domain) {
-    <form (submit)="submit()" class="form-horizontal" #domainForm="ngForm">
-      <div class="background-section">
-        <div class="form-group">
-          <label for="name" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.NAME' | translate }}</label>
-          <div class="col-sm-10">
-            <input pInputText type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW) || authService.hasRole('ROLE_OPERATOR')" id="name" name="name"
-              [(ngModel)]="domain.name" #name="ngModel" required>
-              @if (name.invalid && (name.dirty || name.touched)) {
-                <div
-                  class="alert alert-danger">
-                  @if (name.errors.required) {
-                    <div>{{ 'DOMAIN_DETAILS.NAME_IS_REQUIRED_MESSAGE' | translate }}</div>
-                  }
-                </div>
-              }
-            </div>
-          </div>
-          @if (!isInMode(ComponentMode.EDIT)) {
-            <div class="form-group">
-              <label for="codename" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.CODE_NAME' | translate }}</label>
-              <div class="col-sm-10">
-                <input pInputText type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="codename"
-                  name="codename" pattern="[a-z0-9-]*"
-                  [(ngModel)]="domain.codename" #codename="ngModel" minlength="2" maxlength="12" required>
-                  @if (codename.invalid && (codename.dirty || codename.touched)) {
-                    <div
-                      class="alert alert-danger">
-                      @if (codename.errors.required) {
-                        <div>{{ 'DOMAIN_DETAILS.CODE_NAME_IS_REQUIRED_MESSAGE' | translate }}</div>
-                      }
-                      @if (codename.errors.pattern) {
-                        <div>{{ 'DOMAIN_DETAILS.CODE_NAME_PATTERN_MESSAGE_1' | translate }}</div>
-                      }
-                      @if (codename.errors.minlength || codename.errors.maxlength) {
-                        <div>{{ 'DOMAIN_DETAILS.CODE_NAME_PATTERN_MESSAGE_2' | translate }}</div>
-                      }
+    @if (domain) {
+        <form (submit)="submit()" class="form-horizontal" #domainForm="ngForm">
+            <div class="background-section">
+                <div class="grid col-12">
+                    <label for="name" class="col-2 control-label">{{ 'DOMAIN_DETAILS.NAME' | translate }}</label>
+                    <div class="col-10">
+                        <input pInputText type="text" class="form-control"
+                               [disabled]="isInMode(ComponentMode.VIEW) || authService.hasRole('ROLE_OPERATOR')"
+                               id="name" name="name"
+                               [(ngModel)]="domain.name" #name="ngModel" required>
+                        @if (name.invalid && (name.dirty || name.touched)) {
+                            <div
+                                    class="alert alert-danger">
+                                @if (name.errors.required) {
+                                    <div>{{ 'DOMAIN_DETAILS.NAME_IS_REQUIRED_MESSAGE' | translate }}</div>
+                                }
+                            </div>
+                        }
                     </div>
-                  }
                 </div>
-              </div>
-            }
-            @if (!isInMode(ComponentMode.CREATE) && (authService.hasRole('ROLE_SYSTEM_ADMIN') || authService.hasRole('ROLE_OPERATOR'))) {
-              <div class="form-group">
-                <label class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.ID_IN_DB' | translate }}</label>
-                <div class="col-sm-10">
-                  <p class="form-control-static" style="padding: 6px 12px">{{domain.id}}</p>
-                </div>
-              </div>
-            }
-            <hr/>
-            <div class="form-group">
-              <label for="kubernetesNamespace" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.KUBERNETES_NAMESPACE' | translate }}</label>
-              <div class="col-sm-10">
-                <input pInputText type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="kubernetesNamespace" pattern="[a-z0-9-]*" maxlength="64" #namespace="ngModel"
-                  name="kubernetesNamespace" [(ngModel)]="domain.domainTechDetails.kubernetesNamespace" placeholder="{{'DOMAIN_DETAILS.KUBERNETES_NAMESPACE_PLACEHOLDER' | translate}}">
-                  @if (namespace.invalid && (namespace.dirty || namespace.touched)) {
-                    <div class="alert alert-danger">
-                      @if (namespace.errors.pattern) {
-                        <div>{{ 'DOMAIN_DETAILS.NAMESPACE_PATTERN_VALIDATION_MESSAGE' | translate }}</div>
-                      }
-                      @if (namespace.errors.maxlength) {
-                        <div>{{ 'DOMAIN_DETAILS.NAMESPACE_MAX_LENGTH_VALIDATION_MESSAGE' | translate }}</div>
-                      }
+                @if (!isInMode(ComponentMode.EDIT)) {
+                    <div class=" grid col-12">
+                        <label for="codename"
+                               class="col-2 control-label">{{ 'DOMAIN_DETAILS.CODE_NAME' | translate }}</label>
+                        <div class="col-10">
+                            <input pInputText type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)"
+                                   id="codename"
+                                   name="codename" pattern="[a-z0-9-]*"
+                                   [(ngModel)]="domain.codename" #codename="ngModel" minlength="2" maxlength="12"
+                                   required>
+                            @if (codename.invalid && (codename.dirty || codename.touched)) {
+                                <div
+                                        class="alert alert-danger">
+                                    @if (codename.errors.required) {
+                                        <div>{{ 'DOMAIN_DETAILS.CODE_NAME_IS_REQUIRED_MESSAGE' | translate }}</div>
+                                    }
+                                    @if (codename.errors.pattern) {
+                                        <div>{{ 'DOMAIN_DETAILS.CODE_NAME_PATTERN_MESSAGE_1' | translate }}</div>
+                                    }
+                                    @if (codename.errors.minlength || codename.errors.maxlength) {
+                                        <div>{{ 'DOMAIN_DETAILS.CODE_NAME_PATTERN_MESSAGE_2' | translate }}</div>
+                                    }
+                                </div>
+                            }
+                        </div>
                     </div>
-                  }
-                </div>
-              </div>
-              @if (domain.id !== domainService.getGlobalDomainId()) {
-                <div class="form-group">
-                  <label for="kubernetesStorageClass" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.KUBERNETES_STORAGE_CLASS' | translate }}</label>
-                  <div class="col-sm-10">
-                    <input pInputText type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="kubernetesStorageClass"
-                      name="kubernetesStorageClass" [(ngModel)]="domain.domainTechDetails.kubernetesStorageClass">
+                }
+                @if (!isInMode(ComponentMode.CREATE) && (authService.hasRole('ROLE_SYSTEM_ADMIN') || authService.hasRole('ROLE_OPERATOR'))) {
+                    <div class=" grid col-12">
+                        <label class="col-2 control-label">{{ 'DOMAIN_DETAILS.ID_IN_DB' | translate }}</label>
+                        <div class="col-10">
+                            <p class="form-control-static" style="padding: 6px 12px">{{ domain.id }}</p>
+                        </div>
                     </div>
-                  </div>
+                }
+                <hr/>
+                <div class=" grid col-12">
+                    <label for="kubernetesNamespace"
+                           class="col-2 control-label">{{ 'DOMAIN_DETAILS.KUBERNETES_NAMESPACE' | translate }}</label>
+                    <div class="col-10">
+                        <input pInputText type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)"
+                               id="kubernetesNamespace" pattern="[a-z0-9-]*" maxlength="64" #namespace="ngModel"
+                               name="kubernetesNamespace" [(ngModel)]="domain.domainTechDetails.kubernetesNamespace"
+                               placeholder="{{'DOMAIN_DETAILS.KUBERNETES_NAMESPACE_PLACEHOLDER' | translate}}">
+                        @if (namespace.invalid && (namespace.dirty || namespace.touched)) {
+                            <div class="alert alert-danger">
+                                @if (namespace.errors.pattern) {
+                                    <div>{{ 'DOMAIN_DETAILS.NAMESPACE_PATTERN_VALIDATION_MESSAGE' | translate }}</div>
+                                }
+                                @if (namespace.errors.maxlength) {
+                                    <div>{{ 'DOMAIN_DETAILS.NAMESPACE_MAX_LENGTH_VALIDATION_MESSAGE' | translate }}</div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+                @if (domain.id !== domainService.getGlobalDomainId()) {
+                    <div class=" grid col-12">
+                        <label for="kubernetesStorageClass"
+                               class="col-2 control-label">{{ 'DOMAIN_DETAILS.KUBERNETES_STORAGE_CLASS' | translate }}</label>
+                        <div class="col-10">
+                            <input pInputText type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)"
+                                   id="kubernetesStorageClass"
+                                   name="kubernetesStorageClass"
+                                   [(ngModel)]="domain.domainTechDetails.kubernetesStorageClass">
+                        </div>
+                    </div>
                 }
                 @if (domain.id !== domainService.getGlobalDomainId()) {
-                  <div class="form-group">
-                    <label for="kubernetesIngressClass" class="col-sm-2 control-label">{{'DOMAIN_DETAILS.KUBERNETES_INGRESS_CLASS' | translate }}</label>
-                    <div class="col-sm-10">
-                      <input pInputText type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="kubernetesIngressClass"
-                        name="kubernetesIngressClass" [(ngModel)]="domain.domainTechDetails.kubernetesIngressClass">
-                      </div>
-                    </div>
-                  }
-                  @if (domain.id !== domainService.getGlobalDomainId()) {
-                    <div class="form-group">
-                      <label for="externalServiceDomain" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.EXTERNAL_SERVICE_DOMAIN' | translate }}</label>
-                      <div class="col-sm-10">
-                        <input pInputText type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)" id="externalServiceDomain"
-                          name="externalServiceDomain" [(ngModel)]="domain.domainTechDetails.externalServiceDomain">
+                    <div class=" grid col-12">
+                        <label for="kubernetesIngressClass"
+                               class="col-2 control-label">{{ 'DOMAIN_DETAILS.KUBERNETES_INGRESS_CLASS' | translate }}</label>
+                        <div class="col-10">
+                            <input pInputText type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)"
+                                   id="kubernetesIngressClass"
+                                   name="kubernetesIngressClass"
+                                   [(ngModel)]="domain.domainTechDetails.kubernetesIngressClass">
                         </div>
-                      </div>
-                    }
-                    @if (domain?.id !== domainService.getGlobalDomainId()) {
-                      <div class="form-group">
-                        <label class="col-sm-2 control-label text-right" for="dcnDeploymentType">{{'DOMAIN_DETAILS.DCN_DEPLOYMENT_TYPE' | translate }}</label>
-                        <div class="col-sm-10">
-                          <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" id="dcnDeploymentType" name="dcnDeploymentType" [(ngModel)]="domain.domainDcnDetails.dcnDeploymentType" [disabled]="isInMode(ComponentMode.VIEW)" required>
-                            @for (type of keys; track type) {
-                              <option [value]="type">{{type | titlecase}}</option>
+                    </div>
+                }
+                @if (domain.id !== domainService.getGlobalDomainId()) {
+                    <div class=" grid col-12">
+                        <label for="externalServiceDomain"
+                               class="col-2 control-label">{{ 'DOMAIN_DETAILS.EXTERNAL_SERVICE_DOMAIN' | translate }}</label>
+                        <div class="col-10">
+                            <input pInputText type="text" class="form-control" [disabled]="isInMode(ComponentMode.VIEW)"
+                                   id="externalServiceDomain"
+                                   name="externalServiceDomain"
+                                   [(ngModel)]="domain.domainTechDetails.externalServiceDomain">
+                        </div>
+                    </div>
+                }
+                @if (domain?.id !== domainService.getGlobalDomainId()) {
+                    <div class=" grid col-12">
+                        <label class="col-2 control-label text-right"
+                               for="dcnDeploymentType">{{ 'DOMAIN_DETAILS.DCN_DEPLOYMENT_TYPE' | translate }}</label>
+                        <div class="col-10">
+                            <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);"
+                                    class="form-control" id="dcnDeploymentType" name="dcnDeploymentType"
+                                    [(ngModel)]="domain.domainDcnDetails.dcnDeploymentType"
+                                    [disabled]="isInMode(ComponentMode.VIEW)" required>
+                                @for (type of keys; track type) {
+                                    <option [value]="type">{{ type | titlecase }}</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                }
+                @if (domain?.id !== domainService.getGlobalDomainId() && isInMode(ComponentMode.VIEW) && isManual()) {
+                    <div class=" grid col-12">
+                        <label class="col-2 control-label text-right"
+                               for="configured-status">{{ 'DOMAIN_DETAILS.DCN_STATUS' | translate }}</label>
+                        <div class="col-10" id="configured-status" style="padding-top: 6px;">
+                            @if (domain?.domainDcnDetails?.dcnConfigured) {
+                                <p style="padding: 2px 12px">{{ 'DOMAIN_DETAILS.CONFIGURED_VIEW' | translate }}</p>
                             }
-                          </select>
+                            @if (!domain?.domainDcnDetails?.dcnConfigured) {
+                                <p style="padding: 2px 12px">{{ 'DOMAIN_DETAILS.NOT_CONFIGURED_VIEW' | translate }}</p>
+                            }
                         </div>
-                      </div>
-                    }
-                    @if (domain?.id !== domainService.getGlobalDomainId() && isInMode(ComponentMode.VIEW) && isManual()) {
-                      <div class="form-group">
-                        <label class="col-sm-2 control-label text-right" for="configured-status">{{ 'DOMAIN_DETAILS.DCN_STATUS' | translate }}</label>
-                        <div class="col-sm-10" id="configured-status" style="padding-top: 6px;">
-                          @if (domain?.domainDcnDetails?.dcnConfigured) {
-                            <p style="padding: 2px 12px">{{ 'DOMAIN_DETAILS.CONFIGURED_VIEW' | translate }}</p>
-                          }
-                          @if (!domain?.domainDcnDetails?.dcnConfigured) {
-                            <p style="padding: 2px 12px">{{ 'DOMAIN_DETAILS.NOT_CONFIGURED_VIEW' | translate }}</p>
-                          }
-                        </div>
-                      </div>
-                    }
-                    @if (domain.id !== domainService.getGlobalDomainId() && !isInMode(ComponentMode.VIEW) && isManual()) {
-                      <div class="form-group">
-                        <label for="dcnConfigured" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.DCN_CONFIGURED' | translate }}</label>
-                        <div class="col-sm-10">
-                          <input type="checkbox" class="btn btn-default" [disabled]="isInMode(ComponentMode.VIEW)" id="dcnConfigured"
-                            name="dcnConfigured" [(ngModel)]="domain.domainDcnDetails.dcnConfigured" (change)="changeDcnFieldUpdatedFlag()">
-                          </div>
-                        </div>
-                      }
                     </div>
-                    @if (domainLimit || isInMode(ComponentMode.CREATE)) {
-                      <div class="background-section">
-                        <div class="panel-body">
-                          <div class="flex justify-content-between mb-3">
+                }
+                @if (domain.id !== domainService.getGlobalDomainId() && !isInMode(ComponentMode.VIEW) && isManual()) {
+                    <div class=" grid col-12">
+                        <label for="dcnConfigured"
+                               class="col-2 control-label">{{ 'DOMAIN_DETAILS.DCN_CONFIGURED' | translate }}</label>
+                        <div class="col-10">
+                            <input type="checkbox" class="btn btn-default" [disabled]="isInMode(ComponentMode.VIEW)"
+                                   id="dcnConfigured"
+                                   name="dcnConfigured" [(ngModel)]="domain.domainDcnDetails.dcnConfigured"
+                                   (change)="changeDcnFieldUpdatedFlag()">
+                        </div>
+                    </div>
+                }
+            </div>
+            @if (domainLimit || isInMode(ComponentMode.CREATE)) {
+                <div class="background-section">
+                    <div class="panel-body">
+                        <div class="flex justify-content-between mb-3">
                             <h4 style="font-size:15px; font-weight: bold">
-                              {{'DOMAIN_DETAILS.RESOURCE_LIMIT' | translate}}
+                                {{ 'DOMAIN_DETAILS.RESOURCE_LIMIT' | translate }}
                             </h4>
                             @if (isInMode(ComponentMode.EDIT)) {
-                              <button type="button"
-                                class="btn btn-danger"
-                                (click)="disableLimits()"
-                                [disabled]="!domainLimit?.id">
-                                {{'DOMAIN_DETAILS.DISABLE_BUTTON' | translate}}
-                              </button>
+                                <button type="button"
+                                        class="btn btn-danger"
+                                        (click)="disableLimits()"
+                                        [disabled]="!domainLimit?.id">
+                                    {{ 'DOMAIN_DETAILS.DISABLE_BUTTON' | translate }}
+                                </button>
                             }
-                          </div>
-                          <div class="form-horizontal">
+                        </div>
+                        <div class="form-horizontal">
                             <div class="panel-body">
-                              <div class="form-group">
-                                <label class="col-sm-2 control-label" for="instancesNo">{{ 'DOMAINS.GLOBAL_SETTINGS.INSTANCES'| translate }}</label>
-                                <div class="col-sm-10 ">
-                                  <input class="form-control"
-                                    placeholder="Not set" pInputText id="instancesNo" name="instancesNo"
-                                    type="number" pattern="^[1-9][0-9]*$" [(ngModel)]="domainLimit.instancesNo"
-                                    [disabled]="isInMode(ComponentMode.VIEW)"/>
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <label class="col-sm-2 control-label" for="containersNo">{{ 'DOMAINS.GLOBAL_SETTINGS.CONTAINERS'| translate }}</label>
-                                  <div class="col-sm-10 pd-top-7">
-                                    <input class="form-control"
-                                      placeholder="Not set" pInputText id="containersNo" name="containersNo"
-                                      type="number" pattern="^[1-9][0-9]*$" [(ngModel)]="domainLimit.containersNo"
-                                      [disabled]="isInMode(ComponentMode.VIEW)"/>
-                                    </div>
-                                  </div>
-                                  <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="cpu">{{ 'DOMAINS.GLOBAL_SETTINGS.CPU'| translate }}</label>
-                                    <div class="col-sm-10 pd-top-7">
-                                      <input class="form-control"
-                                        placeholder="Not set" pInputText id="cpu" name="cpu"
-                                        type="number" pattern="^[1-9][0-9]*$" [(ngModel)]="domainLimit.cpu"
-                                        [disabled]="isInMode(ComponentMode.VIEW)"/>
-                                      </div>
-                                    </div>
-                                    <div class="form-group">
-                                      <label class="col-sm-2 control-label" for="memory">{{ 'DOMAINS.GLOBAL_SETTINGS.MEMORY'| translate }}</label>
-                                      <div class="col-sm-10 pd-top-7"><div class="input-width">
+                                <div class="grid col-12">
+                                    <label class="col-2 control-label"
+                                           for="instancesNo">{{ 'DOMAINS.GLOBAL_SETTINGS.INSTANCES'| translate }}</label>
+                                    <div class="col-10 ">
                                         <input class="form-control"
-                                          placeholder="Not set" pInputText id="memory" name="memory"
-                                          type="number" pattern="^[1-9][0-9]*$" [(ngModel)]="domainLimit.memory"
-                                          [disabled]="isInMode(ComponentMode.VIEW)"/>
-                                        </div>
-                                      </div>
+                                               placeholder="Not set" pInputText id="instancesNo" name="instancesNo"
+                                               type="number" pattern="^[1-9][0-9]*$"
+                                               [(ngModel)]="domainLimit.instancesNo"
+                                               [disabled]="isInMode(ComponentMode.VIEW)"/>
                                     </div>
-                                  </div>
                                 </div>
-                              </div>
+                                <div class=" grid col-12">
+                                    <label class="col-2 control-label"
+                                           for="containersNo">{{ 'DOMAINS.GLOBAL_SETTINGS.CONTAINERS'| translate }}</label>
+                                    <div class="col-10 pd-top-7">
+                                        <input class="form-control"
+                                               placeholder="Not set" pInputText id="containersNo" name="containersNo"
+                                               type="number" pattern="^[1-9][0-9]*$"
+                                               [(ngModel)]="domainLimit.containersNo"
+                                               [disabled]="isInMode(ComponentMode.VIEW)"/>
+                                    </div>
+                                </div>
+                                <div class=" grid col-12">
+                                    <label class="col-2 control-label"
+                                           for="cpu">{{ 'DOMAINS.GLOBAL_SETTINGS.CPU'| translate }}</label>
+                                    <div class="col-10 pd-top-7">
+                                        <input class="form-control"
+                                               placeholder="Not set" pInputText id="cpu" name="cpu"
+                                               type="number" pattern="^[1-9][0-9]*$" [(ngModel)]="domainLimit.cpu"
+                                               [disabled]="isInMode(ComponentMode.VIEW)"/>
+                                    </div>
+                                </div>
+                                <div class=" grid col-12">
+                                    <label class="col-2 control-label"
+                                           for="memory">{{ 'DOMAINS.GLOBAL_SETTINGS.MEMORY'| translate }}</label>
+                                    <div class="col-10 pd-top-7">
+                                        <div class="input-width">
+                                            <input class="form-control"
+                                                   placeholder="Not set" pInputText id="memory" name="memory"
+                                                   type="number" pattern="^[1-9][0-9]*$"
+                                                   [(ngModel)]="domainLimit.memory"
+                                                   [disabled]="isInMode(ComponentMode.VIEW)"/>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                          }
-                          @if (isInMode(ComponentMode.VIEW) && !authService.hasRole('ROLE_OPERATOR')) {
-                            <div  class="background-section">
-                              <h4 style="font-size:15px; font-weight: bold">{{ 'DOMAIN_DETAILS.DOMAIN_USERS' | translate }}</h4>
-                              <div  class="panel-body">
-                                @if (domainUsers.length !== 0) {
-                                  <table class="table table-hover table-condensed" aria-describedby="Domains details table">
-                                    <thead  >
-                                      <tr>
-                                        <th scope="col" *roles="['ROLE_SYSTEM_ADMIN']">{{ 'DOMAIN_DETAILS.ID' | translate }}</th>
-                                        <th scope="col">{{ 'DOMAIN_DETAILS.USER_NAME' | translate }}</th>
-                                        <th scope="col">{{ 'DOMAIN_DETAILS.FIRST_NAME' | translate }}</th>
-                                        <th scope="col">{{ 'DOMAIN_DETAILS.LAST_NAME' | translate }}</th>
-                                        <th scope="col">{{ 'DOMAIN_DETAILS.ROLES' | translate }}</th>
-                                        <th scope="col">&nbsp;</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      @for (user of domainUsers; track user) {
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (isInMode(ComponentMode.VIEW) && !authService.hasRole('ROLE_OPERATOR')) {
+                <div class="background-section">
+                    <h4 style="font-size:15px; font-weight: bold">{{ 'DOMAIN_DETAILS.DOMAIN_USERS' | translate }}</h4>
+                    <div class="panel-body">
+                        @if (domainUsers.length !== 0) {
+                            <table class="table table-hover table-condensed" aria-describedby="Domains details table">
+                                <thead>
+                                <tr>
+                                    <th scope="col"
+                                        *roles="['ROLE_SYSTEM_ADMIN']">{{ 'DOMAIN_DETAILS.ID' | translate }}
+                                    </th>
+                                    <th scope="col">{{ 'DOMAIN_DETAILS.USER_NAME' | translate }}</th>
+                                    <th scope="col">{{ 'DOMAIN_DETAILS.FIRST_NAME' | translate }}</th>
+                                    <th scope="col">{{ 'DOMAIN_DETAILS.LAST_NAME' | translate }}</th>
+                                    <th scope="col">{{ 'DOMAIN_DETAILS.ROLES' | translate }}</th>
+                                    <th scope="col">&nbsp;</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    @for (user of domainUsers; track user) {
                                         <tr>
-                                          @if (authService.hasRole('ROLE_SYSTEM_ADMIN')) {
-                                            <td>{{user.id}}</td>
-                                          }
-                                          <td>{{user.username}}</td>
-                                          <td> {{user.firstname}}</td>
-                                          <td> {{user.lastname}}</td>
-                                          @if (domainId == domainService.getGlobalDomainId()) {
-                                            <td>
-                                              @for (role of filterDomainNames(user); track role; let isLast = $last) {
-                                                <div>
-                                                  @if (!isLast) {
-                                                    <span style="float:left;padding-right: 3px">{{role.role | slice:5}}&#64;{{this.getDomainName(role.domainId)|async}}, </span>
-                                                  }
-                                                  @if (isLast) {
-                                                    <span style="float:left">{{role.role | slice:5}}&#64;{{this.getDomainName(role.domainId)|async}}</span>
-                                                  }
-                                                </div>
-                                              }
-                                            </td>
-                                          }
-                                          @if (domainId != domainService.getGlobalDomainId()) {
-                                            <td>
-                                              @for (role of this.getDomainRoleNames(user.roles); track role) {
-                                                <span>
-                                                  {{"ENUM.USER_ROLES." + role.role.toUpperCase() | translate}}
-                                                </span>
-                                              }
-                                            </td>
-                                          }
-                                        </tr>
-                                      }
-                                    </tbody>
-                                  </table>
-                                }
-                                <div>
-                                  @if (domainUsers.length === 0) {
-                                    <tr >
-                                      <td >None</td>
-                                    </tr>
-                                  }
-                                </div>
-                              </div>
-                            </div>
-                          }
-                          @if (isInMode(ComponentMode.CREATE)) {
-                            <div  class="background-section">
-                              <app-domain-namespace-annotations [annotationRead]="annotations" (annotations)="handleAnnotationsChange($event)" (trigerDelete)="handleAnnotationDelete($event)"></app-domain-namespace-annotations>
-                            </div>
-                          }
-                          @if (isInMode(ComponentMode.VIEW) || isInMode(ComponentMode.EDIT)) {
-                            <div class="background-section">
-                              <h4 style="font-size:15px; font-weight: bold">{{ 'DOMAIN_DETAILS.APP_STATUS' | translate }}</h4>
-                              <div class="panel-body">
-                                <table class="table table-hover table-condensed" aria-describedby="Domain details table">
-                                  <thead>
-                                    <tr>
-                                      <th scope="col">
-                                        {{ 'DOMAIN_DETAILS.APP_NAME' | translate }}
-                                      </th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    @for (applicationStatePerDomain of this.domain.applicationStatePerDomain; track applicationStatePerDomain; let i = $index) {
-                                      <tr>
-                                        <td class="row-container">
-                                          <div class="col-sm-4">{{applicationStatePerDomain.applicationBaseName}}</div>
-                                          <div class="col-sm-8">
-                                            <button class="btn pull-right custom-collapse" type="button" data-toggle="collapse" [attr.data-target]="'#collapse-'+i" aria-expanded="false"> </button>
-                                          </div>
-                                          <div class="row-sub collapse" id="collapse-{{i}}">
-                                            <div class="card ui-card-body">
-                                              @if (domain.id !== domainService.getGlobalDomainId()) {
-                                                <div class="">
-                                                  <div class="row-container">
-                                                    <label for="domain-state-enabled-{{i}}" class="col-sm-4 control-label no-padding-top">
-                                                      {{ 'DOMAIN_DETAILS.APP_ENABLED' | translate }}
-                                                    </label>
-                                                    <div class="col-sm-8">
-                                                      <input type="checkbox" class="custom-control-input"
-                                                        [disabled]="isInMode(ComponentMode.VIEW)"
-                                                        id="domain-state-enabled-{{i}}"
-                                                        name="domain-state-enabled-{{i}} "
-                                                        [(ngModel)]="domain.applicationStatePerDomain[i].enabled">
-                                                      </div>
-                                                    </div>
-                                                    <div class="row-container">
-                                                      <label for="domain-state-storage-limit-size-{{i}}" class="col-sm-4 control-label no-padding-top">
-                                                        {{ 'DOMAIN_DETAILS.PV_STORAGE_SIZE_LIMIT' | translate }}
-                                                      </label>
-                                                      <div class="col-sm-8">
-                                                        <input type="number" step="1" min="1" max="100" class="form-control"
-                                                          [disabled]="isInMode(ComponentMode.VIEW)"
-                                                          id="domain-state-storage-limit-size-{{i}}"
-                                                          name="domain-state-storage-limit-size-{{i}} "
-                                                          [(ngModel)]="domain.applicationStatePerDomain[i].pvStorageSizeLimit">
-                                                        </div>
-                                                      </div>
-                                                      <!--										Extend this part to add forms for in domain state-->
-                                                    </div>
-                                                  }
-                                                </div>
-                                              </div>
-                                            </td>
-                                          </tr>
-                                        }
-                                      </tbody>
-                                    </table>
-                                  </div>
-                                </div>
-                              }
-                              @if (displayCustomerNetworksSection && domain.id !== domainService.getGlobalDomainId()) {
-                                <div class="background-section">
-                                  <h4 style="font-size:15px; font-weight: bold">{{'DOMAIN_DETAILS.CUSTOMER_NETWORKS' | translate}}</h4>
-                                  <div class="panel-body">
-                                    @if (isInMode(ComponentMode.VIEW) && domain.domainDcnDetails.customerNetworks.length == 0) {
-                                      <div class="text-center">
-                                        <h5>{{'DOMAIN_DETAILS.CUSTOMER_NETWORKS_EMPTY_LIST_MESSAGE' | translate}}</h5>
-                                      </div>
-                                    }
-                                    @if (!isInMode(ComponentMode.VIEW) || domain.domainDcnDetails.customerNetworks.length > 0) {
-                                      <div class="form-inline">
-                                        @for (network of domain.domainDcnDetails.customerNetworks; track network; let i = $index) {
-                                          <div class="form-group col-sm-12" style="padding-bottom: 5px;">
-                                            <label for="network-{{i}}" class="col-sm-2 control-label">{{'DOMAIN_DETAILS.IP_ADDRESS' | translate}}</label>
-                                            <input type="text" class="col-sm-5 form-control" pattern="^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$" required [disabled]="isInMode(ComponentMode.VIEW)" id="network-{{i}}" name="network-{{i}}" [(ngModel)]="network.customerIp">
-                                            <label for="mask-{{i}}" class="col-sm-2 control-label">{{'DOMAIN_DETAILS.MASK_LENGTH' | translate}}</label>
-                                            <input pInputText type="number" class="form-control col-sm-1 no-spin" [minNumLength]="0" [maxNumLength]="32" required [disabled]="isInMode(ComponentMode.VIEW)" id="mask-{{i}}" name="mask-{{i}}" [(ngModel)]="network.maskLength">
-                                            <div class="col-sm-2">
-                                              @if (!isInMode(ComponentMode.VIEW)) {
-                                                <button type="button" class="btn btn-danger btn-sm" (click)="removeNetwork(i)"><span class="glyphicon glyphicon-remove"></span></button>
-                                              }
-                                            </div>
-                                          </div>
-                                        }
-                                      </div>
-                                    }
-                                    <br>
-                                      @if (!isInMode(ComponentMode.VIEW)) {
-                                        <button type="button" class="btn btn-sm btn-primary" (click)="addNetwork()"><span class="glyphicon glyphicon-plus"></span> {{'DOMAIN_DETAILS.ADD' | translate}}</button>
-                                      }
-                                    </div>
-                                  </div>
-                                }
-                                @if (isInMode(ComponentMode.VIEW) && !authService.hasRole('ROLE_OPERATOR')) {
-                                  <div class="background-section">
-                                    <h4 style="font-size:15px; font-weight: bold">{{ 'DOMAINS.LIST.GROUP' | translate }}</h4>
-                                    <div class="panel-body">
-                                      @if (domain.groups.length !== 0) {
-                                        <table class="table table-hover table-condensed" aria-describedby="Domain group list">
-                                          <thead>
-                                            <tr>
-                                              <th scope="col">{{ 'DOMAINS.LIST.DOMAIN_NAME' | translate }}</th>
-                                              <th scope="col">{{ 'DOMAINS.LIST.DOMAIN_CODE_NAME' | translate }}</th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            @for (group of domain.groups; track group) {
-                                              <tr>
-                                                <td>{{group.name}}</td>
-                                                <td>{{group.codename}}</td>
-                                              </tr>
+                                            @if (authService.hasRole('ROLE_SYSTEM_ADMIN')) {
+                                                <td>{{ user.id }}</td>
                                             }
-                                          </tbody>
-                                        </table>
-                                      }
-                                      @if (domain.groups.length === 0) {
-                                        <div >
-                                          <p>None</p>
-                                        </div>
-                                      }
-                                    </div>
-                                  </div>
-                                }
-                                <!-- CLUSTER CONFIGURATION READ ONLY PRESENTATION  -->
-                                @if (isInMode(ComponentMode.VIEW) && !authService.hasRole('ROLE_OPERATOR')) {
-                                  <div class="background-section">
-                                    <h4 style="font-size:15px; font-weight: bold">{{ 'CLUSTERS.CONFIGURATION' | translate  }}</h4>
-                                    @if (domain.clusters.length === 0) {
-                                      <div class="panel-body" >
-                                        <p>None</p>
-                                      </div>
+                                            <td>{{ user.username }}</td>
+                                            <td> {{ user.firstname }}</td>
+                                            <td> {{ user.lastname }}</td>
+                                            @if (domainId == domainService.getGlobalDomainId()) {
+                                                <td>
+                                                    @for (role of filterDomainNames(user); track role; let isLast = $last) {
+                                                        <div>
+                                                            @if (!isLast) {
+                                                                <span style="float:left;padding-right: 3px">{{ role.role | slice:5 }}&#64;{{ this.getDomainName(role.domainId)|async }}
+                                                                    , </span>
+                                                            }
+                                                            @if (isLast) {
+                                                                <span style="float:left">{{ role.role | slice:5 }}&#64;{{ this.getDomainName(role.domainId)|async }}</span>
+                                                            }
+                                                        </div>
+                                                    }
+                                                </td>
+                                            }
+                                            @if (domainId != domainService.getGlobalDomainId()) {
+                                                <td>
+                                                    @for (role of this.getDomainRoleNames(user.roles); track role) {
+                                                        <span>
+                                                  {{ "ENUM.USER_ROLES." + role.role.toUpperCase() | translate }}
+                                                </span>
+                                                    }
+                                                </td>
+                                            }
+                                        </tr>
                                     }
-                                    @if (domain.clusters.length >0) {
-                                      <div class="form-group panel-body">
-                                        <p-table
-                                          [value]="domain.clusters"
-                                          [paginator]="true"
-                                          [rows]="10"
-                                          [responsiveLayout]="'scroll'">
-                                          <ng-template pTemplate="header">
-                                            <tr>
-                                              <th  pSortableColumn="id" id="id"> {{ 'CLUSTERS.ID' | translate }}
-                                                <p-sortIcon field="id"></p-sortIcon>
-                                              </th>
-                                              <th pSortableColumn="name" id="name"> {{ 'CLUSTERS.NAME' | translate }}
-                                                <p-sortIcon field="name"></p-sortIcon>
-                                              </th>
-                                              <th pSortableColumn="codename" id="codename"> {{ 'CLUSTERS.CODENAME' | translate }}
-                                                <p-sortIcon field="codename"></p-sortIcon>
-                                              </th>
-                                              <th pSortableColumn="state" id="state"> {{ 'CLUSTERS.STATE' | translate }}
-                                                <p-sortIcon field="state"></p-sortIcon>
-                                              </th>
-                                              <th pSortableColumn="creationDate" id="creationDate"> {{ 'CLUSTERS.CREATION_DATE' | translate }}
-                                                <p-sortIcon field="creationDate"></p-sortIcon>
-                                              </th>
-                                              <th pSortableColumn="modificationDate" id="modificationDate"> {{ 'CLUSTERS.MODIFICATION_DATE' | translate }}
-                                                <p-sortIcon field="modificationDate"></p-sortIcon>
-                                              </th>
-                                            </tr>
-                                          </ng-template>
-                                          <ng-template pTemplate="body" let-cluster>
-                                            <tr>
-                                              <td [routerLink]="['/admin/manage/clusters/',cluster.id]">{{cluster.id}}</td>
-                                              <td [routerLink]="['/admin/manage/clusters/',cluster.id]">{{cluster.name}}</td>
-                                              <td [routerLink]="['/admin/manage/clusters/',cluster.id]">{{cluster.codename}}</td>
-                                              <td [routerLink]="['/admin/manage/clusters/',cluster.id]">{{('CLUSTERS.'+cluster.state.toString().toUpperCase() ) | translate}}</td>
-                                              <td [routerLink]="['/admin/manage/clusters/',cluster.id]">{{cluster.creationDate | date: 'dd-MM-yyyy HH:mm'}}</td>
-                                              <td [routerLink]="['/admin/manage/clusters/',cluster.id]">{{cluster.modificationDate | date: 'dd-MM-yyyy HH:mm'}}</td>
-                                            </tr>
-                                          </ng-template>
-                                        </p-table>
-                                      </div>
-                                    }
-                                  </div>
+                                </tbody>
+                            </table>
+                        }
+                        <div>
+                            @if (domainUsers.length === 0) {
+                                <tr>
+                                    <td>None</td>
+                                </tr>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (isInMode(ComponentMode.CREATE)) {
+                <div class="background-section">
+                    <app-domain-namespace-annotations [annotationRead]="annotations"
+                                                      (annotations)="handleAnnotationsChange($event)"
+                                                      (trigerDelete)="handleAnnotationDelete($event)"></app-domain-namespace-annotations>
+                </div>
+            }
+            @if (isInMode(ComponentMode.VIEW) || isInMode(ComponentMode.EDIT)) {
+                <div class="background-section">
+                    <h4 style="font-size:15px; font-weight: bold">{{ 'DOMAIN_DETAILS.APP_STATUS' | translate }}</h4>
+                    <div class="panel-body">
+                        <table class="table table-hover table-condensed" aria-describedby="Domain details table">
+                            <thead>
+                            <tr>
+                                <th scope="col">
+                                    {{ 'DOMAIN_DETAILS.APP_NAME' | translate }}
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                @for (applicationStatePerDomain of this.domain.applicationStatePerDomain; track applicationStatePerDomain; let i = $index) {
+                                    <tr>
+                                        <td class="row-container">
+                                            <div class="col-4">{{ applicationStatePerDomain.applicationBaseName }}</div>
+                                            <div class="col-8">
+                                                <button class="btn pull-right custom-collapse" type="button"
+                                                        data-toggle="collapse" [attr.data-target]="'#collapse-'+i"
+                                                        aria-expanded="false"></button>
+                                            </div>
+                                            <div class="row-sub collapse" id="collapse-{{i}}">
+                                                <div class="card ui-card-body">
+                                                    @if (domain.id !== domainService.getGlobalDomainId()) {
+                                                        <div class="">
+                                                            <div class="row-container">
+                                                                <label for="domain-state-enabled-{{i}}"
+                                                                       class="col-4 control-label no-padding-top">
+                                                                    {{ 'DOMAIN_DETAILS.APP_ENABLED' | translate }}
+                                                                </label>
+                                                                <div class="col-8">
+                                                                    <input type="checkbox" class="custom-control-input"
+                                                                           [disabled]="isInMode(ComponentMode.VIEW)"
+                                                                           id="domain-state-enabled-{{i}}"
+                                                                           name="domain-state-enabled-{{i}} "
+                                                                           [(ngModel)]="domain.applicationStatePerDomain[i].enabled">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row-container">
+                                                                <label for="domain-state-storage-limit-size-{{i}}"
+                                                                       class="col-4 control-label no-padding-top">
+                                                                    {{ 'DOMAIN_DETAILS.PV_STORAGE_SIZE_LIMIT' | translate }}
+                                                                </label>
+                                                                <div class="col-8">
+                                                                    <input type="number" step="1" min="1" max="100"
+                                                                           class="form-control"
+                                                                           [disabled]="isInMode(ComponentMode.VIEW)"
+                                                                           id="domain-state-storage-limit-size-{{i}}"
+                                                                           name="domain-state-storage-limit-size-{{i}} "
+                                                                           [(ngModel)]="domain.applicationStatePerDomain[i].pvStorageSizeLimit">
+                                                                </div>
+                                                            </div>
+                                                            <!--										Extend this part to add forms for in domain state-->
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 }
-                                <div class="flex justify-content-end">
-                                  @if (!isInMode(ComponentMode.VIEW)) {
-                                    <button type="submit" class="btn btn-primary"
-                                    [disabled]="!domainForm.form.valid">{{ 'DOMAIN_DETAILS.SUBMIT_BUTTON' | translate }}</button>
-                                  }
-                                </div>
-                                @if (errorMessage) {
-                                  <br>
-                                  }
-                                </form>
-                              }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+            @if (displayCustomerNetworksSection && domain.id !== domainService.getGlobalDomainId()) {
+                <div class="background-section">
+                    <h4 style="font-size:15px; font-weight: bold">{{ 'DOMAIN_DETAILS.CUSTOMER_NETWORKS' | translate }}</h4>
+                    <div class="panel-body">
+                        @if (isInMode(ComponentMode.VIEW) && domain.domainDcnDetails.customerNetworks.length == 0) {
+                            <div class="text-center">
+                                <h5>{{ 'DOMAIN_DETAILS.CUSTOMER_NETWORKS_EMPTY_LIST_MESSAGE' | translate }}</h5>
                             </div>
+                        }
+                        @if (!isInMode(ComponentMode.VIEW) || domain.domainDcnDetails.customerNetworks.length > 0) {
+                            <div class="form-inline">
+                                @for (network of domain.domainDcnDetails.customerNetworks; track network; let i = $index) {
+                                    <div class="grid col-12" style="padding-bottom: 5px;">
+                                        <label for="network-{{i}}"
+                                               class="col-2 control-label">{{ 'DOMAIN_DETAILS.IP_ADDRESS' | translate }}</label>
+                                        <input type="text" class="col-5 form-control"
+                                               pattern="^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$" required
+                                               [disabled]="isInMode(ComponentMode.VIEW)" id="network-{{i}}"
+                                               name="network-{{i}}" [(ngModel)]="network.customerIp">
+                                        <label for="mask-{{i}}"
+                                               class="col-2 control-label">{{ 'DOMAIN_DETAILS.MASK_LENGTH' | translate }}</label>
+                                        <input pInputText type="number" class="form-control col-1 no-spin"
+                                               [minNumLength]="0" [maxNumLength]="32" required
+                                               [disabled]="isInMode(ComponentMode.VIEW)" id="mask-{{i}}"
+                                               name="mask-{{i}}" [(ngModel)]="network.maskLength">
+                                        <div class="col-2">
+                                            @if (!isInMode(ComponentMode.VIEW)) {
+                                                <button type="button" class="btn btn-danger btn-sm"
+                                                        (click)="removeNetwork(i)"><span
+                                                        class="glyphicon glyphicon-remove"></span></button>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        <br>
+                        @if (!isInMode(ComponentMode.VIEW)) {
+                            <button type="button" class="btn btn-sm btn-primary" (click)="addNetwork()"><span
+                                    class="glyphicon glyphicon-plus"></span> {{ 'DOMAIN_DETAILS.ADD' | translate }}
+                            </button>
+                        }
+                    </div>
+                </div>
+            }
+            @if (isInMode(ComponentMode.VIEW) && !authService.hasRole('ROLE_OPERATOR')) {
+                <div class="background-section">
+                    <h4 style="font-size:15px; font-weight: bold">{{ 'DOMAINS.LIST.GROUP' | translate }}</h4>
+                    <div class="panel-body">
+                        @if (domain.groups.length !== 0) {
+                            <table class="table table-hover table-condensed" aria-describedby="Domain group list">
+                                <thead>
+                                <tr>
+                                    <th scope="col">{{ 'DOMAINS.LIST.DOMAIN_NAME' | translate }}</th>
+                                    <th scope="col">{{ 'DOMAINS.LIST.DOMAIN_CODE_NAME' | translate }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    @for (group of domain.groups; track group) {
+                                        <tr>
+                                            <td>{{ group.name }}</td>
+                                            <td>{{ group.codename }}</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        @if (domain.groups.length === 0) {
+                            <div>
+                                <p>None</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            <!-- CLUSTER CONFIGURATION READ ONLY PRESENTATION  -->
+            @if (isInMode(ComponentMode.VIEW) && !authService.hasRole('ROLE_OPERATOR')) {
+                <div class="background-section">
+                    <h4 style="font-size:15px; font-weight: bold">{{ 'CLUSTERS.CONFIGURATION' | translate }}</h4>
+                    @if (domain.clusters.length === 0) {
+                        <div class="panel-body">
+                            <p>None</p>
+                        </div>
+                    }
+                    @if (domain.clusters.length > 0) {
+                        <div class="form-group panel-body">
+                            <p-table
+                                    [value]="domain.clusters"
+                                    [paginator]="true"
+                                    [rows]="10"
+                                    [responsiveLayout]="'scroll'">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th pSortableColumn="id" id="id"> {{ 'CLUSTERS.ID' | translate }}
+                                            <p-sortIcon field="id"></p-sortIcon>
+                                        </th>
+                                        <th pSortableColumn="name" id="name"> {{ 'CLUSTERS.NAME' | translate }}
+                                            <p-sortIcon field="name"></p-sortIcon>
+                                        </th>
+                                        <th pSortableColumn="codename"
+                                            id="codename"> {{ 'CLUSTERS.CODENAME' | translate }}
+                                            <p-sortIcon field="codename"></p-sortIcon>
+                                        </th>
+                                        <th pSortableColumn="state" id="state"> {{ 'CLUSTERS.STATE' | translate }}
+                                            <p-sortIcon field="state"></p-sortIcon>
+                                        </th>
+                                        <th pSortableColumn="creationDate"
+                                            id="creationDate"> {{ 'CLUSTERS.CREATION_DATE' | translate }}
+                                            <p-sortIcon field="creationDate"></p-sortIcon>
+                                        </th>
+                                        <th pSortableColumn="modificationDate"
+                                            id="modificationDate"> {{ 'CLUSTERS.MODIFICATION_DATE' | translate }}
+                                            <p-sortIcon field="modificationDate"></p-sortIcon>
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-cluster>
+                                    <tr>
+                                        <td [routerLink]="['/admin/manage/clusters/',cluster.id]">{{ cluster.id }}</td>
+                                        <td [routerLink]="['/admin/manage/clusters/',cluster.id]">{{ cluster.name }}</td>
+                                        <td [routerLink]="['/admin/manage/clusters/',cluster.id]">{{ cluster.codename }}</td>
+                                        <td [routerLink]="['/admin/manage/clusters/',cluster.id]">{{ ('CLUSTERS.' + cluster.state.toString().toUpperCase()) | translate }}</td>
+                                        <td [routerLink]="['/admin/manage/clusters/',cluster.id]">{{ cluster.creationDate | date: 'dd-MM-yyyy HH:mm' }}</td>
+                                        <td [routerLink]="['/admin/manage/clusters/',cluster.id]">{{ cluster.modificationDate | date: 'dd-MM-yyyy HH:mm' }}</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    }
+                </div>
+            }
+            <div class="flex justify-content-end">
+                @if (!isInMode(ComponentMode.VIEW)) {
+                    <button type="submit" class="btn btn-primary"
+                            [disabled]="!domainForm.form.valid">{{ 'DOMAIN_DETAILS.SUBMIT_BUTTON' | translate }}
+                    </button>
+                }
+            </div>
+            @if (errorMessage) {
+                <br>
+            }
+        </form>
+    }
+</div>
 
-                            <nmaas-modal>
-                              <div class="nmaas-modal-header">
-                                <h4 style="text-align: center">{{ 'DOMAIN_DETAILS.DCN_STATUS_CHANGE' | translate }}</h4>
-                              </div>
-                              <div class="nmaas-modal-body">
-                                <div class="form-group text-center">
-                                  <p>{{ 'DOMAIN_DETAILS.QUESTION_1' | translate }} {{domain?.name}}{{ 'DOMAIN_DETAILS.QUESTION_2' | translate }}</p>
-                                </div>
-                              </div>
-                              <div class="nmaas-modal-footer text-center">
-                                <button class="btn btn-primary" style="display: inline-block" (click)="updateDcnConfigured()">{{ 'DOMAIN_DETAILS.YES_BUTTON' | translate }}</button>
-                                <button class="btn btn-secondary" style="display: inline-block" (click)="this.modal.hide()">{{ 'DOMAIN_DETAILS.CANCEL_BUTTON' | translate }}</button>
-                              </div>
-                            </nmaas-modal>
+<nmaas-modal>
+    <div class="nmaas-modal-header">
+        <h4 style="text-align: center">{{ 'DOMAIN_DETAILS.DCN_STATUS_CHANGE' | translate }}</h4>
+    </div>
+    <div class="nmaas-modal-body">
+        <div class="form-group text-center">
+            <p>{{ 'DOMAIN_DETAILS.QUESTION_1' | translate }} {{ domain?.name }}{{ 'DOMAIN_DETAILS.QUESTION_2' | translate }}</p>
+        </div>
+    </div>
+    <div class="nmaas-modal-footer text-center">
+        <button class="btn btn-primary" style="display: inline-block"
+                (click)="updateDcnConfigured()">{{ 'DOMAIN_DETAILS.YES_BUTTON' | translate }}
+        </button>
+        <button class="btn btn-secondary" style="display: inline-block"
+                (click)="this.modal.hide()">{{ 'DOMAIN_DETAILS.CANCEL_BUTTON' | translate }}
+        </button>
+    </div>
+</nmaas-modal>

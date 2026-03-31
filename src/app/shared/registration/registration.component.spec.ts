@@ -6,7 +6,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {RegistrationService} from '../../auth/registration.service';
 import {AppConfigService, ConfigurationService} from '../../service';
-import {ModalComponent} from '../../shared/modal';
+import {ModalComponent} from '../modal';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
 import {RouterTestingModule} from '@angular/router/testing';
