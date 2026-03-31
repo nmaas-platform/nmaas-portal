@@ -31,6 +31,7 @@ export class NavbarComponent implements OnInit {
     darkMode;
 
     public autoLogout = false;
+    public currentLanguage;
 
 
     constructor(public router: Router,
@@ -45,6 +46,7 @@ export class NavbarComponent implements OnInit {
 
     useLanguage(language: string) {
         this.translate.use(language);
+        this.currentLanguage = language
     }
 
     getCurrent() {
@@ -56,6 +58,8 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.currentLanguage = 'en'
+        console.log("WWWWWWWWWWWWWWWWWWWWWWWWww", this.getCurrent())
         this.updateDarkMode()
         const observer = new MutationObserver(() => this.updateDarkMode());
         observer.observe(document.documentElement, {

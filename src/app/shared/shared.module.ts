@@ -84,6 +84,10 @@ import {InputIconModule} from 'primeng/inputicon';
 import {DatePickerModule} from 'primeng/datepicker';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {MenuModule} from 'primeng/menu';
+import {Popover} from 'primeng/popover';
+import {LoginComponent} from './login';
+import {RegistrationComponent} from './registration/registration.component';
+import {RegistrationService} from '../auth/registration.service';
 
 
 @NgModule({
@@ -122,7 +126,8 @@ import {MenuModule} from 'primeng/menu';
             DatePickerModule,
             SelectButtonModule,
             MenuModule,
-            PasswordStrengthMeterComponent
+            PasswordStrengthMeterComponent,
+            Popover
         ],
     declarations: [
         RateComponent,
@@ -172,7 +177,9 @@ import {MenuModule} from 'primeng/menu';
         AccessTokensComponent,
         AdminDashboardComponent,
         AddClusterComponent,
-        UserDomainListComponent
+        UserDomainListComponent,
+        LoginComponent,
+        RegistrationComponent
     ],
     providers: [
         PasswordValidator,
@@ -180,6 +187,7 @@ import {MenuModule} from 'primeng/menu';
         NotificationService,
         RecaptchaVisibilityService,
         AppConfigService,
+        RegistrationService,
         DatePipe,
         {
             provide: RECAPTCHA_V3_SITE_KEY,

@@ -29,6 +29,7 @@ import {InputIconModule} from 'primeng/inputicon';
 import {MenuModule} from 'primeng/menu';
 import {GlobalSettingsComponent} from './global-settings/global-settings.component';
 import {TabsModule} from 'primeng/tabs';
+import {Accordion, AccordionContent, AccordionHeader, AccordionPanel} from 'primeng/accordion';
 
 
 @NgModule({
@@ -59,7 +60,11 @@ import {TabsModule} from 'primeng/tabs';
         IconFieldModule,
         InputIconModule,
         MenuModule,
-        TabsModule
+        TabsModule,
+        Accordion,
+        AccordionPanel,
+        AccordionHeader,
+        AccordionContent
     ],
     exports: [
         DomainsListComponent,

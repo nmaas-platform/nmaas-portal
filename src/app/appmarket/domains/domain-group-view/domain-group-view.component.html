@@ -1,358 +1,421 @@
 <div class="">
-  <h4 class="header">{{ 'DOMAINS.LIST.GROUP' | translate }}</h4>
-  @if (domainGroup) {
-    <form (submit)="submit(false)" class="form-horizontal" #domainForm="ngForm">
-      <div class="background-section">
-        <div class="form-group">
-          <label for="name" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.NAME' | translate }}</label>
-          <div class="col-sm-10">
-            <input pInputText type="text" class="form-control"  id="name" name="name"
-              [(ngModel)]="domainGroup.name" #name="ngModel" required [disabled]="isInMode(ComponentMode.VIEW)">
-              @if (name.invalid && (name.dirty || name.touched)) {
-                <div
-                  class="alert alert-danger">
-                  @if (name.errors.required) {
-                    <div>{{ 'DOMAIN_DETAILS.NAME_IS_REQUIRED_MESSAGE' | translate }}</div>
-                  }
-                </div>
-              }
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="codename" class="col-sm-2 control-label">{{ 'DOMAIN_DETAILS.CODE_NAME' | translate }}</label>
-            <div class="col-sm-10">
-              <input pInputText type="text" class="form-control"  id="codename"
-                name="codename" pattern="[a-zA-Z0-9-]*"
-                [(ngModel)]="domainGroup.codename" #codename="ngModel" minlength="2" maxlength="20" required [disabled]="isInMode(ComponentMode.VIEW)">
-                @if (codename.invalid && (codename.dirty || codename.touched)) {
-                  <div
-                    class="alert alert-danger">
-                    @if (codename.errors.required) {
-                      <div>{{ 'DOMAIN_DETAILS.CODE_NAME_IS_REQUIRED_MESSAGE' | translate }}</div>
-                    }
-                    @if (codename.errors.pattern) {
-                      <div>{{ 'DOMAIN_DETAILS.CODE_NAME_PATTERN_MESSAGE_1' | translate }}</div>
-                    }
-                    @if (codename.errors.minlength || codename.errors.maxlength) {
-                      <div>{{ 'DOMAIN_DETAILS.CODE_NAME_PATTERN_MESSAGE_2' | translate }}</div>
-                    }
-                  </div>
-                }
-              </div>
-            </div>
-          </div>
-          @if (domainGroupLimit || isInMode(ComponentMode.CREATE)) {
+    <h4 class="header">{{ 'DOMAINS.LIST.GROUP' | translate }}</h4>
+    @if (domainGroup) {
+        <form (submit)="submit(false)" class="form-horizontal" #domainForm="ngForm">
             <div class="background-section">
-              <div class="panel-body">
-                <div class="flex justify-content-between mb-3">
-                  <h4 style="font-size:15px; font-weight: bold">
-                    {{'DOMAIN_DETAILS.RESOURCE_LIMIT' | translate}}
-                  </h4>
-                  @if (isInMode(ComponentMode.EDIT)) {
-                    <button type="button"
-                      class="btn btn-danger"
-                      (click)="disableLimits()"
-                      [disabled]="!domainGroupLimit?.id">
-                      {{'DOMAIN_DETAILS.DISABLE_BUTTON' | translate}}
-                    </button>
-                  }
-                </div>
-                <div class="form-horizontal">
-                  <div class="panel-body">
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label" for="instancesNo">{{ 'DOMAINS.GLOBAL_SETTINGS.INSTANCES'| translate }}</label>
-                      <div class="col-sm-10 ">
-                        <input class="form-control"
-                          placeholder="Not set" pInputText id="instancesNo" name="instancesNo"
-                          type="number" pattern="^[1-9][0-9]*$" [(ngModel)]="domainGroupLimit.instancesNo"
-                          [disabled]="isInMode(ComponentMode.VIEW)"/>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="col-sm-2 control-label" for="containersNo">{{ 'DOMAINS.GLOBAL_SETTINGS.CONTAINERS'| translate }}</label>
-                        <div class="col-sm-10 pd-top-7">
-                          <input class="form-control"
-                            placeholder="Not set" pInputText id="containersNo" name="containersNo"
-                            type="number" pattern="^[1-9][0-9]*$" [(ngModel)]="domainGroupLimit.containersNo"
-                            [disabled]="isInMode(ComponentMode.VIEW)"/>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label class="col-sm-2 control-label" for="cpu">{{ 'DOMAINS.GLOBAL_SETTINGS.CPU'| translate }}</label>
-                          <div class="col-sm-10 pd-top-7">
-                            <input class="form-control"
-                              placeholder="Not set" pInputText id="cpu" name="cpu"
-                              type="number" pattern="^[1-9][0-9]*$" [(ngModel)]="domainGroupLimit.cpu"
-                              [disabled]="isInMode(ComponentMode.VIEW)"/>
+                <div class="form-group grid col-12">
+                    <label for="name" class="col-2 control-label">{{ 'DOMAIN_DETAILS.NAME' | translate }}</label>
+                    <div class="col-10">
+                        <input pInputText type="text" class="form-control" id="name" name="name"
+                               [(ngModel)]="domainGroup.name" #name="ngModel" required
+                               [disabled]="isInMode(ComponentMode.VIEW)">
+                        @if (name.invalid && (name.dirty || name.touched)) {
+                            <div
+                                    class="alert alert-danger">
+                                @if (name.errors.required) {
+                                    <div>{{ 'DOMAIN_DETAILS.NAME_IS_REQUIRED_MESSAGE' | translate }}</div>
+                                }
                             </div>
-                          </div>
-                          <div class="form-group">
-                            <label class="col-sm-2 control-label" for="memory">{{ 'DOMAINS.GLOBAL_SETTINGS.MEMORY'| translate }}</label>
-                            <div class="col-sm-10 pd-top-7"><div class="input-width">
-                              <input class="form-control"
-                                placeholder="Not set" pInputText id="memory" name="memory"
-                                type="number" pattern="^[1-9][0-9]*$" [(ngModel)]="domainGroupLimit.memory"
-                                [disabled]="isInMode(ComponentMode.VIEW)"/>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                        }
                     </div>
-                  </div>
-                }
-                @if (!this.addingMode) {
-                  <div class="background-section" style="margin-top: 3rem">
-                    <div class="panel-heading">
-                      <div style="display: flex; justify-content:space-between">
-                        <h4 style="font-size:15px; font-weight: bold">
-                          {{ 'DOMAINS.GROUP.ACCESS_USER' | translate }}
-                        </h4>
-                        <div style="display: flex; gap:10px;">
-                          <div  *roles="['ROLE_SYSTEM_ADMIN']" style="display: flex; justify-content: end">
+                </div>
+                <div class="form-group grid col-12">
+                    <label for="codename"
+                           class="col-2 control-label">{{ 'DOMAIN_DETAILS.CODE_NAME' | translate }}</label>
+                    <div class="col-10">
+                        <input pInputText type="text" class="form-control" id="codename"
+                               name="codename" pattern="[a-zA-Z0-9-]*"
+                               [(ngModel)]="domainGroup.codename" #codename="ngModel" minlength="2" maxlength="20"
+                               required [disabled]="isInMode(ComponentMode.VIEW)">
+                        @if (codename.invalid && (codename.dirty || codename.touched)) {
+                            <div
+                                    class="alert alert-danger">
+                                @if (codename.errors.required) {
+                                    <div>{{ 'DOMAIN_DETAILS.CODE_NAME_IS_REQUIRED_MESSAGE' | translate }}</div>
+                                }
+                                @if (codename.errors.pattern) {
+                                    <div>{{ 'DOMAIN_DETAILS.CODE_NAME_PATTERN_MESSAGE_1' | translate }}</div>
+                                }
+                                @if (codename.errors.minlength || codename.errors.maxlength) {
+                                    <div>{{ 'DOMAIN_DETAILS.CODE_NAME_PATTERN_MESSAGE_2' | translate }}</div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            @if (domainGroupLimit || isInMode(ComponentMode.CREATE)) {
+                <div class="background-section">
+                    <div class="panel-body">
+                        <div class="flex justify-content-between mb-3">
+                            <h4 style="font-size:15px; font-weight: bold">
+                                {{ 'DOMAIN_DETAILS.RESOURCE_LIMIT' | translate }}
+                            </h4>
                             @if (isInMode(ComponentMode.EDIT)) {
-                              <button type="button" class="btn btn-text" (click)="showModalUser()">{{'DOMAINS.GROUP.ADD_USERS' | translate}}</button>
+                                <button type="button"
+                                        class="btn btn-danger"
+                                        (click)="disableLimits()"
+                                        [disabled]="!domainGroupLimit?.id">
+                                    {{ 'DOMAIN_DETAILS.DISABLE_BUTTON' | translate }}
+                                </button>
                             }
-                          </div>
-                          <div *roles="['ROLE_GROUP_MANAGER']" style="display: flex; justify-content: end;">
-                            @if (isInMode(ComponentMode.EDIT)) {
-                              <button type="button" class="btn btn-danger" (click)="removeMyAccess()">{{'DOMAINS.GROUP.DELETE_MYSELF' | translate}}</button>
-                            }
-                          </div>
                         </div>
-                      </div>
+                        <div class="form-horizontal">
+                            <div class="panel-body">
+                                <div class="form-group grid col-12">
+                                    <label class="col-2 control-label"
+                                           for="instancesNo">{{ 'DOMAINS.GLOBAL_SETTINGS.INSTANCES'| translate }}</label>
+                                    <div class="col-10 ">
+                                        <input class="form-control"
+                                               placeholder="Not set" pInputText id="instancesNo" name="instancesNo"
+                                               type="number" pattern="^[1-9][0-9]*$"
+                                               [(ngModel)]="domainGroupLimit.instancesNo"
+                                               [disabled]="isInMode(ComponentMode.VIEW)"/>
+                                    </div>
+                                </div>
+                                <div class="form-group grid col-12">
+                                    <label class="col-2 control-label"
+                                           for="containersNo">{{ 'DOMAINS.GLOBAL_SETTINGS.CONTAINERS'| translate }}</label>
+                                    <div class="col-10 pd-top-7">
+                                        <input class="form-control"
+                                               placeholder="Not set" pInputText id="containersNo" name="containersNo"
+                                               type="number" pattern="^[1-9][0-9]*$"
+                                               [(ngModel)]="domainGroupLimit.containersNo"
+                                               [disabled]="isInMode(ComponentMode.VIEW)"/>
+                                    </div>
+                                </div>
+                                <div class="form-group grid col-12">
+                                    <label class="col-2 control-label"
+                                           for="cpu">{{ 'DOMAINS.GLOBAL_SETTINGS.CPU'| translate }}</label>
+                                    <div class="col-10 pd-top-7">
+                                        <input class="form-control"
+                                               placeholder="Not set" pInputText id="cpu" name="cpu"
+                                               type="number" pattern="^[1-9][0-9]*$" [(ngModel)]="domainGroupLimit.cpu"
+                                               [disabled]="isInMode(ComponentMode.VIEW)"/>
+                                    </div>
+                                </div>
+                                <div class="form-group grid col-12">
+                                    <label class="col-2 control-label"
+                                           for="memory">{{ 'DOMAINS.GLOBAL_SETTINGS.MEMORY'| translate }}</label>
+                                    <div class="col-10 pd-top-7">
+                                        <div class="input-width">
+                                            <input class="form-control"
+                                                   placeholder="Not set" pInputText id="memory" name="memory"
+                                                   type="number" pattern="^[1-9][0-9]*$"
+                                                   [(ngModel)]="domainGroupLimit.memory"
+                                                   [disabled]="isInMode(ComponentMode.VIEW)"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (!this.addingMode) {
+                <div class="background-section" style="margin-top: 3rem">
+                    <div class="panel-heading">
+                        <div style="display: flex; justify-content:space-between">
+                            <h4 style="font-size:15px; font-weight: bold">
+                                {{ 'DOMAINS.GROUP.ACCESS_USER' | translate }}
+                            </h4>
+                            <div style="display: flex; gap:10px;">
+                                <div *roles="['ROLE_SYSTEM_ADMIN']" style="display: flex; justify-content: end">
+                                    @if (isInMode(ComponentMode.EDIT)) {
+                                        <button type="button" class="btn btn-text"
+                                                (click)="showModalUser()">{{ 'DOMAINS.GROUP.ADD_USERS' | translate }}
+                                        </button>
+                                    }
+                                </div>
+                                <div *roles="['ROLE_GROUP_MANAGER']" style="display: flex; justify-content: end;">
+                                    @if (isInMode(ComponentMode.EDIT)) {
+                                        <button type="button" class="btn btn-danger"
+                                                (click)="removeMyAccess()">{{ 'DOMAINS.GROUP.DELETE_MYSELF' | translate }}
+                                        </button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="panel-body">
-                      <table class="table table-hover table-condensed" aria-describedby="Domains in Group table" style="margin-top: 2rem">
-                        <thead>
-                          <tr>
-                            <th scope="col">{{'DOMAINS.GROUP.USERNAME' | translate}}</th>
-                            <th scope="col">{{'DOMAINS.GROUP.NAME' | translate}}</th>
-                            <th scope="col"></th>
-                          </tr>
-                          @for (user of domainGroup.managers; track user; let i = $index) {
-                            <tr class="table-row">
-                              <td style="width: 40%" >{{user.username}}</td>
-                              <td style="width: 40%" >{{user.firstname}} {{user.lastname}}</td>
-                              <td style="text-align:end">
-                                @if (isInMode(ComponentMode.EDIT)) {
-                                  <div class="">
-                                    <button *roles="['ROLE_SYSTEM_ADMIN']" type="button" class="btn btn-danger-text" (click)="deleteUserAccess(user)">
-                                      <i class="pi pi-trash" style="font-size: 15px;"></i>
-                                      <!--                                        {{'DOMAINS.GROUP.DELETE_USER' | translate}}-->
-                                    </button>
-                                  </div>
-                                }
-                              </td>
-                            </tr>
-                          }
-                        </thead>
-                      </table>
-                    </div>
-                  </div>
-                }
-                @if (!this.addingMode) {
-                  <div class="background-section " style="margin-top: 3rem">
-                    <div class="panel-heading">
-                      <div style="display: flex; justify-content: space-between; align-items: center" >
-                        <h4 style="font-size:15px; font-weight: bold">
-                          {{ 'DOMAINS.LIST.LIST' | translate }}
-                        </h4>
-                        <button class="btn pull-right toggle-button" data-toggle="collapse" [attr.data-target]="'#domains-list'" type="button" aria-expanded="false"> </button>
-                      </div>
-                    </div>
-                    <div class="panel-body collapse" id="domains-list">
-                      @if (isInMode(ComponentMode.EDIT)) {
-                        <div style="display: flex; justify-content: end">
-                          <button type="button" class="btn btn-text" (click)="showModal()">{{'DOMAINS.LIST.ADD' | translate}}</button>
-                        </div>
-                      }
-                      <table class="table table-hover table-condensed" aria-describedby="Domains in Group table" style="margin-top: 2rem">
-                        <thead>
-                          <tr>
-                            <th scope="col">{{'DOMAINS.LIST.DOMAIN_NAME' | translate}}</th>
-                            <th scope="col">{{'DOMAINS.LIST.DOMAIN_CODE_NAME' | translate}}</th>
-                            <th scope="col"></th>
-                          </tr>
-                          @for (domain of domainGroup.domains; track domain; let i = $index) {
-                            <tr class="table-row">
-                              <td style="width: 40%" >{{domain.name}}</td>
-                              <td style="width: 40%" >{{domain.codename}}</td>
-                              <td style="text-align: end">
-                                @if (isInMode(ComponentMode.EDIT)) {
-                                  <button type="button" class="btn btn-danger-text" (click)="deleteDomainFromGroup(domain)">
-                                    <i class="pi pi-trash" style="font-size: 15px;"></i>
-                                    <!--                                    {{'DOMAINS.LIST.DELETE' | translate}}-->
-                                  </button>
-                                }
-                              </td>
-                            </tr>
-                          }
-                        </thead>
-                      </table>
-                    </div>
-                  </div>
-                }
-                @if (!this.addingMode) {
-                  <div class="background-section" style="margin-top: 3rem">
-                    <div class="panel-heading">
-                      <div style="display: flex; justify-content: space-between; align-items: center">
-                        <h4 style="font-size:15px; font-weight: bold">
-                          {{ 'DOMAIN_DETAILS.APP_STATUS' | translate }}
-                        </h4>
-                        <button class="btn pull-right toggle-button" data-toggle="collapse" [attr.data-target]="'#app-status'" type="button" aria-expanded="false"> </button>
-                      </div>
-                    </div>
-                    <div class="panel-body collapse" id="app-status" >
-                      <div style="display: flex; justify-content: end; margin-bottom: 2rem">
-                        <button  class="btn btn-text"  type="button" (click)="toggleAll()">{{'SHARED.TOGGLE' | translate}}</button>
-                      </div>
-                      <table class="table table-hover table-condensed" aria-describedby="Domain details table">
-                        <thead>
-                          <tr>
-                            <th scope="col" style="display:flex; justify-content: space-between">
-                              <span>{{ 'DOMAIN_DETAILS.APP_NAME' | translate }}</span>
-                              <span style="margin-right: 5rem">{{ 'DOMAINS.LIST.ACTIVE' | translate}}</span>
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          @for (applicationStatePerDomain of this.domainGroup.applicationStatePerDomain; track applicationStatePerDomain; let i = $index) {
+                        <table class="table table-hover table-condensed" aria-describedby="Domains in Group table"
+                               style="margin-top: 2rem">
+                            <thead>
                             <tr>
-                              <td class="row-container">
-                                <div class="col-sm-4">{{applicationStatePerDomain.applicationBaseName}}</div>
-                                <div class="col-sm-8" style="display: flex; justify-content: end;">
-                                  @if (domainGroup.applicationStatePerDomain[i].enabled) {
-                                    <div class="margin-right" >
-                                      <em class="pi pi-check" style="color: green; font-size: 2rem"></em>
-                                    </div>
-                                  }
-                                  @if (!domainGroup.applicationStatePerDomain[i].enabled) {
-                                    <div class="margin-right">
-                                      <em class="pi pi-times" style="color: indianred; font-size: 2rem"></em>
-                                    </div>
-                                  }
-                                  <button class="btn pull-right custom-collapse" type="button" data-toggle="collapse" [attr.data-target]="'#collapse-'+i" aria-expanded="false"> </button>
+                                <th scope="col">{{ 'DOMAINS.GROUP.USERNAME' | translate }}</th>
+                                <th scope="col">{{ 'DOMAINS.GROUP.NAME' | translate }}</th>
+                                <th scope="col"></th>
+                            </tr>
+                                @for (user of domainGroup.managers; track user; let i = $index) {
+                                    <tr class="table-row">
+                                        <td style="width: 40%">{{ user.username }}</td>
+                                        <td style="width: 40%">{{ user.firstname }} {{ user.lastname }}</td>
+                                        <td style="text-align:end">
+                                            @if (isInMode(ComponentMode.EDIT)) {
+                                                <div class="">
+                                                    <button *roles="['ROLE_SYSTEM_ADMIN']" type="button"
+                                                            class="btn btn-danger-text"
+                                                            (click)="deleteUserAccess(user)">
+                                                        <i class="pi pi-trash" style="font-size: 15px;"></i>
+                                                        <!--                                        {{'DOMAINS.GROUP.DELETE_USER' | translate}}-->
+                                                    </button>
+                                                </div>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            }
+            @if (!this.addingMode) {
+                <div class="background-section">
+                    <p-accordion value="0" style="margin-top: 3rem">
+                        <p-accordion-panel value="1">
+                            <p-accordion-header>
+                                <div style="display: flex; justify-content: space-between; align-items: center">
+                                    <h4 style="font-size:15px; font-weight: bold">
+                                        {{ 'DOMAINS.LIST.LIST' | translate }}
+                                    </h4>
                                 </div>
-                                <div class="row-sub collapse" id="collapse-{{i}}">
-                                  <div class="card ui-card-body">
-                                    <div class="" style="color: var(--p-text-50); margin:20px 0">
-                                      <div class="row-container">
-                                        <label for="domain-state-enabled-{{i}}" class="col-sm-4 control-label no-padding-top">
-                                          {{ 'DOMAIN_DETAILS.APP_ENABLED' | translate }}
-                                        </label>
-                                        <div class="col-sm-8">
-                                          <input type="checkbox" class="custom-control-input"
-                                            id="domain-state-enabled-{{i}}"
-                                            name="domain-state-enabled-{{i}} "
-                                            [disabled]="isInMode(ComponentMode.VIEW)"
-                                            [(ngModel)]="domainGroup.applicationStatePerDomain[i].enabled">
-                                          </div>
-                                        </div>
-                                        <div class="row-container">
-                                          <label for="domain-state-storage-limit-size-{{i}}" class="col-sm-4 control-label no-padding-top">
-                                            {{ 'DOMAIN_DETAILS.PV_STORAGE_SIZE_LIMIT' | translate }}
-                                          </label>
-                                          <div class="col-sm-8">
-                                            <input pInputText type="number" step="1" min="1" max="100" class="form-control"
-                                              id="domain-state-storage-limit-size-{{i}}"
-                                              name="domain-state-storage-limit-size-{{i}} "
-                                              [disabled]="isInMode(ComponentMode.VIEW)"
-                                              [(ngModel)]="domainGroup.applicationStatePerDomain[i].pvStorageSizeLimit">
-                                            </div>
-                                          </div>
-                                          <!--										Extend this part to add forms for in domain state-->
-                                        </div>
-                                      </div>
+                            </p-accordion-header>
+                            <p-accordion-content id="domains-list">
+                                @if (isInMode(ComponentMode.EDIT)) {
+                                    <div style="display: flex; justify-content: end">
+                                        <button type="button" class="btn btn-text"
+                                                (click)="showModal()">{{ 'DOMAINS.LIST.ADD' | translate }}
+                                        </button>
                                     </div>
-                                  </td>
-                                </tr>
-                              }
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    }
-                    @if (isInMode(ComponentMode.EDIT) || isInMode(ComponentMode.CREATE)) {
-                      <div class="flex justify-content-end">
-                        <button  type="submit" class="btn btn-primary" [disabled]="!domainForm.form.valid">{{ 'DOMAIN_DETAILS.SUBMIT_BUTTON' | translate }}</button>
-                      </div>
-                    }
-                  </form>
+                                }
+                                <table class="table table-hover table-condensed"
+                                       aria-describedby="Domains in Group table"
+                                       style="margin-top: 2rem">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">{{ 'DOMAINS.LIST.DOMAIN_NAME' | translate }}</th>
+                                        <th scope="col">{{ 'DOMAINS.LIST.DOMAIN_CODE_NAME' | translate }}</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                        @for (domain of domainGroup.domains; track domain; let i = $index) {
+                                            <tr class="table-row">
+                                                <td style="width: 40%">{{ domain.name }}</td>
+                                                <td style="width: 40%">{{ domain.codename }}</td>
+                                                <td style="text-align: end">
+                                                    @if (isInMode(ComponentMode.EDIT)) {
+                                                        <button type="button" class="btn btn-danger-text"
+                                                                (click)="deleteDomainFromGroup(domain)">
+                                                            <i class="pi pi-trash" style="font-size: 15px;"></i>
+                                                            <!--                                    {{'DOMAINS.LIST.DELETE' | translate}}-->
+                                                        </button>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    </thead>
+                                </table>
+                            </p-accordion-content>
+                        </p-accordion-panel>
+                    </p-accordion>
+                </div>
+
+            }
+            @if (!this.addingMode) {
+                <div class="background-section" style="margin-top: 3rem">
+                    <p-accordion value="0" style="margin-top: 3rem">
+                        <p-accordion-panel value="1">
+                            <p-accordion-header>
+                                <div style="display: flex; justify-content: space-between; align-items: center">
+                                    <h4 style="font-size:15px; font-weight: bold">
+                                        {{ 'DOMAIN_DETAILS.APP_STATUS' | translate }}
+                                    </h4>
+                                </div>
+                            </p-accordion-header>
+                            <p-accordion-content>
+                                <div style="display: flex; justify-content: end; margin-bottom: 2rem">
+                                    <button class="btn btn-text" type="button"
+                                            (click)="toggleAll()">{{ 'SHARED.TOGGLE' | translate }}
+                                    </button>
+                                </div>
+                                <table class="table table-hover table-condensed"
+                                       aria-describedby="Domain details table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col" style="display:flex; justify-content: space-between">
+                                            <span>{{ 'DOMAIN_DETAILS.APP_NAME' | translate }}</span>
+                                            <span style="margin-right: 5rem">{{ 'DOMAINS.LIST.ACTIVE' | translate }}</span>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for (applicationStatePerDomain of this.domainGroup.applicationStatePerDomain; track applicationStatePerDomain; let i = $index) {
+                                            <tr>
+                                                <td class="row-container grid col-12">
+                                                    <div class="col-4">{{ applicationStatePerDomain.applicationBaseName }}</div>
+                                                    <div class="col-8" style="display: flex; justify-content: end;">
+                                                        @if (domainGroup.applicationStatePerDomain[i].enabled) {
+                                                            <div class="margin-right">
+                                                                <em class="pi pi-check"
+                                                                    style="color: green; font-size: 2rem"></em>
+                                                            </div>
+                                                        }
+                                                        @if (!domainGroup.applicationStatePerDomain[i].enabled) {
+                                                            <div class="margin-right">
+                                                                <em class="pi pi-times"
+                                                                    style="color: indianred; font-size: 2rem"></em>
+                                                            </div>
+                                                        }
+                                                        <button class="btn pull-right custom-collapse" type="button"
+                                                                data-toggle="collapse"
+                                                                [attr.data-target]="'#collapse-'+i"
+                                                                aria-expanded="false"></button>
+                                                    </div>
+                                                    <div class="row-sub collapse" id="collapse-{{i}}">
+                                                        <div class="card ui-card-body">
+                                                            <div class=""
+                                                                 style="color: var(--p-text-50); margin:20px 0">
+                                                                <div class="row-container">
+                                                                    <label for="domain-state-enabled-{{i}}"
+                                                                           class="col-4 control-label no-padding-top">
+                                                                        {{ 'DOMAIN_DETAILS.APP_ENABLED' | translate }}
+                                                                    </label>
+                                                                    <div class="col-8">
+                                                                        <input type="checkbox"
+                                                                               class="custom-control-input"
+                                                                               id="domain-state-enabled-{{i}}"
+                                                                               name="domain-state-enabled-{{i}} "
+                                                                               [disabled]="isInMode(ComponentMode.VIEW)"
+                                                                               [(ngModel)]="domainGroup.applicationStatePerDomain[i].enabled">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row-container grid col-112">
+                                                                    <label for="domain-state-storage-limit-size-{{i}}"
+                                                                           class="col-4 control-label no-padding-top">
+                                                                        {{ 'DOMAIN_DETAILS.PV_STORAGE_SIZE_LIMIT' | translate }}
+                                                                    </label>
+                                                                    <div class="col-8">
+                                                                        <input pInputText type="number" step="1" min="1"
+                                                                               max="100" class="form-control"
+                                                                               id="domain-state-storage-limit-size-{{i}}"
+                                                                               name="domain-state-storage-limit-size-{{i}} "
+                                                                               [disabled]="isInMode(ComponentMode.VIEW)"
+                                                                               [(ngModel)]="domainGroup.applicationStatePerDomain[i].pvStorageSizeLimit">
+                                                                    </div>
+                                                                </div>
+                                                                <!--										Extend this part to add forms for in domain state-->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </p-accordion-content>
+                        </p-accordion-panel>
+                    </p-accordion>
+                </div>
+            }
+            @if (isInMode(ComponentMode.EDIT) || isInMode(ComponentMode.CREATE)) {
+                <div class="flex justify-content-end">
+                    <button type="submit" class="btn btn-primary"
+                            [disabled]="!domainForm.form.valid">{{ 'DOMAIN_DETAILS.SUBMIT_BUTTON' | translate }}
+                    </button>
+                </div>
+            }
+        </form>
+    }
+</div>
+
+<nmaas-modal>
+    <div class="nmaas-modal-header">{{ 'DOMAINS.LIST.GROUP' | translate }}</div>
+    <div class="nmaas-modal-body" style="height: 300px">
+        <div style="height: 100px">
+            <p>{{ 'DOMAINS.LIST.ADD_INFO' | translate }}</p>
+            <p-multiSelect [panelStyle]="{minWidth:'25em'}" [(ngModel)]="domainsToAdd" [options]="domains"
+                           ngDefaultControl name="domains" optionLabel="name"></p-multiSelect>
+        </div>
+        <table class="table table-hover table-condensed" aria-describedby="Domains in Group table">
+            <thead>
+            <tr>
+                <th scope="col">{{ 'DOMAINS.LIST.DOMAIN_NAME' | translate }}</th>
+                <th scope="col">{{ 'DOMAINS.LIST.DOMAIN_CODE_NAME' | translate }}</th>
+            </tr>
+                @for (domain of domainsToAdd; track domain; let i = $index) {
+                    <tr class="table-row">
+                        <td>{{ domain.name }}</td>
+                        <td>{{ domain.codename }}</td>
+                    </tr>
                 }
-              </div>
+            </thead>
+        </table>
+    </div>
+    <div class="nmaas-modal-footer">
+        <button type="button" class="btn btn-secondary"
+                (click)="modal.hide()">{{ 'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="closeModal()"
+                [disabled]="false">{{ 'DOMAINS.LIST.ADD' | translate }}
+        </button>
+    </div>
+</nmaas-modal>
 
-              <nmaas-modal>
-                <div class="nmaas-modal-header">{{'DOMAINS.LIST.GROUP' | translate}}</div>
-                <div class="nmaas-modal-body" style="height: 300px">
-                  <div style="height: 100px">
-                    <p>{{'DOMAINS.LIST.ADD_INFO' | translate}}</p>
-                    <p-multiSelect [panelStyle]="{minWidth:'25em'}" [(ngModel)]="domainsToAdd"  [options]="domains" ngDefaultControl name="domains" optionLabel="name"></p-multiSelect>
-                  </div>
-                  <table class="table table-hover table-condensed" aria-describedby="Domains in Group table">
-                    <thead>
-                      <tr>
-                        <th scope="col">{{'DOMAINS.LIST.DOMAIN_NAME' | translate}}</th>
-                        <th scope="col">{{'DOMAINS.LIST.DOMAIN_CODE_NAME' | translate}}</th>
-                      </tr>
-                      @for (domain of domainsToAdd; track domain; let i = $index) {
-                        <tr class="table-row">
-                          <td>{{domain.name}}</td>
-                          <td>{{domain.codename}}</td>
-                        </tr>
-                      }
-                    </thead>
-                  </table>
-                </div>
-                <div class="nmaas-modal-footer">
-                  <button type="button" class="btn btn-secondary" (click)="modal.hide()">{{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}</button>
-                  <button type="button" class="btn btn-primary" (click)="closeModal()" [disabled]="false">{{'DOMAINS.LIST.ADD' | translate}}</button>
-                </div>
-              </nmaas-modal>
-
-              <nmaas-modal styleModal="info" #userAccess>
-                <div class="nmaas-modal-header">{{'DOMAINS.GROUP.ADD_MANAGERS' | translate}}</div>
-                <div class="nmaas-modal-body" style="height: 300px">
-                  <div style="height: 100px">
-                    <p>{{'DOMAINS.GROUP.ADD_INFO' | translate}} {{domainGroup.name}}</p>
-                    <input pInputText name="searchTexUser" id="searchTextUser" placeholder="{{'USERS.SEARCH' | translate}}" style="width: 270px" type="text" [(ngModel)]="searchUser" (keyup)="searchUsers($event.target.value)">
-                  </div>
-                  <table class="table table-hover table-condensed" aria-describedby="Users found by mail">
-                    <thead>
-                      <tr>
-                        <th style="width: 30%" scope="col"></th>
-                        <th style="width: 50%" scope="col"></th>
-                        <th style="width: 20%" scope="col"></th>
-                      </tr>
-                      @for (user of usersFound; track user; let i = $index) {
-                        <tr class="table-row">
-                          <td>{{user.username}}</td>
-                          <td>{{user.firstname}} {{user.lastname}}</td>
-                          <td> <button *roles="['ROLE_SYSTEM_ADMIN']" type="button" class="btn btn-secondary" (click)="addUser(user)">{{'DOMAINS.GROUP.ADD' | translate}}</button> </td>
-                        </tr>
-                      }
-                    </thead>
-                  </table>
-                  <h4 class="mt-6">{{'DOMAINS.GROUP.SELECTED_USERS' | translate}}</h4>
-                  <table class="table table-hover table-condensed" aria-describedby="Users to be added">
-                    <thead>
-                      <tr>
-                        <th style="width: 30%" scope="col"></th>
-                        <th style="width: 50%" scope="col"></th>
-                        <th style="width: 20%" scope="col"></th>
-                      </tr>
-                      @for (user of usersToAdd; track user; let i = $index) {
-                        <tr class="table-row">
-                          <td>{{user.username}}</td>
-                          <td>{{user.firstname}} {{user.lastname}}</td>
-                          <td>  <button *roles="['ROLE_SYSTEM_ADMIN']" type="button" class="btn btn-danger" (click)="removeUserFromSelected(user)">Revoke</button></td>
-                        </tr>
-                      }
-                    </thead>
-                  </table>
-                </div>
-                <div class="nmaas-modal-footer">
-                  <button type="button" class="btn btn-secondary" (click)="closeModalUserAccess()">{{'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate}}</button>
-                  <button type="button" class="btn btn-primary" [disabled]="usersToAdd.length === 0" (click)="saveUsers()" >{{'DOMAINS.GROUP.ADD_USERS' | translate}}</button>
-                </div>
-              </nmaas-modal>
+<nmaas-modal styleModal="info" #userAccess>
+    <div class="nmaas-modal-header">{{ 'DOMAINS.GROUP.ADD_MANAGERS' | translate }}</div>
+    <div class="nmaas-modal-body" style="height: 300px">
+        <div style="height: 100px">
+            <p>{{ 'DOMAINS.GROUP.ADD_INFO' | translate }} {{ domainGroup.name }}</p>
+            <input pInputText name="searchTexUser" id="searchTextUser" placeholder="{{'USERS.SEARCH' | translate}}"
+                   style="width: 270px" type="text" [(ngModel)]="searchUser" (keyup)="searchUsers($event.target.value)">
+        </div>
+        <table class="table table-hover table-condensed" aria-describedby="Users found by mail">
+            <thead>
+            <tr>
+                <th style="width: 30%" scope="col"></th>
+                <th style="width: 50%" scope="col"></th>
+                <th style="width: 20%" scope="col"></th>
+            </tr>
+                @for (user of usersFound; track user; let i = $index) {
+                    <tr class="table-row">
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.firstname }} {{ user.lastname }}</td>
+                        <td>
+                            <button *roles="['ROLE_SYSTEM_ADMIN']" type="button" class="btn btn-secondary"
+                                    (click)="addUser(user)">{{ 'DOMAINS.GROUP.ADD' | translate }}
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </thead>
+        </table>
+        <h4 class="mt-6">{{ 'DOMAINS.GROUP.SELECTED_USERS' | translate }}</h4>
+        <table class="table table-hover table-condensed" aria-describedby="Users to be added">
+            <thead>
+            <tr>
+                <th style="width: 30%" scope="col"></th>
+                <th style="width: 50%" scope="col"></th>
+                <th style="width: 20%" scope="col"></th>
+            </tr>
+                @for (user of usersToAdd; track user; let i = $index) {
+                    <tr class="table-row">
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.firstname }} {{ user.lastname }}</td>
+                        <td>
+                            <button *roles="['ROLE_SYSTEM_ADMIN']" type="button" class="btn btn-danger"
+                                    (click)="removeUserFromSelected(user)">Revoke
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </thead>
+        </table>
+    </div>
+    <div class="nmaas-modal-footer">
+        <button type="button" class="btn btn-secondary"
+                (click)="closeModalUserAccess()">{{ 'APP_CHANGE_STATE_MODAL.CANCEL_BUTTON' | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" [disabled]="usersToAdd.length === 0"
+                (click)="saveUsers()">{{ 'DOMAINS.GROUP.ADD_USERS' | translate }}
+        </button>
+    </div>
+</nmaas-modal>

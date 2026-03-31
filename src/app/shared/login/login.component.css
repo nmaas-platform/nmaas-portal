@@ -4,3 +4,7 @@ legend {
 div > a{
 	cursor: pointer;
 }
+fieldset {
+	border: none;
+	padding: 0;
+}

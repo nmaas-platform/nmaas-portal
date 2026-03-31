@@ -5,10 +5,9 @@
       {{ 'APPS_MANAGEMENT.ADD_JSON_INFO'| translate}}
     </div>
     <div style="margin-bottom: 4rem">
-      <p-fileUpload name="json" (onUpload)="onUpload($event)" customUpload="true" [draggable]="true"
+      <p-fileupload name="json" mode="advanced" customUpload="true" [draggable]="true"
         (uploadHandler)="onUpload($event)" [multiple]="false" accept=".json" maxFileSize="1000000">
-
-      </p-fileUpload>
+      </p-fileupload>
     </div>
     <div>
       <div style="margin-bottom: 10px">

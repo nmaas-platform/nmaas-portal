@@ -1,5 +1,5 @@
 <div class=" row position" style="margin:40px; color: var(--p-text-0)">
-  <div class="col-md-6">
+  <div class=" lg:col-6">
     <div class="" style="padding-bottom: 15px;">
       <h2 class="">{{ 'ABOUT.CHANGELOG_TITLE' | translate }}</h2>
       <span>{{ 'ABOUT.CHANGELOG_DESC' | translate }}</span>
@@ -9,21 +9,21 @@
         <div class="panel-body">
           <form class="form-horizontal">
             <div class="form-group version-row-padding">
-              <div class="row">
-                <label class="control-label col-sm-2">{{'GIT_INFO.VERSION' | translate}}:</label>
-                <div class="col-sm-10">
+              <div class="row grid col-12">
+                <label class="control-label col-2">{{'GIT_INFO.VERSION' | translate}}:</label>
+                <div class="col-10">
                   <p class="form-control-static">{{gitInfo?.buildVersion}}</p>
                 </div>
               </div>
-              <div class="row">
-                <label class="control-label col-sm-2">{{'GIT_INFO.BUILD_TIME' | translate}}:</label>
-                <div class="col-sm-10">
+              <div class="row grid col-12">
+                <label class="control-label col-2">{{'GIT_INFO.BUILD_TIME' | translate}}:</label>
+                <div class="col-10">
                   <p class="form-control-static">{{gitInfo?.buildTime}}</p>
                 </div>
               </div>
-              <div class="row">
-                <label class="control-label col-sm-2">{{'GIT_INFO.LAST_COMMIT' | translate}}:</label>
-                <div class="col-sm-10">
+              <div class="row grid col-12">
+                <label class="control-label col-2">{{'GIT_INFO.LAST_COMMIT' | translate}}:</label>
+                <div class="col-10">
                   <p class="form-control-static">{{gitInfo?.commitName}}</p>
                 </div>
               </div>
@@ -40,7 +40,7 @@
 }
 <app-changelog></app-changelog>
 </div>
-<div class="col-md-6">
+<div class=" lg:col-6 ">
   <div class="" style="padding-bottom: 15px;">
     <h2>{{ 'ABOUT.CONTACT_TITLE' | translate }}</h2>
     <p>{{ 'ABOUT.CONTACT_P' | translate }}</p>

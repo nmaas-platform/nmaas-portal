@@ -2,13 +2,13 @@ import {RegistrationService} from '../../auth/registration.service';
 import {Domain} from '../../model/domain';
 import {Registration} from '../../model/registration';
 import {AppConfigService} from '../../service/appconfig.service';
-import {PasswordValidator} from '../../shared/common/password/password.component';
+import {PasswordValidator} from '../common/password/password.component';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {UntypedFormGroup, UntypedFormBuilder, Validators} from '@angular/forms';
 import {Observable, of} from 'rxjs';
-import {ModalInfoTermsComponent} from '../../shared/modal/modal-info-terms/modal-info-terms.component';
-import {ModalInfoPolicyComponent} from '../../shared/modal/modal-info-policy/modal-info-policy.component';
-import {ModalComponent} from '../../shared/modal';
+import {ModalInfoTermsComponent} from '../modal/modal-info-terms/modal-info-terms.component';
+import {ModalInfoPolicyComponent} from '../modal/modal-info-policy/modal-info-policy.component';
+import {ModalComponent} from '../modal';
 
 import {PasswordStrengthMeterComponent} from 'angular-password-strength-meter';
 import {TranslateService} from '@ngx-translate/core';

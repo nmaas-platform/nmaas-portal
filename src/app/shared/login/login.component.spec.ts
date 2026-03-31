@@ -4,7 +4,7 @@ import {LoginComponent} from './login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterTestingModule} from '@angular/router/testing';
 import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {ModalComponent} from '../../shared/modal';
+import {ModalComponent} from '../modal';
 import {AuthService} from '../../auth/auth.service';
 import {ConfigurationService, UserService} from '../../service';
 import createSpyObj = jasmine.createSpyObj;

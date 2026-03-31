@@ -4,3 +4,6 @@
     box-shadow: none;
     color: var(--p-text-0);
 }
+.grid {
+    align-items: center;
+}
