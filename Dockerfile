@@ -4,7 +4,7 @@ COPY . /build
 WORKDIR /build
 
 RUN apk add nodejs npm
-RUN npm install -g @angular/cli@17
+RUN npm install -g @angular/cli@21
 RUN npm i --force 
 RUN ng build --base-href / --configuration production
 

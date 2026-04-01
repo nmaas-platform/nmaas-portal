@@ -5,7 +5,7 @@ plugins {
 	id "org.sonarqube" version "7.2.3.7755"
 }
 
-version = '1.9.0'
+version = '1.10.0-SNAPSHOT'
 
 task buildGUI(type: Exec) {
 	println 'Building using Angular CLI'
@@ -29,11 +29,11 @@ task buildGUIprod(type: Exec) {
 	dependsOn(npm_install)
 }
 
-task dist(type: Zip) {
-	from 'build/app'
-	baseName project.name
-	version project.version
-	destinationDir(file('build/distributions/'))
+tasks.register('dist', Zip) {
+    from('build/app')
+    archiveBaseName.set(project.name)
+    archiveVersion.set(project.version.toString())
+    destinationDirectory.set(layout.buildDirectory.dir('distributions'))
 }
 
 task build(type: Task) {
