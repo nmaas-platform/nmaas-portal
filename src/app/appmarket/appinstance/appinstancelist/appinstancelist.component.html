@@ -1,7 +1,7 @@
 <!--<h4 style="margin-top:40px; font-weight: bold" *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']">{{ 'APP_INSTANCES.DEPLOYED' | translate }}</h4>-->
 <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-top:40px; padding:15px 0 5px 0" class="grid">
   <div class="col-12" style="display:flex; align-items: center; padding:0; flex-wrap:wrap">
-    <div class="sm:col-12 md:col-12 lg:col-4 xl:col-3 " style="padding-top:10px; padding-bottom:10px">
+    <div class="sm:col-12 md:col-12 lg:col-4 xl:col-3 " style="">
       <p-iconfield class="p-input-icon-right " style="width:100%">
         <input pInputText class="form-control" name="search" id="search" placeholder="Search" type="text"
           [(ngModel)]="searchValue"
@@ -130,7 +130,7 @@
 
   @if (selectedViewType === 'cards') {
     <div
-      style="height: 70vh; overflow: auto;">
+      style="height: calc(100vh - 250px); overflow: auto;">
       @if (selectedViewType === 'cards') {
         <div class="grid col-12">
           @for (appInstance of allAppDeployedInstances | async | searchAppInstance: searchValue; track appInstance) {
