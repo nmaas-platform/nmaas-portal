@@ -1,6 +1,6 @@
 
 <div class="col-12" style="display: flex; align-items: flex-end; flex-wrap: wrap; padding: 0">
-  <div class="sm:col-12 md:col-12 lg:col-4 xl:col-3 ">
+  <div class="sm:col-12 md:col-12 lg:col-4 xl:col-3 " style="padding-left:0">
     <nmaas-inline-search [value]="searchedAppName"
     (changed)="filterAppsByName($event)"></nmaas-inline-search>
   </div>
@@ -29,19 +29,9 @@
       ngDefaultControl/>
       <label style="margin: 0; padding-left: 5px; font-weight: unset; text-wrap: nowrap; color: var(--p-text-0)" for="subscribed">Show subscribed only</label>
     </div>
-    <!--	<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">-->
-    <!--		<div class="btn-toolbar" role="toolbar">-->
-    <!--			<div class="btn-group pull-right">-->
-    <!--				<button href="#tab-grid" class="btn btn-default" data-toggle="tab" [class.active]="selectedListType === ListType.GRID" (click)="selectedListType = ListType.GRID">-->
-    <!--					<span class="glyphicon glyphicon-th"></span>-->
-  <!--				</button>-->
-  <!--				<button href="#tab-list" class="btn btn-default" data-toggle="tab" [class.active]="selectedListType === ListType.TABLE" (click)="selectedListType = ListType.TABLE">-->
-  <!--					<span class="glyphicon glyphicon-th-list"></span>-->
-<!--				</button>-->
-<!--			</div>-->
-<!--		</div>-->
-<!--	</div>-->
 </div>
 
 
-<nmaas-applist [appView]="appView" [listType]="selectedListType" [showSubscribed]="showSubscribed" [applications]="applications" [selected]="selected" [domainId]="domainId" [domain]="domain"></nmaas-applist>
+<nmaas-applist [appView]="appView" [listType]="selectedListType"
+               [showSubscribed]="showSubscribed" [applications]="applications"
+               [selected]="selected" [domainId]="domainId" [domain]="domain"></nmaas-applist>
