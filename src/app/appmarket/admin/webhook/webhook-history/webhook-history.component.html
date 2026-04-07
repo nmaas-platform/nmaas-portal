@@ -41,9 +41,14 @@
     <p-table
         [value]="filteredWebhooksHistory"
         [paginator]="true"
-        [rows]="maxItemsOnPage"
+        [rows]="paginationSettings.maxItemsOnPage"
+        [lazy]="true"
+        [loading]="loading"
+        (onLazyLoad)="onTableLazyLoad($event)"
         [rowsPerPageOptions]="[15, 20, 25, 30, 50]"
-        [responsiveLayout]="'scroll'">
+        [totalRecords]="paginationSettings.totalElements"
+        [sortField]="paginationSettings.sortField"
+        [sortOrder]="paginationSettings.sortOrder === 'asc' ? 1 : -1">
         <ng-template pTemplate="header">
             <tr>
                 <th pSortableColumn="webhookEventId" id="webhookEventId">

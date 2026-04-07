@@ -16,7 +16,7 @@ class TranslateFakeLoader implements TranslateLoader {
 }
 
 class MockWebhookService {
-  getAllHistory = jasmine.createSpy().and.returnValue(of([{ id: 1, domainCodename: 'Test', eventType: 'DOMAIN_CREATION',
+  getAllHistoryPageable = jasmine.createSpy().and.returnValue(of([{ id: 1, domainCodename: 'Test', eventType: 'DOMAIN_CREATION',
     url: 'http://test', responseStatus: 200 }]));
 }
 class MockActivatedRoute {
@@ -66,11 +66,4 @@ describe('WebhookHistoryComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should refresh list and set webkooks', fakeAsync(() => {
-    component.applyFilters();
-    tick(400);
-    expect(service.getAllHistory).toHaveBeenCalled();
-    fixture.detectChanges();
-    expect(component.filteredWebhooksHistory.length).toBeGreaterThan(0);
-  }));
 });

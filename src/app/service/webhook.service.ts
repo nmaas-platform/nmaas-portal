@@ -107,6 +107,57 @@ export class WebhookService extends GenericDataService {
         return this.http.get<WebhookHistory[]>(this.appConfig.getApiUrl() + '/webhooks-history/domain/' + domainId, {params});
     }
 
+    public getAllHistoryPageable(
+        paginatorEvent: PaginatorEvent,
+        eventId?: number,
+        eventType?: WebhookType,
+        domainCodename?: string,
+        from?: Date,
+        to?: Date
+    ): Observable<Page<WebhookHistory>> {
+
+        const customFilters: any = {};
+
+        if (eventId) customFilters.eventId = eventId;
+        if (eventType) customFilters.eventType = eventType;
+        if (domainCodename) customFilters.domainCodename = domainCodename;
+        if (from) customFilters.from = from.toISOString().split('.')[0];
+        if (to) customFilters.to = from.toISOString().split('.')[0];
+
+        const params = this.paggination.getPaginationAndFilterParams(paginatorEvent, customFilters);
+
+        return this.http.get<Page<WebhookHistory>>(
+            this.appConfig.getApiUrl() + '/webhooks-history',
+            { params }
+        );
+    }
+
+    public getAllHistoryByDomainPageable(
+        domainId: number,
+        paginatorEvent: PaginatorEvent,
+        eventId?: number,
+        eventType?: WebhookType,
+        from?: Date,
+        to?: Date
+    ): Observable<Page<WebhookHistory>> {
+
+        const customFilters: any = {};
+
+        if (eventId) customFilters.eventId = eventId;
+        if (eventType) customFilters.eventType = eventType;
+        if (from) customFilters.from = from.toISOString().split('.')[0];
+        if (to) customFilters.to = from.toISOString().split('.')[0];
+
+        const params = this.paggination.getPaginationAndFilterParams(paginatorEvent, customFilters);
+
+        return this.http.get<Page<WebhookHistory>>(
+            this.appConfig.getApiUrl() + `/webhooks-history/domain/${domainId}`,
+            { params }
+        );
+    }
+
+
+
     public getOneHistory(id: number) {
         return this.get<WebhookHistory>(this.appConfig.getApiUrl() + '/webhooks-history/' + id);
     }
