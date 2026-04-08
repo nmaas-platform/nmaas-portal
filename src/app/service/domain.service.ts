@@ -8,7 +8,7 @@ import {AppConfigService} from './appconfig.service';
 import {Id} from '../model';
 import {Domain} from '../model/domain';
 import {User} from '../model';
-import {DomainGroup} from '../model/domaingroup';
+import {DomainGroup, DomainGroupList} from '../model/domaingroup';
 import { KeyValue } from '../model/key-value';
 import { DomainAnnotation } from '../model/domain-annotation';
 import { Page, PaginatorEvent } from './page';
@@ -131,17 +131,17 @@ export class DomainService extends GenericDataService {
   }
 
   // GROUPS
-  public getAllDomainGroups(): Observable<DomainGroup[]> {
-    return this.get<DomainGroup[]>(this.urlGroups);
+  public getAllDomainGroups(): Observable<DomainGroupList[]> {
+    return this.get<DomainGroupList[]>(this.urlGroups);
   }
-  public getAllDomainGroupsPageable( paginatorEvent: PaginatorEvent, searchValue: string = ''): Observable<Page<DomainGroup>> {
+  public getAllDomainGroupsPageable( paginatorEvent: PaginatorEvent, searchValue: string = ''): Observable<Page<DomainGroupList>> {
     const customFilters = {
       searchValue: searchValue
     };
 
     const params = this.paggination.getPaginationAndFilterParams(paginatorEvent, customFilters);
 
-    return this.http.get<Page<DomainGroup>>(this.urlGroups, {params});
+    return this.http.get<Page<DomainGroupList>>(this.urlGroups, {params});
 
   }
 

@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {DomainGroup} from '../../model/domaingroup';
+import {DomainGroupList} from '../../model/domaingroup';
 
 @Pipe({
     name: 'searchDomainGroup',
@@ -7,7 +7,7 @@ import {DomainGroup} from '../../model/domaingroup';
 })
 export class SearchDomainGroupPipe implements PipeTransform {
 
-    transform(value: DomainGroup[], searchValue: string): any[] {
+    transform(value: DomainGroupList[], searchValue: string): any[] {
 
         if (!value || !searchValue) {
             return value
@@ -16,9 +16,7 @@ export class SearchDomainGroupPipe implements PipeTransform {
         const result = [];
         value.forEach( val => {
             if (val.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-                val.codename.toLowerCase().includes(searchValue.toLowerCase()) ||
-                val.domains.some(domain => domain.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-                domain.codename.toLowerCase().includes(searchValue.toLowerCase()))
+                val.codename.toLowerCase().includes(searchValue.toLowerCase())
             ) {
                 result.push(val);
             }

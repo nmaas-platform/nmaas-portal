@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {DomainService} from '../../../service';
-import {DomainGroup} from '../../../model/domaingroup';
+import {DomainGroupList} from '../../../model/domaingroup';
 import {Menu} from 'primeng/menu';
 import {MenuItem} from 'primeng/api';
 import {TranslateService} from '@ngx-translate/core';
@@ -17,7 +17,7 @@ import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 export class DomainGroupsComponent implements OnInit {
 
 
-    public groups: DomainGroup[] = [];
+    public groups: DomainGroupList[] = [];
     public loading = false;
     public searchValue = '';
 
@@ -25,7 +25,7 @@ export class DomainGroupsComponent implements OnInit {
 
     @ViewChild('rowMenu') rowMenu!: Menu;
     rowMenuItems: MenuItem[] = [];
-    selectedGroup: DomainGroup | null = null;
+    selectedGroup: DomainGroupList | null = null;
 
     private lazyLoadSubject = new Subject<PrimeNgLazyLoadEvent>();
     private debounceTimeMs = 300;
@@ -72,7 +72,7 @@ export class DomainGroupsComponent implements OnInit {
             paginatorEvent,
             this.searchValue
         ).subscribe({
-            next: (page: Page<DomainGroup>) => {
+            next: (page: Page<DomainGroupList>) => {
                 this.groups = page.content;
                 this.paginationSettings.totalElements = page.totalElements;
                 this.paginationSettings.totalPages = page.totalPages;
@@ -104,7 +104,7 @@ export class DomainGroupsComponent implements OnInit {
             this.groups = data;
         })
     }
-    openRowMenu(event: Event, domainGroup: DomainGroup) {
+    openRowMenu(event: Event, domainGroup: DomainGroupList) {
         this.selectedGroup = domainGroup;
 
         this.rowMenuItems = [
