@@ -15,6 +15,6 @@ export class DomainGroup {
      public name: string = undefined;
      public codename: string = undefined;
      public noOfDomains: number = undefined;
-     // public applicationStatePerDomain: DomainApplicationStatePerDomain[] = [];
+     public applicationStatePerDomain: DomainApplicationStatePerDomain[] = [];
      public managers: User[] = [];
  }
