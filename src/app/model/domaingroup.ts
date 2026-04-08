@@ -10,3 +10,9 @@ export class DomainGroup {
     public applicationStatePerDomain: DomainApplicationStatePerDomain[] = [];
     public managers: User[] = [];
 }
+ export class DomainGroupList {
+     public id: number = undefined;
+     public name: string = undefined;
+     public codename: string = undefined;
+     public noOfDomains: number = undefined;
+ }

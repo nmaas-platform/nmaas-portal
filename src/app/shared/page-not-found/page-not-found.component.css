@@ -2,7 +2,7 @@
     min-height: 55vh;
     padding: 25px;
     background-repeat: no-repeat;
-    background-color: rgb(255, 255, 255);
+    background-color: var(-p-background-0);
     display: flex;
     justify-content: center;
     align-items: center;
