@@ -151,7 +151,7 @@ export class WebhookService extends GenericDataService {
         const params = this.paggination.getPaginationAndFilterParams(paginatorEvent, customFilters);
 
         return this.http.get<Page<WebhookHistory>>(
-            this.appConfig.getApiUrl() + `/webhooks-history/domain/${domainId}`,
+            this.appConfig.getApiUrl() + `/webhooks-history/domain/${domainId}/page`,
             { params }
         );
     }

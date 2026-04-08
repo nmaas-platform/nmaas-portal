@@ -136,7 +136,6 @@ export class DomainFilterComponent implements OnInit {
                 domains => {
                     const global = domains.find(domain => domain.id === globalDomainId);
                     const defaultDomain = domains.find(domain => domain.id === this.profile.defaultDomain);
-                    console.log(this.profile.defaultDomain, 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW')
                     domains = domains.filter(domain => domain.id !== globalDomainId && domain.id !== this.profile.defaultDomain);
 
                     domains.sort((a: Domain, b: Domain): number => {

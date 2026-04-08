@@ -59,7 +59,6 @@ export class NavbarComponent implements OnInit {
 
     ngOnInit() {
         this.currentLanguage = 'en'
-        console.log("WWWWWWWWWWWWWWWWWWWWWWWWww", this.getCurrent())
         this.updateDarkMode()
         const observer = new MutationObserver(() => this.updateDarkMode());
         observer.observe(document.documentElement, {
