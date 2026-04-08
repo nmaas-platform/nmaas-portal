@@ -122,7 +122,7 @@ export class WebhookService extends GenericDataService {
         if (eventType) customFilters.eventType = eventType;
         if (domainCodename) customFilters.domainCodename = domainCodename;
         if (from) customFilters.from = from.toISOString().split('.')[0];
-        if (to) customFilters.to = from.toISOString().split('.')[0];
+        if (to) customFilters.to = to.toISOString().split('.')[0];
 
         const params = this.paggination.getPaginationAndFilterParams(paginatorEvent, customFilters);
 
@@ -146,7 +146,7 @@ export class WebhookService extends GenericDataService {
         if (eventId) customFilters.eventId = eventId;
         if (eventType) customFilters.eventType = eventType;
         if (from) customFilters.from = from.toISOString().split('.')[0];
-        if (to) customFilters.to = from.toISOString().split('.')[0];
+        if (to) customFilters.to = to.toISOString().split('.')[0];
 
         const params = this.paggination.getPaginationAndFilterParams(paginatorEvent, customFilters);
 
