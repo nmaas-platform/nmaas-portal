@@ -161,8 +161,6 @@ export class DomainNamespaceAnnotationsComponent implements OnInit {
             this.keyValue.push(this.newAnnotations);
             this.newAnnotations = new DomainAnnotation();
         }
-        console.log(this.newAnnotations, "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW")
-        console.log(this.keyValue, "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW")
         this.emmitValue(null);
         this.modal.hide();
     }
