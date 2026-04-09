@@ -11,6 +11,7 @@ import {ProfileService} from '../../../service/profile.service';
 import {ToastContainerComponent, ToastMode} from '../../../shared/toast-container/toast-container.component';
 import {GlobalResourcesLimit} from '../../../model/global-resources-limit';
 import {ResourcesLimitService} from '../../../service/resources-limit.service';
+import {switchMap, timer} from 'rxjs';
 
 @Component({
     selector: 'app-domain-group-view',
@@ -83,9 +84,15 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
                         }
                     }
                 })
-                this.resourcesLimitsService.getDomainGroupLimit(this.domainGroupId).subscribe((limit) => {
-                    this.domainGroupLimit = limit ?? this.domainGroupLimit
-                })
+                timer(200)
+                    .pipe(
+                        switchMap(() =>
+                            this.resourcesLimitsService.getDomainGroupLimit(this.domainGroupId)
+                        )
+                    )
+                    .subscribe(limit => {
+                        this.domainGroupLimit = limit ?? this.domainGroupLimit
+                    });
             }
         })
     }
@@ -145,7 +152,7 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
     }
 
     public disableLimits(): void {
-        alert("clicked")
+        alert('clicked')
         if (this.domainGroupLimit?.id) {
             this.resourcesLimitsService.deleteDomainLimit(this.domainGroupLimit.id).subscribe(() => {
                 this.domainGroupLimit = {
@@ -296,6 +303,7 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
             this.router.navigate(['/admin/domains/groups'])
         })
     }
+
     protected isAdmin(): boolean {
         return this.authService.hasRole('ROLE_SYSTEM_ADMIN');
     }
