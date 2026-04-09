@@ -53,7 +53,7 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
                 private readonly authService: AuthService,
                 private readonly profileService: ProfileService,
                 private readonly toast: ToastContainerComponent,
-                private resourcesLimitsService: ResourcesLimitService
+                private readonly resourcesLimitsService: ResourcesLimitService
     ) {
         super();
     }
@@ -145,6 +145,7 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
     }
 
     public disableLimits(): void {
+        alert("clicked")
         if (this.domainGroupLimit?.id) {
             this.resourcesLimitsService.deleteDomainLimit(this.domainGroupLimit.id).subscribe(() => {
                 this.domainGroupLimit = {
@@ -294,6 +295,9 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
         this.domainService.updateDomainGroup(this.domainGroup, this.domainGroupId).subscribe(_ => {
             this.router.navigate(['/admin/domains/groups'])
         })
+    }
+    protected isAdmin(): boolean {
+        return this.authService.hasRole('ROLE_SYSTEM_ADMIN');
     }
 
 }
