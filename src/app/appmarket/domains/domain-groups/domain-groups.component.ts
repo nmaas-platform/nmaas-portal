@@ -65,7 +65,7 @@ export class DomainGroupsComponent implements OnInit {
             rows: this.paginationSettings.maxItemsOnPage,
             sortField: this.paginationSettings.sortField,
             sortOrder: this.paginationSettings.sortOrder === 'asc' ? 1 : -1,
-            filters: {}
+            filters: { searchValue: this.searchValue }
         };
 
         this.domainService.getAllDomainGroupsPageable(
