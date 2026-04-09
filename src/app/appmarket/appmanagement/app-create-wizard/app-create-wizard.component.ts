@@ -300,9 +300,10 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit, O
     }
 
     private uploadScreenshots(id: number) {
-        for (const screenshot of this.screenshots) {
-            this.appsService.uploadScreenshot(id, screenshot).subscribe(() => console.log('Screenshot uploaded'));
-        }
+        this.appsService.uploadScreenshots(id, this.screenshots).subscribe(() => console.log('Screenshots uploaded'));
+        // for (const screenshot of this.screenshots) {
+        //     this.appsService.uploadScreenshot(id, screenshot).subscribe(() => console.log('Screenshot uploaded'));
+        // }
     }
 
     public changeRulesAcceptedFlag(): void {
