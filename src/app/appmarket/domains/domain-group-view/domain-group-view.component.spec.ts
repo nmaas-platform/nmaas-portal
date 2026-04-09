@@ -63,7 +63,7 @@ describe('DomainGroupViewComponent', () => {
         } as DomainGroup)); // Mock getDomainGroup to return a valid DomainGroup object
 
         mockUserService = jasmine.createSpyObj('UserService', ['getUserBySearchManagers']);
-        mockAuthService = jasmine.createSpyObj('AuthService', ['getUsername', 'loadUser']);
+        mockAuthService = jasmine.createSpyObj('AuthService', ['getUsername', 'loadUser', 'hasRole']);
         mockRouter = jasmine.createSpyObj('Router', ['navigate']);
         mockProfileService = jasmine.createSpyObj('ProfileService', ['getOne']);
         mockModal = jasmine.createSpyObj('ModalComponent', ['show', 'hide']);
