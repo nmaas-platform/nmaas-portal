@@ -147,7 +147,18 @@ export class AppsService extends GenericDataService {
         fd.append('file', file);
         return this.post(this.appConfig.getApiUrl() + '/apps/' + id + '/screenshots', fd);
     }
+    public uploadScreenshots(id: number, files: File[]): Observable<FileInfo[]> {
+        const fd: FormData = new FormData();
 
+        files.forEach(file => {
+            fd.append('files', file);
+        });
+
+        return this.post(
+            `${this.appConfig.getApiUrl()}/apps/${id}/screenshots`,
+            fd
+        );
+    }
     // logo
 
     public uploadAppLogo(id: number, file: any): Observable<FileInfo> {
