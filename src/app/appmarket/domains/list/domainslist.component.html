@@ -3,7 +3,7 @@
   <div style="margin-right:20px">
     <p-iconfield  class="p-input-icon-right" style="width: 100%">
       <input pInputText type="text" name="search" class="form-control" style="width: 100%"
-        (keyup)="onSearchValueChange($event.target.value)" (keyup.enter)="applyFilter()" [(ngModel)]="searchValue"
+        (keyup)="onSearchValueChange($event.target.value)" (ngModelChange)="applyFilter()" [(ngModel)]="searchValue"
         placeholder="{{'SEARCH' | translate}}">
         <p-inputicon class="pi pi-search" style="font-size: 13px;"></p-inputicon>
       </p-iconfield>

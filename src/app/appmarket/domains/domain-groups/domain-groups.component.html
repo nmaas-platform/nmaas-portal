@@ -2,7 +2,8 @@
 <div style="display: flex; align-items: center;  margin-top:20px">
     <div style="margin-right:20px">
         <p-iconfield  class="p-input-icon-right" style="width: 100%">
-            <input pInputText class="flex form-control" name="search" id="search" placeholder="Search" type="text" style="height: 34px" [(ngModel)]="searchValue">
+            <input pInputText class="flex form-control" name="search" id="search" placeholder="Search" type="text"
+                   style="height: 34px" [(ngModel)]="searchValue" (ngModelChange)="loadGroups()">
             <p-inputicon  class="pi pi-search" style="font-size: 13px;"/>
         </p-iconfield>
     </div>
@@ -15,7 +16,7 @@
 
 <div class="background-section">
 
-    <p-table [value]="groups | searchDomainGroup: searchValue" [lazy]="true" (onLazyLoad)="onTableLazyLoad($event)"
+    <p-table [value]="groups" [lazy]="true" (onLazyLoad)="onTableLazyLoad($event)"
     [totalRecords]="paginationSettings.totalElements" [rows]="paginationSettings.maxItemsOnPage"
     [rowsPerPageOptions]="[15,20,25,50]" paginator="true" [loading]="loading"
     [sortField]="paginationSettings.sortField" [sortOrder]="paginationSettings.sortOrder === 'asc' ? 1 : -1">
@@ -27,10 +28,9 @@
                 <th pSortableColumn="name">{{'APPS_MANAGEMENT.NAME' | translate}}
                     <p-sortIcon field="name"></p-sortIcon>
                 </th>
-<!--                <th pSortableColumn="numberOfDomains">-->
-                <th>
+                <th pSortableColumn="noOfDomains">
                     {{'DOMAINS.NUMBER_OF_DOMAINS' | translate}}
-<!--                    <p-sortIcon fiels="numberOfDomains"></p-sortIcon>-->
+                    <p-sortIcon field="noOfDomains"></p-sortIcon>
                 </th>
                 <th></th>
             </tr>
