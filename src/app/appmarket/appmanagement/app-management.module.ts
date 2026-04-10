@@ -39,6 +39,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import { MenuModule} from 'primeng/menu';
 import {TabsModule} from 'primeng/tabs';
 import {Select} from 'primeng/select';
+import {AutoComplete} from 'primeng/autocomplete';
 
 
 export function getJsonTemplates(config: ConfigTemplateService) {
@@ -94,6 +95,7 @@ export function formioAppConfigFactory(appConfig: AppConfigService) {
         InputTextModule,
         MenuModule,
         Select,
+        AutoComplete,
         // Chips
     ],
     exports: [],

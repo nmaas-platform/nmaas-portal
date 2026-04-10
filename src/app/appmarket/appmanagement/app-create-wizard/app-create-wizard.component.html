@@ -149,16 +149,22 @@
                             <label for="newTags"
                                    class="control-label">{{ 'APPS_WIZARD.NEW_TAGS_LABEL' | translate }}</label>
                             <br>
-                            <p-chips
+                            <p-autoComplete
                                     class="ui-fluid"
-                                    [(ngModel)]="newTags"
-                                    [allowDuplicate]="false"
-                                    (onAdd)="addNewTag($event)"
-                                    (onRemove)="removeNewTag($event)"
                                     name="newTags"
                                     id="newTags"
+                                    [(ngModel)]="newTags"
+                                    (onAdd)="addNewTag($event)"
+                                    (onUnselect)="removeNewTag($event)"
+                                    inputId="chips-blur"
+                                    multiple
+                                    fluid
+                                    [typeahead]="false"
+                                    [addOnBlur]="true"
                                     pTooltip="{{'APPS_WIZARD.NEW_TAGS_TOOLTIP' | translate}}" tooltipPosition="left"
-                                    [showDelay]="50"></p-chips>
+                                    [showDelay]="50"
+                            >
+                            </p-autoComplete>
                         </div>
                     </form>
                 </div>
