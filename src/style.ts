@@ -261,6 +261,13 @@ export const MyPreset = definePreset(Nora, {
                     fontWeight: 'unset'
                 }
             }
+        },
+        autocomplete: {
+            root: {
+                background: '{surface.300}',
+                borderColor: '{accent.600}',
+                borderRadius: '{3px}'
+            }
         }
 
     }
