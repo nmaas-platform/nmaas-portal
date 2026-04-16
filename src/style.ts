@@ -1,4 +1,4 @@
-import { definePreset } from '@primeuix/themes';
+import {definePreset, updatePrimaryPalette} from '@primeuix/themes';
 import Nora from '@primeuix/themes/nora';
 
 export const MyPreset = definePreset(Nora, {
@@ -266,7 +266,7 @@ export const MyPreset = definePreset(Nora, {
             root: {
                 background: '{surface.300}',
                 borderColor: '{accent.600}',
-                borderRadius: '{3px}'
+                borderRadius: '3px'
             }
         }
 
