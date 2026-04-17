@@ -21,7 +21,7 @@
 }
 
 .lang-circle-icon{
-    height: 36px;
+    height: 34px;
 }
 
 .dropdown-lang{
@@ -48,4 +48,18 @@
     .size{
         width: 50%;
     }
+}
+.p-select {
+    background: transparent;
+    border: none;
+    .p-select-label {
+        padding: 0;
+    }
+    .p-select-dropdown {
+        display: none;
+    }
+}
+.flex-center {
+    display: flex;
+    align-items: center
 }
