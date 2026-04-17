@@ -63,25 +63,17 @@
           <td>
             <div *roles="['ROLE_DOMAIN_ADMIN'];excluded:['ROLE_SYSTEM_ADMIN']">
               @if (!checkUserIfIsCurrentUser(user.username)) {
-                <div>
-                  <li [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']"
-                    class="dropdown dropdown-domains">
-                    <a aria-expanded="false" data-close-others="true" aria-haspopup="true"
-                      class="dropdown-toggle" data-toggle="dropdown" role="button">
-                      <span style="color: var(--p-text-0);">{{"ENUM.USER_ROLES." + user.domainRole | translate}}
-                        <strong class="caret"></strong>
-                      </span>
-                    </a>
-                    <ul class="dropdown-menu" style="left: 0; right:unset;">
-                      @for (role of getAllowedRoles(); track role) {
-                        <li>
-                          <a (click)="changeUserRole(user,domainId, {value:role})">{{"ENUM.USER_ROLES." +
-                          Role[role].toUpperCase() | translate}}</a>
-                        </li>
-                      }
-                    </ul>
-                  </li>
-                </div>
+                  <p-select
+                      [options]="getAllowedRoles()"
+                      [ngModel]="user.domainRole"
+                      (onChange)="changeUserRole(user, domainId, $event)">
+                      <ng-template let-option pTemplate="item">
+                          {{"ENUM.USER_ROLES." + Role[option].toUpperCase() | translate}}
+                      </ng-template>
+                      <ng-template let-selected pTemplate="selectedItem">
+                          {{ "ENUM.USER_ROLES." + selected | translate }}
+                      </ng-template>
+                  </p-select>
               }
               @if (checkUserIfIsCurrentUser(user.username)) {
                 <div>
@@ -93,7 +85,6 @@
             </div>
           </td>
         }
-
         <td>
           <i class="pi" [ngClass]="{'pi-check': user?.enabled, 'pi-times': !user?.enabled}"></i>
         </td>
