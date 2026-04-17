@@ -185,6 +185,9 @@ export const MyPreset = definePreset(Nora, {
         paginator: {
             root: {
                 background: '{neutral.700}'
+            },
+            navButton:{
+                hoverColor:'{text.0}'
             }
         },
         multiselect: {
