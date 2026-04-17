@@ -1,47 +1,55 @@
 <div class="">
-  <h4 class="header">{{ 'MONITOR.TITLE' | translate }}</h4>
-  <div class="background-section">
-    <table class="table table-hover table-condensed" aria-describedby="Service status table">
-      <thead>
-        <tr>
-          <th scope="col">{{ 'MONITOR.SERVICE_NAME' | translate }}</th>
-          <th scope="col">{{ 'MONITOR.LAST_CHECK' | translate }}</th>
-          <th scope="col">{{ 'MONITOR.LAST_SUCCESS' | translate }}</th>
-          <th scope="col">{{ 'MONITOR.CHECK_INTERVAL' | translate }}</th>
-          <th scope="col">&nbsp;</th>
-        </tr>
-      </thead>
+    <h4 class="header">{{ 'MONITOR.TITLE' | translate }}</h4>
+    <div class="background-section">
+        <table class="table table-hover table-condensed" aria-describedby="Service status table">
+            <thead>
+            <tr>
+                <th scope="col">{{ 'MONITOR.SERVICE_NAME' | translate }}</th>
+                <th scope="col">{{ 'MONITOR.LAST_CHECK' | translate }}</th>
+                <th scope="col">{{ 'MONITOR.LAST_SUCCESS' | translate }}</th>
+                <th scope="col">{{ 'MONITOR.CHECK_INTERVAL' | translate }}</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+            </thead>
 
-      <tbody>
-        @for (entry of monitorEntries; track entry) {
-          <tr class="clickable" [routerLink]="['view/', entry.serviceName.toString()]"
-                    [ngClass]="{'entry-unknown': entry.status === null || entry.status === undefined,
+            <tbody>
+                @for (entry of monitorEntries; track entry) {
+                    <tr class="clickable" [routerLink]="['view/', entry.serviceName.toString()]"
+                        [ngClass]="{'entry-unknown': entry.status === null || entry.status === undefined,
                     'entry-deactivated': !entry.active,
                     'entry-success': entry.status.toString() === 'SUCCESS',
                     'entry-failure': entry.status.toString() === 'FAILURE'}">
-            <td>{{services[entry.serviceName]}}</td>
-            <td>
-              @if (entry.lastCheck) {
-                <span>{{entry.lastCheck | date:'medium'}}</span>
-              }
-              @if (!entry.lastCheck) {
-                <span>---</span>
-              }
-            </td>
-            <td>
-              @if (entry.lastSuccess) {
-                <span>{{entry.lastSuccess | date:'medium'}}</span>
-              }
-              @if (!entry.lastSuccess) {
-                <span>---</span>
-              }
-            </td>
-            <td>{{getIntervalCheck(entry.checkInterval, entry.timeFormat)}}</td>
-            <td>
-              <span class="dropdown">
+                        <td>{{ services[entry.serviceName] }}</td>
+                        <td>
+                            @if (entry.lastCheck) {
+                                <span>{{ entry.lastCheck | date:'medium' }}</span>
+                            }
+                            @if (!entry.lastCheck) {
+                                <span>---</span>
+                            }
+                        </td>
+                        <td>
+                            @if (entry.lastSuccess) {
+                                <span>{{ entry.lastSuccess | date:'medium' }}</span>
+                            }
+                            @if (!entry.lastSuccess) {
+                                <span>---</span>
+                            }
+                        </td>
+                        <td>{{ getIntervalCheck(entry.checkInterval, entry.timeFormat) }}</td>
+                        <td class="text-right">
+                            <button type="button"
+                                    class="dropdown-button"
+                                    (click)="openRowMenu($event, entry)">
+                                <i class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></i>
+                            </button>
+                            <p-menu #rowMenu [popup]="true" appendTo="body" [model]="rowMenuItems"></p-menu>
+                        </td>
+                        <td>
+                            <span class="dropdown">
                 <a style="display: inline-block" class="dropdown-toggle " aria-expanded="false"
-                  aria-haspopup="true"
-                  data-toggle="dropdown" href="#" role="button">
+                   aria-haspopup="true"
+                   data-toggle="dropdown" href="#" role="button">
                   <em class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></em>
                 </a>
                 <ul class="dropdown-menu pull-right-drop">
@@ -54,14 +62,14 @@
                     {{ 'MONITOR.EDIT_SETTINGS_BUTTON' | translate }}</a>
                   </li>
                   <li>
-                    <a (click)="changeJobState(entry); $event.stopPropagation()">{{  getCorrectStateLabel(entry.active) }}</a>
+                    <a (click)="changeJobState(entry); $event.stopPropagation()">{{ getCorrectStateLabel(entry.active) }}</a>
                   </li>
                 </ul>
               </span>
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
-  </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

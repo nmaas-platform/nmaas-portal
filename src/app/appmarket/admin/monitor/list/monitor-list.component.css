@@ -18,13 +18,27 @@ tr.clickable {
 }
 
 .entry-success {
-    background-color: #237623;
+    background-color: var(--p-accent-700);
+    color: var(--p-text-100);
+}
+.entry-success:hover {
+    background-color: var(--p-accent-700);
+    color: var(--p-text-100);
 }
 
 .entry-failure {
-    background-color: #FF6651;
+     background-color:var(--p-accent-400);
+     color: var(--p-text-100);
+ }
+
+.entry-failure:hover {
+    background-color:var(--p-accent-400);
+    color: var(--p-text-100);
 }
 
-.entry-deactivated {
-    background-color: #7f7f7f;
+.entry-deactivated{
+    background-color: var(--p-accent-900);
+}
+.entry-deactivated:hover {
+    background-color: var(--p-accent-900);
 }
