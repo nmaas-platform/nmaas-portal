@@ -93,6 +93,15 @@
               getStateAsEnum(appInstanceStatus?.state) == AppInstanceState.PAUSED)) {
               <div
                 class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <p-menu #rowMenu [model]="rowMenuItems" [popup]="true"></p-menu>
+
+                  <button
+                          pButton
+                          type="button"
+                          label="{{ 'APP_INSTANCE.INSTANCE_ACTIONS' | translate }}"
+                          icon="pi pi-chevron-down"
+                          (click)="openRowMenu($event, appInstance)">
+                  </button>
                 <div class="btn-group pull-right">
                   <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">

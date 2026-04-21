@@ -10,6 +10,8 @@ import {FormsModule} from "@angular/forms";
 import {SharedModule} from "../../../shared";
 import {TranslateModule} from '@ngx-translate/core';
 import {InputTextModule} from 'primeng/inputtext';
+import {SelectModule} from 'primeng/select';
+import {MenuModule} from 'primeng/menu';
 
 @NgModule({
     imports: [
@@ -20,7 +22,9 @@ import {InputTextModule} from 'primeng/inputtext';
         FormsModule,
         SharedModule,
         TranslateModule.forChild(),
-        InputTextModule
+        InputTextModule,
+        SelectModule,
+        MenuModule
     ],
     providers: [
         MonitorService

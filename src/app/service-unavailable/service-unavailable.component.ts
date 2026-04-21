@@ -14,6 +14,7 @@ import {ServiceUnavailableService} from './service-unavailable.service';
 export class ServiceUnavailableComponent implements OnInit, OnDestroy {
     private interval;
     public languages: string[];
+    public currentLanguage;
 
     constructor(private translateService: TranslateService,
                 private monitorService: MonitorService,
@@ -25,6 +26,7 @@ export class ServiceUnavailableComponent implements OnInit, OnDestroy {
 
     useLanguage(language: string) {
         this.translateService.use(language);
+        this.currentLanguage = language
     }
 
     getCurrent() {
@@ -48,6 +50,7 @@ export class ServiceUnavailableComponent implements OnInit, OnDestroy {
     }
 
     async ngOnInit() {
+        this.currentLanguage = 'en'
         this.getSupportedLanguages();
         document.getElementById('global-footer').style.display = 'none';
         await this.serviceAvailability.validateServicesAvailability();

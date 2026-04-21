@@ -1,43 +1,48 @@
 <div>
-  <div>
-    <div id="service-denied" style="display: flex; justify-content: center">
-      <div class="position" style=" height: 100%; display: flex; justify-content: center">
-        <div class="size">
-          <img src="assets/images/error/500_transparent.gif" width="60%">
-        </div>
-        <div class="size">
-          <div class="col-xs-9"><h1 style="color: var(--p-primary-900)">Ooops!</h1></div>
-          <div class="col-xs-3">
-            <div class="dropdown">
-              <a style="display: inline-block" class="dropdown-toggle dropdown-lang" aria-expanded="false" aria-haspopup="true"
-                data-toggle="dropdown" href="#" role="button">
-                <img alt="language" class="lang-circle-icon" src="{{[getPathToCurrent()]}}"/>
-              </a>
-              <ul class="dropdown-menu pull-right-drop">
-                @for (lang of languages; track lang) {
-                  <li [ngClass]="{'active': getCurrent() == lang}">
-                    <a (click)="useLanguage(lang)">
-                      <img alt="lang flag" class="lang-circle-icon"
-                        src="assets/images/country/{{lang}}_circle.png"/>
-                        <span>{{lang.toUpperCase()}}</span>,
-                      </a>
-                    </li>
-                  }
-                </ul>
-              </div>
-            </div>
-            <div class="col-xs-12" style="color: var(--p-text-0)">
-              <h2 >{{ "SERVICE_UNAVAILABLE.HEADER" | translate }}</h2>
-              <p>
-                {{ "SERVICE_UNAVAILABLE.TEXT_FIRST_PART" | translate }}
-                <br>
-                  {{ "SERVICE_UNAVAILABLE.TEXT_SECOND_PART" | translate }}
-                </p>
-              </div>
-            </div>
+    <div>
+        <div id="service-denied" style="display: flex; justify-content: center">
+            <div class="position" style=" height: 100%; display: flex; justify-content: center">
+                <div class="size">
+                    <img src="assets/images/error/500_transparent.gif" width="60%">
+                </div>
+                <div class="size">
+                    <div class="col-xs-9"><h1 style="color: var(--p-primary-900)">Ooops!</h1></div>
+                    <div class="col-xs-3">
+                        <p-select
+                                [options]="languages"
+                                [(ngModel)]="currentLanguage"
+                                (onChange)="useLanguage($event.value)"
+                                [style]="{ minWidth: '50px' }"
+                                panelStyleClass="language-select-panel"
+                                [showClear]="false">
+                            <ng-template let-lang pTemplate="item">
+                                <div class="flex-center">
+                                    <img class="lang-circle-icon"
+                                         [src]="'assets/images/country/' + lang + '_circle.png'" alt="{{lang}} flag"/>
+                                    <span>{{ lang.toUpperCase() }}</span>
+                                </div>
+                            </ng-template>
 
-          </div>
-        </div>
-      </div>
+                            <ng-template let-lang pTemplate="selectedItem">
+                                <div class="flex-center">
+                                    <img class="lang-circle-icon"
+                                         [src]="'assets/images/country/' + lang + '_circle.png'" alt="{{lang}} flag"/>
+                                </div>
+                            </ng-template>
+                        </p-select>
+                    </div>
+                    <div class="col-xs-12" style="color: var(--p-text-0)">
+                        <h2>{{ "SERVICE_UNAVAILABLE.HEADER" | translate }}</h2>
+                        <p>
+                            {{ "SERVICE_UNAVAILABLE.TEXT_FIRST_PART" | translate }}
+                            <br>
+                            {{ "SERVICE_UNAVAILABLE.TEXT_SECOND_PART" | translate }}
+                        </p>
+                    </div>
+                </div>
 
+            </div>
+        </div>
     </div>
+
+</div>

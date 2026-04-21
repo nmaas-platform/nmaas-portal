@@ -1,7 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MonitorService} from '../../../../service/monitor.service';
 import {MonitorEntry, ServiceType, TimeFormat} from '../../../../model/monitorentry';
 import {TranslateService} from '@ngx-translate/core';
+import {Webhook} from '../../../../model/webhook';
+import {Menu} from 'primeng/menu';
+import {MenuItem} from 'primeng/api';
 
 @Component({
     selector: 'app-montiorlist',
@@ -10,6 +13,9 @@ import {TranslateService} from '@ngx-translate/core';
     standalone: false
 })
 export class MonitorListComponent implements OnInit {
+
+  @ViewChild('rowMenu') rowMenu!: Menu;
+  rowMenuItems: MenuItem[] = [];
 
   public monitorEntries: MonitorEntry[] = [];
 
@@ -52,6 +58,32 @@ export class MonitorListComponent implements OnInit {
       return '1 hour';
     }
     return timeFormat.toString() === TimeFormat[TimeFormat.MIN] ? checkInterval + ' minutes' : checkInterval + ' hours';
+  }
+
+  openRowMenu(event: Event, entry: MonitorEntry) {
+
+    this.rowMenuItems = [
+      {
+        label: 'MONITOR.CHECK_NOW_BUTTON',
+        command: (event) => {
+          this.executeJob(entry.serviceName.toString());
+          event.originalEvent?.stopPropagation();
+        }
+      },
+      {
+        label: 'MONITOR.EDIT_SETTINGS_BUTTON',
+        routerLink: ['edit', entry.serviceName.toString()]
+      },
+      {
+        label: this.getCorrectStateLabel(entry.active),
+        command: (event) => {
+          this.changeJobState(entry);
+          event.originalEvent?.stopPropagation();
+        }
+      }
+    ];
+
+    this.rowMenu.toggle(event);
   }
 
 }

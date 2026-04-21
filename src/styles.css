@@ -1110,4 +1110,22 @@ ol, ul {
 .builder-sidebar .btn:focus{
     color: var(--p-primary-300);
 }
+body .p-fileupload-choose-button {
+    background: var(--p-primary-100);
+    border-color: var(--p-primary-100);
+}
+body .p-button:not(:disabled):hover {
+    background: var(--p-primary-200);
+    border-color: var(--p-primary-200);
+}
 
+body .p-button-secondary {
+    background: var(--p-primary-500);
+    color: var(--p-text-100);
+    border-color: var(--p-primary-500);
+}
+body .p-button-secondary:not(:disabled):hover {
+    background: var(--p-primary-600);
+    color: var(--p-text-100);
+    border-color: var(--p-primary-600);
+}
