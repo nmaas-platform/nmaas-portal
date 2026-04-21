@@ -388,21 +388,21 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit, O
     }
 
     public addNewTag(event) {
-        if (!this.applicationDTO.applicationBase.tags.some(tag => tag.name.toLowerCase() === event.value.toLowerCase())) {
+        if (!this.applicationDTO.applicationBase.tags.some(tag => tag.name === event.value)) {
             this.applicationDTO.applicationBase.tags.push({
                 id: null,
-                name: event.value.toLowerCase()
+                name: event.value
             });
         }
-        if (!this.tags.some(tag => tag.value.name.toLowerCase() === event.value.toLowerCase())) {
+        if (this.tags.some(tag => tag.value.name === event.value)) {
+            this.newTags.pop()
+        } else {
             this.tags.push({
                 label: event.value, value: {
                     id: null,
-                    name: event.value.toLowerCase()
+                    name: event.value
                 }
             });
-        } else {
-            this.newTags.pop()
         }
         this.tagsMultiSelect.ngOnInit();
     }
