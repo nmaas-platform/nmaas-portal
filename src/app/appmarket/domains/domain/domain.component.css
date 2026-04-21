@@ -73,3 +73,21 @@ fieldset[disabled] .form-control {
 .table-hover>tbody>tr:hover {
     background: transparent;
 }
+:host ::ng-deep .p-accordionheader{
+    border: none;
+}
+:host ::ng-deep .p-accordionheader{
+    background: transparent;
+}
+.p-accordionpanel:not(.p-accordionpanel-active):not(.p-disabled) > .p-accordionheader:hover {
+    background: transparent;
+}
+.p-accordionpanel:not(.p-disabled).p-accordionpanel-active > .p-accordionheader:hover{
+    background: transparent;
+}
+:host ::ng-deep .p-accordioncontent-content {
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: 4px;
+    background: var(--p-background-300);
+    color: var(--p-text-0);
+}

@@ -312,49 +312,47 @@
                             <tbody>
                                 @for (applicationStatePerDomain of this.domain.applicationStatePerDomain; track applicationStatePerDomain; let i = $index) {
                                     <tr>
-                                        <td class="row-container">
-                                            <div class="col-4">{{ applicationStatePerDomain.applicationBaseName }}</div>
-                                            <div class="col-8">
-                                                <button class="btn pull-right custom-collapse" type="button"
-                                                        data-toggle="collapse" [attr.data-target]="'#collapse-'+i"
-                                                        aria-expanded="false"></button>
-                                            </div>
-                                            <div class="row-sub collapse" id="collapse-{{i}}">
-                                                <div class="card ui-card-body">
-                                                    @if (domain.id !== domainService.getGlobalDomainId()) {
-                                                        <div class="">
-                                                            <div class="row-container">
-                                                                <label for="domain-state-enabled-{{i}}"
-                                                                       class="col-4 control-label no-padding-top">
-                                                                    {{ 'DOMAIN_DETAILS.APP_ENABLED' | translate }}
-                                                                </label>
-                                                                <div class="col-8">
-                                                                    <input type="checkbox" class="custom-control-input"
-                                                                           [disabled]="isInMode(ComponentMode.VIEW)"
-                                                                           id="domain-state-enabled-{{i}}"
-                                                                           name="domain-state-enabled-{{i}} "
-                                                                           [(ngModel)]="domain.applicationStatePerDomain[i].enabled">
-                                                                </div>
-                                                            </div>
-                                                            <div class="row-container">
-                                                                <label for="domain-state-storage-limit-size-{{i}}"
-                                                                       class="col-4 control-label no-padding-top">
-                                                                    {{ 'DOMAIN_DETAILS.PV_STORAGE_SIZE_LIMIT' | translate }}
-                                                                </label>
-                                                                <div class="col-8">
-                                                                    <input type="number" step="1" min="1" max="100"
-                                                                           class="form-control"
-                                                                           [disabled]="isInMode(ComponentMode.VIEW)"
-                                                                           id="domain-state-storage-limit-size-{{i}}"
-                                                                           name="domain-state-storage-limit-size-{{i}} "
-                                                                           [(ngModel)]="domain.applicationStatePerDomain[i].pvStorageSizeLimit">
-                                                                </div>
-                                                            </div>
-                                                            <!--										Extend this part to add forms for in domain state-->
-                                                        </div>
-                                                    }
-                                                </div>
-                                            </div>
+                                        <td>
+                                           <p-accordion [value]="['0']">
+                                               <p-accordion-panel [value]="i">
+                                                   <p-accordion-header>
+                                                       {{ applicationStatePerDomain.applicationBaseName }}
+                                                   </p-accordion-header>
+                                                   <p-accordion-content>
+                                                       @if (domain.id !== domainService.getGlobalDomainId()) {
+                                                           <div class="">
+                                                               <div class="row-container">
+                                                                   <label for="domain-state-enabled-{{i}}"
+                                                                          class="col-4 control-label no-padding-top">
+                                                                       {{ 'DOMAIN_DETAILS.APP_ENABLED' | translate }}
+                                                                   </label>
+                                                                   <div class="col-8">
+                                                                       <input type="checkbox" class="custom-control-input"
+                                                                              [disabled]="isInMode(ComponentMode.VIEW)"
+                                                                              id="domain-state-enabled-{{i}}"
+                                                                              name="domain-state-enabled-{{i}} "
+                                                                              [(ngModel)]="domain.applicationStatePerDomain[i].enabled">
+                                                                   </div>
+                                                               </div>
+                                                               <div class="row-container">
+                                                                   <label for="domain-state-storage-limit-size-{{i}}"
+                                                                          class="col-4 control-label no-padding-top">
+                                                                       {{ 'DOMAIN_DETAILS.PV_STORAGE_SIZE_LIMIT' | translate }}
+                                                                   </label>
+                                                                   <div class="col-8">
+                                                                       <input type="number" step="1" min="1" max="100"
+                                                                              class="form-control"
+                                                                              [disabled]="isInMode(ComponentMode.VIEW)"
+                                                                              id="domain-state-storage-limit-size-{{i}}"
+                                                                              name="domain-state-storage-limit-size-{{i}} "
+                                                                              [(ngModel)]="domain.applicationStatePerDomain[i].pvStorageSizeLimit">
+                                                                   </div>
+                                                               </div>
+                                                           </div>
+                                                       }
+                                                   </p-accordion-content>
+                                               </p-accordion-panel>
+                                           </p-accordion>
                                         </td>
                                     </tr>
                                 }
