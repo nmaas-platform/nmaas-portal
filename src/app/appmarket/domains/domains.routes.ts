@@ -60,7 +60,7 @@ export const DomainsRoutes: Route[] = [
         data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']}
     },
     {
-        path: 'resources-limits', component: GlobalSettingsComponent, canActivate: [AuthGuard, RoleGuard],
+        path: 'domains/settings', component: GlobalSettingsComponent, canActivate: [AuthGuard, RoleGuard],
         data: {roles: ['ROLE_SYSTEM_ADMIN']}
     }
 ];
