@@ -78,7 +78,7 @@
             <p-accordion-content>
               <li *roles="['ROLE_SYSTEM_ADMIN']"
                 [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
-                <a  style="display: flex; align-items: center;" [routerLink]="['/admin/resources-limits']">
+                <a  style="display: flex; align-items: center;" [routerLink]="['/admin/domains/settings']">
                   <i class="pi pi-cog" style="margin-right:10px; font-size: 18px" title="Global settings"></i>
                   @if (!isCollapsed) {
                     <span>
