@@ -73,7 +73,7 @@
       <div style="display: flex">
         <div class="background-section" style="flex: 1 1 50%; margin-right: 20px">
           <h5 style="font-weight: bold">{{ 'DASHBOARD.LAST_LOGIN' | translate }} </h5>
-          <p-table [value]="domainAdminData?.userLogins | keyvalue">
+          <p-table [value]="domainAdminData?.userLogins">
             <ng-template pTemplate="header">
               <tr>
                 <th>{{ 'DASHBOARD.USER' | translate }}</th>
@@ -82,15 +82,15 @@
             </ng-template>
             <ng-template pTemplate="body" let-login>
               <tr>
-                <td>{{ login.key }}</td>
-                <td>{{ formatDate(login.value) }}</td>
+                <td>{{ login.userName }}</td>
+                <td>{{ formatDate(login.lastLogin) }}</td>
               </tr>
             </ng-template>
           </p-table>
         </div>
         <div class="background-section" style="flex: 1 1 50%;">
           <h5 style="font-weight: bold">{{ 'DASHBOARD.DEPLOYED_APP' | translate }} </h5>
-          <p-table [value]="domainAdminData?.applicationDeployed | keyvalue">
+          <p-table [value]="domainAdminData?.applicationDeployed ">
             <ng-template pTemplate="header">
               <tr>
                 <th>{{ 'DASHBOARD.USER' | translate }}</th>
@@ -99,8 +99,8 @@
             </ng-template>
             <ng-template pTemplate="body" let-deployment>
               <tr>
-                <td>{{ deployment.key }}</td>
-                <td>{{ deployment.value }}</td>
+                <td>{{ deployment.userName }}</td>
+                <td>{{ deployment.count }}</td>
               </tr>
             </ng-template>
           </p-table>
