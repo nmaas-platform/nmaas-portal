@@ -124,3 +124,15 @@ fieldset[disabled] .form-control {
     background: transparent;
     border-radius: 4px;
 }
+:host ::ng-deep .p-accordionheader{
+    background: transparent;
+}
+.p-accordionpanel:not(.p-accordionpanel-active):not(.p-disabled) > .p-accordionheader:hover {
+    background: transparent;
+}
+.p-accordionpanel:not(.p-disabled).p-accordionpanel-active > .p-accordionheader:hover{
+    background: transparent;
+}
+.btn.focus, .btn:focus, .btn:hover {
+    color: var(--p-primary-300);
+}

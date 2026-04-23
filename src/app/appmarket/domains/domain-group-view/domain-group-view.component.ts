@@ -28,6 +28,8 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
     public domainsToAdd = [];
     public usersToAdd = [];
     public usersFound = [];
+    activeIndexes: number[] =[];
+    allExpanded = false;
 
     public searchUser = '';
 
@@ -204,27 +206,14 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
         });
     }
 
-    public toggleAll(): void {
-        const id0 = `#collapse-${0}`;
-        const el0 = document.querySelector(id0);
-        if (el0) {
-            if (el0.classList.contains('show')) {
-                el0.classList.remove('show');
-            } else {
-                el0.classList.add('show');
-            }
+    public toggleAll() {
+        if (this.allExpanded) {
+            this.activeIndexes = [];
+        } else {
+            this.activeIndexes = this.domainGroup.applicationStatePerDomain.map((_, i) => i);
         }
-        for (let j = 1; j < this.domainGroup.applicationStatePerDomain.length; j++) {
-            const id = `#collapse-${j}`;
-            const el = document.querySelector(id);
-            if (el) {
-                if (el.classList.contains('show')) {
-                    el.classList.remove('show');
-                } else {
-                    el.classList.add('show');
-                }
-            }
-        }
+
+        this.allExpanded = !this.allExpanded;
     }
 
     public sortApplication(): void {
