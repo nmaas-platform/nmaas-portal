@@ -45,7 +45,7 @@
           @for (am of publicAccessMethods; track am) {
             <tr>
               <td><strong>{{am.name}}</strong></td>
-              <td class="text-right"><a type="button" class="btn btn-primary"
+              <td class="text-right"><a type="button" class="btn btn-primary" style="text-decoration: none;"
               href="{{validateURL(am.url)}}" target="_blank" rel="noopener noreferrer">{{'APP_ACCESS_METHODS_MODAL.PUBLIC_ACCESS' | translate}}</a>
             </td>
           </tr>
