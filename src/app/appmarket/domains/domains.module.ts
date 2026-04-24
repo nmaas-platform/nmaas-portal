@@ -30,6 +30,7 @@ import {MenuModule} from 'primeng/menu';
 import {GlobalSettingsComponent} from './global-settings/global-settings.component';
 import {TabsModule} from 'primeng/tabs';
 import {Accordion, AccordionContent, AccordionHeader, AccordionPanel} from 'primeng/accordion';
+import {ProgressBarModule} from 'primeng/progressbar';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import {Accordion, AccordionContent, AccordionHeader, AccordionPanel} from 'prim
         Accordion,
         AccordionPanel,
         AccordionHeader,
-        AccordionContent
+        AccordionContent,
+        ProgressBarModule
     ],
     exports: [
         DomainsListComponent,
