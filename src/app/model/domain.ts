@@ -10,6 +10,7 @@ export class Domain {
   public id: number = undefined;
   public name: string = undefined;
   public codename: string = undefined;
+  public limitUsage: number = undefined;
   public active: boolean = undefined;
   public domainDcnDetails: DomainDcnDetails = new DomainDcnDetails();
   public domainTechDetails: DomainTechDetails = new DomainTechDetails();
@@ -18,4 +19,5 @@ export class Domain {
   public deleted: boolean;
   public annotations: DomainAnnotation[] = [];
   public clusters: ClusterManager[] = [];
+
 }

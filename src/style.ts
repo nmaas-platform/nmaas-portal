@@ -43,6 +43,7 @@ export const MyPreset = definePreset(Nora, {
                     700: '#FEF2F2'                         // --danger-text-button-background-hover
                 },
                 accent: {
+                    100: '#EBBD59',
                     200: '#2673B6',
                     300: '#3c763d',                         // green
                     400: '#a94442',                         // red
@@ -99,6 +100,7 @@ export const MyPreset = definePreset(Nora, {
                     700: '#FEF2F2'                       // --d-danger-text-button-background-hover
                 },
                 accent: {
+                    100: '#EBBD59',
                     200: '#5da3df',
                     300: '#68E664',                         //green
                     400: '#ff8482',                         //red

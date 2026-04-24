@@ -35,6 +35,9 @@
                     {{ 'DOMAINS.NAME' | translate }}
                     <p-sortIcon field="name"></p-sortIcon>
                 </th>
+                <th style="width: 20%">
+                    {{ 'DOMAINS.LIMIT' | translate }}
+                </th>
                 <th pSortableColumn="active">
                     {{ 'DOMAINS.ACTIVATE' | translate }}
                     <p-sortIcon field="active"></p-sortIcon>
@@ -47,6 +50,14 @@
                 <tr>
                     <td [routerLink]="['view/', domain.id]">{{ domain?.codename }}</td>
                     <td [routerLink]="['view/', domain.id]">{{ domain?.name }}</td>
+                    <td [routerLink]="['view/', domain.id]">
+                        <p-progressBar [value]="100 - domain?.limitUsage"
+                                       style="max-width: 100px"
+                                       [ngClass]="{ 'safe': domain?.limitUsage < 30,
+                                                    'warning': domain?.limitUsage > 30 && domain?.limitUsage <= 70,
+                                                    'danger': domain?.limitUsage > 70}">
+                        </p-progressBar>
+                    </td>
                     <td [routerLink]="['view/', domain.id]">
                         @if (domain?.active) {
                             <span class="pi pi-check"></span>
