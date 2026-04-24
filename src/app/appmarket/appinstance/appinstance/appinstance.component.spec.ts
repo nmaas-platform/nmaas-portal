@@ -171,6 +171,7 @@ describe('Component: AppInstance', () => {
         id: 4,
         name: 'domain 1',
         codename: 'dom1',
+        limitUsage: 0,
         active: true,
         deleted: false,
         domainDcnDetails: null,

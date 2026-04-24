@@ -40,6 +40,7 @@ describe('DomainService', () => {
     id: 1,
     name: 'Test Domain',
     codename: 'test-domain',
+    limitUsage: 0,
     active: true,
     domainDcnDetails: {
       id: 1,

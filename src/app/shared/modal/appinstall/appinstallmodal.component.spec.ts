@@ -49,6 +49,7 @@ describe('AppInstallmodalComponent', () => {
         id: 1,
         name: 'domain one',
         codename: 'dom-1',
+        limitUsage: 0,
         active: true,
         deleted: false,
         domainDcnDetails: undefined,
