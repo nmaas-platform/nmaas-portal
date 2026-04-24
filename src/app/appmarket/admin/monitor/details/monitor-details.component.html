@@ -3,20 +3,20 @@
   @if (monitorEntry) {
     <form (submit)="submit()" class="form-horizontal" #monitorForm="ngForm">
       <div class="background-section">
-        <div class="form-group">
+        <div class="grid col-12">
           <label for="serviceName" class="col-sm-2 control-label">{{'MONITOR_DETAILS.SERVICE_NAME' | translate}}:</label>
-          <div class="col-sm-10">
-            <p class="control-label" id="serviceName" style="float: left" >{{services[monitorEntry.serviceName]}}</p>
+          <div class="sm:col-10">
+            <p class="control-label" id="serviceName" style="float: left; padding: 0" >{{services[monitorEntry.serviceName]}}</p>
           </div>
         </div>
-        <div class="form-group">
-          <label for="checkInterval" class="col-sm-2 control-label">{{'MONITOR_DETAILS.INTERVAL' | translate}}:</label>
-          <div class="col-sm-10">
-            <div class="col-sm-6">
+        <div class="grid col-12">
+          <label for="checkInterval" class="xs:col-2 control-label">{{'MONITOR_DETAILS.INTERVAL' | translate}}:</label>
+          <div class="sm:col-10">
+            <div class="sm:col-6">
               <input pInputText type="number" class="form-control no-spin" [disabled]="isInMode(ComponentMode.VIEW)" id="checkInterval"
                 name="checkInterval" [(ngModel)]="monitorEntry.checkInterval" #interval="ngModel" required/>
               </div>
-              <div class="col-sm-6">
+              <div class="sm:col-6">
                 <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);" class="form-control" id="timeFormat" name="timeFormat"
                   [(ngModel)]="monitorEntry.timeFormat"
                   [disabled]="isInMode(ComponentMode.VIEW)"
@@ -29,7 +29,7 @@
                 </select>
               </div>
             </div>
-            <div class="col-sm-12">
+            <div class="sm:col-12">
               @if (interval.invalid && (interval.dirty || interval.touched)) {
                 <div class="alert alert-danger">
                   @if (interval.errors.required) {
@@ -38,7 +38,7 @@
                 </div>
               }
             </div>
-            <div class="col-sm-12">
+            <div class="sm:col-12">
               @if (timeFormat.invalid && (timeFormat.dirty || timeFormat.touched)) {
                 <div class="alert alert-danger">
                   @if (timeFormat.errors.required) {
@@ -53,7 +53,7 @@
               {{errMsg}}
             </div>
           }
-          <div class="flex justify-content-between">
+          <div class="flex justify-content-end">
             <button type="button" class="btn btn-secondary" [routerLink]="['/admin/monitor']">{{'MONITOR_DETAILS.GO_BACK_BUTTON' | translate}}</button>
             @if (!isInMode(ComponentMode.VIEW)) {
               <button [disabled]="!monitorForm.form.valid" type="submit"
