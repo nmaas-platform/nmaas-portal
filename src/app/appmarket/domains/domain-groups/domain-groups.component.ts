@@ -37,8 +37,7 @@ export class DomainGroupsComponent implements OnInit {
 
     ngOnInit(): void {
         this.lazyLoadSubject.pipe(
-            debounceTime(this.debounceTimeMs),
-            distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b))
+            debounceTime(this.debounceTimeMs)
         ).subscribe(event => this.loadGroups(event));
     }
     ngOnDestroy(): void {

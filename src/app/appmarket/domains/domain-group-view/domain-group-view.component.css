@@ -133,6 +133,3 @@ fieldset[disabled] .form-control {
 .p-accordionpanel:not(.p-disabled).p-accordionpanel-active > .p-accordionheader:hover{
     background: transparent;
 }
-.btn.focus, .btn:focus, .btn:hover {
-    color: var(--p-primary-300);
-}
