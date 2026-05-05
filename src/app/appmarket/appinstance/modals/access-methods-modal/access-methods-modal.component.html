@@ -16,7 +16,7 @@
               <tr>
                 <td><strong>{{am.name}}</strong></td>
                 @if (accessMethodTypeAsEnum(am.type) !== 'INTERNAL') {
-                  <td class="text-right"><a type="button" class="btn btn-primary"
+                  <td class="text-right"><a type="button" class="btn btn-primary" style="text-decoration: none"
                   href="{{validateURL(am.url)}}" target="_blank" rel="noopener noreferrer">{{'APP_ACCESS_METHODS_MODAL.EXTERNAL_ACCESS' | translate}}</a>
                 </td>
               }

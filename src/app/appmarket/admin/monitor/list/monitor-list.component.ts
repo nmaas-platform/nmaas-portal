@@ -64,14 +64,14 @@ export class MonitorListComponent implements OnInit {
 
     this.rowMenuItems = [
       {
-        label: 'MONITOR.CHECK_NOW_BUTTON',
+        label: this.translate.instant('MONITOR.CHECK_NOW_BUTTON'),
         command: (event) => {
           this.executeJob(entry.serviceName.toString());
           event.originalEvent?.stopPropagation();
         }
       },
       {
-        label: 'MONITOR.EDIT_SETTINGS_BUTTON',
+        label:this.translate.instant( 'MONITOR.EDIT_SETTINGS_BUTTON'),
         routerLink: ['edit', entry.serviceName.toString()]
       },
       {
