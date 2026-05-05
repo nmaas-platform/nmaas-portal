@@ -153,12 +153,13 @@ export class DomainService extends GenericDataService {
     return this.delete<void>(this.urlGroups + '/' + domainGroupId);
   }
 
-  public addDomainsToGroup(groupCodeName: string, domainIds: number[]): Observable<DomainGroup> {
-    return this.post(this.urlGroups + '/' + groupCodeName, domainIds);
+  public addDomainsToGroup(groupId: number, domainIds: number[]): Observable<DomainGroup> {
+    return this.put(this.urlGroups + '/' + groupId + '/domains', domainIds);
   }
 
   public deleteDomainFromGroup(groupId: number, domainId: number): Observable<DomainGroup> {
-    return this.patch(this.urlGroups + '/' + groupId, domainId);
+    return this.http.delete<DomainGroup>(this.urlGroups +'/' + groupId + '/domains', { body: domainId }
+    );
   }
 
   public createDomainGroup(domainGroup: DomainGroup): Observable<Id> {

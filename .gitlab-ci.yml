@@ -6,7 +6,7 @@ stages:
 
 test:
   stage: test
-  image: trion/ng-cli-karma:21.2.7
+  image: trion/ng-cli-karma:21.2.9
   script:
     - npm ci --force
     - ng build
@@ -18,7 +18,7 @@ test:
 
 sonar:
   stage: sonar
-  image: trion/ng-cli:21.2.7
+  image: trion/ng-cli:21.2.9
   only:
     - develop
     - /^release/
@@ -28,7 +28,7 @@ sonar:
 
 build_and_push_latest_image:
   stage: build
-  image: korvoj/docker-git:29.4.0
+  image: korvoj/docker-git:29.4.1
   only:
     - develop
   variables:
@@ -55,7 +55,7 @@ build_and_push_alfa_image:
 
 build_and_push_release_image:
   stage: build
-  image: korvoj/docker-git:29.4.0
+  image: korvoj/docker-git:29.4.1
   only:
     - tags
   script:
