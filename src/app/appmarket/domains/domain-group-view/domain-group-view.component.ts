@@ -191,7 +191,7 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
 
     public closeModal(): void {
         const domainIds = this.domainsToAdd.map(val => val.id);
-        this.domainService.addDomainsToGroup(this.domainGroup.codename, domainIds).subscribe(_ => {
+        this.domainService.addDomainsToGroup(this.domainGroup.id, domainIds).subscribe(_ => {
             this.refresh();
             this.domainsToAdd = [];
             this.refreshDomainForAdd();

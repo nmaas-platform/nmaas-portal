@@ -164,7 +164,7 @@ describe('DomainGroupViewComponent', () => {
 
         component.closeModal();
 
-        expect(mockDomainService.addDomainsToGroup).toHaveBeenCalledWith(component.domainGroup.codename, [1]);
+        expect(mockDomainService.addDomainsToGroup).toHaveBeenCalledWith(component.domainGroup.id, [1]);
         expect(component.modal.hide).toHaveBeenCalled();
     });
 
