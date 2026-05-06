@@ -6,6 +6,7 @@ import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {AppImagesService, AppsService} from '../../../service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {of} from 'rxjs';
+import { CarouselModule } from 'primeng/carousel';
 
 class TranslateFakeLoader implements TranslateLoader {
     getTranslation(lang: string) {
@@ -27,7 +28,8 @@ describe('AppPreviewComponent', () => {
                         provide: TranslateLoader,
                         useClass: TranslateFakeLoader
                     }
-                })
+                }),
+                CarouselModule
             ],
             providers: [
                 {provide: AppsService, useValue: {}},
