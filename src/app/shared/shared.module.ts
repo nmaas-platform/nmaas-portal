@@ -88,6 +88,7 @@ import {Popover} from 'primeng/popover';
 import {LoginComponent} from './login';
 import {RegistrationComponent} from './registration/registration.component';
 import {RegistrationService} from '../auth/registration.service';
+import { CarouselModule } from 'primeng/carousel';
 
 
 @NgModule({
@@ -127,7 +128,8 @@ import {RegistrationService} from '../auth/registration.service';
             SelectButtonModule,
             MenuModule,
             PasswordStrengthMeterComponent,
-            Popover
+            Popover,
+            CarouselModule
         ],
     declarations: [
         RateComponent,

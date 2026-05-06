@@ -24,6 +24,7 @@ export class AppPreviewComponent implements OnInit {
     public screenshots: any[];
 
     public versionVisible = false;
+    selectedImage: any = null;
 
     constructor(public route: ActivatedRoute,
                 public appService: AppsService,

@@ -112,7 +112,7 @@
     @if (numberOfScreenshots > 0) {
       <p style="font-weight: bold">{{'SCREENSHOTS.HEADER' | translate}}</p>
     }
-    <screenshots style="display: flex" (numberOfScreenshots)="screenshots($event)" [pathUrl]="'/apps/' + appId + '/screenshots'"></screenshots>
+    <screenshots (numberOfScreenshots)="screenshots($event)" [pathUrl]="'/apps/' + appId + '/screenshots'"></screenshots>
   </div>
 </div>
 

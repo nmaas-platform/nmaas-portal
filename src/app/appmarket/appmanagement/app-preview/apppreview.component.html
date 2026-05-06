@@ -84,31 +84,20 @@
     }
     @if (!app?.applicationBase.id || screenshots) {
       <div style="padding-top:50px; display: flex; flex-direction: column;">
-        <p style="font-weight: bold">{{'SCREENSHOTS.HEADER' | translate}}</p>
+        <p style="font-weight: bold; margin-bottom: 5px;">{{'SCREENSHOTS.HEADER' | translate}}</p>
         @if (screenshots) {
-          <div class="carousel slide media-carousel col-md-12" id="app-preview-carousel">
-            <div class="carousel-inner">
-              @for (row of screenshots | group:4; track row; let firstRow = $last) {
-                <div class="item" [ngClass]="{'active': firstRow}">
-                  <div class="row">
-                    @for (screenshot of row; track screenshot) {
-                      <div class="col-md-3">
-                        <a class="thumbnail">
-                          <img alt="Screenshot" [src]="screenshot.objectURL || 'assets/images/app-screenshot-example.png'">
-                        </a>
-                      </div>
-                    }
-                  </div>
-                </div>
-              }
+            <p-carousel [value]="screenshots" [numVisible]="4" [numScroll]="3">
+                <ng-template let-item pTemplate="item">
+                    <img class="carousel-img" [src]="item.objectURL || 'assets/images/app-screenshot-example.png'"
+                         alt="Screenshot" (click)="selectedImage = item">
+                </ng-template>
+            </p-carousel>
+            <div *ngIf="selectedImage"
+                    class="overlay"
+                    (click)="selectedImage = null">
+                <img [src]="selectedImage.objectURL || 'assets/images/app-screenshot-example.png'"
+                     alt="Screenshot" class="fullscreen-img">
             </div>
-            @if (screenshots.length > 3) {
-              <a data-slide="prev" href="#app-preview-carousel" class="left flex justify-content-center align-items-center carousel-control"><span class="fa fa-angle-left" style="width: 20px; height: 20px"></span></a>
-            }
-            @if (screenshots.length > 3) {
-              <a data-slide="next" href="#app-preview-carousel" class="right flex justify-content-center align-items-center carousel-control"><span class="fa fa-angle-right" style="width: 20px; height: 20px"></span></a>
-            }
-          </div>
         }
       </div>
     }

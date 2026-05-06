@@ -20,6 +20,7 @@ export class ScreenshotsComponent implements OnInit {
     public imagesFileInfo: FileInfo[];
 
     public selectedImg: string;
+    selectedImage: any = null;
 
     public customModalVisible = false;
     public customModalVisibleAnimate = false;
