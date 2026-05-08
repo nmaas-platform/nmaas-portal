@@ -1,70 +1,60 @@
-import org.gradle.internal.os.OperatingSystem;
+import com.github.gradle.node.npm.task.NpmTask
 
 plugins {
-	id "com.moowork.node" version "1.3.1"
-	id "org.sonarqube" version "7.3.0.8198"
+    id "com.github.node-gradle.node" version "7.1.0"
+    id "org.sonarqube" version "7.2.3.7755"
 }
 
 version = '1.10.0-SNAPSHOT'
 
-task buildGUI(type: Exec) {
-	println 'Building using Angular CLI'
-
-	if ( OperatingSystem.current().isWindows() ) {
-		commandLine 'cmd', '/c', 'ng', 'build', '--base-href', '/'
-	} else {
-		commandLine 'ng', 'build', '--base-href', '/'
-	}	
-	dependsOn(npm_install)
+def buildGUI = tasks.register('buildGUI', NpmTask) {
+    group = 'build'
+    description = 'Builds the Angular application.'
+    dependsOn(tasks.named('npmInstall'))
+    args.set(['run', 'ng', '--', 'build', '--base-href', '/'])
 }
 
-task buildGUIprod(type: Exec) {
-	println 'Building prod platform'
-
-	if ( OperatingSystem.current().isWindows() ) {
-		commandLine 'cmd', '/c', 'ng', 'build', '--base-href', '/', '--configuration production'
-	} else {
-		commandLine 'ng', 'build', '--base-href', '/', '--configuration production'
-	}
-	dependsOn(npm_install)
+def buildGUIprod = tasks.register('buildGUIprod', NpmTask) {
+    group = 'build'
+    description = 'Builds the Angular application for production.'
+    dependsOn(tasks.named('npmInstall'))
+    args.set(['run', 'ng', '--', 'build', '--base-href', '/', '--configuration', 'production'])
 }
 
-tasks.register('dist', Zip) {
+def testCoverage = tasks.register('testCoverage', NpmTask) {
+    group = 'verification'
+    description = 'Runs Angular tests with code coverage.'
+    dependsOn(tasks.named('npmInstall'))
+    args.set(['run', 'test', '--', '--browsers', 'Chromium', '--watch=false', '--code-coverage', '--source-map=false'])
+}
+
+def dist = tasks.register('dist', Zip) {
+    group = 'build'
+    description = 'Packages the Angular build output.'
+    dependsOn(project.hasProperty('prod') ? buildGUIprod : buildGUI)
     from('build/app')
     archiveBaseName.set(project.name)
     archiveVersion.set(project.version.toString())
     destinationDirectory.set(layout.buildDirectory.dir('distributions'))
 }
 
-task build(type: Task) {
-	if(project.hasProperty('prod'))
-		dist.dependsOn(buildGUIprod)
-	else
-		dist.dependsOn(buildGUI)
+tasks.register('build') {
+    group = 'build'
+    description = 'Builds, tests, and packages the project.'
+    dependsOn(dist, testCoverage)
 }
 
-task testCoverage(type: Exec) {
-	println 'Testing with code coverage analysis'
-
-	if ( OperatingSystem.current().isWindows() ) {
-		commandLine 'cmd', '/c', 'ng', 'test', '--browsers', 'Chromium', '--watch=false', '--code-coverage', '--source-map=false'
-	} else {
-		commandLine 'ng', 'test', '--browsers', 'Chromium', '--watch=false', '--code-coverage', '--source-map=false'
-	}
-
+sonar {
+    properties {
+        property "sonar.sources", "src"
+        property "sonar.exclusions", ["**/node_modules/**", "**/*.spec.ts", "**/bootstrap.js", "**/src/app/service/**", "**/src/app/model/**"]
+        property "sonar.tests", "src"
+        property "sonar.test.inclusions", "**/*.spec.ts"
+        property "sonar.typescript.lcov.reportPaths", "coverage/lcov.info"
+        property "sonar.projectVersion", project.version.toString()
+    }
 }
 
-sonarqube {
-    properties
-		{
-			property "sonar.sources", "src"
-			property "sonar.exclusions", ["**/node_modules/**","**/*.spec.ts","**/bootstrap.js","**/src/app/service/**","**/src/app/model/**"]
-			property "sonar.tests", "src"
-			property "sonar.test.inclusions", "**/*.spec.ts"
-			property "sonar.typescript.lcov.reportPaths", "coverage/lcov.info"
-			property "sonar.projectVersion", "${project.version}"
-		}
+tasks.named('sonar') {
+    dependsOn(testCoverage)
 }
-
-build.dependsOn(dist)
-build.dependsOn(testCoverage)
