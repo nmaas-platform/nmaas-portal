@@ -104,11 +104,13 @@
                     (ngModelChange)="handleHelmChartRepositoryUrlInput($event)"
                     pTooltip="{{'APPS_WIZARD.HELM_CHART_REPOSITORY_URL_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50">
                   </div>
-                  <div class="">
+            @if (!isInMode(ComponentMode.EDIT)){
+                <div class="">
                     <label for="kubernetesTemplateMainDeploymentName" class="control-label">{{'APPS_WIZARD.MAIN_DEPLOYMENT_NAME_LABEL' | translate}}</label>
                     <input pInputText type="text" class="form-control" id="kubernetesTemplateMainDeploymentName" name="kubernetesTemplateMainDeploymentName"
-                      [(ngModel)]="applicationDTO.application.appDeploymentSpec.kubernetesTemplate.mainDeploymentName" pTooltip="{{'APPS_WIZARD.MAIN_DEPLOYMENT_NAME_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50">
-                    </div>
+                           [(ngModel)]="applicationDTO.application.appDeploymentSpec.kubernetesTemplate.mainDeploymentName" pTooltip="{{'APPS_WIZARD.MAIN_DEPLOYMENT_NAME_TOOLTIP' | translate}}"  tooltipPosition="bottom" [showDelay]="50">
+                </div>
+            }
                     <div  style="display: flex; gap:10px">
                       <label for="exposesWebUI" style="text-align: left; padding-left: 0;" class="">{{'APPS_WIZARD.EXPOSE_WEB_UI' | translate }}</label>
                       <div class="">

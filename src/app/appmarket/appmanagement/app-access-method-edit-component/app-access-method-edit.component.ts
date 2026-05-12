@@ -39,7 +39,8 @@ export class AppAccessMethodEditComponent implements OnInit {
         'INGRESS_TLS_HOSTS',
         'K8S_SERVICE_SUFFIX',
         'K8S_SERVICE_PORT',
-        'ACCESS_USER'
+        'ACCESS_USER',
+        'EXTERNAL_SERVICE_SUFFIX'
     ]
 
     public conditionType = ['NONE', 'DEPLOYMENT_PARAMETER']
