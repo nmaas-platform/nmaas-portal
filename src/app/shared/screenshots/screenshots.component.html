@@ -1,14 +1,16 @@
 
-<!--@if (imagesFileInfo && imagesFileInfo.length > 0) {-->
+@if (imagesFileInfo && imagesFileInfo.length > 0) {
     <p-carousel [value]="imagesFileInfo" [numVisible]="4">
         <ng-template let-item pTemplate="item">
             <img class="carousel-inner" [src]="(appsService.getAppScreenshotUrl(pathUrl+'/'+ item.id) | secure) || 'assets/images/app-screenshot-example.png'"
                      alt="Screenshot" (click)="selectedImage = item">
         </ng-template>
     </p-carousel>
-    <div *ngIf="selectedImage"
-         class="overlay"
-         (click)="selectedImage = null">
-        <img [src]="selectedImage.objectURL || 'assets/images/app-screenshot-example.png'"
-             alt="Screenshot" class="fullscreen-img">
-    </div>
+    @if (selectedImage) {
+        <div class="overlay"
+             (click)="selectedImage = null">
+            <img [src]="selectedImg | secure"
+                 alt="Screenshot" class="fullscreen-img">
+        </div>
+    }
+}

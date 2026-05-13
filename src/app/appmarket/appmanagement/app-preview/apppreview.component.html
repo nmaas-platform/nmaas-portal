@@ -92,12 +92,12 @@
                          alt="Screenshot" (click)="selectedImage = item">
                 </ng-template>
             </p-carousel>
-            <div *ngIf="selectedImage"
-                    class="overlay"
-                    (click)="selectedImage = null">
-                <img [src]="selectedImage.objectURL || 'assets/images/app-screenshot-example.png'"
-                     alt="Screenshot" class="fullscreen-img">
-            </div>
+            @if (selectedImage) {
+                <div class="overlay" (click)="selectedImage = null">
+                    <img [src]="selectedImage.objectURL || 'assets/images/app-screenshot-example.png'"
+                         alt="Screenshot" class="fullscreen-img">
+                </div>
+            }
         }
       </div>
     }

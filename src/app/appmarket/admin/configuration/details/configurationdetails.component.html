@@ -81,11 +81,9 @@
                                 </div>
                             </div>
                             <div class="grid col-12" style="align-items:baseline">
-                                <span class="control-label col-3">
-                                  <strong>
+                                <label class="control-label col-3">
                                     {{ 'PORTAL_CONFIGURATION.SEND_APP_INSTANCE_FAILURE_EMAILS_LIST' | translate }}
-                                  </strong>
-                                </span>
+                                </label>
                                 <div class="col-9 display-emails">
                                     @for (email of configuration.appInstanceFailureEmailList; track trackByFn(i, email); let i = $index) {
                                         <div
