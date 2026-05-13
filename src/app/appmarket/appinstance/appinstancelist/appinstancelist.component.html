@@ -144,7 +144,7 @@
                 justify-content:
                 space-between;
                 margin-bottom: 30px">
-                    <div style="position: absolute; right: 25px; top: 20px; display: flex; gap:10px">
+                    <div style="position: absolute; right: 20px; top: 15px; display: flex; gap:10px">
                     @if (appInstance?.upgradePossible) {
                             <span style="display: flex;
                              align-items: center;
@@ -180,7 +180,8 @@
                       }
                     </div>
                   </div>
-                  @if (getStateAsEnum(appInstance?.state) == AppInstanceState.FAILURE) {
+                  @if (getStateAsEnum(appInstance?.state) == AppInstanceState.FAILURE ||
+                       getStateAsEnum(appInstance?.state) == AppInstanceState.VALIDATION_FAILED) {
                     <div>
                       <p class="failure">{{ translateState(appInstance?.state) }}</p>
                       <p-progressBar class="failure" [value]="100" [style]="{'height': '8px'}"></p-progressBar>

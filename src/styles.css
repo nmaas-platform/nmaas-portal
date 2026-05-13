@@ -1129,3 +1129,6 @@ body .p-button-secondary:not(:disabled):hover {
     color: var(--p-text-100);
     border-color: var(--p-primary-600);
 }
+.p-select-list-container {
+    max-height: 30vh !important;
+}
