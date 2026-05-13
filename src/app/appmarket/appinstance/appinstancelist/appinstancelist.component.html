@@ -144,9 +144,7 @@
                 justify-content:
                 space-between;
                 margin-bottom: 30px">
-                    <div style="position: absolute;
-                     right: 30px;
-                      top: 25px">
+                    <div style="position: absolute; right: 25px; top: 20px; display: flex; gap:10px">
                     @if (appInstance?.upgradePossible) {
                             <span style="display: flex;
                              align-items: center;
@@ -154,8 +152,15 @@
                         class="pi pi-arrow-circle-up">
                       </span>
                     }
+                    @if (appInstance?.remoteClusterId !== null) {
+                        <span style="display: flex;
+                             align-items: center;
+                              font-size:20px"
+                              class="pi pi-cloud-upload">
+                      </span>
+                    }
                   </div>
-                  <div style="display: flex; flex-direction:column; justify-content:space-between">
+                  <div style="display: flex; flex-direction:column; gap:20px">
                     <p>{{ appInstance?.name }}</p>
                     <p style="display: flex; gap:10px">{{ appInstance?.applicationName }}
                     </p>
