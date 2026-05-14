@@ -31,35 +31,39 @@
                             <div class=" grid col-12">
                                 <label for="defaultDomainForSsoUsers"
                                        class="col-3 control-label">{{ 'PORTAL_CONFIGURATION.DEFAULT_DOMAIN_FOR_SSO_USER' | translate }}</label>
-                                <div class="col-3">
-                                    <select style=" background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);"
-                                            id="defaultLang" #defaultDomainForSsoUsers class="form-control"
-                                            name="defaultDomainForSsoUsers"
-                                            [(ngModel)]="configuration.defaultDomainForSsoUsers">
-                                        <option [ngValue]="null">
-                                            {{ 'PORTAL_CONFIGURATION.NULL' | translate }}
-                                        </option>
-                                        @for (domain of domainForSsoUsers; track domain) {
-                                            <option [ngValue]="domain.id">
-                                                {{ domain.codename }}
+                                <div class="col-9">
+                                    <div class="input-width">
+                                        <select style=" background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);"
+                                                id="defaultLang" #defaultDomainForSsoUsers class="form-control"
+                                                name="defaultDomainForSsoUsers"
+                                                [(ngModel)]="configuration.defaultDomainForSsoUsers">
+                                            <option [ngValue]="null">
+                                                {{ 'PORTAL_CONFIGURATION.NULL' | translate }}
                                             </option>
-                                        }
-                                    </select>
+                                            @for (domain of domainForSsoUsers; track domain) {
+                                                <option [ngValue]="domain.id">
+                                                    {{ domain.codename }}
+                                                </option>
+                                            }
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class=" grid col-12">
                                 <label for="defaultLang"
                                        class="col-3 control-label">{{ 'PORTAL_CONFIGURATION.DEFAULT_LANGUAGE' | translate }}</label>
-                                <div class="col-3">
-                                    <select style=" background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);"
-                                            id="defaultLang" #langSelect class="form-control"
-                                            (change)="this.configuration.defaultLanguage = langSelect.value">
-                                        @for (lang of languages; track lang) {
-                                            <option [value]="lang.language"
-                                                    [selected]="lang.language === configuration.defaultLanguage">{{ 'LANGUAGE.' + lang.language.toUpperCase() + '_LABEL' | translate }}
-                                            </option>
-                                        }
-                                    </select>
+                                <div class="col-9">
+                                    <div class="input-width">
+                                        <select style=" background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);"
+                                                id="defaultLang" #langSelect class="form-control"
+                                                (change)="this.configuration.defaultLanguage = langSelect.value">
+                                            @for (lang of languages; track lang) {
+                                                <option [value]="lang.language"
+                                                        [selected]="lang.language === configuration.defaultLanguage">{{ 'LANGUAGE.' + lang.language.toUpperCase() + '_LABEL' | translate }}
+                                                </option>
+                                            }
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class=" grid col-12">
@@ -86,9 +90,8 @@
                                 </label>
                                 <div class="col-9 display-emails">
                                     @for (email of configuration.appInstanceFailureEmailList; track trackByFn(i, email); let i = $index) {
-                                        <div
-                                                class="xl:col-6 lg:col-10 md:col-12 pd-bottom-5 row email-row">
-                                            <div class="email-input">
+                                        <div class=" pd-bottom-5 email-row">
+                                            <div class="email-input input-width">
                                                 <input pInputText class="form-control" type="text"
                                                        id="appInstanceFailureEmailList.{{i}}"
                                                        name="appInstanceFailureEmailList.{{i}}"

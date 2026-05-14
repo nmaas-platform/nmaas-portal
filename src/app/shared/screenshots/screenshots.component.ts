@@ -22,8 +22,6 @@ export class ScreenshotsComponent implements OnInit {
     public selectedImg: string;
     selectedImage: any = null;
 
-    public customModalVisible = false;
-    public customModalVisibleAnimate = false;
     @Output()
     numberOfScreenshots: EventEmitter<any> = new EventEmitter<any>();
 
@@ -41,17 +39,5 @@ export class ScreenshotsComponent implements OnInit {
 
     public showImage(url: string): void {
         this.selectedImg = url;
-        this.showModal();
     }
-
-    public showModal(): void {
-        setTimeout( () => this.customModalVisible = true, 50);
-        setTimeout(() => this.customModalVisibleAnimate = true, 100);
-    }
-
-    public hideModal(): void {
-        this.customModalVisibleAnimate = false;
-        setTimeout(() => this.customModalVisible = false, 100);
-    }
-
 }
