@@ -4,7 +4,7 @@ import {AppInstance, AppInstanceState} from '../../../model';
 import {AppImagesService, AppInstanceService, CustomerSearchCriteria, CustomPageCriteria, DomainService} from '../../../service';
 import {AuthService} from '../../../auth/auth.service';
 import {UserDataService} from '../../../service/userdata.service';
-import {Observable} from 'rxjs';
+import {map, Observable} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 import {SessionService} from '../../../service/session.service';
 import {ClusterManagerService} from '../../../service/cluster-manager.service';
@@ -80,7 +80,14 @@ export class AppInstanceListComponent implements OnInit {
             }
             this.allAppDeployedInstances = this.appInstanceService.getSortedAppInstances(
                 this.domainId,
-                new CustomerSearchCriteria('id', 'desc', 'deployed'))
+                new CustomerSearchCriteria('id', 'desc', 'deployed')).pipe(
+                map(instances =>
+                    instances.map(ins => ({
+                        ...ins,
+                        remoteClusterName: this.clusterMap.get(ins.remoteClusterId) || 'Central'
+                    }))
+                )
+            );
             this.domainId = domainId
             this.reloadDeployedInstances()
             this.reloadUndeployedInstances()
@@ -248,12 +255,26 @@ export class AppInstanceListComponent implements OnInit {
     private getSortedMyInstances(status: string) {
         return this.appInstanceService.getSortedMyAppInstances(
             this.domainId,
-            new CustomerSearchCriteria('id', 'desc', status))
+            new CustomerSearchCriteria('id', 'desc', status)).pipe(
+            map(instances =>
+                instances.map(ins => ({
+                    ...ins,
+                    remoteClusterName: this.clusterMap.get(ins.remoteClusterId) || 'Central'
+                }))
+            )
+        );
     }
 
     private getSortedInstances(status: string) {
         return this.appInstanceService.getSortedAppInstances(
             this.domainId,
-            new CustomerSearchCriteria('id', 'desc', status))
+            new CustomerSearchCriteria('id', 'desc', status)).pipe(
+            map(instances =>
+                instances.map(ins => ({
+                    ...ins,
+                    remoteClusterName: this.clusterMap.get(ins.remoteClusterId) || 'Central'
+                }))
+            )
+        );
     }
 }
