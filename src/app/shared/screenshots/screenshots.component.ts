@@ -36,8 +36,4 @@ export class ScreenshotsComponent implements OnInit {
         );
       
     }
-
-    public showImage(url: string): void {
-        this.selectedImg = url;
-    }
 }
