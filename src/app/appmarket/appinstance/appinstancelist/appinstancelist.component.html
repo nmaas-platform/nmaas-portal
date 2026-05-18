@@ -137,13 +137,10 @@
             <div
               class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
               <div class="background-section instance-card"
-                [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain()}"
+                [ngClass]="{'clickable': !userHasGuestRoleInCurrentDomain(),
+                'remoteCluster-bg': appInstance?.remoteClusterName !== 'Central'}"
                 [routerLink]="userHasGuestRoleInCurrentDomain() ? [] : [appInstance.id]">
-                <div style="
-                display:flex;
-                justify-content:
-                space-between;
-                margin-bottom: 30px">
+                <div style="display:flex; justify-content:space-between; margin-bottom: 20px">
                     <div style="position: absolute; right: 20px; top: 15px; display: flex; gap:10px">
                     @if (appInstance?.upgradePossible) {
                             <span style="display: flex;
@@ -162,24 +159,24 @@
                   </div>
                   <div style="display: flex; flex-direction:column; gap:20px">
                     <p>{{ appInstance?.name }}</p>
-                    <p style="display: flex; gap:10px">{{ appInstance?.applicationName }}
-                    </p>
+                      <p><i class="pi pi-map-marker"></i> {{ appInstance?.remoteClusterName }}</p>
                   </div>
-                  <div>
+                  <div style="display: flex; flex-direction: column; align-items: center; gap:10px">
                     @if (appInstance?.applicationBaseId) {
                       <div class="img-container">
                         <img alt="App logo"
                           [src]="(appImagesService.getAppLogoUrl(appInstance?.applicationBaseId) | secure) || 'assets/images/app-logo-example.png'"
                           width="70px"/>
                         </div>
-                      }
-                      @if (!appInstance?.applicationBaseId) {
+                    }
+                    @if (!appInstance?.applicationBaseId) {
                         <div class="img-container">
                           <img alt="App logo" src="assets/images/app-logo-example.png" width="70px"/>
                         </div>
-                      }
-                    </div>
+                    }
+                      <p>{{ appInstance?.applicationName }}</p>
                   </div>
+              </div>
                   @if (getStateAsEnum(appInstance?.state) == AppInstanceState.FAILURE ||
                        getStateAsEnum(appInstance?.state) == AppInstanceState.VALIDATION_FAILED) {
                     <div>
