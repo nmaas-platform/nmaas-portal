@@ -766,12 +766,12 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                 });
             }
 
-            // if (state !== AppInstanceState.PAUSED) {
-            //     items.push({
-            //         label: this.translate.instant('APP_INSTANCES.PAUSE'),
-            //         command: () => this.scaleDownModal.show()
-            //     });
-            // }
+
+            items.push({
+                label: this.translate.instant('APP_INSTANCES.PAUSE'),
+                command: () => this.scaleDownModal.show()
+            });
+
 
             if (this.hasAdminRole() || this.hasDomainAdminRole()) {
                 items.push({

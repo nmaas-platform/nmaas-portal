@@ -35,3 +35,18 @@ label{
 ::ng-deep .danger .p-progressbar-value {
     background: var(--p-accent-400);
 }
+
+::ng-deep .p-progressbar-label{
+    left: 0;
+    width: 100px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    font-weight: 600;
+    z-index: 2;
+}
+::ng-deep .p-progressbar-determinate .p-progressbar-value {
+    overflow: visible !important;
+}

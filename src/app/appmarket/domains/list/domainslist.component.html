@@ -51,11 +51,13 @@
                     <td [routerLink]="['view/', domain.id]">{{ domain?.codename }}</td>
                     <td [routerLink]="['view/', domain.id]">{{ domain?.name }}</td>
                     <td [routerLink]="['view/', domain.id]">
-                        <p-progressBar [value]="100 - domain?.limitUsage"
-                                       style="max-width: 100px"
+                        <p-progressBar [value]="100 - domain?.limitUsage" style="max-width: 100px" class="progress-wrapper"
                                        [ngClass]="{ 'safe': domain?.limitUsage < 30,
                                                     'warning': domain?.limitUsage > 30 && domain?.limitUsage <= 70,
                                                     'danger': domain?.limitUsage > 70}">
+                            <ng-template pTemplate="content" class="progress-label">
+                                {{100 - domain?.limitUsage }}%
+                            </ng-template>
                         </p-progressBar>
                     </td>
                     <td [routerLink]="['view/', domain.id]">

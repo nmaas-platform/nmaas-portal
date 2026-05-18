@@ -3,13 +3,13 @@
     <p-carousel [value]="imagesFileInfo" [numVisible]="4">
         <ng-template let-item pTemplate="item">
             <img class="carousel-inner" [src]="(appsService.getAppScreenshotUrl(pathUrl+'/'+ item.id) | secure) || 'assets/images/app-screenshot-example.png'"
-                     alt="Screenshot" (click)="showImage(appsService.getAppScreenshotUrl(pathUrl+'/'+ item.id))">
+                     alt="Screenshot" (click)="this.selectedImage = item">
         </ng-template>
     </p-carousel>
     @if (selectedImage) {
-        <div class="overlay">
-            <img [src]="selectedImg | secure"
-                 alt="Screenshot" class="fullscreen-img">
+        <div class="overlay" (click)="this.selectedImage = null">
+            <img [src]="(appsService.getAppScreenshotUrl(pathUrl+'/'+ selectedImage.id) | secure)"
+                 alt="Screenshot" class="fullscreen-img" >
         </div>
     }
 }

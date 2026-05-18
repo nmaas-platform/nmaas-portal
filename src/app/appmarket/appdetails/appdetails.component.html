@@ -104,13 +104,12 @@
 </div>
 <div class="background-section">
   <div>
-    <p style="font-weight: bold">{{'APPLICATIONS.DESCRIPTION' | translate}}</p>
     <div [innerHTML]="getDescription()?.fullDescription">
     </div>
   </div>
   <div style="padding-top:50px">
     @if (numberOfScreenshots > 0) {
-      <p style="font-weight: bold">{{'SCREENSHOTS.HEADER' | translate}}</p>
+      <p style="font-weight: bold; margin-bottom: 20px">{{'SCREENSHOTS.HEADER' | translate}}</p>
     }
     <screenshots (numberOfScreenshots)="screenshots($event)" [pathUrl]="'/apps/' + appId + '/screenshots'"></screenshots>
   </div>

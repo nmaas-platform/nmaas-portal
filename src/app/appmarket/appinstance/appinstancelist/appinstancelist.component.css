@@ -110,12 +110,13 @@ p-selectbutton{
     color: var(--p-text-0);
     background: var(--p-background-100);
     margin: 10px 0;
+    /*min-height: 250px;*/
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 .remoteCluster-bg {
-    background:  #57607B;
+    background: var(--p-background-500);
 }
 .img-container {
     background: var(--p-background-50);
