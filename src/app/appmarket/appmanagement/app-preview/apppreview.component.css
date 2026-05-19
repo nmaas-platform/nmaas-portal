@@ -129,3 +129,10 @@ hr{
     max-width: 95%;
     max-height: 95%;
 }
+::ng-deep .p-carousel-item {
+    flex: none !important;
+}
+
+::ng-deep .p-items-hidden .p-carousel-item {
+    visibility: unset !important;
+}

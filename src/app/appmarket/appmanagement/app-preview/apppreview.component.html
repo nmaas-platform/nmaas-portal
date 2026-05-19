@@ -86,7 +86,7 @@
       <div style="padding-top:50px; display: flex; flex-direction: column;">
         <p style="font-weight: bold; margin-bottom: 5px;">{{'SCREENSHOTS.HEADER' | translate}}</p>
         @if (screenshots) {
-            <p-carousel [value]="screenshots" [numVisible]="4" [numScroll]="3">
+            <p-carousel [value]="screenshots" [numVisible]="4" [numScroll]="1">
                 <ng-template let-item pTemplate="item">
                     <img class="carousel-img" [src]="item.objectURL || 'assets/images/app-screenshot-example.png'"
                          alt="Screenshot" (click)="selectedImage = item">
