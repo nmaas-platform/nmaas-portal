@@ -750,19 +750,18 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                     command: () => this.openVersionUpdateModal()
                 });
             }
-
-            if (appInstance.allowLogAccess) {
-                items.push({
-                    label: this.translate.instant('APP_INSTANCE.VIEW_LOGS'),
-                    command: () => this.router.navigate([this.router.url + '/logs'])
-                });
-            }
-
             if (appInstance.allowSshAccess) {
                 items.push({
                     label: this.translate.instant('APP_INSTANCE.SHELL'),
                     command: () => this.onOpenShell(),
                     disabled: !this.podNames || this.podNames.length === 0
+                });
+            }
+
+            if (appInstance.allowLogAccess) {
+                items.push({
+                    label: this.translate.instant('APP_INSTANCE.VIEW_LOGS'),
+                    command: () => this.router.navigate([this.router.url + '/logs'])
                 });
             }
 
