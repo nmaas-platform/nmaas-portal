@@ -299,7 +299,7 @@
                                             name="deploymentnamespaceconfigoption"
                                             [(ngModel)]="cluster.deployment.namespaceConfigOption" [disabled]=""
                                             required>
-                                        @for (entry of certificateConfigOption | keyvalue; track entry.key) {
+                                        @for (entry of namespaceConfigOption | keyvalue; track entry.key) {
                                             <option
                                                     [value]="entry.key">{{ entry.key }}
                                             </option>
