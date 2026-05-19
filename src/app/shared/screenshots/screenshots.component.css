@@ -52,3 +52,10 @@
     max-width: 95%;
     max-height: 95%;
 }
+
+::ng-deep .carousel-inner {
+    width: 100%;
+}
+::ng-deep .p-carousel-item {
+    flex: none !important;
+}

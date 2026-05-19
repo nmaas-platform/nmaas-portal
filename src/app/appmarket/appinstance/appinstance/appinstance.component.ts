@@ -716,14 +716,6 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                 });
             }
 
-            if (appInstance.allowSshAccess) {
-                items.push({
-                    label: this.translate.instant('APP_INSTANCE.SHELL'),
-                    command: () => this.onOpenShell(),
-                    disabled: !this.podNames || this.podNames.length === 0
-                });
-            }
-
             if (this.canDisplayAddMembersModal()) {
                 items.push({
                     label: this.translate.instant('APP_INSTANCE.ADD_MEMBERS_BUTTON'),
@@ -758,6 +750,13 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                     command: () => this.openVersionUpdateModal()
                 });
             }
+            if (appInstance.allowSshAccess) {
+                items.push({
+                    label: this.translate.instant('APP_INSTANCE.SHELL'),
+                    command: () => this.onOpenShell(),
+                    disabled: !this.podNames || this.podNames.length === 0
+                });
+            }
 
             if (appInstance.allowLogAccess) {
                 items.push({
@@ -765,7 +764,6 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                     command: () => this.router.navigate([this.router.url + '/logs'])
                 });
             }
-
 
             items.push({
                 label: this.translate.instant('APP_INSTANCES.PAUSE'),
