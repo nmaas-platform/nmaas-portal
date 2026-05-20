@@ -254,7 +254,7 @@
                                             required>
                                         @for (entry of certificateConfigOption | keyvalue; track entry.key) {
                                             <option
-                                                    [value]="entry.key">{{ entry.key }}
+                                                    [value]="entry.value">{{ entry.key }}
                                             </option>
                                         }
                                     </select>
@@ -301,7 +301,7 @@
                                             required>
                                         @for (entry of namespaceConfigOption | keyvalue; track entry.key) {
                                             <option
-                                                    [value]="entry.key">{{ entry.key }}
+                                                    [value]="entry.value">{{ entry.key }}
                                             </option>
                                         }
                                     </select>
