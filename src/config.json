@@ -1,5 +1,5 @@
 {
-	"apiUrl": "http://localhost:9000/api",
+	"apiUrl": "http://localhost:9000/api/v1",
 	"tokenName": "token",
 	"nmaas": {
 		"globalDomainId": 1

@@ -1,5 +1,5 @@
 {
-	"apiUrl": "${API_URL}",
+	"apiUrl": "${API_URL}/v1",
 	"tokenName": "${TOKEN_NAME}",
 	"nmaas": {
 		"globalDomainId": 1
