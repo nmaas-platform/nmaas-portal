@@ -76,7 +76,6 @@ export class AddClusterComponent implements OnInit {
         this.stopTranslationUpdate();
       }
     }, 200);
-    console.log(this.certificateConfigOption, "WWWWWWWWWWWWWWWWWWWWWWWW")
 
   }
 
