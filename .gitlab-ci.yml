@@ -18,7 +18,7 @@ test:
 
 sonar:
   stage: sonar
-  image: trion/ng-cli:21.2.11
+  image: trion/ng-cli:21.2.12
   only:
     - develop
     - /^release/
