@@ -69,7 +69,7 @@ export class AppInstanceListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.clusterManagerService.getAllClusters().subscribe(c => {
+        this.clusterManagerService.getClustersBase().subscribe(c => {
             c.forEach(cluster => this.clusterMap.set(cluster.id, cluster.name));
         })
         this.userDataService.selectedDomainId.subscribe(domainId => {

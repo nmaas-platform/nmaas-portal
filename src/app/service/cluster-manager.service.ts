@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { AppConfigService } from "./appconfig.service";
 import { Observable } from "rxjs";
-import { ClusterManager } from "../model/cluster-manager";
+import {ClusterManager, RemoteClusterBaseDto} from '../model/cluster-manager';
 
 @Injectable({
     providedIn: 'root',
@@ -35,6 +35,10 @@ export class ClusterManagerService {
 
     public getAllClusters(): Observable<ClusterManager[]> {
     return this.http.get<ClusterManager[]>(this.url + '/all');
+    }
+
+    public getClustersBase(): Observable<RemoteClusterBaseDto[]> {
+        return this.http.get<RemoteClusterBaseDto[]>(this.url + '/base');
     }
 
     public getClusterDetails(id: number): Observable<ClusterManager> {
