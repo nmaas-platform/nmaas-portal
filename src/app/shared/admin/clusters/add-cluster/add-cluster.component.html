@@ -548,17 +548,20 @@
                         </div>
                     }
                 </div>
-                <div class="flex justify-content-end">
+                <div class="pull-right">
                     <button [disabled]="!clusterForm.form.valid" type="submit" class="btn btn-primary"
                             type="submit">
-                        {{ 'PORTAL_CONFIGURATION.SUBMIT_BUTTON' | translate }}
+                        {{ 'CLUSTERS.SUBMIT_BUTTON' | translate }}
                     </button>
                 </div>
-                <!-- <button
-              class="btn btn-primary">{{ 'CLUSTERS.SUBMIT_BUTTON' | translate }}</button> -->
             </form>
         }
         <!-- <button type="button" class="btn btn-primary pull-right" (click)="nextStep()"
       pTooltip="{{'APPS_WIZARD.ACCEPT_RULES_TOOLTIP' | translate}}" tooltipPosition="bottom" [showDelay]="50">{{'APPS_WIZARD.NEXT_BUTTON' | translate}}</button> -->
     </div>
+}
+@if (activeStepIndex != 0) {
+    <button type="button" class="btn btn-secondary pull-left" (click)="previousStep()"
+    >{{ 'APPS_WIZARD.PREVIOUS_BUTTON' | translate }}
+    </button>
 }
