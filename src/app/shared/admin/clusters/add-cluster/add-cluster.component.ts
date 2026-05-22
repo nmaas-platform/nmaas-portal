@@ -84,6 +84,11 @@ export class AddClusterComponent implements OnInit {
     this.activeStepIndex += 1;
   }
 
+  public previousStep(): void {
+    this.activeStepIndex -= 1;
+
+  }
+
   private stopTranslationUpdate() {
     clearInterval(this.translateUpdate);
     this.translateUpdate = null;
