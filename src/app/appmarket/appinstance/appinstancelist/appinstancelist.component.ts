@@ -72,7 +72,6 @@ export class AppInstanceListComponent implements OnInit {
         this.clusterManagerService.getClustersBase().subscribe(c => {
             c.forEach(cluster => this.clusterMap.set(cluster.id, cluster.name));
         })
-        console.log(this.clusterMap, "WWWWWWWWWWWWWWWWW")
         this.userDataService.selectedDomainId.subscribe(domainId => {
             if (this.authService.hasDomainRole(domainId, 'ROLE_USER') ||
                 this.authService.hasDomainRole(domainId, 'ROLE_GUEST') ||
