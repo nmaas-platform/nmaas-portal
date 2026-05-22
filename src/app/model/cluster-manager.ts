@@ -18,3 +18,10 @@ export class ClusterManager {
     public currentStateSince: Date;
     public contactEmail: string;
 }
+
+export class RemoteClusterBaseDto {
+    public id:number;
+    public name:string;
+    public codename:string;
+    public state: string;
+}
