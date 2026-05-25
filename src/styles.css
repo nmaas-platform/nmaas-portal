@@ -1132,3 +1132,6 @@ body .p-button-secondary:not(:disabled):hover {
 .p-select-list-container {
     max-height: 30vh !important;
 }
+body .p-carousel-item {
+    flex: 0 !important;
+}
