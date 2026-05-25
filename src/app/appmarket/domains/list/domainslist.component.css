@@ -50,3 +50,6 @@ label{
 ::ng-deep .p-progressbar-determinate .p-progressbar-value {
     overflow: visible !important;
 }
+::ng-deep .p-progressbar {
+    background: #c8c8c8 !important;
+}
