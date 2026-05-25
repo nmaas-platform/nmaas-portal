@@ -225,7 +225,7 @@ export const MyPreset = definePreset(Nora, {
                 activeBackground: 'transparent'
             },
             content: {
-                padding: '0.8rem'
+                padding: '0 0.8rem'
             }
         },
         datepicker: {

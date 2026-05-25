@@ -140,6 +140,7 @@
 }
 :host ::ng-deep .p-accordionpanel {
     border: none;
+    margin: 0.5rem 0;
 }
 :host ::ng-deep .p-accordionheader{
     border: none;
@@ -179,3 +180,4 @@
 :host ::ng-deep chevronupicon {
     transform: rotate(180deg);
 }
+
