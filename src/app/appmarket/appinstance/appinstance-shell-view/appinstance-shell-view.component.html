@@ -1,7 +1,8 @@
+<h4 class="header">{{ 'SHELL.TITLE' | translate}}</h4>
 @if (appInstanceId && ready) {
   <div class="row">
     <div class="page-header">
-      <h4 style="color: var(--p-text-0)">{{'SHELL.CONNECTED_TO' | translate}} {{appInstanceName}} ({{'SHELL.POD_NAME' | translate}} {{podName}})</h4>
+      <h5 style="color: var(--p-text-0)">{{'SHELL.CONNECTED_TO' | translate}} {{appInstanceName}} ({{'SHELL.POD_NAME' | translate}} {{podName}})</h5>
     </div>
     <app-ssh-shell [appInstanceId]="appInstanceId" [podName]="podName"></app-ssh-shell>
   </div>
