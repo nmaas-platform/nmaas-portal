@@ -704,7 +704,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
 
         const items: MenuItem[] = [];
 
-        if (state !== AppInstanceState.RUNNING) {
+        if (state === AppInstanceState.RUNNING) {
             items.push({
                 label: this.translate.instant('APP_INSTANCE.APP_ACCESS_METHODS'),
                 command: () => this.openAccessMethodsModal()
