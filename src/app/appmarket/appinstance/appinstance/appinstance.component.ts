@@ -329,9 +329,9 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                     if (!this.appInstance?.serviceAccessMethods) {
                         this.updateAppInstance();
                     }
-                    if (this.appInstance?.allowSshAccess && !this.podNames.length) {
-                        this.updateAppInstancePodNames();
-                    }
+                    // if (this.appInstance?.allowSshAccess && !this.podNames.length) {
+                    //     this.updateAppInstancePodNames();
+                    // }
                 }
             }
         );
@@ -344,12 +344,12 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         });
     }
 
-    private updateAppInstancePodNames() {
-        console.log('update list of available pods');
-        this.shellClientService.getPossiblePods(this.appInstanceId).subscribe(pods => {
-            this.podNames = pods;
-        });
-    }
+    // private updateAppInstancePodNames() {
+    //     console.log('update list of available pods');
+    //     this.shellClientService.getPossiblePods(this.appInstanceId).subscribe(pods => {
+    //         this.podNames = pods;
+    //     });
+    // }
 
     ngOnDestroy() {
         if (this.intervalCheckerState) {
@@ -682,20 +682,21 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     }
 
     onOpenShell() {
-        this.shellClientService.getPossiblePods(this.appInstanceId).subscribe({
-                next: pods => {
-                    this.podNames = pods;
-                    if (pods.length === 1) {
-                        this.router.navigate([this.router.url + '/shell/' + this.podNames[0].name]);
-                    } else if (pods.length > 1) {
-                        this.selectPodModal.show();
-                    } else {
-                        return;
-                    }
-                },
-            error: (err) => {
-            }
-            });
+        this.router.navigate([this.router.url + '/shell']);
+        // this.shellClientService.getPossiblePods(this.appInstanceId).subscribe({
+        //         next: pods => {
+        //             this.podNames = pods;
+        //             if (pods.length === 1) {
+        //                 this.router.navigate([this.router.url + '/shell/' + this.podNames[0].name]);
+        //             } else if (pods.length > 1) {
+        //                 this.selectPodModal.show();
+        //             } else {
+        //                 return;
+        //             }
+        //         },
+        //     error: (err) => {
+        //     }
+        //     });
     }
 
     openRowMenu(event: Event, appInstance: AppInstanceExtended) {
@@ -753,8 +754,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
             if (appInstance.allowSshAccess) {
                 items.push({
                     label: this.translate.instant('APP_INSTANCE.SHELL'),
-                    command: () => this.onOpenShell(),
-                    disabled: !this.podNames || this.podNames.length === 0
+                    command: () => this.onOpenShell()
                 });
             }
 
