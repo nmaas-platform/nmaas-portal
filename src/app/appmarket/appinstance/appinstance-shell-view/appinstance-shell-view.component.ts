@@ -57,12 +57,13 @@ export class AppInstanceShellViewComponent implements OnInit {
         this.podPolling = interval(2000).subscribe(() => {
             this.shellClientService.getPossiblePods(this.appInstanceId).subscribe({
                 next: pods => {
+
                     if (!pods || pods.length === 0) {
                         return;
                     }
                     if (pods.length === 1) {
                         this.ready = false;
-                        this.router.navigate([this.router.url + '/shell/' + pods[0].name]);
+                        this.router.navigate([this.router.url + '/' + pods[0].name]);
                         this.stopPolling();
                         return;
                     }
