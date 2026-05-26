@@ -10,6 +10,8 @@ import {Component} from '@angular/core';
 import {ModalComponent} from '../../../shared/modal';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {of} from 'rxjs';
+import {ShellClientService} from '../../../service/shell-client.service';
+import {SelectPodModalComponent} from '../modals/select-pod-modal/select-pod-modal.component';
 
 class TranslateFakeLoader implements TranslateLoader {
     getTranslation(lang: string) {
@@ -30,11 +32,15 @@ describe('AppInstanceShellViewComponent', () => {
     let fixture: ComponentFixture<AppInstanceShellViewComponent>;
 
     beforeEach(waitForAsync(() => {
+        const mockShellClientService = jasmine.createSpyObj('ShellClientService', ['getPossiblePods']);
+        mockShellClientService.getPossiblePods.and.returnValue(of([]))
+
         TestBed.configureTestingModule({
     declarations: [
         AppInstanceShellViewComponent,
         SshShellComponent,
-        NmaasModalMockComponent
+        NmaasModalMockComponent,
+        SelectPodModalComponent
     ],
     imports: [NgTerminalModule,
         RouterTestingModule,
@@ -44,7 +50,11 @@ describe('AppInstanceShellViewComponent', () => {
                 useClass: TranslateFakeLoader
             }
         })],
-    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+    providers: [
+        {provide: ShellClientService, useValue: mockShellClientService},
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
 })
             .compileComponents();
     }));

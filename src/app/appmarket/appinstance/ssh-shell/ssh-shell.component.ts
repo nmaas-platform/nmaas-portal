@@ -23,7 +23,7 @@ export class SshShellComponent implements OnInit, AfterViewInit, OnDestroy {
     public appInstanceId: number = undefined;
 
     @Input()
-    private podName: string = undefined;
+    public podName: string = undefined;
 
     private sessionId: string = undefined;
 

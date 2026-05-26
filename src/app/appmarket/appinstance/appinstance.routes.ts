@@ -6,6 +6,7 @@ import {AppLogAccessComponent} from './app-log-access/app-log-access.component';
 export const AppInstanceRoutes: Route[] = [
     {path: 'instances', component: AppInstanceListComponent},
     {path: 'instances/:id', component: AppInstanceComponent},
+    {path: 'instances/:id/shell', component: AppInstanceShellViewComponent},
     {path: 'instances/:id/shell/:podname', component: AppInstanceShellViewComponent},
     {path: 'instances/:id/logs', component: AppLogAccessComponent},
 ];
