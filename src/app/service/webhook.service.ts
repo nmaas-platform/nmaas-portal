@@ -24,6 +24,14 @@ export class WebhookService extends GenericDataService {
     public getAll(): Observable<Webhook[]> {
         return this.get<Webhook[]>(this.url);
     }
+    public getByDomainPageable(domainId: number, paginatorEvent: PaginatorEvent, searchValue: string = ''): Observable<Page<Webhook>> {
+        const customFilters = {
+            searchValue: searchValue
+        };
+        const params = this.paggination.getPaginationAndFilterParams(paginatorEvent, customFilters);
+
+        return this.http.get<Page<Webhook>>(this.url + '/domain/' + domainId, {params});
+    }
 
     public getAllPageable(paginatorEvent: PaginatorEvent, searchValue: string = ''): Observable<Page<Webhook>> {
         const customFilters = {

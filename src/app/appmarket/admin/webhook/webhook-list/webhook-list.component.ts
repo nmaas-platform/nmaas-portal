@@ -68,13 +68,20 @@ export class WebhookListComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        this.domainGlobalId = this.domainService.getGlobalDomainId();
+        this.domainService.getMyDomains().subscribe(result => {
+            this.domains = result.filter(d => d.id !== this.domainService.getGlobalDomainId());
+        });
         this.lazyLoadSubject.pipe(
             debounceTime(this.debounceTimeMs),
-            distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr))
+            distinctUntilChanged((prev, curr) =>
+                JSON.stringify(prev) === JSON.stringify(curr)
+            )
         ).subscribe(event => {
             this.lazyLoad(event);
         });
+
+        this.refreshList();
 
     }
 
@@ -111,7 +118,27 @@ export class WebhookListComponent implements OnInit {
             filters: {}
         };
 
-        this.service.getAllPageable(paginatorEventForService, this.searchValue).subscribe({
+        if (this.selectedDomain !== this.domainGlobalId) {
+            this.service.getByDomainPageable(
+                this.selectedDomain,
+                paginatorEventForService,
+                this.searchValue
+            ).subscribe({
+                next: (page) => {
+                    this.setPaginationSettings(page);
+                    this.webhooks = page.content;
+                    this.loading = false;
+                },
+                error: (error) => {
+                    console.error('Error fetching domain data:', error);
+                    this.loading = false;
+                }
+            });
+        } else {
+            this.service.getAllPageable(
+                paginatorEventForService,
+                this.searchValue
+            ).subscribe({
                 next: (page) => {
                     this.setPaginationSettings(page);
                     this.webhooks = page.content;
@@ -119,10 +146,10 @@ export class WebhookListComponent implements OnInit {
                 },
                 error: (error) => {
                     console.error('Error fetching data:', error);
-                    this.loading = false
+                    this.loading = false;
                 }
-            }
-        )
+            });
+        }
 
     }
 
@@ -160,25 +187,22 @@ export class WebhookListComponent implements OnInit {
     }
 
     public refreshList() {
-        this.pipeRefresh = this.userDataService.selectedDomainId.pipe(debounceTime(300)).subscribe((domainId) => {
-            this.selectedDomain = domainId;
-            if (domainId !== this.domainGlobalId) {
-                this.type = this.domainType;
-                this.service.getByDomain(domainId).subscribe(result => {
-                    console.log(result);
-                    this.webhooks = result;
-                    this.filterWebhooks()
-                });
-            } else {
-                this.type = this.globalType;
-                this.service.getAll().subscribe(result => {
-                    this.webhooks = result;
-                    console.log(result);
-                    this.filterWebhooks()
+        this.pipeRefresh = this.userDataService.selectedDomainId
+            .pipe(debounceTime(300))
+            .subscribe((domainId) => {
 
-                })
-            }
-        });
+                this.selectedDomain = domainId;
+
+                if (domainId !== this.domainGlobalId) {
+                    this.type = this.domainType;
+                } else {
+                    this.type = this.globalType;
+                }
+
+                this.paginationSettings.pageNumber = 1;
+
+                this.lazyLoad();
+            });
     }
 
     onTypeSelect(event: any) {

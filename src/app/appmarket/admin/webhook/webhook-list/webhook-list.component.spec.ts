@@ -20,6 +20,18 @@ class TranslateFakeLoader implements TranslateLoader {
 class MockWebhookService {
   getAll = jasmine.createSpy().and.returnValue(of([{ id: 1, name: 'Test', eventType: 'DOMAIN_ACTION', targetUrl: 'http://test' }]));
   create = jasmine.createSpy().and.returnValue(of({}));
+
+  getAllPageable = jasmine.createSpy().and.returnValue(of({
+    content: [],
+    totalPages: 0,
+    totalElements: 0
+  }));
+
+  getByDomainPageable = jasmine.createSpy().and.returnValue(of({
+    content: [],
+    totalPages: 0,
+    totalElements: 0
+  }));
 }
 
 class MockModalComponent {

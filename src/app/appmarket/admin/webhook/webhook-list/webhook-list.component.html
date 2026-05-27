@@ -97,9 +97,6 @@
                         <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);"
                                 id="domain" #domainSelect class="form-control"
                                 (change)="onDomainSelect(domainSelect.value)" name="domain">
-                            @if (!newWebhookSelectedDomain) {
-                                <option value="" disabled selected></option>
-                            }
                             @for (d of domains; track d) {
                                 <option [value]="d.id">
                                     {{ d.name }}
