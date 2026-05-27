@@ -7,6 +7,8 @@
 
     @if (ready) {
         <app-ssh-shell [appInstanceId]="appInstanceId" [podName]="podName"></app-ssh-shell>
+    } @else {
+        <p> {{'SHELL.POD_INFO' | translate}} </p>
     }
   </div>
 }
