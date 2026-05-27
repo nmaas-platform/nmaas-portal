@@ -119,6 +119,24 @@
                         </select>
                     </div>
                 }
+                @if (this.selectedDomain != this.domainGlobalId
+                && this.addedWebhook.eventType != `DOMAIN_ACTION`
+                && this.addedWebhook.eventType != `DOMAIN_GROUP_ACTION`) {
+                    <div class="mt-4">
+                        <label for="domain">{{ 'WEBHOOKS.DOMAIN' | translate }}</label>
+                        <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);"
+                                class="form-control"
+                                [disabled]="true">
+                            @for (d of domains; track d) {
+                                @if(d.id == this.selectedDomain) {
+                                    <option [value]="d.id">
+                                        {{ d.name }}
+                                    </option>
+                                }
+                            }
+                        </select>
+                    </div>
+                }
 
                 <div class="mt-4">
                     <label for="assignDomain">Auth required</label>
