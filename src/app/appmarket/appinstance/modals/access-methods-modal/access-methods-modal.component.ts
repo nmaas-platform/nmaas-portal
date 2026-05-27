@@ -28,12 +28,10 @@ export class AccessMethodsModalComponent implements OnInit {
   ngOnInit() {
     if (this.accessMethods) {
       this.externalAccessMethods = this.accessMethods.filter(s => this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.EXTERNAL
-          || this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.DEFAULT
-          || this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.INTERNAL).sort((a, b) => {
+          || this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.DEFAULT).sort((a, b) => {
             const order = {
               [ServiceAccessMethodType.EXTERNAL]: 0,
               [ServiceAccessMethodType.DEFAULT]: 1,
-              [ServiceAccessMethodType.INTERNAL]: 2
             }
             const aType = this.accessMethodTypeAsEnum(a.type);
             const bType = this.accessMethodTypeAsEnum(b.type);
