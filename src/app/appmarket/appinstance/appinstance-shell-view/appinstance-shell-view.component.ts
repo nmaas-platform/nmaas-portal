@@ -2,7 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppInstanceService} from '../../../service';
 import {TranslateService} from '@ngx-translate/core';
-import {interval, Subscription} from 'rxjs';
 import {ShellClientService} from '../../../service/shell-client.service';
 import {PodInfo} from '../../../model/podinfo';
 import {SelectPodModalComponent} from '../modals/select-pod-modal/select-pod-modal.component';
@@ -22,7 +21,6 @@ export class AppInstanceShellViewComponent implements OnInit {
     public podName: string = undefined;
     public appInstanceName: string = undefined;
     public ready = false;
-    private podPolling?: Subscription;
     podNames: PodInfo[] = [];
     showSelectPodModal = false;
 
@@ -54,38 +52,27 @@ export class AppInstanceShellViewComponent implements OnInit {
     }
 
     private waitForPods(): void {
-        this.podPolling = interval(2000).subscribe(() => {
-            this.shellClientService.getPossiblePods(this.appInstanceId).subscribe({
-                next: pods => {
+        this.shellClientService.getPossiblePods(this.appInstanceId).subscribe({
+            next: pods => {
 
-                    if (!pods || pods.length === 0) {
-                        return;
-                    }
-                    if (pods.length === 1) {
-                        this.ready = false;
-                        this.router.navigate([this.router.url + '/' + pods[0].name]);
-                        this.stopPolling();
-                        return;
-                    }
-                    if (pods.length > 1) {
-                        this.podNames = pods;
-                        this.showSelectPodModal = true;
-                        return;
-                    }
-                    this.stopPolling();
-                },
-                error: err => {
-                    console.error(err);
+                if (!pods || pods.length === 0) {
+                    return;
                 }
-            });
+                if (pods.length === 1) {
+                    this.ready = false;
+                    this.router.navigate([this.router.url + '/' + pods[0].name]);
+                    return;
+                }
+                if (pods.length > 1) {
+                    this.podNames = pods;
+                    this.showSelectPodModal = true;
+                    return;
+                }
+            },
+            error: err => {
+                console.error(err);
+            }
         });
-    }
-
-    private stopPolling(): void {
-        if (this.podPolling) {
-            this.podPolling.unsubscribe();
-            this.podPolling = undefined;
-        }
     }
 
     private notFound(): void {
@@ -97,9 +84,6 @@ export class AppInstanceShellViewComponent implements OnInit {
                 console.log('Failed');
             }
         })
-    }
-    ngOnDestroy(): void {
-        this.stopPolling();
     }
 
 }
