@@ -91,7 +91,21 @@
                     <input pInputText id="desc" type="text" class="form-control" [(ngModel)]="addedWebhook.targetUrl"
                            name="targetUrl" #targetUrl="ngModel" required>
                 </div>
-                @if (this.selectedDomain == this.domainGlobalId) {
+                <div class="mt-4">
+                    <label for="type">{{ 'WEBHOOKS.TYPE' | translate }}</label>
+                    <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);"
+                            id="type" #typeSelect class="form-control"
+                            (change)="onTypeSelect(typeSelect.value)">
+                        @for (t of type; track t) {
+                            <option [value]="t.name"
+                            >{{ ('WEBHOOKS.' + t.name) | translate }}
+                            </option>
+                        }
+                    </select>
+                </div>
+                @if (this.selectedDomain == this.domainGlobalId
+                && this.addedWebhook.eventType != `DOMAIN_ACTION`
+                && this.addedWebhook.eventType != `DOMAIN_GROUP_ACTION`) {
                     <div class="mt-4">
                         <label for="domain">{{ 'WEBHOOKS.DOMAIN' | translate }}</label>
                         <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);"
@@ -105,19 +119,6 @@
                         </select>
                     </div>
                 }
-                <div class="mt-4">
-                    <label for="type">{{ 'WEBHOOKS.TYPE' | translate }}</label>
-                    <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);"
-                            id="type" #typeSelect class="form-control"
-                            (change)="onTypeSelect(typeSelect.value)">
-                        @for (t of type; track t) {
-                            <option [value]="t.name"
-                            >{{ ('WEBHOOKS.' + t.name) | translate }}
-                            </option>
-                        }
-                    </select>
-                </div>
-
 
                 <div class="mt-4">
                     <label for="assignDomain">Auth required</label>
