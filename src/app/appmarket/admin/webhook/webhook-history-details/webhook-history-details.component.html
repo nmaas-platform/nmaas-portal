@@ -3,42 +3,49 @@
     <div class="background-section">
         <div class="form-horizontal">
             <div class="panel-body">
-                <div class="form-group grid col-12">
+                <div class=" grid col-12">
                     <label for="id" class=" sm:col-2 control-label">{{ 'WEBHOOKS.HISTORY.ID' | translate }}</label>
                     <div class="sm:col-10 ">
                         <input pInputText type="text" class="form-control" id="id" name="id"
                                [ngModel]="webhookHistoryDetails?.id" readonly>
                     </div>
                 </div>
-                <div class="form-group grid col-12">
+                <div class=" grid col-12">
                     <label for="codename" class=" sm:col-2 control-label">{{ 'WEBHOOKS.HISTORY.DOMAIN' | translate }}</label>
                     <div class="sm:col-10">
                         <input pInputText type="text" class="form-control" id="codename" name="codename"
                                [ngModel]="webhookHistoryDetails?.domainCodename" readonly>
                     </div>
                 </div>
-                <div class="form-group grid col-12">
+                <div class=" grid col-12">
                     <label for="webhookEventId" class=" sm:col-2 control-label">{{ 'WEBHOOKS.HISTORY.EVENT_ID' | translate }}</label>
                     <div class="sm:col-10">
                         <input pInputText type="text" class="form-control" id="webhookEventId" name="webhookEventId"
                                [ngModel]="webhookHistoryDetails?.webhookEventId" readonly>
                     </div>
                 </div>
-                <div class="form-group grid col-12">
+                <div class=" grid col-12">
                     <label for="eventType" class=" sm:col-2 control-label">{{ 'WEBHOOKS.HISTORY.EVENT_TYPE' | translate }}</label>
                     <div class="sm:col-10">
                         <input pInputText type="text" class="form-control" id="eventType" name="eventType"
                                [ngModel]="eventType" readonly>
                     </div>
                 </div>
-                <div class="form-group grid col-12">
+                <div class=" grid col-12">
                     <label for="execution" class=" sm:col-2 control-label">{{ 'WEBHOOKS.HISTORY.EXECUTION_TIMESTAMP' | translate }}</label>
                     <div class="sm:col-10">
                         <input pInputText type="text" class="form-control" id="execution" name="execution"
                                [ngModel]="webhookHistoryDetails?.executionTimestamp | date:'dd-MM-yyyy HH:mm:ss'" readonly>
                     </div>
                 </div>
-                <div class="form-group grid col-12" style="align-items: flex-start;">
+                <div class=" grid col-12">
+                    <label for="url" class=" sm:col-2 control-label">{{ 'WEBHOOKS.HISTORY.URL' | translate }}</label>
+                    <div class="sm:col-10">
+                        <input pInputText type="text" class="form-control" id="url" name="url"
+                               [ngModel]="webhookHistoryDetails?.url" readonly>
+                    </div>
+                </div>
+                <div class=" grid col-12" style="align-items: flex-start;">
                     <label for="reuestBody" class="sm:col-2 control-label">{{ 'WEBHOOKS.HISTORY.REQUEST_BODY' | translate }}</label>
                     <div class="sm:col-10">
                         <textarea style="width:100%; overflow: auto; max-height: 500px; background: var(--p-surface-300)" pTextarea type="text"
@@ -46,7 +53,7 @@
                                   [ngModel]="requestBody" [rows]="50" readonly></textarea>
                     </div>
                 </div>
-                <div class="form-group grid col-12" style="align-items: flex-start;">
+                <div class=" grid col-12" style="align-items: flex-start;">
                     <label for="responseBody" class=" sm:col-2 control-label">{{ 'WEBHOOKS.HISTORY.RESPONSE_BODY' | translate }}</label>
                     <div class="sm:col-10 pd-top-7">
                         <textarea style="width:100%; overflow: auto; max-height: 500px;" pTextarea type="text"
@@ -54,21 +61,13 @@
                                   [ngModel]="webhookHistoryDetails?.responseBody" [autoResize]="false"  readonly></textarea>
                     </div>
                 </div>
-                <div class="form-group grid col-12">
+                <div class=" grid col-12">
                     <label for="responseStatus" class=" sm:col-2 control-label">{{ 'WEBHOOKS.HISTORY.RESPONSE_STATUS' | translate }}</label>
                     <div class="sm:col-10">
                         <input pInputText type="text" class="form-control" id="responseStatus" name="responseStatus"
                                [ngModel]="webhookHistoryDetails?.responseStatus" readonly>
                     </div>
                 </div>
-                <div class="form-group grid col-12">
-                    <label for="url" class=" sm:col-2 control-label">{{ 'WEBHOOKS.HISTORY.URL' | translate }}</label>
-                    <div class="sm:col-10">
-                        <input pInputText type="text" class="form-control" id="url" name="url"
-                               [ngModel]="webhookHistoryDetails?.url" readonly>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
