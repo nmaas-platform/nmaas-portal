@@ -59,7 +59,6 @@ export class AppInstanceShellViewComponent implements OnInit {
                     return;
                 }
                 if (pods.length === 1) {
-                    this.ready = false;
                     this.router.navigate([this.router.url + '/' + pods[0].name]);
                     return;
                 }
