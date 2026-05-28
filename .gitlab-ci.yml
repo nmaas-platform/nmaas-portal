@@ -42,6 +42,7 @@ build_and_push_latest_image:
 
 build_and_push_alfa_image:
   stage: build
+  image: korvoj/docker-git:29.5.1
   only:
     - /^release/
   script:
