@@ -1,14 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { MenuItem } from 'primeng/api';
-import { Cluster, ClusterExtNetwork, IngressCertificateConfigOption, IngressControllerConfigOption, IngressResourceConfigOption, NamespaceConfigOption } from '../../../../model/cluster';
-import { ClusterManager } from '../../../../model/cluster-manager';
-import { ClusterManagerService } from '../../../../service/cluster-manager.service';
-import { DomainService } from '../../../../service';
-import { DatePipe } from '@angular/common';
-import { Router } from '@angular/router';
-import { AuthService } from '../../../../auth/auth.service';
-import { UserDataService } from '../../../../service/userdata.service';
+import {Component, OnInit} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {MenuItem} from 'primeng/api';
+import {
+    ClusterExtNetwork,
+    IngressCertificateConfigOption,
+    IngressControllerConfigOption,
+    IngressResourceConfigOption,
+    NamespaceConfigOption
+} from '../../../../model/cluster';
+import {ClusterManager} from '../../../../model/cluster-manager';
+import {ClusterManagerService} from '../../../../service/cluster-manager.service';
+import {DomainService} from '../../../../service';
+import {DatePipe} from '@angular/common';
+import {Router} from '@angular/router';
+import {AuthService} from '../../../../auth/auth.service';
 import {ToastContainerComponent, ToastMode} from '../../../toast-container/toast-container.component';
 
 @Component({
@@ -19,198 +24,211 @@ import {ToastContainerComponent, ToastMode} from '../../../toast-container/toast
 })
 export class AddClusterComponent implements OnInit {
 
-  public steps: MenuItem[];
-  public activeStepIndex = 0;
-  public translateUpdate: any;
+    public steps: MenuItem[];
+    public activeStepIndex = 0;
+    public translateUpdate: any;
 
-  public kubernetesFile: string;
-  public domains = [];
-  public assignedDomain: boolean = false;
+    public kubernetesFile: string;
+    public domains = [];
+    public assignedDomain: boolean = false;
 
-  controllerConfigOption: Map<string, IngressControllerConfigOption> = new Map<string, IngressControllerConfigOption>();
-  resourceConfigOption: Map<string, IngressResourceConfigOption> = new Map<string, IngressResourceConfigOption>();
-  namespaceConfigOption: Map<string, NamespaceConfigOption> = new Map<string, NamespaceConfigOption>();
-  certificateConfigOption: Map<string, IngressCertificateConfigOption> = new Map<string, IngressCertificateConfigOption>();
+    controllerConfigOption: Map<string, IngressControllerConfigOption> = new Map<string, IngressControllerConfigOption>();
+    resourceConfigOption: Map<string, IngressResourceConfigOption> = new Map<string, IngressResourceConfigOption>();
+    namespaceConfigOption: Map<string, NamespaceConfigOption> = new Map<string, NamespaceConfigOption>();
+    certificateConfigOption: Map<string, IngressCertificateConfigOption> = new Map<string, IngressCertificateConfigOption>();
 
-  public error = "";
-  public cluster: ClusterManager = new ClusterManager();
-  public showNamespaceCreation: boolean = false;
-  public namespaceCreation = true;
-  public readFromSecret;
-  public secretName = '';
-  public secretNamespace = '';
+    public error = '';
+    public cluster: ClusterManager = new ClusterManager();
+    public showNamespaceCreation: boolean = false;
+    public namespaceCreation = true;
+    public readFromSecret;
+    public secretName = '';
+    public secretNamespace = '';
 
 
-  constructor(public translate: TranslateService,
-    private cluserService: ClusterManagerService,
-    private domainService: DomainService,
-    private datePipe: DatePipe,
-    private router: Router,
-    private authService: AuthService,
-    private toast: ToastContainerComponent
+    constructor(public translate: TranslateService,
+                private cluserService: ClusterManagerService,
+                private domainService: DomainService,
+                private datePipe: DatePipe,
+                private router: Router,
+                private authService: AuthService,
+                private toast: ToastContainerComponent
+    ) {
+        if (authService.getGlobalRole().includes('ROLE_SYSTEM_ADMIN')) {
+            this.domainService.getAllBase().subscribe(result => {
+                this.domains = result.filter(d => d.id !== this.domainService.getGlobalDomainId());
+            });
+        } else {
+            this.domainService.getMyDomains().subscribe(result => {
+                this.domains = result.filter(d => d.id !== this.domainService.getGlobalDomainId());
+            });
+        }
 
-  ) {
-    if (authService.getGlobalRole().includes('ROLE_SYSTEM_ADMIN')) {
-      this.domainService.getAllBase().subscribe(result => {
-        this.domains = result.filter(d => d.id !== this.domainService.getGlobalDomainId());
-      });
-    } else {
-      this.domainService.getMyDomains().subscribe(result => {
-        this.domains = result.filter(d => d.id !== this.domainService.getGlobalDomainId());
-      });
+
+    }
+
+    ngOnInit(): void {
+        this.initializeMaps();
+        this.translateUpdate = setInterval(() => {
+            if (this.translate.instant('CLUSTERS.WIZARD.ADD') !== null) {
+                this.steps = [
+                    {label: this.translate.instant('CLUSTERS.WIZARD.STEP_1')},
+                    {label: this.translate.instant('CLUSTERS.WIZARD.STEP_2')},
+                    {label: this.translate.instant('CLUSTERS.WIZARD.STEP_3')},
+                ];
+                this.stopTranslationUpdate();
+            }
+        }, 200);
+
     }
 
 
-
-  }
-
-  ngOnInit(): void {
-    this.initializeMaps();
-    this.translateUpdate = setInterval(() => {
-      if (this.translate.instant('CLUSTERS.WIZARD.ADD') !== null) {
-        this.steps = [
-          { label: this.translate.instant('CLUSTERS.WIZARD.STEP_1') },
-          { label: this.translate.instant('CLUSTERS.WIZARD.STEP_2') },
-          { label: this.translate.instant('CLUSTERS.WIZARD.STEP_3') },
-        ];
-        this.stopTranslationUpdate();
-      }
-    }, 200);
-
-  }
-
-
-  public nextStep(): void {
-    this.activeStepIndex += 1;
-  }
-
-  public previousStep(): void {
-    this.activeStepIndex -= 1;
-
-  }
-
-  private stopTranslationUpdate() {
-    clearInterval(this.translateUpdate);
-    this.translateUpdate = null;
-  }
-
-  public uploadKubernetesFile(): void {
-    if (this.readFromSecret) {
-      this.cluserService.readClusterFile(this.cluster, undefined, this.secretNamespace, this.secretName).subscribe(result => {
-        console.log(result);
-        this.cluster = result;
-        this.error  = null;
-        this.nextStep();
-      }, error => {
-        console.error('Error reading Kubernetes from secret:', error);
-        this.error = error.error.message || 'Error reading Kubernetes from secret';
-      });
-    } else {
-      this.cluserService.readClusterFile(this.cluster, new File([this.kubernetesFile], 'kubernetes.yaml') ).subscribe(result => {
-        console.log(result);
-        this.cluster = result;
-        this.error  = null;
-        this.nextStep();
-      }, error => {
-        console.error('Error reading Kubernetes file:', error);
-        this.error = error.error.message || 'Error reading Kubernetes file';
-      });
+    public nextStep(): void {
+        this.activeStepIndex += 1;
     }
 
-  }
+    public previousStep(): void {
+        this.activeStepIndex -= 1;
 
-  public onDomainSelection(event: any) {
-    this.showNamespaceCreation = true;
-    console.log(event);
-    this.cluster.domainNames = [event]
-  }
-
-  public onDomainChange(event: any) {
-    console.log(event);
-    this.cluster.domainNames = [this.domains[0].name];
-  }
-
-  private initializeMaps() {
-    this.resourceConfigOption.set('Do nothing', IngressResourceConfigOption.NOT_USED);
-    this.resourceConfigOption.set('Deploy new resource from the definition in the application chart', IngressResourceConfigOption.DEPLOY_FROM_CHART);
-    this.controllerConfigOption.set('Use existing', IngressControllerConfigOption.USE_EXISTING);
-    this.controllerConfigOption.set('Deploy new controller from chart repository', IngressControllerConfigOption.DEPLOY_NEW_FROM_REPO);
-    this.controllerConfigOption.set('Deploy new controller from local chart archive', IngressControllerConfigOption.DEPLOY_NEW_FROM_ARCHIVE);
-    this.namespaceConfigOption.set('Use default namespace', NamespaceConfigOption.USE_DEFAULT_NAMESPACE);
-    this.namespaceConfigOption.set('Use domain namespace', NamespaceConfigOption.USE_DOMAIN_NAMESPACE);
-    this.namespaceConfigOption.set('Create namespace', NamespaceConfigOption.CREATE_NAMESPACE);
-    this.certificateConfigOption.set('Use my own wildcard certificate', IngressCertificateConfigOption.USE_WILDCARD);
-    this.certificateConfigOption.set('Generate LetsEncrypt certificates automatically', IngressCertificateConfigOption.USE_LETSENCRYPT);
-  }
-
-  public getKeys(map) {
-    return Array.from(map.keys());
-  }
-
-
-  public submit(): void {
-    console.log(this.cluster);
-    this.deteleDates();
-    this.setInitialValues();
-    if (this.readFromSecret) {
-      this.cluserService.sendCluster(this.cluster, undefined, this.namespaceCreation, this.secretNamespace, this.secretName)
-          .subscribe(result => {
-            console.log(result);
-            this.cluster = result;
-            this.router.navigate(['/admin/manage/clusters']);
-            this.toast.show('TOAST.SUCCESS.NEW_CLUSTER', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER')
-          })
-    } else {
-      this.cluserService.sendCluster(this.cluster, new File([this.kubernetesFile], 'kubernetes.yaml'), this.namespaceCreation)
-          .subscribe(result => {
-            console.log(result);
-            this.cluster = result;
-            this.router.navigate(['/admin/manage/clusters']);
-            this.toast.show('TOAST.SUCCESS.NEW_CLUSTER', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER' )
-          });
     }
-  }
-  private deteleDates() {
-    this.cluster.creationDate = null;
-    this.cluster.modificationDate = null;
-    this.cluster.currentStateSince = null;
-  }
 
-  public removeNetwork(id) {
-    this.cluster.externalNetworks.splice(
-      this.cluster.externalNetworks.findIndex(
-        function (i) {
-          return i.id = id;
-        }), 1);
-  }
+    private stopTranslationUpdate() {
+        clearInterval(this.translateUpdate);
+        this.translateUpdate = null;
+    }
 
-  public addNetwork() {
-    const newobj: ClusterExtNetwork = new ClusterExtNetwork();
-    this.cluster.externalNetworks.push(newobj);
-  }
+    public uploadKubernetesFile(): void {
+        if (this.readFromSecret) {
+            this.cluserService.readClusterFile(this.cluster, undefined, this.secretNamespace, this.secretName).subscribe(result => {
+                console.log(result);
+                this.cluster = result;
+                this.error = null;
+                this.nextStep();
+            }, error => {
+                console.error('Error reading Kubernetes from secret:', error);
+                this.error = error.error.message || 'Error reading Kubernetes from secret';
+            });
+        } else {
+            this.cluserService.readClusterFile(this.cluster, new File([this.kubernetesFile], 'kubernetes.yaml')).subscribe(result => {
+                console.log(result);
+                this.cluster = result;
+                this.error = null;
+                this.nextStep();
+            }, error => {
+                console.error('Error reading Kubernetes file:', error);
+                this.error = error.error.message || 'Error reading Kubernetes file';
+            });
+        }
+
+    }
+
+    public onDomainSelection(event: any) {
+        this.showNamespaceCreation = true;
+        console.log(event);
+        this.cluster.domainNames = [event]
+    }
+
+    public onDomainChange(event: any) {
+        console.log(event);
+        this.cluster.domainNames = [this.domains[0].name];
+    }
+
+    private initializeMaps() {
+        this.resourceConfigOption.set('Do nothing', IngressResourceConfigOption.NOT_USED);
+        this.resourceConfigOption.set('Deploy new resource from the definition in the application chart', IngressResourceConfigOption.DEPLOY_FROM_CHART);
+        this.controllerConfigOption.set('Use existing', IngressControllerConfigOption.USE_EXISTING);
+        this.controllerConfigOption.set('Deploy new controller from chart repository', IngressControllerConfigOption.DEPLOY_NEW_FROM_REPO);
+        this.controllerConfigOption.set('Deploy new controller from local chart archive', IngressControllerConfigOption.DEPLOY_NEW_FROM_ARCHIVE);
+        this.namespaceConfigOption.set('Use default namespace', NamespaceConfigOption.USE_DEFAULT_NAMESPACE);
+        this.namespaceConfigOption.set('Use domain namespace', NamespaceConfigOption.USE_DOMAIN_NAMESPACE);
+        this.namespaceConfigOption.set('Create namespace', NamespaceConfigOption.CREATE_NAMESPACE);
+        this.certificateConfigOption.set('Use my own wildcard certificate', IngressCertificateConfigOption.USE_WILDCARD);
+        this.certificateConfigOption.set('Generate LetsEncrypt certificates automatically', IngressCertificateConfigOption.USE_LETSENCRYPT);
+    }
+
+    public getKeys(map) {
+        return Array.from(map.keys());
+    }
 
 
-  public formatDate(date: Date) {
-    return this.datePipe.transform(date, 'dd-MM-yyyy HH:mm');
-  }
+    public submit(): void {
+        console.log(this.cluster);
+        this.deteleDates();
+        this.setInitialValues();
+        if (this.readFromSecret) {
+            this.cluserService.sendCluster(this.cluster, undefined, this.namespaceCreation, this.secretNamespace, this.secretName)
+                .subscribe(
+                    {
+                        next: result => {
+                            console.log(result);
+                            this.cluster = result;
+                            this.router.navigate(['/admin/manage/clusters']);
+                            this.toast.show('TOAST.SUCCESS.NEW_CLUSTER', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER')
+                        },
+                        error: err => {
+                            console.error(err);
+                            this.toast.show('TOAST.ERROR.NEW_CLUSTER', ToastMode.DANGER, 'TOAST.ERROR_HEADER')
+                        }
+                    }
+                )
+        } else {
+            this.cluserService.sendCluster(this.cluster, new File([this.kubernetesFile], 'kubernetes.yaml'), this.namespaceCreation)
+                .subscribe(
+                    {
+                        next: result => {
+                            console.log(result);
+                            this.cluster = result;
+                            this.router.navigate(['/admin/manage/clusters']);
+                            this.toast.show('TOAST.SUCCESS.NEW_CLUSTER', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER')
+                        }, error: err => {
+                            console.error(err);
+                            this.toast.show('TOAST.ERROR.NEW_CLUSTER', ToastMode.DANGER, 'TOAST.ERROR_HEADER')
+                        }
+                    });
+        }
+    }
 
-  public step2valid(): boolean {
-    return this.cluster.domainNames.length > 0 && this.cluster.contactEmail !== '' && this.cluster.description !== ''
-  }
+    private deteleDates() {
+        this.cluster.creationDate = null;
+        this.cluster.modificationDate = null;
+        this.cluster.currentStateSince = null;
+    }
 
-  public step1valid(): boolean {
-    return this.cluster.name?.length > 0 && ((!this.readFromSecret && this.kubernetesFile !== undefined &&
+    public removeNetwork(id) {
+        this.cluster.externalNetworks.splice(
+            this.cluster.externalNetworks.findIndex(
+                function (i) {
+                    return i.id = id;
+                }), 1);
+    }
+
+    public addNetwork() {
+        const newobj: ClusterExtNetwork = new ClusterExtNetwork();
+        this.cluster.externalNetworks.push(newobj);
+    }
+
+
+    public formatDate(date: Date) {
+        return this.datePipe.transform(date, 'dd-MM-yyyy HH:mm');
+    }
+
+    public step2valid(): boolean {
+        return this.cluster.domainNames.length > 0 && this.cluster.contactEmail !== '' && this.cluster.description !== ''
+    }
+
+    public step1valid(): boolean {
+        return this.cluster.name?.length > 0 && ((!this.readFromSecret && this.kubernetesFile !== undefined &&
             this.kubernetesFile !== '') || (this.readFromSecret && this.secretName !== '' && this.secretNamespace !== ''));
-  }
-
-  public setInitialValues() {
-    if (this.cluster.ingress !== undefined) {
-      this.cluster.ingress.controllerConfigOption = IngressControllerConfigOption.USE_EXISTING;
-      this.cluster.ingress.controllerChartName = "";
-      this.cluster.ingress.controllerChartArchive = "";
-      this.cluster.ingress.resourceConfigOption = IngressResourceConfigOption.DEPLOY_FROM_CHART;
     }
 
-  }
+    public setInitialValues() {
+        if (this.cluster.ingress !== undefined) {
+            this.cluster.ingress.controllerConfigOption = IngressControllerConfigOption.USE_EXISTING;
+            this.cluster.ingress.controllerChartName = '';
+            this.cluster.ingress.controllerChartArchive = '';
+            this.cluster.ingress.resourceConfigOption = IngressResourceConfigOption.DEPLOY_FROM_CHART;
+        }
+
+    }
 
 }
