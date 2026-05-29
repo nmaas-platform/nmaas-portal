@@ -38,7 +38,8 @@ export class AppInstanceProgressComponent {
 
     // current not failed state
     public displayPrimaryStyle(stage: AppInstanceProgressStage): boolean {
-        return stage.activeState === this.activeState && this.activeState !== AppInstanceState.FAILURE;
+        return stage.activeState === this.activeState && this.activeState !== AppInstanceState.FAILURE
+                && this.activeState !== AppInstanceState.UNKNOWN;
     }
 
     // failed or removed app instance
