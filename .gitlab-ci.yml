@@ -8,7 +8,7 @@ test:
   stage: test
   image: trion/ng-cli-karma:21.2.12
   script:
-    - npm ci --force
+    - npm ci -legacy-peer-deps
     - ng build
     - ng test --code-coverage --watch=false --browsers=Chrome
   coverage: '/Lines.*?(\d+(?:\.\d+)?)%/'
@@ -23,7 +23,7 @@ sonar:
     - develop
     - /^release/
   script:
-    - npm ci --force
+    - npm ci -legacy-peer-deps
     - npm run sonar -- -Dsonar.host.url=${SONAR_HOST} -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.projectName=${SONAR_PROJECT_NAME} -Dsonar.branch.name=develop -Dsonar.login=${SONAR_LOGIN_TOKEN}
 
 build_and_push_latest_image:
