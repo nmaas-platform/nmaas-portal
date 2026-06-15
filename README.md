@@ -19,7 +19,7 @@
 
 ## nmaas Portal Component
 
-[nmaas Portal](https://github.com/nmaas-platform/nmaas-portal) represents the front-end application of nmaas that consumes the REST API offered by nmaas Platform. nmaas Portal is an Angular-based application run in user's browser.
+[nmaas Portal](https://github.com/nmaas-platform/nmaas-portal) represents the front-end application of nmaas that consumes the REST API offered by nmaas Platform. nmaas Portal is an Angular-based application run in the user's browser.
 
 ### nmaas Portal Development
 
