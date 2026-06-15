@@ -5,7 +5,7 @@ WORKDIR /build
 
 RUN apk add nodejs npm
 RUN npm install -g @angular/cli@21
-RUN npm i --force 
+RUN npm i --legacy-peer-deps
 RUN ng build --base-href / --configuration production
 
 FROM nginx:1.31-alpine
