@@ -143,8 +143,9 @@
       <div class=''>
         <h3 style="margin-bottom: 30px">{{ 'APP_INSTANCE.INSTALLATION_PROGRESS.HEADER' | translate }}</h3>
         <div id="app-prop" class="sm:col-12 md:col-12 lg:col-12 xl:col-12" style="overflow-x: auto;">
-          <nmaas-appinstanceprogress [stages]='getStages()'
-          [activeState]="getStateAsEnum(appInstanceStatus?.state)"></nmaas-appinstanceprogress>
+          <nmaas-appinstanceprogress [stages]="stages"
+                                     [activeState]="activeState"
+                                     [previousState]="previousState"></nmaas-appinstanceprogress>
         </div>
       </div>
       <!-- Show additional information checkbox -->
