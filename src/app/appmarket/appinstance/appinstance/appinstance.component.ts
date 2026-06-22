@@ -124,6 +124,10 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     public appVersions: ApplicationVersion[] = [];
     public selectedVersion = '';
 
+    public stages: AppInstanceProgressStage[] = [];
+    public activeState?: AppInstanceState;
+    public previousState?: AppInstanceState;
+
     @ViewChild('rowMenu') rowMenu!: Menu;
     rowMenuItems: MenuItem[] = [];
 
@@ -192,6 +196,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
             this.updateAppInstanceState();
             this.intervalCheckerState = interval(5000).subscribe(() => this.updateAppInstanceState());
         });
+        this.stages = this.appInstanceService.getProgressStages();
     }
 
     dateFormatChanges(): void {
@@ -298,6 +303,8 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
             appInstanceStatus => {
                 console.log('Type: ' + typeof appInstanceStatus.state + ', ' + appInstanceStatus.state);
                 this.appInstanceStatus = appInstanceStatus;
+                this.activeState = this.getStateAsEnum(appInstanceStatus.state);
+                this.previousState = this.getStateAsEnum(appInstanceStatus.previousState);
 
                 // TODO refactor scroll
                 const appPropElement: HTMLElement = document.getElementById('app-prop');
@@ -310,10 +317,6 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                             (document.getElementsByClassName('stepwizard-btn-success').length * 180 +
                                 document.getElementsByClassName('stepwizard-btn-danger').length * 180);
                     }
-                }
-                if (this.appInstanceProgress) {
-                    this.appInstanceProgress.activeState = this.getStateAsEnum(this.appInstanceStatus.state);
-                    this.appInstanceProgress.previousState = this.getStateAsEnum(this.appInstanceStatus.previousState);
                 }
                 if (appPropElement) {
                     document.getElementById('app-prop').scrollLeft =
@@ -468,10 +471,6 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                 this.updateAppInstance();
             });
         }
-    }
-
-    public getStages(): AppInstanceProgressStage[] {
-        return this.appInstanceService.getProgressStages();
     }
 
     protected getTemplate(template: any): any {
