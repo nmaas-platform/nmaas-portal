@@ -113,3 +113,11 @@ a {
     background-color: var(--p-surface-300) !important;
     color: var(--p-text-0);
 }
+.column-position {
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    text-align:center
+}
