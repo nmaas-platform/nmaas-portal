@@ -4,6 +4,7 @@ import {UserDataService} from '../../service/userdata.service';
 import {AppImagesService, AppsService} from '../../service';
 import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../../auth/auth.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
     selector: 'app-admin-dashboard',
@@ -29,11 +30,14 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
 
     private refresh: any;
 
+    private currentLang: string;
+
     constructor(protected dashboardService: DashboardService,
                 private userDataService: UserDataService,
                 public appImagesService: AppImagesService,
                 private appsService: AppsService,
-                public authService: AuthService) {
+                public authService: AuthService,
+                private translate: TranslateService) {
     }
 
 
@@ -54,6 +58,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
         const textColor = documentStyle.getPropertyValue('--p-text-0');
         const textColorSecondary = documentStyle.getPropertyValue('--p-text-0');
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+        this.currentLang = this.translate.getCurrentLang();
 
 
         this.basicOptions = {
@@ -119,7 +124,17 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     }
 
     formatDate(date: any): string {
-        return new Date(date).toLocaleString();
+        switch (this.currentLang) {
+            case 'en':
+                return new Date(date).toLocaleString('en-GB');
+            case 'de':
+                return new Date(date).toLocaleString('de-DE');
+            case 'fr':
+                return new Date(date).toLocaleString('fr-FR');
+            case 'pl':
+            default:
+                return new Date(date).toLocaleString('pl-PL');
+        }
     }
 
     getOperator() {
