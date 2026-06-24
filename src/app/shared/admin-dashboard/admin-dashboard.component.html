@@ -73,7 +73,10 @@
       <div style="display: flex">
         <div class="background-section" style="flex: 1 1 50%; margin-right: 20px">
           <h5 style="font-weight: bold">{{ 'DASHBOARD.LAST_LOGIN' | translate }} </h5>
-          <p-table [value]="domainAdminData?.userLogins">
+          <p-table
+                  [value]="domainAdminData?.userLogins"
+                  sortField="lastLogin"
+                  [sortOrder]="-1">
             <ng-template pTemplate="header">
               <tr>
                 <th>{{ 'DASHBOARD.USER' | translate }}</th>
