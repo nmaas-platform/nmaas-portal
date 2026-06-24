@@ -264,12 +264,14 @@ describe('Component: AppInstance', () => {
         {
             timestamp: new Date(2020, 1, 1),
             previousState: 'preparation',
-            currentState: 'running'
+            currentState: 'running',
+            initiator:'user'
         },
         {
             timestamp: new Date(2019, 10, 23),
             previousState: 'waiting',
-            currentState: 'preparation'
+            currentState: 'preparation',
+            initiator: 'user'
         },
     ];
 
