@@ -174,10 +174,10 @@
                     @if (history.previousState !== null) {
                       <td>
                           <div class="column-position" >
-                              {{ history.previousState | translate }}
-                              <span class="pi pi-arrow-down"
-                                    style="padding-left: 5px;padding-right: 5px"></span>
                               {{ history.currentState | translate }}
+                              <span class="pi pi-arrow-up"
+                                    style="padding-left: 5px;padding-right: 5px"></span>
+                              {{ history.previousState | translate }}
                           </div>
 
                       </td>
