@@ -48,7 +48,7 @@
                         </div>
                     </div>
                 }
-                @if (!isInMode(ComponentMode.CREATE) && (authService.hasRole('ROLE_SYSTEM_ADMIN') || authService.hasRole('ROLE_OPERATOR'))) {
+                @if (!isInMode(ComponentMode.CREATE) && (authService.hasRole('ROLE_SYSTEM_ADMIN') || authService.hasRole('ROLE_OPERATOR') ||  authService.hasRole('ROLE_GROUP_MANAGER'))) {
                     <div class=" grid col-12">
                         <label class="col-2 control-label">{{ 'DOMAIN_DETAILS.ID_IN_DB' | translate }}</label>
                         <div class="col-10">

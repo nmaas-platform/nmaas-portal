@@ -142,7 +142,7 @@ export class DomainsListComponent implements OnInit, OnDestroy { // Implemented 
 
 
         // 4. Send the request to the service
-        if (this.authService.hasRole(Role[Role.ROLE_SYSTEM_ADMIN]) || this.authService.hasRole(Role[Role.ROLE_OPERATOR])) {
+        if (this.authService.hasRole(Role[Role.ROLE_SYSTEM_ADMIN]) || this.authService.hasRole(Role[Role.ROLE_OPERATOR]) || this.authService.hasRole(Role[Role.ROLE_GROUP_MANAGER])) {
             this.domainService.getAllBasePageable(paginatorEventForService, this.searchValue).subscribe({ // Pass customFilters
                 next: (data: Page<Domain>) => {
                     this.domains = data.content.filter((domain) => domain.id !== this.domainService.getGlobalDomainId()); // Extract data
@@ -157,7 +157,7 @@ export class DomainsListComponent implements OnInit, OnDestroy { // Implemented 
         } else {
             this.domainService.getMyDomainsFiltered(paginatorEventForService, this.searchValue).subscribe({
                 next: (domains: Domain[]) => {
-                    this.domains = domains.filter((domain) => this.authService.hasDomainRole(domain.id, Role[Role.ROLE_DOMAIN_ADMIN]) || this.authService.hasDomainRole(domain.id, Role[Role.ROLE_GROUP_DOMAIN_ADMIN]));
+                    this.domains = domains.filter((domain) => this.authService.hasDomainRole(domain.id, Role[Role.ROLE_DOMAIN_ADMIN]) || this.authService.hasDomainRole(domain.id, Role[Role.ROLE_GROUP_DOMAIN_ADMIN]) || this.authService.hasRole(Role[Role.ROLE_GROUP_MANAGER]));
 
                     // Reset pagination settings to reflect non-paginated state if this path is taken
                     // Ensure totalRecords is updated for PrimeNG even in non-paginated scenario
@@ -219,7 +219,7 @@ export class DomainsListComponent implements OnInit, OnDestroy { // Implemented 
         this.rowMenuItems = [
             {
                 label: this.translate.instant('DOMAINS.EDIT_BUTTON'),
-                visible: this.authService.hasRole('ROLE_SYSTEM_ADMIN') || this.authService.hasRole('ROLE_OPERATOR'),
+                visible: this.authService.hasRole('ROLE_SYSTEM_ADMIN') || this.authService.hasRole('ROLE_OPERATOR') || this.authService.hasRole(Role[Role.ROLE_GROUP_MANAGER]),
                 routerLink: ['edit', domain.id]
             },
             {
