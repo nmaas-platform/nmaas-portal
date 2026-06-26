@@ -294,7 +294,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
 
     private updateAppInstanceHistory() {
         this.appInstanceService.getAppInstanceHistory(this.appInstanceId).subscribe(history => {
-            this.appInstanceStateHistory = [...history];
+            this.appInstanceStateHistory = [...history].reverse();
         });
     }
 
