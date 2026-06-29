@@ -50,6 +50,8 @@ export class AppManagementListComponent implements OnInit {
     public hasRunningInstances: boolean;
     public blobUrl;
 
+    public showAllVersions: boolean[] = [];
+
     constructor(public appsService: AppsService,
                 public router: Router,
                 public authService: AuthService,
@@ -58,6 +60,20 @@ export class AppManagementListComponent implements OnInit {
 
     ngOnInit() {
         this.refresh();
+    }
+
+    toggleVersions(i: number) {
+        this.showAllVersions[i]= !this.showAllVersions[i];
+    }
+
+    public getVisibleVersions(app: ApplicationBase, i: number): ApplicationVersion[] {
+        const sorted = [...app.versions].sort(this.appVersionCompare);
+        const active = sorted.filter(v => this.getStateAsString(v.state) === 'ACTIVE');
+        const nonActive = sorted.filter(v => this.getStateAsString(v.state) !== 'ACTIVE');
+        const ordered = [...active, ...nonActive];
+        return this.showAllVersions[i]
+            ? ordered
+            : ordered.slice(0, 5);
     }
 
     public getStateAsString(state: any): string {
