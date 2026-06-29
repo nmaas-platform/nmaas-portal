@@ -73,19 +73,19 @@
           </td>
         </tr>
         @if (versionRowVisible[i]) {
-          @for (version of app.versions.sort(appVersionCompare); track version) {
+          @for (version of getVisibleVersions(app, i); track version) {
             <tr>
-              <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]"></td>
-              <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]"></td>
-              <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]"></td>
-              <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]">{{version.version}}</td>
-              <td [routerLink]="['/admin/apps/edit/version', version?.appVersionId]">{{"ENUM.STATE." + getStateAsString(version.state).toUpperCase() | translate }}</td>
-              <td>
+              <td style="border-color:#999999" [routerLink]="['/admin/apps/edit/version', version?.appVersionId]"></td>
+              <td style="border-color:#999999" [routerLink]="['/admin/apps/edit/version', version?.appVersionId]"></td>
+              <td style="border-color:#999999" [routerLink]="['/admin/apps/edit/version', version?.appVersionId]"></td>
+              <td style="border-color:#999999" [routerLink]="['/admin/apps/edit/version', version?.appVersionId]">{{version.version}}</td>
+              <td style="border-color:#999999" [routerLink]="['/admin/apps/edit/version', version?.appVersionId]">{{"ENUM.STATE." + getStateAsString(version.state).toUpperCase() | translate }}</td>
+              <td style="border-color:#999999">
                 <a [routerLink]="['/admin/apps/view', version?.appVersionId]">
                   <em class="pi pi-eye" style="font-size: 1.4rem; color: var(--p-text-0); margin-right:10px"></em>
                 </a>
               </td>
-              <td class="text-right">
+              <td class="text-right" style="border-color:#999999">
                 <button type="button"
                   class="dropdown-button"
                   (click)="openVersionRowMenu($event, app, version)">
@@ -94,7 +94,26 @@
                 <p-menu #versionRowMenu [popup]="true" appendTo="body" [model]="rowVersionMenuItems"></p-menu>
               </td>
             </tr>
+
           }
+            @if(app.versions.length > 5) {
+                <tr>
+                    <td colspan="7" style="text-align: center; border:none">
+                        <button
+                                type="button"
+                                class="btn btn-link" style="color: var(--p-primary-100)"
+                                (click)="toggleVersions(i); $event.stopPropagation()">
+
+                            @if (!showAllVersions[i]) {
+                                Show all ({{ app.versions.length }})
+                            } @else {
+                                Show less
+                            }
+
+                        </button>
+                    </td>
+                </tr>
+            }
         }
       </ng-template>
     </p-table>
