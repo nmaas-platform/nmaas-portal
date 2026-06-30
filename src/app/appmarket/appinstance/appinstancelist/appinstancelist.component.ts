@@ -23,8 +23,8 @@ export class AppInstanceListComponent implements OnInit {
 
     appDeployedInstances: AppInstance[] = [];
     appUndeployedInstances: AppInstance[] = [];
-    allAppUndeployedInstances: Observable<AppInstance[]>;
-    allAppDeployedInstances: Observable<AppInstance[]>;
+    allAppUndeployedInstances: AppInstance[] = [];
+    allAppDeployedInstances: AppInstance[] = [];
     totalDeployedElements = 0;
     totalUndeployedElements = 0;
     loadingInstances = false;
@@ -78,7 +78,7 @@ export class AppInstanceListComponent implements OnInit {
                 domainId == null) {
                 this.selectedListRange = AppInstanceListSelection.ALL;
             }
-            this.allAppDeployedInstances = this.appInstanceService.getSortedAppInstances(
+            this.appInstanceService.getSortedAppInstances(
                 this.domainId,
                 new CustomerSearchCriteria('id', 'desc', 'deployed')).pipe(
                 map(instances =>
@@ -87,7 +87,9 @@ export class AppInstanceListComponent implements OnInit {
                         remoteClusterName: this.clusterMap.get(ins.remoteClusterId) || 'Central'
                     }))
                 )
-            );
+            ).subscribe(ins => {
+                this.allAppDeployedInstances = ins;
+            });
             this.domainId = domainId
             this.reloadDeployedInstances()
             this.reloadUndeployedInstances()
@@ -234,9 +236,12 @@ export class AppInstanceListComponent implements OnInit {
 
     private reloadDeployedInstances() {
         if (this.selectedViewType === 'cards') {
-            this.allAppDeployedInstances = this.isOnlyMyVisible ?
+            const request = this.isOnlyMyVisible ?
                 this.getSortedMyInstances('deployed')
                 : this.getSortedInstances('deployed');
+            request.subscribe(ins =>{
+                this.allAppDeployedInstances = ins;
+            })
         } else if (this.selectedViewType === 'list') {
             this.loadInstancesLazy({first: 0, rows: 10})
         }
@@ -244,12 +249,19 @@ export class AppInstanceListComponent implements OnInit {
 
     private reloadUndeployedInstances() {
         if (this.selectedViewType === 'cards') {
-            this.allAppUndeployedInstances = this.isOnlyMyVisible ?
+            const request = this.isOnlyMyVisible ?
                 this.getSortedMyInstances('undeployed')
                 : this.getSortedInstances('undeployed');
+            request.subscribe(ins =>{
+                this.allAppUndeployedInstances = ins;
+            })
         } else if (this.selectedViewType === 'list') {
             this.loadUndeployedInstancesLazy({first: 0, rows: 10})
         }
+    }
+
+    trackById(index: number, item: AppInstance): number {
+        return item.id;
     }
 
     private getSortedMyInstances(status: string) {

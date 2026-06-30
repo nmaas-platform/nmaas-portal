@@ -133,7 +133,7 @@
       style="height: calc(100vh - 250px); overflow: auto;">
       @if (selectedViewType === 'cards') {
         <div class="grid col-12">
-          @for (appInstance of allAppDeployedInstances | async | searchAppInstance: searchValue; track appInstance) {
+          @for (appInstance of allAppDeployedInstances | searchAppInstance: searchValue; track trackById) {
             <div
               class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
               <div class="background-section instance-card"
@@ -218,7 +218,7 @@
           }
           @if (isUndeployedVisible && selectedViewType === 'cards') {
             <div class="grid col-12">
-              @for (appInstance of allAppUndeployedInstances| async | searchAppInstance: searchValue; track appInstance) {
+              @for (appInstance of allAppUndeployedInstances | searchAppInstance: searchValue; track trackById) {
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
                   >
                   <div class="background-section instance-card"
