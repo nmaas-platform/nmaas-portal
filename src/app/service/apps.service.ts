@@ -52,7 +52,7 @@ export class AppsService extends GenericDataService {
     }
     // getAllVersionWithBase 
     public getApplicationBaseWithVersion(id: number): Observable<ApplicationVersionList> {
-        return this.get<ApplicationVersionList>(this.appConfig.getApiUrl() + '/apps/base/allversions/' + id);
+        return this.get<ApplicationVersionList>(this.appConfig.getApiUrl() + `/apps/base/${id}/versions`);
     }
 
     // application version
