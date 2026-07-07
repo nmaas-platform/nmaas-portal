@@ -7,6 +7,7 @@ export class Webhook {
     public authorizationHeader: string = undefined;
     public eventType: WebhookType = undefined;
     public domain?: Domain = undefined;
+    public template?: string = undefined;
 }
 export interface Domain {
     id: number;
