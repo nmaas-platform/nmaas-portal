@@ -56,6 +56,9 @@ export class AppInstanceListComponent implements OnInit {
 
     public searchValue = '';
     private clusterMap: Map<number, string> = new Map();
+    private lastSortField = 'id';
+    private lastSortDirection = 'desc';
+    private lastPageSize = 10;
 
     constructor(private readonly appInstanceService: AppInstanceService,
                 protected readonly domainService: DomainService,
@@ -180,8 +183,14 @@ export class AppInstanceListComponent implements OnInit {
         this.loadingInstances = true;
         const page = event.first / event.rows;  // np. first=0, rows=10 → page=0
         const size = event.rows;
-        const sortField = event.sortField || 'id';
-        const sortDirection = event.sortOrder === 1 ? 'asc' : 'desc';
+        const sortField = event.sortField || this.lastSortField;
+        const sortDirection = event.sortOrder
+            ? (event.sortOrder === 1 ? 'asc' : 'desc')
+            : this.lastSortDirection;
+
+        this.lastSortField = sortField;
+        this.lastSortDirection = sortDirection;
+        this.lastPageSize = event.rows;
         const criteria = new CustomPageCriteria(page, size, sortField, sortDirection,  'deployed')
         if (this.searchValue !== '') {
             criteria.search = this.searchValue
@@ -243,7 +252,12 @@ export class AppInstanceListComponent implements OnInit {
                 this.allAppDeployedInstances = ins;
             })
         } else if (this.selectedViewType === 'list') {
-            this.loadInstancesLazy({first: 0, rows: 10})
+            this.loadInstancesLazy({
+                first: 0,
+                rows: this.lastPageSize,
+                sortField: this.lastSortField,
+                sortOrder: this.lastSortDirection === 'asc' ? 1 : -1
+            });
         }
     }
 

@@ -51,7 +51,7 @@
                             <h4 style="font-size:15px; font-weight: bold">
                                 {{ 'DOMAIN_DETAILS.RESOURCE_LIMIT' | translate }}
                             </h4>
-                            @if (isInMode(ComponentMode.EDIT)) {
+                            @if (isInMode(ComponentMode.EDIT) && hasAnyLimit()) {
                                 <button type="button"
                                         class="btn btn-danger"
                                         (click)="disableLimits()"

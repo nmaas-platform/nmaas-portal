@@ -154,7 +154,6 @@ export class DomainGroupViewComponent extends BaseComponent implements OnInit {
     }
 
     public disableLimits(): void {
-        alert('clicked')
         if (this.domainGroupLimit?.id) {
             this.resourcesLimitsService.deleteDomainLimit(this.domainGroupLimit.id).subscribe(() => {
                 this.domainGroupLimit = {
