@@ -173,17 +173,12 @@
                     <td>{{ history.timestamp | localDate:'medium' }}</td>
                     @if (history.previousState !== null) {
                       <td>
-                          <div class="column-position" >
-                              {{ history.currentState | translate }}
-                          </div>
-
+                         {{ history.currentState | translate }}
                       </td>
                     }
                     @if (history.previousState === null) {
                       <td>
-                          <div class="column-position">
-                              {{ history.currentState | translate }}
-                          </div>
+                          {{ history.currentState | translate }}
                       </td>
                     }
                     <td>
