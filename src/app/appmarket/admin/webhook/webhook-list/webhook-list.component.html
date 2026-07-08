@@ -128,7 +128,7 @@
                                 class="form-control"
                                 [disabled]="true">
                             @for (d of domains; track d) {
-                                @if(d.id == this.selectedDomain) {
+                                @if (d.id == this.selectedDomain) {
                                     <option [value]="d.id">
                                         {{ d.name }}
                                     </option>
@@ -137,7 +137,24 @@
                         </select>
                     </div>
                 }
-
+                <div class="mt-4">
+                    <label for="assignDomain">Template required</label>
+                    <input class="ml-2"
+                           type="checkbox"
+                           [(ngModel)]="templateRequired"
+                           name="templateRequired"
+                           id="templateRequired"
+                           (change)="onTemplateSelect(typeSelect.value)"
+                    />
+                </div>
+                @if (templateRequired) {
+                    <div class="mt-4">
+                        <label for="desc">{{ 'WEBHOOKS.TEMPLATE' | translate }}</label>
+                        <textarea pTextarea [autoResize]="false" [rows]="10" class="form-control" id="template"
+                                  name="template"
+                                  [(ngModel)]="addedWebhook.template" [disabled]="false"></textarea>
+                    </div>
+                }
                 <div class="mt-4">
                     <label for="assignDomain">Auth required</label>
                     <input class="ml-2" type="checkbox" [(ngModel)]="authRequired" name="authRequired"
