@@ -67,7 +67,7 @@ export class AppManagementListComponent implements OnInit {
     }
 
     public getVisibleVersions(app: ApplicationBase, i: number): ApplicationVersion[] {
-        const sorted = [...app.versions].sort(this.appVersionCompare);
+        const sorted = [...app.versions].sort(this.appVersionCompare).reverse();
         const active = sorted.filter(v => this.getStateAsString(v.state) === 'ACTIVE');
         const nonActive = sorted.filter(v => this.getStateAsString(v.state) !== 'ACTIVE');
         const ordered = [...active, ...nonActive];
