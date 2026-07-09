@@ -172,6 +172,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
                     ...inst,
                     // logoId: appNameToAppIdMap[inst.appName] || null
                 }));
+                console.log(`this.applicationUpgradeStatus`,this.applicationUpgradeStatus);
             }
         )
         // })

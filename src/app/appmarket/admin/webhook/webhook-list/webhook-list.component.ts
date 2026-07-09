@@ -10,6 +10,7 @@ import {debounceTime, distinctUntilChanged, Subject} from 'rxjs';
 import {UserDataService} from '../../../../service/userdata.service';
 import {DomainService} from '../../../../service';
 import {PaginationSettings, PrimeNgLazyLoadEvent} from '../../../../service/page';
+import {WebhookTemplatesService} from '../../../../service/webhook-templates.service';
 
 @Component({
     selector: 'app-webhook-list',
@@ -31,6 +32,7 @@ export class WebhookListComponent implements OnInit {
     public domainGlobalId
 
     public authRequired: boolean = false;
+    public templateRequired: boolean = false;
 
     public globalType = [
         {name: 'DOMAIN_ACTION', value: 'DOMAIN_ACTION'},
@@ -64,7 +66,8 @@ export class WebhookListComponent implements OnInit {
                 private readonly toast: ToastContainerComponent,
                 public translate: TranslateService,
                 public userDataService: UserDataService,
-                public domainService: DomainService) {
+                public domainService: DomainService,
+                private readonly webhookTemplatesService: WebhookTemplatesService) {
     }
 
     ngOnInit() {
@@ -208,6 +211,21 @@ export class WebhookListComponent implements OnInit {
     onTypeSelect(event: any) {
         console.log(event);
         this.addedWebhook.eventType = event;
+        if(this.templateRequired) {
+            this.onTemplateSelect(event)
+        }
+    }
+
+    onTemplateSelect(event: any) {
+        if(this.templateRequired) {
+        this.webhookTemplatesService.getDefaultTemplate(event).subscribe(
+            (template) => {
+                this.addedWebhook.template = template;
+            }
+        );
+        }else{
+            this.addedWebhook.template = undefined;
+        }
     }
 
     onDomainSelect(domainId: string) {
