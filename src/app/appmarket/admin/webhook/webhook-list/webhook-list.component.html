@@ -154,6 +154,14 @@
                                   name="template"
                                   [(ngModel)]="addedWebhook.template" [disabled]="false"></textarea>
                     </div>
+                    <p>
+                        <strong>Supported variables:</strong>
+                    </p>
+                    <p>
+                        @for (variable of supportedVariables; track variable; let last = $last) {
+                            <code>{{ variable }}</code>@if (!last) {, }
+                        }
+                    </p>
                 }
                 <div class="mt-4">
                     <label for="assignDomain">Auth required</label>

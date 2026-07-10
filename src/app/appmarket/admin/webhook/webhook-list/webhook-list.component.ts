@@ -33,6 +33,7 @@ export class WebhookListComponent implements OnInit {
 
     public authRequired: boolean = false;
     public templateRequired: boolean = false;
+    public supportedVariables;
 
     public globalType = [
         {name: 'DOMAIN_ACTION', value: 'DOMAIN_ACTION'},
@@ -74,6 +75,7 @@ export class WebhookListComponent implements OnInit {
         this.domainGlobalId = this.domainService.getGlobalDomainId();
         this.domainService.getMyDomains().subscribe(result => {
             this.domains = result.filter(d => d.id !== this.domainService.getGlobalDomainId());
+            this.newWebhookSelectedDomain = this.domains[0].id;
         });
         this.lazyLoadSubject.pipe(
             debounceTime(this.debounceTimeMs),
@@ -223,12 +225,18 @@ export class WebhookListComponent implements OnInit {
                 this.addedWebhook.template = template;
             }
         );
+        this.webhookTemplatesService.getVariables(event).subscribe(
+            (variables) => {
+                this.supportedVariables = variables;
+            }
+        )
         }else{
             this.addedWebhook.template = undefined;
         }
     }
 
     onDomainSelect(domainId: string) {
+        console.log('selected Domain Id',domainId);
         this.newWebhookSelectedDomain = domainId;
     }
 
@@ -246,12 +254,21 @@ export class WebhookListComponent implements OnInit {
                 this.addedWebhook = new Webhook();
             })
         } else {
-            this.service.create(this.addedWebhook).subscribe(result => {
-                this.toast.show('TOAST.SUCCESS.NEW_WEBHOOK', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER')
-                this.modal.hide();
-                this.refreshList();
-                this.addedWebhook = new Webhook();
-            });
+            if( this.addedWebhook.eventType == `DOMAIN_ACTION` ||  this.addedWebhook.eventType == `DOMAIN_GROUP_ACTION`) {
+                this.service.create(this.addedWebhook).subscribe(result => {
+                    this.toast.show('TOAST.SUCCESS.NEW_WEBHOOK', ToastMode.SUCCESS, 'TOAST.SUCCESS_HEADER')
+                    this.modal.hide();
+                    this.refreshList();
+                    this.addedWebhook = new Webhook();
+                });
+            }else{
+                this.addedWebhook.domain = {id: this.newWebhookSelectedDomain};
+                this.service.createByDomain(this.newWebhookSelectedDomain, this.addedWebhook).subscribe(result => {
+                    this.modal.hide();
+                    this.refreshList();
+                    this.addedWebhook = new Webhook();
+                })
+            }
         }
     }
 
