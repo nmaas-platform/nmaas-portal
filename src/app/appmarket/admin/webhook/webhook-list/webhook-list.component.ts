@@ -236,7 +236,6 @@ export class WebhookListComponent implements OnInit {
     }
 
     onDomainSelect(domainId: string) {
-        console.log('selected Domain Id',domainId);
         this.newWebhookSelectedDomain = domainId;
     }
 
