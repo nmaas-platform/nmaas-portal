@@ -138,7 +138,7 @@
                     </div>
                 }
                 <div class="mt-4">
-                    <label for="assignDomain">Template required</label>
+                    <label for="assignDomain">{{ 'WEBHOOKS.TEMPLATE_REQUIRED' | translate }}</label>
                     <input class="ml-2"
                            type="checkbox"
                            [(ngModel)]="templateRequired"
@@ -149,13 +149,13 @@
                 </div>
                 @if (templateRequired) {
                     <div class="mt-4">
-                        <label for="desc">{{ 'WEBHOOKS.TEMPLATE' | translate }}</label>
+                        <label for="template">{{ 'WEBHOOKS.TEMPLATE' | translate }}</label>
                         <textarea pTextarea [autoResize]="false" [rows]="10" class="form-control" id="template"
                                   name="template"
                                   [(ngModel)]="addedWebhook.template" [disabled]="false"></textarea>
                     </div>
                     <p>
-                        <strong>Supported variables:</strong>
+                        <label for="templateRequired">{{ 'WEBHOOKS.TEMPLATE' | translate }}</label>
                     </p>
                     <p>
                         @for (variable of supportedVariables; track variable; let last = $last) {
@@ -164,7 +164,7 @@
                     </p>
                 }
                 <div class="mt-4">
-                    <label for="assignDomain">Auth required</label>
+                    <label for="assignDomain">{{ 'WEBHOOKS.AUTH_REQUIRED' | translate }}</label>
                     <input class="ml-2" type="checkbox" [(ngModel)]="authRequired" name="authRequired"
                            id="authRequired"/>
                 </div>
