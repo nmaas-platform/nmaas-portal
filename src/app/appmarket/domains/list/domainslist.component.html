@@ -10,7 +10,7 @@
         </p-iconfield>
     </div>
     <div class="flex" style="margin-right:20px">
-        <button *roles="['ROLE_SYSTEM_ADMIN']" [routerLink]="['add']" class="btn btn-primary"
+        <button *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER']" [routerLink]="['add']" class="btn btn-primary"
                 role="button">{{ 'DOMAINS.ADD_BUTTON' | translate }}
         </button>
     </div>
@@ -69,7 +69,7 @@
                         }
                     </td>
                     <td class="text-right">
-                        <button type="button" *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']"
+                        <button type="button" *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_GROUP_MANAGER']"
                                 class="dropdown-button"
                                 (click)="openRowMenu($event, domain)">
                             <i class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></i>
