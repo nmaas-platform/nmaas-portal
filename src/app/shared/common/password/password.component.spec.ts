@@ -8,8 +8,8 @@ import {UserService} from '../../../service';
 import {SharedModule} from '../../shared.module';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import createSpyObj = jasmine.createSpyObj;
-import { IPasswordStrengthMeterService } from 'angular-password-strength-meter';
 import {of} from 'rxjs';
+import {PasswordModule} from 'primeng/password';
 
 class TranslateFakeLoader implements TranslateLoader {
     getTranslation(lang: string) {
@@ -22,8 +22,6 @@ describe('PasswordComponent', () => {
     let component: PasswordComponent;
     let fixture: ComponentFixture<PasswordComponent>;
 
-     const passowrdSpy = createSpyObj('IPasswordStrengthMeterService', ['score'])
-        passowrdSpy.score.and.returnValue("4")
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
@@ -32,6 +30,7 @@ describe('PasswordComponent', () => {
                 ReactiveFormsModule,
                 RouterTestingModule,
                 SharedModule,
+                PasswordModule,
                 TranslateModule.forRoot({
                     loader: {
                         provide: TranslateLoader,
@@ -41,7 +40,6 @@ describe('PasswordComponent', () => {
             ],
             providers: [
                 {provide: UserService, useValue: {}},
-                {provide: IPasswordStrengthMeterService, useValue: passowrdSpy}
             ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })

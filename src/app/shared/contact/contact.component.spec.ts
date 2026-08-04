@@ -3,7 +3,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {ContactComponent} from './contact.component';
 import {ModalComponent} from '../modal';
 import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {ReCaptchaV3Service} from 'ng-recaptcha';
+import {ReCaptchaV3Service} from '../../service/recaptcha-v3.service'
 import {NotificationService} from '../../service/notification.service';
 import {of, ReplaySubject} from 'rxjs';
 import {FormioModule} from '@formio/angular';
