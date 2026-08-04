@@ -8,6 +8,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {ReCaptchaV3Service} from '../../service/recaptcha-v3.service';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
+import { PasswordModule } from 'primeng/password';
 class TranslateFakeLoader implements TranslateLoader {
     getTranslation(lang: string) {
         return of({});
@@ -28,6 +29,7 @@ describe('Password reset component', () => {
             imports: [
                 RouterTestingModule,
                 FormsModule,
+                PasswordModule,
                 ReactiveFormsModule,
                 TranslateModule.forRoot({
                     loader: {

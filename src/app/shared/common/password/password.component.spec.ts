@@ -9,6 +9,7 @@ import {SharedModule} from '../../shared.module';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
+import {PasswordModule} from 'primeng/password';
 
 class TranslateFakeLoader implements TranslateLoader {
     getTranslation(lang: string) {
@@ -29,6 +30,7 @@ describe('PasswordComponent', () => {
                 ReactiveFormsModule,
                 RouterTestingModule,
                 SharedModule,
+                PasswordModule,
                 TranslateModule.forRoot({
                     loader: {
                         provide: TranslateLoader,
