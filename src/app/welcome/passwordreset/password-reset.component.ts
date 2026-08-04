@@ -5,7 +5,7 @@ import {User} from '../../model';
 import {PasswordReset} from '../../model/passwordreset';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {PasswordValidator} from '../../shared';
-import {ReCaptchaV3Service} from 'ng-recaptcha';
+import {ReCaptchaV3Service} from '../../service/recaptcha-v3.service';
 import {catchError} from 'rxjs/operators';
 import {of} from 'rxjs';
 

@@ -36,7 +36,6 @@ import {RatingExtendedComponent} from './rating-extended/rating-extended.compone
 import {AboutComponent} from './about/about.component';
 import {ChangelogComponent} from './changelog/changelog.component';
 import {NotificationService} from '../service/notification.service';
-import {RECAPTCHA_V3_SITE_KEY, RecaptchaModule, RecaptchaV3Module} from 'ng-recaptcha';
 import {SingleCommentComponent} from './comments/single-comment/single-comment.component';
 import {TranslateStateModule} from './translate-state/translate-state.module';
 import {MinLengthDirective} from '../directive/min-length.directive';
@@ -105,13 +104,11 @@ import {Password} from 'primeng/password';
             FormioModule,
             TooltipModule,
             InputTextModule,
-            FormioModule,
             TableModule,
             CheckboxModule,
             InputGroupModule,
             InputGroupAddonModule,
             ButtonModule,
-            RecaptchaV3Module,
             ButtonModule,
             ChartModule,
             FileUploadModule,
@@ -189,14 +186,7 @@ import {Password} from 'primeng/password';
         RecaptchaVisibilityService,
         AppConfigService,
         RegistrationService,
-        DatePipe,
-        {
-            provide: RECAPTCHA_V3_SITE_KEY,
-            useFactory: function (appConfigService: AppConfigService) {
-                return appConfigService.getSiteKey();
-            },
-            deps: [AppConfigService]
-        }
+        DatePipe
     ],
     exports: [
         RateComponent,

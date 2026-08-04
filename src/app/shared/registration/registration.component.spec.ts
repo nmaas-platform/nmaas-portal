@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {RegistrationComponent} from './registration.component';
-import {ReCaptchaV3Service} from 'ng-recaptcha';
+import {ReCaptchaV3Service} from '../../service/recaptcha-v3.service';
 import {ReactiveFormsModule} from '@angular/forms';
 import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {RegistrationService} from '../../auth/registration.service';

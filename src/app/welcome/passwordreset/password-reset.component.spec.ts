@@ -5,8 +5,7 @@ import {UserService} from '../../service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ModalComponent} from '../../shared/modal';
 import {RouterTestingModule} from '@angular/router/testing';
-import {IPasswordStrengthMeterService, PasswordStrengthMeterComponent} from 'angular-password-strength-meter';
-import {ReCaptchaV3Service} from 'ng-recaptcha';
+import {ReCaptchaV3Service} from '../../service/recaptcha-v3.service';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
 class TranslateFakeLoader implements TranslateLoader {
@@ -23,8 +22,6 @@ describe('Password reset component', () => {
         const userServiceSpy = createSpyObj('UserService', ['validateResetRequest'])
         userServiceSpy.validateResetRequest.and.returnValue(of({}))
 
-        const passowrdSpy = createSpyObj('IPasswordStrengthMeterService', ['score'])
-        passowrdSpy.score.and.returnValue("4")
 
         TestBed.configureTestingModule({
             declarations: [PasswordResetComponent, ModalComponent],
@@ -37,13 +34,11 @@ describe('Password reset component', () => {
                         provide: TranslateLoader,
                         useClass: TranslateFakeLoader
                     }
-                }),
-                PasswordStrengthMeterComponent
+                })
             ],
             providers: [
                 {provide: UserService, useValue: userServiceSpy},
-                {provide: ReCaptchaV3Service, useValue: {}},
-                {provide: IPasswordStrengthMeterService, useValue: passowrdSpy}
+                {provide: ReCaptchaV3Service, useValue: {}}
             ]
         }).compileComponents();
     }));

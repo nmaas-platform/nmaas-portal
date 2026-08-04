@@ -11,7 +11,7 @@ import {ModalInfoPolicyComponent} from '../modal/modal-info-policy/modal-info-po
 import {ModalComponent} from '../modal';
 import {TranslateService} from '@ngx-translate/core';
 import {catchError, map} from 'rxjs/operators';
-import {ReCaptchaV3Service} from 'ng-recaptcha';
+import {ReCaptchaV3Service} from '../../service/recaptcha-v3.service';
 import {ConfigurationService} from '../../service';
 
 @Component({
