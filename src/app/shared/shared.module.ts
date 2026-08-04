@@ -33,7 +33,6 @@ import {SortableColumnComponent} from './sortable-column/sortable-column.compone
 import {SortableTableDirective} from './sortable-column/sortable-table.directive';
 import {AppInstallModalComponent} from './modal/appinstall';
 import {RatingExtendedComponent} from './rating-extended/rating-extended.component';
-import {PasswordStrengthMeterComponent} from 'angular-password-strength-meter';
 import {AboutComponent} from './about/about.component';
 import {ChangelogComponent} from './changelog/changelog.component';
 import {NotificationService} from '../service/notification.service';
@@ -58,7 +57,6 @@ import {TooltipModule} from 'primeng/tooltip';
 import {SortableHeaderDirective} from '../service/sort-domain.directive';
 import {InputTextModule} from 'primeng/inputtext';
 import {DomainNamespaceAnnotationsComponent} from './domain-namespace-annotations/domain-namespace-annotations.component';
-import {provideZxvbnServiceForPSM} from 'angular-password-strength-meter/zxcvbn';
 import {AccessTokensComponent} from './users/access-token/access-tokens.component';
 import {LeftMenuComponent} from './left-menu/left-menu.component';
 import {TableModule} from 'primeng/table';
@@ -89,6 +87,7 @@ import {LoginComponent} from './login';
 import {RegistrationComponent} from './registration/registration.component';
 import {RegistrationService} from '../auth/registration.service';
 import { CarouselModule } from 'primeng/carousel';
+import {Password} from 'primeng/password';
 
 
 @NgModule({
@@ -127,9 +126,9 @@ import { CarouselModule } from 'primeng/carousel';
             DatePickerModule,
             SelectButtonModule,
             MenuModule,
-            PasswordStrengthMeterComponent,
             Popover,
-            CarouselModule
+            CarouselModule,
+            Password
         ],
     declarations: [
         RateComponent,

@@ -24,7 +24,6 @@ import { TranslateLoaderImpl } from './i18n/translate-loader-impl.service';
 import { ServiceUnavailableModule } from './service-unavailable/service-unavailable.module';
 import { ServiceUnavailableService } from './service-unavailable/service-unavailable.service';
 import { NgTerminalModule } from 'ng-terminal';
-import { provideZxvbnServiceForPSM } from 'angular-password-strength-meter/zxcvbn';
 import { FormioModule } from '@formio/angular';
 import { LeftMenuComponent } from './shared/left-menu/left-menu.component';
 import { ToastContainerComponent, ToastMode } from './shared/toast-container/toast-container.component';
@@ -122,7 +121,6 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
         AuthService,
         RecaptchaVisibilityService,
         AppConfigService,
-        provideZxvbnServiceForPSM(),
         {
             provide: APP_INITIALIZER,
             useFactory: appConfigFactory,

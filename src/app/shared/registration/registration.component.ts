@@ -9,8 +9,6 @@ import {Observable, of} from 'rxjs';
 import {ModalInfoTermsComponent} from '../modal/modal-info-terms/modal-info-terms.component';
 import {ModalInfoPolicyComponent} from '../modal/modal-info-policy/modal-info-policy.component';
 import {ModalComponent} from '../modal';
-
-import {PasswordStrengthMeterComponent} from 'angular-password-strength-meter';
 import {TranslateService} from '@ngx-translate/core';
 import {catchError, map} from 'rxjs/operators';
 import {ReCaptchaV3Service} from 'ng-recaptcha';
@@ -30,9 +28,6 @@ export class RegistrationComponent implements OnInit {
   public submitted = false;
   public success = false;
   public errorMessage = '';
-
-  @ViewChild(PasswordStrengthMeterComponent, { static: true })
-  passwordMeter: PasswordStrengthMeterComponent;
 
   @ViewChild(ModalComponent, { static: true })
   public readonly  modal: ModalComponent;
