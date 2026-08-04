@@ -22,6 +22,10 @@ sonar:
   only:
     - develop
     - /^release/
+
+  before_script:
+    - apt-get update && apt-get install -y unzip
+
   script:
     - npm ci --legacy-peer-deps
     - npm run sonar -- -Dsonar.host.url=${SONAR_HOST} -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.projectName=${SONAR_PROJECT_NAME} -Dsonar.branch.name=develop -Dsonar.login=${SONAR_LOGIN_TOKEN}
