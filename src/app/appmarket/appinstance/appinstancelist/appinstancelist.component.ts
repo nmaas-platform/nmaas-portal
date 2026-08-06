@@ -1,13 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {AppInstance, AppInstanceState} from '../../../model';
 import {AppImagesService, AppInstanceService, CustomerSearchCriteria, CustomPageCriteria, DomainService} from '../../../service';
 import {AuthService} from '../../../auth/auth.service';
 import {UserDataService} from '../../../service/userdata.service';
-import {map, Observable} from 'rxjs';
+import {BehaviorSubject, map, Observable} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 import {SessionService} from '../../../service/session.service';
 import {ClusterManagerService} from '../../../service/cluster-manager.service';
+import {AccessMethodsModalComponent} from '../modals/access-methods-modal/access-methods-modal.component';
+import {AppInstanceExtended} from '../../../model/app-instance-extended';
 
 export enum AppInstanceListSelection {
     ALL, MY,
@@ -20,6 +22,16 @@ export enum AppInstanceListSelection {
     standalone: false
 })
 export class AppInstanceListComponent implements OnInit {
+
+    @ViewChild(AccessMethodsModalComponent)
+    public accessMethodsModal: AccessMethodsModalComponent;
+
+    private readonly deployParametersSubject =
+        new BehaviorSubject<Map<string, string>>(new Map());
+
+    public deployParameters$ = this.deployParametersSubject.asObservable();
+
+    public selectedAccessMethods = [];
 
     appDeployedInstances: AppInstance[] = [];
     appUndeployedInstances: AppInstance[] = [];
@@ -302,5 +314,36 @@ export class AppInstanceListComponent implements OnInit {
                 }))
             )
         );
+    }
+    public validateURL(url: string): string {
+        if (url == null) {
+            return '';
+        }
+        if (url.startsWith('http://')) {
+            return url.replace('http://', 'https://');
+        }
+        if (url.startsWith('https://')) {
+            return url
+        }
+        return 'https://' + url;
+    }
+    public openAccess(appInstance: AppInstance): void {
+        this.appInstanceService.getAppInstance(appInstance.id).subscribe(fullInstance => {
+
+            this.selectedAccessMethods = fullInstance.serviceAccessMethods ?? [];
+
+            if (this.selectedAccessMethods.length === 1) {
+                const access = this.selectedAccessMethods[0];
+
+                window.open(this.validateURL(access.url), '_blank');
+                return;
+            }
+
+            this.appInstanceService.getDeploymentParameters(appInstance.id)
+                .subscribe(params => {
+                    this.deployParametersSubject.next(params);
+                    this.accessMethodsModal.show();
+                });
+        });
     }
 }
