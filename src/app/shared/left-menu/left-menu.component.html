@@ -63,6 +63,16 @@
             }
           </a>
         </li>
+          <li [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
+              <a  style="display: flex; align-items: center;" [routerLink]="['admin/group-dashboard']">
+                  <i class="pi pi-chart-bar" style="margin-right:10px; font-size: 18px" title="Group dashboard"></i>
+                  @if (!isCollapsed) {
+                      <span>
+                {{ 'NAVBAR.DASHBOARD-GROUP' | translate }}
+              </span>
+                  }
+              </a>
+          </li>
         <p-accordion value="0">
           <p-accordion-panel value="1" *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_GROUP_MANAGER', 'ROLE_GROUP_DOMAIN_ADMIN']">
             <p-accordion-header>

@@ -87,6 +87,7 @@ import {RegistrationComponent} from './registration/registration.component';
 import {RegistrationService} from '../auth/registration.service';
 import { CarouselModule } from 'primeng/carousel';
 import {Password} from 'primeng/password';
+import {GroupAdminDashboardComponent} from './group-admin-dashboard/group-admin-dashboard.component';
 
 
 @NgModule({
@@ -177,7 +178,8 @@ import {Password} from 'primeng/password';
         AddClusterComponent,
         UserDomainListComponent,
         LoginComponent,
-        RegistrationComponent
+        RegistrationComponent,
+        GroupAdminDashboardComponent
     ],
     providers: [
         PasswordValidator,
@@ -225,7 +227,8 @@ import {Password} from 'primeng/password';
         PreferencesComponent,
         SortableHeaderDirective,
         DomainNamespaceAnnotationsComponent,
-        AccessTokensComponent
+        AccessTokensComponent,
+        GroupAdminDashboardComponent
     ],
     schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
 

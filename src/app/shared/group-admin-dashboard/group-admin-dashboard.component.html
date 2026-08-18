@@ -1,0 +1,97 @@
+<div>
+
+    <p-select
+            [options]="domainGroups"
+            [(ngModel)]="selectedGroup"
+            [filter]="true"
+            filterBy="name"
+            optionLabel="name"
+            id="group-select"
+            [filterPlaceholder]="'SEARCH' | translate"
+            (onChange)="changeGroup($event)"
+            appendTo="body">
+
+        <ng-template pTemplate="selectedItem" let-item>
+    <span>
+        {{ item?.name }}
+    </span>
+        </ng-template>
+
+        <ng-template pTemplate="item" let-item>
+            <span>{{ item?.name }}</span>
+        </ng-template>
+    </p-select>
+</div>
+<div style="display: flex">
+    <div class="background-section" style="flex: 1 1 50%; margin-right: 20px">
+        <h5 style="font-weight: bold">{{ 'DASHBOARD.LAST_LOGIN' | translate }} </h5>
+        <p-table
+                [value]="domainAdminData?.userLogins"
+                sortField="lastLogin"
+                [sortOrder]="-1">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>{{ 'DASHBOARD.USER' | translate }}</th>
+                    <th>{{ 'DASHBOARD.LOGIN' | translate }}</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-login>
+                <tr>
+                    <td>{{ login.userName }}</td>
+                    <td>{{ formatDate(login.lastLogin) }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="background-section" style="flex: 1 1 50%;">
+        <h5 style="font-weight: bold">{{ 'DASHBOARD.DEPLOYED_APP' | translate }} </h5>
+        <p-table [value]="domainAdminData?.userLogins">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>{{ 'DASHBOARD.USER' | translate }}</th>
+                    <th>{{ 'DASHBOARD.DEPLOYMENT' | translate }}</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-deployment>
+                <tr>
+                    <td>{{ deployment.userName }}</td>
+                    <td>{{ deployment.deploymentCount }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+<div class="background-section">
+    <h5 style="font-weight: bold">{{ 'DASHBOARD.APP_STATUS' | translate }}</h5>
+    <p-table [value]="groupAdminData" [paginator]="true" [rows]="4" [scrollable]="true" [style]="{'width': '100%'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th></th>
+                <th id="label-name">{{ 'DASHBOARD.NAME' | translate }}</th>
+                <th>{{ 'DASHBOARD.ID' | translate }}</th>
+                <th>{{ 'DASHBOARD.INSTANCE_NAME' | translate }}</th>
+                <th>{{ 'DASHBOARD.DOMAIN_NAME' | translate }}</th>
+                <th>{{ 'DASHBOARD.VERSION' | translate }}</th>
+                <th>{{ 'DASHBOARD.NEED_UPGRADE' | translate }}</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-app>
+            <tr [ngClass]="{'clickable': true}"
+                [routerLink]="['/instances',app.appId]">
+                <td>
+                    <div class="img-container">
+                        <img style="width: 40px"
+                             [src]="(appImagesService.getAppLogoUrl(app.baseAppId) | secure) || '../../../assets/images/app-logo-example.png'"/>
+                    </div>
+                </td>
+                <td>{{ app.appName }}</td>
+                <td>{{ app.appId }}</td>
+                <td>{{ app.instanceName }}</td>
+                <td>{{ app.domainName }}</td>
+                <td>{{ app.appVersion }}</td>
+                <td>{{ app.upgradePossible }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
