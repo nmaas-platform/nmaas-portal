@@ -37,15 +37,6 @@ export class GroupAdminDashboardComponent implements OnInit {
                 this.domainGroups = groups;
                 this.selectedGroup = groups[0]
                 this.getGroupAdmin()
-
-                for (const user of this.domainAdminData.userLogins) {
-                    user.deploymentCount = 10;
-                }
-
-                this.domainAdminData.userLogins.forEach(user => {
-                    user.deploymentCount = 10;
-                });
-                console.log('DOMAIN ADMIN DATA', this.domainAdminData)
             }
         })
 
