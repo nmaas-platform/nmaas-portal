@@ -336,14 +336,7 @@ export class AppInstanceListComponent implements OnInit {
                 const access = this.selectedAccessMethods[0];
 
                 window.open(this.validateURL(access.url), '_blank');
-                return;
             }
-
-            this.appInstanceService.getDeploymentParameters(appInstance.id)
-                .subscribe(params => {
-                    this.deployParametersSubject.next(params);
-                    this.accessMethodsModal.show();
-                });
         });
     }
 }
