@@ -336,6 +336,8 @@ export class AppInstanceListComponent implements OnInit {
                 const access = this.selectedAccessMethods[0];
 
                 window.open(this.validateURL(access.url), '_blank');
+            } else {
+                this.accessMethodsModal.show();
             }
         });
     }
