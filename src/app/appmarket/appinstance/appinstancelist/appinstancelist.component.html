@@ -152,10 +152,11 @@
                   </div>
                   <div style="display: flex; flex-direction:column; gap:20px">
                     <p>{{ appInstance?.name }}</p>
-                      @if (getStateAsEnum(appInstance.state) === AppInstanceState.RUNNING && appInstance.serviceAccessMethods?.length > 0) {
+                      @if (getStateAsEnum(appInstance.state) === AppInstanceState.RUNNING && appInstance.externalAccessEnabled) {
                           <p>
-                              <a href="" (click)="openAccess(appInstance); $event.preventDefault(); $event.stopPropagation()">
-                                  Access
+                              <i class="pi pi-link"></i>
+                              <a href="" style="text-decoration:none" (click)="openAccess(appInstance); $event.preventDefault(); $event.stopPropagation()">
+                                  {{ 'APP_INSTANCES.ACCESS' | translate }}
                               </a>
                           </p>
                       }
