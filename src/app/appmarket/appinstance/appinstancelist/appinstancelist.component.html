@@ -152,7 +152,7 @@
                   </div>
                   <div style="display: flex; flex-direction:column; gap:20px">
                     <p>{{ appInstance?.name }}</p>
-                      @if (getStateAsEnum(appInstance.state) === AppInstanceState.RUNNING && appInstance.externalAccessEnabled) {
+                      @if (getStateAsEnum(appInstance.state) === AppInstanceState.RUNNING) {
                           <p>
                               <i class="pi pi-link"></i>
                               <a href="" style="text-decoration:none" (click)="openAccess(appInstance); $event.preventDefault(); $event.stopPropagation()">
