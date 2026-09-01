@@ -63,7 +63,7 @@ export class GroupAdminDashboardComponent implements OnInit {
                         }
                     });
                 });
-
+                this.groupAdminData = []
                 this.domainAdminData?.domains.forEach(domain => {
                     domain.applicationUpgradeStatus.forEach(application => {
                         let newInstance: GroupAppInstanceDto = application
