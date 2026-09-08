@@ -56,3 +56,8 @@
     background-color: #fff;
     border-color: #ccc
 }
+.btn-primary {
+    color: var(--p-text-100);
+    background: var(--p-primary-100);
+    border: none;
+}
