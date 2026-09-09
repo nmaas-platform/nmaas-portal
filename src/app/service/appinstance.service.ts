@@ -74,6 +74,9 @@ export class AppInstanceService extends GenericDataService {
         if (criteria.search !== null && criteria.search !== undefined) {
             params = params.set('search', criteria.search);
         }
+        if(criteria.cluster !== null && criteria.cluster !== undefined) {
+            params = params.set('cluster', criteria.cluster);
+        }
         const options = {params};
 
         return this.http.get<Page<AppInstance>>(this.getUrl() + 'domain/' + domainId, options)
@@ -88,6 +91,9 @@ export class AppInstanceService extends GenericDataService {
 
         if (criteria.search !== null && criteria.search !== undefined) {
             params = params.set('search', criteria.search);
+        }
+        if(criteria.cluster !== null && criteria.cluster !== undefined) {
+            params = params.set('cluster', criteria.cluster);
         }
         const options = {params};
 
@@ -218,6 +224,7 @@ export class CustomPageCriteria {
     sortDirection: string;
     status: string;
     search: string;
+    cluster: number;
 
     constructor(pageNumber: number,
                 pageSize: number,

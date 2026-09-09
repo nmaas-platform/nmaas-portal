@@ -10,7 +10,11 @@
           <p-inputicon class="pi pi-search" style="font-size: 13px;"></p-inputicon>
         </p-iconfield>
       </div>
-      <div class="sm:col-12 md:col-12 lg:col-6 xl:col-8 wrap " style="display:flex;">
+      <div class="sm:col-12 md:col-12 lg:col-4 xl:col-3 ">
+          <p-select [options]="clusters" [(ngModel)]="selectedCluster" showClear="true" (onChange)="onClusterChange()"
+                    placeholder="{{ 'APP_INSTANCES.CLUSTER' | translate}}" class="w-full" />
+      </div>
+      <div class="sm:col-12 md:col-12 lg:col-3 xl:col-5 wrap " style="display:flex;">
         <div class="" style="display: flex; padding:10px 15px 10px 0">
           <p-checkbox id="show_my" inputId="show_my" binary="true"
             [(ngModel)]="isOnlyMyVisible"
