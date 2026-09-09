@@ -44,7 +44,7 @@ More information about code quality (including code coverage, test status) are a
 ---
 nmaas Portal and Platform URLs:
 + Portal: `http://<HOSTNAME>:9009`
-+ Platform API: `http://<HOSTNAME>:9001/api`
++ Platform API: `http://<HOSTNAME>:9001/api/v1`
 
 Admin user:
 + username: `admin`
