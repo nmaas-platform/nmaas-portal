@@ -20,6 +20,7 @@ import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Pipe, PipeTransform} from '@an
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {AppinstanceSearchPipe} from '../appinstance-search.pipe';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { SelectModule } from "primeng/select";
 
 class TranslateFakeLoader implements TranslateLoader {
     getTranslation(lang: string) {
@@ -76,6 +77,7 @@ describe('AppInstanceListComponent', () => {
     imports: [FormsModule,
         RouterTestingModule,
         NgxPaginationModule,
+        SelectModule,
         JwtModule.forRoot({}),
         TranslateModule.forRoot({
             loader: {

@@ -64,6 +64,8 @@ export class AppInstanceListComponent implements OnInit {
     public selectedViewType = 'cards';
     public selectedListRange: AppInstanceListSelection = AppInstanceListSelection.ALL;
     private intervalId;
+    public selectedCluster;
+    public clusters;
 
 
     public searchValue = '';
@@ -85,6 +87,10 @@ export class AppInstanceListComponent implements OnInit {
 
     ngOnInit() {
         this.clusterManagerService.getClustersBase().subscribe(c => {
+            this.clusters = [...c.map(cluster => ({
+                label: cluster.name,
+                value: cluster.id
+            }))]
             c.forEach(cluster => this.clusterMap.set(cluster.id, cluster.name));
         })
         this.userDataService.selectedDomainId.subscribe(domainId => {
@@ -148,6 +154,13 @@ export class AppInstanceListComponent implements OnInit {
         }
         console.error(this.allAppDeployedInstances)
     }
+    public onClusterChange(): void {
+        this.reloadDeployedInstances();
+
+        if (this.isUndeployedVisible) {
+            this.reloadUndeployedInstances();
+        }
+    }
 
     public onSelectedViewTypeChange() {
         this.reloadDeployedInstances();
@@ -207,6 +220,9 @@ export class AppInstanceListComponent implements OnInit {
         if (this.searchValue !== '') {
             criteria.search = this.searchValue
         }
+        if (this.clusters !== null){
+            criteria.cluster = this.selectedCluster
+        }
         if (this.selectedListRange === AppInstanceListSelection.MY) {
             this.appInstanceService.getPagedMyAppInstances(this.domainId, criteria).subscribe(response => {
                 this.appDeployedInstances = response.content.map(ins => ({
@@ -233,6 +249,9 @@ export class AppInstanceListComponent implements OnInit {
         const criteria = new CustomPageCriteria(page, size, 'id', 'desc', `undeployed`)
         if (this.searchValue !== '') {
             criteria.search = this.searchValue
+        }
+        if(this.selectedCluster !== null) {
+            criteria.cluster = this.selectedCluster;
         }
         if (this.selectedListRange === AppInstanceListSelection.MY) {
             this.appInstanceService.getPagedMyAppInstances(this.domainId, criteria).subscribe(response => {
