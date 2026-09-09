@@ -75,7 +75,7 @@ export class AppInstanceService extends GenericDataService {
             params = params.set('search', criteria.search);
         }
         if(criteria.cluster !== null && criteria.cluster !== undefined) {
-            params = params.set('cluster', criteria.cluster);
+            params = params.set('remoteClusterId', criteria.cluster);
         }
         const options = {params};
 
