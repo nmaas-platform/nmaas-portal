@@ -35,9 +35,11 @@ export class AppInstanceService extends GenericDataService {
     }
 
     public getSortedAppInstances(domainId: number, criteria: CustomerSearchCriteria, clusterId?: number): Observable<AppInstance[]> {
-        let params= new HttpParams().set('status', criteria.status)
-        if(clusterId !== null && clusterId !== undefined) {
+        let params = new HttpParams().set('status', criteria.status)
+
+        if (clusterId !== null && clusterId !== undefined) {
             params = params.set('remoteClusterId', clusterId);
+        }
         return this.http.get<AppInstance[]>(this.getUrl() + 'domain/' + domainId, {params}).pipe(
             map(
                 (data) => appInstanceSort(
@@ -48,7 +50,6 @@ export class AppInstanceService extends GenericDataService {
             )
         )
     }
-}
 
     public getSortedMyAppInstances(domainId: number, criteria?: CustomerSearchCriteria, clusterId?: number): Observable<AppInstance[]> {
         let params= new HttpParams()
