@@ -101,7 +101,9 @@ export class AppInstanceListComponent implements OnInit {
             }
             this.appInstanceService.getSortedAppInstances(
                 this.domainId,
-                new CustomerSearchCriteria('id', 'desc', 'deployed')).pipe(
+                new CustomerSearchCriteria('id', 'desc', 'deployed'),
+                this.selectedCluster
+            ).pipe(
                 map(instances =>
                     instances.map(ins => ({
                         ...ins,
@@ -312,7 +314,9 @@ export class AppInstanceListComponent implements OnInit {
     private getSortedMyInstances(status: string) {
         return this.appInstanceService.getSortedMyAppInstances(
             this.domainId,
-            new CustomerSearchCriteria('id', 'desc', status)).pipe(
+            new CustomerSearchCriteria('id', 'desc', status),
+            this.selectedCluster
+        ).pipe(
             map(instances =>
                 instances.map(ins => ({
                     ...ins,
@@ -325,7 +329,9 @@ export class AppInstanceListComponent implements OnInit {
     private getSortedInstances(status: string) {
         return this.appInstanceService.getSortedAppInstances(
             this.domainId,
-            new CustomerSearchCriteria('id', 'desc', status)).pipe(
+            new CustomerSearchCriteria('id', 'desc', status),
+            this.selectedCluster
+        ).pipe(
             map(instances =>
                 instances.map(ins => ({
                     ...ins,
