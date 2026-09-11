@@ -9,7 +9,6 @@ export class ClusterManager {
     public creationDate: Date;  
     public modificationDate: Date;
     public clusterConfigFile: string;
-    public pathConfigFile: string;
     public ingress: ClusterIngress;
     public deployment: ClusterDeployment;
     public externalNetworks: ClusterExtNetwork[]
@@ -17,6 +16,7 @@ export class ClusterManager {
     public state : string;
     public currentStateSince: Date;
     public contactEmail: string;
+    public configFileContent: string;
 }
 
 export class RemoteClusterBaseDto {

@@ -108,8 +108,8 @@ export class ClusterManagerComponent implements OnDestroy {
 
     this.rowMenuItems = [
       {
-        label: this.translate.instant('CLUSTERS.DETAILS'),
-        routerLink: [ cluster.id]
+        label: this.translate.instant('CLUSTERS.EDIT'),
+        routerLink: ['edit', cluster.id]
       },
       {
         label: this.translate.instant( 'CLUSTERS.REMOVE'),
