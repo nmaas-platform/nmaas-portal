@@ -1,0 +1,8 @@
+select {
+    background: var(--p-surface-300);
+    border: 1px solid var(--p-accent-600);
+    color: var(--p-text-0);
+}
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    box-shadow: none;
+}

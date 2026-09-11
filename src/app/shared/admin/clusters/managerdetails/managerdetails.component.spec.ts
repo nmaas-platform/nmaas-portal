@@ -13,6 +13,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { UserDataService } from '../../../../service/userdata.service';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {ToastContainerComponent} from '../../../toast-container/toast-container.component';
+import {ComponentMode} from "../../../common/componentmode";
 
 class TranslateFakeLoader implements TranslateLoader {
   getTranslation(lang: string) {
@@ -36,11 +37,11 @@ describe('ClusterManagerDetailsComponent', () => {
     currentStateSince: new Date('2025-01-01'),
     contactEmail: "test@test.test",
     description: 'Test Description',
+    configFileContent:'test',
     externalNetworks: [],
     creationDate: new Date('2025-01-01'),
     modificationDate: new Date('2025-02-01'),
     codename: 'test-cluster',
-    pathConfigFile: '/path/to/config.yaml',
     clusterConfigFile: 'Config',
     domainNames: ["test"],
     ingress: {
@@ -73,13 +74,18 @@ describe('ClusterManagerDetailsComponent', () => {
   };
 
   beforeEach(waitForAsync(() => {
-    const clusterServiceSpy = jasmine.createSpyObj('ClusterManagerService', ['getClusterDetails', 'sendCluster', 'updateCluster']);
+    const clusterServiceSpy = jasmine.createSpyObj('ClusterManagerService', ['getClusterDetails', 'sendCluster', 'updateCluster', 'getClusterDetailsComplete']);
     const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     const userDataServiceSpy = jasmine.createSpyObj('UserDataService', [], {
       selectedDomainId: new BehaviorSubject<number>(1).asObservable()
     });
     mockActivatedRoute = {
-      params: of({ id: 1 })
+      params: of({ id: 1 }),
+      snapshot: {
+        data:{
+          mode: ComponentMode.EDIT
+        }
+      }
     };
     mockToast = jasmine.createSpyObj('ToastContainerComponent', ['show']);
 
@@ -120,7 +126,7 @@ describe('ClusterManagerDetailsComponent', () => {
     component.namespaceConfigOption = new Map<string, NamespaceConfigOption>();
     component.certificateConfigOption = new Map<string, IngressCertificateConfigOption>();
 
-    clusterService.getClusterDetails.and.returnValue(of(mockCluster));
+    clusterService.getClusterDetailsComplete.and.returnValue(of(mockCluster));
     fixture.detectChanges();
   });
 
@@ -129,8 +135,9 @@ describe('ClusterManagerDetailsComponent', () => {
   });
 
   it('should initialize and fetch cluster details', () => {
-    expect(clusterService.getClusterDetails).toHaveBeenCalledWith(1);
+    expect(clusterService.getClusterDetailsComplete).toHaveBeenCalledWith(1);
     expect(component.cluster).toEqual(mockCluster);
+
   });
 
   it('should add a new network', () => {
@@ -196,7 +203,7 @@ describe('ClusterManagerDetailsComponent', () => {
       creationDate: new Date('2025-01-01'),
       modificationDate: new Date('2025-02-01'),
       codename: 'test-cluster',
-      pathConfigFile: '/path/to/config.yaml',
+      configFileContent: 'test',
       clusterConfigFile: 'Config',
       ingress: null,
       deployment: null,

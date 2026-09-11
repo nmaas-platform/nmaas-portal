@@ -37,9 +37,9 @@
         </ng-template>
         <ng-template pTemplate="body" let-cluster>
             <tr>
-                <td [routerLink]="[cluster.id]">{{cluster.name}}</td>
-                <td [routerLink]="[cluster.id]">{{cluster.codename}}</td>
-                <td [routerLink]="[cluster.id]">{{('CLUSTERS.'+cluster.state.toString().toUpperCase() ) | translate}}</td>
+                <td [routerLink]="['view/', cluster.id]">{{cluster.name}}</td>
+                <td [routerLink]="['view/',cluster.id]">{{cluster.codename}}</td>
+                <td [routerLink]="['view/',cluster.id]">{{('CLUSTERS.'+cluster.state.toString().toUpperCase() ) | translate}}</td>
                 <td class="text-right">
                     <button type="button"
                             class="dropdown-button"
