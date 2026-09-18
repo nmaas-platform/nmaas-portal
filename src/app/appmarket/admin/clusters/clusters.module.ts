@@ -17,6 +17,7 @@ import {IconFieldModule} from 'primeng/iconfield';
 import { InputIconModule} from 'primeng/inputicon';
 import {InputTextModule} from 'primeng/inputtext';
 import { MenuModule} from 'primeng/menu';
+import {Textarea} from "primeng/textarea";
 
 
 
@@ -40,7 +41,8 @@ import { MenuModule} from 'primeng/menu';
         IconFieldModule,
         InputIconModule,
         InputTextModule,
-        MenuModule
+        MenuModule,
+        Textarea
     ],
     exports: [
         ClusterDetailsComponent,

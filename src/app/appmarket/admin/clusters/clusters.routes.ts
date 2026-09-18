@@ -16,7 +16,8 @@ export const ClustersRoutes: Route[] = [
         data: {mode: ComponentMode.VIEW, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_DOMAIN_ADMIN']}},
     { path: 'manage/clusters/add', component: AddClusterComponent, canActivate: [AuthGuard, RoleGuard],
         data: {mode: ComponentMode.VIEW, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_DOMAIN_ADMIN']}},
-    { path: 'manage/clusters/:id', component: ClusterManagerDetailsComponent, canActivate: [AuthGuard, RoleGuard],
+    { path: 'manage/clusters/view/:id', component: ClusterManagerDetailsComponent, canActivate: [AuthGuard, RoleGuard],
+        data: {mode: ComponentMode.VIEW, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_DOMAIN_ADMIN']}},
+    { path: 'manage/clusters/edit/:id', component: ClusterManagerDetailsComponent, canActivate: [AuthGuard, RoleGuard],
         data: {mode: ComponentMode.EDIT, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_DOMAIN_ADMIN']}},
-   
 ];

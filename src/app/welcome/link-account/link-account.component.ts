@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {User} from '../../model';
 import {ActivatedRoute, Router} from '@angular/router';
-import jwtDecode from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 import {AuthService} from '../../auth/auth.service';
 import {TranslateService} from '@ngx-translate/core';
 

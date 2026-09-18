@@ -621,6 +621,9 @@ body .table-hover > tbody > tr:hover {
 body .formio-component-datetime .control-label--hidden.field-required {
     right: 5%;
 }
+body .control-label--hidden{
+    display: none;
+}
 
 .fa-calendar {
     display: none;

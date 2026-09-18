@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import {AppConfigService} from './appconfig.service';
 import {GenericDataService} from './genericdata.service';
 import {Observable} from 'rxjs';
+import {DomainGroupDashboardDto} from '../shared/group-admin-dashboard/model/domain-group-dashboard-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,9 @@ export class DashboardService extends GenericDataService {
 
   public getDomainAdmin(domainId?: number) {
     return this.get(this.appConfig.getApiUrl() + '/dashboard/domain/' + domainId)
+  }
+  public getGroupAdmin(groupId?: number):Observable<DomainGroupDashboardDto> {
+    return this.get(this.appConfig.getApiUrl() + '/dashboard/group/' + groupId)
   }
 
   public getOperator() {

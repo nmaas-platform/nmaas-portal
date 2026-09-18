@@ -7,6 +7,8 @@ stages:
 test:
   stage: test
   image: trion/ng-cli-karma:21.2.14
+  before_script:
+    - apt-get update && apt-get install -y unzip
   script:
     - npm ci --legacy-peer-deps
     - ng build
@@ -18,17 +20,19 @@ test:
 
 sonar:
   stage: sonar
-  image: trion/ng-cli:21.2.14
+  image: trion/ng-cli-karma:21.2.14
   only:
     - develop
     - /^release/
+  before_script:
+    - apt-get update && apt-get install -y unzip
   script:
     - npm ci --legacy-peer-deps
     - npm run sonar -- -Dsonar.host.url=${SONAR_HOST} -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.projectName=${SONAR_PROJECT_NAME} -Dsonar.branch.name=develop -Dsonar.login=${SONAR_LOGIN_TOKEN}
 
 build_and_push_latest_image:
   stage: build
-  image: korvoj/docker-git:29.6.1
+  image: korvoj/docker-git:29.8.1
   only:
     - develop
   variables:
@@ -42,7 +46,7 @@ build_and_push_latest_image:
 
 build_and_push_alfa_image:
   stage: build
-  image: korvoj/docker-git:29.6.1
+  image: korvoj/docker-git:29.8.1
   only:
     - /^release/
   script:
@@ -56,7 +60,7 @@ build_and_push_alfa_image:
 
 build_and_push_release_image:
   stage: build
-  image: korvoj/docker-git:29.6.1
+  image: korvoj/docker-git:29.8.1
   only:
     - tags
   script:
@@ -70,7 +74,7 @@ build_and_push_release_image:
 
 mend:
   stage: mend
-  image: eclipse-temurin:21.0.11_10-jdk-jammy
+  image: eclipse-temurin:25.0.4_7-jdk-jammy
   only:
     - /^release/
   variables:
@@ -80,7 +84,7 @@ mend:
     - |
       export PRODUCT_VERSION=$(echo $CI_COMMIT_BRANCH | cut -c 9-)
       export PROJECT_VERSION=$PRODUCT_VERSION
-      apt-get update && apt-get install -y curl ca-certificates gnupg
+      apt-get update && apt-get install -y curl ca-certificates gnupg unzip
       curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
       apt-get install -y nodejs
       echo "node version : $(node -v)"

@@ -18,12 +18,12 @@ import {ContentDisplayService} from '../service/content-display.service';
 import {TermsAcceptanceComponent} from './terms-acceptance/terms-acceptance.component';
 import {TranslateModule} from '@ngx-translate/core';
 import {PasswordResetComponent} from './passwordreset/password-reset.component';
-import {PasswordStrengthMeterComponent} from 'angular-password-strength-meter';
 import {PolicySubpageComponent} from './policy-subpage/policy-subpage.component';
 import {LinkAccountComponent} from './link-account/link-account.component';
 import {InputTextModule} from 'primeng/inputtext';
 import {SsoFirstLoginComponent} from './sso-first-login/sso-first-login.component';
 import {Popover} from 'primeng/popover';
+import {Password} from 'primeng/password';
 
 @NgModule({
     declarations: [
@@ -47,8 +47,8 @@ import {Popover} from 'primeng/popover';
         AppMarketModule,
         TranslateModule,
         InputTextModule,
-        PasswordStrengthMeterComponent,
-        Popover
+        Popover,
+        Password
     ],
     exports: [
         WelcomeComponent

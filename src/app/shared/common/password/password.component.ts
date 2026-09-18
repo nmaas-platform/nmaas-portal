@@ -3,7 +3,7 @@ import {AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validator, Valida
 import {UserService} from '../../../service';
 import {Password} from '../../../model';
 import {ModalComponent} from '../../modal';
-import {PasswordStrengthMeterComponent} from 'angular-password-strength-meter';
+
 
 @Injectable()
 export class PasswordValidator implements Validator {
@@ -35,9 +35,6 @@ export class PasswordComponent {
 
     @ViewChild(ModalComponent, {static: true})
     public readonly modal: ModalComponent;
-
-    @ViewChild(PasswordStrengthMeterComponent, {static: true})
-    passwordMeter: PasswordStrengthMeterComponent;
 
     public passwordForm: UntypedFormGroup;
 

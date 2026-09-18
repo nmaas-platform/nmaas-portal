@@ -120,14 +120,20 @@ export class UserPrivilegesComponent extends BaseComponent implements OnInit {
             this.newPrivilegeForm.get('domainId').value).subscribe(
             () => {
                 this.newPrivilegeForm.reset();
-                this.userService.getOne(this.user.id).subscribe((user) => this.user = user);
+                this.userService.getOne(this.user.id).subscribe((user) => {
+                    user.roles.sort((a,b) => a.domainName.localeCompare(b.domainName));
+                    this.user = user
+                });
                 this.newPrivilegeForm.get('domainId').setValue(this.domainId);
             });
     }
 
     public remove(userId: number, role: Role, domainId?: number): void {
         this.userService.removeRole(userId, role, domainId).subscribe(
-            () => this.userService.getOne(this.user.id).subscribe((user) => this.user = user))
+            () => this.userService.getOne(this.user.id).subscribe((user) => {
+                user.roles.sort((a,b) => a.domainName.localeCompare(b.domainName));
+                this.user = user
+            }))
     }
 
     /**

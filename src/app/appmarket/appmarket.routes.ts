@@ -15,6 +15,7 @@ import {AppManagementRoutes} from './appmanagement/app-management.routes';
 import {LanguageManagementRoutes} from './admin/languagemanagement/languagemanagement.routes';
 import { AdminLeftMenuComponent } from '../shared/admin-left-menu/admin-left-menu.component';
 import { AdminDashboardComponent } from '../shared/admin-dashboard/admin-dashboard.component';
+import {GroupAdminDashboardComponent} from '../shared/group-admin-dashboard/group-admin-dashboard.component';
 
 export const AppMarketRoutes: Route[] = [
     {
@@ -43,6 +44,10 @@ export const AppMarketRoutes: Route[] = [
         {
           path: 'dashboard',
           component: AdminDashboardComponent
+        },
+        {
+          path: 'group-dashboard',
+          component: GroupAdminDashboardComponent
         },
         ...DomainsRoutes,
         ...UsersRoutes,

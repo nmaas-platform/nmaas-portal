@@ -5,8 +5,7 @@ import {User} from '../../model';
 import {PasswordReset} from '../../model/passwordreset';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import {PasswordValidator} from '../../shared';
-import {PasswordStrengthMeterComponent} from 'angular-password-strength-meter';
-import {ReCaptchaV3Service} from 'ng-recaptcha';
+import {ReCaptchaV3Service} from '../../service/recaptcha-v3.service';
 import {catchError} from 'rxjs/operators';
 import {of} from 'rxjs';
 
@@ -23,9 +22,6 @@ export class PasswordResetComponent implements OnInit {
     public passwordReset: PasswordReset = new PasswordReset();
 
     public token: string;
-
-    @ViewChild(PasswordStrengthMeterComponent)
-    passwordMeter: PasswordStrengthMeterComponent;
 
     public form: UntypedFormGroup;
 

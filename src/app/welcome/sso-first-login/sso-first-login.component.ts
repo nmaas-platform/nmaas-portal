@@ -6,7 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../auth/auth.service';
 import {ModalInfoTermsComponent} from '../../shared/modal/modal-info-terms/modal-info-terms.component';
 import {ModalComponent} from '../../shared';
-import jwtDecode from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 
 @Component({
     selector: 'app-sso-first-login',

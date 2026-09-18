@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {ServiceAccessMethod, ServiceAccessMethodType} from '../../../../model/service-access-method';
 import {ModalComponent} from '../../../../shared';
 import {Observable} from 'rxjs';
@@ -9,7 +9,7 @@ import {Observable} from 'rxjs';
     styleUrls: ['./access-methods-modal.component.css'],
     standalone: false
 })
-export class AccessMethodsModalComponent implements OnInit {
+export class AccessMethodsModalComponent implements OnInit, OnChanges {
 
   @ViewChild(ModalComponent, { static: true })
   public readonly modal: ModalComponent;
@@ -26,16 +26,23 @@ export class AccessMethodsModalComponent implements OnInit {
   public deployParameters$: Observable<Map<string, string>>
 
   ngOnInit() {
+    this.updateAccessMethod()
+  }
+  ngOnChanges() {
+    this.updateAccessMethod()
+  }
+
+  public updateAccessMethod() {
     if (this.accessMethods) {
       this.externalAccessMethods = this.accessMethods.filter(s => this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.EXTERNAL
           || this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.DEFAULT).sort((a, b) => {
-            const order = {
-              [ServiceAccessMethodType.EXTERNAL]: 0,
-              [ServiceAccessMethodType.DEFAULT]: 1,
-            }
-            const aType = this.accessMethodTypeAsEnum(a.type);
-            const bType = this.accessMethodTypeAsEnum(b.type);
-            return order[aType] - order[bType];
+        const order = {
+          [ServiceAccessMethodType.EXTERNAL]: 0,
+          [ServiceAccessMethodType.DEFAULT]: 1,
+        }
+        const aType = this.accessMethodTypeAsEnum(a.type);
+        const bType = this.accessMethodTypeAsEnum(b.type);
+        return order[aType] - order[bType];
       });
       this.internalAccessMethods = this.accessMethods.filter(s => this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.INTERNAL);
       this.publicAccessMethods = this.accessMethods.filter(s => this.accessMethodTypeAsEnum(s.type) === ServiceAccessMethodType.PUBLIC);

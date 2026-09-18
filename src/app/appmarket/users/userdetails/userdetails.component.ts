@@ -30,7 +30,10 @@ export class UserDetailsComponent extends BaseComponent implements OnInit {
             if (params['id'] !== undefined) {
                 this.userId = +params['id'];
                 this.userService.getOne(this.userId).subscribe(
-                    (user) => this.user = user,
+                    (user) =>{
+                        user.roles.sort((a,b) => a.domainName.localeCompare(b.domainName));
+                        this.user = user
+                    },
                     err => {
                         console.error(err);
                         if (err.statusCode && (err.statusCode === 404 || err.statusCode === 401 || err.statusCode === 403)) {

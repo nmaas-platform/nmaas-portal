@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, ViewChild} from '@angular/core';
 import {ModalComponent} from '../modal';
 import {Mail} from '../../model/mail';
-import {ReCaptchaV3Service} from 'ng-recaptcha';
+import {ReCaptchaV3Service} from '../../service/recaptcha-v3.service';
 import {NotificationService} from '../../service/notification.service';
 import {ContactFormService} from '../../service/contact-form.service';
 import {AccessModifier, ContactFormType, parseAccessModifier} from '../../model/contact-form-type';

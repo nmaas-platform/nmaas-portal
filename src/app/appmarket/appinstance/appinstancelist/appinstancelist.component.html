@@ -10,7 +10,11 @@
           <p-inputicon class="pi pi-search" style="font-size: 13px;"></p-inputicon>
         </p-iconfield>
       </div>
-      <div class="sm:col-12 md:col-12 lg:col-6 xl:col-8 wrap " style="display:flex;">
+      <div class="sm:col-12 md:col-12 lg:col-4 xl:col-3 ">
+          <p-select [options]="clusters" [(ngModel)]="selectedCluster" showClear="true" (onChange)="onClusterChange()"
+                    placeholder="{{ 'APP_INSTANCES.REMOTE_CLUSTER' | translate}}" class="w-full" />
+      </div>
+      <div class="sm:col-12 md:col-12 lg:col-3 xl:col-5 wrap " style="display:flex;">
         <div class="" style="display: flex; padding:10px 15px 10px 0">
           <p-checkbox id="show_my" inputId="show_my" binary="true"
             [(ngModel)]="isOnlyMyVisible"
@@ -133,7 +137,7 @@
       style="height: calc(100vh - 250px); overflow: auto;">
       @if (selectedViewType === 'cards') {
         <div class="grid col-12">
-          @for (appInstance of allAppDeployedInstances | searchAppInstance: searchValue; track trackById) {
+          @for (appInstance of allAppDeployedInstances | searchAppInstance: searchValue; track appInstance.id) {
             <div
               class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
               <div class="background-section instance-card"
@@ -152,6 +156,14 @@
                   </div>
                   <div style="display: flex; flex-direction:column; gap:20px">
                     <p>{{ appInstance?.name }}</p>
+                      @if (getStateAsEnum(appInstance.state) === AppInstanceState.RUNNING) {
+                          <p>
+                              <i class="pi pi-link"></i>
+                              <a href="" style="text-decoration:none" (click)="openAccess(appInstance); $event.preventDefault(); $event.stopPropagation()">
+                                  {{ 'APP_INSTANCES.ACCESS' | translate }}
+                              </a>
+                          </p>
+                      }
                       <p><i class="pi pi-map-marker"></i> {{ appInstance?.remoteClusterName }}</p>
                   </div>
                   <div style="display: flex; flex-direction: column; align-items: center; gap:10px">
@@ -167,7 +179,7 @@
                           <img alt="App logo" src="assets/images/app-logo-example.png" width="70px"/>
                         </div>
                     }
-                      <p style="text-align: center">{{ appInstance?.applicationName }}</p>
+                      <p style="text-align: center; max-width: 80px; word-break: break-word;">{{ appInstance?.applicationName }}</p>
                   </div>
               </div>
                   @if (getStateAsEnum(appInstance?.state) == AppInstanceState.FAILURE ||
@@ -218,7 +230,7 @@
           }
           @if (isUndeployedVisible && selectedViewType === 'cards') {
             <div class="grid col-12">
-              @for (appInstance of allAppUndeployedInstances | searchAppInstance: searchValue; track trackById) {
+              @for (appInstance of allAppUndeployedInstances | searchAppInstance: searchValue; track appInstance.id) {
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3"
                   >
                   <div class="background-section instance-card"
@@ -347,6 +359,7 @@
           </div>
         }
       </div>
-
-
+<app-access-methods-modal
+        [accessMethods]="selectedAccessMethods">
+</app-access-methods-modal>
 

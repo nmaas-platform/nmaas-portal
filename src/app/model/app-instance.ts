@@ -50,4 +50,5 @@ export class AppInstance {
   public members: User[] = []
   public upgradeInfo: AppInstanceUpgradeInfo = undefined;
   public remoteClusterId?: number = undefined;
+  public externalAccessEnabled?: boolean = false;
 }

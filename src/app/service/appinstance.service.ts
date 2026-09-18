@@ -34,9 +34,13 @@ export class AppInstanceService extends GenericDataService {
         super(http, appConfig);
     }
 
-    public getSortedAppInstances(domainId: number, criteria: CustomerSearchCriteria): Observable<AppInstance[]> {
-        const options = {params: new HttpParams().set('status', criteria.status)}
-        return this.http.get<AppInstance[]>(this.getUrl() + 'domain/' + domainId, options).pipe(
+    public getSortedAppInstances(domainId: number, criteria: CustomerSearchCriteria, clusterId?: number): Observable<AppInstance[]> {
+        let params = new HttpParams().set('status', criteria.status)
+
+        if (clusterId !== null && clusterId !== undefined) {
+            params = params.set('remoteClusterId', clusterId);
+        }
+        return this.http.get<AppInstance[]>(this.getUrl() + 'domain/' + domainId, {params}).pipe(
             map(
                 (data) => appInstanceSort(
                     data,
@@ -47,13 +51,15 @@ export class AppInstanceService extends GenericDataService {
         )
     }
 
-    public getSortedMyAppInstances(domainId: number, criteria?: CustomerSearchCriteria): Observable<AppInstance[]> {
-        const options = {
-            params: new HttpParams()
+    public getSortedMyAppInstances(domainId: number, criteria?: CustomerSearchCriteria, clusterId?: number): Observable<AppInstance[]> {
+        let params= new HttpParams()
                 .set('sort', criteria.sortColumn + ',' + criteria.sortDirection)
                 .set('status', criteria.status)
+
+        if(clusterId !== null && clusterId !== undefined) {
+            params = params.set('remoteClusterId', clusterId);
         }
-        return this.http.get<AppInstance[]>(this.getUrl() + 'domain/' + domainId + '/my', options).pipe(
+        return this.http.get<AppInstance[]>(this.getUrl() + 'domain/' + domainId + '/my', {params}).pipe(
             map(
                 (data) => appInstanceSort(
                     data,
@@ -74,6 +80,9 @@ export class AppInstanceService extends GenericDataService {
         if (criteria.search !== null && criteria.search !== undefined) {
             params = params.set('search', criteria.search);
         }
+        if(criteria.cluster !== null && criteria.cluster !== undefined) {
+            params = params.set('remoteClusterId', criteria.cluster);
+        }
         const options = {params};
 
         return this.http.get<Page<AppInstance>>(this.getUrl() + 'domain/' + domainId, options)
@@ -88,6 +97,9 @@ export class AppInstanceService extends GenericDataService {
 
         if (criteria.search !== null && criteria.search !== undefined) {
             params = params.set('search', criteria.search);
+        }
+        if(criteria.cluster !== null && criteria.cluster !== undefined) {
+            params = params.set('cluster', criteria.cluster);
         }
         const options = {params};
 
@@ -218,6 +230,7 @@ export class CustomPageCriteria {
     sortDirection: string;
     status: string;
     search: string;
+    cluster: number;
 
     constructor(pageNumber: number,
                 pageSize: number,

@@ -1,13 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {AppInstance, AppInstanceState} from '../../../model';
 import {AppImagesService, AppInstanceService, CustomerSearchCriteria, CustomPageCriteria, DomainService} from '../../../service';
 import {AuthService} from '../../../auth/auth.service';
 import {UserDataService} from '../../../service/userdata.service';
-import {map, Observable} from 'rxjs';
+import {BehaviorSubject, map, Observable} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 import {SessionService} from '../../../service/session.service';
 import {ClusterManagerService} from '../../../service/cluster-manager.service';
+import {AccessMethodsModalComponent} from '../modals/access-methods-modal/access-methods-modal.component';
+import {AppInstanceExtended} from '../../../model/app-instance-extended';
 
 export enum AppInstanceListSelection {
     ALL, MY,
@@ -20,6 +22,16 @@ export enum AppInstanceListSelection {
     standalone: false
 })
 export class AppInstanceListComponent implements OnInit {
+
+    @ViewChild(AccessMethodsModalComponent)
+    public accessMethodsModal: AccessMethodsModalComponent;
+
+    private readonly deployParametersSubject =
+        new BehaviorSubject<Map<string, string>>(new Map());
+
+    public deployParameters$ = this.deployParametersSubject.asObservable();
+
+    public selectedAccessMethods = [];
 
     appDeployedInstances: AppInstance[] = [];
     appUndeployedInstances: AppInstance[] = [];
@@ -52,6 +64,8 @@ export class AppInstanceListComponent implements OnInit {
     public selectedViewType = 'cards';
     public selectedListRange: AppInstanceListSelection = AppInstanceListSelection.ALL;
     private intervalId;
+    public selectedCluster;
+    public clusters;
 
 
     public searchValue = '';
@@ -73,6 +87,10 @@ export class AppInstanceListComponent implements OnInit {
 
     ngOnInit() {
         this.clusterManagerService.getClustersBase().subscribe(c => {
+            this.clusters = [...c.map(cluster => ({
+                label: cluster.name,
+                value: cluster.id
+            }))]
             c.forEach(cluster => this.clusterMap.set(cluster.id, cluster.name));
         })
         this.userDataService.selectedDomainId.subscribe(domainId => {
@@ -83,7 +101,9 @@ export class AppInstanceListComponent implements OnInit {
             }
             this.appInstanceService.getSortedAppInstances(
                 this.domainId,
-                new CustomerSearchCriteria('id', 'desc', 'deployed')).pipe(
+                new CustomerSearchCriteria('id', 'desc', 'deployed'),
+                this.selectedCluster
+            ).pipe(
                 map(instances =>
                     instances.map(ins => ({
                         ...ins,
@@ -135,6 +155,13 @@ export class AppInstanceListComponent implements OnInit {
             this.reloadUndeployedInstances();
         }
         console.error(this.allAppDeployedInstances)
+    }
+    public onClusterChange(): void {
+        this.reloadDeployedInstances();
+
+        if (this.isUndeployedVisible) {
+            this.reloadUndeployedInstances();
+        }
     }
 
     public onSelectedViewTypeChange() {
@@ -195,6 +222,9 @@ export class AppInstanceListComponent implements OnInit {
         if (this.searchValue !== '') {
             criteria.search = this.searchValue
         }
+        if (this.clusters !== null){
+            criteria.cluster = this.selectedCluster
+        }
         if (this.selectedListRange === AppInstanceListSelection.MY) {
             this.appInstanceService.getPagedMyAppInstances(this.domainId, criteria).subscribe(response => {
                 this.appDeployedInstances = response.content.map(ins => ({
@@ -221,6 +251,9 @@ export class AppInstanceListComponent implements OnInit {
         const criteria = new CustomPageCriteria(page, size, 'id', 'desc', `undeployed`)
         if (this.searchValue !== '') {
             criteria.search = this.searchValue
+        }
+        if(this.selectedCluster !== null) {
+            criteria.cluster = this.selectedCluster;
         }
         if (this.selectedListRange === AppInstanceListSelection.MY) {
             this.appInstanceService.getPagedMyAppInstances(this.domainId, criteria).subscribe(response => {
@@ -281,7 +314,9 @@ export class AppInstanceListComponent implements OnInit {
     private getSortedMyInstances(status: string) {
         return this.appInstanceService.getSortedMyAppInstances(
             this.domainId,
-            new CustomerSearchCriteria('id', 'desc', status)).pipe(
+            new CustomerSearchCriteria('id', 'desc', status),
+            this.selectedCluster
+        ).pipe(
             map(instances =>
                 instances.map(ins => ({
                     ...ins,
@@ -294,7 +329,9 @@ export class AppInstanceListComponent implements OnInit {
     private getSortedInstances(status: string) {
         return this.appInstanceService.getSortedAppInstances(
             this.domainId,
-            new CustomerSearchCriteria('id', 'desc', status)).pipe(
+            new CustomerSearchCriteria('id', 'desc', status),
+            this.selectedCluster
+        ).pipe(
             map(instances =>
                 instances.map(ins => ({
                     ...ins,
@@ -302,5 +339,31 @@ export class AppInstanceListComponent implements OnInit {
                 }))
             )
         );
+    }
+    public validateURL(url: string): string {
+        if (url == null) {
+            return '';
+        }
+        if (url.startsWith('http://')) {
+            return url.replace('http://', 'https://');
+        }
+        if (url.startsWith('https://')) {
+            return url
+        }
+        return 'https://' + url;
+    }
+    public openAccess(appInstance: AppInstance): void {
+        this.appInstanceService.getAppInstance(appInstance.id).subscribe(fullInstance => {
+
+            this.selectedAccessMethods = fullInstance.serviceAccessMethods ?? [];
+
+            if (this.selectedAccessMethods.length === 1) {
+                const access = this.selectedAccessMethods[0];
+
+                window.open(this.validateURL(access.url), '_blank');
+            } else {
+                this.accessMethodsModal.show();
+            }
+        });
     }
 }

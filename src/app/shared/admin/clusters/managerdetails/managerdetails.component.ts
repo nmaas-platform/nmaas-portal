@@ -52,18 +52,28 @@ export class ClusterManagerDetailsComponent extends BaseComponent implements OnI
      
     // })
     // this.domainService.getAllBase().subscribe(result => this.domains = result);
-
+      this.mode = this.getMode(this.route);
     this.route.params.subscribe(params => {
         this.cluterId = +params['id'];
-
-        this.clusterService.getClusterDetails(this.cluterId).subscribe(result => {
-          console.log(result);
-          this.cluster = result;
-          if(this.cluster.domainNames !== undefined && this.cluster.domainNames !== null && this.cluster.domainNames.length > 0) {
-            console.log("Domain names: ", this.cluster.domainNames);
-            this.selectedDomain = this.cluster.domainNames[0];
-          }
-        } )
+        if(this.mode == 2) {
+            this.clusterService.getClusterDetailsComplete(this.cluterId).subscribe(result => {
+                console.log(result);
+                this.cluster = result;
+                if(this.cluster.domainNames !== undefined && this.cluster.domainNames !== null && this.cluster.domainNames.length > 0) {
+                    console.log("Domain names: ", this.cluster.domainNames);
+                    this.selectedDomain = this.cluster.domainNames[0];
+                }
+            } )
+        } else {
+            this.clusterService.getClusterDetails(this.cluterId).subscribe(result => {
+                console.log(result);
+                this.cluster = result;
+                if(this.cluster.domainNames !== undefined && this.cluster.domainNames !== null && this.cluster.domainNames.length > 0) {
+                    console.log("Domain names: ", this.cluster.domainNames);
+                    this.selectedDomain = this.cluster.domainNames[0];
+                }
+            } )
+        }
     })
   }
 

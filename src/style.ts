@@ -128,7 +128,8 @@ export const MyPreset = definePreset(Nora, {
         inputtext: {
             root: {
                 background: '{surface.300}',
-                disabledColor: '{text.0}'
+                disabledColor: '{text.0}',
+                disabledBackground:'transparent'
             }
         },
         textarea: {
