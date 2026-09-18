@@ -72,7 +72,7 @@
     "protractor": "~7.0.0",
     "puppeteer": "^25.3.0",
     "semver": "^7.7.4",
-    "sonarqube-scanner": "^3.4.0",
+    "sonarqube-scanner": "^5.0.0",
     "ts-node": "^10.9.2",
     "typescript": "5.9.3",
     "webpack": "^5.105.0"
