@@ -99,23 +99,14 @@ export class AppInstanceListComponent implements OnInit {
                 domainId == null) {
                 this.selectedListRange = AppInstanceListSelection.ALL;
             }
-            this.appInstanceService.getSortedAppInstances(
-                this.domainId,
-                new CustomerSearchCriteria('id', 'desc', 'deployed'),
-                this.selectedCluster
-            ).pipe(
-                map(instances =>
-                    instances.map(ins => ({
-                        ...ins,
-                        remoteClusterName: this.clusterMap.get(ins.remoteClusterId) || 'Central'
-                    }))
-                )
-            ).subscribe(ins => {
-                this.allAppDeployedInstances = ins;
-            });
             this.domainId = domainId
-            this.reloadDeployedInstances()
-            this.reloadUndeployedInstances()
+            if(domainId != 0){
+                this.reloadDeployedInstances()
+            }
+            if(domainId !=0 && this.isUndeployedVisible){
+                this.reloadUndeployedInstances()
+            }
+
         });
 
         this.sessionService.registerCulture(this.translateService.currentLang);
@@ -185,7 +176,6 @@ export class AppInstanceListComponent implements OnInit {
 
     public onUndeployVisibleChange() {
         if (this.isUndeployedVisible) {
-            this.reloadUndeployedInstances()
         }
 
     }
