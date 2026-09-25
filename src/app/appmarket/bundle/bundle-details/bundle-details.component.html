@@ -172,18 +172,18 @@
 
 
 <nmaas-modal >
-    <div class="nmaas-modal-header">{{ 'DOMAINS.LIST.GROUP' | translate }}</div>
+    <div class="nmaas-modal-header">{{ 'BUNDLES.DETAILS.APPLICATION.TITLE' | translate }}</div>
     <div class="nmaas-modal-body" style="height: 300px">
         <div style="height: 100px">
-            <p>{{ 'DOMAINS.LIST.ADD_INFO' | translate }}</p>
+            <p>{{ 'BUNDLES.DETAILS.APPLICATION.ADD_INFO' | translate }}</p>
             <p-multiSelect [panelStyle]="{minWidth:'25em'}" [(ngModel)]="this.bundle.apps" [options]="apps"
                            ngDefaultControl name="domains" optionLabel="name" dataKey="id"></p-multiSelect>
         </div>
         <table class="table table-hover table-condensed" aria-describedby="Domains in Group table">
             <thead>
             <tr>
-                <th scope="col">{{ 'DOMAINS.LIST.DOMAIN_NAME' | translate }}</th>
-                <th scope="col">{{ 'DOMAINS.LIST.DOMAIN_CODE_NAME' | translate }}</th>
+                <th scope="col">{{ 'BUNDLES.DETAILS.APPLICATION.ID' | translate }}</th>
+                <th scope="col">{{ 'BUNDLES.DETAILS.APPLICATION.NAME' | translate }}</th>
             </tr>
                 @for (app of this.bundle.apps; track app; let i = $index) {
                     <tr class="table-row">
@@ -196,7 +196,7 @@
     </div>
     <div class="nmaas-modal-footer">
         <button type="button" class="btn btn-primary" (click)="modal.hide()"
-                [disabled]="false">{{ 'DOMAINS.LIST.ADD' | translate }}
+                [disabled]="false">{{ 'BUNDLES.DETAILS.APPLICATION.ADD' | translate }}
         </button>
     </div>
 </nmaas-modal>
