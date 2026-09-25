@@ -172,9 +172,18 @@
                                     <i class="pi pi-th-large" style="margin-right:10px; font-size: 18px"
                                        title="Catalog"></i>
                                     @if (!isCollapsed) {
-                                        <span>
-                      {{ 'NAVBAR.CATALOG' | translate }}
-                    </span>
+                                        <span>{{ 'NAVBAR.CATALOG' | translate }}</span>
+                                    }
+                                </a>
+                            </li>
+                            <li *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_TOOL_MANAGER']"
+                                [routerLinkActiveOptions]="{exact:true}" [routerLinkActive]="['active']"
+                                [ngClass]="{'collapsed': isCollapsed}">
+                                <a style="display: flex; align-items: center;" [routerLink]="['/admin/apps/bundles']">
+                                    <i class="pi pi-th-large" style="margin-right:10px; font-size: 18px"
+                                       title="Bundles"></i>
+                                    @if (!isCollapsed) {
+                                        <span>{{ 'NAVBAR.BUNDLES.TITLE' | translate }}</span>
                                     }
                                 </a>
                             </li>
@@ -185,9 +194,7 @@
                                     <i class="pi pi-box" style="margin-right:10px; font-size: 18px"
                                        title="{{ 'BULK.APP.HEADER' | translate }}"></i>
                                     @if (!isCollapsed) {
-                                        <span>
-                      {{ 'BULK.APP.HEADER' | translate }}
-                    </span>
+                                        <span>{{ 'BULK.APP.HEADER' | translate }}</span>
                                     }
                                 </a>
                             </li>
