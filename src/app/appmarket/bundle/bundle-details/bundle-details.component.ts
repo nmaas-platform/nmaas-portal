@@ -19,7 +19,7 @@ import {ToastContainerComponent, ToastMode} from '../../../shared/toast-containe
 export class BundleDetailsComponent extends BaseComponent implements OnInit {
 
     @ViewChild(ModalComponent, {static: true})
-    public readonly modal: ModalComponent;
+    public modal: ModalComponent;
 
     private bundleId: number;
     readonly languages = ['en', 'pl', 'de', 'fr'];
