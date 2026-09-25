@@ -8,6 +8,7 @@ import {BundleBasic} from '../../../model/bundle-basic';
 import {ComponentMode, ModalComponent} from '../../../shared';
 import {AppsService} from '../../../service';
 import {ApplicationBase} from '../../../model/application-base';
+import {ToastContainerComponent, ToastMode} from '../../../shared/toast-container/toast-container.component';
 
 @Component({
     selector: 'app-bundle-details',
@@ -30,7 +31,8 @@ export class BundleDetailsComponent extends BaseComponent implements OnInit {
     constructor(private readonly bundleService: BundleService,
                 private readonly router: Router,
                 private readonly route: ActivatedRoute,
-                private readonly appService: AppsService
+                private readonly appService: AppsService,
+                private readonly toast: ToastContainerComponent
     ) {
         super()
     }
@@ -46,6 +48,7 @@ export class BundleDetailsComponent extends BaseComponent implements OnInit {
             case ComponentMode.CREATE:
                 this.getAppBase();
                 this.bundle = new Bundle();
+                this.bundle.apps = [];
                 break;
             case ComponentMode.VIEW:
                 this.getBundle();
@@ -93,15 +96,25 @@ export class BundleDetailsComponent extends BaseComponent implements OnInit {
     }
 
     private updateBundle() {
-        this.bundleService.update(this.toBundleBasic(this.bundle), this.bundleId).subscribe();
+        this.bundleService.update(this.toBundleBasic(this.bundle), this.bundleId).subscribe({
+            next: () => {
+                this.router.navigate(['../view/', this.bundleId], {relativeTo: this.route});
+            },
+            error: () => {
+                this.toast.show('Error updating bundle', ToastMode.DANGER, 'TOAST.ERROR_HEADER');
+            }
+        });
     }
 
     private createBundle() {
         this.bundleService.create(this.toBundleBasic(this.bundle)).subscribe({
             next: (data) => {
                 this.bundleId = data.id;
+                this.mode = ComponentMode.EDIT;
                 this.router.navigate(['../view/', this.bundleId], {relativeTo: this.route});
-
+            },
+            error: () => {
+                this.toast.show('Error creating bundle', ToastMode.DANGER, 'TOAST.ERROR_HEADER');
             }
         });
     }
