@@ -1,0 +1,202 @@
+<div style="color: var(--p-text-0)">
+    <h4 class="header">{{ 'BUNDLES.DETAILS.TITLE' | translate }}</h4>
+    <form (submit)="submit()" class="form-horizontal" #bundleForm="ngForm">
+        <div class="background-section">
+
+            <!--Bundle name-->
+            <div class="grid col-12">
+                <label for="name" class="col-2 control-label">{{ 'BUNDLES.DETAILS.NAME' | translate }}</label>
+                <div class="col-10">
+                    <input pInputText
+                           [disabled]="isInMode(ComponentMode.VIEW)"
+                           type="text"
+                           class="form-control"
+                           id="name"
+                           name="name"
+                           [(ngModel)]="bundle.name" #name="ngModel" required/>
+                </div>
+            </div>
+
+            <!--Bundle codename-->
+            <div class="grid col-12">
+                <label for="codename" class="col-2 control-label">
+                    {{ 'BUNDLES.DETAILS.CODENAME' | translate }}
+                </label>
+                <div class="col-10">
+                    <input pInputText
+                           [disabled]="isInMode(ComponentMode.VIEW)"
+                           type="text"
+                           class="form-control"
+                           id="codename"
+                           name="codename"
+                           [(ngModel)]="bundle.codeName" #codename="ngModel" required/>
+                </div>
+            </div>
+
+            <!--Bundle ID-->
+            @if (!isInMode(ComponentMode.CREATE)) {
+                <div class="grid col-12">
+                    <label for="id" class="col-2 control-label">
+                        {{ 'BUNDLES.DETAILS.ID' | translate }}
+                    </label>
+                    <div class="col-10">
+                        <input pInputText
+                               [disabled]=true
+                               type="text"
+                               class="form-control"
+                               id="id"
+                               name="id"
+                               [(ngModel)]="bundle.id" #id="ngModel" required/>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="background-section">
+            <h4 style="font-size:15px; font-weight: bold">{{ 'BUNDLES.DETAILS.DESCRIPTIONS' | translate }}</h4>
+
+            <p-tabs value="en">
+                <p-tablist>
+                    @for (lang of languages; track lang) {
+                        <p-tab [value]="lang" [class.missing-description]="!getDescription(lang)">
+                            {{ lang | uppercase }}
+                        </p-tab>
+                    }
+                </p-tablist>
+                <p-tabpanels style="background: none">
+                    @for (lang of languages; track lang) {
+                        <p-tabpanel [value]="lang">
+                            @let desc = getDescription(lang);
+                            @if (desc) {
+                                <div class="grid col-12">
+                                    <label [for]="'descriptionBrief_' + lang" class="col-2 control-label">
+                                        {{ 'BUNDLES.DETAILS.DESCRIPTION.BRIEF' | translate }}
+                                    </label>
+                                    <div class="col-10">
+                                        <input pInputText
+                                               type="text"
+                                               class="form-control"
+                                               [id]="'descriptionBrief_' + lang"
+                                               [name]="'descriptionBrief_' + lang"
+                                               [(ngModel)]="desc.briefDescription"
+                                               [disabled]="isInMode(ComponentMode.VIEW)"
+                                               required/>
+                                    </div>
+                                </div>
+                                <div class="grid col-12">
+                                    <label [for]="'descriptionFull_' + lang" class="col-2 control-label">
+                                        {{ 'BUNDLES.DETAILS.DESCRIPTION.FULL' | translate }}
+                                    </label>
+                                    <div class="col-10">
+                            <textarea pTextarea
+                                      class="form-control"
+                                      rows="5"
+                                      [id]="'descriptionFull_' + lang"
+                                      [name]="'descriptionFull_' + lang"
+                                      [(ngModel)]="desc.fullDescription"
+                                      [disabled]="isInMode(ComponentMode.VIEW)"
+                                      required></textarea>
+                                    </div>
+                                </div>
+                                @if (lang !== 'en' && !isInMode(ComponentMode.VIEW)) {
+                                    <p-button [label]="'BUNDLES.DETAILS.DESCRIPTION.REMOVE' | translate"
+                                              icon="pi pi-trash"
+                                              severity="danger"
+                                              [text]="true"
+                                              (onClick)="removeDescription(lang)"/>
+                                }
+                            } @else {
+                                <div class="flex flex-column align-items-center gap-3 p-4">
+                                    <span>{{ 'BUNDLES.DETAILS.DESCRIPTION.MISSING' | translate }}</span>
+                                    @if (!isInMode(ComponentMode.VIEW)) {
+                                        <p-button [label]="'BUNDLES.DETAILS.DESCRIPTION.ADD' | translate"
+                                                  icon="pi pi-plus"
+                                                  (onClick)="addDescription(lang)"/>
+                                    }
+                                </div>
+                            }
+                        </p-tabpanel>
+                    }
+                </p-tabpanels>
+            </p-tabs>
+        </div>
+
+        <div class="background-section">
+            <h4 style="font-size:15px; font-weight: bold">{{ 'BUNDLES.DETAILS.APPLICATIONS' | translate }}</h4>
+            @if (!isInMode(ComponentMode.VIEW)) {
+                <div style="display: flex; justify-content: end">
+                    <button type="button" class="btn btn-text"
+                            (click)="showModal()">{{ 'BUNDLES.DETAILS.APPLICATION.ADD' | translate }}
+                    </button>
+                </div>
+            }
+            <div class="panel-body">
+                <table class="table table-hover table-condensed"
+                       aria-describedby="Domains details table">
+                    <thead>
+                    <tr>
+
+                        <th scope="col">{{ 'BUNDLES.DETAILS.APPLICATION.ICON' | translate }}</th>
+                        <th scope="col">{{ 'BUNDLES.DETAILS.APPLICATION.NAME' | translate }}</th>
+                        <th scope="col">{{ 'BUNDLES.DETAILS.APPLICATION.OWNER' | translate }}</th>
+                        <th scope="col">&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        @for (app of bundle.apps; track app) {
+                            <tr>
+                                <td>{{ app.id }}</td>
+                                <td>{{ app.name }}</td>
+                                <td>{{ app.owner }}</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="flex justify-content-end">
+            @if (isInMode(ComponentMode.EDIT)) {
+                <button type="submit" class="btn btn-primary"
+                >{{ 'BUNDLES.DETAILS.EDIT_BUTTON' | translate }}
+                </button>
+            }
+            @if (isInMode(ComponentMode.CREATE)) {
+                <button type="submit" class="btn btn-primary"
+                >{{ 'BUNDLES.DETAILS.CREATE_BUTTON' | translate }}
+                </button>
+            }
+        </div>
+    </form>
+</div>
+
+
+
+<nmaas-modal >
+    <div class="nmaas-modal-header">{{ 'DOMAINS.LIST.GROUP' | translate }}</div>
+    <div class="nmaas-modal-body" style="height: 300px">
+        <div style="height: 100px">
+            <p>{{ 'DOMAINS.LIST.ADD_INFO' | translate }}</p>
+            <p-multiSelect [panelStyle]="{minWidth:'25em'}" [(ngModel)]="this.bundle.apps" [options]="apps"
+                           ngDefaultControl name="domains" optionLabel="name" dataKey="id"></p-multiSelect>
+        </div>
+        <table class="table table-hover table-condensed" aria-describedby="Domains in Group table">
+            <thead>
+            <tr>
+                <th scope="col">{{ 'DOMAINS.LIST.DOMAIN_NAME' | translate }}</th>
+                <th scope="col">{{ 'DOMAINS.LIST.DOMAIN_CODE_NAME' | translate }}</th>
+            </tr>
+                @for (app of this.bundle.apps; track app; let i = $index) {
+                    <tr class="table-row">
+                        <td>{{ app.id }}</td>
+                        <td>{{ app.name }}</td>
+                    </tr>
+                }
+            </thead>
+        </table>
+    </div>
+    <div class="nmaas-modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.hide()"
+                [disabled]="false">{{ 'DOMAINS.LIST.ADD' | translate }}
+        </button>
+    </div>
+</nmaas-modal>
