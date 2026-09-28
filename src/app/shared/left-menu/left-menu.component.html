@@ -227,17 +227,6 @@
                         </a>
                     </li>
                 }
-                <li *roles="['ROLE_SYSTEM_ADMIN']" [routerLinkActiveOptions]="{exact:true}"
-                    [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
-                    <a style="display: flex; align-items: center;" [routerLink]="['/admin/configuration']">
-                        <i class="pi pi-cog" style="margin-right:10px; font-size: 18px" title="Settings"></i>
-                        @if (!isCollapsed) {
-                            <span>
-                {{ 'NAVBAR.SETTINGS' | translate }}
-              </span>
-                        }
-                    </a>
-                </li>
                 <p-accordion value="2">
                     <p-accordion-panel value="3" *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_DOMAIN_ADMIN']">
                         <p-accordion-header>
@@ -289,6 +278,17 @@
                         @if (!isCollapsed) {
                             <span>
                 {{ 'CLUSTERS.CONFIGURATION' | translate }}
+              </span>
+                        }
+                    </a>
+                </li>
+                <li *roles="['ROLE_SYSTEM_ADMIN']" [routerLinkActiveOptions]="{exact:true}"
+                    [routerLinkActive]="['active']" [ngClass]="{'collapsed': isCollapsed}">
+                    <a style="display: flex; align-items: center;" [routerLink]="['/admin/configuration']">
+                        <i class="pi pi-cog" style="margin-right:10px; font-size: 18px" title="Settings"></i>
+                        @if (!isCollapsed) {
+                            <span>
+                {{ 'NAVBAR.SETTINGS' | translate }}
               </span>
                         }
                     </a>
