@@ -48,6 +48,8 @@ export class AppListComponent implements OnInit, OnChanges {
 
     public domainObject: Domain = undefined;
 
+    protected bundlesApps: Map<number, boolean>
+
 
 
     constructor(private appSubscriptionService: AppSubscriptionsService,
