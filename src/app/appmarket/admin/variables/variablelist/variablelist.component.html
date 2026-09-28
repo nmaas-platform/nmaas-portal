@@ -30,6 +30,10 @@
                 <th pSortableColumn="scope" id="scope"> {{ 'VARIABLES.SCOPE' | translate }}
                     <p-sortIcon field="scope"></p-sortIcon>
                 </th>
+                @if (selectedScope === 'DOMAIN') {
+                    <th id="domain"> {{ 'VARIABLES.DOMAIN' | translate }}
+                    </th>
+                }
                 <th></th>
             </tr>
         </ng-template>
@@ -45,6 +49,9 @@
                 </td>
                 <td (click)="openEditModal(variable)">{{ variable.type }}</td>
                 <td (click)="openEditModal(variable)">{{ variable.scope }}</td>
+                @if (selectedScope === 'DOMAIN') {
+                    <td (click)="openEditModal(variable)">{{ getDomainName(variable.domainId) }}</td>
+                }
                 <td class="text-right">
                     <button type="button"
                             class="dropdown-button"
@@ -96,26 +103,18 @@
                 </div>
 
                 <div class="mt-4">
-                    <label for="scope">{{ 'VARIABLES.SCOPE' | translate }}</label>
-                    <p-select inputId="scope" [options]="scopes" optionLabel="name" optionValue="value"
-                              [(ngModel)]="addedVariable.scope" name="scope"
-                              [disabled]="isEditMode" style="width: 100%"></p-select>
+                    <label>{{ 'VARIABLES.SCOPE' | translate }}</label>
+                    <div style="padding: 10px 12px; background: var(--p-surface-200); border-radius: 6px;">
+                        {{ addedVariable.scope }}
+                    </div>
                 </div>
 
-                @if (addedVariable.scope === 'DOMAIN' && selectedDomain == domainGlobalId) {
+                @if (addedVariable.scope === 'DOMAIN') {
                     <div class="mt-4">
-                        <label for="domain">{{ 'VARIABLES.DOMAIN' | translate }}</label>
-                        <p-select inputId="domain" [options]="domains" optionLabel="name" optionValue="id"
-                                  [(ngModel)]="addedVariable.domainId" name="domainId"
-                                  style="width: 100%"></p-select>
-                    </div>
-                }
-                @if (addedVariable.scope === 'DOMAIN' && selectedDomain != domainGlobalId) {
-                    <div class="mt-4">
-                        <label for="domain">{{ 'VARIABLES.DOMAIN' | translate }}</label>
-                        <p-select inputId="domain" [options]="domains" optionLabel="name" optionValue="id"
-                                  [(ngModel)]="addedVariable.domainId" name="domainId" [disabled]="true"
-                                  style="width: 100%"></p-select>
+                        <label>{{ 'VARIABLES.DOMAIN' | translate }}</label>
+                        <div style="padding: 10px 12px; background: var(--p-surface-200); border-radius: 6px;">
+                            {{ getDomainName(selectedDomain) }}
+                        </div>
                     </div>
                 }
             </div>

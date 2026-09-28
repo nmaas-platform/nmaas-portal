@@ -78,12 +78,18 @@ export class VariableListComponent implements OnInit, OnDestroy {
             .pipe(debounceTime(300))
             .subscribe((domainId) => {
                 this.selectedDomain = domainId;
+                if (this.selectedDomain !== this.domainGlobalId) {
+                    this.selectedScope = VariableScope.DOMAIN;
+                }
                 this.loadVariables();
             });
     }
 
     public loadVariables() {
-        this.service.getAll(this.selectedScope, this.selectedScope === VariableScope.DOMAIN ? this.selectedDomain : undefined)
+        const domainId = this.selectedScope === VariableScope.DOMAIN && this.selectedDomain !== this.domainGlobalId
+            ? this.selectedDomain
+            : undefined;
+        this.service.getAll(this.selectedScope, domainId)
             .subscribe({
                 next: (variables) => this.variables = variables,
                 error: (error) => console.error('Error fetching variables:', error)
@@ -98,16 +104,16 @@ export class VariableListComponent implements OnInit, OnDestroy {
     public openModal() {
         this.isEditMode = false;
         this.addedVariable = new Variable();
-        this.addedVariable.scope = VariableScope.GLOBAL;
+        this.addedVariable.scope = this.selectedDomain === this.domainGlobalId
+            ? VariableScope.GLOBAL
+            : VariableScope.DOMAIN;
         this.addedVariable.type = VariableType.STANDARD;
         this.modal.show();
     }
 
     public closeModalAndSaveVariable() {
-        if (this.addedVariable.scope === VariableScope.DOMAIN && this.selectedDomain === this.domainGlobalId) {
-            this.addedVariable.domainId = Number(this.addedVariable.domainId);
-        } else if (this.addedVariable.scope === VariableScope.DOMAIN) {
-            this.addedVariable.domainId = this.selectedDomain;
+        if (this.addedVariable.scope === VariableScope.DOMAIN && this.selectedDomain !== this.domainGlobalId) {
+            this.addedVariable.domainId = Number(this.selectedDomain);
         } else {
             this.addedVariable.domainId = undefined;
         }
@@ -137,7 +143,9 @@ export class VariableListComponent implements OnInit, OnDestroy {
     public openEditModal(variable: Variable) {
         this.isEditMode = true;
         this.addedVariable = {...variable};
-        this.addedVariable.domainId = variable.domainId;
+        if (this.addedVariable.scope === VariableScope.DOMAIN) {
+            this.addedVariable.domainId = Number(variable.domainId);
+        }
         this.modal.show();
     }
 
@@ -162,6 +170,11 @@ export class VariableListComponent implements OnInit, OnDestroy {
         ];
 
         this.rowMenu.toggle(event);
+    }
+
+    public getDomainName(domainId: number): string {
+        const domain = this.domains.find(d => d.id === Number(domainId));
+        return domain ? domain.name : String(domainId);
     }
 
     public get filteredVariables(): Variable[] {
