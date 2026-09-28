@@ -11,3 +11,4 @@ export * from './password';
 export * from './rate';
 export * from './user';
 export * from './usersignup';
+export * from './variable';

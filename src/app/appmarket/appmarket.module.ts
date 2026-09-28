@@ -28,6 +28,7 @@ import { SortService } from '../service/sort.service';
 import { AppManagementModule } from './appmanagement/app-management.module';
 import { SessionService } from '../service/session.service';
 import { LanguageManagementModule } from './admin/languagemanagement/languagemanagement.module';
+import { VariablesModule } from './admin/variables/variables.module';
 import { ModalGuestUserComponent } from './modals/modal-guest-user/modal-guest-user.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { AppnavigatorComponent } from './bulkDeployment/appDeployment/appnavigator/appnavigator.component';
@@ -116,6 +117,7 @@ import { SelectModule } from 'primeng/select';
         ClustersModule,
         MonitorModule,
         ConfigurationModule,
+        VariablesModule,
         BrowserModule,
         TranslateModule,
         TooltipModule,

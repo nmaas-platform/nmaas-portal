@@ -1,0 +1,132 @@
+<h4 class="header">{{ 'VARIABLES.TITLE' | translate }}</h4>
+<div style="display: flex; align-items: center; margin-top:20px">
+    <div style="display:flex; align-items: center;">
+        <p-iconfield class="p-input-icon-right" style="margin-right:20px">
+            <input pInputText name="searchText" id="searchText" placeholder="Search" type="text" class="form-control"
+                   [(ngModel)]="searchValue">
+            <p-inputicon class="pi pi-search" style="font-size: 13px;"></p-inputicon>
+        </p-iconfield>
+        <p-select [options]="scopes" optionLabel="name" optionValue="value" [(ngModel)]="selectedScope"
+                  (ngModelChange)="onScopeChange($event)" style="width: 200px; margin-right:20px"
+                  placeholder="{{ 'VARIABLES.SCOPE' | translate }}"></p-select>
+        <div>
+            <button class="btn btn-primary" (click)="openModal()">{{ 'VARIABLES.NEW' | translate }}</button>
+        </div>
+    </div>
+</div>
+
+<div class="background-section">
+    <p-table [value]="filteredVariables">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="name" id="name"> {{ 'VARIABLES.NAME' | translate }}
+                    <p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th id="value"> {{ 'VARIABLES.VALUE' | translate }}
+                </th>
+                <th pSortableColumn="type" id="type"> {{ 'VARIABLES.TYPE' | translate }}
+                    <p-sortIcon field="type"></p-sortIcon>
+                </th>
+                <th pSortableColumn="scope" id="scope"> {{ 'VARIABLES.SCOPE' | translate }}
+                    <p-sortIcon field="scope"></p-sortIcon>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-variable>
+            <tr>
+                <td (click)="openEditModal(variable)">{{ variable.name }}</td>
+                <td (click)="openEditModal(variable)">
+                    @if (variable.type === 'SECRET') {
+                        ******
+                    } @else {
+                        {{ variable.value }}
+                    }
+                </td>
+                <td (click)="openEditModal(variable)">{{ variable.type }}</td>
+                <td (click)="openEditModal(variable)">{{ variable.scope }}</td>
+                <td class="text-right">
+                    <button type="button"
+                            class="dropdown-button"
+                            (click)="openRowMenu($event, variable)">
+                        <i class="pi pi-cog" style="font-size: 1.4rem; color: var(--p-text-0)"></i>
+                    </button>
+                    <p-menu #rowMenu [popup]="true" appendTo="body" [model]="rowMenuItems"></p-menu>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<nmaas-modal>
+    <div class="nmaas-modal-header">{{ (isEditMode ? 'VARIABLES.TITLE_EDIT' : 'VARIABLES.TITLE_NEW') | translate }}</div>
+    <div class="nmaas-modal-body">
+        <form (submit)="closeModalAndSaveVariable()" #variableForm="ngForm">
+            <div class="flex flex-column">
+                <div class="mt-4">
+                    <label for="name">{{ 'VARIABLES.NAME' | translate }}</label>
+                    <input pInputText id="name" type="text" class="form-control" [(ngModel)]="addedVariable.name"
+                           name="name" #name="ngModel" required
+                           [maxlength]="100"
+                           pattern="^[A-Za-z0-9_.-]+$">
+                    @if (name.invalid && (name.dirty || name.touched)) {
+                        <div style="margin-top: 5px" class="alert alert-danger">
+                            @if (name.errors?.['required']) {
+                                <div>{{ 'VARIABLES.NAME_REQUIRED' | translate }}</div>
+                            }
+                            @if (name.errors?.['pattern']) {
+                                <div>{{ 'VARIABLES.NAME_PATTERN' | translate }}</div>
+                            }
+                        </div>
+                    }
+                </div>
+
+                <div class="mt-4">
+                    <label for="value">{{ 'VARIABLES.VALUE' | translate }}</label>
+                    <input pInputText id="value" type="text" class="form-control" [(ngModel)]="addedVariable.value"
+                           name="value" #value="ngModel" [required]="!isEditMode || addedVariable.type !== 'SECRET'"
+                           [placeholder]="isEditMode && addedVariable.type === 'SECRET' ? ('VARIABLES.SECRET_PLACEHOLDER' | translate) : ''">
+                </div>
+
+                <div class="mt-4">
+                    <label for="type">{{ 'VARIABLES.TYPE' | translate }}</label>
+                    <p-select inputId="type" [options]="types" optionLabel="name" optionValue="value"
+                              [(ngModel)]="addedVariable.type" name="type"
+                              [disabled]="isEditMode" style="width: 100%"></p-select>
+                </div>
+
+                <div class="mt-4">
+                    <label for="scope">{{ 'VARIABLES.SCOPE' | translate }}</label>
+                    <p-select inputId="scope" [options]="scopes" optionLabel="name" optionValue="value"
+                              [(ngModel)]="addedVariable.scope" name="scope"
+                              [disabled]="isEditMode" style="width: 100%"></p-select>
+                </div>
+
+                @if (addedVariable.scope === 'DOMAIN' && selectedDomain == domainGlobalId) {
+                    <div class="mt-4">
+                        <label for="domain">{{ 'VARIABLES.DOMAIN' | translate }}</label>
+                        <p-select inputId="domain" [options]="domains" optionLabel="name" optionValue="id"
+                                  [(ngModel)]="addedVariable.domainId" name="domainId"
+                                  style="width: 100%"></p-select>
+                    </div>
+                }
+                @if (addedVariable.scope === 'DOMAIN' && selectedDomain != domainGlobalId) {
+                    <div class="mt-4">
+                        <label for="domain">{{ 'VARIABLES.DOMAIN' | translate }}</label>
+                        <p-select inputId="domain" [options]="domains" optionLabel="name" optionValue="id"
+                                  [(ngModel)]="addedVariable.domainId" name="domainId" [disabled]="true"
+                                  style="width: 100%"></p-select>
+                    </div>
+                }
+            </div>
+        </form>
+    </div>
+    <div class="nmaas-modal-footer">
+        <button type="button" class="btn btn-secondary"
+                (click)="modal.hide()">{{ 'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" [disabled]="!variableForm.form.valid"
+                (click)="closeModalAndSaveVariable()">{{ 'VARIABLES.SAVE' | translate }}
+        </button>
+    </div>
+</nmaas-modal>

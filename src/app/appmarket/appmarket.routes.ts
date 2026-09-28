@@ -13,6 +13,7 @@ import {ConfigurationRoutes} from './admin/configuration/configuration.routes';
 import {MonitorRoutes} from './admin/monitor/monitor.routes';
 import {AppManagementRoutes} from './appmanagement/app-management.routes';
 import {LanguageManagementRoutes} from './admin/languagemanagement/languagemanagement.routes';
+import {VariableRoutes} from './admin/variables/variable.routes';
 import { AdminLeftMenuComponent } from '../shared/admin-left-menu/admin-left-menu.component';
 import { AdminDashboardComponent } from '../shared/admin-dashboard/admin-dashboard.component';
 import {GroupAdminDashboardComponent} from '../shared/group-admin-dashboard/group-admin-dashboard.component';
@@ -53,6 +54,7 @@ export const AppMarketRoutes: Route[] = [
         ...UsersRoutes,
         ...ClustersRoutes,
         ...ConfigurationRoutes,
+        ...VariableRoutes,
         ...MonitorRoutes,
         ...AppManagementRoutes,
         ...LanguageManagementRoutes,
