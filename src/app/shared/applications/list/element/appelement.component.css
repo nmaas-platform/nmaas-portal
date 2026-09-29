@@ -1,10 +1,17 @@
 body{
 	color: var(--text-color)
 }
+.p-dialog{
+	height: 60vh;
+}
+.p-button, .circle-button{
+	border-color: #E5E7EB;
+	background: #D9D9D9;
+}
 
 .app-card{
 	color: var(--p-text-0);
-	min-height:250px;
+	min-height:330px;
 	background: var(--p-background-100);
 	border-radius: 10px;
 	margin:10px 0;

@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Bundle} from '../../../model/bundle';
 import {Page, PaginationSettings, PrimeNgLazyLoadEvent} from '../../../service/page';
 import {Subject} from 'rxjs';
@@ -9,6 +9,10 @@ import {AuthService} from '../../../auth/auth.service';
 import {Role} from '../../../model/userrole';
 import {BundleService} from '../../../service/bundle.service';
 import {BundleBasic} from '../../../model/bundle-basic';
+import {BundleDescription} from "../../../model/bundle-description";
+import {TranslateService} from "@ngx-translate/core";
+import {MonitorEntry} from "../../../model/monitorentry";
+import {Menu} from "primeng/menu";
 
 @Component({
     selector: 'app-bundle-list',
@@ -17,6 +21,10 @@ import {BundleBasic} from '../../../model/bundle-basic';
     standalone: false
 })
 export class BundleListComponent implements OnInit, OnDestroy {
+
+    @ViewChild('rowMenu') rowMenu!: Menu;
+    rowMenuItems: MenuItem[] = [];
+
     private readonly debounceTimeMs = 300;
 
     private readonly lazyLoadSubject = new Subject<PrimeNgLazyLoadEvent>();
@@ -25,10 +33,12 @@ export class BundleListComponent implements OnInit, OnDestroy {
 
     protected searchValue = '';
     protected bundles: BundleBasic[]
-    protected rowMenuItems: MenuItem[] = [];
+
+    public bundle: Bundle;
 
     constructor(private readonly bundleService: BundleService,
                 private readonly cdr: ChangeDetectorRef,
+                public translate: TranslateService,
                 private readonly authService: AuthService
     ) {
     }
@@ -102,9 +112,6 @@ export class BundleListComponent implements OnInit, OnDestroy {
         this.paginationSettings.totalElements = page.totalElements;
     }
 
-    openRowMenu(event: Event, domain: Domain) {
-    }
-
     protected onTableLazyLoad(event: PrimeNgLazyLoadEvent): void {
         this.lazyLoadSubject.next(event);
     }
@@ -122,6 +129,22 @@ export class BundleListComponent implements OnInit, OnDestroy {
           sortOrder: this.paginationSettings.sortOrder === 'asc' ? 1 : -1,
           filters: { searchValue: this.searchValue }
         });
+    }
+
+    getDescription(bundle: BundleBasic): BundleDescription | undefined {
+        return bundle.descriptions?.find(d => d.language === this.translate.currentLang);
+    }
+
+    openRowMenu(event: Event, bundle: Bundle) {
+
+        this.rowMenuItems = [
+            {
+                label:this.translate.instant( 'BUNDLES.EDIT'),
+                routerLink: ['edit', bundle.id]
+            }
+        ];
+
+        this.rowMenu.toggle(event);
     }
 
 }

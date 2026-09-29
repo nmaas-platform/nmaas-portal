@@ -45,7 +45,7 @@
                     <td [routerLink]="['view/', bundle.id]">{{ bundle?.codeName }}</td>
                     <td [routerLink]="['view/', bundle.id]">{{ bundle?.name }}</td>
                     <td [routerLink]="['view/', bundle.id]">{{bundle?.apps.length}}</td>
-                    <td [routerLink]="['view/', bundle.id]">Loerm ipsum</td>
+                    <td [routerLink]="['view/', bundle.id]">{{getDescription(bundle).briefDescription}}</td>
                     <td class="text-right">
                         <button type="button" *roles="['ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR', 'ROLE_GROUP_MANAGER']"
                                 class="dropdown-button"

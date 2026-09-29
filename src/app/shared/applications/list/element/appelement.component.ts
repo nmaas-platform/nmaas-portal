@@ -14,6 +14,7 @@ import {ApplicationBase} from '../../../../model/application-base';
 import {BundleService} from '../../../../service/bundle.service';
 import {ModalComponent} from '../../../modal';
 import {Bundle} from '../../../../model/bundle';
+import {BundleDescription} from "../../../../model/bundle-description";
 
 @Component({
     selector: 'nmaas-applist-element',
@@ -47,7 +48,7 @@ export class AppElementComponent implements OnInit, OnChanges {
     @Input()
     public showSubscribed: boolean;
 
-    protected isInBundle:boolean
+    public isInBundle:boolean
 
     protected bundles: Bundle[] = []
 
@@ -116,5 +117,10 @@ export class AppElementComponent implements OnInit, OnChanges {
     protected showBundlesModal():void{
         this.bundlesModal.show();
         // alert('show bundles modal');
+    }
+
+    getBundleDescription(): BundleDescription {
+        console.log(this.translate.currentLang, this.selectedBundle.descriptions?.find(d => d.language === this.translate.currentLang), "WWWWWWWWWWWWWWWWWWWWWWWWWWW");
+        return this.selectedBundle.descriptions?.find(d => d.language === this.translate.currentLang);
     }
 }
