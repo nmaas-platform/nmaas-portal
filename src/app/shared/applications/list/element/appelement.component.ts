@@ -11,6 +11,10 @@ import {TranslateService} from '@ngx-translate/core';
 import {AppDescription} from '../../../../model/app-description';
 import {Domain} from '../../../../model/domain';
 import {ApplicationBase} from '../../../../model/application-base';
+import {BundleService} from '../../../../service/bundle.service';
+import {ModalComponent} from '../../../modal';
+import {Bundle} from '../../../../model/bundle';
+import {BundleDescription} from "../../../../model/bundle-description";
 
 @Component({
     selector: 'nmaas-applist-element',
@@ -44,8 +48,17 @@ export class AppElementComponent implements OnInit, OnChanges {
     @Input()
     public showSubscribed: boolean;
 
+    public isInBundle:boolean
+
+    protected bundles: Bundle[] = []
+
+    protected selectedBundle: Bundle;
+
     @ViewChild(AppInstallModalComponent)
     public readonly modal: AppInstallModalComponent;
+
+    @ViewChild('bundleModal')
+    protected readonly bundlesModal: ModalComponent;
 
     public showAppInList = true;
 
@@ -53,16 +66,32 @@ export class AppElementComponent implements OnInit, OnChanges {
                 public appConfigService: AppConfigService,
                 public router: Router,
                 public authService: AuthService,
-                public translate: TranslateService) {
+                public translate: TranslateService,
+                private readonly bundleService: BundleService) {
     }
 
     ngOnInit() {
-        if (this.selected === undefined) {
-            this.selected = false;
-        }
+        this.selected ??= false;
         if (this.domain) {
             this.showAppInList = this.isApplicationEnabledInDomain();
         }
+        this.bundleService.isAppInBundle(this.app.id).subscribe((exists:boolean)=>{
+            this.isInBundle = exists;
+            console.log("Is in bundle",this.isInBundle);
+            if(exists) this.loadBundles();
+        })
+    }
+
+    private loadBundles(){
+        this.bundleService.getAllByApplicationRaw(this.app.id).subscribe((bundles:Bundle[])=>{
+            this.bundles = bundles;
+            this.selectedBundle = this.bundles[0];
+            console.log("Bundles",this.bundles);
+        })
+    }
+
+    protected selectBundle(bundle:Bundle){
+        this.selectedBundle = bundle;
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -84,5 +113,14 @@ export class AppElementComponent implements OnInit, OnChanges {
 
     public isApplicationEnabledInDomain(): boolean {
         return this.domain.applicationStatePerDomain.find(value => value.applicationBaseId === this.app.id).enabled || false
+    }
+    protected showBundlesModal():void{
+        this.bundlesModal.show();
+        // alert('show bundles modal');
+    }
+
+    getBundleDescription(): BundleDescription {
+        console.log(this.translate.currentLang, this.selectedBundle.descriptions?.find(d => d.language === this.translate.currentLang), "WWWWWWWWWWWWWWWWWWWWWWWWWWW");
+        return this.selectedBundle.descriptions?.find(d => d.language === this.translate.currentLang);
     }
 }
