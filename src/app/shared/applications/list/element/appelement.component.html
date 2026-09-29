@@ -46,7 +46,7 @@
         </div>
     </div>
 }
-<nmaas-modal #bundleModal>
+<nmaas-modal #bundleModal [width]="'70vw'">
     <div class="nmaas-modal-header">{{ 'DOMAINS.GROUP.ADD_MANAGERS' | translate }}</div>
 
     <div class="nmaas-modal-body" style="height: 300px">
@@ -54,25 +54,45 @@
 	                justify-content: center;">
             @for (bundle of bundles; track bundle.id) {
                 <div style="padding: 0 10px">
-                    <p-button [rounded]="true"
+                    <p-button class="circle-button"
+                              [rounded]="true"
                               [label]="bundle.id.toString()"
                               (onClick)="selectBundle(bundle)"
                               [pTooltip]="bundle.descriptions.at(0).briefDescription">
                     </p-button>
                     <h5> {{bundle.codeName}}</h5>
                 </div>
+
             }
         </div>
-        <div style="display: flex;
-	                justify-content: center;">
+        <div>
+            <p>Description</p>
+            <p> {{ getBundleDescription().briefDescription }}</p>
+        </div>
+        <div>
+            Application in {{selectedBundle.name}}
+        </div>
+        <div style="display: flex;">
 
-            @for (app of selectedBundle.apps; track app.id) {
-                <p>TEST</p>
+            @if (selectedBundle) {
+                @for (bundleApp of selectedBundle.apps; track bundleApp.id) {
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                        <div class="app-card clickable-tail" [routerLink]="['/apps', bundleApp.id]">
+                            <div class="element-container">
+                                <div class="image-container-outer">
+                                    <img class="center center-block image-container" alt="App logo"
+                                         [src]="appImagesService.getAppLogoUrl(bundleApp?.id) | secure"
+                                         onError="this.src='assets/images/app-logo-example.png';"/>
+                                </div>
+                                <div class="text-center description-container">
+                                    <h3 class="app-name">{{ bundleApp?.name }}</h3>
+                                    <div class="text-two-lines">{{ getDescription()?.briefDescription }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             }
-
-
         </div>
     </div>
-
-
 </nmaas-modal>
