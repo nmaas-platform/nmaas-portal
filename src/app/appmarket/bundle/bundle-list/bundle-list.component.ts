@@ -130,9 +130,17 @@ export class BundleListComponent implements OnInit, OnDestroy {
           filters: { searchValue: this.searchValue }
         });
     }
+    private getAvailableDescLanguages(bundle: BundleBasic){
+        return bundle.descriptions.map(d => d.language);
+    }
 
     getDescription(bundle: BundleBasic): BundleDescription | undefined {
-        return bundle.descriptions?.find(d => d.language === this.translate.currentLang);
+        // return bundle.descriptions?.find(d => d.language === this.translate.currentLang);
+        if(this.getAvailableDescLanguages(bundle).includes(this.translate.currentLang)){
+            return bundle.descriptions?.find(d => d.language === this.translate.currentLang);
+        }else{
+            return bundle.descriptions?.find(d => d.language === 'en');
+        }
     }
 
     openRowMenu(event: Event, bundle: Bundle) {

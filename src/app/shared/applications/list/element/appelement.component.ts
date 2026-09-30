@@ -119,8 +119,19 @@ export class AppElementComponent implements OnInit, OnChanges {
         // alert('show bundles modal');
     }
 
+    private getAvailableDescLanguages(){
+        return this.selectedBundle.descriptions.map(d => d.language);
+    }
+
     getBundleDescription(): BundleDescription {
-        console.log(this.translate.currentLang, this.selectedBundle.descriptions?.find(d => d.language === this.translate.currentLang), "WWWWWWWWWWWWWWWWWWWWWWWWWWW");
-        return this.selectedBundle.descriptions?.find(d => d.language === this.translate.currentLang);
+        // console.log(this.translate.currentLang, this.selectedBundle.descriptions?.find(d => d.language === this.translate.currentLang), "WWWWWWWWWWWWWWWWWWWWWWWWWWW");
+        if(this.selectedBundle !== undefined){
+            if(this.getAvailableDescLanguages().includes(this.translate.currentLang)){
+                return this.selectedBundle.descriptions.find(d => d.language === this.translate.currentLang);
+            }else{
+                return this.selectedBundle.descriptions.find(d => d.language === 'en');
+            }
+        }
+        return null;
     }
 }

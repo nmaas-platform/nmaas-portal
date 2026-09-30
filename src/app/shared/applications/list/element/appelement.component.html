@@ -66,11 +66,15 @@
             }
         </div>
         <div>
+            @if (selectedBundle) {
             <p>Description</p>
-            <p> {{ getBundleDescription().briefDescription }}</p>
+            <p> {{ getBundleDescription()?.briefDescription }}</p>
+            }
         </div>
         <div>
+            @if (selectedBundle) {
             Application in {{selectedBundle.name}}
+            }
         </div>
         <div style="display: flex;">
 
