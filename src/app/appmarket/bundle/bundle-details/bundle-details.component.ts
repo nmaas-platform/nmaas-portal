@@ -78,8 +78,6 @@ export class BundleDetailsComponent extends BaseComponent implements OnInit {
 
 
     protected submit(): void {
-
-
         switch (this.mode) {
             case ComponentMode.EDIT:
                 if (this.bundleId != undefined) {
@@ -91,8 +89,6 @@ export class BundleDetailsComponent extends BaseComponent implements OnInit {
                 break;
             default:
         }
-
-
     }
 
     private updateBundle() {
