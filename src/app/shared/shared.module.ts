@@ -89,6 +89,7 @@ import { CarouselModule } from 'primeng/carousel';
 import {Password} from 'primeng/password';
 import {GroupAdminDashboardComponent} from './group-admin-dashboard/group-admin-dashboard.component';
 import {MultiSelect} from 'primeng/multiselect';
+import {Tab, TabList, TabPanel, TabPanels, Tabs} from "primeng/tabs";
 
 
 @NgModule({
@@ -128,7 +129,12 @@ import {MultiSelect} from 'primeng/multiselect';
             Popover,
             CarouselModule,
             Password,
-            MultiSelect
+            MultiSelect,
+            Tabs,
+            TabList,
+            TabPanels,
+            Tab,
+            TabPanel
         ],
     declarations: [
         RateComponent,
