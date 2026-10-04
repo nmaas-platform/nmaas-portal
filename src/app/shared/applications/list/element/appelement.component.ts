@@ -48,7 +48,9 @@ export class AppElementComponent implements OnInit, OnChanges {
     @Input()
     public showSubscribed: boolean;
 
-    public isInBundle:boolean
+    public isInBundle:boolean;
+
+    selectedBundleId?: number = 1;
 
     protected bundles: Bundle[] = []
 
@@ -90,10 +92,6 @@ export class AppElementComponent implements OnInit, OnChanges {
         })
     }
 
-    protected selectBundle(bundle:Bundle){
-        this.selectedBundle = bundle;
-    }
-
     ngOnChanges(changes: SimpleChanges): void {
         if (this.domain) {
             this.defaultTooltipOptions.display = !this.isApplicationEnabledInDomain();
@@ -116,7 +114,6 @@ export class AppElementComponent implements OnInit, OnChanges {
     }
     protected showBundlesModal():void{
         this.bundlesModal.show();
-        // alert('show bundles modal');
     }
 
     private getAvailableDescLanguages(){
@@ -124,7 +121,6 @@ export class AppElementComponent implements OnInit, OnChanges {
     }
 
     getBundleDescription(): BundleDescription {
-        // console.log(this.translate.currentLang, this.selectedBundle.descriptions?.find(d => d.language === this.translate.currentLang), "WWWWWWWWWWWWWWWWWWWWWWWWWWW");
         if(this.selectedBundle !== undefined){
             if(this.getAvailableDescLanguages().includes(this.translate.currentLang)){
                 return this.selectedBundle.descriptions.find(d => d.language === this.translate.currentLang);

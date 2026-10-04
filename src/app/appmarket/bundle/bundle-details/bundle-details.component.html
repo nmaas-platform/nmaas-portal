@@ -14,6 +14,11 @@
                            id="name"
                            name="name"
                            [(ngModel)]="bundle.name" #name="ngModel" required/>
+                    @if (name.invalid && (name.dirty || name.touched)) {
+                        <div class="text-danger">
+                            {{ 'BUNDLES.DETAILS.NAME_REQUIRED' | translate }}
+                        </div>
+                    }
                 </div>
             </div>
 
@@ -30,6 +35,11 @@
                            id="codename"
                            name="codename"
                            [(ngModel)]="bundle.codeName" #codename="ngModel" required/>
+                    @if (codename.invalid && (codename.dirty || codename.touched)) {
+                        <div class="text-danger">
+                            {{ 'BUNDLES.DETAILS.CODENAME_REQUIRED' | translate }}
+                        </div>
+                    }
                 </div>
             </div>
 
@@ -83,14 +93,15 @@
                                                required/>
                                     </div>
                                 </div>
-                                <div class="grid col-12">
+                                <div class="grid col-12 align-items-start">
                                     <label [for]="'descriptionFull_' + lang" class="col-2 control-label">
                                         {{ 'BUNDLES.DETAILS.DESCRIPTION.FULL' | translate }}
                                     </label>
                                     <div class="col-10">
                             <textarea pTextarea
-                                      class="form-control"
+                                      class="form-control "
                                       rows="5"
+                                      [autoResize]="true"
                                       [id]="'descriptionFull_' + lang"
                                       [name]="'descriptionFull_' + lang"
                                       [(ngModel)]="desc.fullDescription"
@@ -99,19 +110,24 @@
                                     </div>
                                 </div>
                                 @if (lang !== 'en' && !isInMode(ComponentMode.VIEW)) {
-                                    <p-button [label]="'BUNDLES.DETAILS.DESCRIPTION.REMOVE' | translate"
-                                              icon="pi pi-trash"
-                                              severity="danger"
-                                              [text]="true"
-                                              (onClick)="removeDescription(lang)"/>
+                                    <div class="flex flex-column align-items-center p-2">
+                                        <button class="btn btn-danger"
+                                                  severity="danger"
+                                                (click)="removeDescription(lang)">
+                                            <em class="pi pi-trash"></em>
+                                            {{'BUNDLES.DETAILS.DESCRIPTION.REMOVE' | translate}}
+                                        </button>
+                                    </div>
                                 }
                             } @else {
                                 <div class="flex flex-column align-items-center gap-3 p-4">
                                     <span>{{ 'BUNDLES.DETAILS.DESCRIPTION.MISSING' | translate }}</span>
                                     @if (!isInMode(ComponentMode.VIEW)) {
-                                        <p-button [label]="'BUNDLES.DETAILS.DESCRIPTION.ADD' | translate"
-                                                  icon="pi pi-plus"
-                                                  (onClick)="addDescription(lang)"/>
+                                        <button class="btn btn-primary"
+                                                (click)="addDescription(lang)">
+                                            <em class="pi pi-plus"></em>
+                                            {{'BUNDLES.DETAILS.DESCRIPTION.ADD' | translate}}
+                                        </button>
                                     }
                                 </div>
                             }
@@ -135,11 +151,9 @@
                        aria-describedby="Domains details table">
                     <thead>
                     <tr>
-
-                        <th scope="col">{{ 'BUNDLES.DETAILS.APPLICATION.ICON' | translate }}</th>
+                        <th scope="col">{{ 'BUNDLES.DETAILS.APPLICATION.ID' | translate }}</th>
                         <th scope="col">{{ 'BUNDLES.DETAILS.APPLICATION.NAME' | translate }}</th>
                         <th scope="col">{{ 'BUNDLES.DETAILS.APPLICATION.OWNER' | translate }}</th>
-                        <th scope="col">&nbsp;</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -152,16 +166,23 @@
                         }
                     </tbody>
                 </table>
+                @if (bundle.apps.length < 2) {
+                    <div class="text-danger">
+                        {{ 'BUNDLES.DETAILS.APPLICATION.MINIMUM' | translate }}
+                    </div>
+                }
             </div>
         </div>
         <div class="flex justify-content-end">
             @if (isInMode(ComponentMode.EDIT)) {
                 <button type="submit" class="btn btn-primary"
+                        [disabled]="bundleForm.invalid || bundle.apps.length < 2"
                 >{{ 'BUNDLES.DETAILS.SAVE_BUTTON' | translate }}
                 </button>
             }
             @if (isInMode(ComponentMode.CREATE)) {
                 <button type="submit" class="btn btn-primary"
+                        [disabled]="bundleForm.invalid || bundle.apps.length < 2"
                 >{{ 'BUNDLES.DETAILS.CREATE_BUTTON' | translate }}
                 </button>
             }

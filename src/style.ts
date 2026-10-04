@@ -139,7 +139,8 @@ export const MyPreset = definePreset(Nora, {
                 borderColor: '{accent.600}',
                 focusRing: {
                     color: 'transparent'
-                }
+                },
+                disabledBackground: 'transparent'
             },
 
         },
