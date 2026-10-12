@@ -9,6 +9,8 @@ import {InputTextModule} from 'primeng/inputtext';
 import {SelectModule} from 'primeng/select';
 import {SharedModule} from '../../../shared/shared.module';
 import {VariableListComponent} from './variablelist/variablelist.component';
+import {IconField} from "primeng/iconfield";
+import {InputIcon} from "primeng/inputicon";
 
 @NgModule({
     declarations: [VariableListComponent],
@@ -21,7 +23,9 @@ import {VariableListComponent} from './variablelist/variablelist.component';
         TableModule,
         MenuModule,
         InputTextModule,
-        SelectModule
+        SelectModule,
+        IconField,
+        InputIcon
     ],
     exports: [VariableListComponent],
     providers: [],
