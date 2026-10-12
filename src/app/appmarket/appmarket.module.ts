@@ -14,39 +14,40 @@ import {SharedModule} from '../shared';
 
 import {AppsService, DomainService, TagService, UserService} from '../service';
 
-import {PipesModule} from '../pipe/pipes.module';
-import {DomainsModule} from './domains/domains.module';
-import {UsersModule} from './users/users.module';
-import {ClustersModule} from './admin/clusters/clusters.module';
-import {ClusterService} from '../service/cluster.service';
-import {ConfigurationModule} from './admin/configuration/configuration.module';
-import {MonitorModule} from './admin/monitor/monitor.module';
-import {TranslateModule, TranslatePipe} from '@ngx-translate/core';
-import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
-import {BrowserModule} from '@angular/platform-browser';
-import {SortService} from '../service/sort.service';
-import {AppManagementModule} from './appmanagement/app-management.module';
-import {SessionService} from '../service/session.service';
-import {LanguageManagementModule} from './admin/languagemanagement/languagemanagement.module';
-import {ModalGuestUserComponent} from './modals/modal-guest-user/modal-guest-user.component';
-import {TooltipModule} from 'primeng/tooltip';
-import {AppnavigatorComponent} from './bulkDeployment/appDeployment/appnavigator/appnavigator.component';
-import {AvatarModule} from 'primeng/avatar';
-import {StepsModule} from 'primeng/steps';
-import {AppuploadComponent} from './bulkDeployment/appDeployment/appupload/appupload.component';
-import {FileUploadModule} from 'primeng/fileupload';
-import {AppsummaryComponent} from './bulkDeployment/appDeployment/appsummary/appsummary.component';
-import {TableModule} from 'primeng/table';
-import {DomainuploadComponent} from './bulkDeployment/domainDeployment/domainupload/domainupload.component';
-import {BulkDomainListComponent} from './bulkDeployment/bulk-domain-list/bulk-domain-list.component';
-import {BulkViewComponent} from './bulkDeployment/bulk-view/bulk-view.component';
-import {BulkAppListComponent} from './bulkDeployment/bulk-app-list/bulk-app-list.component';
-import {BulkListComponent} from './bulkDeployment/bulk-list/bulk-list.component';
-import {TextareaModule} from 'primeng/textarea';
-import {NgxPaginationModule} from 'ngx-pagination';
-import {InputTextModule} from 'primeng/inputtext';
-import {BulkSearchPipe} from './bulkDeployment/bulk-list/bulk-search.pipe';
-import {CheckboxModule} from 'primeng/checkbox';
+import { PipesModule } from '../pipe/pipes.module';
+import { DomainsModule } from './domains/domains.module';
+import { UsersModule } from './users/users.module';
+import { ClustersModule } from './admin/clusters/clusters.module';
+import { ClusterService } from '../service/cluster.service';
+import { ConfigurationModule } from './admin/configuration/configuration.module';
+import { MonitorModule } from './admin/monitor/monitor.module';
+import {TranslateLoader, TranslateModule, TranslatePipe} from '@ngx-translate/core';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { SortService } from '../service/sort.service';
+import { AppManagementModule } from './appmanagement/app-management.module';
+import { SessionService } from '../service/session.service';
+import { LanguageManagementModule } from './admin/languagemanagement/languagemanagement.module';
+import { VariablesModule } from './admin/variables/variables.module';
+import { ModalGuestUserComponent } from './modals/modal-guest-user/modal-guest-user.component';
+import { TooltipModule } from 'primeng/tooltip';
+import { AppnavigatorComponent } from './bulkDeployment/appDeployment/appnavigator/appnavigator.component';
+import { AvatarModule } from 'primeng/avatar';
+import { StepsModule } from 'primeng/steps';
+import { AppuploadComponent } from './bulkDeployment/appDeployment/appupload/appupload.component';
+import { FileUploadModule } from 'primeng/fileupload';
+import { AppsummaryComponent } from './bulkDeployment/appDeployment/appsummary/appsummary.component';
+import { TableModule } from 'primeng/table';
+import { DomainuploadComponent } from './bulkDeployment/domainDeployment/domainupload/domainupload.component';
+import { BulkDomainListComponent } from './bulkDeployment/bulk-domain-list/bulk-domain-list.component';
+import { BulkViewComponent } from './bulkDeployment/bulk-view/bulk-view.component';
+import { BulkAppListComponent } from './bulkDeployment/bulk-app-list/bulk-app-list.component';
+import { BulkListComponent } from './bulkDeployment/bulk-list/bulk-list.component';
+import { TextareaModule } from 'primeng/textarea';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { InputTextModule } from 'primeng/inputtext';
+import { BulkSearchPipe } from './bulkDeployment/bulk-list/bulk-search.pipe';
+import { CheckboxModule } from 'primeng/checkbox';
 // import { InputSwitchModule } from 'primeng/inputswitch';
 // import { OverlayPanelModule } from 'primeng/overlaypanel';
 // import { SidebarModule } from 'primeng/sidebar';
@@ -117,6 +118,7 @@ import {MultiSelect} from 'primeng/multiselect';
         ClustersModule,
         MonitorModule,
         ConfigurationModule,
+        VariablesModule,
         BrowserModule,
         TranslateModule,
         TooltipModule,
