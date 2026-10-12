@@ -668,7 +668,7 @@ body .p-menu-item-content a {
 
 body .p-dialog {
     transform: none !important;
-    background: var(--p-surface-100);
+    /*background: var(--p-surface-100);*/
 }
 
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {

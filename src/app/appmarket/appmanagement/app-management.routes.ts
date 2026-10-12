@@ -12,6 +12,8 @@ import {AppnavigatorComponent} from '../bulkDeployment/appDeployment/appnavigato
 import {AppdeploymentComponent} from '../bulkDeployment/appDeployment/appSelection/appdeployment.component';
 import {AppuploadComponent} from '../bulkDeployment/appDeployment/appupload/appupload.component';
 import {AppsummaryComponent} from '../bulkDeployment/appDeployment/appsummary/appsummary.component';
+import {BundleListComponent} from '../bundle/bundle-list/bundle-list.component';
+import {BundleDetailsComponent} from '../bundle/bundle-details/bundle-details.component';
 
 export const AppManagementRoutes: Route[] = [
     {
@@ -70,4 +72,28 @@ export const AppManagementRoutes: Route[] = [
         canActivate: [AuthGuard, RoleGuard],
         data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER' ]}
     },
+    {
+        path: 'apps/bundles',
+        component: BundleListComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: {roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER' ]}
+    },
+    {
+        path: 'apps/bundles/view/:id',
+        component: BundleDetailsComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: {mode: ComponentMode.VIEW, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER' ]}
+    },
+    {
+        path: 'apps/bundles/edit/:id',
+        component: BundleDetailsComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: {mode: ComponentMode.EDIT, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER' ]}
+    },
+    {
+        path: 'apps/bundles/create',
+        component: BundleDetailsComponent,
+        canActivate: [AuthGuard, RoleGuard],
+        data: {mode: ComponentMode.CREATE, roles: ['ROLE_SYSTEM_ADMIN', 'ROLE_GROUP_MANAGER' ]}
+    }
 ];

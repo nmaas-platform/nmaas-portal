@@ -1,14 +1,45 @@
 body{
 	color: var(--text-color)
 }
+.p-dialog{
+	height: 70vh;
+}
+.p-tablist-tab-list{
+	justify-content: center;
+	border: none !important;
+	gap: 20px;
+}
 
-.app-card{
+.circle-bundle{
+	display: flex;
+	border-radius: 67%;
+	width: 50px;
+	height: 50px;
+	align-items: center;
+	justify-content: center;
+	background: #D9D9D9 !important;
+}
+.p-tab-active {
+	background: var(--p-primary-100) !important;
+}
+
+
+.app-card-bundles{
 	color: var(--p-text-0);
-	min-height:250px;
+	min-height:200px;
 	background: var(--p-background-100);
 	border-radius: 10px;
 	margin:10px 0;
-	padding:30px 15px;
+	padding:15px;
+}
+
+.app-card{
+	color: var(--p-text-0);
+	height:330px;
+	background: var(--p-background-100);
+	border-radius: 10px;
+	margin:10px 0;
+	padding:20px 15px;
 }
 .app-name {
 	font-size: 14px;
@@ -22,6 +53,7 @@ body{
 	width: 100%;
 	height: 100%;
 	overflow-y: auto;
+	justify-content: space-between;
 }
 
 .subscribed {
@@ -117,4 +149,18 @@ body{
 	.col-xl-3{
 		width: 25%
 	}
+}
+
+.round-button {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	font-size: 20px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
