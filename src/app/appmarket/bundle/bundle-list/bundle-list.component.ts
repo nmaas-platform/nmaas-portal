@@ -143,12 +143,28 @@ export class BundleListComponent implements OnInit, OnDestroy {
         }
     }
 
+    deleteBundle(id:number): void{
+        this.bundleService.deleteBundle(id).subscribe(() => {
+            this.lazyLoadSubject.next({
+                first: 0,
+                rows: this.paginationSettings.maxItemsOnPage,
+                sortField: this.paginationSettings.sortField,
+                sortOrder: this.paginationSettings.sortOrder === 'asc' ? 1 : -1,
+                filters: {}
+            })
+        })
+    }
+
     openRowMenu(event: Event, bundle: Bundle) {
 
         this.rowMenuItems = [
             {
                 label:this.translate.instant( 'BUNDLES.EDIT'),
                 routerLink: ['edit', bundle.id]
+            },
+            {
+                label: " dwl",
+                command: () => this.deleteBundle(bundle?.id)
             }
         ];
 
