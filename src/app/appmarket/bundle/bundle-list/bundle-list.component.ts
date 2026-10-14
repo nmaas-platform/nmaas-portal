@@ -163,7 +163,7 @@ export class BundleListComponent implements OnInit, OnDestroy {
                 routerLink: ['edit', bundle.id]
             },
             {
-                label: " dwl",
+                label: this.translate.instant( 'BUNDLES.DELETE'),
                 command: () => this.deleteBundle(bundle?.id)
             }
         ];
