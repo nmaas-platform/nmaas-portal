@@ -113,6 +113,7 @@ export class AppElementComponent implements OnInit, OnChanges {
         return this.domain.applicationStatePerDomain.find(value => value.applicationBaseId === this.app.id).enabled || false
     }
     protected showBundlesModal():void{
+        this.selectedBundleId = this.bundles[0]?.id;
         this.bundlesModal.show();
     }
 

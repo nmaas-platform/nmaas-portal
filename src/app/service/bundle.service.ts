@@ -23,6 +23,9 @@ export class BundleService extends GenericDataService {
   update(bundleRequest: BundleBasic, bundleId: number): Observable<BundleBasic> {
     return this.http.put<BundleBasic>(this.appConfig.getApiUrl() + '/bundles/' + bundleId, bundleRequest);
   }
+  deleteBundle(bundleId: number): Observable<BundleBasic> {
+    return this.http.delete<BundleBasic>(this.appConfig.getApiUrl() + '/bundles/' + bundleId);
+  }
 
   getAllByApplication(appid:number, page = 0, size = 10, sort = 'id,asc'): Observable<Page<BundleBasic>>{
     const params = new HttpParams()
