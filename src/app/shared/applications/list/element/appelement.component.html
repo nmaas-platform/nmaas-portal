@@ -60,7 +60,7 @@
                             <p-tab [value]="bundle?.id" class="circle-bundle">
                                 {{ i + 1}}
                             </p-tab>
-                            <h5 class="text-center">{{ bundle.name }}</h5>
+
                         </div>
                     }
                 </p-tablist>
@@ -69,6 +69,10 @@
                     @for (bundle of bundles; track bundle.id) {
                         <p-tabpanel [value]="bundle?.id" >
                             <div class="flex flex-column gap-3">
+                                <div class="flex justify-content-center align-content-center">
+                                    <h5 class="text-center">{{ bundle.name }}</h5>
+                                </div>
+
                                 <div>
                                     {{ getBundleDescription(bundle.id)?.briefDescription }}
                                 </div>
