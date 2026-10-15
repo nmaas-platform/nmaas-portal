@@ -121,14 +121,17 @@ export class AppElementComponent implements OnInit, OnChanges {
         return this.selectedBundle.descriptions.map(d => d.language);
     }
 
-    getBundleDescription(): BundleDescription {
-        if(this.selectedBundle !== undefined){
-            if(this.getAvailableDescLanguages().includes(this.translate.currentLang)){
-                return this.selectedBundle.descriptions.find(d => d.language === this.translate.currentLang);
-            }else{
-                return this.selectedBundle.descriptions.find(d => d.language === 'en');
+    getBundleDescription(bundleId: number): BundleDescription {
+        const bundle = this.bundles.find(b => b.id === bundleId);
+
+        if (bundle) {
+            if (bundle.descriptions.some(d => d.language === this.translate.currentLang)) {
+                return bundle.descriptions.find(d => d.language === this.translate.currentLang);
+            } else {
+                return bundle.descriptions.find(d => d.language === 'en');
             }
         }
+
         return null;
     }
 }
