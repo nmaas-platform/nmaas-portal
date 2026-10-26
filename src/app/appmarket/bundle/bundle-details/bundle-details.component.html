@@ -196,7 +196,7 @@
     <div class="nmaas-modal-header">{{ 'BUNDLES.DETAILS.APPLICATION.TITLE' | translate }}</div>
     <div class="nmaas-modal-body" style="height: 300px">
         <div style="height: 100px">
-            <p>{{ 'BUNDLES.DETAILS.APPLICATION.ADD_INFO' | translate }}</p>
+            <p style="margin-bottom: 10px">{{ 'BUNDLES.DETAILS.APPLICATION.ADD_INFO' | translate }}</p>
             <p-multiSelect [panelStyle]="{minWidth:'25em'}" [(ngModel)]="this.bundle.apps" [options]="apps"
                            ngDefaultControl name="domains" optionLabel="name" dataKey="id"></p-multiSelect>
         </div>
