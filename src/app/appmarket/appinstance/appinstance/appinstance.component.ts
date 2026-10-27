@@ -56,6 +56,9 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     @ViewChild('updateConfig')
     public updateConfigModal: ModalComponent;
 
+    @ViewChild('updateConfigForm')
+    public updateConfigFormModal: ModalComponent;
+
     @ViewChild('redeployConfirm')
     public redeployConfirmModal: ModalComponent;
 
@@ -429,7 +432,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         this.appInstanceService.updateConfiguration(this.appInstanceId, this.appConfiguration).subscribe({
                 next: () => {
                     console.log('Configuration updated');
-                    this.updateConfigModal.hide();
+                    this.closeConfigurationGitModal();
                 },
                 error: (err) => {
                     console.error(err);
@@ -489,12 +492,20 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         }
     }
 
-    public getConfigurationModal() {
+    public getConfigurationGitModal() {
         this.updateConfigModal.show();
     }
 
-    public closeConfigurationModal() {
+    public closeConfigurationGitModal() {
         this.updateConfigModal.hide();
+    }
+
+    public getConfigurationFormModal() {
+        this.updateConfigFormModal.show();
+    }
+
+    public closeConfigurationFormModal() {
+        this.updateConfigFormModal.hide();
     }
 
     /**
@@ -711,8 +722,12 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
 
             if (appInstance.configUpdateEnabled && (this.hasAdminRole() || this.hasDomainAdminRole())) {
                 items.push({
-                    label: this.translate.instant('APP_INSTANCE.UPDATE_CONFIG_BUTTON'),
-                    command: () => this.getConfigurationModal()
+                    label: this.translate.instant('APP_INSTANCE.UPDATE_CONFIG_GIT_BUTTON'),
+                    command: () => this.getConfigurationGitModal()
+                });
+                items.push({
+                    label: this.translate.instant('APP_INSTANCE.UPDATE_CONFIG_FORM_BUTTON'),
+                    command: () => this.getConfigurationFormModal()
                 });
             }
 
