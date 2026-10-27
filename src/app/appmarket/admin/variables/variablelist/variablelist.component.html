@@ -39,18 +39,18 @@
         </ng-template>
         <ng-template pTemplate="body" let-variable>
             <tr>
-                <td (click)="openEditModal(variable)">{{ variable.name }}</td>
-                <td (click)="openEditModal(variable)">
+                <td (click)="openViewModal(variable)">{{ variable.name }}</td>
+                <td (click)="openViewModal(variable)">
                     @if (variable.type === 'SECRET') {
                         ******
                     } @else {
                         {{ variable.value }}
                     }
                 </td>
-                <td (click)="openEditModal(variable)">{{ variable.type }}</td>
-                <td (click)="openEditModal(variable)">{{ variable.scope }}</td>
+                <td (click)="openViewModal(variable)">{{ variable.type }}</td>
+                <td (click)="openViewModal(variable)">{{ variable.scope }}</td>
                 @if (selectedScope === 'DOMAIN') {
-                    <td (click)="openEditModal(variable)">{{ getDomainName(variable.domainId) }}</td>
+                    <td (click)="openViewModal(variable)">{{ getDomainName(variable.domainId) }}</td>
                 }
                 <td class="text-right">
                     <button type="button"
@@ -66,7 +66,7 @@
 </div>
 
 <nmaas-modal>
-    <div class="nmaas-modal-header">{{ (isEditMode ? 'VARIABLES.TITLE_EDIT' : 'VARIABLES.TITLE_NEW') | translate }}</div>
+    <div class="nmaas-modal-header">{{ (isViewMode ? 'VARIABLES.TITLE' : isEditMode ? 'VARIABLES.TITLE_EDIT' : 'VARIABLES.TITLE_NEW') | translate }}</div>
     <div class="nmaas-modal-body">
         <form (submit)="closeModalAndSaveVariable()" #variableForm="ngForm">
             <div class="flex flex-column">
@@ -75,6 +75,7 @@
                     <input pInputText id="name" type="text" class="form-control" [(ngModel)]="addedVariable.name"
                            name="name" #name="ngModel" required
                            [maxlength]="100"
+                           [readonly]="isViewMode"
                            pattern="^[A-Za-z0-9_.-]+$">
                     @if (name.invalid && (name.dirty || name.touched)) {
                         <div style="margin-top: 5px" class="alert alert-danger">
@@ -92,6 +93,7 @@
                     <label for="value">{{ 'VARIABLES.VALUE' | translate }}</label>
                     <input pInputText id="value" type="text" class="form-control" [(ngModel)]="addedVariable.value"
                            name="value" #value="ngModel" [required]="!isEditMode || addedVariable.type !== 'SECRET'"
+                           [readonly]="isViewMode"
                            [placeholder]="isEditMode && addedVariable.type === 'SECRET' ? ('VARIABLES.SECRET_PLACEHOLDER' | translate) : ''">
                 </div>
 
@@ -99,7 +101,7 @@
                     <label for="type">{{ 'VARIABLES.TYPE' | translate }}</label>
                     <p-select inputId="type" [options]="types" optionLabel="name" optionValue="value"
                               [(ngModel)]="addedVariable.type" name="type"
-                              [disabled]="isEditMode" style="width: 100%"></p-select>
+                              [disabled]="isEditMode || isViewMode" style="width: 100%"></p-select>
                 </div>
 
                 <div class="mt-4">
@@ -124,8 +126,10 @@
         <button type="button" class="btn btn-secondary"
                 (click)="modal.hide()">{{ 'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate }}
         </button>
-        <button type="button" class="btn btn-primary" [disabled]="!variableForm.form.valid"
-                (click)="closeModalAndSaveVariable()">{{ 'VARIABLES.SAVE' | translate }}
-        </button>
+        @if (!isViewMode) {
+            <button type="button" class="btn btn-primary" [disabled]="!variableForm.form.valid"
+                    (click)="closeModalAndSaveVariable()">{{ 'VARIABLES.SAVE' | translate }}
+            </button>
+        }
     </div>
 </nmaas-modal>

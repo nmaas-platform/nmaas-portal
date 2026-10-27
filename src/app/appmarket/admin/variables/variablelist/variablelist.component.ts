@@ -44,6 +44,8 @@ export class VariableListComponent implements OnInit, OnDestroy {
 
     public isEditMode = false;
 
+    public isViewMode = false;
+
     @ViewChild(ModalComponent, {static: true})
     public modal: ModalComponent;
 
@@ -101,8 +103,19 @@ export class VariableListComponent implements OnInit, OnDestroy {
         this.loadVariables();
     }
 
+    public openViewModal(variable: Variable) {
+        this.isEditMode = true;
+        this.isViewMode = true;
+        this.addedVariable = {...variable};
+        if (this.addedVariable.scope === VariableScope.DOMAIN) {
+            this.addedVariable.domainId = Number(variable.domainId);
+        }
+        this.modal.show();
+    }
+
     public openModal() {
         this.isEditMode = false;
+        this.isViewMode = false;
         this.addedVariable = new Variable();
         this.addedVariable.scope = this.selectedDomain === this.domainGlobalId
             ? VariableScope.GLOBAL
@@ -142,6 +155,7 @@ export class VariableListComponent implements OnInit, OnDestroy {
 
     public openEditModal(variable: Variable) {
         this.isEditMode = true;
+        this.isViewMode = false;
         this.addedVariable = {...variable};
         if (this.addedVariable.scope === VariableScope.DOMAIN) {
             this.addedVariable.domainId = Number(variable.domainId);
