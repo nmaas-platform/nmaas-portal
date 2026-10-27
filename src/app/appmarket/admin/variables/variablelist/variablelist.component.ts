@@ -125,10 +125,12 @@ export class VariableListComponent implements OnInit, OnDestroy {
     }
 
     public closeModalAndSaveVariable() {
-        if (this.addedVariable.scope === VariableScope.DOMAIN && this.selectedDomain !== this.domainGlobalId) {
-            this.addedVariable.domainId = Number(this.selectedDomain);
-        } else {
-            this.addedVariable.domainId = undefined;
+        if (!this.isEditMode) {
+            if (this.addedVariable.scope === VariableScope.DOMAIN && this.selectedDomain !== this.domainGlobalId) {
+                this.addedVariable.domainId = Number(this.selectedDomain);
+            } else {
+                this.addedVariable.domainId = undefined;
+            }
         }
 
         if (this.isEditMode) {
