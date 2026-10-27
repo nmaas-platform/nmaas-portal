@@ -721,14 +721,20 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
             });
 
             if (appInstance.configUpdateEnabled && (this.hasAdminRole() || this.hasDomainAdminRole())) {
-                items.push({
-                    label: this.translate.instant('APP_INSTANCE.UPDATE_CONFIG_GIT_BUTTON'),
-                    command: () => this.getConfigurationGitModal()
-                });
-                items.push({
-                    label: this.translate.instant('APP_INSTANCE.UPDATE_CONFIG_FORM_BUTTON'),
-                    command: () => this.getConfigurationFormModal()
-                });
+                if (appInstance.configFileRepositoryRequired) {
+                    items.push({
+                        label: this.translate.instant('APP_INSTANCE.UPDATE_CONFIG_GIT_BUTTON'),
+                        command: () => this.getConfigurationGitModal()
+                    });
+                }
+                if (appInstance.configUpdateWizardTemplate != null
+                    && appInstance.configUpdateWizardTemplate.template != null
+                    && appInstance.configUpdateWizardTemplate.template.components?.length > 0) {
+                    items.push({
+                        label: this.translate.instant('APP_INSTANCE.UPDATE_CONFIG_FORM_BUTTON'),
+                        command: () => this.getConfigurationFormModal()
+                    });
+                }
             }
 
             if (this.canDisplayAddMembersModal()) {

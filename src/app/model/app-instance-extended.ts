@@ -27,8 +27,9 @@ export class AppInstanceExtended extends AppInstance {
     public autoUpgradesEnabled: boolean;
     public upgradePossible: boolean;
     public allowSshAccess: boolean;
-    public configUpdateEnabled: boolean;
     public allowLogAccess: boolean;
+
+    public configUpdateEnabled: boolean;
     public configFileRepositoryRequired: boolean;
 
     public applicationStatePerDomain: DomainApplicationStatePerDomain;
