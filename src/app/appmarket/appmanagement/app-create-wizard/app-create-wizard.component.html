@@ -206,14 +206,61 @@
                     {{ 'APPS_WIZARD.UPLOAD_SCREENSHOTS_LABEL' | translate }}
                 </div>
                 <div class="panel-body">
-                    <p-fileUpload name="screenshots" customUpload="true"
-                                  [multiple]="true" [files]="screenshots"
-                                  accept="image/*" maxFileSize="2000000"
-                                  [showUploadButton]="false" [showCancelButton]="false"
-                                  [chooseLabel]="translate.instant('APPS_WIZARD.CHOOSE_LABEL')"
-                                  (onSelect)="onSelectScreenshots($event)"
-                                  (onRemove)="onRemoveScreenshot($event)">
+                    <p-fileUpload
+                            name="screenshots"
+                            [customUpload]="true"
+                            [multiple]="true"
+                            [files]="screenshots"
+                            accept="image/*"
+                            [maxFileSize]="2000000"
+                            [showUploadButton]="false"
+                            [showCancelButton]="false"
+                            [chooseLabel]="translate.instant('APPS_WIZARD.CHOOSE_LABEL')"
+                            (onSelect)="onSelectScreenshots($event)"
+                            (onRemove)="onRemoveScreenshot($event)">
+
+                        <ng-template #content let-files let-removeFileCallback="removeFileCallback">
+                            <div class="p-fileupload-files">
+                                @for (file of files; track file; let i = $index) {
+                                    <div class="p-fileupload-file">
+                                        <div class="p-fileupload-file-thumbnail">
+                                            @if (file.objectURL) {
+                                                <img [src]="file.objectURL" [alt]="file.name" width="50" />
+                                            }
+                                        </div>
+
+                                        <div class="p-fileupload-file-info">
+                                            <div class="p-fileupload-file-name">
+                                                {{ file.name }}
+                                            </div>
+                                            <span class="p-fileupload-file-size">
+                                                   {{ (file.size / 1024).toFixed(2) }} KB
+                                                </span>
+                                        </div>
+                                        <div>
+                                            @if (isPendingScreenshot(file)) {
+                                                <span class="p-badge p-badge-warn">Pending</span>
+                                            }
+                                        </div>
+
+                                        <div class="p-fileupload-file-actions">
+                                            <p-button
+                                                    icon="pi pi-times"
+                                                    severity="danger"
+                                                    [text]="true"
+                                                    [rounded]="true"
+                                                    (onClick)="removeFileCallback($event, i)"
+                                                    [attr.aria-label]="'Remove ' + file.name">
+                                            </p-button>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </ng-template>
+
+                        <ng-template #file></ng-template>
                     </p-fileUpload>
+
                 </div>
             </div>
         </div>

@@ -41,6 +41,7 @@ import {TabsModule} from 'primeng/tabs';
 import {Select} from 'primeng/select';
 import {AutoComplete} from 'primeng/autocomplete';
 import { CarouselModule } from 'primeng/carousel';
+import {Button} from "primeng/button";
 
 
 export function getJsonTemplates(config: ConfigTemplateService) {
@@ -97,7 +98,8 @@ export function formioAppConfigFactory(appConfig: AppConfigService) {
         MenuModule,
         Select,
         AutoComplete,
-        CarouselModule
+        CarouselModule,
+        Button,
         // Chips
     ],
     exports: [],

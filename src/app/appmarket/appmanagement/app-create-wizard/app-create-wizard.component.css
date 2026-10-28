@@ -16,6 +16,13 @@ h3 {
     border-radius: 3px;
 
 }
+.p-badge{
+    background: var(--p-orange-600) !important;
+    color: var(--p-surface-0) !important;
+}
+p-badge {
+    display: none !important;
+}
 
 :host ::ng-deep .p-inputtext:enabled:focus{
     box-shadow: none;

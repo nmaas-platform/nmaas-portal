@@ -11,6 +11,7 @@ import {SharedModule} from '../../../shared';
 import {of} from 'rxjs';
 import createSpyObj = jasmine.createSpyObj;
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import {ToastContainerComponent} from "../../../shared/toast-container/toast-container.component";
 
 class TranslateFakeLoader implements TranslateLoader {
     getTranslation(lang: string) {
@@ -21,6 +22,7 @@ class TranslateFakeLoader implements TranslateLoader {
 describe('AppCreateWizardComponent', () => {
     let component: AppCreateWizardComponent;
     let fixture: ComponentFixture<AppCreateWizardComponent>;
+    let mockToast: jasmine.SpyObj<ToastContainerComponent>;
 
     let appsService: AppsService = undefined;
     let appImagesService = undefined;
@@ -36,6 +38,7 @@ describe('AppCreateWizardComponent', () => {
         ]))
 
         const configTemplateServiceSpy = createSpyObj('ConfigTemplateService', ['getConfigTemplate'])
+        mockToast = jasmine.createSpyObj('ToastContainerComponent', ['show']);
 
         TestBed.configureTestingModule({
             declarations: [AppCreateWizardComponent],
@@ -55,7 +58,8 @@ describe('AppCreateWizardComponent', () => {
                 {provide: AppsService, useValue: {}},
                 {provide: InternationalizationService, useValue: internationalizationSpy},
                 {provide: ConfigTemplateService, useValue: configTemplateServiceSpy},
-                {provide: AppImagesService, useValue: {}}
+                {provide: AppImagesService, useValue: {}},
+                {provide: ToastContainerComponent, useValue: mockToast}
             ],
             schemas: [NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA ]
         }).compileComponents();

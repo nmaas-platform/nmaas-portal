@@ -21,6 +21,7 @@ import {ValidatorFn} from '@angular/forms';
 import {noParameterTypeInControlValueValidator} from '../app-version-create-wizard/app-version-create-wizard.component';
 import {ApplicationDTO} from '../../../model/application-dto';
 import {ApplicationBase} from '../../../model/application-base';
+import {ToastContainerComponent, ToastMode} from "../../../shared/toast-container/toast-container.component";
 
 @Component({
     encapsulation: ViewEncapsulation.None,
@@ -59,6 +60,7 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit, O
     public selectedLanguages: string[] = [];
     public languages: SelectItem[] = [];
     public formDisplayChange = true;
+    public pendingScreenshots: File[] = [];
 
     public template : any;
     public translateUpdate: any;
@@ -83,7 +85,8 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit, O
                 public appImagesService: AppImagesService,
                 public router: Router,
                 public translate: TranslateService,
-                public dom: DomSanitizer) {
+                public dom: DomSanitizer,
+                private toast: ToastContainerComponent) {
         super();
     }
 
@@ -184,7 +187,7 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit, O
     public getLogo(id: number): void {
         this.appImagesService.getLogoFile(id).subscribe(
             file => {
-                this.logo.push(this.convertToProperImageFile(file));
+                this.logo.push(this.convertToProperImageFile(file, file.name));
             },
             err => console.error(err.message)
         );
@@ -193,21 +196,21 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit, O
     public getScreenshots(id: number): void {
         this.appImagesService.getAppScreenshotsUrls(id).subscribe(
             fileInfo => {
-                fileInfo.forEach(
-                    val => {
-                        this.appImagesService.getAppScreenshotFile(id, val.id).subscribe(
-                            img => {
-                                this.screenshots.push(this.convertToProperImageFile(img));
-                            },
-                            err => console.error(err.message));
-                    });
+                fileInfo.forEach(val => {
+                    this.appImagesService.getAppScreenshotFile(id, val.id).subscribe(
+                        img => {
+                            this.screenshots.push(this.convertToProperImageFile(img, val.filename));
+                        },
+                        err => console.error(err.message)
+                    );
+                });
             },
             err => console.error(err.message)
         );
     }
 
-    private convertToProperImageFile(file: any) {
-        const result: any = new File([file], 'uploaded file', {type: file.type});
+    private convertToProperImageFile(file: any, filename: string) {
+        const result: any = new File([file], filename, {type: file.type});
         result.objectURL = this.dom.bypassSecurityTrustUrl(URL.createObjectURL(result));
         return result;
     }
@@ -231,7 +234,7 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit, O
         this.applicationDTO.application.configWizardTemplate = new ConfigWizardTemplate();
         this.applicationDTO.application.configWizardTemplate.template = this.configTemplateService.getConfigTemplate();
     };
-    
+
 
     public nextStep(): void {
         this.activeStepIndex += 1;
@@ -289,7 +292,7 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit, O
         }
     }
 
-    public handleUploadingScreenshots(id: number) {
+    public handleUploadingScreenshots(id: number): void {
         if (this.isInMode(ComponentMode.EDIT)) {
             this.appImagesService.deleteScreenshots(id).subscribe(() => {
                 this.uploadScreenshots(id);
@@ -299,12 +302,16 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit, O
         }
     }
 
-    private uploadScreenshots(id: number) {
-        this.appsService.uploadScreenshots(id, this.screenshots).subscribe(() => console.log('Screenshots uploaded'));
-        // for (const screenshot of this.screenshots) {
-        //     this.appsService.uploadScreenshot(id, screenshot).subscribe(() => console.log('Screenshot uploaded'));
-        // }
+    private uploadScreenshots(id: number): void {
+        if (this.screenshots.length === 0) {
+            return;
+        }
+
+        this.appsService.uploadScreenshots(id, this.screenshots).subscribe(
+            () => console.log('Screenshots uploaded')
+        );
     }
+
 
     public changeRulesAcceptedFlag(): void {
         this.rulesAccepted = !this.rulesAccepted;
@@ -322,13 +329,47 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit, O
         return this.logo.length > 0;
     }
 
-    public onSelectScreenshots(event) {
-        this.screenshots.push(...event.files)
+    public onSelectScreenshots(event: any): void {
+        const maxFileSize = 2_000_000;
+
+        const oversizedFiles = event.currentFiles.filter(
+            (file: File) => file.size > maxFileSize
+        );
+        const selectedFiles = Array.from(
+            (event.originalEvent.target as HTMLInputElement).files ?? []
+        );
+
+        if (selectedFiles.some((file: File) => file.size > 2_000_000)) {
+            this.toast.show('TOAST.ERROR.FILE', ToastMode.DANGER, 'TOAST.ERROR_HEADER');
+        }
+
+        this.screenshots = event.currentFiles.filter(
+            (file: File) => file.size <= maxFileSize
+        );
+
+        for (const file of event.files) {
+            if (file.size <= maxFileSize && !this.pendingScreenshots.includes(file)) {
+                this.pendingScreenshots.push(file);
+            }
+        }
     }
 
-    public onRemoveScreenshot(event) {
-        const index = this.screenshots.indexOf(event.file)
-        this.screenshots.splice(index, 1)
+    public onRemoveScreenshot(event: any): void {
+        const index = this.screenshots.indexOf(event.file);
+
+        if (index !== -1) {
+            this.screenshots.splice(index, 1);
+        }
+
+        const pendingIndex = this.pendingScreenshots.indexOf(event.file);
+
+        if (pendingIndex !== -1) {
+            this.pendingScreenshots.splice(pendingIndex, 1);
+        }
+    }
+
+    public isPendingScreenshot(file: File): boolean {
+        return this.pendingScreenshots.includes(file);
     }
 
     public isInvalidDescriptions(): boolean {
@@ -351,7 +392,7 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit, O
     }
 
     public setConfigTemplate(event): void {
-      console.log(event)
+        console.log(event)
         if(event.type === "addComponent" || event.type === "saveComponent") {
             console.log(event);
             this.template = event.form;
@@ -359,7 +400,7 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit, O
             this.applicationDTO.application.configWizardTemplate.template = Object.assign({}, this.template);
             console.log('Wizard saved',this.applicationDTO.application.configWizardTemplate.template)
         }
-       
+
     }
 
     public setUpdateConfigTemplate(event): void {
@@ -679,5 +720,4 @@ export class AppCreateWizardComponent extends BaseComponent implements OnInit, O
                 this.applicationDTO.applicationBase.name.toLowerCase().replace(' ', '-');
         }
     }
-
 }
