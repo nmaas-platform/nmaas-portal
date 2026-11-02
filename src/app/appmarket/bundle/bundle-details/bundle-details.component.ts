@@ -22,10 +22,17 @@ export class BundleDetailsComponent extends BaseComponent implements OnInit {
     public modal: ModalComponent;
 
     private bundleId: number;
-    readonly languages = ['en', 'pl', 'de', 'fr'];
     protected bundle: Bundle;
     protected apps: ApplicationBase[];
     protected availableApps: ApplicationBase[];
+
+    public optionalLanguages = [
+        { label: 'DE', value: 'de' },
+        { label: 'PL', value: 'pl' },
+        { label: 'FR', value: 'fr' }
+    ];
+
+    public selectedLanguages: string[] = [];
 
 
     constructor(private readonly bundleService: BundleService,
@@ -60,7 +67,7 @@ export class BundleDetailsComponent extends BaseComponent implements OnInit {
     }
 
     private getAppBase() {
-        this.appService.getAllApplicationBase().subscribe({
+        this.appService.getAllActiveApplicationBase().subscribe({
                 next: (data) => this.apps = data,
                 error: (err) => console.error(err),
             }
@@ -124,9 +131,9 @@ export class BundleDetailsComponent extends BaseComponent implements OnInit {
         };
     }
 
-    getDescription(lang: string): BundleDescription | undefined {
-        return this.bundle.descriptions?.find(d => d.language === lang);
-    }
+    // getDescription(lang: string): BundleDescription | undefined {
+    //     return this.bundle.descriptions?.find(d => d.language === lang);
+    // }
 
     addDescription(lang: string): void {
         this.bundle.descriptions ??= [];
@@ -145,6 +152,29 @@ export class BundleDetailsComponent extends BaseComponent implements OnInit {
         // this.bundle.apps = this.apps;
         this.modal.hide();
     }
+
+
+    public getDescription(lang: string): BundleDescription {
+        let description = this.bundle.descriptions?.find(
+            item => item.language === lang
+        );
+
+        if (!description) {
+            description = new BundleDescription();
+            description.language = lang;
+            description.briefDescription = '';
+            description.fullDescription = '';
+
+            if (!this.bundle.descriptions) {
+                this.bundle.descriptions = [];
+            }
+
+            this.bundle.descriptions.push(description);
+        }
+
+        return description;
+    }
+
 
 
 }

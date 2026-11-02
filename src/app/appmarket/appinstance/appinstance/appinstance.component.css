@@ -26,7 +26,7 @@
 }
 
 .other-states{
-    padding:15px;
+    padding:5px;
     margin:20px 0;
     border-bottom: 1px solid lightgray;
     border-top: 1px solid lightgray;
@@ -38,7 +38,7 @@
 }
 
 .alert-danger{
-    padding:15px;
+    padding:5px;
     margin:20px 0;
     text-align: center;
     border-bottom: 1px solid var(--p-accent-400);

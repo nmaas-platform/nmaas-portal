@@ -200,7 +200,7 @@ th {
 .alert {
     text-shadow: 0 1px 0 rgba(255, 255, 255, .2);
     box-shadow: inset 0 1px #ffffff40, 0 1px 2px #0000000d;
-    padding: 15px;
+    padding: 5px;
     margin-bottom: 20px;
     border: 1px solid transparent;
     border-radius: 4px;
@@ -1102,7 +1102,7 @@ ol, ul {
     border-color: #bce8f1;
 }
 .alert {
-    padding: 15px;
+    padding: 5px;
     margin-bottom: 20px;
     border: 1px solid transparent;
     border-radius: 4px;

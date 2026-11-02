@@ -15,7 +15,7 @@
                            name="name"
                            [(ngModel)]="bundle.name" #name="ngModel" required/>
                     @if (name.invalid && (name.dirty || name.touched)) {
-                        <div class="text-danger">
+                        <div class="alert alert-danger">
                             {{ 'BUNDLES.DETAILS.NAME_REQUIRED' | translate }}
                         </div>
                     }
@@ -36,14 +36,12 @@
                            name="codename"
                            [(ngModel)]="bundle.codeName" #codename="ngModel" required/>
                     @if (codename.invalid && (codename.dirty || codename.touched)) {
-                        <div class="text-danger">
+                        <div class="alert alert-danger">
                             {{ 'BUNDLES.DETAILS.CODENAME_REQUIRED' | translate }}
                         </div>
                     }
                 </div>
             </div>
-
-            <!--Bundle ID-->
             @if (!isInMode(ComponentMode.CREATE)) {
                 <div class="grid col-12">
                     <label for="id" class="col-2 control-label">
@@ -63,89 +61,145 @@
         </div>
 
         <div class="background-section">
-            <h4 style="font-size:15px; font-weight: bold">{{ 'BUNDLES.DETAILS.DESCRIPTIONS' | translate }}</h4>
+            <h4 style="font-size:15px; font-weight: bold">
+                {{ 'BUNDLES.DETAILS.DESCRIPTIONS' | translate }}
+            </h4>
 
-            <p-tabs value="en">
-                <p-tablist>
-                    @for (lang of languages; track lang) {
-                        <p-tab [value]="lang" [class.missing-description]="!getDescription(lang)">
-                            {{ lang | uppercase }}
-                        </p-tab>
-                    }
-                </p-tablist>
-                <p-tabpanels style="background: none">
-                    @for (lang of languages; track lang) {
-                        <p-tabpanel [value]="lang">
-                            @let desc = getDescription(lang);
-                            @if (desc) {
-                                <div class="grid col-12">
-                                    <label [for]="'descriptionBrief_' + lang" class="col-2 control-label">
-                                        {{ 'BUNDLES.DETAILS.DESCRIPTION.BRIEF' | translate }}
-                                    </label>
-                                    <div class="col-10">
-                                        <input pInputText
-                                               type="text"
-                                               class="form-control"
-                                               [id]="'descriptionBrief_' + lang"
-                                               [name]="'descriptionBrief_' + lang"
-                                               [(ngModel)]="desc.briefDescription"
-                                               [disabled]="isInMode(ComponentMode.VIEW)"
-                                               required/>
-                                    </div>
-                                </div>
-                                <div class="grid col-12 align-items-start">
-                                    <label [for]="'descriptionFull_' + lang" class="col-2 control-label">
-                                        {{ 'BUNDLES.DETAILS.DESCRIPTION.FULL' | translate }}
-                                    </label>
-                                    <div class="col-10">
-                            <textarea pTextarea
-                                      class="form-control "
-                                      rows="5"
-                                      [autoResize]="true"
-                                      [id]="'descriptionFull_' + lang"
-                                      [name]="'descriptionFull_' + lang"
-                                      [(ngModel)]="desc.fullDescription"
-                                      [disabled]="isInMode(ComponentMode.VIEW)"
-                                      required></textarea>
-                                    </div>
-                                </div>
-                                @if (lang !== 'en' && !isInMode(ComponentMode.VIEW)) {
-                                    <div class="flex flex-column align-items-center p-2">
-                                        <button class="btn btn-danger"
-                                                  severity="danger"
-                                                (click)="removeDescription(lang)">
-                                            <em class="pi pi-trash"></em>
-                                            {{'BUNDLES.DETAILS.DESCRIPTION.REMOVE' | translate}}
-                                        </button>
-                                    </div>
-                                }
-                            } @else {
-                                <div class="flex flex-column align-items-center gap-3 p-4">
-                                    <span>{{ 'BUNDLES.DETAILS.DESCRIPTION.MISSING' | translate }}</span>
-                                    @if (!isInMode(ComponentMode.VIEW)) {
-                                        <button class="btn btn-primary"
-                                                (click)="addDescription(lang)">
-                                            <em class="pi pi-plus"></em>
-                                            {{'BUNDLES.DETAILS.DESCRIPTION.ADD' | translate}}
-                                        </button>
-                                    }
-                                </div>
-                            }
-                        </p-tabpanel>
-                    }
-                </p-tabpanels>
-            </p-tabs>
+            <div class="panel-body">
+                <div>
+                    <img alt="English"
+                         src="assets/images/country/en_circle.png"
+                         style="height: 22px">
+                    {{ 'LANGUAGE.EN_LABEL' | translate }} *
+                </div>
+
+                <br>
+
+                <div class="form-group grid col-12 align-items-center">
+                    <label for="descriptionBrief_en" class="col-2 control-label">
+                        {{ 'BUNDLES.DETAILS.DESCRIPTION.BRIEF' | translate }} *
+                    </label>
+                    <div class="col-10">
+                        <input pInputText
+                               type="text"
+                               class="form-control"
+                               id="descriptionBrief_en"
+                               name="descriptionBrief_en"
+                               [(ngModel)]="getDescription('en').briefDescription"
+                               [disabled]="isInMode(ComponentMode.VIEW)"
+                               required />
+                    </div>
+                </div>
+
+                <div class="form-group grid col-12 align-items-start ">
+                    <label for="descriptionFull_en" class="col-2 control-label pt-2">
+                        {{ 'BUNDLES.DETAILS.DESCRIPTION.FULL' | translate }} *
+                    </label>
+                    <div class="col-10">
+                <textarea pTextarea
+                          class="form-control"
+                          id="descriptionFull_en"
+                          name="descriptionFull_en"
+                          rows="5"
+                          [autoResize]="true"
+                          [(ngModel)]="getDescription('en').fullDescription"
+                          [disabled]="isInMode(ComponentMode.VIEW)"
+                          required>
+                </textarea>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <h4 style="font-size:15px; font-weight: bold">
+                {{ 'BUNDLES.DETAILS.DESCRIPTION.OPTIONAL_DESCRIPTIONS_HEADER' | translate }}
+            </h4>
+
+            <div class="panel-body">
+                @if (!isInMode(ComponentMode.VIEW)) {
+                    <div class="form-group ">
+                        <label for="optionalLangs" class="control-label">
+                            {{ 'BUNDLES.DETAILS.DESCRIPTION.OPTIONAL_LANGS_LABEL' | translate }}
+                        </label>
+                        <br>
+
+                        <p-multiSelect
+                                [options]="optionalLanguages"
+                                [(ngModel)]="selectedLanguages"
+                                id="optionalLangs"
+                                name="optionalLangs"
+                                optionLabel="label"
+                                optionValue="value"
+                                [panelStyle]="{minWidth: '15em'}"
+                                [showClear]="true"
+                                [style]="{minWidth: '15em'}">
+                        </p-multiSelect>
+                    </div>
+                }
+
+                @for (lang of selectedLanguages; track lang; let i = $index) {
+                    <div>
+                        <hr>
+
+                        <div>
+                            <img alt="language"
+                                 [src]="'assets/images/country/' + lang + '_circle.png'"
+                                 style="height: 22px">
+                            {{ 'LANGUAGE.' + lang.toUpperCase() + '_LABEL' | translate }}
+                        </div>
+
+                        <br>
+
+                        <div class="form-group grid col-12 align-items-start">
+                            <label [for]="'descriptionBrief_' + lang"
+                                   class="col-2 control-label">
+                                {{ 'BUNDLES.DETAILS.DESCRIPTION.BRIEF' | translate }}
+                            </label>
+
+                            <div class="col-10">
+                                <input pInputText
+                                       type="text"
+                                       class="form-control"
+                                       [id]="'descriptionBrief_' + lang"
+                                       [name]="'descriptionBrief_' + lang"
+                                       [(ngModel)]="getDescription(lang).briefDescription"
+                                       [disabled]="isInMode(ComponentMode.VIEW)" />
+                            </div>
+                        </div>
+
+                        <div class="form-group  grid col-12 align-items-start">
+                            <label [for]="'descriptionFull_' + lang"
+                                   class="col-2 control-label">
+                                {{ 'BUNDLES.DETAILS.DESCRIPTION.FULL' | translate }}
+                            </label>
+
+                            <div class="col-10">
+                        <textarea pTextarea
+                                  class="form-control"
+                                  [id]="'descriptionFull_' + lang"
+                                  [name]="'descriptionFull_' + lang"
+                                  rows="5"
+                                  [autoResize]="true"
+                                  [(ngModel)]="getDescription(lang).fullDescription"
+                                  [disabled]="isInMode(ComponentMode.VIEW)">
+                        </textarea>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
 
         <div class="background-section">
-            <h4 style="font-size:15px; font-weight: bold">{{ 'BUNDLES.DETAILS.APPLICATIONS' | translate }}</h4>
-            @if (!isInMode(ComponentMode.VIEW)) {
-                <div style="display: flex; justify-content: end">
-                    <button type="button" class="btn btn-text"
-                            (click)="showModal()">{{ 'BUNDLES.DETAILS.APPLICATION.ADD' | translate }}
-                    </button>
-                </div>
-            }
+            <div style="display: flex; justify-content:space-between">
+                <h4 style="font-size:15px; font-weight: bold">{{ 'BUNDLES.DETAILS.APPLICATIONS' | translate }}</h4>
+                @if (!isInMode(ComponentMode.VIEW)) {
+                    <div style="display: flex; justify-content: end">
+                        <button type="button" class="btn btn-text"
+                                (click)="showModal()">{{ 'BUNDLES.DETAILS.APPLICATION.ADD' | translate }}
+                        </button>
+                    </div>
+                }
+            </div>
             <div class="panel-body">
                 <table class="table table-hover table-condensed"
                        aria-describedby="Domains details table">
@@ -197,7 +251,7 @@
     <div class="nmaas-modal-body" style="height: 300px">
         <div style="height: 100px">
             <p style="margin-bottom: 10px">{{ 'BUNDLES.DETAILS.APPLICATION.ADD_INFO' | translate }}</p>
-            <p-multiSelect [panelStyle]="{minWidth:'25em'}" [(ngModel)]="this.bundle.apps" [options]="apps"
+            <p-multiSelect [style]="{minWidth:'20rem'}" [(ngModel)]="this.bundle.apps" [options]="apps"
                            ngDefaultControl name="domains" optionLabel="name" dataKey="id"></p-multiSelect>
         </div>
         <table class="table table-hover table-condensed" aria-describedby="Domains in Group table">
