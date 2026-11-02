@@ -203,6 +203,14 @@ export const MyPreset = definePreset(Nora, {
                 borderRadius: '4px',
                 borderColor: '{accent.600}',
                 background: '{surface.300}'
+            },
+            option:{
+                selectedBackground:'{primary.50}',
+                selectedColor: '{text.0}',
+                focusBackground: '{primary.50}',
+                focusColor:'{text.0}',
+                selectedFocusBackground:'{primary.50}',
+                selectedFocusColor:'{text.0}'
             }
         },
         fileupload: {

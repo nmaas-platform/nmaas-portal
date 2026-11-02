@@ -16,10 +16,8 @@
                 </div>
                 <div (click)="$event.stopPropagation()">
                     @if (isInBundle) {
-                        <p-button (onClick)="showBundlesModal()" class="border-round"
-                                  [style]="{'background': '#64748B', 'border-radius': '20px'}"
-                                  [label]="'BUNDLES.TITLE' | translate"
-                        ></p-button>
+                        <button type="button" class="btn btn-secondary" (click)="showBundlesModal()"
+                        >{{'BUNDLES.TITLE' | translate}}</button>
                     }
                 </div>
             </div>
