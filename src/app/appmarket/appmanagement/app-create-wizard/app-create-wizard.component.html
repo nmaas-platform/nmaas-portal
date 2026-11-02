@@ -389,7 +389,7 @@
             <div style="margin-bottom:20px">
                 {{ 'APPS_WIZARD.APP_DEPLOYMENT_SPEC_STEP_INFO' | translate }}
             </div>
-            <div class="panel-heading">{{ 'APPS_WIZARD.APP_DEPLOYMENT_HEADER' | translate }}</div>
+            <h4>{{ 'APPS_WIZARD.APP_DEPLOYMENT_HEADER' | translate }}</h4>
             <form class="form-horizontal" #appDeploymentForm="ngForm">
                 <div class="panel-body">
                     <div class="form-group form-group-sm" [ngClass]="{'has-error':  kubernetesTemplateChartName.invalid && (kubernetesTemplateChartName.dirty || kubernetesTemplateChartName.touched),
@@ -422,7 +422,6 @@
                         <input pInputText type="text" class="form-control"
                                id="kubernetesTemplateHelmChartRepositoryName"
                                name="kubernetesTemplateHelmChartRepositoryName" pattern="[A-Za-z-]{1,14}"
-                               [disabled]="true"
                                [value]="applicationDTO.application.appDeploymentSpec.kubernetesTemplate.helmChartRepository.name || ''"
                                pTooltip="{{'APPS_WIZARD.HELM_CHART_REPOSITORY_NAME_TOOLTIP' | translate}}"
                                tooltipPosition="bottom" [showDelay]="50">
