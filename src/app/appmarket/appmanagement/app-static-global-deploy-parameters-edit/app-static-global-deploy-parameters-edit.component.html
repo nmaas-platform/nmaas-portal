@@ -1,4 +1,4 @@
-<div class="panel panel-default" style="background: var(--p-surface-200); border: 1px solid var(--p-accent-600)">
+<div class="panel m-0 panel-default" style="background: var(--p-surface-200); border: 1px solid var(--p-accent-600)">
   <div class="panel-body panel-container">
 
     <ul class="sm:col-12">
@@ -9,7 +9,7 @@
       }
       @for (k of getDeploymentParamsKeys(); track k; let i = $index) {
         <li class="deploy-param-row">
-          <div class="form-group sm:col-11">
+          <div class=" sm:col-11">
             <label class="control-label" for="{{i}}-param">{{'APP_ACCESS_METHOD_EDIT.PARAM' | translate}}: {{k}}</label>
             <input pInputText  class="form-control" type="text" id="{{i}}-param" [(ngModel)]="appDeploymentSpec[propertyName][k]">
           </div>
@@ -22,7 +22,7 @@
         <strong>{{'APP_ACCESS_METHOD_EDIT.NEW_DEPLOY_PARAMETER' | translate}}</strong>
       </li>
       <li class="deploy-param-row">
-        <div class="form-group  sm:col-11 flex p-0">
+        <div class="  sm:col-11 flex p-0">
           <div class="double-form  sm:col-6">
             <label class="control-label" for="new-key">{{'APP_ACCESS_METHOD_EDIT.NEW_KEY' | translate}}</label>
             <input pInputText  type="text" id="new-key" class="form-control" [formControl]="newKeyFormControl">

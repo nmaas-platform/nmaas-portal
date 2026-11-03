@@ -37,10 +37,10 @@
                 @if (getStateAsString(stateChange?.state) != 'ACTIVE' && getStateAsString(stateChange?.state) != 'NEW') {
                     <div style="padding-top:10px">
                         <label for="reason"
-                               class="col-sm-12 control-label">{{ 'APP_CHANGE_STATE_MODAL.REASON' | translate }}
+                               class="col-sm-12 control-label p-0">{{ 'APP_CHANGE_STATE_MODAL.REASON' | translate }}
                             :</label>
                         <br>
-                        <span class="col-md-12">
+                        <span class="col-md-12 p-0">
                             <textarea pTextarea class="" style="width: 100%" id="reason" name="reason"
                                       placeholder="{{'APP_CHANGE_STATE_MODAL.REASON_PLACEHOLDER' | translate}}"
                                       [(ngModel)]="stateChange.reason"></textarea>
