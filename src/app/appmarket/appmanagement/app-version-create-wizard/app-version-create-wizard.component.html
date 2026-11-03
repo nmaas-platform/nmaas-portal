@@ -183,9 +183,9 @@
                                    tooltipPosition="bottom" [showDelay]="50">
                         </div>
                     </div>
-                    <div class="form-group form-group-sm">
+                    <div class=" form-group-sm">
                         <h4>{{'APPS_WIZARD.RESOURCES_SPECIFICATION' | translate }}</h4>
-                        <div class="panel panel-default"
+                        <div class="panel panel-default m-0"
                              style="background: var(--p-surface-200); border: 1px solid var(--p-accent-600)">
                             <div class="panel-body panel-container">
                                 <div class="">
@@ -221,7 +221,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group form-group-sm">
+                    <div class=" form-group-sm">
                         <h4>{{ 'APPS_WIZARD.DEPLOY_PARAMETERS' | translate }}</h4>
                         <app-static-global-deploy-parameters-edit
                                 [appDeploymentSpec]="applicationDTO.application.appDeploymentSpec"
@@ -231,14 +231,14 @@
                                 [keyValidatorErrorKey]="keyErrorKey">
                         </app-static-global-deploy-parameters-edit>
                     </div>
-                    <div class="form-group form-group-sm">
+                    <div class=" form-group-sm">
                         <h4>{{ 'APPS_WIZARD.STATIC_GLOBAL_DEPLOY_PARAMETERS' | translate }}</h4>
                         <app-static-global-deploy-parameters-edit
                                 [appDeploymentSpec]="applicationDTO.application.appDeploymentSpec"
                                 [propertyName]="'globalDeployParameters'">
                         </app-static-global-deploy-parameters-edit>
                     </div>
-                    <div class="form-group form-group-sm">
+                    <div class=" form-group-sm">
                         <h4>{{ 'APPS_WIZARD.STORAGE_VOLUMES' | translate }}</h4>
                         @if (applicationDTO.application.appDeploymentSpec.storageVolumes) {
                             <ul>
@@ -258,7 +258,7 @@
                             {{ 'APPS_WIZARD.NEW_STORAGE_VOLUME' | translate }}
                         </button>
                     </div>
-                    <div class="form-group form-group-sm">
+                    <div class=" form-group-sm">
                         <h4>{{ 'APPS_WIZARD.ACCESS_METHODS' | translate }}</h4>
                         @if (applicationDTO.application.appDeploymentSpec.accessMethods) {
                             <ul>
@@ -443,30 +443,49 @@
                     <h4>{{ 'APPS_WIZARD.CONFIG_WIZARD_TEMPLATE_LABEL' | translate }}</h4>
                     <div class="card">
                         <div class="panel-body">
-                            <p-tabView>
-                                <p-tabPanel header="{{'APPS_WIZARD.FORM_BUILDER' | translate}}">
-                                    @if (formDisplayChange && applicationDTO.application.configWizardTemplate.template) {
-                                        <form-builder
-                                                [form]="applicationDTO.application.configWizardTemplate.template"
-                                                (change)="setConfigTemplate($event)">
-                                        </form-builder>
-                                    }
-                                </p-tabPanel>
-                                <p-tabPanel header="{{'APPS_WIZARD.RAW_JSON' | translate}}">
-                                    <h4 style="color: var(--p-text-0)">{{ 'APPS_WIZARD.FORM_DEFINITION' | translate }}</h4>
-                                    @if (formDisplayChange && applicationDTO.application.configWizardTemplate?.template) {
-                                        <app-json-edit
-                                                [(object)]="applicationDTO.application.configWizardTemplate.template"></app-json-edit>
-                                    }
-                                    <h4 style="color: var(--p-text-0)">{{ 'APPS_WIZARD.FORM_PREVIEW' | translate }}</h4>
-                                    @if (formDisplayChange && applicationDTO.application.configWizardTemplate?.template) {
-                                        <formio
-                                                [form]="applicationDTO.application.configWizardTemplate.template"
-                                                [options]='{"alerts": {"submitMessage": "Configuration applied"}, "errors": {"message": "Invalid configuration"}}'>
-                                        </formio>
-                                    }
-                                </p-tabPanel>
-                            </p-tabView>
+                            <p-tabs value="0">
+                                <p-tablist>
+                                    <p-tab value="0">
+                                        {{ 'APPS_WIZARD.FORM_BUILDER' | translate }}
+                                    </p-tab>
+                                    <p-tab value="1">
+                                        {{ 'APPS_WIZARD.RAW_JSON' | translate }}
+                                    </p-tab>
+                                    <p-tab value="2">
+                                        {{ 'APPS_WIZARD.FORM_PREVIEW' | translate }}
+                                    </p-tab>
+                                </p-tablist>
+
+                                <p-tabpanels>
+                                    <p-tabpanel value="0">
+                                        @if (formDisplayChange && applicationDTO.application.configWizardTemplate.template) {
+                                            <form-builder
+                                                    [form]="applicationDTO.application.configWizardTemplate.template"
+                                                    (change)="setConfigTemplate($event)">
+                                            </form-builder>
+                                        }
+                                    </p-tabpanel>
+                                    <p-tabpanel value="1">
+                                        <h4 style="color: var(--p-text-0)">
+                                            {{ 'APPS_WIZARD.FORM_DEFINITION' | translate }}
+                                        </h4>
+
+                                        @if (formDisplayChange && applicationDTO.application.configWizardTemplate?.template) {
+                                            <app-json-edit
+                                                    [(object)]="applicationDTO.application.configWizardTemplate.template">
+                                            </app-json-edit>
+                                        }
+                                    </p-tabpanel>
+                                    <p-tabpanel value="2">
+                                        @if (formDisplayChange && applicationDTO.application.configWizardTemplate?.template) {
+                                            <formio
+                                                    [form]="applicationDTO.application.configWizardTemplate.template"
+                                                    [options]='{"alerts": {"submitMessage": "Configuration applied"}, "errors": {"message": "Invalid configuration"}}'>
+                                            </formio>
+                                        }
+                                    </p-tabpanel>
+                                </p-tabpanels>
+                            </p-tabs>
                         </div>
                     </div>
                     <hr>
@@ -474,13 +493,13 @@
                         <div class="panel">
                             <div class="panel-heading">{{ 'APPS_WIZARD.UPDATE_CONFIG_WIZARD_TEMPLATE_LABEL' | translate }}</div>
                             <div class="panel-body">
-                                <div class="form-group form-group-sm" style="padding-bottom: 5vh;">
+                                <div class="flex" style="margin-bottom: 30px; gap:10px">
                                     <label for="addConfigUpdate"
                                            style="text-align: left; padding-left: 0; font-size: 12px"
-                                           class="col-sm-2 control-label">
+                                           class="control-label">
                                         {{ 'APPS_WIZARD.ADD_CONFIG_UPDATE_TEMPLATE_LABEL' | translate }}
                                     </label>
-                                    <div class="col-sm-10">
+                                    <div class="">
                                         <input type="checkbox" id="addConfigUpdate" (change)="handleConfigTemplate()"
                                                name="addConfigUpdate" [defaultChecked]="false"
                                                [(ngModel)]="addConfigUpdate"
@@ -489,31 +508,54 @@
                                     </div>
                                 </div>
                                 @if (addConfigUpdate && applicationDTO.application.configUpdateWizardTemplate.template) {
-                                    <div>
-                                        <p-tabView>
-                                            <p-tabPanel header="{{'APPS_WIZARD.FORM_BUILDER' | translate}}">
-                                                @if (formDisplayChange) {
-                                                    <form-builder
-                                                            [form]="applicationDTO.application.configUpdateWizardTemplate.template"
-                                                            (change)="setUpdateConfigTemplate($event)">
-                                                    </form-builder>
-                                                }
-                                            </p-tabPanel>
-                                            <p-tabPanel header="{{'APPS_WIZARD.RAW_JSON' | translate}}">
-                                                <h4 style="color: var(--p-text-0)">{{ 'APPS_WIZARD.FORM_DEFINITION' | translate }}</h4>
-                                                @if (formDisplayChange && applicationDTO.application.configUpdateWizardTemplate?.template) {
-                                                    <app-json-edit
-                                                            [(object)]="applicationDTO.application.configUpdateWizardTemplate.template"></app-json-edit>
-                                                }
-                                                <h4 style="color: var(--p-text-0)">{{ 'APPS_WIZARD.FORM_PREVIEW' | translate }}</h4>
-                                                @if (formDisplayChange && applicationDTO.application.configUpdateWizardTemplate?.template) {
-                                                    <formio
-                                                            [form]="applicationDTO.application.configUpdateWizardTemplate.template"
-                                                            [options]='{"alerts": {"submitMessage": "Configuration applied"}, "errors": {"message": "Invalid configuration"}}'>
-                                                    </formio>
-                                                }
-                                            </p-tabPanel>
-                                        </p-tabView>
+                                    <div class="card">
+                                        <div class="panel-body">
+                                            <p-tabs value="0">
+                                                <p-tablist>
+                                                    <p-tab value="0">
+                                                        {{ 'APPS_WIZARD.FORM_BUILDER' | translate }}
+                                                    </p-tab>
+                                                    <p-tab value="1">
+                                                        {{ 'APPS_WIZARD.RAW_JSON' | translate }}
+                                                    </p-tab>
+                                                    <p-tab value="2">
+                                                        {{ 'APPS_WIZARD.FORM_PREVIEW' | translate }}
+                                                    </p-tab>
+                                                </p-tablist>
+
+                                                <p-tabpanels>
+                                                    <p-tabpanel value="0">
+                                                        @if (formDisplayChange) {
+                                                            <form-builder
+                                                                    [form]="applicationDTO.application.configUpdateWizardTemplate.template"
+                                                                    (change)="setUpdateConfigTemplate($event)">
+                                                            </form-builder>
+                                                        }
+                                                    </p-tabpanel>
+
+                                                    <p-tabpanel value="1">
+                                                        <h4 style="color: var(--p-text-0)">
+                                                            {{ 'APPS_WIZARD.FORM_DEFINITION' | translate }}
+                                                        </h4>
+
+                                                        @if (formDisplayChange && applicationDTO.application.configUpdateWizardTemplate?.template) {
+                                                            <app-json-edit
+                                                                    [(object)]="applicationDTO.application.configUpdateWizardTemplate.template">
+                                                            </app-json-edit>
+                                                        }
+                                                    </p-tabpanel>
+                                                    <p-tabpanel value="2">
+                                                        @if (formDisplayChange && applicationDTO.application.configUpdateWizardTemplate?.template) {
+                                                            <formio
+                                                                    [form]="applicationDTO.application.configUpdateWizardTemplate.template"
+                                                                    [options]='{"alerts": {"submitMessage": "Configuration applied"}, "errors": {"message": "Invalid configuration"}}'>
+                                                            </formio>
+                                                        }
+                                                    </p-tabpanel>
+                                                </p-tabpanels>
+                                            </p-tabs>
+                                        </div>
+
                                     </div>
                                 }
                             </div>
