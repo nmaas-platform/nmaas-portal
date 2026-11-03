@@ -270,48 +270,51 @@
           </button>
         </div>
       </nmaas-modal>
-      <!-- Update config modal -->
+      <!-- Update config modal (git clone access) -->
       <nmaas-modal styleModal="info" #updateConfig>
         <div class="nmaas-modal-header">
           <h4>{{ 'UPDATE_CONFIG_MODAL.HEADER' | translate }}</h4>
         </div>
-        <div class="nmaas-modal-body" style="height: 30%; min-width: 30vw; max-height: 45vh;overflow-y: auto;">
-          <div>
-            <p>{{ 'UPDATE_CONFIG_MODAL.CLONE_LABEL' | translate }}</p>
-            <label style="min-width: 100%;">
-              <input type="text" style="min-width: 100%;" disabled
-                value="git clone {{appInstance.appConfigRepositoryAccessDetails?.cloneUrl}}"/>
-              </label>
-            </div>
-            @if (appInstance && configurationUpdateTemplate) {
-              <div style="padding-top: 30px">
-                <formio [form]="configurationUpdateTemplate"
-                  [options]='{"alerts": {"submitMessage": "Configuration applied"}, "errors": {"message": "Invalid configuration"}}'
-                  [refresh]="refreshUpdateForm"
-                  (submit)="changeConfigUpdate($event.data)">
-                </formio>
-              </div>
+        <div class="nmaas-modal-body" style="min-width: 30vw;">
+          <p>{{ 'UPDATE_CONFIG_MODAL.CLONE_LABEL' | translate }}</p>
+          <label style="min-width: 100%;">
+            <input type="text" style="min-width: 100%;" disabled
+              value="git clone {{appInstance.appConfigRepositoryAccessDetails?.cloneUrl}}"/>
+          </label>
+        </div>
+        <div class="nmaas-modal-footer">
+          <button type="button" class="btn btn-primary"
+            (click)="this.closeConfigurationGitModal()">{{ 'UPDATE_CONFIG_MODAL.CONFIRM_BUTTON' | translate }}
+          </button>
+        </div>
+      </nmaas-modal>
+      <!-- Update config form modal (config update wizard) -->
+      <nmaas-modal styleModal="info" width="65vw" #updateConfigForm>
+        <div class="nmaas-modal-header">
+          <h4 style="text-align: center">{{ 'UPDATE_CONFIG_MODAL.HEADER' | translate }}</h4>
+        </div>
+        <div class="nmaas-modal-body" style="min-width: 30vw; max-height: 65vh; overflow-y: auto;">
+          <div class="col-xs-12">
+            @if (appInstance !== undefined && configurationUpdateTemplate) {
+              <formio #updateConfigFormio
+                [form]="configurationUpdateTemplate"
+                [options]='{"alerts": {"submitMessage": "Configuration applied"}, "errors": {"message": "Invalid configuration"}}'
+                [refresh]="refreshUpdateForm"
+                [submission]="submission"
+                (submit)="changeConfigUpdate($event.data)">
+              </formio>
             }
           </div>
-          <div class="nmaas-modal-footer">
-            <button type="button" class="btn btn-primary"
-              (click)="this.closeConfigurationGitModal()">{{ 'UPDATE_CONFIG_MODAL.CONFIRM_BUTTON' | translate }}
-            </button>
-          </div>
-        </nmaas-modal>
-        <!-- Update config form modal -->
-        <nmaas-modal styleModal="info" #updateConfigForm>
-          <div class="nmaas-modal-header">
-            <h4>{{ 'UPDATE_CONFIG_MODAL.HEADER' | translate }}</h4>
-          </div>
-          <div class="nmaas-modal-body" style="height: 30%; min-width: 30vw; max-height: 45vh;overflow-y: auto;">
-          </div>
-          <div class="nmaas-modal-footer">
-            <button type="button" class="btn btn-primary"
-              (click)="this.closeConfigurationFormModal()">{{ 'UPDATE_CONFIG_MODAL.CONFIRM_BUTTON' | translate }}
-            </button>
-          </div>
-        </nmaas-modal>
+        </div>
+        <div class="nmaas-modal-footer">
+          <button type="button" class="btn btn-secondary"
+            (click)="this.closeConfigurationFormModal()">{{ 'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate }}
+          </button>
+          <button type="button" class="btn btn-primary"
+            (click)="this.submitConfigurationUpdateForm()">{{ 'UPDATE_CONFIG_MODAL.CONFIRM_BUTTON' | translate }}
+          </button>
+        </div>
+      </nmaas-modal>
         <nmaas-modal styleModal="info" #showConfigurationModal>
           <div class="nmaas-modal-header">
             <h4 style="text-align: center">{{ 'APP_INSTANCE.CONFIGURATION.PREVIEW' | translate }}</h4>

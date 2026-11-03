@@ -25,6 +25,7 @@ import {AuthService} from '../../../auth/auth.service';
 import {SelectPodModalComponent} from '../modals/select-pod-modal/select-pod-modal.component';
 import {ApplicationVersion} from '../../../model/application-version';
 import * as semver from 'semver';
+import {FormioComponent} from '@formio/angular';
 import {ConfirmationService, MenuItem} from 'primeng/api';
 import {Menu} from 'primeng/menu';
 
@@ -133,6 +134,9 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
 
     @ViewChild('rowMenu') rowMenu!: Menu;
     rowMenuItems: MenuItem[] = [];
+
+    @ViewChild('updateConfigFormio')
+    public updateConfigFormio: FormioComponent;
 
     private readonly deployParametersSubject = new BehaviorSubject<Map<string, string>>(new Map<string, string>());
     public deployParameters$ = this.deployParametersSubject.asObservable();
@@ -432,7 +436,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         this.appInstanceService.updateConfiguration(this.appInstanceId, this.appConfiguration).subscribe({
                 next: () => {
                     console.log('Configuration updated');
-                    this.closeConfigurationGitModal();
+                    this.closeConfigurationFormModal();
                 },
                 error: (err) => {
                     console.error(err);
@@ -506,6 +510,12 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
 
     public closeConfigurationFormModal() {
         this.updateConfigFormModal.hide();
+    }
+
+    public submitConfigurationUpdateForm(): void {
+        this.updateConfigFormio?.formio?.submit()?.catch(() => {
+            // validation errors are rendered by the form itself
+        });
     }
 
     /**
@@ -712,152 +722,198 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     openRowMenu(event: Event, appInstance: AppInstanceExtended) {
         const state = this.getStateAsEnum(this.appInstanceStatus?.state);
 
+        this.rowMenuItems = this.buildRowMenuItems(appInstance, state);
+        this.rowMenu.toggle(event);
+    }
+
+    private buildRowMenuItems(appInstance: AppInstanceExtended, state: AppInstanceState): MenuItem[] {
+        switch (state) {
+            case AppInstanceState.RUNNING:
+                return this.getRunningStateMenuItems(appInstance);
+            case AppInstanceState.PAUSED:
+                return this.getPausedStateMenuItems();
+            case AppInstanceState.VALIDATION_FAILED:
+                return this.getValidationFailedStateMenuItems();
+            case AppInstanceState.FAILURE:
+                return this.getFailureStateMenuItems(appInstance);
+            default:
+                return [];
+        }
+    }
+
+    private getRunningStateMenuItems(appInstance: AppInstanceExtended): MenuItem[] {
         const items: MenuItem[] = [];
 
-        if (state === AppInstanceState.RUNNING) {
-            items.push({
-                label: this.translate.instant('APP_INSTANCE.APP_ACCESS_METHODS'),
-                command: () => this.openAccessMethodsModal()
-            });
+        items.push({
+            label: this.translate.instant('APP_INSTANCE.APP_ACCESS_METHODS'),
+            command: () => this.openAccessMethodsModal()
+        });
 
-            if (appInstance.configUpdateEnabled && (this.hasAdminRole() || this.hasDomainAdminRole())) {
-                if (appInstance.configFileRepositoryRequired) {
-                    items.push({
-                        label: this.translate.instant('APP_INSTANCE.UPDATE_CONFIG_GIT_BUTTON'),
-                        command: () => this.getConfigurationGitModal()
-                    });
-                }
-                if (appInstance.configUpdateWizardTemplate != null
-                    && appInstance.configUpdateWizardTemplate.template != null
-                    && appInstance.configUpdateWizardTemplate.template.components?.length > 0) {
-                    items.push({
-                        label: this.translate.instant('APP_INSTANCE.UPDATE_CONFIG_FORM_BUTTON'),
-                        command: () => this.getConfigurationFormModal()
-                    });
-                }
-            }
-
-            if (this.canDisplayAddMembersModal()) {
-                items.push({
-                    label: this.translate.instant('APP_INSTANCE.ADD_MEMBERS_BUTTON'),
-                    command: () => this.addMembersModal.show()
-                });
-            }
-
-            if (!appInstance.autoUpgradesEnabled && (this.hasAdminRole() || this.hasDomainAdminRole())) {
-                items.push({
-                    label: this.translate.instant('APP_INSTANCE.ENABLE_AUTO_UPGRADES_BUTTON'),
-                    command: () => this.enableAutoUpgradesModal.show()
-                });
-            }
-
-            if (appInstance.autoUpgradesEnabled && (this.hasAdminRole() || this.hasDomainAdminRole())) {
-                items.push({
-                    label: this.translate.instant('APP_INSTANCE.DISABLE_AUTO_UPGRADES_BUTTON'),
-                    command: () => this.disableAutoUpgradesModal.show()
-                });
-            }
-
-            if (appInstance.upgradePossible && (this.hasAdminRole() || this.hasDomainAdminRole())) {
-                items.push({
-                    label: this.translate.instant('APP_INSTANCE.UPGRADE_BUTTON'),
-                    command: () => this.appUpgradeModal.show()
-                });
-            }
-
-            if (this.hasAdminRole()) {
-                items.push({
-                    label: this.translate.instant('APP_INSTANCES.MANUAL_UPDATE.HEADER'),
-                    command: () => this.openVersionUpdateModal()
-                });
-            }
-            if (appInstance.allowSshAccess) {
-                items.push({
-                    label: this.translate.instant('APP_INSTANCE.SHELL'),
-                    command: () => this.onOpenShell()
-                });
-            }
-
-            if (appInstance.allowLogAccess) {
-                items.push({
-                    label: this.translate.instant('APP_INSTANCE.VIEW_LOGS'),
-                    command: () => this.router.navigate([this.router.url + '/logs'])
-                });
-            }
-
-            items.push({
-                label: this.translate.instant('APP_INSTANCES.PAUSE'),
-                command: () => this.scaleDownModal.show()
-            });
-
-
-            if (this.hasAdminRole() || this.hasDomainAdminRole()) {
-                items.push({
-                    label: this.translate.instant('APP_INSTANCE.UNDEPLOY_BUTTON'),
-                    command: () => this.undeployModal.show()
-                });
-            }
+        if (appInstance.configUpdateEnabled && this.isAdminOrDomainAdmin()) {
+            items.push(...this.getConfigUpdateMenuItems(appInstance));
         }
 
-        if (state === AppInstanceState.PAUSED) {
+        if (this.canDisplayAddMembersModal()) {
             items.push({
-                label: this.translate.instant('APP_INSTANCES.RESUME'),
-                command: () => this.scaleUp()
+                label: this.translate.instant('APP_INSTANCE.ADD_MEMBERS_BUTTON'),
+                command: () => this.addMembersModal.show()
             });
-
-            if (this.hasAdminRole() || this.hasDomainAdminRole()) {
-                items.push({
-                    label: this.translate.instant('APP_INSTANCE.UNDEPLOY_BUTTON'),
-                    command: () => this.undeployModal.show()
-                });
-            }
         }
 
-        if (state === AppInstanceState.VALIDATION_FAILED) {
-            if (this.hasAdminRole() || this.hasDomainAdminRole()) {
-                items.push(
-                    {
-                        label: this.translate.instant('APP_INSTANCE.REDEPLOY_BUTTON'),
-                        command: () => this.redeployConfirmModal.show()
-                    },
-                    {
-                        label: this.translate.instant('APP_INSTANCE.REMOVE_BUTTON'),
-                        command: () => this.removeConfirmModal.show()
-                    }
-                );
-            }
-        }
-
-        if (state === AppInstanceState.FAILURE) {
-            if (this.hasAdminRole() || this.hasDomainAdminRole()) {
-                items.push({
-                    label: this.translate.instant('APP_INSTANCE.REDEPLOY_BUTTON'),
-                    command: () => this.redeployConfirmModal.show()
-                });
-            }
-
+        if (!appInstance.autoUpgradesEnabled && this.isAdminOrDomainAdmin()) {
             items.push({
-                label: this.translate.instant('APP_INSTANCE.CHECK_STATUS_BUTTON'),
-                command: () => this.checkStatus()
+                label: this.translate.instant('APP_INSTANCE.ENABLE_AUTO_UPGRADES_BUTTON'),
+                command: () => this.enableAutoUpgradesModal.show()
             });
-
-            if (appInstance.allowLogAccess) {
-                items.push({
-                    label: this.translate.instant('APP_INSTANCE.VIEW_LOGS'),
-                    command: () => this.router.navigate([this.router.url + '/logs'])
-                });
-            }
-
-            if (this.hasAdminRole() || this.hasDomainAdminRole()) {
-                items.push({
-                    label: this.translate.instant('APP_INSTANCE.REMOVE_BUTTON'),
-                    command: () => this.removeConfirmModal.show()
-                });
-            }
         }
 
-        this.rowMenuItems = items;
-        this.rowMenu.toggle(event);
+        if (appInstance.autoUpgradesEnabled && this.isAdminOrDomainAdmin()) {
+            items.push({
+                label: this.translate.instant('APP_INSTANCE.DISABLE_AUTO_UPGRADES_BUTTON'),
+                command: () => this.disableAutoUpgradesModal.show()
+            });
+        }
+
+        if (appInstance.upgradePossible && this.isAdminOrDomainAdmin()) {
+            items.push({
+                label: this.translate.instant('APP_INSTANCE.UPGRADE_BUTTON'),
+                command: () => this.appUpgradeModal.show()
+            });
+        }
+
+        if (this.hasAdminRole()) {
+            items.push({
+                label: this.translate.instant('APP_INSTANCES.MANUAL_UPDATE.HEADER'),
+                command: () => this.openVersionUpdateModal()
+            });
+        }
+
+        if (appInstance.allowSshAccess) {
+            items.push({
+                label: this.translate.instant('APP_INSTANCE.SHELL'),
+                command: () => this.onOpenShell()
+            });
+        }
+
+        if (appInstance.allowLogAccess) {
+            items.push(this.viewLogsMenuItem());
+        }
+
+        items.push({
+            label: this.translate.instant('APP_INSTANCES.PAUSE'),
+            command: () => this.scaleDownModal.show()
+        });
+
+        if (this.isAdminOrDomainAdmin()) {
+            items.push(this.undeployMenuItem());
+        }
+
+        return items;
+    }
+
+    private getConfigUpdateMenuItems(appInstance: AppInstanceExtended): MenuItem[] {
+        const items: MenuItem[] = [];
+
+        if (appInstance.configFileRepositoryRequired) {
+            items.push({
+                label: this.translate.instant('APP_INSTANCE.UPDATE_CONFIG_GIT_BUTTON'),
+                command: () => this.getConfigurationGitModal()
+            });
+        }
+
+        if (appInstance.configUpdateWizardTemplate != null
+            && appInstance.configUpdateWizardTemplate.template != null
+            && appInstance.configUpdateWizardTemplate.template.components?.length > 0) {
+            items.push({
+                label: this.translate.instant('APP_INSTANCE.UPDATE_CONFIG_FORM_BUTTON'),
+                command: () => this.getConfigurationFormModal()
+            });
+        }
+
+        return items;
+    }
+
+    private getPausedStateMenuItems(): MenuItem[] {
+        const items: MenuItem[] = [];
+
+        items.push({
+            label: this.translate.instant('APP_INSTANCES.RESUME'),
+            command: () => this.scaleUp()
+        });
+
+        if (this.isAdminOrDomainAdmin()) {
+            items.push(this.undeployMenuItem());
+        }
+
+        return items;
+    }
+
+    private getValidationFailedStateMenuItems(): MenuItem[] {
+        const items: MenuItem[] = [];
+
+        if (this.isAdminOrDomainAdmin()) {
+            items.push(
+                this.redeployMenuItem(),
+                this.removeMenuItem()
+            );
+        }
+
+        return items;
+    }
+
+    private getFailureStateMenuItems(appInstance: AppInstanceExtended): MenuItem[] {
+        const items: MenuItem[] = [];
+
+        if (this.isAdminOrDomainAdmin()) {
+            items.push(this.redeployMenuItem());
+        }
+
+        items.push({
+            label: this.translate.instant('APP_INSTANCE.CHECK_STATUS_BUTTON'),
+            command: () => this.checkStatus()
+        });
+
+        if (appInstance.allowLogAccess) {
+            items.push(this.viewLogsMenuItem());
+        }
+
+        if (this.isAdminOrDomainAdmin()) {
+            items.push(this.removeMenuItem());
+        }
+
+        return items;
+    }
+
+    private isAdminOrDomainAdmin(): boolean {
+        return this.hasAdminRole() || this.hasDomainAdminRole();
+    }
+
+    private viewLogsMenuItem(): MenuItem {
+        return {
+            label: this.translate.instant('APP_INSTANCE.VIEW_LOGS'),
+            command: () => this.router.navigate([this.router.url + '/logs'])
+        };
+    }
+
+    private undeployMenuItem(): MenuItem {
+        return {
+            label: this.translate.instant('APP_INSTANCE.UNDEPLOY_BUTTON'),
+            command: () => this.undeployModal.show()
+        };
+    }
+
+    private redeployMenuItem(): MenuItem {
+        return {
+            label: this.translate.instant('APP_INSTANCE.REDEPLOY_BUTTON'),
+            command: () => this.redeployConfirmModal.show()
+        };
+    }
+
+    private removeMenuItem(): MenuItem {
+        return {
+            label: this.translate.instant('APP_INSTANCE.REMOVE_BUTTON'),
+            command: () => this.removeConfirmModal.show()
+        };
     }
 
     hasDomainAdminRole(): boolean {
