@@ -129,8 +129,6 @@
 
 <app-app-add-json-app #appAddJson></app-app-add-json-app>
 
-<app-app-add-json-version-app #appAddJsonVersion (refresh)="refresh()"></app-app-add-json-version-app>
-
 <nmaas-removal-confirmation-modal [object]="appToRemove" [disableButton]="hasRunningInstances"
   (onConfirm)="removeApp(appToRemove.id)" [header]="'APPS_MANAGEMENT.CONFIRM_REMOVAL.HEADER'"
   [description]="'APPS_MANAGEMENT.CONFIRM_REMOVAL.DESCRIPTION'"
