@@ -449,6 +449,8 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     public changeConfigUpdate(input: any): void {
         console.log('config update', input)
         if (input != null) {
+            this.changeMandatoryParameters(input['mandatoryParameters']);
+            this.changeAdditionalParameters(input['additionalParameters']);
             this.changeConfiguration(input['configuration']);
             this.changeAccessCredentials(input['accessCredentials']);
 
@@ -505,6 +507,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
     }
 
     public getConfigurationFormModal() {
+        this.prefillConfigurationUpdateForm();
         this.updateConfigFormModal.show();
     }
 
@@ -512,6 +515,44 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         this.updateConfigFormModal.hide();
     }
 
+
+    private prefillConfigurationUpdateForm(): void {
+        this.appInstanceService.getConfiguration(this.appInstanceId).subscribe(config => {
+            if (config != null && config !== '') {
+                this.submission.data.configuration = config;
+            }
+
+            this.deployParameters$.subscribe(additionalParams => {
+                this.submission.data.additionalParameters = this.escapeParameterKeys(additionalParams);
+
+                this.refreshUpdateForm.emit({
+                    property: 'submission',
+                    value: this.submission
+                });
+            });
+        });
+    }
+
+    private static readonly PARAM_KEY_DOT_TAG = '_dot_';
+    private static readonly PARAM_KEY_BRACKET_TAG = '_bracket_';
+
+    private escapeParameterKeys(parameters: any): Record<string, string> {
+        if (parameters == null) {
+            return {};
+        }
+        const escaped: Record<string, string> = {};
+        Object.keys(parameters).forEach(key => {
+            escaped[key
+                .replace(/\./g, AppInstanceComponent.PARAM_KEY_DOT_TAG)
+                .replace(/[[\]]/g, AppInstanceComponent.PARAM_KEY_BRACKET_TAG)] = parameters[key];
+        });
+        return escaped;
+    }
+
+    /**
+     * triggers validation and submission of the config update wizard form
+     * displayed in the #updateConfigForm modal
+     */
     public submitConfigurationUpdateForm(): void {
         this.updateConfigFormio?.formio?.submit()?.catch(() => {
             // validation errors are rendered by the form itself
@@ -645,7 +686,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         this.appInstanceService.getConfiguration(this.appInstanceId).subscribe(config => {
             this.submission['data']['configuration'] = config;
             this.deployParameters$.subscribe(additionalParams => {
-                this.submission['data']['additionalParameters'] = additionalParams
+                this.submission['data']['additionalParameters'] = this.escapeParameterKeys(additionalParams)
                 this.refreshUpdateForm.emit({
                     property: 'submission',
                     value: this.submission
