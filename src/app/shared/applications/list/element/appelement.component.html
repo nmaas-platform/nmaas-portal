@@ -74,6 +74,9 @@
                                 <div>
                                     {{ getBundleDescription(bundle.id)?.briefDescription }}
                                 </div>
+                                <div>
+                                    {{ getBundleDescription(bundle.id)?.fullDescription }}
+                                </div>
 
                                 <div style="display: flex;">
                                     @for (bundleApp of bundle.apps; track bundleApp.id) {

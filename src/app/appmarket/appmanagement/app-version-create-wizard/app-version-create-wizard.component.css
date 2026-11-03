@@ -122,4 +122,6 @@
 :host ::ng-deep .p-dropdown {
     width: 200px;
 }
-
+.panel-container {
+    background: var(--p-background-300);
+}
