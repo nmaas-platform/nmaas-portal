@@ -352,7 +352,7 @@
                                 </div>
                             </div>
                             @if (termsAcceptance) {
-                                <div class="">
+                                <div>
                                     <label for="termsContent" style="text-align: left; padding-left: 0;"
                                            class="control-label pt-0">{{ 'APPS_WIZARD.TERMS_CONTENT_LABEL' | translate }}
                                     </label>
@@ -371,70 +371,76 @@
                                 </div>
                             }
                             @if (applicationDTO.application.appConfigurationSpec.configFileRepositoryRequired) {
-                                <div>
+                                <div class="flex flex-column gap-4">
                                     @for (configTemplate of configFileTemplates; track configTemplate; let i = $index) {
-                                        <div style="display: flex; flex-direction: column; gap: 15px">
-                                            <div class="" [ngClass]="{'has-error':  configFileName.invalid && (configFileName.dirty || configFileName.touched),
- 			    		 	        'has-success': configFileName.valid && (configFileName.dirty || configFileName.touched)}">
-                                                @if (isInMode(ComponentMode.CREATE)) {
-                                                    <label for="configFileName-{{i}}" class="control-label">
-                                                        {{ 'APPS_WIZARD.CONFIG_FILENAME_LABEL' | translate }}
-                                                    </label>
-                                                }
-                                                @if (isInMode(ComponentMode.EDIT)) {
-                                                    <label for="configFileName-{{i}}" class="control-label">
-                                                        {{ 'APPS_WIZARD.CONFIG_FILENAME_LABEL' | translate }} *
-                                                    </label>
-                                                }
-                                                <button type="button" class="btn btn-xs btn-danger"
-                                                        style="float: right;"
-                                                        (click)="removeConfig(i)"
-                                                        [disabled]="configFileTemplates.length <= 1">
-                                                    <span class="pi pi-times"></span>
-                                                </button>
-                                                <input pInputText type="text" class="form-control"
-                                                       id="configFileName-{{i}}" name="configFileName-{{i}}"
-                                                       #configFileName="ngModel"
-                                                       [(ngModel)]="configTemplate.configFileName"
-                                                       [required]="isInMode(ComponentMode.EDIT)"
-                                                       pTooltip="{{'APPS_WIZARD.CONFIG_FILENAME_TOOLTIP' | translate}}"
-                                                       tooltipPosition="bottom" [showDelay]="50">
-                                            </div>
-                                            <div class="" [ngClass]="{'has-error':  configFileDirectory.invalid && (configFileDirectory.dirty || configFileDirectory.touched),
- 			    		 	        'has-success': configFileDirectory.valid && (configFileDirectory.dirty || configFileDirectory.touched)}">
-                                                <label for="configFileDirectory-{{i}}"
-                                                       class="control-label">{{ 'APPS_WIZARD.CONFIG_FILEDIRECTORY_LABEL' | translate }}</label>
-                                                <input pInputText type="text" class="" id="configFileDirectory-{{i}}"
-                                                       name="configFileDirectory-{{i}}" #configFileDirectory="ngModel"
-                                                       [(ngModel)]="configTemplate.configFileDirectory"
-                                                       pTooltip="{{'APPS_WIZARD.CONFIG_FILEDIRECTORY_TOOLTIP' | translate}}"
-                                                       tooltipPosition="bottom" [showDelay]="50">
-                                            </div>
-                                            <div style="display: flex; flex-direction: column" [ngClass]="{'has-error':  configFileTemplateContent.invalid && (configFileTemplateContent.dirty || configFileTemplateContent.touched),
- 			    		 	        'has-success': configFileTemplateContent.valid && (configFileTemplateContent.dirty || configFileTemplateContent.touched)}">
-                                                @if (isInMode(ComponentMode.CREATE)) {
-                                                    <label for="configFileTemplateContent-{{i}}"
-                                                           class="control-label">{{ 'APPS_WIZARD.CONFIG_CONTENT_LABEL' | translate }}</label>
-                                                }
-                                                @if (isInMode(ComponentMode.EDIT)) {
-                                                    <label for="configFileTemplateContent-{{i}}" style="text-align: left"
-                                                           class="control-label">{{ 'APPS_WIZARD.CONFIG_CONTENT_LABEL' | translate }}
-                                                        *</label>
-                                                }
-                                                <textarea pTextarea class="" id="configFileTemplateContent-{{i}}"
-                                                          name="configFileTemplateContent-{{i}}"
-                                                          #configFileTemplateContent="ngModel" rows="6"
-                                                          [(ngModel)]="configTemplate.configFileTemplateContent"
-                                                          [required]="isInMode(ComponentMode.EDIT)"
-                                                          pTooltip="{{'APPS_WIZARD.CONFIG_CONTENT_TOOLTIP' | translate}}"
-                                                          tooltipPosition="bottom" [showDelay]="50"></textarea>
+                                        <div class="card" style="display: flex; flex-direction: column; gap: 15px">
+                                            <div class="panel-body gap-2">
+                                                <div class="flex justify-content-end">
+                                                    <button type="button" class="btn btn-xs btn-danger"
+                                                            style="float: right;"
+                                                            (click)="removeConfig(i)"
+                                                            [disabled]="configFileTemplates.length <= 1">
+                                                        <span class="pi pi-times"></span>
+                                                    </button>
+                                                </div>
+                                                <div class="" [ngClass]="{'has-error':  configFileName.invalid && (configFileName.dirty || configFileName.touched),
+ 			    		 	                        'has-success': configFileName.valid && (configFileName.dirty || configFileName.touched)}">
+                                                    @if (isInMode(ComponentMode.CREATE)) {
+                                                        <label for="configFileName-{{i}}" class="control-label">
+                                                            {{ 'APPS_WIZARD.CONFIG_FILENAME_LABEL' | translate }}
+                                                        </label>
+                                                    }
+                                                    @if (isInMode(ComponentMode.EDIT)) {
+                                                        <label for="configFileName-{{i}}" class="control-label">
+                                                            {{ 'APPS_WIZARD.CONFIG_FILENAME_LABEL' | translate }} *
+                                                        </label>
+                                                    }
+                                                    <input pInputText type="text" class="form-control"
+                                                           id="configFileName-{{i}}" name="configFileName-{{i}}"
+                                                           #configFileName="ngModel"
+                                                           [(ngModel)]="configTemplate.configFileName"
+                                                           [required]="isInMode(ComponentMode.EDIT)"
+                                                           pTooltip="{{'APPS_WIZARD.CONFIG_FILENAME_TOOLTIP' | translate}}"
+                                                           tooltipPosition="bottom" [showDelay]="50">
+                                                </div>
+                                                <div class="" [ngClass]="{'has-error':  configFileDirectory.invalid && (configFileDirectory.dirty || configFileDirectory.touched),
+ 			    		 	                        'has-success': configFileDirectory.valid && (configFileDirectory.dirty || configFileDirectory.touched)}">
+                                                    <label for="configFileDirectory-{{i}}"
+                                                           class="control-label">{{ 'APPS_WIZARD.CONFIG_FILEDIRECTORY_LABEL' | translate }}</label>
+                                                    <input pInputText type="text" class="form-control" id="configFileDirectory-{{i}}"
+                                                           name="configFileDirectory-{{i}}" #configFileDirectory="ngModel"
+                                                           [(ngModel)]="configTemplate.configFileDirectory"
+                                                           pTooltip="{{'APPS_WIZARD.CONFIG_FILEDIRECTORY_TOOLTIP' | translate}}"
+                                                           tooltipPosition="bottom" [showDelay]="50">
+                                                </div>
+                                                <div style="display: flex; flex-direction: column" [ngClass]="{'has-error':  configFileTemplateContent.invalid && (configFileTemplateContent.dirty || configFileTemplateContent.touched),
+ 			    		 	                    'has-success': configFileTemplateContent.valid && (configFileTemplateContent.dirty || configFileTemplateContent.touched)}">
+                                                    @if (isInMode(ComponentMode.CREATE)) {
+                                                        <label for="configFileTemplateContent-{{i}}"
+                                                               class="control-label">{{ 'APPS_WIZARD.CONFIG_CONTENT_LABEL' | translate }}</label>
+                                                    }
+                                                    @if (isInMode(ComponentMode.EDIT)) {
+                                                        <label for="configFileTemplateContent-{{i}}" style="text-align: left"
+                                                               class="control-label">{{ 'APPS_WIZARD.CONFIG_CONTENT_LABEL' | translate }}
+                                                            *</label>
+                                                    }
+                                                    <textarea pTextarea class="" id="configFileTemplateContent-{{i}}"
+                                                              name="configFileTemplateContent-{{i}}"
+                                                              #configFileTemplateContent="ngModel" rows="6"
+                                                              [(ngModel)]="configTemplate.configFileTemplateContent"
+                                                              [required]="isInMode(ComponentMode.EDIT)"
+                                                              pTooltip="{{'APPS_WIZARD.CONFIG_CONTENT_TOOLTIP' | translate}}"
+                                                              tooltipPosition="bottom" [showDelay]="50"></textarea>
+                                                </div>
                                             </div>
                                         </div>
                                     }
-                                    <button type="button" class="btn btn-primary" style=" margin-top: 15px"
-                                            (click)="addConfig()">
-                                        {{ 'APPS_WIZARD.ADD_CONFIG_BUTTON' | translate }}
-                                    </button>
+                                    <div>
+                                        <button type="button" class="btn btn-primary" style=" margin-top: 15px"
+                                                (click)="addConfig()">
+                                            {{ 'APPS_WIZARD.ADD_CONFIG_BUTTON' | translate }}
+                                        </button>
+                                    </div>
                                 </div>
                             }
                         </div>
@@ -491,7 +497,7 @@
                     <hr>
                     @if (applicationDTO.application.appConfigurationSpec.configUpdateEnabled) {
                         <div class="panel">
-                            <div class="panel-heading">{{ 'APPS_WIZARD.UPDATE_CONFIG_WIZARD_TEMPLATE_LABEL' | translate }}</div>
+                            <h4 >{{ 'APPS_WIZARD.UPDATE_CONFIG_WIZARD_TEMPLATE_LABEL' | translate }}</h4>
                             <div class="panel-body">
                                 <div class="flex" style="margin-bottom: 30px; gap:10px">
                                     <label for="addConfigUpdate"
@@ -499,7 +505,7 @@
                                            class="control-label">
                                         {{ 'APPS_WIZARD.ADD_CONFIG_UPDATE_TEMPLATE_LABEL' | translate }}
                                     </label>
-                                    <div class="">
+                                    <div>
                                         <input type="checkbox" id="addConfigUpdate" (change)="handleConfigTemplate()"
                                                name="addConfigUpdate" [defaultChecked]="false"
                                                [(ngModel)]="addConfigUpdate"
