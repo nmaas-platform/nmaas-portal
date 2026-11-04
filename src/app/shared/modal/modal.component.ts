@@ -11,6 +11,7 @@ export class ModalComponent implements OnInit {
     @Input() styleModal: string;
 
     @Input() width: string = '40vw';
+    @Input() height: string = '50vh';
 
     public visible = false;
     public isInfo = false;

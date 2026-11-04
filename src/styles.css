@@ -1138,3 +1138,16 @@ body .p-button-secondary:not(:disabled):hover {
 body .p-carousel-item {
     flex: 0 !important;
 }
+.app-card-bundles{
+    color: var(--p-text-0);
+    min-height:200px;
+    background: var(--p-background-100);
+    border-radius: 10px;
+    margin:10px 0;
+    padding:15px;
+}
+.bundle-tabs .p-tablist-tab-list {
+    justify-content: center;
+    border: none !important;
+    gap: 20px;
+}

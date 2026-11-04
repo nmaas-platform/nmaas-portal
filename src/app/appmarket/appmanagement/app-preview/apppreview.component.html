@@ -1,135 +1,146 @@
 <div class="row">
-  <p class="bs-callout bs-callout-success" style="color: var(--p-text-0)">
-    {{'APPS_PREVIEW.PREVIEW_MESSAGE' | translate}}
-  </p>
-  @if (app) {
-    <div class="background-section" style="display:flex; flex-direction:column;">
-      <div style="display: flex; flex-direction:row; justify-content: space-between; padding-bottom:50px">
-        <div style="display: flex; align-items: center">
-          @if (logo) {
-            <div class="img-container">
-              <img alt="App logo" [src]="logo.objectURL || 'assets/images/app-logo-example.png'"  width="90px"/>
+    <p class="bs-callout bs-callout-success" style="color: var(--p-text-0)">
+        {{ 'APPS_PREVIEW.PREVIEW_MESSAGE' | translate }}
+    </p>
+    @if (app) {
+        <div class="background-section" style="display:flex; flex-direction:column;">
+            <div style="display: flex; flex-direction:row; justify-content: space-between; padding-bottom:50px">
+                <div style="display: flex; align-items: center">
+                    @if (logo) {
+                        <div class="img-container">
+                            <img alt="App logo" [src]="logo.objectURL || 'assets/images/app-logo-example.png'"
+                                 width="90px"/>
+                        </div>
+                    }
+                    @if (!logo) {
+                        <div class="img-container" style="display: flex; align-items: center">
+                            <img alt="App logo" src="assets/images/app-logo-example.png" width="90px"/>
+                        </div>
+                    }
+                    <h3 style="margin:0 20px; color: var(--p-text-0)">{{ app?.applicationBase.name }}</h3>
+                </div>
+                <div style="display:flex; align-items: center">
+                    <div class=" pull-right">
+                        <button class="btn btn-primary m-1">{{ 'APPLICATIONS.DEPLOY_BUTTON' | translate }}</button>
+                        <button class="btn btn-danger m-1">{{ 'APPLICATIONS.UNSUBSCRIBE_BUTTON' | translate }}</button>
+                    </div>
+                </div>
             </div>
-          }
-          @if (!logo) {
-            <div class="img-container" style="display: flex; align-items: center">
-              <img alt="App logo" src="assets/images/app-logo-example.png" width="90px" />
+            <div style="display: flex;flex-direction: column;">
+                <div class="">
+                    <div class="text-muted mt-2" style="font-size: small;">
+                        @if (isVersionView()) {
+                            <span>v.{{ app?.application.version }}</span>
+                        }
+                        @if (!isVersionView()) {
+                            <a style="cursor: pointer;"
+                               (click)="showVersions()">{{ 'APP_INSTANCE.SHOW_VERSIONS_LABEL' | translate }}</a>
+                        }
+                        | <a [href]="getValidLink(app?.applicationBase.licenseUrl)"
+                             target="_blank">{{ app?.applicationBase.license }}</a>
+                        | <a [href]="getValidLink(app?.applicationBase.wwwUrl)">WWW</a>
+                        | <a [href]="getValidLink(app?.applicationBase.sourceUrl)"
+                             target="_blank">{{ 'APP_INSTANCE.SOURCE' | translate }}</a>
+                        | <a [href]="getValidLink(app?.applicationBase.issuesUrl)"
+                             target="_blank">{{ 'APP_INSTANCE.ISSUES' | translate }}</a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <div class="text-right">
+                    </div>
+                </div>
             </div>
-          }
-          <h3 style="margin:0 20px; color: var(--p-text-0)">{{app?.applicationBase.name}}</h3>
-        </div>
-        <div style="display:flex; align-items: center">
-          <div class=" pull-right">
-            <button class="btn btn-primary m-1">{{'APPLICATIONS.DEPLOY_BUTTON' | translate}}</button>
-            <button class="btn btn-danger m-1">{{'APPLICATIONS.UNSUBSCRIBE_BUTTON' | translate}}</button>
-          </div>
-        </div>
-      </div>
-      <div style="display: flex;flex-direction: column;">
-        <div class="">
-          <div class="text-muted mt-2" style="font-size: small;">
-            @if (isVersionView()) {
-              <span>v.{{app?.application.version}}</span>
-            }
-            @if (!isVersionView()) {
-              <a style="cursor: pointer;" (click)="showVersions()">{{'APP_INSTANCE.SHOW_VERSIONS_LABEL' | translate }}</a>
-            }
-            | <a [href]="getValidLink(app?.applicationBase.licenseUrl)" target="_blank">{{app?.applicationBase.license}}</a>
-            | <a [href]="getValidLink(app?.applicationBase.wwwUrl)">WWW</a>
-            | <a [href]="getValidLink(app?.applicationBase.sourceUrl)" target="_blank">{{'APP_INSTANCE.SOURCE' | translate}}</a>
-            | <a [href]="getValidLink(app?.applicationBase.issuesUrl)" target="_blank">{{'APP_INSTANCE.ISSUES' | translate}}</a>
-          </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-          <div class="text-right">
-          </div>
-        </div>
-      </div>
-      @if (versionVisible) {
-        <div class="">
-          @if (app?.applicationBase.versions) {
-            <div class="">
-              @for (version of app?.applicationBase.versions; track version) {
-                <a class="tag-button">
-                  v.{{version.version}}
-                </a>
-              }
-            </div>
-          }
-        </div>
-      }
-      <div class="">
-        @if (app?.applicationBase.tags) {
-          <div class="">
-            @for (tag of app?.applicationBase.tags; track tag) {
-              <a class="tag-button">
-                {{tag.name | titlecase}}
-              </a>
-            }
-          </div>
-        }
-      </div>
-    </div>
-  }
-  <div class="background-section">
-    <div>
-      <p style="font-weight: bold">{{'APPLICATIONS.DESCRIPTION' | translate}}</p>
-      <div [innerHTML]="getDescription()?.fullDescription"></div>
-    </div>
-    @if (app?.applicationBase.id && !screenshots) {
-      <div style="padding-top:50px">
-        <p style="font-weight: bold">{{'SCREENSHOTS.HEADER' | translate}}</p>
-        <screenshots style="display: flex" [pathUrl]="'/apps/' + app?.applicationBase.id + '/screenshots'"></screenshots>
-      </div>
-    }
-    @if (!app?.applicationBase.id || screenshots) {
-      <div style="padding-top:50px; display: flex; flex-direction: column;">
-        <p style="font-weight: bold; margin-bottom: 5px;">{{'SCREENSHOTS.HEADER' | translate}}</p>
-        @if (screenshots) {
-            <p-carousel [value]="screenshots" [numVisible]="4" [numScroll]="1">
-                <ng-template let-item pTemplate="item">
-                    <img class="carousel-img" [src]="item.objectURL || 'assets/images/app-screenshot-example.png'"
-                         alt="Screenshot" (click)="selectedImage = item">
-                </ng-template>
-            </p-carousel>
-            @if (selectedImage) {
-                <div class="overlay" (click)="selectedImage = null">
-                    <img [src]="selectedImage.objectURL || 'assets/images/app-screenshot-example.png'"
-                         alt="Screenshot" class="fullscreen-img">
+            @if (versionVisible) {
+                <div class="">
+                    @if (app?.applicationBase.versions) {
+                        <div class="">
+                            @for (version of app?.applicationBase.versions; track version) {
+                                <a class="tag-button">
+                                    v.{{ version.version }}
+                                </a>
+                            }
+                        </div>
+                    }
                 </div>
             }
-        }
-      </div>
+            <div class="">
+                @if (app?.applicationBase.tags) {
+                    <div class="">
+                        @for (tag of app?.applicationBase.tags; track tag) {
+                            <a class="tag-button">
+                                {{ tag.name | titlecase }}
+                            </a>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
     }
-  </div>
+    <div class="background-section">
+        <div>
+            <p style="font-weight: bold">{{ 'APPLICATIONS.DESCRIPTION' | translate }}</p>
+            <div [innerHTML]="getDescription()?.fullDescription"></div>
+        </div>
+        @if (app?.applicationBase.id && !screenshots) {
+            <div style="padding-top:50px">
+                <p style="font-weight: bold">{{ 'SCREENSHOTS.HEADER' | translate }}</p>
+                <screenshots style="display: flex"
+                             [pathUrl]="'/apps/' + app?.applicationBase.id + '/screenshots'"></screenshots>
+            </div>
+        }
+        @if (!app?.applicationBase.id || screenshots) {
+            <div style="padding-top:50px; display: flex; flex-direction: column;">
+                <p style="font-weight: bold; margin-bottom: 5px;">{{ 'SCREENSHOTS.HEADER' | translate }}</p>
+                @if (screenshots) {
+                    <p-carousel [value]="screenshots" [numVisible]="4" [numScroll]="1">
+                        <ng-template let-item pTemplate="item">
+                            <img class="carousel-img"
+                                 [src]="item.objectURL || 'assets/images/app-screenshot-example.png'"
+                                 alt="Screenshot" (click)="selectedImage = item">
+                        </ng-template>
+                    </p-carousel>
+                    @if (selectedImage) {
+                        <div class="overlay" (click)="selectedImage = null">
+                            <img [src]="selectedImage.objectURL || 'assets/images/app-screenshot-example.png'"
+                                 alt="Screenshot" class="fullscreen-img">
+                        </div>
+                    }
+                }
+            </div>
+        }
+    </div>
 </div>
 @if (app?.application.configWizardTemplate) {
-  <div class="row">
-    <div class="col-xs-12">
-      <h3 style="color: var(--p-text-0)">{{'APPS_PREVIEW.CONFIG_WIZARD_PREVIEW_HEADER' | translate}}</h3>
-      <hr>
-        @if (app !== undefined && app.application.configWizardTemplate.template !== undefined) {
-          <formio
-            [form]="app.application.configWizardTemplate.template"
-            [options]='{"alerts": {"submitMessage": "Configuration applied"}, "errors": {"message": "Invalid configuration"}}'>
-          </formio>
-        }
-      </div>
-    </div>
-  }
-
-  @if (app?.application.configUpdateWizardTemplate) {
     <div class="row">
-      <hr>
-        <div class="col-xs-12">
-          <h3>{{'APPS_PREVIEW.UPDATE_CONFIG_WIZARD_PREVIEW_HEADER' | translate}}</h3>
-          <hr>
-            @if (app !== undefined && app.application.configUpdateWizardTemplate.template !== undefined) {
-              <formio
-                [form]="app.application.configUpdateWizardTemplate.template"
-                [options]='{"alerts": {"submitMessage": "Configuration applied"}, "errors": {"message": "Invalid configuration"}}'>
-              </formio>
-            }
-          </div>
+        <div class="background-section">
+            <div class="">
+                <h3 style="color: var(--p-text-0)">{{ 'APPS_PREVIEW.CONFIG_WIZARD_PREVIEW_HEADER' | translate }}</h3>
+                <hr>
+                @if (app !== undefined && app.application.configWizardTemplate.template !== undefined) {
+                    <formio
+                            [form]="app.application.configWizardTemplate.template"
+                            [options]='{"alerts": {"submitMessage": "Configuration applied"}, "errors": {"message": "Invalid configuration"}}'>
+                    </formio>
+                }
+            </div>
         </div>
-      }
+    </div>
+}
+
+@if (app?.application.configUpdateWizardTemplate) {
+    <div class="row">
+        <div class="background-section">
+            <hr>
+            <div class="">
+                <h3>{{ 'APPS_PREVIEW.UPDATE_CONFIG_WIZARD_PREVIEW_HEADER' | translate }}</h3>
+                <hr>
+                @if (app !== undefined && app.application.configUpdateWizardTemplate.template !== undefined) {
+                    <formio
+                            [form]="app.application.configUpdateWizardTemplate.template"
+                            [options]='{"alerts": {"submitMessage": "Configuration applied"}, "errors": {"message": "Invalid configuration"}}'>
+                    </formio>
+                }
+            </div>
+        </div>
+    </div>
+}

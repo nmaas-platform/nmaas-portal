@@ -19,12 +19,16 @@ import {ApplicationState} from '../../model/application-state';
 import {Domain} from '../../model/domain';
 import {AppDescription} from '../../model/app-description';
 import {ApplicationBase} from '../../model/application-base';
+import {Bundle} from "../../model/bundle";
+import {ModalComponent} from "../../shared";
+import {BundleDescription} from "../../model/bundle-description";
+import {BundleService} from "../../service/bundle.service";
 
 
 @Component({
     selector: 'nmaas-appdetails',
     templateUrl: './appdetails.component.html',
-    styleUrls: ['../../../assets/css/main.css', './appdetails.component.css'],
+    styleUrls: ['./appdetails.component.css'],
     standalone: false
 })
 export class AppDetailsComponent implements OnInit {
@@ -42,6 +46,13 @@ export class AppDetailsComponent implements OnInit {
 
     @ViewChild(RateComponent)
     public readonly appRate: RateComponent;
+
+    public isInBundle = false;
+    protected bundles: Bundle[] = [];
+    public selectedBundleId?: number;
+
+    @ViewChild('bundleModal')
+    protected readonly bundlesModal: ModalComponent;
 
     public appId: number;
     public app: ApplicationBase;
@@ -67,7 +78,8 @@ export class AppDetailsComponent implements OnInit {
                 private translate: TranslateService,
                 private domainService: DomainService,
                 private router: Router,
-                private route: ActivatedRoute) {
+                private route: ActivatedRoute,
+                private readonly bundleService: BundleService) {
     }
 
     ngOnInit() {
@@ -92,6 +104,34 @@ export class AppDetailsComponent implements OnInit {
                     }
                 });
         });
+        this.bundleService.isAppInBundle(this.appId).subscribe((exists: boolean) => {
+            this.isInBundle = exists;
+            if (exists) {
+                this.loadBundles();
+            }
+        });
+    }
+
+    private loadBundles(): void {
+        this.bundleService.getAllByApplicationRaw(this.appId).subscribe((bundles: Bundle[]) => {
+            this.bundles = bundles;
+        });
+    }
+
+    public showBundlesModal(): void {
+        this.selectedBundleId = this.bundles[0]?.id;
+        this.bundlesModal.show();
+    }
+
+    public getBundleDescription(bundleId: number): BundleDescription {
+        const bundle = this.bundles.find(b => b.id === bundleId);
+
+        if (!bundle) {
+            return null;
+        }
+
+        return bundle.descriptions.find(d => d.language === this.translate.currentLang)
+            ?? bundle.descriptions.find(d => d.language === 'en');
     }
 
     public onRateChanged(): void {
