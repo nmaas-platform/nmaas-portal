@@ -6,6 +6,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ConfigTemplateService {
 
+  private readonly updatableContainerKeys: string[] = ['additionalParameters', 'mandatoryParameters', 'accessCredentials'];
+
   public configTemplate: any;
 
   public configUpdateTemplate: any;
@@ -47,6 +49,47 @@ export class ConfigTemplateService {
 
   public getConfigUpdateTemplate(): any {
     return this.configUpdateTemplate;
+  }
+
+  public generateConfigUpdateTemplate(configWizardTemplate: any): any {
+    const containers: any[] = [];
+    this.collectUpdatableContainers(configWizardTemplate?.components, containers);
+    if (containers.length === 0) {
+      return this.getConfigUpdateTemplate();
+    }
+    return { components: containers };
+  }
+
+  private collectUpdatableContainers(components: any[], collected: any[]): void {
+    (components || []).forEach(component => {
+      if (component?.type === 'container' && this.updatableContainerKeys.includes(component.key)) {
+        collected.push(JSON.parse(JSON.stringify(component)));
+        return;
+      }
+      this.collectUpdatableContainers(component?.components, collected);
+      (component?.columns || []).forEach(column => this.collectUpdatableContainers(column?.components, collected));
+    });
+  }
+
+  public isTemplateEmpty(template: any): boolean {
+    return template == null || !this.hasInputFields(template.components);
+  }
+
+  public hasInputFields(components: any[]): boolean {
+    for (const component of components || []) {
+      if (component?.input === true && component.type !== 'container' && component.type !== 'button') {
+        return true;
+      }
+      if (component?.components && this.hasInputFields(component.components)) {
+        return true;
+      }
+      for (const column of component?.columns || []) {
+        if (column?.components && this.hasInputFields(column.components)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   public getDefaultElement(): any {

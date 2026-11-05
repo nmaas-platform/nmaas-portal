@@ -20,12 +20,14 @@ class TranslateFakeLoader implements TranslateLoader {
 describe('AppVersionCreateWizardComponent', () => {
     let component: AppVersionCreateWizardComponent;
     let fixture: ComponentFixture<AppVersionCreateWizardComponent>;
+    let configTemplateServiceSpy: jasmine.SpyObj<ConfigTemplateService>;
 
     beforeEach(waitForAsync(() => {
         const tagServiceSpy = createSpyObj('TagService', ['getTags'])
         tagServiceSpy.getTags.and.returnValue(of([]))
 
-        const configTemplateServiceSpy = createSpyObj('ConfigTemplateService', ['getConfigTemplate'])
+        configTemplateServiceSpy = createSpyObj('ConfigTemplateService',
+            ['getConfigTemplate', 'getConfigUpdateTemplate', 'generateConfigUpdateTemplate', 'isTemplateEmpty'])
 
         TestBed.configureTestingModule({
             declarations: [AppVersionCreateWizardComponent],
@@ -59,6 +61,90 @@ describe('AppVersionCreateWizardComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
+    });
+
+    describe('handleConfigTemplate', () => {
+
+        beforeEach(() => {
+            component.applicationDTO = {
+                application: {
+                    appConfigurationSpec: { configUpdateEnabled: true },
+                    configWizardTemplate: { template: { components: [] } },
+                    configUpdateWizardTemplate: null
+                }
+            } as any;
+        });
+
+        it('should generate a default update template from the main config wizard when the update wizard is null', () => {
+            const generated = {
+                components: [
+                    {
+                        type: 'container', input: true, key: 'additionalParameters',
+                        components: [{ type: 'textfield', input: true, key: 'server_dot_extraArgs' }]
+                    }
+                ]
+            };
+            configTemplateServiceSpy.isTemplateEmpty.and.returnValue(true);
+            configTemplateServiceSpy.generateConfigUpdateTemplate.and.returnValue(generated);
+            component.addConfigUpdate = true;
+
+            component.handleConfigTemplate();
+
+            expect(configTemplateServiceSpy.generateConfigUpdateTemplate)
+                .toHaveBeenCalledWith({ components: [] });
+            expect(component.applicationDTO.application.configUpdateWizardTemplate.template).toEqual(generated);
+        });
+
+        it('should replace an empty existing update template with the generated one', () => {
+            component.applicationDTO.application.configUpdateWizardTemplate = {
+                id: null,
+                template: {
+                    components: [
+                        { type: 'container', input: true, key: 'configuration', hideLabel: true, components: [] }
+                    ]
+                }
+            };
+            const generated = { components: [{ type: 'container', input: true, key: 'accessCredentials', components: [] }] };
+            configTemplateServiceSpy.isTemplateEmpty.and.returnValue(true);
+            configTemplateServiceSpy.generateConfigUpdateTemplate.and.returnValue(generated);
+            component.addConfigUpdate = true;
+
+            component.handleConfigTemplate();
+
+            expect(component.applicationDTO.application.configUpdateWizardTemplate.template).toEqual(generated);
+        });
+
+        it('should keep the existing update template when it is not empty', () => {
+            const existing = {
+                id: 1,
+                template: {
+                    components: [
+                        {
+                            type: 'container', input: true, key: 'accessCredentials',
+                            components: [{ type: 'textfield', input: true, key: 'accessUsername' }]
+                        }
+                    ]
+                }
+            };
+            component.applicationDTO.application.configUpdateWizardTemplate = existing;
+            configTemplateServiceSpy.isTemplateEmpty.and.returnValue(false);
+            component.addConfigUpdate = true;
+
+            component.handleConfigTemplate();
+
+            expect(component.applicationDTO.application.configUpdateWizardTemplate).toBe(existing);
+            expect(configTemplateServiceSpy.generateConfigUpdateTemplate).not.toHaveBeenCalled();
+        });
+
+        it('should clear the update template when unchecked and the main wizard has no basic auth', () => {
+            component.applicationDTO.application.configUpdateWizardTemplate = { id: null, template: { components: [] } };
+            component.addConfigUpdate = false;
+
+            component.handleConfigTemplate();
+
+            expect(component.applicationDTO.application.configUpdateWizardTemplate).toBeUndefined();
+        });
+
     });
 
 });

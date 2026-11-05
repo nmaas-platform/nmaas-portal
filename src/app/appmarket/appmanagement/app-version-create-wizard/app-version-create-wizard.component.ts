@@ -195,6 +195,9 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
         }
         this.basicAuth = this.hasAlreadyBasicAuth();
         this.addConfigUpdate = (this.applicationDTO.application.configUpdateWizardTemplate != null);
+        if (this.addConfigUpdate && this.isConfigUpdateTemplateEmpty()) {
+            this.setDefaultConfigUpdateTemplate();
+        }
     }
 
     public nextStep(): void {
@@ -428,13 +431,26 @@ export class AppVersionCreateWizardComponent extends BaseComponent implements On
     }
 
     public handleConfigTemplate(): any {
-        if (this.addConfigUpdate && (this.applicationDTO.application.configUpdateWizardTemplate == null)) {
-            this.applicationDTO.application.configUpdateWizardTemplate = new ConfigWizardTemplate();
-            this.applicationDTO.application.configUpdateWizardTemplate.template = this.configTemplateService.getConfigUpdateTemplate();
+        if (this.addConfigUpdate && this.isConfigUpdateTemplateEmpty()) {
+            this.formDisplayChange = false;
+            this.setDefaultConfigUpdateTemplate();
+            setTimeout(() => {
+                this.formDisplayChange = true
+            }, 1);
         }
         if (!this.addConfigUpdate && !this.hasAlreadyBasicAuth()) {
             this.applicationDTO.application.configUpdateWizardTemplate = undefined;
         }
+    }
+
+    public isConfigUpdateTemplateEmpty(): boolean {
+        return this.configTemplateService.isTemplateEmpty(this.applicationDTO.application.configUpdateWizardTemplate?.template);
+    }
+
+    public setDefaultConfigUpdateTemplate(): void {
+        this.applicationDTO.application.configUpdateWizardTemplate = new ConfigWizardTemplate();
+        this.applicationDTO.application.configUpdateWizardTemplate.template =
+            this.configTemplateService.generateConfigUpdateTemplate(this.applicationDTO.application.configWizardTemplate?.template);
     }
 
     public changeBasicAuthInForms() {
