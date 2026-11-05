@@ -522,8 +522,10 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                 this.submission.data.configuration = config;
             }
 
-            this.deployParameters$.subscribe(additionalParams => {
-                this.submission.data.additionalParameters = this.escapeParameterKeys(additionalParams);
+            this.appInstanceService.getDeploymentParameters(this.appInstanceId).subscribe(deployParams => {
+                const escapedParams = this.escapeParameterKeys(deployParams);
+                this.submission.data.additionalParameters = escapedParams;
+                this.submission.data.mandatoryParameters = escapedParams;
 
                 this.refreshUpdateForm.emit({
                     property: 'submission',
@@ -685,8 +687,10 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
         console.warn('Sumbission', this.submission)
         this.appInstanceService.getConfiguration(this.appInstanceId).subscribe(config => {
             this.submission['data']['configuration'] = config;
-            this.deployParameters$.subscribe(additionalParams => {
-                this.submission['data']['additionalParameters'] = this.escapeParameterKeys(additionalParams)
+            this.appInstanceService.getDeploymentParameters(this.appInstanceId).subscribe(deployParams => {
+                const escapedParams = this.escapeParameterKeys(deployParams);
+                this.submission['data']['additionalParameters'] = escapedParams
+                this.submission['data']['mandatoryParameters'] = escapedParams
                 this.refreshUpdateForm.emit({
                     property: 'submission',
                     value: this.submission
