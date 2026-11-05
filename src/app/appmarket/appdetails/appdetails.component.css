@@ -21,6 +21,9 @@
     max-width: 130px;
     max-height: 100px;
 }
+.description-container {
+    width: 100%;
+}
 
 .image-container-outer {
     border-radius:8px;
@@ -55,6 +58,24 @@
     font-weight: bold;
     white-space: nowrap;
 }
+.text-two-lines {
+    width: 100%;
+    line-height: 1.5em;
+    height: 3em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /*this ia a dirty hack to force ellipsis*/
+    /*https://css-tricks.com/line-clampin/#article-header-id-0*/
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* autoprefixer: ignore next */
+    -webkit-box-orient: vertical;
+}
+@media (min-width:1550px){
+    .col-xl-3{
+        width: 25%
+    }
+}
 .element-container {
     display: flex;
     flex-direction: column;
@@ -63,6 +84,16 @@
     height: 100%;
     overflow-y: auto;
     justify-content: space-between;
+}
+.clickable-tail {
+    cursor: pointer;
+    transition: all 300ms ease-out;
+}
+
+.clickable-tail:hover {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+    /*transform: scale(1);*/
+    /*-webkit-transform: scale(1);*/
 }
 .tag-button{
     background-color: var(--p-background-400);

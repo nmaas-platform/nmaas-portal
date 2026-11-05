@@ -437,20 +437,20 @@
                                pTooltip="{{'APPS_WIZARD.HELM_CHART_REPOSITORY_URL_TOOLTIP' | translate}}"
                                tooltipPosition="bottom" [showDelay]="50">
                     </div>
-                    <div class="form-group form-group-sm grid col-12">
-                        <label for="exposesWebUI" style="text-align: left; padding-left: 0;"
-                               class="col-2 control-label">{{ 'APPS_WIZARD.EXPOSE_WEB_UI' | translate }}</label>
-                        <div class="col-10">
+                    <div class="flex gap-2 form-group form-group-sm" style="padding-bottom:10px">
+                        <label for="exposesWebUI" style="text-align: left;"
+                               class=" control-label p-0">{{ 'APPS_WIZARD.EXPOSE_WEB_UI' | translate }}</label>
+                        <div class="">
                             <input type="checkbox" id="exposesWebUI" name="exposesWebUI" [defaultChecked]="false"
                                    [(ngModel)]="applicationDTO.application.appDeploymentSpec.exposesWebUI"
                                    pTooltip="{{'APPS_WIZARD.EXPOSE_WEB_UI_TOOLTIP' | translate}}"
                                    tooltipPosition="bottom" [showDelay]="50">
                         </div>
                     </div>
-                    <div class="form-group form-group-sm grid col-12">
-                        <label for="allowSshAccess" style="text-align: left; padding-left: 0;"
-                               class="col-2 control-label">{{ 'APPS_WIZARD.ALLOW_SSH_ACCESS' | translate }}</label>
-                        <div class="col-10">
+                    <div class="flex gap-2 form-group form-group-sm" style="padding-bottom:10px">
+                        <label for="allowSshAccess" style="text-align: left; "
+                               class=" control-label p-0">{{ 'APPS_WIZARD.ALLOW_SSH_ACCESS' | translate }}</label>
+                        <div class="">
                             <input type="checkbox" id="allowSshAccess" name="allowSshAccess" [defaultChecked]="false"
                                    [(ngModel)]="applicationDTO.application.appDeploymentSpec.allowSshAccess"
                                    pTooltip="{{'APPS_WIZARD.ALLOW_SSH_ACCESS_TOOLTIP' | translate}}"
@@ -574,10 +574,10 @@
                     <h4>{{ 'APPS_WIZARD.APP_CONFIG_SPECIFICATION' | translate }}</h4>
                     <form class="form-horizontal" #appConfigForm="ngForm">
                         <div class="panel-body">
-                            <div class="form-group form-group-sm grid col-12">
-                                <label for="configFileRepositoryRequired" style="text-align: left; padding-left: 0;"
-                                       class="col-2 control-label">{{ 'APPS_WIZARD.REPOSITORY_REQUIRED_LABEL' | translate }}</label>
-                                <div class="col-10">
+                            <div class="flex gap-2 pb-3 form-group form-group-sm">
+                                <label for="configFileRepositoryRequired" style="text-align: left;"
+                                       class=" control-label p-0">{{ 'APPS_WIZARD.REPOSITORY_REQUIRED_LABEL' | translate }}</label>
+                                <div class="">
                                     <input type="checkbox" id="configFileRepositoryRequired"
                                            name="configFileRepositoryRequired"
                                            (change)="changeDefaultElementInForms()"
@@ -587,18 +587,18 @@
                                            tooltipPosition="bottom" [showDelay]="50">
                                 </div>
                             </div>
-                            <div class="form-group form-group-sm grid col-12">
-                                <label for="configUpdateEnabled" style="text-align: left; padding-left: 0;"
-                                       class="col-2 control-label">{{ 'APPS_WIZARD.CONFIG_UPDATE_ENABLED' | translate }}</label>
-                                <div class="col-10">
+                            <div class="flex gap-2 pb-3 form-group form-group-sm">
+                                <label for="configUpdateEnabled" style="text-align: left; "
+                                       class=" control-label p-0">{{ 'APPS_WIZARD.CONFIG_UPDATE_ENABLED' | translate }}</label>
+                                <div class="">
                                     <input type="checkbox" id="configUpdateEnabled" name="configUpdateEnabled"
                                            [(ngModel)]="applicationDTO.application.appConfigurationSpec.configUpdateEnabled">
                                 </div>
                             </div>
-                            <div class="form-group form-group-sm grid col-12">
-                                <label for="basicAuth" style="text-align: left; padding-left: 0;"
-                                       class="col-2 control-label">{{ 'APPS_WIZARD.BASIC_AUTH_LABEL' | translate }}</label>
-                                <div class="col-10">
+                            <div class="flex gap-2 pb-3 form-group form-group-sm">
+                                <label for="basicAuth" style="text-align: left; "
+                                       class=" control-label p-0">{{ 'APPS_WIZARD.BASIC_AUTH_LABEL' | translate }}</label>
+                                <div class="">
                                     <input type="checkbox" id="basicAuth" name="basicAuth"
                                            (change)="changeBasicAuthInForms()"
                                            [defaultChecked]="hasAlreadyBasicAuth()"
@@ -607,10 +607,10 @@
                                            tooltipPosition="bottom" [showDelay]="50">
                                 </div>
                             </div>
-                            <div class="form-group form-group-sm grid col-12">
-                                <label for="termsAcceptance" style="text-align: left; padding-left: 0;"
-                                       class="col-2 control-label">{{ 'APPS_WIZARD.TERMS_ACCEPTANCE_LABEL' | translate }}</label>
-                                <div class="col-10">
+                            <div class="flex gap-2 pb-3 form-group form-group-sm">
+                                <label for="termsAcceptance" style="text-align: left; "
+                                       class="p-0 control-label">{{ 'APPS_WIZARD.TERMS_ACCEPTANCE_LABEL' | translate }}</label>
+                                <div class="">
                                     <input type="checkbox" id="termsAcceptance" name="termsAcceptance"
                                            [(ngModel)]="applicationDTO.application.appConfigurationSpec.termsAcceptanceRequired"
                                            pTooltip="{{'APPS_WIZARD.TERMS_ACCEPTANCE_TOOLTIP' | translate}}"
@@ -766,7 +766,7 @@
                         <div class="panel" style="background: transparent; box-shadow: none">
                             <h4>{{ 'APPS_WIZARD.UPDATE_CONFIG_WIZARD_TEMPLATE_LABEL' | translate }}</h4>
                             <div class="panel-body">
-                                <div class="flex" style="margin-bottom: 30px; gap:10px">
+                                <div class="flex align-items-center form-group form-group-sm" style="margin-bottom: 30px; gap:10px">
                                     <label for="addConfigUpdate"
                                            style="text-align: left; padding-left: 0; font-size: 12px"
                                            class=" control-label">
