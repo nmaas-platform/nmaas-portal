@@ -299,9 +299,7 @@
         @if (applicationDTO) {
             <div>
                 <div class="panel background-section">
-                    <h4>
-                        {{ 'APPS_WIZARD.APP_CONFIG_TEMPLATES_HEADER' | translate }}
-                    </h4>
+                    <h4>{{ 'APPS_WIZARD.APP_CONFIG_SPECIFICATION' | translate }}</h4>
                     <form class="form-horizontal" #appConfigForm="ngForm">
                         <div class="panel-body" style="display: flex; flex-direction: column; gap: 15px">
                             <div style="display: flex; gap:10px">
@@ -372,6 +370,9 @@
                             }
                             @if (applicationDTO.application.appConfigurationSpec.configFileRepositoryRequired) {
                                 <div class="flex flex-column gap-4">
+                                    <h4>
+                                        {{ 'APPS_WIZARD.APP_CONFIG_TEMPLATES_HEADER' | translate }}
+                                    </h4>
                                     @for (configTemplate of configFileTemplates; track configTemplate; let i = $index) {
                                         <div class="card" style="display: flex; flex-direction: column; gap: 15px">
                                             <div class="panel-body gap-2">

@@ -30,10 +30,10 @@
     <div>
         @if (applicationDTO) {
             <div>
+                <div class="background-section">
+                    {{ 'APPS_WIZARD.BASIC_APP_INFO_STEP_INFO' | translate }}
+                </div>
                 <div class="panel background-section">
-                    <div style="margin-bottom:20px">
-                        {{ 'APPS_WIZARD.BASIC_APP_INFO_STEP_INFO' | translate }}
-                    </div>
                     <form class="form-horizontal" #basicInfoForm="ngForm">
                         <div class="form-group form-group-sm" style="margin:0"
                              [ngClass]="{'has-error':  appName.invalid && (appName.dirty || appName.touched),
@@ -181,13 +181,13 @@
 
 @if (activeStepIndex === 2) {
     <div>
+        <div class="background-section">
+            {{ 'APPS_WIZARD.LOGO_AND_SCREENSHOTS_STEP_INFO' | translate }}
+        </div>
         <div class="panel background-section">
-            <div style="margin-bottom:20px">
-                {{ 'APPS_WIZARD.LOGO_AND_SCREENSHOTS_STEP_INFO' | translate }}
-            </div>
-            <div class="panel-heading">
+            <h4>
                 {{ 'APPS_WIZARD.UPLOAD_LOGO_LABEL' | translate }}
-            </div>
+            </h4>
             <div class="panel-body">
                 <p-fileUpload name="logo" [disabled]="canAddLogo()" [files]="logo" customUpload="false"
                               [multiple]="true"
@@ -202,9 +202,9 @@
                 </div>
             </div>
             <div class="">
-                <div class="panel-heading">
+                <h4>
                     {{ 'APPS_WIZARD.UPLOAD_SCREENSHOTS_LABEL' | translate }}
-                </div>
+                </h4>
                 <div class="panel-body">
                     <p-fileUpload
                             name="screenshots"
@@ -275,11 +275,11 @@
         @if (applicationDTO) {
             <div>
                 <form class="form-horizontal" #descriptionForm="ngForm">
+                    <div class="background-section">
+                        {{ 'APPS_WIZARD.APP_DESCRIPTIONS_STEP_INFO' | translate }}
+                    </div>
                     <div class="panel background-section">
-                        <div style="margin-bottom: 20px">
-                            {{ 'APPS_WIZARD.APP_DESCRIPTIONS_STEP_INFO' | translate }}
-                        </div>
-                        <div class="panel-heading">{{ 'APPS_WIZARD.APP_REQUIRED_DESCRIPTIONS_HEADER' | translate }}</div>
+                        <h4>{{ 'APPS_WIZARD.APP_REQUIRED_DESCRIPTIONS_HEADER' | translate }}</h4>
                         <div class="panel-body">
                             <div><img alt="language" src="assets/images/country/en_circle.png"
                                       style="height: 22px"> {{ 'LANGUAGE.EN_LABEL' | translate }} *
@@ -321,7 +321,7 @@
                         </div>
                     </div>
                     <div class="panel background-section">
-                        <div class="panel-heading">{{ 'APPS_WIZARD.APP_OPTIONAL_DESCRIPTIONS_HEADER' | translate }}</div>
+                        <h4>{{ 'APPS_WIZARD.APP_OPTIONAL_DESCRIPTIONS_HEADER' | translate }}</h4>
                         <div class="panel-body">
                             <div class="form-group form-group-sm">
                                 <label class="control-label"
@@ -385,10 +385,10 @@
 
 @if (isInMode(ComponentMode.CREATE) && activeStepIndex === 4) {
     <div>
+        <div class="background-section">
+            {{ 'APPS_WIZARD.APP_DEPLOYMENT_SPEC_STEP_INFO' | translate }}
+        </div>
         <div class="panel background-section">
-            <div style="margin-bottom:20px">
-                {{ 'APPS_WIZARD.APP_DEPLOYMENT_SPEC_STEP_INFO' | translate }}
-            </div>
             <h4>{{ 'APPS_WIZARD.APP_DEPLOYMENT_HEADER' | translate }}</h4>
             <form class="form-horizontal" #appDeploymentForm="ngForm">
                 <div class="panel-body">
@@ -464,6 +464,7 @@
                         <div class="panel panel-default m-0"
                              style="background: var(--p-surface-200); border: 1px solid var(--p-accent-600)">
                             <div class="panel-body panel-container">
+                                <h4>{{'APPS_WIZARD.RESOURCES_SPECIFICATION' | translate }}</h4>
                                 <div class="form-group form-group-sm">
                                     <label for="consumedPods"
                                            class="control-label">{{ 'APPS_WIZARD.CONSUMED_PODS' | translate }}</label>
@@ -566,11 +567,11 @@
     <div>
         @if (applicationDTO) {
             <div>
+                <div class="background-section">
+                    {{ 'APPS_WIZARD.CONFIG_TEMPLATES_STEP_INFO' | translate }}
+                </div>
                 <div class="panel background-section">
-                    <h4 style="margin-bottom:20px">
-                        {{ 'APPS_WIZARD.CONFIG_TEMPLATES_STEP_INFO' | translate }}
-                    </h4>
-                    <div class="panel-heading">{{ 'APPS_WIZARD.APP_CONFIG_TEMPLATES_HEADER' | translate }}</div>
+                    <h4>{{ 'APPS_WIZARD.APP_CONFIG_SPECIFICATION' | translate }}</h4>
                     <form class="form-horizontal" #appConfigForm="ngForm">
                         <div class="panel-body">
                             <div class="form-group form-group-sm grid col-12">
@@ -639,6 +640,7 @@
                             }
                             @if (applicationDTO.application.appConfigurationSpec.configFileRepositoryRequired) {
                                 <div class="flex flex-column gap-4">
+                                    <h4>{{ 'APPS_WIZARD.APP_CONFIG_TEMPLATES_HEADER' | translate }}</h4>
                                     @for (configTemplate of configFileTemplates; track configTemplate; let i = $index) {
                                         <div class="card" style="display: flex; flex-direction: column; gap: 15px">
                                             <div class="panel-body gap-2">
