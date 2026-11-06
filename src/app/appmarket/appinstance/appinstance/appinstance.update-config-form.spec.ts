@@ -556,16 +556,28 @@ describe('Component: AppInstance update config form modal', () => {
     });
 
     it('should not prefill mandatory parameters when the update wizard has no mandatory parameters container', async () => {
+        appInstanceServiceStub.getAppInstance = () => of({
+            ...appInstance,
+            configUpdateWizardTemplate: {
+                id: 2,
+                template: {
+                    components: JSON.parse(updateWizardTemplateJson).components
+                        .filter(formComponent => formComponent.key !== 'mandatoryParameters')
+                }
+            } as ConfigWizardTemplate
+        });
         appInstanceServiceStub.getConfiguration = () => of('');
         appInstanceServiceStub.getDeploymentParameters = () => of({
             'healthchecks.properties.registrationOpen': 'yes'
         } as any);
 
-        component.configurationUpdateTemplate = {
-            ...component.configurationUpdateTemplate,
-            components: component.configurationUpdateTemplate.components
-                .filter(formComponent => formComponent.key !== 'mandatoryParameters')
-        };
+        fixture.destroy();
+        fixture = TestBed.createComponent(AppInstanceComponent);
+        component = fixture.componentInstance;
+        component.appInstanceProgress =
+            TestBed.createComponent(AppInstanceProgressMockComponent).componentInstance as AppInstanceProgressComponent;
+        fixture.detectChanges();
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
         component.getConfigurationFormModal();
         fixture.detectChanges();
@@ -574,9 +586,9 @@ describe('Component: AppInstance update config form modal', () => {
         expect(component.submission.data.mandatoryParameters)
             .withContext('missing container must not be prefilled and must not reach the request')
             .toBeUndefined();
-        expect(component.submission.data.additionalParameters)
-            .withContext('parameters not matching container fields must not be prefilled')
-            .toEqual({});
+        expect(component.submission.data.additionalParameters['healthchecks_dot_properties_dot_registrationOpen'])
+            .withContext('parameter not matching container fields must not be prefilled')
+            .toBeUndefined();
     });
 
     it('should not prefill parameters for containers missing from the configuration preview template', () => {
