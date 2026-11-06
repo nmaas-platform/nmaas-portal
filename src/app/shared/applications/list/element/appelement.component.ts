@@ -117,6 +117,14 @@ export class AppElementComponent implements OnInit, OnChanges {
         this.bundlesModal.show();
     }
 
+    public getBundleAppDescription(app: ApplicationBase): AppDescription {
+        return app.descriptions?.find(
+            val => val.language === this.translate.currentLang
+        ) || app.descriptions?.find(
+            val => val.language === 'en'
+        );
+    }
+
     private getAvailableDescLanguages(){
         return this.selectedBundle.descriptions.map(d => d.language);
     }

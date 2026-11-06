@@ -201,7 +201,7 @@
                                     @for (bundleApp of bundle.apps; track bundleApp.id) {
                                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
                                             <div class="app-card-bundles clickable-tail"
-                                                 [routerLink]="['/apps', bundleApp.id]">
+                                                 (click)="navigateToBundleApp(bundleApp.id)">
 
                                                 <div class="element-container">
                                                     <div class="image-container-outer">
@@ -215,7 +215,7 @@
                                                     <div class="text-center description-container">
                                                         <h3 class="app-name">{{ bundleApp.name }}</h3>
                                                         <div class="text-two-lines">
-                                                            {{ getDescription()?.briefDescription }}
+                                                            {{ getBundleAppDescription(bundleApp)?.briefDescription }}
                                                         </div>
                                                     </div>
                                                 </div>
