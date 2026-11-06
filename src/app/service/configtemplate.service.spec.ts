@@ -79,7 +79,7 @@ describe('ConfigTemplateService.generateConfigUpdateTemplate', () => {
   it('should copy updatable containers (accessCredentials, additionalParameters, mandatoryParameters) from the main wizard', () => {
     const generated = service.generateConfigUpdateTemplate(mainWizardTemplate);
     const keys = generated.components.map((component: any) => component.key);
-    expect(keys).toEqual(['accessCredentials', 'additionalParameters']);
+    expect(keys).toEqual(['accessCredentials', 'additionalParameters', 'submit']);
   });
 
   it('should not copy the configuration container because config file content cannot be updated from the wizard', () => {
@@ -111,7 +111,37 @@ describe('ConfigTemplateService.generateConfigUpdateTemplate', () => {
       ]
     };
     const generated = service.generateConfigUpdateTemplate(mainWizard);
-    expect(generated.components.map((component: any) => component.key)).toEqual(['mandatoryParameters']);
+    expect(generated.components.map((component: any) => component.key)).toEqual(['mandatoryParameters', 'submit']);
+  });
+
+  it('should append an Apply configuration submit button after the copied containers', () => {
+    const generated = service.generateConfigUpdateTemplate(mainWizardTemplate);
+    const button = generated.components[generated.components.length - 1];
+    expect(button).toEqual({
+      type: 'button',
+      label: 'Apply configuration',
+      key: 'submit',
+      action: 'submit',
+      disableOnInvalid: true,
+      theme: 'primary',
+      input: false,
+      tableView: true
+    });
+  });
+
+  it('should not append the Apply configuration button to the empty default update template fallback', () => {
+    const mainWizard = {
+      components: [
+        {
+          type: 'container', input: true, key: 'configuration', components: [
+            { type: 'textfield', input: true, key: 'someField' }
+          ]
+        }
+      ]
+    };
+    const generated = service.generateConfigUpdateTemplate(mainWizard);
+    expect(generated).toEqual(emptyDefaultUpdateTemplate);
+    expect(generated.components.some((component: any) => component.type === 'button')).toBeFalse();
   });
 
   it('should fall back to the empty default update template when the main wizard has no updatable containers', () => {

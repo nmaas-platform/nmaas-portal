@@ -57,7 +57,20 @@ export class ConfigTemplateService {
     if (containers.length === 0) {
       return this.getConfigUpdateTemplate();
     }
-    return { components: containers };
+    return { components: [...containers, this.getApplyConfigurationButton()] };
+  }
+
+  private getApplyConfigurationButton(): any {
+    return {
+      type: 'button',
+      label: 'Apply configuration',
+      key: 'submit',
+      action: 'submit',
+      disableOnInvalid: true,
+      theme: 'primary',
+      input: false,
+      tableView: true
+    };
   }
 
   private collectUpdatableContainers(components: any[], collected: any[]): void {

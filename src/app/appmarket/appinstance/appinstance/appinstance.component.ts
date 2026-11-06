@@ -524,8 +524,10 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
 
             this.appInstanceService.getDeploymentParameters(this.appInstanceId).subscribe(deployParams => {
                 const escapedParams = this.escapeParameterKeys(deployParams);
-                this.submission.data.additionalParameters = escapedParams;
-                this.submission.data.mandatoryParameters = escapedParams;
+                this.submission.data.additionalParameters =
+                    this.filterParametersForContainer(escapedParams, this.configurationUpdateTemplate, 'additionalParameters');
+                this.submission.data.mandatoryParameters =
+                    this.filterParametersForContainer(escapedParams, this.configurationUpdateTemplate, 'mandatoryParameters');
 
                 this.refreshUpdateForm.emit({
                     property: 'submission',
@@ -549,6 +551,50 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                 .replace(/[[\]]/g, AppInstanceComponent.PARAM_KEY_BRACKET_TAG)] = parameters[key];
         });
         return escaped;
+    }
+
+    private filterParametersForContainer(parameters: Record<string, string>, template: any, containerKey: string): Record<string, string> {
+        const fieldKeys = this.collectContainerFieldKeys(template?.components, containerKey);
+        if (fieldKeys == null || fieldKeys.size === 0) {
+            return undefined;
+        }
+        return Object.keys(parameters || {}).reduce((filtered: Record<string, string>, key: string) => {
+            if (fieldKeys.has(key)) {
+                filtered[key] = parameters[key];
+            }
+            return filtered;
+        }, {});
+    }
+
+    private collectContainerFieldKeys(components: any[], containerKey: string): Set<string> {
+        for (const component of components || []) {
+            if (component?.type === 'container' && component.key === containerKey) {
+                const fieldKeys = new Set<string>();
+                this.collectInputFieldKeys(component.components, fieldKeys);
+                return fieldKeys;
+            }
+            const nestedKeys = this.collectContainerFieldKeys(component?.components, containerKey);
+            if (nestedKeys != null) {
+                return nestedKeys;
+            }
+            for (const column of component?.columns || []) {
+                const columnKeys = this.collectContainerFieldKeys(column?.components, containerKey);
+                if (columnKeys != null) {
+                    return columnKeys;
+                }
+            }
+        }
+        return null;
+    }
+
+    private collectInputFieldKeys(components: any[], fieldKeys: Set<string>): void {
+        (components || []).forEach(component => {
+            if (component?.input === true && component.key) {
+                fieldKeys.add(component.key);
+            }
+            this.collectInputFieldKeys(component?.components, fieldKeys);
+            (component?.columns || []).forEach(column => this.collectInputFieldKeys(column?.components, fieldKeys));
+        });
     }
 
     /**
@@ -689,8 +735,10 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
             this.submission['data']['configuration'] = config;
             this.appInstanceService.getDeploymentParameters(this.appInstanceId).subscribe(deployParams => {
                 const escapedParams = this.escapeParameterKeys(deployParams);
-                this.submission['data']['additionalParameters'] = escapedParams
-                this.submission['data']['mandatoryParameters'] = escapedParams
+                this.submission['data']['additionalParameters'] =
+                    this.filterParametersForContainer(escapedParams, this.configurationTemplate, 'additionalParameters');
+                this.submission['data']['mandatoryParameters'] =
+                    this.filterParametersForContainer(escapedParams, this.configurationTemplate, 'mandatoryParameters');
                 this.refreshUpdateForm.emit({
                     property: 'submission',
                     value: this.submission
@@ -908,7 +956,10 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
 
     private getFailureStateMenuItems(appInstance: AppInstanceExtended): MenuItem[] {
         const items: MenuItem[] = [];
-
+        items.push({
+            label: this.translate.instant('APP_INSTANCE.UPDATE_CONFIG_FORM_BUTTON'),
+            command: () => this.getConfigurationFormModal()
+        });
         if (this.isAdminOrDomainAdmin()) {
             items.push(this.redeployMenuItem());
         }
