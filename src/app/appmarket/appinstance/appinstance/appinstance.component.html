@@ -307,6 +307,9 @@
           </div>
         </div>
         <div class="nmaas-modal-footer">
+            <button type="button" class="btn btn-secondary"
+                    (click)="this.closeConfigurationFormModal()">{{ 'UNDEPLOY_MODAL.CANCEL_BUTTON' | translate }}
+            </button>
         </div>
       </nmaas-modal>
         <nmaas-modal styleModal="info" #showConfigurationModal>
