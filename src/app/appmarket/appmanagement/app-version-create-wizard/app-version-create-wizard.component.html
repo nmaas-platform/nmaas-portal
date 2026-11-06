@@ -54,7 +54,7 @@
             <div>
                 <div class="panel background-section">
                     <form class="form-horizontal" #basicInfoForm="ngForm">
-                        <div style="padding-bottom:10px">
+                        <div class="form-group form-group-sm" style="padding-bottom:10px">
                             <label for="appName" class="control-label">{{ 'APPS_WIZARD.NAME_LABEL' | translate }}
                                 *</label>
                             <input pInputText type="text" id="appName" class="form-control" required [disabled]="true"
@@ -62,7 +62,7 @@
                                    pTooltip="{{'APPS_WIZARD.NAME_TOOLTIP' | translate}}"
                                    tooltipPosition="bottom" [showDelay]="50">
                         </div>
-                        <div class=""
+                        <div class="form-group form-group-sm"
                              [ngClass]="{'has-error':  version.invalid && (version.dirty || version.touched),
  			    		 	'has-success': version.valid && (version.dirty || version.touched)}">
                             <label for="appVersion" class="control-label">
@@ -94,8 +94,8 @@
         <div class="panel background-section">
             <h4>{{ 'APPS_WIZARD.APP_DEPLOYMENT_HEADER' | translate }}</h4>
             <form class="form-horizontal" #appDeploymentForm="ngForm">
-                <div class="panel-body" style="display: flex; gap:15px; flex-direction: column">
-                    <div class=""
+                <div class="panel-body" style="display: flex; flex-direction: column">
+                    <div class="form-group form-group-sm m-0"
                          [ngClass]="{'has-error':  kubernetesTemplateChartName.invalid && (kubernetesTemplateChartName.dirty ||
              kubernetesTemplateChartName.touched),
  			    		 	'has-success': kubernetesTemplateChartName.valid && (kubernetesTemplateChartName.dirty ||
@@ -115,7 +115,7 @@
                                pTooltip="{{'APPS_WIZARD.CHART_NAME_TOOLTIP' | translate}}"
                                tooltipPosition="bottom" [showDelay]="50">
                     </div>
-                    <div class="">
+                    <div class="form-group form-group-sm m-0">
                         @if (!isInMode(ComponentMode.EDIT)) {
                             <label for="kubernetesTemplateChartVersion" class="control-label">
                                 {{ 'APPS_WIZARD.CHART_VERSION_LABEL' | translate }}</label>
@@ -131,7 +131,7 @@
                                pTooltip="{{'APPS_WIZARD.CHART_VERSION_TOOLTIP' | translate}}"
                                tooltipPosition="bottom" [showDelay]="50">
                     </div>
-                    <div class="">
+                    <div class="form-group form-group-sm m-0">
                         <label for="kubernetesTemplateHelmChartRepositoryName" class="control-label">
                             {{ 'APPS_WIZARD.HELM_CHART_REPOSITORY_NAME_LABEL' | translate }}</label>
                         <input pInputText type="text" class="form-control"
@@ -141,7 +141,7 @@
                                pTooltip="{{'APPS_WIZARD.HELM_CHART_REPOSITORY_NAME_TOOLTIP' | translate}}"
                                tooltipPosition="bottom" [showDelay]="50">
                     </div>
-                    <div class="">
+                    <div class="form-group form-group-sm m-0">
                         <label for="kubernetesTemplateHelmChartRepositoryUrl" class="control-label">
                             {{ 'APPS_WIZARD.HELM_CHART_REPOSITORY_URL_LABEL' | translate }}</label>
                         <input pInputText type="url" class="form-control" id="kubernetesTemplateHelmChartRepositoryUrl"
@@ -151,7 +151,7 @@
                                pTooltip="{{'APPS_WIZARD.HELM_CHART_REPOSITORY_URL_TOOLTIP' | translate}}"
                                tooltipPosition="bottom" [showDelay]="50">
                     </div>
-                    <div style="display: flex; gap:10px">
+                    <div class="form-group form-group-sm m-0" style="display: flex; gap:10px">
                         <label for="exposesWebUI" style="text-align: left; padding-left: 0;" class="control-label pt-0">
                             {{ 'APPS_WIZARD.EXPOSE_WEB_UI' | translate }}</label>
                         <div class="">
@@ -161,7 +161,7 @@
                                    tooltipPosition="bottom" [showDelay]="50">
                         </div>
                     </div>
-                    <div style="display: flex; gap:10px">
+                    <div class="form-group form-group-sm m-0" style="display: flex; gap:10px">
                         <label for="allowSshAccess" style="text-align: left; padding-left: 0;"
                                class="control-label pt-0">
                             {{ 'APPS_WIZARD.ALLOW_SSH_ACCESS' | translate }}</label>
@@ -172,7 +172,7 @@
                                    tooltipPosition="bottom" [showDelay]="50">
                         </div>
                     </div>
-                    <div style="display: flex; gap:10px">
+                    <div class="form-group form-group-sm m-0" style="display: flex; gap:10px">
                         <label for="allowLogAccess" style="text-align: left; padding-left: 0;"
                                class="control-label pt-0">
                             {{ 'APPS_WIZARD.ALLOW_LOG_ACCESS' | translate }}</label>
@@ -188,7 +188,7 @@
                         <div class="panel panel-default m-0"
                              style="background: var(--p-surface-200); border: 1px solid var(--p-accent-600)">
                             <div class="panel-body panel-container">
-                                <div class="">
+                                <div class="form-group form-group-sm m-0">
                                     <label for="consumedPods"
                                            class="control-label">{{ 'APPS_WIZARD.CONSUMED_PODS' | translate }}</label>
                                     <br>
@@ -198,7 +198,7 @@
                                            pTooltip="{{'APPS_WIZARD.CONSUMED_PODS_TOOLTIP' | translate}}"
                                            tooltipPosition="bottom" [showDelay]="50">
                                 </div>
-                                <div class="">
+                                <div class="form-group form-group-sm m-0">
                                     <label for="consumedCpu"
                                            class="control-label">{{ 'APPS_WIZARD.CONSUMED_CPU' | translate }}</label>
                                     <br>
@@ -208,7 +208,7 @@
                                            pTooltip="{{'APPS_WIZARD.CONSUMED_CPU_TOOLTIP' | translate}}"
                                            tooltipPosition="bottom" [showDelay]="50">
                                 </div>
-                                <div class="">
+                                <div class="form-group form-group-sm m-0">
                                     <label for="consumedMemory"
                                            class="control-label">{{ 'APPS_WIZARD.CONSUMED_MEMORY' | translate }}</label>
                                     <br>
@@ -302,7 +302,7 @@
                     <h4>{{ 'APPS_WIZARD.APP_CONFIG_SPECIFICATION' | translate }}</h4>
                     <form class="form-horizontal" #appConfigForm="ngForm">
                         <div class="panel-body" style="display: flex; flex-direction: column; gap: 15px">
-                            <div style="display: flex; gap:10px">
+                            <div class="form-group form-group-sm m-0" style="display: flex; gap:10px">
                                 <label for="configFileRepositoryRequired" style="text-align: left; padding-left: 0;"
                                        class="control-label pt-0">
                                     {{ 'APPS_WIZARD.REPOSITORY_REQUIRED_LABEL' | translate }}
@@ -317,7 +317,7 @@
                                            tooltipPosition="bottom" [showDelay]="50">
                                 </div>
                             </div>
-                            <div style="display: flex; gap:10px">
+                            <div class="form-group form-group-sm m-0" style="display: flex; gap:10px">
                                 <label for="configUpdateEnabled" style="text-align: left; padding-left: 0;" class="control-label pt-0">
                                     {{ 'APPS_WIZARD.CONFIG_UPDATE_ENABLED' | translate }}
                                 </label>
@@ -326,7 +326,7 @@
                                            [(ngModel)]="applicationDTO.application.appConfigurationSpec.configUpdateEnabled">
                                 </div>
                             </div>
-                            <div style="display: flex; gap:10px">
+                            <div class="form-group form-group-sm m-0" style="display: flex; gap:10px">
                                 <label for="basicAuth" style="text-align: left; padding-left: 0;" class="control-label pt-0">
                                     {{ 'APPS_WIZARD.BASIC_AUTH_LABEL' | translate }}
                                 </label>
@@ -339,7 +339,7 @@
                                            tooltipPosition="bottom" [showDelay]="50">
                                 </div>
                             </div>
-                            <div style="display: flex; gap:10px">
+                            <div class="form-group form-group-sm m-0" style="display: flex; gap:10px">
                                 <label for="termsAcceptance" style="text-align: left; padding-left: 0;"
                                        class="control-label pt-0">{{ 'APPS_WIZARD.TERMS_ACCEPTANCE_LABEL' | translate }}</label>
                                 <div>
@@ -350,7 +350,7 @@
                                 </div>
                             </div>
                             @if (termsAcceptance) {
-                                <div>
+                                <div class="form-group form-group-sm m-0">
                                     <label for="termsContent" style="text-align: left; padding-left: 0;"
                                            class="control-label pt-0">{{ 'APPS_WIZARD.TERMS_CONTENT_LABEL' | translate }}
                                     </label>
@@ -384,7 +384,7 @@
                                                         <span class="pi pi-times"></span>
                                                     </button>
                                                 </div>
-                                                <div class="" [ngClass]="{'has-error':  configFileName.invalid && (configFileName.dirty || configFileName.touched),
+                                                <div class="form-group form-group-sm m-0" [ngClass]="{'has-error':  configFileName.invalid && (configFileName.dirty || configFileName.touched),
  			    		 	                        'has-success': configFileName.valid && (configFileName.dirty || configFileName.touched)}">
                                                     @if (isInMode(ComponentMode.CREATE)) {
                                                         <label for="configFileName-{{i}}" class="control-label">
@@ -404,7 +404,7 @@
                                                            pTooltip="{{'APPS_WIZARD.CONFIG_FILENAME_TOOLTIP' | translate}}"
                                                            tooltipPosition="bottom" [showDelay]="50">
                                                 </div>
-                                                <div class="" [ngClass]="{'has-error':  configFileDirectory.invalid && (configFileDirectory.dirty || configFileDirectory.touched),
+                                                <div class="form-group form-group-sm m-0" [ngClass]="{'has-error':  configFileDirectory.invalid && (configFileDirectory.dirty || configFileDirectory.touched),
  			    		 	                        'has-success': configFileDirectory.valid && (configFileDirectory.dirty || configFileDirectory.touched)}">
                                                     <label for="configFileDirectory-{{i}}"
                                                            class="control-label">{{ 'APPS_WIZARD.CONFIG_FILEDIRECTORY_LABEL' | translate }}</label>
@@ -414,7 +414,7 @@
                                                            pTooltip="{{'APPS_WIZARD.CONFIG_FILEDIRECTORY_TOOLTIP' | translate}}"
                                                            tooltipPosition="bottom" [showDelay]="50">
                                                 </div>
-                                                <div style="display: flex; flex-direction: column" [ngClass]="{'has-error':  configFileTemplateContent.invalid && (configFileTemplateContent.dirty || configFileTemplateContent.touched),
+                                                <div class="form-group form-group-sm m-0" style="display: flex; flex-direction: column" [ngClass]="{'has-error':  configFileTemplateContent.invalid && (configFileTemplateContent.dirty || configFileTemplateContent.touched),
  			    		 	                    'has-success': configFileTemplateContent.valid && (configFileTemplateContent.dirty || configFileTemplateContent.touched)}">
                                                     @if (isInMode(ComponentMode.CREATE)) {
                                                         <label for="configFileTemplateContent-{{i}}"

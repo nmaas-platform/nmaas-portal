@@ -217,6 +217,19 @@ export class AppDetailsComponent implements OnInit {
         return this.app.descriptions.find(val => val.language === this.translate.currentLang);
     }
 
+    public getBundleAppDescription(app: ApplicationBase): AppDescription {
+        return app.descriptions?.find(
+            val => val.language === this.translate.currentLang
+        ) || app.descriptions?.find(
+            val => val.language === 'en'
+        );
+    }
+
+    protected navigateToBundleApp(appId: number): void {
+        this.bundlesModal.hide();
+        this.router.navigate(['/apps', appId]);
+    }
+
     public getPathUrl(id: number): string {
         if (id != null && !isNaN(id)) {
             return '/apps/' + id + '/rate/my';
