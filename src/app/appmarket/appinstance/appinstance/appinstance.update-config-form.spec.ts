@@ -528,6 +528,72 @@ describe('Component: AppInstance update config form modal', () => {
         expect(registrationInput.value).withContext('dotted backend parameter key must prefill the mandatory field').toBe('yes');
     });
 
+    it('should not leak deployment parameters foreign to the update wizard containers into the submission', async () => {
+        appInstanceServiceStub.getConfiguration = () => of('');
+        appInstanceServiceStub.getDeploymentParameters = () => of({
+            'healthchecks.properties.superuserEmail': 'test@test.net',
+            'healthchecks.properties.registrationOpen': 'yes',
+            'unrelated.parameter': 'leak'
+        } as any);
+
+        const submittedData: any[] = [];
+        component.changeConfigUpdate = (data) => submittedData.push(data);
+
+        component.getConfigurationFormModal();
+        fixture.detectChanges();
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        component.submitConfigurationUpdateForm();
+        await new Promise(resolve => setTimeout(resolve, 200));
+
+        expect(submittedData.length).withContext('formio submit event must trigger changeConfigUpdate').toBe(1);
+        expect(submittedData[0].additionalParameters)
+            .withContext('additional parameters must contain only fields of the additionalParameters container')
+            .toEqual({'healthchecks_dot_properties_dot_superuserEmail': 'test@test.net'});
+        expect(submittedData[0].mandatoryParameters)
+            .withContext('mandatory parameters must contain only fields of the mandatoryParameters container')
+            .toEqual({'healthchecks_dot_properties_dot_registrationOpen': 'yes'});
+    });
+
+    it('should not prefill mandatory parameters when the update wizard has no mandatory parameters container', async () => {
+        appInstanceServiceStub.getConfiguration = () => of('');
+        appInstanceServiceStub.getDeploymentParameters = () => of({
+            'healthchecks.properties.registrationOpen': 'yes'
+        } as any);
+
+        component.configurationUpdateTemplate = {
+            ...component.configurationUpdateTemplate,
+            components: component.configurationUpdateTemplate.components
+                .filter(formComponent => formComponent.key !== 'mandatoryParameters')
+        };
+
+        component.getConfigurationFormModal();
+        fixture.detectChanges();
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        expect(component.submission.data.mandatoryParameters)
+            .withContext('missing container must not be prefilled and must not reach the request')
+            .toBeUndefined();
+        expect(component.submission.data.additionalParameters)
+            .withContext('parameters not matching container fields must not be prefilled')
+            .toEqual({});
+    });
+
+    it('should not prefill parameters for containers missing from the configuration preview template', () => {
+        appInstanceServiceStub.getDeploymentParameters = () => of({
+            'healthchecks.properties.superuserEmail': 'test@test.net'
+        } as any);
+
+        component.openShowConfigModal();
+
+        expect(component.submission.data.additionalParameters)
+            .withContext('deploy wizard without additionalParameters container must not be prefilled')
+            .toBeUndefined();
+        expect(component.submission.data.mandatoryParameters)
+            .withContext('deploy wizard without mandatoryParameters container must not be prefilled')
+            .toBeUndefined();
+    });
+
     it('should include additional and mandatory parameters in the configuration update request', () => {
         const savedConfigurations: AppConfiguration[] = [];
         appInstanceServiceStub.updateConfiguration = (appInstanceId: number, configuration: AppConfiguration) => {
