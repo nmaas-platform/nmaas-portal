@@ -74,6 +74,8 @@ export class AppInstanceListComponent implements OnInit {
     private lastSortDirection = 'desc';
     private lastPageSize = 10;
 
+    public loading = true;
+
     constructor(private readonly appInstanceService: AppInstanceService,
                 protected readonly domainService: DomainService,
                 private readonly userDataService: UserDataService,
@@ -273,6 +275,7 @@ export class AppInstanceListComponent implements OnInit {
                 : this.getSortedInstances('deployed');
             request.subscribe(ins =>{
                 this.allAppDeployedInstances = ins;
+                this.loading = false;
             })
         } else if (this.selectedViewType === 'list') {
             this.loadInstancesLazy({
