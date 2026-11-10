@@ -5,7 +5,7 @@ import {ApplicationState, parseApplicationState} from '../../../model/applicatio
 import {AuthService} from '../../../auth/auth.service';
 import {AppChangeStateModalComponent} from '../app-change-state-modal/appchangestatemodal.component';
 import {ApplicationVersion} from '../../../model/application-version';
-import {map} from 'rxjs/operators';
+import {finalize, map} from 'rxjs/operators';
 import {ApplicationBase} from '../../../model/application-base';
 import {ModalComponent} from '../../../shared';
 import {RemovalConfirmationModalComponent} from '../../domains/modals/removal-confirmation-modal/removal-confirmation-modal.component';
@@ -51,6 +51,7 @@ export class AppManagementListComponent implements OnInit {
     public blobUrl;
 
     public showAllVersions: boolean[] = [];
+    public loading = true;
 
     constructor(public appsService: AppsService,
                 public router: Router,
@@ -126,7 +127,8 @@ export class AppManagementListComponent implements OnInit {
                         }
                         return (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : -1;
                     })
-            })
+            }),
+            finalize(() => this.loading = false)
         ).subscribe(val => {
             this.apps = val;
             this.filteredApps = val;

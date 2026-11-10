@@ -90,6 +90,7 @@ import {Password} from 'primeng/password';
 import {GroupAdminDashboardComponent} from './group-admin-dashboard/group-admin-dashboard.component';
 import {MultiSelect} from 'primeng/multiselect';
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from "primeng/tabs";
+import {LoadingComponent} from "./loading/loading.component";
 
 
 @NgModule({
@@ -187,7 +188,8 @@ import {Tab, TabList, TabPanel, TabPanels, Tabs} from "primeng/tabs";
         UserDomainListComponent,
         LoginComponent,
         RegistrationComponent,
-        GroupAdminDashboardComponent
+        GroupAdminDashboardComponent,
+        LoadingComponent
     ],
     providers: [
         PasswordValidator,
@@ -236,7 +238,8 @@ import {Tab, TabList, TabPanel, TabPanels, Tabs} from "primeng/tabs";
         SortableHeaderDirective,
         DomainNamespaceAnnotationsComponent,
         AccessTokensComponent,
-        GroupAdminDashboardComponent
+        GroupAdminDashboardComponent,
+        LoadingComponent
     ],
     schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
 
