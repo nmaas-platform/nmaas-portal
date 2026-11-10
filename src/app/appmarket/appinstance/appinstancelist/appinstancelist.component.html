@@ -155,7 +155,9 @@
 }
 
 @if (selectedViewType === 'cards') {
-    @if (allAppDeployedInstances?.length > 0) {
+    @if (loading) {
+        <app-loading></app-loading>
+    } @else if (allAppDeployedInstances?.length > 0) {
         <div style="height: calc(100vh - 250px); overflow: auto;">
             <div class="grid col-12">
                 @for (appInstance of allAppDeployedInstances | searchAppInstance: searchValue; track appInstance.id) {
