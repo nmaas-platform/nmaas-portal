@@ -1,0 +1,11 @@
+.loading-container {
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+
+    .pi-spinner {
+        font-size: 3rem;
+    }
+}
