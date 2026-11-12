@@ -91,6 +91,7 @@ import {GroupAdminDashboardComponent} from './group-admin-dashboard/group-admin-
 import {MultiSelect} from 'primeng/multiselect';
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from "primeng/tabs";
 import {LoadingComponent} from "./loading/loading.component";
+import {MarkdownModule} from 'ngx-markdown';
 
 
 @NgModule({
@@ -135,7 +136,8 @@ import {LoadingComponent} from "./loading/loading.component";
             TabList,
             TabPanels,
             Tab,
-            TabPanel
+            TabPanel,
+            MarkdownModule.forChild()
         ],
     declarations: [
         RateComponent,

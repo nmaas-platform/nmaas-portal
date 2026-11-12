@@ -25,6 +25,7 @@ import { ServiceUnavailableModule } from './service-unavailable/service-unavaila
 import { ServiceUnavailableService } from './service-unavailable/service-unavailable.service';
 import { NgTerminalModule } from 'ng-terminal';
 import { FormioModule } from '@formio/angular';
+import { MarkdownModule } from 'ngx-markdown';
 import { LeftMenuComponent } from './shared/left-menu/left-menu.component';
 import { ToastContainerComponent, ToastMode } from './shared/toast-container/toast-container.component';
 import { MessageService } from 'primeng/api';
@@ -105,6 +106,7 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
         }),
         NgTerminalModule,
         FormioModule,
+        MarkdownModule.forRoot(),
         ToastModule,
         SplitButtonModule,
         MenuModule,
