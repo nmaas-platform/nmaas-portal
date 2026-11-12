@@ -74,9 +74,8 @@
                                 <div>
                                     {{ getBundleDescription(bundle.id)?.briefDescription }}
                                 </div>
-                                <div style="white-space: pre-wrap;">
-                                    {{ getBundleDescription(bundle.id)?.fullDescription }}
-                                </div>
+                                <markdown class="markdown-content"
+                                          [data]="getBundleDescription(bundle.id)?.fullDescription"></markdown>
 
                                 <div style="display: flex;">
                                     @for (bundleApp of bundle.apps; track bundleApp.id) {

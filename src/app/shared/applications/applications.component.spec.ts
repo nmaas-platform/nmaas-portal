@@ -19,6 +19,7 @@ import {AppInstallModalComponent} from '../modal/appinstall';
 import {ModalComponent} from '../modal';
 import {Domain} from '../../model/domain';
 import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA} from '@angular/core';
+import {MarkdownModule} from 'ngx-markdown';
 
 class TranslateFakeLoader implements TranslateLoader {
     getTranslation(lang: string) {
@@ -51,6 +52,7 @@ describe('ApplicationsComponent', () => {
     schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     imports: [FormsModule,
         RouterTestingModule,
+        MarkdownModule.forChild(),
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
