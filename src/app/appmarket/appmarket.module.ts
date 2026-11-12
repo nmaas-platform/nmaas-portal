@@ -70,6 +70,7 @@ import {BundleListComponent} from './bundle/bundle-list/bundle-list.component';
 import {BundleDetailsComponent, DescriptionPipe} from './bundle/bundle-details/bundle-details.component';
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from 'primeng/tabs';
 import {MultiSelect} from 'primeng/multiselect';
+import {MarkdownModule} from 'ngx-markdown';
 
 
 @NgModule({
@@ -146,7 +147,8 @@ import {MultiSelect} from 'primeng/multiselect';
         TabPanels,
         TabPanel,
         DescriptionPipe,
-        MultiSelect
+        MultiSelect,
+        MarkdownModule.forChild()
     ],
     providers: [
         AppsService,

@@ -15,6 +15,7 @@ import {of} from 'rxjs';
 import {ApplicationBase} from '../../model/application-base';
 import {ApplicationState} from '../../model/application-state';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {MarkdownModule} from 'ngx-markdown';
 
 class TranslateFakeLoader implements TranslateLoader {
     getTranslation(lang: string) {
@@ -150,6 +151,7 @@ describe('Component: AppDetails', () => {
     ],
     schemas: [NO_ERRORS_SCHEMA],
     imports: [RouterTestingModule,
+        MarkdownModule.forRoot(),
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
