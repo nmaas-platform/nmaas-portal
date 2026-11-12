@@ -269,6 +269,7 @@ export class AppInstanceListComponent implements OnInit {
     }
 
     private reloadDeployedInstances() {
+        this.loading = true;
         if (this.selectedViewType === 'cards') {
             const request = this.isOnlyMyVisible ?
                 this.getSortedMyInstances('deployed')
