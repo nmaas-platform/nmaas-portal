@@ -97,13 +97,14 @@ export class UserPrivilegesComponent extends BaseComponent implements OnInit {
     ngOnInit() {
         if (this.authService.hasRole(Role[Role.ROLE_SYSTEM_ADMIN])) {
             this.domainService.getAllBase().subscribe((domains) => {
-                this.domains = domains
+                this.domains = this.sortDomains(domains)
             });
         } else if (this.authService.hasRole(Role[Role.ROLE_DOMAIN_ADMIN])) {
             const domainIds: number[] = this.authService.getDomainsWithRole(Role[Role.ROLE_DOMAIN_ADMIN]);
             domainIds.forEach((domainId) => {
                 this.domainService.getOne(domainId).subscribe((domain) => {
-                    this.domains.push(domain)
+                    this.domains.push(domain);
+                    this.domains = this.sortDomains(this.domains);
                 });
             });
         }
@@ -111,7 +112,14 @@ export class UserPrivilegesComponent extends BaseComponent implements OnInit {
 
 
     public getMyDomains() {
-        this.domainService.getMyDomains().subscribe(domains => this.domains.push(...domains))
+        this.domainService.getMyDomains().subscribe(domains => {
+            this.domains.push(...domains);
+            this.domains = this.sortDomains(this.domains);
+        })
+    }
+
+    private sortDomains(domains: Domain[]): Domain[] {
+        return domains.sort((a, b) => a.name.localeCompare(b.name));
     }
 
     public add(): void {
