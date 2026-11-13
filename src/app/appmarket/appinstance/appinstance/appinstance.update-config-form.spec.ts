@@ -478,9 +478,12 @@ describe('Component: AppInstance update config form modal', () => {
         expect(submittedData[0].configuration.firstName).toBe('John');
     });
 
-    it('should prefill the update form with the current configuration fetched when the modal opens', async () => {
-        // the server returns newer data than the page-load snapshot used in ngOnInit
-        appInstanceServiceStub.getConfiguration = () => of({firstName: 'Jane', lastName: 'Doe'});
+    it('should prefill the update form from the page-load configuration snapshot without refetching it', async () => {
+        let configurationRequests = 0;
+        appInstanceServiceStub.getConfiguration = () => {
+            configurationRequests++;
+            return of({firstName: 'Jane', lastName: 'Doe'});
+        };
 
         component.getConfigurationFormModal();
         fixture.detectChanges();
@@ -489,13 +492,12 @@ describe('Component: AppInstance update config form modal', () => {
 
         const firstNameInput = document.querySelector('.p-dialog-content input[name*="firstName"]') as HTMLInputElement;
         expect(firstNameInput).not.toBeNull();
-        expect(firstNameInput.value).withContext('fresh configuration from the server must prefill the form').toBe('Jane');
+        expect(firstNameInput.value).withContext('the form must be prefilled from the page-load snapshot').toBe('John');
+        expect(configurationRequests).withContext('opening the modal must not refetch the configuration').toBe(0);
     });
 
     it('should prefill escaped deployment parameters into matching wizard fields', async () => {
-        // instance without stored configuration content - all current values come from deployment parameters,
-        // keyed with dots by the backend ("healthchecks.properties.superuserEmail")
-        appInstanceServiceStub.getConfiguration = () => of('');
+        // deployment parameters are keyed with dots by the backend ("healthchecks.properties.superuserEmail")
         appInstanceServiceStub.getDeploymentParameters = () => of({
             'healthchecks.properties.superuserEmail': 'test@test.net'
         } as any);
@@ -513,7 +515,6 @@ describe('Component: AppInstance update config form modal', () => {
     it('should prefill escaped deployment parameters into mandatory parameter fields', async () => {
         // the backend returns a single flat map of deployment parameters,
         // mandatory container fields must be filled from it as well
-        appInstanceServiceStub.getConfiguration = () => of('');
         appInstanceServiceStub.getDeploymentParameters = () => of({
             'healthchecks.properties.registrationOpen': 'yes'
         } as any);
@@ -529,7 +530,6 @@ describe('Component: AppInstance update config form modal', () => {
     });
 
     it('should not leak deployment parameters foreign to the update wizard containers into the submission', async () => {
-        appInstanceServiceStub.getConfiguration = () => of('');
         appInstanceServiceStub.getDeploymentParameters = () => of({
             'healthchecks.properties.superuserEmail': 'test@test.net',
             'healthchecks.properties.registrationOpen': 'yes',
@@ -566,7 +566,6 @@ describe('Component: AppInstance update config form modal', () => {
                 }
             } as ConfigWizardTemplate
         });
-        appInstanceServiceStub.getConfiguration = () => of('');
         appInstanceServiceStub.getDeploymentParameters = () => of({
             'healthchecks.properties.registrationOpen': 'yes'
         } as any);
