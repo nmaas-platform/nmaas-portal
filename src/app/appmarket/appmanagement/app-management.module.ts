@@ -42,6 +42,7 @@ import {Select} from 'primeng/select';
 import {AutoComplete} from 'primeng/autocomplete';
 import { CarouselModule } from 'primeng/carousel';
 import {Button} from "primeng/button";
+import {MarkdownModule} from 'ngx-markdown';
 
 
 export function getJsonTemplates(config: ConfigTemplateService) {
@@ -100,6 +101,7 @@ export function formioAppConfigFactory(appConfig: AppConfigService) {
         AutoComplete,
         CarouselModule,
         Button,
+        MarkdownModule.forChild(),
         // Chips
     ],
     exports: [],

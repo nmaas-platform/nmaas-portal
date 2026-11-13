@@ -79,7 +79,7 @@
     <div class="background-section">
         <div>
             <p style="font-weight: bold">{{ 'APPLICATIONS.DESCRIPTION' | translate }}</p>
-            <div [innerHTML]="getDescription()?.fullDescription"></div>
+            <markdown class="markdown-content" [data]="getDescription()?.fullDescription"></markdown>
         </div>
         @if (app?.applicationBase.id && !screenshots) {
             <div style="padding-top:50px">
