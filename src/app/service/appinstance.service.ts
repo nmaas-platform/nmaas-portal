@@ -209,9 +209,12 @@ export class AppInstanceService extends GenericDataService {
         return this.http.post<void>(this.getUrl() + `${appInstanceId}/version/${version}`, appInstanceId)
     }
 
-    public getDeploymentParameters(appInstanceId: number): Observable<Map<string, string>> {
-        return this.http.get<Map<string, string>>(this.getUrl() + `${appInstanceId}/parameters`);
-
+    public getDeploymentParameters(appInstanceId: number, restoreKeys?: boolean): Observable<Map<string, string>> {
+        let params = new HttpParams();
+        if (restoreKeys !== undefined && restoreKeys !== null) {
+            params = params.set('restoreKeys', restoreKeys);
+        }
+        return this.http.get<Map<string, string>>(this.getUrl() + `${appInstanceId}/parameters`, { params });
     }
 
     public scaleDown(appInstanceId: number): Observable<any> {

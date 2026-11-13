@@ -517,12 +517,8 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
 
 
     private prefillConfigurationUpdateForm(): void {
-        this.appInstanceService.getConfiguration(this.appInstanceId).subscribe(config => {
-            if (config != null && config !== '') {
-                this.submission.data.configuration = config;
-            }
 
-            this.appInstanceService.getDeploymentParameters(this.appInstanceId).subscribe(deployParams => {
+            this.appInstanceService.getDeploymentParameters(this.appInstanceId, true).subscribe(deployParams => {
                 const escapedParams = this.escapeParameterKeys(deployParams);
                 this.submission.data.additionalParameters =
                     this.filterParametersForContainer(escapedParams, this.configurationUpdateTemplate, 'additionalParameters');
@@ -534,7 +530,7 @@ export class AppInstanceComponent implements OnInit, OnDestroy {
                     value: this.submission
                 });
             });
-        });
+
     }
 
     private static readonly PARAM_KEY_DOT_TAG = '_dot_';
