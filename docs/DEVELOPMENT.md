@@ -49,16 +49,3 @@ nmaas Portal and Platform URLs:
 Admin user:
 + username: `admin`
 + password: `admin`
-
-### Issues
----
-As of Angular 14, there is an issue with ```ivy``` and ```ngcc```, regarding ```angular-formio```, however, everything seems to be working fine.  
-See [GitHub Issue](https://github.com/formio/angular-formio/issues/485)
-
-The application is maintained through quite some period of time, so there are still some legacy and problematic packages (updated: 2023-08-03:
-1. `angular-formio` is basically not maintained, there is a dependency clash (it requires an old angular version), it must usually be updated with `--force` flag during `npm install` or `npm clean install`. In future new versions may emerge since they are present in the git repository, however, they are not yet deployed for 2 years. Note: `angular-formio` is very much **required**.
-2. `ngx-pagination` can be replaced with `primeng` counterpart,
-3. `ng-recaptcha` can be updated to the newest version with angular update,
-4. `angular-password-strength-meter` (probably not maintained anymore) can be replaced with `primeng` component and removed together with its dependencies (`zxcvbn`, `zxcvbn3`),
-5. `bootstrap` - project uses `bootstrap v3` however updating bootstrap **is not advised**,
-6. There are other packages, that are deprecated, e.g. `codelyzer`. However, they *should* not cause much harm.
