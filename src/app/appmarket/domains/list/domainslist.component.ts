@@ -1,4 +1,4 @@
-import { AuthService } from '../../../auth/auth.service';
+﻿import { AuthService } from '../../../auth/auth.service';
 import { Domain } from '../../../model/domain';
 import { Role } from '../../../model/userrole';
 import { DomainService } from '../../../service/domain.service';
@@ -9,10 +9,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { ModalComponent } from '../../../shared';
 import { SortableHeaderDirective, SortColumn, SortDirection } from '../../../service/sort-domain.directive';
 import { RemovalConfirmationModalComponent } from '../modals/removal-confirmation-modal/removal-confirmation-modal.component';
-import { Paginator } from 'primeng/paginator';
-import { Page, PaginationSettings, PrimeNgLazyLoadEvent } from '../../../service/page';
-import {Menu} from 'primeng/menu';
-import {MenuItem} from 'primeng/api';
+import { Paginator } from '@openng/optimus-ui/paginator';
+import { Page, PaginationSettings, OptimusLazyLoadEvent } from '../../../service/page';
+import {Menu} from '@openng/optimus-ui/menu';
+import {MenuItem} from '@openng/optimus-ui/api';
 
 
 export interface SortEvent {
@@ -53,7 +53,7 @@ export class DomainsListComponent implements OnInit, OnDestroy { // Implemented 
     @ViewChildren(SortableHeaderDirective)
     headers: QueryList<SortableHeaderDirective>;
 
-    private lazyLoadSubject = new Subject<PrimeNgLazyLoadEvent>();
+    private lazyLoadSubject = new Subject<OptimusLazyLoadEvent>();
     private debounceTimeMs = 300; // Debounce time in milliseconds (e.g., 300ms)
 
     constructor(protected domainService: DomainService,
@@ -79,7 +79,7 @@ export class DomainsListComponent implements OnInit, OnDestroy { // Implemented 
     /**
      * Updates paginationSettings based on the Page object received from the backend.
      * Crucially, it does NOT update sortField, sortOrder, pageNumber, or maxItemsOnPage.
-     * These properties are driven by the user interaction (PrimeNG event) and the request.
+     * These properties are driven by the user interaction (Optimus UI event) and the request.
      * @param page The Page object received from the backend.
      */
     private setPaginationSettings(page: any): void {
@@ -109,35 +109,35 @@ export class DomainsListComponent implements OnInit, OnDestroy { // Implemented 
     }
 
     /**
-     * Main method for loading domains, called by PrimeNG's onLazyLoad or manually.
-     * @param event The lazy load event from PrimeNG, if triggered by table.
+     * Main method for loading domains, called by Optimus UI's onLazyLoad or manually.
+     * @param event The lazy load event from Optimus UI, if triggered by table.
      */
-    loadDomains(event?: PrimeNgLazyLoadEvent): void {
+    loadDomains(event?: OptimusLazyLoadEvent): void {
         this.loading = true; // Start loading
         this.cdr.detectChanges(); // Manually trigger change detection for `loading` state to avoid ExpressionChangedAfterItHasBeenCheckedError
 
         console.log('Loading domains with event:', event);
 
-        // Update paginationSettings based on the PrimeNG event (if provided)
+        // Update paginationSettings based on the Optimus UI event (if provided)
         // These updates are essential and define the *request* parameters for the backend.
         if (event) {
             this.paginationSettings.maxItemsOnPage = event.rows;
             this.paginationSettings.pageNumber = (event.rows > 0) ? Math.floor(event.first / event.rows) + 1 : 1;
 
             // Sort field/order should always be set from event if available.
-            this.paginationSettings.sortField = event.sortField || 'id'; // Default to 'id' if PrimeNG sends null/undefined
+            this.paginationSettings.sortField = event.sortField || 'id'; // Default to 'id' if Optimus UI sends null/undefined
             this.paginationSettings.sortOrder = event.sortOrder === 1 ? 'asc' : (event.sortOrder === -1 ? 'desc' : 'asc'); // Default to 'asc'
 
-            // You can also move filters from the PrimeNG event to paginationSettings.filters if you use built-in column filters
+            // You can also move filters from the Optimus UI event to paginationSettings.filters if you use built-in column filters
         }
 
         // 2. Prepare PaginatorEvent for your domainService (Spring expects 0-based page number and 1/-1 for sortOrder)
-        const paginatorEventForService: PrimeNgLazyLoadEvent = {
+        const paginatorEventForService: OptimusLazyLoadEvent = {
             first: (this.paginationSettings.pageNumber - 1) * this.paginationSettings.maxItemsOnPage, // Convert to 0-based index
             rows: this.paginationSettings.maxItemsOnPage,
             sortField: this.paginationSettings.sortField,
             sortOrder: this.paginationSettings.sortOrder === 'asc' ? 1 : -1, // Convert to 1 or -1 for backend
-            filters: {} // Add filters from PrimeNG Table here if you use them
+            filters: {} // Add filters from Optimus UI Table here if you use them
         };
 
 
@@ -160,7 +160,7 @@ export class DomainsListComponent implements OnInit, OnDestroy { // Implemented 
                     this.domains = domains.filter((domain) => this.authService.hasDomainRole(domain.id, Role[Role.ROLE_DOMAIN_ADMIN]) || this.authService.hasDomainRole(domain.id, Role[Role.ROLE_GROUP_DOMAIN_ADMIN]) || this.authService.hasRole(Role[Role.ROLE_GROUP_MANAGER]));
 
                     // Reset pagination settings to reflect non-paginated state if this path is taken
-                    // Ensure totalRecords is updated for PrimeNG even in non-paginated scenario
+                    // Ensure totalRecords is updated for Optimus UI even in non-paginated scenario
                     this.paginationSettings.totalElements = this.domains.length;
                     this.paginationSettings.pageNumber = 1;
                     this.paginationSettings.totalPages = 1;
@@ -176,8 +176,8 @@ export class DomainsListComponent implements OnInit, OnDestroy { // Implemented 
     }
 
     // Method called directly by the onLazyLoad event from p-table
-    // PrimeNG p-table emits an event that matches the PrimeNgLazyLoadEvent interface
-    onTableLazyLoad(event: PrimeNgLazyLoadEvent): void {
+    // Optimus UI p-table emits an event that matches the OptimusLazyLoadEvent interface
+    onTableLazyLoad(event: OptimusLazyLoadEvent): void {
         this.lazyLoadSubject.next(event); // Emit the event to the Subject
     }
 

@@ -17,8 +17,8 @@ import { parseServiceStorageVolumeType, ServiceStorageVolumeType } from '../../.
 import { AppAccessMethod } from '../../../model/app-access-method';
 import { parseServiceAccessMethodType, ServiceAccessMethodType } from '../../../model/service-access-method';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
-import { MultiSelect } from 'primeng/multiselect';
-import { MenuItem, SelectItem } from 'primeng/api';
+import { MultiSelect } from '@openng/optimus-ui/multiselect';
+import { MenuItem, SelectItem } from '@openng/optimus-ui/api';
 import { ApplicationDTO } from '../../../model/application-dto';
 import { ApplicationVersion } from '../../../model/application-version';
 import * as semver from 'semver';

@@ -18,7 +18,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {DomainApplicationStatePerDomain} from '../../../model/domainapplicationstateperdomain';
 import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 import {ToastContainerComponent} from '../../../shared/toast-container/toast-container.component';
-import {MessageService} from 'primeng/api';
+import {MessageService} from '@openng/optimus-ui/api';
 import any = jasmine.any;
 
 class TranslateFakeLoader implements TranslateLoader {

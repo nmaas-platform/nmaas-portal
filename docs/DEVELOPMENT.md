@@ -4,7 +4,7 @@
 ---
 
 * Angular 21
-* PrimeNG 21
+* Optimus UI 1 (community fork of PrimeNG 21)
 * Primeflex
 * Formio
 

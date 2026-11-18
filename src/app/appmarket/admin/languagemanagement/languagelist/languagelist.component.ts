@@ -3,8 +3,8 @@ import {InternationalizationService} from '../../../../service/internationalizat
 import {Language} from '../../../../model/language';
 import {TranslateService} from '@ngx-translate/core';
 import {ModalComponent} from '../../../../shared/modal';
-import {Menu} from 'primeng/menu';
-import {MenuItem} from 'primeng/api';
+import {Menu} from '@openng/optimus-ui/menu';
+import {MenuItem} from '@openng/optimus-ui/api';
 import {DomainGroup} from '../../../../model/domaingroup';
 
 @Component({

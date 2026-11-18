@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import '../node_modules/primeicons/primeicons.css';
+@import '../node_modules/@openng/icons/openng-icons.css';
 
 /* These classes are copy pasted from bootstrap 4 to work with formio panel display */
 /* remove when applying actual bootstrap 4 */
@@ -581,7 +581,7 @@ body .formio-button-remove-row i.fa::before {
 }
 
 body .formio-button-remove-row i.fa {
-    font-family: "PrimeIcons";
+    font-family: "openng-icons";
 }
 
 body .formio-button-remove-row i.fa::before {

@@ -8,7 +8,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {ReCaptchaV3Service} from '../../service/recaptcha-v3.service';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
-import { PasswordModule } from 'primeng/password';
+import { PasswordModule } from '@openng/optimus-ui/password';
 class TranslateFakeLoader implements TranslateLoader {
     getTranslation(lang: string) {
         return of({});

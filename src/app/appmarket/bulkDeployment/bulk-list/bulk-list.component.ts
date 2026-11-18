@@ -8,8 +8,8 @@ import {DomSanitizer} from '@angular/platform-browser';
 import { BulkQueueDetails } from '../../../model/bulk-queue-details';
 import { map, timer } from 'rxjs';
 import { ConfigurationService } from '../../../service';
-import {Menu} from 'primeng/menu';
-import {MenuItem} from 'primeng/api';
+import {Menu} from '@openng/optimus-ui/menu';
+import {MenuItem} from '@openng/optimus-ui/api';
 import {User} from '../../../model';
 import {TranslateService} from '@ngx-translate/core';
 

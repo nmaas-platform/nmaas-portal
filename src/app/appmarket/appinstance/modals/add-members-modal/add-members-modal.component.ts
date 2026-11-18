@@ -2,7 +2,7 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ModalComponent} from '../../../../shared/modal';
 import {User} from '../../../../model';
 import {AppInstanceService, UserService} from '../../../../service';
-import {SelectItem} from 'primeng/api';
+import {SelectItem} from '@openng/optimus-ui/api';
 import {AppInstanceExtended} from '../../../../model/app-instance-extended';
 
 @Component({

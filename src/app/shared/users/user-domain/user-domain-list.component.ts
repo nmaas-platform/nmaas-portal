@@ -1,4 +1,4 @@
-import { User, UserListEntry } from '../../../model';
+﻿import { User, UserListEntry } from '../../../model';
 import { CacheService, CustomerSearchCriteria, DomainService, UserService } from '../../../service';
 import { BaseComponent } from '../../common/basecomponent/base.component';
 import {
@@ -21,7 +21,7 @@ import { AuthService } from '../../../auth/auth.service';
 
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { PaginationSettings, PrimeNgLazyLoadEvent } from '../../../service/page';
+import { PaginationSettings, OptimusLazyLoadEvent } from '../../../service/page';
 import {ModalComponent} from '../../modal';
 
 
@@ -58,7 +58,7 @@ export class UserDomainListComponent extends BaseComponent implements OnInit, On
   public usersToAdd: User[] = [];
 
 
-  private lazyLoadSubject = new Subject<PrimeNgLazyLoadEvent>();
+  private lazyLoadSubject = new Subject<OptimusLazyLoadEvent>();
   private debounceTimeMs = 300; // Debounce time in milliseconds (e.g., 300ms)
 
 
@@ -106,12 +106,12 @@ export class UserDomainListComponent extends BaseComponent implements OnInit, On
     this.paginationSettings.totalElements = page.totalElements; // Set the total number of elements
   }
 
-  onTableLazyLoad(event: PrimeNgLazyLoadEvent): void {
+  onTableLazyLoad(event: OptimusLazyLoadEvent): void {
     this.lazyLoadSubject.next(event); // Emit the event to the Subject
   }
 
 
-  loadUsers(event?: PrimeNgLazyLoadEvent): void {
+  loadUsers(event?: OptimusLazyLoadEvent): void {
     this.loading = true;
     this.cdr.detectChanges();
     console.log('Loading domains with event:', event);
@@ -126,7 +126,7 @@ export class UserDomainListComponent extends BaseComponent implements OnInit, On
 
     }
 
-    const paginatorEventForService: PrimeNgLazyLoadEvent = {
+    const paginatorEventForService: OptimusLazyLoadEvent = {
       first: (this.paginationSettings.pageNumber - 1) * this.paginationSettings.maxItemsOnPage,
       rows: this.paginationSettings.maxItemsOnPage,
       sortField: this.paginationSettings.sortField,

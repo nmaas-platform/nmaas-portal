@@ -9,15 +9,15 @@ import {ClusterDetailsComponent} from "./details/clusterdetails.component";
 import {ClusterService} from "../../../service/cluster.service";
 import { ClusterManagerDetailsComponent } from "../../../shared/admin/clusters/managerdetails/managerdetails.component";
 import { ClusterManagerComponent } from "../../../shared/admin/clusters/manager/manager.component";
-import { TableModule } from 'primeng/table';
-import { FileUploadModule } from 'primeng/fileupload';
+import { TableModule } from '@openng/optimus-ui/table';
+import { FileUploadModule } from '@openng/optimus-ui/fileupload';
 import { TranslateModule } from "@ngx-translate/core";
-import { TooltipModule } from 'primeng/tooltip';
-import {IconFieldModule} from 'primeng/iconfield';
-import { InputIconModule} from 'primeng/inputicon';
-import {InputTextModule} from 'primeng/inputtext';
-import { MenuModule} from 'primeng/menu';
-import {Textarea} from "primeng/textarea";
+import { TooltipModule } from '@openng/optimus-ui/tooltip';
+import {IconFieldModule} from '@openng/optimus-ui/iconfield';
+import { InputIconModule} from '@openng/optimus-ui/inputicon';
+import {InputTextModule} from '@openng/optimus-ui/inputtext';
+import { MenuModule} from '@openng/optimus-ui/menu';
+import {Textarea} from "@openng/optimus-ui/textarea";
 
 
 

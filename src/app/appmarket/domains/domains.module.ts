@@ -13,24 +13,24 @@ import {DomainComponent} from './domain/domain.component';
 
 import {DomainService} from '../../service/domain.service';
 import {TranslateModule} from '@ngx-translate/core';
-import {InputTextModule} from 'primeng/inputtext';
+import {InputTextModule} from '@openng/optimus-ui/inputtext';
 import {SearchDomainPipe} from './domain-search.pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
-import {TableModule} from 'primeng/table';
-import {CheckboxModule} from 'primeng/checkbox';
+import {TableModule} from '@openng/optimus-ui/table';
+import {CheckboxModule} from '@openng/optimus-ui/checkbox';
 import {DomainGroupsComponent} from './domain-groups/domain-groups.component';
 import {DomainGroupViewComponent} from './domain-group-view/domain-group-view.component';
-import {MultiSelectModule} from 'primeng/multiselect';
+import {MultiSelectModule} from '@openng/optimus-ui/multiselect';
 import {RemovalConfirmationModalComponent} from './modals/removal-confirmation-modal/removal-confirmation-modal.component';
 import {SearchDomainGroupPipe} from './domain-group-search.pipe';
 import { DomainAnnotationsComponent } from './domain-annotations/domain-annotations.component';
-import {IconFieldModule} from 'primeng/iconfield';
-import {InputIconModule} from 'primeng/inputicon';
-import {MenuModule} from 'primeng/menu';
+import {IconFieldModule} from '@openng/optimus-ui/iconfield';
+import {InputIconModule} from '@openng/optimus-ui/inputicon';
+import {MenuModule} from '@openng/optimus-ui/menu';
 import {GlobalSettingsComponent} from './global-settings/global-settings.component';
-import {TabsModule} from 'primeng/tabs';
-import {Accordion, AccordionContent, AccordionHeader, AccordionPanel} from 'primeng/accordion';
-import {ProgressBarModule} from 'primeng/progressbar';
+import {TabsModule} from '@openng/optimus-ui/tabs';
+import {Accordion, AccordionContent, AccordionHeader, AccordionPanel} from '@openng/optimus-ui/accordion';
+import {ProgressBarModule} from '@openng/optimus-ui/progressbar';
 
 
 @NgModule({

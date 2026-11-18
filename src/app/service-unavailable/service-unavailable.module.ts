@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ServiceUnavailableComponent } from './service-unavailable.component';
 import {RouterModule} from '@angular/router';
 import {TranslateModule} from '@ngx-translate/core';
-import {PrimeTemplate} from 'primeng/api';
-import {SelectModule} from 'primeng/select';
+import {PrimeTemplate} from '@openng/optimus-ui/api';
+import {SelectModule} from '@openng/optimus-ui/select';
 import {FormsModule} from '@angular/forms';
 
 

@@ -1,9 +1,9 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+﻿import {ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Bundle} from '../../../model/bundle';
-import {Page, PaginationSettings, PrimeNgLazyLoadEvent} from '../../../service/page';
+import {Page, PaginationSettings, OptimusLazyLoadEvent} from '../../../service/page';
 import {Subject} from 'rxjs';
 import {Domain} from '../../../model/domain';
-import {MenuItem} from 'primeng/api';
+import {MenuItem} from '@openng/optimus-ui/api';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import {AuthService} from '../../../auth/auth.service';
 import {Role} from '../../../model/userrole';
@@ -12,7 +12,7 @@ import {BundleBasic} from '../../../model/bundle-basic';
 import {BundleDescription} from "../../../model/bundle-description";
 import {TranslateService} from "@ngx-translate/core";
 import {MonitorEntry} from "../../../model/monitorentry";
-import {Menu} from "primeng/menu";
+import {Menu} from "@openng/optimus-ui/menu";
 
 @Component({
     selector: 'app-bundle-list',
@@ -27,7 +27,7 @@ export class BundleListComponent implements OnInit, OnDestroy {
 
     private readonly debounceTimeMs = 300;
 
-    private readonly lazyLoadSubject = new Subject<PrimeNgLazyLoadEvent>();
+    private readonly lazyLoadSubject = new Subject<OptimusLazyLoadEvent>();
     protected paginationSettings: PaginationSettings = new PaginationSettings(0, 15, 1, 'id', 'asc', {}, 0);
     protected loading: boolean = false;
 
@@ -47,7 +47,7 @@ export class BundleListComponent implements OnInit, OnDestroy {
         this.lazyLoadSubject.pipe(
             debounceTime(this.debounceTimeMs),
             distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr))
-        ).subscribe((event: PrimeNgLazyLoadEvent) => {
+        ).subscribe((event: OptimusLazyLoadEvent) => {
             this.loadBundles(event);
         });
     }
@@ -56,7 +56,7 @@ export class BundleListComponent implements OnInit, OnDestroy {
         this.lazyLoadSubject.unsubscribe();
     }
 
-    private loadBundles(event?: PrimeNgLazyLoadEvent) {
+    private loadBundles(event?: OptimusLazyLoadEvent) {
         this.loading = true;
         this.cdr.detectChanges();
 
@@ -68,7 +68,7 @@ export class BundleListComponent implements OnInit, OnDestroy {
         }
         console.debug('loadBundles', this.paginationSettings);
 
-        const paginatorEventForService: PrimeNgLazyLoadEvent = {
+        const paginatorEventForService: OptimusLazyLoadEvent = {
             first: (this.paginationSettings.pageNumber - 1) * this.paginationSettings.maxItemsOnPage,
             rows: this.paginationSettings.maxItemsOnPage,
             sortField: this.paginationSettings.sortField,
@@ -112,7 +112,7 @@ export class BundleListComponent implements OnInit, OnDestroy {
         this.paginationSettings.totalElements = page.totalElements;
     }
 
-    protected onTableLazyLoad(event: PrimeNgLazyLoadEvent): void {
+    protected onTableLazyLoad(event: OptimusLazyLoadEvent): void {
         this.lazyLoadSubject.next(event);
     }
 

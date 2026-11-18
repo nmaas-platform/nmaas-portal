@@ -3,8 +3,8 @@ import {MonitorService} from '../../../../service/monitor.service';
 import {MonitorEntry, ServiceType, TimeFormat} from '../../../../model/monitorentry';
 import {TranslateService} from '@ngx-translate/core';
 import {Webhook} from '../../../../model/webhook';
-import {Menu} from 'primeng/menu';
-import {MenuItem} from 'primeng/api';
+import {Menu} from '@openng/optimus-ui/menu';
+import {MenuItem} from '@openng/optimus-ui/api';
 
 @Component({
     selector: 'app-montiorlist',

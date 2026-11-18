@@ -15,7 +15,7 @@ import {AccessModifier} from '../../model/contact-form-type';
 import createSpyObj = jasmine.createSpyObj;
 import {InternationalizationService} from '../../service/internationalization.service';
 import {ActivatedRoute, convertToParamMap, ParamMap, Params} from '@angular/router';
-import {DialogModule} from 'primeng/dialog';
+import {DialogModule} from '@openng/optimus-ui/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 class TranslateFakeLoader implements TranslateLoader {

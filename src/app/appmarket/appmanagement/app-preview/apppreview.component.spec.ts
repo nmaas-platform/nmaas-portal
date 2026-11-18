@@ -6,7 +6,7 @@ import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {AppImagesService, AppsService} from '../../../service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {of} from 'rxjs';
-import { CarouselModule } from 'primeng/carousel';
+import { CarouselModule } from '@openng/optimus-ui/carousel';
 import {MarkdownModule} from 'ngx-markdown';
 
 class TranslateFakeLoader implements TranslateLoader {

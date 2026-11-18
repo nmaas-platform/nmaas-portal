@@ -7,7 +7,7 @@ import {ModalComponent} from '../modal.component';
 import {ContentDisplayService} from '../../../service/content-display.service';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
-import {DialogModule} from 'primeng/dialog';
+import {DialogModule} from '@openng/optimus-ui/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 class TranslateFakeLoader implements TranslateLoader {

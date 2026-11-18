@@ -1,10 +1,10 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+﻿import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {DomainService} from '../../../service';
 import {DomainGroupList} from '../../../model/domaingroup';
-import {Menu} from 'primeng/menu';
-import {MenuItem} from 'primeng/api';
+import {Menu} from '@openng/optimus-ui/menu';
+import {MenuItem} from '@openng/optimus-ui/api';
 import {TranslateService} from '@ngx-translate/core';
-import {Page, PaginationSettings, PrimeNgLazyLoadEvent} from '../../../service/page';
+import {Page, PaginationSettings, OptimusLazyLoadEvent} from '../../../service/page';
 import {Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
@@ -27,7 +27,7 @@ export class DomainGroupsComponent implements OnInit {
     rowMenuItems: MenuItem[] = [];
     selectedGroup: DomainGroupList | null = null;
 
-    private lazyLoadSubject = new Subject<PrimeNgLazyLoadEvent>();
+    private lazyLoadSubject = new Subject<OptimusLazyLoadEvent>();
     private debounceTimeMs = 300;
 
     constructor(private domainService: DomainService,
@@ -45,7 +45,7 @@ export class DomainGroupsComponent implements OnInit {
         this.lazyLoadSubject.unsubscribe();
     }
 
-    loadGroups(event?: PrimeNgLazyLoadEvent): void {
+    loadGroups(event?: OptimusLazyLoadEvent): void {
         this.loading = true;
         this.cdr.detectChanges();
 
@@ -59,7 +59,7 @@ export class DomainGroupsComponent implements OnInit {
                 event.sortOrder === 1 ? 'asc' : 'desc';
         }
 
-        const paginatorEvent: PrimeNgLazyLoadEvent = {
+        const paginatorEvent: OptimusLazyLoadEvent = {
             first: (this.paginationSettings.pageNumber - 1) * this.paginationSettings.maxItemsOnPage,
             rows: this.paginationSettings.maxItemsOnPage,
             sortField: this.paginationSettings.sortField,
@@ -83,7 +83,7 @@ export class DomainGroupsComponent implements OnInit {
             }
         });
     }
-    onTableLazyLoad(event: PrimeNgLazyLoadEvent): void {
+    onTableLazyLoad(event: OptimusLazyLoadEvent): void {
         this.lazyLoadSubject.next(event);
     }
     deleteDomainGroup(id: number): void {

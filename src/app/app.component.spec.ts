@@ -15,7 +15,7 @@ import {SharedModule} from './shared';
 import { LeftMenuComponent } from './shared/left-menu/left-menu.component';
 import { ToastContainerComponent } from './shared/toast-container/toast-container.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from '@openng/optimus-ui/api';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 

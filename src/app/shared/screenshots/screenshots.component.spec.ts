@@ -9,7 +9,7 @@ import {PipesModule} from '../../pipe/pipes.module';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { CarouselModule } from 'primeng/carousel';
+import { CarouselModule } from '@openng/optimus-ui/carousel';
 
 class TranslateFakeLoader implements TranslateLoader {
     getTranslation(lang: string) {

@@ -9,7 +9,7 @@ import {SharedModule} from '../../shared.module';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
-import {PasswordModule} from 'primeng/password';
+import {PasswordModule} from '@openng/optimus-ui/password';
 
 class TranslateFakeLoader implements TranslateLoader {
     getTranslation(lang: string) {

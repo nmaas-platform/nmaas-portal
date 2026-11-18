@@ -28,19 +28,19 @@ import { FormioModule } from '@formio/angular';
 import { MarkdownModule } from 'ngx-markdown';
 import { LeftMenuComponent } from './shared/left-menu/left-menu.component';
 import { ToastContainerComponent, ToastMode } from './shared/toast-container/toast-container.component';
-import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { MenuModule } from 'primeng/menu';
+import { MessageService } from '@openng/optimus-ui/api';
+import { ToastModule } from '@openng/optimus-ui/toast';
+import { SplitButtonModule } from '@openng/optimus-ui/splitbutton';
+import { MenuModule } from '@openng/optimus-ui/menu';
 import { AdminLeftMenuComponent } from './shared/admin-left-menu/admin-left-menu.component';
-import { AccordionModule } from 'primeng/accordion';
+import { AccordionModule } from '@openng/optimus-ui/accordion';
 import { RecaptchaVisibilityService } from './service/recaptcha-visibility.service';
-import { providePrimeNG } from 'primeng/config';
+import { provideOptimus } from '@openng/optimus-ui/config';
 import { CommonModule } from '@angular/common';
-import Nora from '@primeuix/themes/nora';
+import Nora from '@openng/optimus-ui-themes/nora';
 import { MyPreset } from '../style';
-import {Button, ButtonModule} from 'primeng/button';
-// import {ChipsModule} from 'primeng/chips';
+import {Button, ButtonModule} from '@openng/optimus-ui/button';
+// import {ChipsModule} from '@openng/optimus-ui/chips';
 
 
 export function appConfigFactory(config: AppConfigService) {
@@ -114,7 +114,7 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
         ButtonModule
     ],
     providers: [
-        providePrimeNG({
+        provideOptimus({
             theme: {
                 preset: Nora
             }
@@ -138,7 +138,7 @@ export const jwtOptionsFactory = (appConfig: AppConfigService) => ({
             multi: true,
         },
         MessageService,
-        providePrimeNG({
+        provideOptimus({
             theme: {
                 preset: MyPreset,
                 options: {
