@@ -1,15 +1,15 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+﻿import {Component, OnInit, ViewChild} from '@angular/core';
 import {Webhook} from '../../../../model/webhook';
 import {ModalComponent} from '../../../../shared';
 import {WebhookService} from '../../../../service/webhook.service';
 import {ToastContainerComponent, ToastMode} from '../../../../shared/toast-container/toast-container.component';
 import {TranslateService} from '@ngx-translate/core';
-import {Menu} from 'primeng/menu';
-import {MenuItem} from 'primeng/api';
+import {Menu} from '@openng/optimus-ui/menu';
+import {MenuItem} from '@openng/optimus-ui/api';
 import {debounceTime, distinctUntilChanged, Subject} from 'rxjs';
 import {UserDataService} from '../../../../service/userdata.service';
 import {DomainService} from '../../../../service';
-import {PaginationSettings, PrimeNgLazyLoadEvent} from '../../../../service/page';
+import {PaginationSettings, OptimusLazyLoadEvent} from '../../../../service/page';
 import {WebhookTemplatesService} from '../../../../service/webhook-templates.service';
 
 @Component({
@@ -58,7 +58,7 @@ export class WebhookListComponent implements OnInit {
 
     public paginationSettings: PaginationSettings = new PaginationSettings(0, 15, 1, 'id', 'asc', {}, 0);
     public loading: boolean = false;
-    private lazyLoadSubject = new Subject<PrimeNgLazyLoadEvent>();
+    private lazyLoadSubject = new Subject<OptimusLazyLoadEvent>();
     private debounceTimeMs = 300;
     public pageNumber = 1;
     public maxItemsOnPage = 15;
@@ -100,11 +100,11 @@ export class WebhookListComponent implements OnInit {
         this.paginationSettings.totalElements = page.totalElements;
     }
 
-    onTableLazyLoad(event: PrimeNgLazyLoadEvent): void {
+    onTableLazyLoad(event: OptimusLazyLoadEvent): void {
         this.lazyLoadSubject.next(event);
     }
 
-    private lazyLoad(event?: PrimeNgLazyLoadEvent) {
+    private lazyLoad(event?: OptimusLazyLoadEvent) {
         this.loading = true;
 
         if (event) {
@@ -115,7 +115,7 @@ export class WebhookListComponent implements OnInit {
             this.paginationSettings.sortOrder = event.sortOrder === 1 ? 'asc' : (event.sortOrder === -1 ? 'desc' : 'asc');
 
         }
-        const paginatorEventForService: PrimeNgLazyLoadEvent = {
+        const paginatorEventForService: OptimusLazyLoadEvent = {
             first: (this.paginationSettings.pageNumber - 1) * this.paginationSettings.maxItemsOnPage,
             rows: this.paginationSettings.maxItemsOnPage,
             sortField: this.paginationSettings.sortField,

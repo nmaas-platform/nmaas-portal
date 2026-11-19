@@ -9,9 +9,9 @@ import {PipesModule} from "../../../pipe/pipes.module";
 import {FormsModule} from "@angular/forms";
 import {SharedModule} from "../../../shared";
 import {TranslateModule} from '@ngx-translate/core';
-import {InputTextModule} from 'primeng/inputtext';
-import {SelectModule} from 'primeng/select';
-import {MenuModule} from 'primeng/menu';
+import {InputTextModule} from '@openng/optimus-ui/inputtext';
+import {SelectModule} from '@openng/optimus-ui/select';
+import {MenuModule} from '@openng/optimus-ui/menu';
 
 @NgModule({
     imports: [

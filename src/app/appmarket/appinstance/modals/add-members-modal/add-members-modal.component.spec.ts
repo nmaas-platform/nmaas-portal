@@ -4,7 +4,7 @@ import {AddMembersModalComponent} from './add-members-modal.component';
 import {AppInstanceService, UserService} from '../../../../service';
 import {  TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {SharedModule} from '../../../../shared';
-import {MultiSelectModule} from 'primeng/multiselect';
+import {MultiSelectModule} from '@openng/optimus-ui/multiselect';
 import {Role} from '../../../../model/userrole';
 import {AppInstance, AppInstanceState, ConfigWizardTemplate, User} from '../../../../model';
 import {ServiceAccessMethodType} from '../../../../model/service-access-method';

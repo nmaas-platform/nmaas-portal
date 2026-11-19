@@ -1,5 +1,5 @@
 import {Component, Injectable} from '@angular/core';
-import {MessageService} from "primeng/api";
+import {MessageService} from "@openng/optimus-ui/api";
 
 export enum ToastMode {
   SUCCESS = 'success',

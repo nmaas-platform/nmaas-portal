@@ -10,7 +10,7 @@ import {ConfigurationService, UserService} from '../../service';
 import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import {DialogModule} from 'primeng/dialog';
+import {DialogModule} from '@openng/optimus-ui/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 

@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {Menu} from 'primeng/menu';
-import {MenuItem} from 'primeng/api';
+import {Menu} from '@openng/optimus-ui/menu';
+import {MenuItem} from '@openng/optimus-ui/api';
 import {debounceTime} from 'rxjs';
 import {Variable, VariableScope, VariableType} from '../../../../model/variable';
 import {VariableService} from '../../../../service/variable.service';

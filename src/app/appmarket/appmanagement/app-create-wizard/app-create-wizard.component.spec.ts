@@ -6,7 +6,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {InternationalizationService} from '../../../service/internationalization.service';
 import {ConfigTemplateService} from '../../../service/configtemplate.service';
 import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {StepsModule} from 'primeng/steps';
+import {StepsModule} from '@openng/optimus-ui/steps';
 import {SharedModule} from '../../../shared';
 import {of} from 'rxjs';
 import createSpyObj = jasmine.createSpyObj;

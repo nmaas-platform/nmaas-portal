@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {ConfigWizardTemplate} from '../../../model';
-import {MenuItem, SelectItem} from 'primeng/api';
+import {MenuItem, SelectItem} from '@openng/optimus-ui/api';
 import {AppImagesService, AppsService, TagService} from '../../../service';
 import {AppDescription} from '../../../model/app-description';
 import {InternationalizationService} from '../../../service/internationalization.service';
@@ -11,7 +11,7 @@ import {BaseComponent} from '../../../shared/common/basecomponent/base.component
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {DomSanitizer} from '@angular/platform-browser';
-import {MultiSelect} from 'primeng/multiselect';
+import {MultiSelect} from '@openng/optimus-ui/multiselect';
 import {ConfigFileTemplate} from '../../../model/configfiletemplate';
 import {AppStorageVolume} from '../../../model/app-storage-volume';
 import {parseServiceStorageVolumeType, ServiceStorageVolumeType} from '../../../model/service-storage-volume';

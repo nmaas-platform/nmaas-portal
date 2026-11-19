@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastContainerComponent, ToastMode } from '../toast-container/toast-container.component';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from '@openng/optimus-ui/api';
 import { ModalNotificationSendComponent } from '../modal/modal-notification-send/modal-notification-send.component';
 import { AuthService } from '../../auth/auth.service';
 import { ProfileService } from '../../service/profile.service';

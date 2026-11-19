@@ -10,8 +10,8 @@ import {FormsModule} from '@angular/forms';
 import {TranslateModule} from '@ngx-translate/core';
 import {InternationalizationService} from "../../../service/internationalization.service";
 import {ClustersModule} from '../clusters/clusters.module';
-import {InputTextModule} from 'primeng/inputtext';
-import {TabsModule} from 'primeng/tabs';
+import {InputTextModule} from '@openng/optimus-ui/inputtext';
+import {TabsModule} from '@openng/optimus-ui/tabs';
 
 @NgModule({
     declarations: [

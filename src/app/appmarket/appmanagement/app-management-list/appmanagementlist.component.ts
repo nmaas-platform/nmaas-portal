@@ -10,8 +10,8 @@ import {ApplicationBase} from '../../../model/application-base';
 import {ModalComponent} from '../../../shared';
 import {RemovalConfirmationModalComponent} from '../../domains/modals/removal-confirmation-modal/removal-confirmation-modal.component';
 import {ApplicationDTO} from '../../../model/application-dto';
-import {Menu} from 'primeng/menu';
-import {MenuItem} from 'primeng/api';
+import {Menu} from '@openng/optimus-ui/menu';
+import {MenuItem} from '@openng/optimus-ui/api';
 import {TranslateService} from '@ngx-translate/core';
 
 @Component({

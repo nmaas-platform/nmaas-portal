@@ -20,10 +20,10 @@ import {TranslateModule} from '@ngx-translate/core';
 import {PasswordResetComponent} from './passwordreset/password-reset.component';
 import {PolicySubpageComponent} from './policy-subpage/policy-subpage.component';
 import {LinkAccountComponent} from './link-account/link-account.component';
-import {InputTextModule} from 'primeng/inputtext';
+import {InputTextModule} from '@openng/optimus-ui/inputtext';
 import {SsoFirstLoginComponent} from './sso-first-login/sso-first-login.component';
-import {Popover} from 'primeng/popover';
-import {Password} from 'primeng/password';
+import {Popover} from '@openng/optimus-ui/popover';
+import {Password} from '@openng/optimus-ui/password';
 
 @NgModule({
     declarations: [

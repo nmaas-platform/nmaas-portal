@@ -7,10 +7,10 @@ import {RouterModule} from '@angular/router';
 import {TranslateModule} from '@ngx-translate/core';
 import {SharedModule} from '../../../shared';
 import {FormsModule} from '@angular/forms';
-import {TableModule} from 'primeng/table';
-import {TextareaModule } from 'primeng/textarea';
-import {MenuModule} from 'primeng/menu';
-import {ToggleSwitchModule} from 'primeng/toggleswitch';
+import {TableModule} from '@openng/optimus-ui/table';
+import {TextareaModule } from '@openng/optimus-ui/textarea';
+import {MenuModule} from '@openng/optimus-ui/menu';
+import {ToggleSwitchModule} from '@openng/optimus-ui/toggleswitch';
 
 @NgModule({
   declarations: [LanguageListComponent, LanguageDetailsComponent],

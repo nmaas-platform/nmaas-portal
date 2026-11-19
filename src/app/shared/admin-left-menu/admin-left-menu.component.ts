@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from '@openng/optimus-ui/api';
 import { ToastContainerComponent } from '../toast-container/toast-container.component';
 import { Router } from '@angular/router';
 

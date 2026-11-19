@@ -8,7 +8,7 @@ import {PipesModule} from '../../pipe/pipes.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {AppConfigService, AppsService, TagService} from '../../service';
 import {AppManagementListComponent} from './app-management-list/appmanagementlist.component';
-import {StepsModule} from 'primeng/steps';
+import {StepsModule} from '@openng/optimus-ui/steps';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AppCreateWizardComponent} from './app-create-wizard/app-create-wizard.component';
 import {InternationalizationService} from '../../service/internationalization.service';
@@ -22,26 +22,26 @@ import {AppStorageVolumeEditComponent} from './app-storage-volume-edit-component
 import {
     AppStaticGlobalDeployParametersEditComponent
 } from './app-static-global-deploy-parameters-edit/app-static-global-deploy-parameters-edit.component';
-import {MultiSelectModule} from 'primeng/multiselect';
-import {FileUploadModule} from 'primeng/fileupload';
-import { ChipModule } from 'primeng/chip';
+import {MultiSelectModule} from '@openng/optimus-ui/multiselect';
+import {FileUploadModule} from '@openng/optimus-ui/fileupload';
+import { ChipModule } from '@openng/optimus-ui/chip';
 import {JsonEditComponent} from './json-edit/json-edit.component';
 import {AppChangeOwnerModalComponent} from './app-change-owner-modal/app-change-owner-modal.component';
-import {TooltipModule} from 'primeng/tooltip';
+import {TooltipModule} from '@openng/optimus-ui/tooltip';
 import {AppAddJsonAppComponent} from './app-add-json-app/app-add-json-app.component';
-import { TextareaModule } from 'primeng/textarea';
+import { TextareaModule } from '@openng/optimus-ui/textarea';
 import {AppAddJsonVersionAppComponent} from './app-add-json-version-app/app-add-json-version-app.component';
 import {DomainsModule} from '../domains/domains.module';
-import {TableModule} from 'primeng/table';
-import {IconFieldModule} from 'primeng/iconfield';
-import {InputIconModule} from 'primeng/inputicon';
-import {InputTextModule} from 'primeng/inputtext';
-import { MenuModule} from 'primeng/menu';
-import {TabsModule} from 'primeng/tabs';
-import {Select} from 'primeng/select';
-import {AutoComplete} from 'primeng/autocomplete';
-import { CarouselModule } from 'primeng/carousel';
-import {Button} from "primeng/button";
+import {TableModule} from '@openng/optimus-ui/table';
+import {IconFieldModule} from '@openng/optimus-ui/iconfield';
+import {InputIconModule} from '@openng/optimus-ui/inputicon';
+import {InputTextModule} from '@openng/optimus-ui/inputtext';
+import { MenuModule} from '@openng/optimus-ui/menu';
+import {TabsModule} from '@openng/optimus-ui/tabs';
+import {Select} from '@openng/optimus-ui/select';
+import {AutoComplete} from '@openng/optimus-ui/autocomplete';
+import { CarouselModule } from '@openng/optimus-ui/carousel';
+import {Button} from "@openng/optimus-ui/button";
 import {MarkdownModule} from 'ngx-markdown';
 
 

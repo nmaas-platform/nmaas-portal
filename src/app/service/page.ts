@@ -1,4 +1,4 @@
-export interface Page<T> {
+﻿export interface Page<T> {
   content: T[];
   pageable: {
     pageNumber: number;
@@ -35,7 +35,7 @@ export interface PaginatorEvent {
   filters?: { [s: string]: any; }; 
 }
 
-export interface PrimeNgLazyLoadEvent {
+export interface OptimusLazyLoadEvent {
   first: number; // Index of the first record on the current page (0-based)
   rows: number;  // Number of records per page
   sortField?: string; // Field name for sorting

@@ -7,7 +7,7 @@ import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {ContentDisplayService} from '../../../service/content-display.service';
 import {of} from 'rxjs';
 import createSpyObj = jasmine.createSpyObj;
-import {DialogModule} from 'primeng/dialog';
+import {DialogModule} from '@openng/optimus-ui/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 class TranslateFakeLoader implements TranslateLoader {

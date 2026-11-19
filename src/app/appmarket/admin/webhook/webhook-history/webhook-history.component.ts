@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+﻿import {Component, OnInit} from '@angular/core';
 import {WebhookService} from '../../../../service/webhook.service';
 import {WebhookHistory} from '../../../../model/webhook-history';
 import {WebhookType} from '../../../../model/webhook';
@@ -6,7 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {debounceTime} from 'rxjs';
 import {UserDataService} from '../../../../service/userdata.service';
 import {DomainService} from '../../../../service';
-import {PaginationSettings, PrimeNgLazyLoadEvent} from '../../../../service/page';
+import {PaginationSettings, OptimusLazyLoadEvent} from '../../../../service/page';
 
 @Component({
   selector: 'app-webhook-history',
@@ -73,11 +73,11 @@ export class WebhookHistoryComponent implements OnInit {
     return statusMap[status] || 'Unknown';
   }
 
-  onTableLazyLoad(event: PrimeNgLazyLoadEvent) {
+  onTableLazyLoad(event: OptimusLazyLoadEvent) {
     this.loadData(event);
   }
 
-  private loadData(event?: PrimeNgLazyLoadEvent) {
+  private loadData(event?: OptimusLazyLoadEvent) {
     const domainId = this.currentDomainId;
     if(!domainId) {
       this.loading = false;
@@ -105,7 +105,7 @@ export class WebhookHistoryComponent implements OnInit {
     }
     const to = toDate ? this.fixedDate(toDate) : null;
 
-    const paginatorEvent: PrimeNgLazyLoadEvent = {
+    const paginatorEvent: OptimusLazyLoadEvent = {
       first: (this.paginationSettings.pageNumber - 1) * this.paginationSettings.maxItemsOnPage,
       rows: this.paginationSettings.maxItemsOnPage,
       sortField: this.paginationSettings.sortField,

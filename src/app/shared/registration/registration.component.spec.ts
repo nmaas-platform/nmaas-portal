@@ -11,7 +11,7 @@ import createSpyObj = jasmine.createSpyObj;
 import {of} from 'rxjs';
 import {RouterTestingModule} from '@angular/router/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { PasswordModule } from 'primeng/password';
+import { PasswordModule } from '@openng/optimus-ui/password';
 class TranslateFakeLoader implements TranslateLoader {
     getTranslation(lang: string) {
         return of({});

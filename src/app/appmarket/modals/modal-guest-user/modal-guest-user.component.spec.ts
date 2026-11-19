@@ -4,7 +4,7 @@ import { ModalGuestUserComponent } from './modal-guest-user.component';
 import {Component} from '@angular/core';
 import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {ModalComponent} from '../../../shared/modal';
-import {DialogModule} from 'primeng/dialog';
+import {DialogModule} from '@openng/optimus-ui/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {of} from 'rxjs';
 

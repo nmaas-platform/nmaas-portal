@@ -1,5 +1,5 @@
-import {definePreset, updatePrimaryPalette} from '@primeuix/themes';
-import Nora from '@primeuix/themes/nora';
+import {definePreset, updatePrimaryPalette} from '@openng/optimus-ui-themes';
+import Nora from '@openng/optimus-ui-themes/nora';
 
 export const MyPreset = definePreset(Nora, {
     semantic: {

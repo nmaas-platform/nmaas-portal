@@ -29,8 +29,8 @@ import {provideHttpClientTesting} from '@angular/common/http/testing';
 import {ApplicationBase} from '../../../model/application-base';
 import {Application} from '../../../model/application';
 import {ApplicationDTO} from '../../../model/application-dto';
-import {DialogModule} from 'primeng/dialog';
-import {ConfirmationService} from 'primeng/api';
+import {DialogModule} from '@openng/optimus-ui/dialog';
+import {ConfirmationService} from '@openng/optimus-ui/api';
 import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 import {DomainApplicationStatePerDomain} from '../../../model/domainapplicationstateperdomain';
 

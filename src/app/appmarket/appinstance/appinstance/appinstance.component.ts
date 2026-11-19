@@ -26,8 +26,8 @@ import {SelectPodModalComponent} from '../modals/select-pod-modal/select-pod-mod
 import {ApplicationVersion} from '../../../model/application-version';
 import * as semver from 'semver';
 import {FormioComponent} from '@formio/angular';
-import {ConfirmationService, MenuItem} from 'primeng/api';
-import {Menu} from 'primeng/menu';
+import {ConfirmationService, MenuItem} from '@openng/optimus-ui/api';
+import {Menu} from '@openng/optimus-ui/menu';
 
 @Component({
     selector: 'nmaas-appinstance',

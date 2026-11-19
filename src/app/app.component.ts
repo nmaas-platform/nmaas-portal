@@ -5,7 +5,7 @@ import {AuthService} from './auth/auth.service';
 import {Router} from '@angular/router';
 import {ServiceUnavailableService} from './service-unavailable/service-unavailable.service';
 import {IdleTimer} from './auth/idle-timer';
-import {PrimeNG} from 'primeng/config';
+import {Optimus} from '@openng/optimus-ui/config';
 import {ThemeModeService} from './service/theme-mode.service';
 
 @Component({
@@ -24,12 +24,12 @@ export class AppComponent {
     constructor(private appConfigService: AppConfigService, private configService: ConfigurationService,
                 public authService: AuthService, private translate: TranslateService,
                 private router: Router, private serviceHealth: ServiceUnavailableService,
-                private primeNg: PrimeNG,
+                private optimus: Optimus,
                 private themeModeService: ThemeModeService) {
     }
 
     async ngOnInit() {
-        this.primeNg.ripple.set(true);
+        this.optimus.ripple.set(true);
         this.isLoggedIn = this.authService.isLogged();
         if (this.serviceHealth.isServiceAvailable === false) {
             this.router.navigate(['/service-unavailable']);

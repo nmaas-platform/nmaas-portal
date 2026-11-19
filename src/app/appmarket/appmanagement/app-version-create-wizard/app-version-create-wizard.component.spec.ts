@@ -7,7 +7,7 @@ import createSpyObj = jasmine.createSpyObj;
 import {AppImagesService, AppsService, TagService} from '../../../service';
 import {ConfigTemplateService} from '../../../service/configtemplate.service';
 import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {StepsModule} from 'primeng/steps';
+import {StepsModule} from '@openng/optimus-ui/steps';
 import {SharedModule} from '../../../shared';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 

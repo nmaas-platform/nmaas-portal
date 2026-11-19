@@ -5,8 +5,8 @@ import { ModalComponent } from '../../../modal';
 import { DomainService } from '../../../../service';
 import { UserDataService } from '../../../../service/userdata.service';
 import { debounceTime } from 'rxjs';
-import {Menu} from 'primeng/menu';
-import {MenuItem} from 'primeng/api';
+import {Menu} from '@openng/optimus-ui/menu';
+import {MenuItem} from '@openng/optimus-ui/api';
 import {DomainGroup} from '../../../../model/domaingroup';
 import {TranslateService} from '@ngx-translate/core';
 
