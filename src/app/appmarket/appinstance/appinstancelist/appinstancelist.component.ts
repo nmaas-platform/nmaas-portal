@@ -10,6 +10,7 @@ import {SessionService} from '../../../service/session.service';
 import {ClusterManagerService} from '../../../service/cluster-manager.service';
 import {AccessMethodsModalComponent} from '../modals/access-methods-modal/access-methods-modal.component';
 import {AppInstanceExtended} from '../../../model/app-instance-extended';
+import {AppinstanceSearchPipe} from '../appinstance-search.pipe';
 
 export enum AppInstanceListSelection {
     ALL, MY,
@@ -142,12 +143,39 @@ export class AppInstanceListComponent implements OnInit {
             || this.authService.hasDomainRole(app.domainId, 'ROLE_USER');
     }
 
+    public onSearchValueChange(value: string): void {
+        this.searchValue = value;
+        if (!value || value.trim().length === 0) {
+            this.searchValue = '';
+            this.onSearch();
+        }
+    }
+
     public onSearch() {
         this.reloadDeployedInstances();
         if (this.isUndeployedVisible) {
             this.reloadUndeployedInstances();
         }
-        console.error(this.allAppDeployedInstances)
+    }
+
+    public clearSearch(): void {
+        this.searchValue = '';
+        this.onSearch();
+    }
+
+    public hasNoSearchResults(): boolean {
+        if (!this.searchValue || this.searchValue.trim().length === 0) {
+            return false;
+        }
+        if (this.selectedViewType === 'list') {
+            return true;
+        }
+        const searchPipe = new AppinstanceSearchPipe();
+        const deployedMatches = searchPipe.transform(this.allAppDeployedInstances, this.searchValue)?.length ?? 0;
+        const undeployedMatches = this.isUndeployedVisible
+            ? searchPipe.transform(this.allAppUndeployedInstances, this.searchValue)?.length ?? 0
+            : 0;
+        return deployedMatches === 0 && undeployedMatches === 0;
     }
     public onClusterChange(): void {
         this.reloadDeployedInstances();

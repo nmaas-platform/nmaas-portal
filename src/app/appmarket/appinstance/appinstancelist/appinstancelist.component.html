@@ -5,7 +5,8 @@
         <div class="sm:col-12 md:col-12 lg:col-4 xl:col-3 " style="">
             <p-iconfield class="p-input-icon-right " style="width:100%">
                 <input pInputText class="form-control" name="search" id="search" placeholder="Search" type="text"
-                       [(ngModel)]="searchValue"
+                       [ngModel]="searchValue"
+                       (ngModelChange)="onSearchValueChange($event)"
                        (change)="onSearch()"
                 >
                 <p-inputicon class="pi pi-search" style="font-size: 13px;"></p-inputicon>
@@ -135,15 +136,27 @@
                         <td [attr.colspan]="domainId === undefined || domainId === domainService.getGlobalDomainId() ? 10 : 9">
                             <div class="flex align-items-center justify-content-center">
                                 <div class="flex p-4 flex-column align-items-center justify-content-center gap-3">
-                                    <h3>
-                                        {{ 'APP_INSTANCES.NO_INSTANCE.HEADER' | translate }}
-                                    </h3>
-                                    <p style="white-space: pre-wrap; text-align: center">
-                                        {{ 'APP_INSTANCES.NO_INSTANCE.CONTENT' | translate }}
-                                    </p>
-                                    <button class="btn btn-primary" [routerLink]="['/']">
-                                        {{ 'APP_INSTANCES.NO_INSTANCE.BUTTON' | translate }}
-                                    </button>
+                                    @if (hasNoSearchResults()) {
+                                        <h3>
+                                            {{ 'APP_INSTANCES.NO_SEARCH_RESULTS.HEADER' | translate }}
+                                        </h3>
+                                        <p style="white-space: pre-wrap; text-align: center">
+                                            {{ 'APP_INSTANCES.NO_SEARCH_RESULTS.CONTENT' | translate }}
+                                        </p>
+                                        <button class="btn btn-primary" (click)="clearSearch()">
+                                            {{ 'APP_INSTANCES.NO_SEARCH_RESULTS.BUTTON' | translate }}
+                                        </button>
+                                    } @else {
+                                        <h3>
+                                            {{ 'APP_INSTANCES.NO_INSTANCE.HEADER' | translate }}
+                                        </h3>
+                                        <p style="white-space: pre-wrap; text-align: center">
+                                            {{ 'APP_INSTANCES.NO_INSTANCE.CONTENT' | translate }}
+                                        </p>
+                                        <button class="btn btn-primary" [routerLink]="['/']">
+                                            {{ 'APP_INSTANCES.NO_INSTANCE.BUTTON' | translate }}
+                                        </button>
+                                    }
                                 </div>
                             </div>
                         </td>
@@ -158,6 +171,21 @@
     @if (loading) {
         <app-loading></app-loading>
     } @else if (allAppDeployedInstances?.length > 0) {
+        @if (hasNoSearchResults()) {
+            <div class="flex align-items-center justify-content-center" style="height: 60vh;">
+                <div class="flex p-4 flex-column align-items-center justify-content-center gap-3">
+                    <h3>
+                        {{ 'APP_INSTANCES.NO_SEARCH_RESULTS.HEADER' | translate }}
+                    </h3>
+                    <p style="white-space: pre-wrap; text-align: center">
+                        {{ 'APP_INSTANCES.NO_SEARCH_RESULTS.CONTENT' | translate }}
+                    </p>
+                    <button class="btn btn-primary" (click)="clearSearch()">
+                        {{ 'APP_INSTANCES.NO_SEARCH_RESULTS.BUTTON' | translate }}
+                    </button>
+                </div>
+            </div>
+        } @else {
         <div style="height: calc(100vh - 250px); overflow: auto;">
             <div class="grid col-12">
                 @for (appInstance of allAppDeployedInstances | searchAppInstance: searchValue; track appInstance.id) {
@@ -333,22 +361,23 @@
                 }
             </div>
         </div>
+        }
     } @else {
-        <div class="flex align-items-center justify-content-center" style="height: 60vh;">
-            <div class="flex p-4 flex-column align-items-center justify-content-center gap-3">
-                <h3>
-                    {{ 'APP_INSTANCES.NO_INSTANCE.HEADER' | translate }}
-                </h3>
-                <p style="white-space: pre-wrap; text-align: center">
-                    {{ 'APP_INSTANCES.NO_INSTANCE.CONTENT' | translate }}
-                </p>
-                <button class="btn btn-primary" [routerLink]="['/']">
-                    {{ 'APP_INSTANCES.NO_INSTANCE.BUTTON' | translate }}
-                </button>
-            </div>
-        </div>
-    }
-}
+         <div class="flex align-items-center justify-content-center" style="height: 60vh;">
+             <div class="flex p-4 flex-column align-items-center justify-content-center gap-3">
+                 <h3>
+                     {{ 'APP_INSTANCES.NO_INSTANCE.HEADER' | translate }}
+                 </h3>
+                 <p style="white-space: pre-wrap; text-align: center">
+                     {{ 'APP_INSTANCES.NO_INSTANCE.CONTENT' | translate }}
+                 </p>
+                 <button class="btn btn-primary" [routerLink]="['/']">
+                     {{ 'APP_INSTANCES.NO_INSTANCE.BUTTON' | translate }}
+                 </button>
+             </div>
+         </div>
+     }
+ }
 <div style="margin-top:40px" *roles="['ROLE_DOMAIN_ADMIN', 'ROLE_SYSTEM_ADMIN', 'ROLE_OPERATOR']">
     @if (isUndeployedVisible && selectedViewType === 'list') {
         <h4 class="header"
