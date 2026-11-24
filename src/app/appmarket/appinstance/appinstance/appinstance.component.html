@@ -248,7 +248,7 @@
             @if (appVersions.length > 0) {
               <div>
                 <p-select id="manualUpdate" [options]="appVersions" optionLabel="version" optionValue="version"
-                  placeholder="Select version" emptyMessage="No version available"
+                  placeholder="Select version" emptyMessage="No version available" scrollHeight="100px"
                   [disabled]="appVersions.length === 0" [(ngModel)]="selectedVersion" name="manualUpdate"
                 ngDefaultControl></p-select>
               </div>
