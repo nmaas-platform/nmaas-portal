@@ -46,8 +46,12 @@ export class AppComponent {
             this.timer = new IdleTimer({
                 timeout: 900, // 15 min
                 onTimeout: () => {
-                    this.authService.logout();
-                    this.router.navigate(['/welcome'], {queryParams: {logout: 'TIMEOUT'}});
+                    // SSO users are redirected to the provider logout page,
+                    // which already brings the browser back to the portal
+                    const redirectedToProvider = this.authService.logout();
+                    if (!redirectedToProvider) {
+                        this.router.navigate(['/welcome'], {queryParams: {logout: 'TIMEOUT'}});
+                    }
                 }
             });
         }

@@ -87,8 +87,12 @@ export class CompleteComponent extends BaseComponent implements OnInit {
                 this.userService.completeRegistration(this.user).subscribe(
                     (result) => {
                         this.success = true;
-                        this.authService.logout();
-                        this.modal.show();
+                        // SSO users are redirected to the provider logout page,
+                        // so the modal would never be visible for them
+                        const redirectedToProvider = this.authService.logout();
+                        if (!redirectedToProvider) {
+                            this.modal.show();
+                        }
                     },
                     (err) => {
                         this.sending = false;

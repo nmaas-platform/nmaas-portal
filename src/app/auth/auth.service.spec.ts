@@ -99,7 +99,8 @@ describe('Service: Auth', () => {
         store = {token: 'valid'};
 
         spyOn(localStorage, 'getItem').and.callFake(function (key) {
-            return store[key];
+            // the Storage API returns null (not undefined) for missing keys
+            return store[key] === undefined ? null : store[key];
         });
         spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
             return store[key] = value + '';
@@ -188,12 +189,23 @@ describe('Service: Auth', () => {
         expect(r3.length).toEqual(0);
     });
 
-    it('should remove token on logout', () => {
+    it('should remove token on logout and redirect to provider logout', () => {
         store['oidc-token'] = 'some-oidc-token';
-        authService.logout();
+        const navigateSpy = spyOn<any>(authService, 'navigateTo');
+        const redirectedToProvider = authService.logout();
+        expect(redirectedToProvider).toEqual(true);
         expect(store['token']).not.toBeDefined();
-        const req = httpMock.expectOne('http://api.url/oidc/logout/some-oidc-token');
-        req.flush({});
+        expect(store['oidc-token']).not.toBeDefined();
+        expect(navigateSpy).toHaveBeenCalledWith('http://api.url/oidc/logout/some-oidc-token');
+        httpMock.expectNone('http://api.url/oidc/logout/some-oidc-token');
+    });
+
+    it('should not redirect to provider logout without oidc token', () => {
+        const navigateSpy = spyOn<any>(authService, 'navigateTo');
+        const redirectedToProvider = authService.logout();
+        expect(redirectedToProvider).toEqual(false);
+        expect(store['token']).not.toBeDefined();
+        expect(navigateSpy).not.toHaveBeenCalled();
     });
 
     it('should be logged in when token is present and valid', () => {

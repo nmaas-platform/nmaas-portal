@@ -222,7 +222,7 @@ export class UserDomainListComponent extends BaseComponent implements OnInit, On
     if (user.enabled) {
       return false;
     }
-    if (user.ssoUser) {
+    if (user.externalUser) {
       return false;
     }
     const result = user.roles.find(

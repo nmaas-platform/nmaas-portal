@@ -59,11 +59,11 @@
                         </div>
                     </div>
                 }
-                @if (!user.ssoUser) {
+                @if (!user.externalUser) {
                     <div class=" col-12 grid">
                         <label class="col-2 control-label">Password</label>
                         <div class="col-10">
-                            @if (canChangePassword() && !user.ssoUser) {
+                            @if (canChangePassword() && !user.externalUser) {
                                 <button (click)="passwordModal.show()" class="btn btn-text"
                                 >{{ 'USER_DETAILS.CHANGE_PASSWORD_BUTTON' | translate }}
                                 </button>
