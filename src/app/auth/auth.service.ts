@@ -414,29 +414,61 @@ export class AuthService {
             }));
     }
 
-    public logout(): void {
+    /**
+     * Clears the local session. When an OIDC identity is linked, performs an
+     * RP-initiated logout: a top-level navigation to the backend logout
+     * endpoint, which redirects to the provider's end_session_endpoint. The
+     * provider (e.g. Keycloak) terminates its SSO session there and redirects
+     * the browser back to the portal login page.
+     *
+     * <p>This must be a full page navigation rather than an HTTP request: an
+     * XHR would follow the redirect to the provider cross-origin, without the
+     * provider session cookie, so the SSO session would survive and the next
+     * login would silently re-authenticate the same provider user.</p>
+     *
+     * @returns true when the browser is being redirected to the provider
+     *          logout; the caller must not perform any SPA navigation then
+     */
+    public logout(): boolean {
         const oidcToken = this.getOidcToken();
-        this.refresh = null;
-        if (oidcToken === null) {
-            this.removeToken();
-            this.isLoggedInSubject.next(false);
-            localStorage.removeItem('_expiredTime');
-            localStorage.removeItem('selectedDomainId');
-        } else {
-            this.removeToken();
-            this.removeOidcToken();
-            this.isLoggedInSubject.next(false);
-            localStorage.removeItem('_expiredTime');
-            localStorage.removeItem('selectedDomainId');
-            this.http.get(this.appConfig.config.apiUrl + '/oidc/logout/' + oidcToken).subscribe(() => {
-            })
+        this.clearLocalSession();
+        if (!oidcToken) {
+            return false;
         }
+        this.navigateTo(this.appConfig.config.apiUrl + '/oidc/logout/' + oidcToken);
+        return true;
+    }
+
+    /**
+     * Terminates the SSO session at the identity provider for the given OIDC
+     * token. Must be a top-level navigation - see {@link #logout}.
+     */
+    public oidcLogout(oidcToken: string): void {
+        this.navigateTo(this.appConfig.config.apiUrl + '/oidc/logout/' + oidcToken);
+    }
+
+    /**
+     * Removes all local session state (tokens, selected domain) without
+     * touching the SSO session at the identity provider. Used when the portal
+     * token expires, so that the next login can re-authenticate silently
+     * instead of asking for the provider credentials again.
+     */
+    private clearLocalSession(): void {
+        this.refresh = null;
+        this.removeToken();
+        this.removeOidcToken();
+        this.isLoggedInSubject.next(false);
+        localStorage.removeItem('_expiredTime');
+        localStorage.removeItem('selectedDomainId');
         sessionStorage.removeItem('sshKeyReminded');
     }
 
-    public oidcLogout(oidcToken: string): void {
-        this.http.get(this.appConfig.config.apiUrl + '/oidc/logout/' + oidcToken).subscribe(() => {
-        })
+    /**
+     * Performs a full page navigation. Isolated so that tests can spy on it
+     * instead of navigating the test runner away.
+     */
+    private navigateTo(url: string): void {
+        window.location.href = url;
     }
 
     get isLoggedIn$(): Observable<boolean> {
@@ -452,7 +484,10 @@ export class AuthService {
             return false;
         }
         if (this.jwtHelper.isTokenExpired(token)) {
-            this.logout()
+            // expired portal token: clear the local session only and keep the
+            // provider SSO session alive, so the next login can re-authenticate
+            // silently instead of asking for the provider credentials again
+            this.clearLocalSession();
             return false;
         }
         return true;

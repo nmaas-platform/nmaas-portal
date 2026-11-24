@@ -239,7 +239,7 @@ describe('Component: AppInstance', () => {
             id: 1, username: 'admin', enabled: true,
             firstname: null, lastname: null,
             email: 'admin@admi.eu', selectedLanguage: 'en',
-            privacyPolicyAccepted: true, ssoUser: false,
+            privacyPolicyAccepted: true, externalUser: false,
             termsOfUseAccepted: false, roles: [{domainId: 1, role: Role.ROLE_SYSTEM_ADMIN}]
         } as User,
 

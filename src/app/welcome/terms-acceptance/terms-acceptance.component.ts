@@ -66,8 +66,12 @@ export class TermsAcceptanceComponent extends BaseComponent implements OnInit {
           this.userService.completeAcceptance(this.auth.getUsername()).subscribe(
               (result) => {
                   this.success = true;
-                  this.auth.logout();
-                  this.modal.show();
+                  // SSO users are redirected to the provider logout page,
+                  // so the modal would never be visible for them
+                  const redirectedToProvider = this.auth.logout();
+                  if (!redirectedToProvider) {
+                      this.modal.show();
+                  }
               },
               (err) => {
                   this.sending = false;

@@ -11,7 +11,7 @@ export class User {
   public roles: UserRole[] = [];
   public termsOfUseAccepted: boolean = undefined;
   public privacyPolicyAccepted: boolean = undefined;
-  public ssoUser: boolean = undefined;
+  public externalUser: boolean = undefined;
   public selectedLanguage: string = undefined;
 
   public defaultDomain: number = undefined;

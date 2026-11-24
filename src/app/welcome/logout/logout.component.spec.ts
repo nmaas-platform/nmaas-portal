@@ -13,6 +13,7 @@ describe('LogoutComponent', () => {
 
     beforeEach(waitForAsync(() => {
         const authServiceSpy = createSpyObj('AuthService', ['logout'])
+        authServiceSpy.logout.and.returnValue(false);
         const configServiceSpy = createSpyObj('ConfigurationService', ['getConfiguration'])
         configServiceSpy.getConfiguration.and.returnValue(of({
             ssoLoginAllowed: false
