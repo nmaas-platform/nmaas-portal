@@ -107,17 +107,28 @@
                 && this.addedWebhook.eventType != `DOMAIN_ACTION`
                 && this.addedWebhook.eventType != `DOMAIN_GROUP_ACTION`) {
                     <div class="mt-4">
-                        <label for="domain">{{ 'WEBHOOKS.DOMAIN' | translate }}</label>
-                        <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);"
-                                id="domain" #domainSelect class="form-control"
-                                (change)="onDomainSelect(domainSelect.value)" name="domain">
-                            @for (d of domains; track d) {
-                                <option [value]="d.id">
-                                    {{ d.name }}
-                                </option>
-                            }
-                        </select>
+                        <label for="domainRequired">{{ 'WEBHOOKS.DOMAIN_REQUIRED' | translate }}</label>
+                        <input class="ml-2"
+                               type="checkbox"
+                               [(ngModel)]="domainRequired"
+                               name="domainRequired"
+                               id="domainRequired"
+                        />
                     </div>
+                    @if (domainRequired) {
+                        <div class="mt-4">
+                            <label for="domain">{{ 'WEBHOOKS.DOMAIN' | translate }}</label>
+                            <select style="background: var(--p-surface-300); border: 1px solid var(--p-accent-600); color: var(--p-text-0);"
+                                    id="domain" #domainSelect class="form-control"
+                                    (change)="onDomainSelect(domainSelect.value)" name="domain">
+                                @for (d of domains; track d) {
+                                    <option [value]="d.id">
+                                        {{ d.name }}
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                    }
                 }
                 @if (this.selectedDomain != this.domainGlobalId
                 && this.addedWebhook.eventType != `DOMAIN_ACTION`
