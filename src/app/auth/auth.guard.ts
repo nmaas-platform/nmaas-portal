@@ -17,10 +17,6 @@ export class AuthGuard  {
           this.router.navigate(['/complete']);
           return false;
       }
-      if(this.auth.hasRole("ROLE_NOT_ACCEPTED") && route.url.toString() !== 'terms-acceptance'){
-          this.router.navigate(['/terms-acceptance']);
-          return false;
-      }
       else
           return true;
     }
